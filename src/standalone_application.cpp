@@ -36,7 +36,7 @@ StandaloneApplication::~StandaloneApplication()
 void StandaloneApplication::initialise(const String& commandLineParameters)
 {
   ApplicationProperties::getInstance()->setStorageParameters(
-    T("StandaloneApplication"), String::empty, T("StandaloneApplication"),
+    T("kmeterrc"), String::empty, T(".config/kmeter"),
 	 400, PropertiesFile::storeAsXML);
 
   String strApplicationName = getApplicationName() + T(" ") + getApplicationVersion();
