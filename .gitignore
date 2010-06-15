@@ -1,0 +1,13 @@
+*~
+.*~
+*.log
+*.sdf
+*.sln
+*.suo
+
+bin/
+ignore/
+
+ipch/
+Debug/
+Release/
