@@ -70,6 +70,7 @@ solution "kmeter"
 	project "linux_standalone"
 		kind "WindowedApp"
 		location "linux/standalone"
+		targetprefix ""
 
 		platforms { "x32" }
 
@@ -123,6 +124,7 @@ solution "kmeter"
 	project "linux_vst"
 		kind "SharedLib"
 		location "linux/vst"
+		targetprefix ""
 
 		platforms { "x32" }
 
