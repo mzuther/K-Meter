@@ -150,20 +150,12 @@ int MeterBallistics::getOverflowsRight()
 
 void MeterBallistics::update(float fTimeFrame, float fPeakLeft, float fPeakRight, float fAverageLeft, float fAverageRight, float fCorrelation, int OverflowsLeft, int OverflowsRight)
 {
-	fPeakLeft = level2decibel(fPeakLeft);
-	fPeakRight = level2decibel(fPeakRight);
-
-	fAverageLeft = level2decibel(fAverageLeft) + fAverageCorrection;
-	fAverageRight = level2decibel(fAverageRight) + fAverageCorrection;
-
-	float fStereoMeterLeft = abs(fMeterMinimumDecibel - fAverageLeft + fAverageCorrection);
-	float fStereoMeterRight = abs(fMeterMinimumDecibel - fAverageRight + fAverageCorrection);
+	float fStereoMeterLeft = fAverageLeft;
+	float fStereoMeterRight = fAverageRight;
 	float fStereoMeterValueOld = fStereoMeterValue;
 
 	// do not process levels below -80 dB
-	if ((fPeakLeft < -80) && (fPeakRight < -80))
-		fStereoMeterValue = 0.0f;
-	else if (fStereoMeterRight == fStereoMeterLeft)
+	if ((fAverageLeft < 0.0001f) && (fAverageRight < 0.0001f))
 		fStereoMeterValue = 0.0f;
 	else if (fStereoMeterRight >= fStereoMeterLeft)
 		fStereoMeterValue = (fStereoMeterRight - fStereoMeterLeft) / fStereoMeterRight;
@@ -173,6 +165,12 @@ void MeterBallistics::update(float fTimeFrame, float fPeakLeft, float fPeakRight
 	fStereoMeterValue = StereoMeterBallistics(fTimeFrame, fStereoMeterValue, fStereoMeterValueOld);
 
 	fCorrelationMeterValue = CorrelationMeterBallistics(fTimeFrame, fCorrelation, fCorrelationMeterValue);
+
+	fPeakLeft = level2decibel(fPeakLeft);
+	fPeakRight = level2decibel(fPeakRight);
+
+	fAverageLeft = level2decibel(fAverageLeft) + fAverageCorrection;
+	fAverageRight = level2decibel(fAverageRight) + fAverageCorrection;
 
 	fPeakMeterLeft = PeakMeterBallistics(fTimeFrame, fPeakLeft, fPeakMeterLeft);
 	fPeakMeterRight = PeakMeterBallistics(fTimeFrame, fPeakRight, fPeakMeterRight);

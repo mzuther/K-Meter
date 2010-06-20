@@ -188,14 +188,28 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 				fAverageRight = pRingBuffer->getRMSLevel(1, 0, KMETER_BUFFER_SIZE);
 				nOverflowsRight = countContigousOverflows(pRingBuffer, 1, bLastSampleOverRight);
 
-				pRingBuffer->addFrom(1, 0, *pRingBuffer, 0, 0, KMETER_BUFFER_SIZE, 1.0f);
+
 				// do not process levels below -80 dB (and prevent division by zero)
-				if ((fAverageRight < 0.0001f) && (fAverageRight < 0.0001f))
+				if ((fAverageLeft < 0.0001f) && (fAverageRight < 0.0001f))
 					fCorrelation = 1.0f;
-				else if (fAverageRight >= fAverageLeft)
-					fCorrelation = (pRingBuffer->getRMSLevel(1, 0, KMETER_BUFFER_SIZE) / fAverageRight) - 1.0f;
 				else
-				  fCorrelation = (pRingBuffer->getRMSLevel(1, 0, KMETER_BUFFER_SIZE) / fAverageLeft) - 1.0f;
+				{
+					float sum_of_product = 0.0f;
+					float sum_of_squares_left = 0.0f;
+					float sum_of_squares_right = 0.0f;
+
+					float* samples_left = pRingBuffer->getSampleData(0);
+					float* samples_right = pRingBuffer->getSampleData(1);
+
+					for (int i=0; i < KMETER_BUFFER_SIZE; i++)
+					{
+						sum_of_product += samples_left[i] * samples_right[i];
+						sum_of_squares_left += samples_left[i] * samples_left[i];
+						sum_of_squares_right += samples_right[i] * samples_right[i];
+					}
+
+					fCorrelation = sum_of_product / sqrt(sum_of_squares_left * sum_of_squares_right);
+				}
 			}
 			else
 			{
