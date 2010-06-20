@@ -160,7 +160,10 @@ void MeterBallistics::update(float fTimeFrame, float fPeakLeft, float fPeakRight
 	float fStereoMeterRight = abs(fMeterMinimumDecibel - fAverageRight + fAverageCorrection);
 	float fStereoMeterValueOld = fStereoMeterValue;
 
-	if (fStereoMeterRight == fStereoMeterLeft)
+	// do not process levels below -80 dB
+	if ((fPeakLeft < -80) && (fPeakRight < -80))
+		fStereoMeterValue = 0.0f;
+	else if (fStereoMeterRight == fStereoMeterLeft)
 		fStereoMeterValue = 0.0f;
 	else if (fStereoMeterRight >= fStereoMeterLeft)
 		fStereoMeterValue = (fStereoMeterRight - fStereoMeterLeft) / fStereoMeterRight;

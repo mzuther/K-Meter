@@ -189,7 +189,8 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 				nOverflowsRight = countContigousOverflows(pRingBuffer, 1, bLastSampleOverRight);
 
 				pRingBuffer->addFrom(1, 0, *pRingBuffer, 0, 0, KMETER_BUFFER_SIZE, 1.0f);
-				if ((fAverageRight == 0.0f) && (fAverageRight == 0.0f))
+				// do not process levels below -80 dB (and prevent division by zero)
+				if ((fAverageRight < 0.0001f) && (fAverageRight < 0.0001f))
 					fCorrelation = 1.0f;
 				else if (fAverageRight >= fAverageLeft)
 					fCorrelation = (pRingBuffer->getRMSLevel(1, 0, KMETER_BUFFER_SIZE) / fAverageRight) - 1.0f;
