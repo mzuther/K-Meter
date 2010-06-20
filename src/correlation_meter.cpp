@@ -49,7 +49,7 @@ void CorrelationMeter::paint(Graphics& g)
 	int middle_of_meter = width / 2;
 	int height_of_meter = height;
 
-	ColourGradient colGrad(Colours::red.darker(1.0f), 0, 0, Colours::green.darker(1.0f), width, 0, false);
+	ColourGradient colGrad(Colours::red.darker(1.0f), 0.0f, 0.0f, Colours::green.darker(1.0f), (float) width, 0.0f, false);
 	colGrad.addColour(0.2f, Colours::red.darker(1.0f));
 	colGrad.addColour(0.6f, Colours::yellow.darker(1.0f));
 	g.setGradientFill(colGrad);

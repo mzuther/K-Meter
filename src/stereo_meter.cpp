@@ -49,7 +49,7 @@ void StereoMeter::paint(Graphics& g)
 	int middle_of_meter = width / 2;
 	int height_of_meter = height - 2;
 
-	ColourGradient colGrad(Colours::black, 0, 0, Colours::black, width, 0, false);
+	ColourGradient colGrad(Colours::black, 0.0f, 0.0f, Colours::black, (float) width, 0.0f, false);
 	colGrad.addColour(0.5f, Colours::darkgrey);
 	g.setGradientFill(colGrad);
 	g.fillRect(1, 2, width - 2, height - 4);
