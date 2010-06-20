@@ -30,6 +30,7 @@ StereoMeter::StereoMeter(const String &componentName, int PosX, int PosY, int Wi
 	setName(componentName);
 
 	fValue = 0.0f;
+	nNeedlePosition = -1;
 
 	nPosX = PosX;
 	nPosY = PosY;
@@ -45,47 +46,47 @@ void StereoMeter::paint(Graphics& g)
 {
 	int width = getWidth();
 	int height = getHeight();
-	int x = int ((1.0f + fValue) / 2.0f * (width - 4) + 2);
-	int middle = width / 2;
+	int middle_of_meter = width / 2;
+	int height_of_meter = height - 2;
 
 	g.setColour(Colours::black);
 	g.fillRect(1, 2, width - 2, height - 4);
 
 	g.setColour(Colours::darkgrey.darker(0.3f));
-	g.drawRect(0, 1, width, height - 2, 1);
+	g.drawRect(0, 1, width, height_of_meter, 1);
 
 	g.setColour(Colours::darkgrey);
-	for (int y=2; y < (height - 2); y++)
-		g.setPixel(middle, y);
+	for (int y=2; y < height_of_meter; y++)
+		g.setPixel(middle_of_meter, y);
 
 	g.setColour(Colours::white);
 
 	// upper arrow
-	g.setPixel(middle - 1, 0);
-	g.setPixel(middle + 1, 0);
-	g.setPixel(middle, 0);
-	g.setPixel(middle, 1);
+	g.setPixel(middle_of_meter - 1, 0);
+	g.setPixel(middle_of_meter + 1, 0);
+	g.setPixel(middle_of_meter, 0);
+	g.setPixel(middle_of_meter, 1);
 
 	// lower arrow
-	g.setPixel(middle, height - 2);
-	g.setPixel(middle, height - 1);
-	g.setPixel(middle - 1, height - 1);
-	g.setPixel(middle + 1, height - 1);
+	g.setPixel(middle_of_meter, height_of_meter);
+	g.setPixel(middle_of_meter, height_of_meter + 1);
+	g.setPixel(middle_of_meter - 1, height_of_meter + 1);
+	g.setPixel(middle_of_meter + 1, height_of_meter + 1);
 
 	g.setFont(11.0f);
-	g.drawFittedText(T("L"), 0, 1, height - 2, height - 2, Justification::centred, 1, 1.0f);
-	g.drawFittedText(T("R"), width - height + 1, 1, height - 2, height - 2, Justification::centred, 1, 1.0f);
+	g.drawFittedText(T("L"), 0, 1, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
+	g.drawFittedText(T("R"), width - height + 1, 1, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
 
 	g.setColour(Colours::red);
-	for (int y=2; y < (height - 2); y++)
-		g.setPixel(x, y);
+	for (int y=2; y < height_of_meter; y++)
+		g.setPixel(nNeedlePosition, y);
 
 	g.setColour(Colours::red.withAlpha(0.6f));
 
-	for (int y=2; y < (height - 2); y++)
+	for (int y=2; y < height_of_meter; y++)
 	{
-		g.setPixel(x - 1, y);
-		g.setPixel(x + 1, y);
+		g.setPixel(nNeedlePosition - 1, y);
+		g.setPixel(nNeedlePosition + 1, y);
 	}
 }
 
@@ -96,9 +97,13 @@ void StereoMeter::visibilityChanged()
 
 void StereoMeter::setValue(float newValue)
 {
-	if (fValue == newValue)
+	fValue = newValue;
+
+	int nNeedlePositionOld = nNeedlePosition;
+	nNeedlePosition = int ((1.0f + fValue) / 2.0f * (getWidth() - 4) + 2);
+
+	if (nNeedlePosition == nNeedlePositionOld)
 		return;
 
-	fValue = newValue;
 	repaint();
 }

@@ -227,7 +227,7 @@ float MeterBallistics::StereoMeterBallistics(float fTimeFrame, float fLevelCurre
 	// level has changed
 	if (fTemp != fOutput)
 	{
-		float fAttackReleaseCoef = powf(0.01f, 1.0f / (1.2f * fTimeFrame));
+		float fAttackReleaseCoef = powf(0.01f, 1.0f / (1.200f * fTimeFrame));
 	    fOutput = fAttackReleaseCoef * (fOutput - fTemp) + fTemp;
 	}
 

@@ -44,6 +44,7 @@ public:
 
 private:
 	float fValue;
+	int nNeedlePosition;
 
 	int nPosX;
 	int nPosY;
