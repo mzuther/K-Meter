@@ -23,56 +23,47 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGINEDITOR_H_E5792227__
-#define __PLUGINEDITOR_H_E5792227__
+#ifndef __STEREO_KMETER_H__
+#define __STEREO_KMETER_H__
 
 #include "juce_library_code/juce_header.h"
-#include "juce_library_code/JucePluginCharacteristics.h"
+#include "meter_bar.h"
+#include "overflow_meter.h"
 #include "plugin_processor.h"
-#include "resources.h"
-#include "stereo_kmeter.h"
-#include "stereo_meter.h"
 
 
 //==============================================================================
 /**
 */
-class KmeterAudioProcessorEditor : public AudioProcessorEditor, public ChangeListener, public ButtonListener
+class StereoKmeter : public Component
 {
 public:
-    KmeterAudioProcessorEditor(KmeterAudioProcessor* ownerFilter);
-    ~KmeterAudioProcessorEditor();
+    StereoKmeter(const String &componentName, int PosX, int PosY, int nHeadroom, bool bExpanded, int nSegmentHeight);
+    ~StereoKmeter();
 
-	void changeListenerCallback(void* objectThatHasChanged);
-	void buttonClicked(Button* button);
-
-    //==============================================================================
-    // This is just a standard Juce paint method...
-    void paint (Graphics& g);
+	void setLevels(MeterBallistics* pMB);
+	void paint(Graphics& g);
 	void resized();
+	void visibilityChanged();
 
 private:
-    int nHeadroom;
+	int nPosX;
+	int nPosY;
+	int nMainSegmentHeight;
+	bool isExpanded;
 
-	KmeterAudioProcessor* pProcessor;
-	StereoKmeter* stereoKmeter;
-	StereoMeter* stereoMeter;
+	int nMeterHeadroom;
 
-	TextButton* ButtonNormal;
-	TextButton* ButtonK12;
-	TextButton* ButtonK14;
-	TextButton* ButtonK20;
+	MeterBar* PeakMeterLeft;
+	MeterBar* PeakMeterRight;
+	MeterBar* AverageMeterLeft;
+	MeterBar* AverageMeterRight;
 
-	TextButton *ButtonExpanded;
-	TextButton* ButtonPeakHold;
-	TextButton* ButtonAverageHold;
-	TextButton* ButtonReset;
-	ImageButton* ButtonAbout;
+	OverflowMeter* OverflowMeterLeft;
+	OverflowMeter* OverflowMeterRight;
 
-	Image* ImageButtonGplNormal;
-	Image* ImageButtonGplOver;
-	Image* ImageButtonGplDown;
+	void drawMarkers(Graphics& g, String& strMarker, int x, int y, int width, int height);
 };
 
 
-#endif  // __PLUGINEDITOR_H_E5792227__
+#endif  // __STEREO_KMETER_H__

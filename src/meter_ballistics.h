@@ -42,6 +42,8 @@ public:
 	void setAverageHold(bool bAverageHold);
 	void reset();
 
+	float	getStereoMeterValue();
+
 	float getPeakMeterLeft();
 	float getPeakMeterRight();
 	float getAverageMeterLeft();
@@ -60,6 +62,8 @@ public:
 private:
 	float fMeterMinimumDecibel;
 	float fAverageCorrection;
+
+	float fStereoMeterValue;
 
 	float fPeakMeterLeft;
 	float fPeakMeterRight;
@@ -80,6 +84,8 @@ private:
 	float fAverageMeterRightPeakLastChanged;
 
 	float level2decibel(float level);
+
+	float StereoMeterBallistics(float fTimeFrame, float fLevelCurrent, float fLevelOld);
 
 	float PeakMeterBallistics(float fTimeFrame, float fLevelCurrent, float fLevelOld);
 	float PeakMeterPeakBallistics(float fTimeFrame, float* fLastChanged, float fLevelCurrent, float fLevelOld);

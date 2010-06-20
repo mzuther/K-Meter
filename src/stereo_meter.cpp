@@ -25,238 +25,80 @@
 
 #include "stereo_meter.h"
 
-StereoMeter::StereoMeter(const String &componentName, int posX, int posY, int nHeadroom, bool bExpanded, int nSegmentHeight)
+StereoMeter::StereoMeter(const String &componentName, int PosX, int PosY, int Width, int Height)
 {
 	setName(componentName);
-	isExpanded = bExpanded;
 
-	nPosX = posX;
-	nPosY = posY;
-	nMainSegmentHeight = nSegmentHeight;
+	fValue = 0.0f;
 
-	if (nHeadroom == 0)
-		nMeterHeadroom = 0;
-	else if (nHeadroom == 12)
-		nMeterHeadroom = 12;
-	else if (nHeadroom == 14)
-		nMeterHeadroom = 14;
-	else
-		nMeterHeadroom = 20;
-
-	PeakMeterLeft = new MeterBar(T("Peak Meter Left"), 3, 28, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("left"));
-	PeakMeterRight = new MeterBar(T("Peak Meter Right"), 94, 28, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("right"));
-	
-	AverageMeterLeft = new MeterBar(T("Average Meter Left"), 17, 28, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
-	AverageMeterRight = new MeterBar(T("Average Meter Right"), 71, 28, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
-
-	addAndMakeVisible(PeakMeterLeft);
-	addAndMakeVisible(PeakMeterRight);
-	
-	addAndMakeVisible(AverageMeterLeft);
-	addAndMakeVisible(AverageMeterRight);
-
-	OverflowMeterLeft = new OverflowMeter(T("Overflows Left"));
-	OverflowMeterLeft->setBounds(3, 3, 32, 16);
-	addAndMakeVisible(OverflowMeterLeft);
-
-	OverflowMeterRight = new OverflowMeter(T("Overflows Right"));
-	OverflowMeterRight->setBounds(71, 3, 32, 16);
-	addAndMakeVisible(OverflowMeterRight);
+	nPosX = PosX;
+	nPosY = PosY;
+	nWidth = Width;
+	nHeight = Height;
 }
 
 StereoMeter::~StereoMeter()
 {
-	deleteAllChildren();
-}
-	
-void StereoMeter::visibilityChanged()
-{
-	int height = 134 * nMainSegmentHeight + 32;
-	setBounds(nPosX, nPosY, 106, height);
 }
 
 void StereoMeter::paint(Graphics& g)
 {
-	g.fillAll(Colours::darkgrey.darker(0.4f));
+	int width = getWidth();
+	int height = getHeight();
+	int x = int ((1.0f + fValue) / 2.0f * (width - 4) + 2);
+	int middle = width / 2;
+
+	g.setColour(Colours::black);
+	g.fillRect(1, 2, width - 2, height - 4);
+
+	g.setColour(Colours::darkgrey.darker(0.3f));
+	g.drawRect(0, 1, width, height - 2, 1);
 
 	g.setColour(Colours::darkgrey);
-	g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
-
-	g.setColour(Colours::darkgrey.darker(0.8f));
-	g.drawRect(1, 1, getWidth() - 1, getHeight() - 1);
-
-	g.setColour(Colours::darkgrey.darker(0.4f));
-	g.drawRect(1, 1, getWidth() - 2, getHeight() - 2);
-
-	int x = 2;
-	int y = 22;
-	int width = 24;
-	int height = 11;
-	String strMarker;
+	for (int y=2; y < (height - 2); y++)
+		g.setPixel(middle, y);
 
 	g.setColour(Colours::white);
+
+	// upper arrow
+	g.setPixel(middle - 1, 0);
+	g.setPixel(middle + 1, 0);
+	g.setPixel(middle, 0);
+	g.setPixel(middle, 1);
+
+	// lower arrow
+	g.setPixel(middle, height - 2);
+	g.setPixel(middle, height - 1);
+	g.setPixel(middle - 1, height - 1);
+	g.setPixel(middle + 1, height - 1);
+
 	g.setFont(11.0f);
+	g.drawFittedText(T("L"), 0, 1, height - 2, height - 2, Justification::centred, 1, 1.0f);
+	g.drawFittedText(T("R"), width - height + 1, 1, height - 2, height - 2, Justification::centred, 1, 1.0f);
 
-	if (isExpanded)
+	g.setColour(Colours::red);
+	for (int y=2; y < (height - 2); y++)
+		g.setPixel(x, y);
+
+	g.setColour(Colours::red.withAlpha(0.6f));
+
+	for (int y=2; y < (height - 2); y++)
 	{
-		y -= 10 * nMainSegmentHeight;
-		int nStart = 0;
-
-		if (nMeterHeadroom == 0)
-			nStart = 0;
-		else if (nMeterHeadroom == 12)
-			nStart = 12;
-		else if (nMeterHeadroom == 14)
-			nStart = 14;
-		else
-			nStart = 20;
-
-		for (int n=0; n >= -13; n -= 1)
-		{
-			if ((nStart + n) > 0)
-				strMarker = T("+") + String(nStart + n);
-			else
-				strMarker = String(nStart + n);
-
-			y += 10 * nMainSegmentHeight;
-			drawMarkers(g, strMarker, x, y, width, height);
-		}
-	}
-	else if (nMeterHeadroom == 0)
-	{
-		y -= 8 * nMainSegmentHeight;
-
-		for (int n=0; n >= -40; n -= 4)
-		{
-			if (n > 0)
-				strMarker = T("+") + String(n);
-			else
-				strMarker = String(n);
-
-			y += 8 * nMainSegmentHeight;
-			drawMarkers(g, strMarker, x, y, width, height);
-		}
-
-		for (int n=-50; n >= -80; n -= 10)
-		{
-			strMarker = String(n);
-
-			y += 10 * nMainSegmentHeight;
-			drawMarkers(g, strMarker, x, y, width, height);
-		}
-	}
-	else if (nMeterHeadroom == 12)
-	{
-		y -= 8 * nMainSegmentHeight;
-
-		for (int n=12; n >= -28; n -= 4)
-		{
-			if (n > 0)
-				strMarker = T("+") + String(n);
-			else
-				strMarker = String(n);
-
-			y += 8 * nMainSegmentHeight;
-			drawMarkers(g, strMarker, x, y, width, height);
-		}
-
-		y -= 6 * nMainSegmentHeight;
-
-		for (int n=-30; n >= -60; n -= 10)
-		{
-			strMarker = String(n);
-
-			y += 10 * nMainSegmentHeight;
-			drawMarkers(g, strMarker, x, y, width, height);
-		}
-	}
-	else if (nMeterHeadroom == 14)
-	{
-		strMarker = String(T("+14"));
-		drawMarkers(g, strMarker, x, y, width, height);
-		y -= 4 * nMainSegmentHeight;
-
-		for (int n=12; n >= -28; n -= 4)
-		{
-			if (n > 0)
-				strMarker = T("+") + String(n);
-			else
-				strMarker = String(n);
-
-			y += 8 * nMainSegmentHeight;
-			drawMarkers(g, strMarker, x, y, width, height);
-		}
-
-		y -= 6 * nMainSegmentHeight;
-
-		for (int n=-30; n >= -60; n -= 10)
-		{
-			strMarker = String(n);
-
-			y += 10 * nMainSegmentHeight;
-			drawMarkers(g, strMarker, x, y, width, height);
-		}
-	}
-	else
-	{
-		y -= 8 * nMainSegmentHeight;
-
-		for (int n=20; n >= -24; n -= 4)
-		{
-			if (n > 0)
-				strMarker = T("+") + String(n);
-			else
-				strMarker = String(n);
-
-			y += 8 * nMainSegmentHeight;
-			drawMarkers(g, strMarker, x, y, width, height);
-		}
-
-		y -= 4 * nMainSegmentHeight;
-
-		for (int n=-30; n >= -60; n -= 10)
-		{
-			strMarker = String(n);
-
-			y += 10 * nMainSegmentHeight;
-			drawMarkers(g, strMarker, x, y, width, height);
-		}
+		g.setPixel(x - 1, y);
+		g.setPixel(x + 1, y);
 	}
 }
 
-void StereoMeter::resized()
+void StereoMeter::visibilityChanged()
 {
+	setBounds(nPosX, nPosY, nWidth, nHeight);
 }
 
-void StereoMeter::setLevels(MeterBallistics* pMB)
+void StereoMeter::setValue(float newValue)
 {
-	PeakMeterLeft->setLevels(pMB->getPeakMeterLeft(), pMB->getPeakMeterLeftPeak());
-	PeakMeterRight->setLevels(pMB->getPeakMeterRight(), pMB->getPeakMeterRightPeak());
+	if (fValue == newValue)
+		return;
 
-	AverageMeterLeft->setLevels(pMB->getAverageMeterLeft(), pMB->getAverageMeterLeftPeak());
-	AverageMeterRight->setLevels(pMB->getAverageMeterRight(), pMB->getAverageMeterRightPeak());
-
-	OverflowMeterLeft->setOverflows(pMB->getOverflowsLeft());
-	OverflowMeterRight->setOverflows(pMB->getOverflowsRight());
-}
-
-void StereoMeter::drawMarkers(Graphics& g, String& strMarker, int x, int y, int width, int height)
-{
-	g.setColour(Colours::white);
-	g.drawFittedText(strMarker, x + 38, y, width, height, Justification::centred, 1, 1.0f);
-
-	g.setColour(Colours::grey);
-
-	int nMarkerX = x + 10;
-	int nMarkerY = y + 5;
-
-	g.setPixel(nMarkerX++, nMarkerY);
-	g.setPixel(nMarkerX++, nMarkerY);
-	g.setPixel(nMarkerX++, nMarkerY);
-
-	nMarkerX = x + 87;
-
-	g.setPixel(nMarkerX++, nMarkerY);
-	g.setPixel(nMarkerX++, nMarkerY);
-	g.setPixel(nMarkerX++, nMarkerY);
+	fValue = newValue;
+	repaint();
 }

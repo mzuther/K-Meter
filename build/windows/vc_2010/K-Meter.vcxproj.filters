@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\stereo_meter.h">
+    <ClInclude Include="..\..\..\src\stereo_kmeter.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\meter_ballistics.h">
@@ -34,6 +34,9 @@
     <ClInclude Include="..\..\..\src\resources.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\stereo_meter.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\main.cpp">
@@ -57,7 +60,7 @@
     <ClCompile Include="..\..\..\src\plugin_processor.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\stereo_meter.cpp">
+    <ClCompile Include="..\..\..\src\stereo_kmeter.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_1.cpp">
@@ -73,6 +76,9 @@
       <Filter>src\juce_library_code</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\resources.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\stereo_meter.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

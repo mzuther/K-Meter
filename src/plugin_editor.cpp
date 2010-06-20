@@ -31,7 +31,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     : AudioProcessorEditor(ownerFilter)
 {
 	// This is where our plugin's editor size is set.
-	setSize(220, 578);
+  setSize(220, 600);
 
 	nHeadroom = 0;
 
@@ -114,14 +114,14 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	addAndMakeVisible(ButtonReset);
 
 	Label* LabelReadoutWarning = new Label(T("Readout Warning"), "Read-out\nnot yet\nvalidated!");
-	LabelReadoutWarning->setBounds(130, 460, 80, 40);
+	LabelReadoutWarning->setBounds(130, 482, 80, 40);
 	LabelReadoutWarning->setColour(Label::textColourId, Colours::yellow);
 	LabelReadoutWarning->setJustificationType(Justification::centred);
 	addAndMakeVisible(LabelReadoutWarning);
 
 	#ifdef DEBUG
 	Label* LabelDebug = new Label(T("Debug Notification"), "DEBUG");
-	LabelDebug->setBounds(145, 520, 50, 16);
+	LabelDebug->setBounds(145, 542, 50, 16);
 	LabelDebug->setColour(Label::textColourId, Colours::red);
 	addAndMakeVisible(LabelDebug);
 	#endif
@@ -131,7 +131,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
    ImageButtonGplDown = ImageCache::getFromMemory(resources::button_gpl_down_png, resources::button_gpl_down_pngSize);
 
 	ButtonAbout = new ImageButton(T("About"));
-	ButtonAbout->setBounds(138, 539, 60, 20);
+	ButtonAbout->setBounds(138, 561, 60, 20);
 	ButtonAbout->setImages(true, false, true,
 								  ImageButtonGplNormal, 1.0f, Colour(),
 								  ImageButtonGplOver, 1.0f, Colour(),
@@ -140,7 +140,10 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	ButtonAbout->addButtonListener(this);
 	addAndMakeVisible(ButtonAbout);
 
-	stereoMeter = NULL;
+	stereoMeter = new StereoMeter(T("Stereo Meter"), 15, 580, 105, 15);
+	addAndMakeVisible(stereoMeter);
+
+	stereoKmeter = NULL;
 
 	// display non-expanded meter
 	ButtonExpanded->setToggleState(false, false);
@@ -158,7 +161,9 @@ KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 
 void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChanged)
 {
-	stereoMeter->setLevels(pProcessor->getLevels());
+	MeterBallistics* pBallistics = pProcessor->getLevels();
+	stereoKmeter->setLevels(pBallistics);
+	stereoMeter->setValue(pBallistics->getStereoMeterValue());
 }
 
 //==============================================================================
@@ -170,27 +175,27 @@ void KmeterAudioProcessorEditor::paint(Graphics& g)
 
 void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 {
-	bool reloadStereoMeter = false;
+	bool reloadStereoKmeter = false;
 
 	if (button == ButtonNormal)
 	{
 		nHeadroom = 0;
-		reloadStereoMeter = true;
+		reloadStereoKmeter = true;
 	}
 	else if (button == ButtonK12)
 	{
 		nHeadroom = 12;
-		reloadStereoMeter = true;
+		reloadStereoKmeter = true;
 	}
 	else if (button == ButtonK14)
 	{
 		nHeadroom = 14;
-		reloadStereoMeter = true;
+		reloadStereoKmeter = true;
 	}
 	else if (button == ButtonK20)
 	{
 		nHeadroom = 20;
-		reloadStereoMeter = true;
+		reloadStereoKmeter = true;
 	}
 	else if (button == ButtonPeakHold)
 	{
@@ -204,7 +209,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 	}
 	else if (button == ButtonExpanded)
 	{
-		reloadStereoMeter = true;
+		reloadStereoKmeter = true;
 	}
 	else if (button == ButtonReset)
 	{
@@ -216,16 +221,16 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 	  URL("http://www.gnu.org/licenses/gpl-3.0.html").launchInDefaultBrowser();
 	}
 
-	if (reloadStereoMeter)
+	if (reloadStereoKmeter)
 	{
-		if (stereoMeter)
+		if (stereoKmeter)
 		{
-			removeChildComponent(stereoMeter);
-			delete stereoMeter;
+			removeChildComponent(stereoKmeter);
+			delete stereoKmeter;
 		}
 
-		stereoMeter = new StereoMeter(T("Stereo Meter"), 15, 5, nHeadroom, ButtonExpanded->getToggleState(), 4);
-		addAndMakeVisible(stereoMeter);
+		stereoKmeter = new StereoKmeter(T("Stereo K-Meter"), 15, 5, nHeadroom, ButtonExpanded->getToggleState(), 4);
+		addAndMakeVisible(stereoKmeter);
 	}
 }
 

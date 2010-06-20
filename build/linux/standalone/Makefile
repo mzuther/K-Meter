@@ -68,6 +68,7 @@ OBJECTS := \
 	$(OBJDIR)/standalone_application.o \
 	$(OBJDIR)/overflow_meter.o \
 	$(OBJDIR)/resources.o \
+	$(OBJDIR)/stereo_kmeter.o \
 	$(OBJDIR)/meter_ballistics.o \
 	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/stereo_meter.o \
@@ -148,6 +149,9 @@ $(OBJDIR)/overflow_meter.o: ../../../src/overflow_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/resources.o: ../../../src/resources.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/stereo_kmeter.o: ../../../src/stereo_kmeter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_ballistics.o: ../../../src/meter_ballistics.cpp

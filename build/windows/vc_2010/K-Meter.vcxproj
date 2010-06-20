@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -21,6 +21,7 @@
     <ClInclude Include="..\..\..\src\plugin_editor.h" />
     <ClInclude Include="..\..\..\src\plugin_processor.h" />
     <ClInclude Include="..\..\..\src\resources.h" />
+    <ClInclude Include="..\..\..\src\stereo_kmeter.h" />
     <ClInclude Include="..\..\..\src\stereo_meter.h" />
   </ItemGroup>
   <ItemGroup>
@@ -36,6 +37,7 @@
     <ClCompile Include="..\..\..\src\plugin_editor.cpp" />
     <ClCompile Include="..\..\..\src\plugin_processor.cpp" />
     <ClCompile Include="..\..\..\src\resources.cpp" />
+    <ClCompile Include="..\..\..\src\stereo_kmeter.cpp" />
     <ClCompile Include="..\..\..\src\stereo_meter.cpp" />
   </ItemGroup>
   <ItemGroup>

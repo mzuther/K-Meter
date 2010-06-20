@@ -85,6 +85,11 @@ void MeterBallistics::setAverageHold(bool bAverageHold)
 	}
 }
 
+float	MeterBallistics::getStereoMeterValue()
+{
+	return fStereoMeterValue;
+}
+
 float MeterBallistics::getPeakMeterLeft()
 {
 	return fPeakMeterLeft;
@@ -143,6 +148,20 @@ void MeterBallistics::update(float fTimeFrame, float fPeakLeft, float fPeakRight
 	fAverageLeft = level2decibel(fAverageLeft) + fAverageCorrection;
 	fAverageRight = level2decibel(fAverageRight) + fAverageCorrection;
 
+	float fStereoMeterLeft = abs(fMeterMinimumDecibel - fAverageLeft + fAverageCorrection);
+	float fStereoMeterRight = abs(fMeterMinimumDecibel - fAverageRight + fAverageCorrection);
+	float fStereoMeterValueOld = fStereoMeterValue;
+
+	if (fStereoMeterRight >= fStereoMeterLeft)
+		if (fStereoMeterRight == 0.0f)
+			fStereoMeterValue = 0.0f;
+		else
+			fStereoMeterValue = (fStereoMeterRight - fStereoMeterLeft) / fStereoMeterRight;
+	else
+		fStereoMeterValue = (fStereoMeterRight - fStereoMeterLeft) / fStereoMeterLeft;
+
+	fStereoMeterValue = StereoMeterBallistics(fTimeFrame, fStereoMeterValue, fStereoMeterValueOld);
+
 	fPeakMeterLeft = PeakMeterBallistics(fTimeFrame, fPeakLeft, fPeakMeterLeft);
 	fPeakMeterRight = PeakMeterBallistics(fTimeFrame, fPeakRight, fPeakMeterRight);
 
@@ -198,6 +217,22 @@ float MeterBallistics::AverageMeterBallistics(float fTimeFrame, float fLevelCurr
 	}
 
 	return fOutput * fMeterMinimumDecibel;
+}
+
+float MeterBallistics::StereoMeterBallistics(float fTimeFrame, float fLevelCurrent, float fLevelOld)
+{
+	// Thanks to Bram from Smartelectronix (http://www.musicdsp.org/showone.php?id=136) for the code snippet!
+	float fOutput = fLevelOld;
+	float fTemp = fLevelCurrent;
+
+	// level has changed
+	if (fTemp != fOutput)
+	{
+		float fAttackReleaseCoef = powf(0.01f, 1.0f / (1.2f * fTimeFrame));
+	    fOutput = fAttackReleaseCoef * (fOutput - fTemp) + fTemp;
+	}
+
+	return fOutput;
 }
 
 float MeterBallistics::PeakMeterPeakBallistics(float fTimeFrame, float* fLastChanged, float fLevelCurrent, float fLevelOld)

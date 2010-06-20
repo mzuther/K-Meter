@@ -163,7 +163,7 @@ MeterBar::MeterBar(const String &componentName, int posX, int posY, int Width, i
 			nColor = 2;
 
 		fThreshold -= fRange;
-		MeterArray[n] = new MeterSegment(String(T("MeterSegment +") + n), fThreshold, fRange, nColor);
+		MeterArray[n] = new MeterSegment(String(T("MeterSegment ") + n), fThreshold, fRange, nColor);
 
 		addAndMakeVisible(MeterArray[n]);
 	}

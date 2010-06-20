@@ -27,9 +27,6 @@
 #define __STEREO_METER_H__
 
 #include "juce_library_code/juce_header.h"
-#include "meter_bar.h"
-#include "overflow_meter.h"
-#include "plugin_processor.h"
 
 
 //==============================================================================
@@ -38,31 +35,20 @@
 class StereoMeter : public Component
 {
 public:
-    StereoMeter(const String &componentName, int PosX, int PosY, int nHeadroom, bool bExpanded, int nSegmentHeight);
+  StereoMeter(const String &componentName, int PosX, int PosY, int Width, int Height);
     ~StereoMeter();
 
-	void setLevels(MeterBallistics* pMB);
+	void setValue(float newValue);
 	void paint(Graphics& g);
-	void resized();
 	void visibilityChanged();
 
 private:
+	float fValue;
+
 	int nPosX;
 	int nPosY;
-	int nMainSegmentHeight;
-	bool isExpanded;
-
-	int nMeterHeadroom;
-
-	MeterBar* PeakMeterLeft;
-	MeterBar* PeakMeterRight;
-	MeterBar* AverageMeterLeft;
-	MeterBar* AverageMeterRight;
-
-	OverflowMeter* OverflowMeterLeft;
-	OverflowMeter* OverflowMeterRight;
-
-	void drawMarkers(Graphics& g, String& strMarker, int x, int y, int width, int height);
+	int nWidth;
+	int nHeight;
 };
 
 
