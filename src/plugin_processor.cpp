@@ -42,6 +42,7 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 	fPeakRight = 0.0f;
 	fAverageLeft = 0.0f;
 	fAverageRight = 0.0f;
+	fCorrelation = 0.0f;
 	nOverflowsLeft = 0;
 	nOverflowsRight = 0;
 
@@ -186,16 +187,26 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 				fPeakRight = pRingBuffer->getMagnitude(1, 0, KMETER_BUFFER_SIZE);
 				fAverageRight = pRingBuffer->getRMSLevel(1, 0, KMETER_BUFFER_SIZE);
 				nOverflowsRight = countContigousOverflows(pRingBuffer, 1, bLastSampleOverRight);
+
+				pRingBuffer->addFrom(1, 0, *pRingBuffer, 0, 0, KMETER_BUFFER_SIZE, 1.0f);
+				if ((fAverageRight == 0.0f) && (fAverageRight == 0.0f))
+					fCorrelation = 1.0f;
+				else if (fAverageRight >= fAverageLeft)
+					fCorrelation = (pRingBuffer->getRMSLevel(1, 0, KMETER_BUFFER_SIZE) / fAverageRight) - 1.0f;
+				else
+				  fCorrelation = (pRingBuffer->getRMSLevel(1, 0, KMETER_BUFFER_SIZE) / fAverageLeft) - 1.0f;
 			}
 			else
 			{
 				fPeakRight = fPeakLeft;
 				fAverageRight = fAverageLeft;
 				nOverflowsRight = nOverflowsLeft;
+
+				fCorrelation = 1.0f;
 			}
 
 			fTimeFrame = (float) getSampleRate() / (float) KMETER_BUFFER_SIZE;
-			pMeterBallistics->update(fTimeFrame, fPeakLeft, fPeakRight, fAverageLeft, fAverageRight, nOverflowsLeft, nOverflowsRight);
+			pMeterBallistics->update(fTimeFrame, fPeakLeft, fPeakRight, fAverageLeft, fAverageRight, fCorrelation, nOverflowsLeft, nOverflowsRight);
 
 			sendChangeMessage(this);
 		}

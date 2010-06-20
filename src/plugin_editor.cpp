@@ -31,7 +31,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     : AudioProcessorEditor(ownerFilter)
 {
 	// This is where our plugin's editor size is set.
-  setSize(220, 600);
+	setSize(220, 620);
 
 	nHeadroom = 0;
 
@@ -114,14 +114,14 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	addAndMakeVisible(ButtonReset);
 
 	Label* LabelReadoutWarning = new Label(T("Readout Warning"), "Read-out\nnot yet\nvalidated!");
-	LabelReadoutWarning->setBounds(130, 482, 80, 40);
+	LabelReadoutWarning->setBounds(130, 502, 80, 40);
 	LabelReadoutWarning->setColour(Label::textColourId, Colours::yellow);
 	LabelReadoutWarning->setJustificationType(Justification::centred);
 	addAndMakeVisible(LabelReadoutWarning);
 
 	#ifdef DEBUG
 	Label* LabelDebug = new Label(T("Debug Notification"), "DEBUG");
-	LabelDebug->setBounds(145, 542, 50, 16);
+	LabelDebug->setBounds(145, 560, 50, 16);
 	LabelDebug->setColour(Label::textColourId, Colours::red);
 	addAndMakeVisible(LabelDebug);
 	#endif
@@ -131,7 +131,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
    ImageButtonGplDown = ImageCache::getFromMemory(resources::button_gpl_down_png, resources::button_gpl_down_pngSize);
 
 	ButtonAbout = new ImageButton(T("About"));
-	ButtonAbout->setBounds(138, 561, 60, 20);
+	ButtonAbout->setBounds(138, 580, 60, 20);
 	ButtonAbout->setImages(true, false, true,
 								  ImageButtonGplNormal, 1.0f, Colour(),
 								  ImageButtonGplOver, 1.0f, Colour(),
@@ -142,6 +142,9 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
 	stereoMeter = new StereoMeter(T("Stereo Meter"), 15, 580, 105, 15);
 	addAndMakeVisible(stereoMeter);
+
+	correlationMeter = new CorrelationMeter(T("Correlation Meter"), 15, 600, 105, 13);
+	addAndMakeVisible(correlationMeter);
 
 	stereoKmeter = NULL;
 
@@ -162,8 +165,10 @@ KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChanged)
 {
 	MeterBallistics* pBallistics = pProcessor->getLevels();
+
 	stereoKmeter->setLevels(pBallistics);
 	stereoMeter->setValue(pBallistics->getStereoMeterValue());
+	correlationMeter->setValue(pBallistics->getCorrelationMeterValue());
 }
 
 //==============================================================================

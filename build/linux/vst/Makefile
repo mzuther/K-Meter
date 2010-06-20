@@ -64,6 +64,7 @@ ifeq ($(config),release32)
 endif
 
 OBJECTS := \
+	$(OBJDIR)/correlation_meter.o \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/overflow_meter.o \
 	$(OBJDIR)/resources.o \
@@ -136,6 +137,9 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 endif
 
+$(OBJDIR)/correlation_meter.o: ../../../src/correlation_meter.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_processor.o: ../../../src/plugin_processor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"

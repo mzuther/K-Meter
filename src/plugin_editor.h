@@ -32,6 +32,7 @@
 #include "resources.h"
 #include "stereo_kmeter.h"
 #include "stereo_meter.h"
+#include "correlation_meter.h"
 
 
 //==============================================================================
@@ -57,6 +58,7 @@ private:
 	KmeterAudioProcessor* pProcessor;
 	StereoKmeter* stereoKmeter;
 	StereoMeter* stereoMeter;
+	CorrelationMeter* correlationMeter;
 
 	TextButton* ButtonNormal;
 	TextButton* ButtonK12;

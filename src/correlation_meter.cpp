@@ -23,9 +23,9 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "stereo_meter.h"
+#include "correlation_meter.h"
 
-StereoMeter::StereoMeter(const String &componentName, int PosX, int PosY, int Width, int Height)
+CorrelationMeter::CorrelationMeter(const String &componentName, int PosX, int PosY, int Width, int Height)
 {
 	setName(componentName);
 
@@ -38,65 +38,51 @@ StereoMeter::StereoMeter(const String &componentName, int PosX, int PosY, int Wi
 	nHeight = Height;
 }
 
-StereoMeter::~StereoMeter()
+CorrelationMeter::~CorrelationMeter()
 {
 }
 
-void StereoMeter::paint(Graphics& g)
+void CorrelationMeter::paint(Graphics& g)
 {
 	int width = getWidth();
 	int height = getHeight();
 	int middle_of_meter = width / 2;
-	int height_of_meter = height - 2;
+	int height_of_meter = height;
 
-	ColourGradient colGrad(Colours::black, 0, 0, Colours::black, width, 0, false);
-	colGrad.addColour(0.5f, Colours::darkgrey);
+	ColourGradient colGrad(Colours::red.darker(1.0f), 0, 0, Colours::green.darker(1.0f), width, 0, false);
+	colGrad.addColour(0.2f, Colours::red.darker(1.0f));
+	colGrad.addColour(0.6f, Colours::yellow.darker(1.0f));
 	g.setGradientFill(colGrad);
-	g.fillRect(1, 2, width - 2, height - 4);
+	g.fillRect(1, 1, width - 2, height - 2);
 
 	g.setColour(Colours::darkgrey.darker(0.3f));
-	g.drawRect(0, 1, width, height_of_meter, 1);
-
-	g.setColour(Colours::darkgrey);
-	for (int y=2; y < height_of_meter; y++)
-		g.setPixel(middle_of_meter, y);
+	g.drawRect(0, 0, width, height, 1);
 
 	g.setColour(Colours::white);
 
-	// upper arrow
-	g.setPixel(middle_of_meter - 1, 0);
-	g.setPixel(middle_of_meter + 1, 0);
-	g.setPixel(middle_of_meter, 0);
-	g.setPixel(middle_of_meter, 1);
-
-	// lower arrow
-	g.setPixel(middle_of_meter, height_of_meter);
-	g.setPixel(middle_of_meter, height_of_meter + 1);
-	g.setPixel(middle_of_meter - 1, height_of_meter + 1);
-	g.setPixel(middle_of_meter + 1, height_of_meter + 1);
-
 	g.setFont(11.0f);
-	g.drawFittedText(T("L"), 0, 1, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
-	g.drawFittedText(T("R"), width - height + 1, 1, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
+	g.drawFittedText(T("-1"), 1, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
+	g.drawFittedText(T("0"), middle_of_meter - height_of_meter / 2, 0, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
+	g.drawFittedText(T("+1"), width - height - 4, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
 
 	g.setColour(Colours::red);
-	for (int y=2; y < height_of_meter; y++)
+	for (int y=1; y < (height_of_meter - 1); y++)
 		g.setPixel(nNeedlePosition, y);
 
 	g.setColour(Colours::red.withAlpha(0.6f));
-	for (int y=2; y < height_of_meter; y++)
+	for (int y=1; y < (height_of_meter - 1); y++)
 	{
 		g.setPixel(nNeedlePosition - 1, y);
 		g.setPixel(nNeedlePosition + 1, y);
 	}
 }
 
-void StereoMeter::visibilityChanged()
+void CorrelationMeter::visibilityChanged()
 {
 	setBounds(nPosX, nPosY, nWidth, nHeight);
 }
 
-void StereoMeter::setValue(float newValue)
+void CorrelationMeter::setValue(float newValue)
 {
 	fValue = newValue;
 

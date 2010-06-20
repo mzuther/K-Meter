@@ -43,6 +43,9 @@ MeterBallistics::~MeterBallistics()
 
 void MeterBallistics::reset()
 {
+	fStereoMeterValue = 0.0f;
+	fCorrelationMeterValue = 1.0f;
+
 	fPeakMeterLeft = fMeterMinimumDecibel;
 	fPeakMeterRight = fMeterMinimumDecibel;
 	fAverageMeterLeft = fMeterMinimumDecibel;
@@ -88,6 +91,11 @@ void MeterBallistics::setAverageHold(bool bAverageHold)
 float	MeterBallistics::getStereoMeterValue()
 {
 	return fStereoMeterValue;
+}
+
+float	MeterBallistics::getCorrelationMeterValue()
+{
+	return fCorrelationMeterValue;
 }
 
 float MeterBallistics::getPeakMeterLeft()
@@ -140,7 +148,7 @@ int MeterBallistics::getOverflowsRight()
 	return nOverflowsRight;
 }
 
-void MeterBallistics::update(float fTimeFrame, float fPeakLeft, float fPeakRight, float fAverageLeft, float fAverageRight, int OverflowsLeft, int OverflowsRight)
+void MeterBallistics::update(float fTimeFrame, float fPeakLeft, float fPeakRight, float fAverageLeft, float fAverageRight, float fCorrelation, int OverflowsLeft, int OverflowsRight)
 {
 	fPeakLeft = level2decibel(fPeakLeft);
 	fPeakRight = level2decibel(fPeakRight);
@@ -160,6 +168,8 @@ void MeterBallistics::update(float fTimeFrame, float fPeakLeft, float fPeakRight
 		fStereoMeterValue = (fStereoMeterRight - fStereoMeterLeft) / fStereoMeterLeft;
 
 	fStereoMeterValue = StereoMeterBallistics(fTimeFrame, fStereoMeterValue, fStereoMeterValueOld);
+
+	fCorrelationMeterValue = CorrelationMeterBallistics(fTimeFrame, fCorrelation, fCorrelationMeterValue);
 
 	fPeakMeterLeft = PeakMeterBallistics(fTimeFrame, fPeakLeft, fPeakMeterLeft);
 	fPeakMeterRight = PeakMeterBallistics(fTimeFrame, fPeakRight, fPeakMeterRight);
@@ -232,6 +242,11 @@ float MeterBallistics::StereoMeterBallistics(float fTimeFrame, float fLevelCurre
 	}
 
 	return fOutput;
+}
+
+float MeterBallistics::CorrelationMeterBallistics(float fTimeFrame, float fLevelCurrent, float fLevelOld)
+{
+	return StereoMeterBallistics(fTimeFrame, fLevelCurrent, fLevelOld);
 }
 
 float MeterBallistics::PeakMeterPeakBallistics(float fTimeFrame, float* fLastChanged, float fLevelCurrent, float fLevelOld)

@@ -43,6 +43,7 @@ public:
 	void reset();
 
 	float	getStereoMeterValue();
+	float	getCorrelationMeterValue();
 
 	float getPeakMeterLeft();
 	float getPeakMeterRight();
@@ -57,13 +58,14 @@ public:
 	int getOverflowsLeft();
 	int getOverflowsRight();
 
-	void update(float fTimeFrame, float fPeakLeft, float fPeakRight, float fAverageLeft, float fAverageRight, int OverflowsLeft, int OverflowsRight);
+	void update(float fTimeFrame, float fPeakLeft, float fPeakRight, float fAverageLeft, float fAverageRight, float fCorrelation, int OverflowsLeft, int OverflowsRight);
 
 private:
 	float fMeterMinimumDecibel;
 	float fAverageCorrection;
 
 	float fStereoMeterValue;
+	float fCorrelationMeterValue;
 
 	float fPeakMeterLeft;
 	float fPeakMeterRight;
@@ -86,6 +88,7 @@ private:
 	float level2decibel(float level);
 
 	float StereoMeterBallistics(float fTimeFrame, float fLevelCurrent, float fLevelOld);
+	float CorrelationMeterBallistics(float fTimeFrame, float fLevelCurrent, float fLevelOld);
 
 	float PeakMeterBallistics(float fTimeFrame, float fLevelCurrent, float fLevelOld);
 	float PeakMeterPeakBallistics(float fTimeFrame, float* fLastChanged, float fLevelCurrent, float fLevelOld);

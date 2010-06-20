@@ -37,6 +37,9 @@
     <ClInclude Include="..\..\..\src\stereo_meter.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\correlation_meter.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\main.cpp">
@@ -79,6 +82,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\stereo_meter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\correlation_meter.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
