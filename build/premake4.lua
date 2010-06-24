@@ -46,8 +46,7 @@ solution "kmeter"
 	includedirs {
 		"../src",
 		"../src/juce_library_code/",
-		"../libraries/",
-		"../libraries/vstsdk2.4"
+		"../libraries/"
 	}
 
 	libdirs {
@@ -80,7 +79,7 @@ solution "kmeter"
 			"JUCETICE_USE_AMALGAMA=1",
 			"JUCE_ALSA=1",
 			"JUCE_JACK=1",
-			"JUCE_USE_VSTSDK_2_4=1",
+			"JUCE_USE_VSTSDK_2_4=0",
 			"JUCE_USE_XSHM=1"
 		}
 
@@ -145,7 +144,8 @@ solution "kmeter"
 
 		includedirs {
 			"/usr/include",
-			"/usr/include/freetype2"
+			"/usr/include/freetype2",
+			"../libraries/vstsdk2.4"
 		}
 
 		libdirs {

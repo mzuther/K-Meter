@@ -23,8 +23,8 @@ ifeq ($(config),debug32)
   OBJDIR     = ../../../bin/intermediate_linux/standalone_debug/x32
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/kmeter_debug
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_STAND_ALONE=1 -DLINUX=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_USE_VSTSDK_2_4=1 -DJUCE_USE_XSHM=1
-  INCLUDES  += -I../../../src -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
+  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_STAND_ALONE=1 -DLINUX=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_USE_VSTSDK_2_4=0 -DJUCE_USE_XSHM=1
+  INCLUDES  += -I../../../src -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fno-inline
   CXXFLAGS  += $(CFLAGS) 
@@ -45,8 +45,8 @@ ifeq ($(config),release32)
   OBJDIR     = ../../../bin/intermediate_linux/standalone_release/x32
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/kmeter
-  DEFINES   += -DNDEBUG -DKMETER_STAND_ALONE=1 -DLINUX=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_USE_VSTSDK_2_4=1 -DJUCE_USE_XSHM=1
-  INCLUDES  += -I../../../src -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
+  DEFINES   += -DNDEBUG -DKMETER_STAND_ALONE=1 -DLINUX=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_USE_VSTSDK_2_4=0 -DJUCE_USE_XSHM=1
+  INCLUDES  += -I../../../src -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -pipe -fvisibility=hidden
   CXXFLAGS  += $(CFLAGS) 

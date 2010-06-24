@@ -62,6 +62,5 @@
 #define JucePlugin_RTASCategory         ePlugInCategory_None
 #define JucePlugin_RTASManufacturerCode JucePlugin_ManufacturerCode
 #define JucePlugin_RTASProductId        JucePlugin_PluginCode
-#define JUCE_USE_VSTSDK_2_4             1
 
 #endif   // __PLUGINCHARACTERISTICS_A4D510D9__
