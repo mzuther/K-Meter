@@ -23,17 +23,17 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifdef KMETER_STAND_ALONE
-
 // build stand-alone application for plugin
+#ifdef KMETER_STAND_ALONE
 
 #include "standalone_application.h"
 
 START_JUCE_APPLICATION(StandaloneApplication)
 
-#else
+#endif
 
 // build VST plugin
+#ifdef KMETER_VST_PLUGIN
 
 #include "juce/extras/audio plugins/wrapper/VST/juce_VST_Wrapper.cpp"
 

@@ -29,6 +29,11 @@ function correct_premake4_bug_3015312
 {
 	PREMAKE_TMP=$(mktemp)
 
+	if [ ! -w "$1" ]; then
+		echo "[ERR] File $1 not found."
+		return
+	fi
+
 	echo "Correcting $1..."
 	gawk '{ print gensub(/\$\(SILENT\) \$\(CXX\) \$\(CXXFLAGS\) -o \$@ -c \$</, "$(SILENT) $(CXX) $(CXXFLAGS) -o \"$@\" -c \"$<\"", "G" ); }' "$1" > "$PREMAKE_TMP"
 	mv "$PREMAKE_TMP" "$1"
@@ -45,6 +50,8 @@ echo "=== Correcting makefiles (bug #3015312) ==="
 
 correct_premake4_bug_3015312 linux/standalone/Makefile
 correct_premake4_bug_3015312 linux/vst/Makefile
+correct_premake4_bug_3015312 windows/standalone/Makefile
+correct_premake4_bug_3015312 windows/vst/Makefile
 
 echo "Done."
 echo

@@ -66,16 +66,15 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
-	project "linux_standalone"
+	project (os.get() .. "_standalone")
 		kind "WindowedApp"
-		location "linux/standalone"
+		location (os.get() .. "/standalone")
 		targetprefix ""
 
 		platforms { "x32" }
 
 		defines {
 			"KMETER_STAND_ALONE=1",
-			"LINUX=1",
 			"JUCETICE_USE_AMALGAMA=1",
 			"JUCE_ALSA=1",
 			"JUCE_JACK=1",
@@ -108,28 +107,37 @@ solution "kmeter"
 			"asound"
 		}
 
+		configuration {"linux"}
+			defines {
+				"LINUX=1"
+			}
+
+		configuration {"windows"}
+			defines {
+				"WIN32=1"
+			}
+
 		configuration "Debug"
 			targetname "kmeter_debug"
-			objdir "../bin/intermediate_linux/standalone_debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_debug")
 			links { "juce_debug32" }
- 
+
       configuration "Release"
 			targetname "kmeter"
-			objdir "../bin/intermediate_linux/standalone_release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_release")
 			links { "juce32" }
 
 --------------------------------------------------------------------------------
 
-	project "linux_vst"
+	project (os.get() .. "_vst")
 		kind "SharedLib"
-		location "linux/vst"
+		location (os.get() .. "/vst")
 		targetprefix ""
 
 		platforms { "x32" }
 
 		defines {
 			"KMETER_VST_PLUGIN=1",
-			"LINUX=1",
 			"JUCETICE_USE_AMALGAMA=1",
 			"JUCE_ALSA=0",
 			"JUCE_JACK=0",
@@ -162,12 +170,22 @@ solution "kmeter"
 			"Xext"
 		}
 
+		configuration {"linux"}
+			defines {
+				"LINUX=1"
+			}
+
+		configuration {"windows"}
+			defines {
+				"WIN32=1"
+			}
+
 		configuration "Debug"
 			targetname "kmeter_vst_debug"
-			objdir "../bin/intermediate_linux/vst_debug32"
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_debug")
 			links { "juce_debug32" }
- 
+
       configuration "Release"
 			targetname "kmeter_vst"
-			objdir "../bin/intermediate_linux/vst_release32"
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_release")
 			links { "juce32" }

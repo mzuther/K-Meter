@@ -20,10 +20,10 @@ ifndef AR
 endif
 
 ifeq ($(config),debug32)
-  OBJDIR     = ../../../bin/intermediate_linux/vst_debug32/x32
+  OBJDIR     = ../../../bin/intermediate_linux/vst_debug/x32
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/kmeter_vst_debug.so
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_VST_PLUGIN=1 -DLINUX=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_USE_VSTSDK_2_4=1 -DJUCE_USE_XSHM=1
+  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_USE_VSTSDK_2_4=1 -DJUCE_USE_XSHM=1 -DLINUX=1
   INCLUDES  += -I../../../src -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk2.4
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fPIC -fno-inline
@@ -42,10 +42,10 @@ ifeq ($(config),debug32)
 endif
 
 ifeq ($(config),release32)
-  OBJDIR     = ../../../bin/intermediate_linux/vst_release32/x32
+  OBJDIR     = ../../../bin/intermediate_linux/vst_release/x32
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/kmeter_vst.so
-  DEFINES   += -DNDEBUG -DKMETER_VST_PLUGIN=1 -DLINUX=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_USE_VSTSDK_2_4=1 -DJUCE_USE_XSHM=1
+  DEFINES   += -DNDEBUG -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_USE_VSTSDK_2_4=1 -DJUCE_USE_XSHM=1 -DLINUX=1
   INCLUDES  += -I../../../src -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk2.4
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -fPIC -pipe -fvisibility=hidden
