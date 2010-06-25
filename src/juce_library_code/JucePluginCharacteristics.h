@@ -48,8 +48,8 @@
 #define JucePlugin_SilenceInProducesSilenceOut  1
 #define JucePlugin_TailLengthSeconds    0
 #define JucePlugin_EditorRequiresKeyboardFocus  0
-#define JucePlugin_VersionCode          0x10F00
-#define JucePlugin_VersionString        "1.15.0"
+#define JucePlugin_VersionCode          0x11000
+#define JucePlugin_VersionString        "1.16.0"
 #define JucePlugin_VSTUniqueID          JucePlugin_PluginCode
 #define JucePlugin_VSTCategory          kPlugCategEffect
 #define JucePlugin_AUMainType           kAudioUnitType_Effect

@@ -193,7 +193,7 @@ void MeterBallistics::update(int nChannels, float fTimeFrame, float fPeakLeft, f
 	fPeakMeterLeftPeak = PeakMeterPeakBallistics(fTimeFrame, &fPeakMeterLeftPeakLastChanged, fPeakLeft, fPeakMeterLeftPeak);
 
 	fAverageMeterLeft = AverageMeterBallistics(fTimeFrame, fAverageLeft, fAverageMeterLeft);
-	fAverageMeterLeftPeak = AverageMeterPeakBallistics(fTimeFrame, &fAverageMeterLeftPeakLastChanged, fAverageLeft, fAverageMeterLeftPeak);
+	fAverageMeterLeftPeak = AverageMeterPeakBallistics(fTimeFrame, &fAverageMeterLeftPeakLastChanged, fAverageMeterLeft, fAverageMeterLeftPeak);
 
 	nOverflowsLeft += OverflowsLeft;
 
@@ -213,7 +213,7 @@ void MeterBallistics::update(int nChannels, float fTimeFrame, float fPeakLeft, f
 	  fPeakMeterRightPeak = PeakMeterPeakBallistics(fTimeFrame, &fPeakMeterRightPeakLastChanged, fPeakRight, fPeakMeterRightPeak);
 
 	  fAverageMeterRight = AverageMeterBallistics(fTimeFrame, fAverageRight, fAverageMeterRight);
-	  fAverageMeterRightPeak = AverageMeterPeakBallistics(fTimeFrame, &fAverageMeterRightPeakLastChanged, fAverageRight, fAverageMeterRightPeak);
+	  fAverageMeterRightPeak = AverageMeterPeakBallistics(fTimeFrame, &fAverageMeterRightPeakLastChanged, fAverageMeterRight, fAverageMeterRightPeak);
 
 	  nOverflowsRight += OverflowsRight;
 	}
