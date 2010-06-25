@@ -53,7 +53,8 @@ public:
 	void resized();
 
 private:
-    int nHeadroom;
+	int nHeadroom;
+	int nNumberOfChannels;
 
 	KmeterAudioProcessor* pProcessor;
 	StereoKmeter* stereoKmeter;
@@ -69,6 +70,9 @@ private:
 	TextButton* ButtonPeakHold;
 	TextButton* ButtonAverageHold;
 	TextButton* ButtonReset;
+
+	TextButton *ButtonMono;
+
 	ImageButton* ButtonAbout;
 
 	Image* ImageButtonGplNormal;

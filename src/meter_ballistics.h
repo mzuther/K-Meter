@@ -42,6 +42,8 @@ public:
 	void setAverageHold(bool bAverageHold);
 	void reset();
 
+	int getNumberOfChannels();
+
 	float	getStereoMeterValue();
 	float	getCorrelationMeterValue();
 
@@ -58,9 +60,11 @@ public:
 	int getOverflowsLeft();
 	int getOverflowsRight();
 
-	void update(float fTimeFrame, float fPeakLeft, float fPeakRight, float fAverageLeft, float fAverageRight, float fCorrelation, int OverflowsLeft, int OverflowsRight);
+	void update(int nChannels, float fTimeFrame, float fPeakLeft, float fPeakRight, float fAverageLeft, float fAverageRight, float fCorrelation, int OverflowsLeft, int OverflowsRight);
 
 private:
+	int nNumberOfChannels;
+
 	float fMeterMinimumDecibel;
 	float fAverageCorrection;
 

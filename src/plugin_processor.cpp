@@ -36,6 +36,9 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 
 	pMeterBallistics = new MeterBallistics(false, false);
 
+	isStereo = false;
+	makeMono = false;
+
 	fTimeFrame = 0.0f;
 
 	fPeakLeft = 0.0f;
@@ -170,6 +173,18 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 	{
 		bool isStereo = (getNumInputChannels() > 1);
 
+		if (isStereo && makeMono)
+		{
+		  float* output_left = buffer.getSampleData(0);
+		  float* output_right = buffer.getSampleData(1);
+
+		  for (int i=0; i < buffer.getNumSamples(); i++)
+		  {
+			 output_left[i] = 0.5f * (output_left[i] + output_right[i]);
+			 output_right[i] = output_left[i];
+		  }
+		}
+
 		pRingBuffer->copyFrom(0, nRingBufferPosition, buffer, 0, nSourcePosition, 1);
 		if (isStereo)
 			pRingBuffer->copyFrom(1, nRingBufferPosition, buffer, 1, nSourcePosition, 1);
@@ -198,14 +213,14 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 					float sum_of_squares_left = 0.0f;
 					float sum_of_squares_right = 0.0f;
 
-					float* samples_left = pRingBuffer->getSampleData(0);
-					float* samples_right = pRingBuffer->getSampleData(1);
+					float* ringbuffer_left = pRingBuffer->getSampleData(0);
+					float* ringbuffer_right = pRingBuffer->getSampleData(1);
 
 					for (int i=0; i < KMETER_BUFFER_SIZE; i++)
 					{
-						sum_of_product += samples_left[i] * samples_right[i];
-						sum_of_squares_left += samples_left[i] * samples_left[i];
-						sum_of_squares_right += samples_right[i] * samples_right[i];
+						sum_of_product += ringbuffer_left[i] * ringbuffer_right[i];
+						sum_of_squares_left += ringbuffer_left[i] * ringbuffer_left[i];
+						sum_of_squares_right += ringbuffer_right[i] * ringbuffer_right[i];
 					}
 
 					fCorrelation = sum_of_product / sqrt(sum_of_squares_left * sum_of_squares_right);
@@ -221,7 +236,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 			}
 
 			fTimeFrame = (float) getSampleRate() / (float) KMETER_BUFFER_SIZE;
-			pMeterBallistics->update(fTimeFrame, fPeakLeft, fPeakRight, fAverageLeft, fAverageRight, fCorrelation, nOverflowsLeft, nOverflowsRight);
+			pMeterBallistics->update(isStereo ? 2 : 1, fTimeFrame, fPeakLeft, fPeakRight, fAverageLeft, fAverageRight, fCorrelation, nOverflowsLeft, nOverflowsRight);
 
 			sendChangeMessage(this);
 		}
@@ -267,6 +282,11 @@ int KmeterAudioProcessor::countContigousOverflows(const AudioSampleBuffer* buffe
 MeterBallistics* KmeterAudioProcessor::getLevels()
 {
 	return pMeterBallistics;
+}
+
+void KmeterAudioProcessor::convertMono(bool bMono)
+{
+	makeMono = bMono;
 }
 
 //==============================================================================

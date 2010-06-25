@@ -71,6 +71,7 @@ public:
     bool producesMidi() const;
 
 	MeterBallistics* getLevels();
+	void convertMono(bool bMono);
 
     //==============================================================================
     int getNumPrograms();
@@ -89,6 +90,9 @@ public:
 private:
 	AudioSampleBuffer* pRingBuffer;
 	MeterBallistics* pMeterBallistics;
+
+	bool isStereo;
+	bool makeMono;
 
 	int nRingBufferPosition;
 	float fTimeFrame;

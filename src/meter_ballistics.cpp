@@ -43,6 +43,8 @@ MeterBallistics::~MeterBallistics()
 
 void MeterBallistics::reset()
 {
+	nNumberOfChannels = 0;
+
 	fStereoMeterValue = 0.0f;
 	fCorrelationMeterValue = 1.0f;
 
@@ -86,6 +88,11 @@ void MeterBallistics::setAverageHold(bool bAverageHold)
 		fAverageMeterLeftPeakLastChanged = 0.0f;
 		fAverageMeterRightPeakLastChanged = 0.0f;
 	}
+}
+
+int MeterBallistics::getNumberOfChannels()
+{
+	return nNumberOfChannels;
 }
 
 float	MeterBallistics::getStereoMeterValue()
@@ -148,8 +155,10 @@ int MeterBallistics::getOverflowsRight()
 	return nOverflowsRight;
 }
 
-void MeterBallistics::update(float fTimeFrame, float fPeakLeft, float fPeakRight, float fAverageLeft, float fAverageRight, float fCorrelation, int OverflowsLeft, int OverflowsRight)
+void MeterBallistics::update(int nChannels, float fTimeFrame, float fPeakLeft, float fPeakRight, float fAverageLeft, float fAverageRight, float fCorrelation, int OverflowsLeft, int OverflowsRight)
 {
+	nNumberOfChannels = nChannels;
+
 	float fStereoMeterLeft = fAverageLeft;
 	float fStereoMeterRight = fAverageRight;
 	float fStereoMeterValueOld = fStereoMeterValue;
@@ -167,25 +176,47 @@ void MeterBallistics::update(float fTimeFrame, float fPeakLeft, float fPeakRight
 	fCorrelationMeterValue = CorrelationMeterBallistics(fTimeFrame, fCorrelation, fCorrelationMeterValue);
 
 	fPeakLeft = level2decibel(fPeakLeft);
-	fPeakRight = level2decibel(fPeakRight);
-
 	fAverageLeft = level2decibel(fAverageLeft) + fAverageCorrection;
-	fAverageRight = level2decibel(fAverageRight) + fAverageCorrection;
+
+	if (nNumberOfChannels == 1)
+	{
+	  fPeakRight = fPeakLeft;
+	  fAverageRight = fAverageLeft;
+	}
+	else
+	{
+	  fPeakRight = level2decibel(fPeakRight);
+	  fAverageRight = level2decibel(fAverageRight) + fAverageCorrection;
+	}
 
 	fPeakMeterLeft = PeakMeterBallistics(fTimeFrame, fPeakLeft, fPeakMeterLeft);
-	fPeakMeterRight = PeakMeterBallistics(fTimeFrame, fPeakRight, fPeakMeterRight);
-
 	fPeakMeterLeftPeak = PeakMeterPeakBallistics(fTimeFrame, &fPeakMeterLeftPeakLastChanged, fPeakLeft, fPeakMeterLeftPeak);
-	fPeakMeterRightPeak = PeakMeterPeakBallistics(fTimeFrame, &fPeakMeterRightPeakLastChanged, fPeakRight, fPeakMeterRightPeak);
 
 	fAverageMeterLeft = AverageMeterBallistics(fTimeFrame, fAverageLeft, fAverageMeterLeft);
-	fAverageMeterRight = AverageMeterBallistics(fTimeFrame, fAverageRight, fAverageMeterRight);
-
 	fAverageMeterLeftPeak = AverageMeterPeakBallistics(fTimeFrame, &fAverageMeterLeftPeakLastChanged, fAverageLeft, fAverageMeterLeftPeak);
-	fAverageMeterRightPeak = AverageMeterPeakBallistics(fTimeFrame, &fAverageMeterRightPeakLastChanged, fAverageRight, fAverageMeterRightPeak);
 
 	nOverflowsLeft += OverflowsLeft;
-	nOverflowsRight += OverflowsRight;
+
+	if (nNumberOfChannels == 1)
+	{
+	  fPeakMeterRight = fPeakMeterLeft;
+	  fPeakMeterRightPeak = fPeakMeterLeftPeak;
+
+	  fAverageMeterRight = fAverageMeterLeft;
+	  fAverageMeterRightPeak = fAverageMeterLeftPeak;
+
+	  nOverflowsRight = nOverflowsLeft;
+	}
+	else
+	{
+	  fPeakMeterRight = PeakMeterBallistics(fTimeFrame, fPeakRight, fPeakMeterRight);
+	  fPeakMeterRightPeak = PeakMeterPeakBallistics(fTimeFrame, &fPeakMeterRightPeakLastChanged, fPeakRight, fPeakMeterRightPeak);
+
+	  fAverageMeterRight = AverageMeterBallistics(fTimeFrame, fAverageRight, fAverageMeterRight);
+	  fAverageMeterRightPeak = AverageMeterPeakBallistics(fTimeFrame, &fAverageMeterRightPeakLastChanged, fAverageRight, fAverageMeterRightPeak);
+
+	  nOverflowsRight += OverflowsRight;
+	}
 }
 
 float MeterBallistics::level2decibel(float level)

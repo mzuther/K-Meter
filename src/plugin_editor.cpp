@@ -34,6 +34,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	setSize(220, 620);
 
 	nHeadroom = 0;
+	nNumberOfChannels = 0;
 
 	pProcessor = ownerFilter;
 	pProcessor->addChangeListener(this);
@@ -106,12 +107,21 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     addAndMakeVisible(ButtonExpanded);
 
 	ButtonReset = new TextButton(T("Reset"));
-	ButtonReset->setBounds(140, 215, 60, 20);
+	ButtonReset->setBounds(140, 200, 60, 20);
 	ButtonReset->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonReset->setColour(TextButton::buttonOnColourId, Colours::red);
 
 	ButtonReset->addButtonListener(this);
 	addAndMakeVisible(ButtonReset);
+
+	ButtonMono = new TextButton(T("Mono"));
+	ButtonMono->setBounds(140, 240, 60, 20);
+	ButtonMono->setColour(TextButton::buttonColourId, Colours::grey);
+	ButtonMono->setColour(TextButton::buttonOnColourId, Colours::yellow);
+	ButtonMono->setClickingTogglesState(false);
+
+	ButtonMono->addButtonListener(this);
+	addAndMakeVisible(ButtonMono);
 
 	Label* LabelReadoutWarning = new Label(T("Readout Warning"), "Read-out\nnot yet\nvalidated!");
 	LabelReadoutWarning->setBounds(130, 502, 80, 40);
@@ -169,6 +179,24 @@ void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChang
 	stereoKmeter->setLevels(pBallistics);
 	stereoMeter->setValue(pBallistics->getStereoMeterValue());
 	correlationMeter->setValue(pBallistics->getCorrelationMeterValue());
+
+	if (pBallistics->getNumberOfChannels() != nNumberOfChannels)
+	{
+	  nNumberOfChannels = pBallistics->getNumberOfChannels();
+	  
+	  if (nNumberOfChannels == 1)
+	  {
+		 ButtonMono->setColour(TextButton::buttonOnColourId, Colours::red);
+		 ButtonMono->setClickingTogglesState(false);
+		 ButtonMono->setToggleState(true, true);
+	  }
+	  else
+	  {
+		 ButtonMono->setColour(TextButton::buttonOnColourId, Colours::yellow);
+		 ButtonMono->setClickingTogglesState(true);
+		 ButtonMono->setToggleState(false, true);
+	  }
+	}
 }
 
 //==============================================================================
@@ -220,6 +248,10 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 	{
 		MeterBallistics* pBallistics = pProcessor->getLevels();
 		pBallistics->reset();
+	}
+	else if (button == ButtonMono)
+	{
+	  pProcessor->convertMono(ButtonMono->getToggleState());
 	}
 	else if (button == ButtonAbout)
 	{
