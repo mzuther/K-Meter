@@ -23,13 +23,13 @@ ifeq ($(config),debug32)
   OBJDIR     = ../../../bin/intermediate_windows/vst_debug/x32
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/kmeter_vst_debug.dll
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_USE_VSTSDK_2_4=1 -DJUCE_USE_XSHM=1 -DWIN32=1 -D__MINGW32__=1
-  INCLUDES  += -I../../../src -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk2.4
+  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=1 -DWIN32=1 -DJUCE_USE_XSHM=0 -DJUCE_ALSA=0 -DJUCE_JACK=0
+  INCLUDES  += -I../../../src -I../../../src/juce_library_code -I../../../libraries
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fno-inline
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -shared -Wl,--out-implib="../../../bin/kmeter_vst_debug.a" -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L../../../libraries/juce/bin -L/usr/X11R6/lib32 -L/usr/lib32
-  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -ljuce_debug32
+  LDFLAGS   += -shared -Wl,--out-implib="../../../bin/kmeter_vst_debug.a" -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin
+  LIBS      += -ljuce_debug32
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -45,13 +45,13 @@ ifeq ($(config),release32)
   OBJDIR     = ../../../bin/intermediate_windows/vst_release/x32
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/kmeter_vst.dll
-  DEFINES   += -DNDEBUG -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_USE_VSTSDK_2_4=1 -DJUCE_USE_XSHM=1 -DWIN32=1 -D__MINGW32__=1
-  INCLUDES  += -I../../../src -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk2.4
+  DEFINES   += -DNDEBUG -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=1 -DWIN32=1 -DJUCE_USE_XSHM=0 -DJUCE_ALSA=0 -DJUCE_JACK=0
+  INCLUDES  += -I../../../src -I../../../src/juce_library_code -I../../../libraries
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -pipe -fvisibility=hidden
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -shared -Wl,--out-implib="../../../bin/kmeter_vst.a" -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L../../../libraries/juce/bin -L/usr/X11R6/lib32 -L/usr/lib32
-  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -ljuce32
+  LDFLAGS   += -s -shared -Wl,--out-implib="../../../bin/kmeter_vst.a" -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin
+  LIBS      += -ljuce32
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -64,17 +64,17 @@ ifeq ($(config),release32)
 endif
 
 OBJECTS := \
+	$(OBJDIR)/correlation_meter.o \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/overflow_meter.o \
+	$(OBJDIR)/resources.o \
+	$(OBJDIR)/stereo_kmeter.o \
 	$(OBJDIR)/meter_ballistics.o \
 	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/stereo_meter.o \
 	$(OBJDIR)/meter_bar.o \
-	$(OBJDIR)/meter_segment.o \
-	$(OBJDIR)/stereo_kmeter.o \
-	$(OBJDIR)/resources.o \
-	$(OBJDIR)/correlation_meter.o \
 	$(OBJDIR)/main.o \
+	$(OBJDIR)/meter_segment.o \
 	$(OBJDIR)/juce_library_code_1.o \
 	$(OBJDIR)/juce_library_code_2.o \
 	$(OBJDIR)/juce_library_code_4.o \
@@ -95,7 +95,7 @@ endif
 all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking vst
+	@echo Linking windows_vst
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -116,7 +116,7 @@ else
 endif
 
 clean:
-	@echo Cleaning vst
+	@echo Cleaning windows_vst
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -137,10 +137,19 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 endif
 
+$(OBJDIR)/correlation_meter.o: ../../../src/correlation_meter.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_processor.o: ../../../src/plugin_processor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/overflow_meter.o: ../../../src/overflow_meter.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/resources.o: ../../../src/resources.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/stereo_kmeter.o: ../../../src/stereo_kmeter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_ballistics.o: ../../../src/meter_ballistics.cpp
@@ -155,19 +164,10 @@ $(OBJDIR)/stereo_meter.o: ../../../src/stereo_meter.cpp
 $(OBJDIR)/meter_bar.o: ../../../src/meter_bar.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/meter_segment.o: ../../../src/meter_segment.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/stereo_kmeter.o: ../../../src/stereo_kmeter.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/resources.o: ../../../src/resources.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/correlation_meter.o: ../../../src/correlation_meter.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/main.o: ../../../src/main.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/meter_segment.o: ../../../src/meter_segment.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_library_code_1.o: ../../../src/juce_library_code/juce_library_code_1.cpp

@@ -26,7 +26,7 @@
 if not _ACTION then
 	-- prevent "attempt to ... (a nil value)" errors
 elseif _ACTION == "gmake" then
-	print "=== Generating project files (GNU g++) ==="
+	print ("=== Generating project files (GNU g++, " .. os.get():upper() .. ") ===")
 elseif string.startswith(_ACTION, "vs") then
 	print "=== Generating project files (Visual C++) ==="
 else
@@ -76,10 +76,7 @@ solution "kmeter"
 		defines {
 			"KMETER_STAND_ALONE=1",
 			"JUCETICE_USE_AMALGAMA=1",
-			"JUCE_ALSA=1",
-			"JUCE_JACK=1",
-			"JUCE_USE_VSTSDK_2_4=0",
-			"JUCE_USE_XSHM=1"
+			"JUCE_USE_VSTSDK_2_4=0"
 		}
 
 		files {
@@ -87,34 +84,38 @@ solution "kmeter"
 			"../libraries/juce/extras/audio plugins/wrapper/Standalone/*.cpp"
 		}
 
-		includedirs {
-			"/usr/include",
-			"/usr/include/freetype2"
-		}
-
-		libdirs {
-			"../libraries/juce/bin",
-			"/usr/X11R6/lib32/",
-			"/usr/lib32/"
-		}
-
-		links {
-			"freetype",
-			"pthread",
-			"rt",
-			"X11",
-			"Xext",
-			"asound"
-		}
-
 		configuration {"linux"}
 			defines {
-				"LINUX=1"
+				"LINUX=1",
+				"JUCE_USE_XSHM=1",
+				"JUCE_ALSA=1",
+				"JUCE_JACK=1"
+			}
+
+			links {
+				"freetype",
+				"pthread",
+				"rt",
+				"X11",
+				"Xext",
+				"asound"
+			}
+
+			includedirs {
+				"/usr/include",
+				"/usr/include/freetype2"
+			}
+			
+			libdirs {
+				"/usr/X11R6/lib32/"
 			}
 
 		configuration {"windows"}
 			defines {
-				"WIN32=1"
+				"WIN32=1",
+				"JUCE_USE_XSHM=0",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0"
 			}
 
 		configuration "Debug"
@@ -139,10 +140,7 @@ solution "kmeter"
 		defines {
 			"KMETER_VST_PLUGIN=1",
 			"JUCETICE_USE_AMALGAMA=1",
-			"JUCE_ALSA=0",
-			"JUCE_JACK=0",
-			"JUCE_USE_VSTSDK_2_4=1",
-			"JUCE_USE_XSHM=1"
+			"JUCE_USE_VSTSDK_2_4=1"
 		}
 
 		excludes {
@@ -150,34 +148,38 @@ solution "kmeter"
 			"../src/standalone_application.cpp"
 		}
 
-		includedirs {
-			"/usr/include",
-			"/usr/include/freetype2",
-			"../libraries/vstsdk2.4"
-		}
-
-		libdirs {
-			"../libraries/juce/bin",
-			"/usr/X11R6/lib32/",
-			"/usr/lib32/"
-		}
-
-		links {
-			"freetype",
-			"pthread",
-			"rt",
-			"X11",
-			"Xext"
-		}
-
 		configuration {"linux"}
 			defines {
-				"LINUX=1"
+				"LINUX=1",
+				"JUCE_USE_XSHM=1",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0"
+			}
+
+			includedirs {
+				"/usr/include",
+				"/usr/include/freetype2",
+				"../libraries/vstsdk2.4"
+			}
+
+			libdirs {
+				"/usr/X11R6/lib32/"
+			}
+
+			links {
+				"freetype",
+				"pthread",
+				"rt",
+				"X11",
+				"Xext"
 			}
 
 		configuration {"windows"}
 			defines {
-				"WIN32=1"
+				"WIN32=1",
+				"JUCE_USE_XSHM=0",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0"
 			}
 
 		configuration "Debug"

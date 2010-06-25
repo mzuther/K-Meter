@@ -23,12 +23,12 @@ ifeq ($(config),debug32)
   OBJDIR     = ../../../bin/intermediate_linux/vst_debug/x32
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/kmeter_vst_debug.so
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_USE_VSTSDK_2_4=1 -DJUCE_USE_XSHM=1 -DLINUX=1
+  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0
   INCLUDES  += -I../../../src -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk2.4
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fPIC -fno-inline
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -shared -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L../../../libraries/juce/bin -L/usr/X11R6/lib32 -L/usr/lib32
+  LDFLAGS   += -shared -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L/usr/X11R6/lib32
   LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -ljuce_debug32
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
@@ -45,12 +45,12 @@ ifeq ($(config),release32)
   OBJDIR     = ../../../bin/intermediate_linux/vst_release/x32
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/kmeter_vst.so
-  DEFINES   += -DNDEBUG -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_USE_VSTSDK_2_4=1 -DJUCE_USE_XSHM=1 -DLINUX=1
+  DEFINES   += -DNDEBUG -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0
   INCLUDES  += -I../../../src -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk2.4
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -fPIC -pipe -fvisibility=hidden
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -shared -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L../../../libraries/juce/bin -L/usr/X11R6/lib32 -L/usr/lib32
+  LDFLAGS   += -s -shared -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L/usr/X11R6/lib32
   LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -ljuce32
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 

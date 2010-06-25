@@ -42,7 +42,9 @@ function correct_premake4_bug_3015312
 cd $(dirname $0)
 
 echo
+premake4 --cc=gcc --os=windows gmake
 
+echo
 premake4 --cc=gcc --os=linux gmake
 
 echo
