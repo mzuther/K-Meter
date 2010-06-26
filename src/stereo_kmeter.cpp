@@ -88,8 +88,8 @@ void StereoKmeter::paint(Graphics& g)
 	g.setColour(Colours::darkgrey.darker(0.4f));
 	g.drawRect(1, 1, getWidth() - 2, getHeight() - 2);
 
-	int x = 2;
-	int y = 22;
+	int x = 3;
+	int y = 23;
 	int width = 24;
 	int height = 11;
 	String strMarker;
