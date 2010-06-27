@@ -29,10 +29,10 @@
 #include "juce_library_code/juce_header.h"
 #include "juce_library_code/JucePluginCharacteristics.h"
 #include "plugin_processor.h"
-#include "resources.h"
 #include "stereo_kmeter.h"
 #include "stereo_meter.h"
 #include "correlation_meter.h"
+#include "about_window.h"
 
 
 //==============================================================================
@@ -72,12 +72,7 @@ private:
 	TextButton* ButtonReset;
 
 	TextButton *ButtonMono;
-
-	ImageButton* ButtonAbout;
-
-	Image* ImageButtonGplNormal;
-	Image* ImageButtonGplOver;
-	Image* ImageButtonGplDown;
+	TextButton* ButtonAbout;
 };
 
 

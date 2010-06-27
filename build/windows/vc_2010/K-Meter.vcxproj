@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\about_window.h" />
     <ClInclude Include="..\..\..\src\correlation_meter.h" />
     <ClInclude Include="..\..\..\src\juce_library_code\app_config.h" />
     <ClInclude Include="..\..\..\src\juce_library_code\JucePluginCharacteristics.h" />
@@ -26,6 +27,7 @@
     <ClInclude Include="..\..\..\src\stereo_meter.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\about_window.cpp" />
     <ClCompile Include="..\..\..\src\correlation_meter.cpp" />
     <ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_1.cpp" />
     <ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_2.cpp" />

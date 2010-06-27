@@ -40,6 +40,9 @@
     <ClInclude Include="..\..\..\src\correlation_meter.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\about_window.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\main.cpp">
@@ -85,6 +88,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\correlation_meter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\about_window.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

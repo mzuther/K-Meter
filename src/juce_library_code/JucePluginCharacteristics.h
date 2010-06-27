@@ -35,7 +35,7 @@
 #define JucePlugin_Build_RTAS   0
 
 #define JucePlugin_Name                 "K-Meter"
-#define JucePlugin_Desc                 "K-Meter"
+#define JucePlugin_Desc                 "Implementation of a K-System meter according to Bob Katz' specifications"
 #define JucePlugin_Manufacturer         "Martin Zuther"
 #define JucePlugin_ManufacturerCode     'mz'
 #define JucePlugin_PluginCode           'kmet'

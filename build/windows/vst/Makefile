@@ -72,6 +72,7 @@ OBJECTS := \
 	$(OBJDIR)/meter_ballistics.o \
 	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/stereo_meter.o \
+	$(OBJDIR)/about_window.o \
 	$(OBJDIR)/meter_bar.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/meter_segment.o \
@@ -159,6 +160,9 @@ $(OBJDIR)/plugin_editor.o: ../../../src/plugin_editor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/stereo_meter.o: ../../../src/stereo_meter.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/about_window.o: ../../../src/about_window.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_bar.o: ../../../src/meter_bar.cpp

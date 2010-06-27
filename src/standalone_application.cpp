@@ -39,13 +39,13 @@ void StandaloneApplication::initialise(const String& commandLineParameters)
     T("kmeterrc"), String::empty, T(".config/kmeter"),
 	 400, PropertiesFile::storeAsXML);
 
-  String strApplicationName = getApplicationName() + T(" ") + getApplicationVersion();
+  String strApplicationName = getApplicationName();
 
   filterWindow = new StandaloneFilterWindow(strApplicationName, Colours::black);
 
   filterWindow->setTitleBarButtonsRequired(DocumentWindow::allButtons, false);
   filterWindow->setVisible(true);
-  filterWindow->setResizable(true, true);
+  filterWindow->setResizable(false, true);
 }
 
 void StandaloneApplication::shutdown()

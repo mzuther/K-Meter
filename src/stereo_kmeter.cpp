@@ -77,7 +77,7 @@ void StereoKmeter::visibilityChanged()
 
 void StereoKmeter::paint(Graphics& g)
 {
-	g.fillAll(Colours::darkgrey.darker(0.4f));
+	g.fillAll(Colours::grey.withAlpha(0.1f));
 
 	g.setColour(Colours::darkgrey);
 	g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);

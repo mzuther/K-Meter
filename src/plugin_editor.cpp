@@ -25,7 +25,6 @@
 
 #include "plugin_editor.h"
 
-
 //==============================================================================
 KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* ownerFilter)
     : AudioProcessorEditor(ownerFilter)
@@ -124,28 +123,22 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	addAndMakeVisible(ButtonMono);
 
 	Label* LabelReadoutWarning = new Label(T("Readout Warning"), "Read-out\nnot yet\nvalidated!");
-	LabelReadoutWarning->setBounds(130, 502, 80, 40);
+	LabelReadoutWarning->setBounds(130, 511, 80, 40);
 	LabelReadoutWarning->setColour(Label::textColourId, Colours::yellow);
 	LabelReadoutWarning->setJustificationType(Justification::centred);
 	addAndMakeVisible(LabelReadoutWarning);
 
 	#ifdef DEBUG
 	Label* LabelDebug = new Label(T("Debug Notification"), "DEBUG");
-	LabelDebug->setBounds(145, 560, 50, 16);
+	LabelDebug->setBounds(145, 567, 50, 16);
 	LabelDebug->setColour(Label::textColourId, Colours::red);
 	addAndMakeVisible(LabelDebug);
 	#endif
 
-   ImageButtonGplNormal = ImageCache::getFromMemory(resources::button_gpl_normal_png, resources::button_gpl_normal_pngSize);
-   ImageButtonGplOver = ImageCache::getFromMemory(resources::button_gpl_over_png, resources::button_gpl_over_pngSize);
-   ImageButtonGplDown = ImageCache::getFromMemory(resources::button_gpl_down_png, resources::button_gpl_down_pngSize);
-
-	ButtonAbout = new ImageButton(T("About"));
-	ButtonAbout->setBounds(138, 580, 60, 20);
-	ButtonAbout->setImages(true, false, true,
-								  ImageButtonGplNormal, 1.0f, Colour(),
-								  ImageButtonGplOver, 1.0f, Colour(),
-								  ImageButtonGplDown, 1.0f, Colour());
+	ButtonAbout = new TextButton(T("About"));
+	ButtonAbout->setBounds(140, 589, 60, 20);
+	ButtonAbout->setColour(TextButton::buttonColourId, Colours::grey);
+	ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
 	ButtonAbout->addButtonListener(this);
 	addAndMakeVisible(ButtonAbout);
@@ -202,7 +195,7 @@ void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChang
 //==============================================================================
 void KmeterAudioProcessorEditor::paint(Graphics& g)
 {
-	g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.4f), 0, 0, Colours::darkgrey.darker(1.0f), 0, (float) getHeight(), false));
+	g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.8f), 0, 0, Colours::darkgrey.darker(1.4f), 0, (float) getHeight(), false));
 	g.fillAll();
 }
 
@@ -255,7 +248,13 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 	}
 	else if (button == ButtonAbout)
 	{
-	  URL("http://www.gnu.org/licenses/gpl-3.0.html").launchInDefaultBrowser();
+	  AboutWindow* aboutWindow = new AboutWindow(getWidth(), getHeight());
+	  addAndMakeVisible(aboutWindow);
+
+	  aboutWindow->runModalLoop();
+
+	  removeChildComponent(aboutWindow);
+	  delete aboutWindow;
 	}
 
 	if (reloadStereoKmeter)
