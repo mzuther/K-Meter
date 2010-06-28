@@ -5,7 +5,10 @@
 *.sln
 *.suo
 
-bin/
+bin/*
+!bin/final/
+!bin/releases/
+
 ignore/
 
 ipch/
