@@ -132,6 +132,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	Label* LabelDebug = new Label(T("Debug Notification"), "DEBUG");
 	LabelDebug->setBounds(145, 567, 50, 16);
 	LabelDebug->setColour(Label::textColourId, Colours::red);
+	LabelDebug->setJustificationType(Justification::centred);
 	addAndMakeVisible(LabelDebug);
 	#endif
 

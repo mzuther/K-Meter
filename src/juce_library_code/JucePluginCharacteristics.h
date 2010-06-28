@@ -36,7 +36,7 @@
 
 #define JucePlugin_Name                 "K-Meter"
 #define JucePlugin_Desc                 "Implementation of a K-System meter according to Bob Katz' specifications"
-#define JucePlugin_Manufacturer         "Martin Zuther"
+#define JucePlugin_Manufacturer         "mzuther"
 #define JucePlugin_ManufacturerCode     'mz'
 #define JucePlugin_PluginCode           'kmet'
 #define JucePlugin_MaxNumInputChannels  2
@@ -48,8 +48,8 @@
 #define JucePlugin_SilenceInProducesSilenceOut  1
 #define JucePlugin_TailLengthSeconds    0
 #define JucePlugin_EditorRequiresKeyboardFocus  0
-#define JucePlugin_VersionCode          0x11000
-#define JucePlugin_VersionString        "1.16.0"
+#define JucePlugin_VersionCode          0x11100
+#define JucePlugin_VersionString        "1.17.0"
 #define JucePlugin_VSTUniqueID          JucePlugin_PluginCode
 #define JucePlugin_VSTCategory          kPlugCategEffect
 #define JucePlugin_AUMainType           kAudioUnitType_Effect
