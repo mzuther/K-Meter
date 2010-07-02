@@ -5,6 +5,8 @@
 *.sln
 *.suo
 
+.Rhistory
+
 bin/*
 !bin/final/
 !bin/releases/
