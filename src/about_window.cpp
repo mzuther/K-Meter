@@ -61,6 +61,7 @@ AboutWindow::AboutWindow(int nWidth, int nHeight)
   TextEditorAbout->setFont(fontNormal);
   TextEditorAbout->insertTextAtCaret(
     "Martin Zuther\n"
+    "Bob Katz\n"
     "bram@smartelectronix\n\n");
 
 #ifdef KMETER_VST_PLUGIN
