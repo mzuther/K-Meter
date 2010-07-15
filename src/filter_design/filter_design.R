@@ -2,6 +2,142 @@
 # Functions
 #*******************
 
+calculate_chebyshev_coefficients <- function(cutoff_frequency, is_high_pass, percent_ripple, number_of_poles, pole_pair)
+# This function has been derived from "The Scientist and Engineer's
+# Guide to Digital Signal Processing." (http://www.dspguide.com/)
+# under the following copyright notice: "All these programs may be
+# copied, distributed, and used for any noncommercial purpose."
+#
+# cutoff_frequency:  cutoff frequency (0.0 to 0.5)
+# is_high_pass:  false --> low pass filter, true --> high pass filter
+# percent_ripple:  percent ripple (0 to 29)
+# number_of_poles:  number of poles (2,4,...20)
+# pole_pair:  pole pair (number_of_poles/2)
+{
+  # calculate the pole location on the unit circle
+  RP <- -cos((pole_pair - 0.5) * pi / number_of_poles)
+  IP <- sin((pole_pair - 0.5) * pi / number_of_poles)
+
+  # warp from a circle to an ellipse
+  if (percent_ripple > 0)
+  {
+    ES <- sqrt((100 / (100 - percent_ripple)) ** 2 - 1)
+    VX <- (1 / number_of_poles) * log((1 / ES) + sqrt((1 / ES ** 2) + 1))
+    KX <- (1 / number_of_poles) * log((1 / ES) + sqrt((1 / ES ** 2) - 1))
+    KX <- (exp(KX) + exp(-KX)) / 2
+    RP <- RP * ((exp(VX) - exp(-VX)) / 2) / KX
+    IP <- IP * ((exp(VX) + exp(-VX)) / 2) / KX
+  }
+
+  # s-domain to z-domain conversion
+  T <- 2 * tan(0.5)
+  W <- 2 * pi * cutoff_frequency
+  M <- RP ** 2 + IP ** 2
+  D <- 4 - (4 * RP * T) + (M * T ** 2)
+  X0 <- T ** 2 / D
+  X1 <- 2 * T ** 2 / D
+  X2 <- T ** 2 / D
+  Y1 <- (8 - 2 * M * T ** 2) / D
+  Y2 <- (-4 - 4 * RP * T - M * T ** 2) / D
+
+  # LP TO LP, or LP TO HP transform
+
+  if (is_high_pass)
+    K <- -cos((W + 1) / 2) / cos((W - 1) / 2)
+  else
+    K <- sin((1 - W) / 2) / sin((1 + W) / 2)
+
+  D <- 1 + Y1 * K - Y2 * K ** 2
+  A0 <- (X0 - X1 * K + X2 * K ** 2) / D
+  A1 <- (-2 * X0 * K + X1 + X1 * K ** 2 - 2 * X2 * K) / D
+  A2 <- (X0 * K ** 2 - X1 * K + X2) / D
+  B1 <- (2 * K + Y1 + Y1 * K ** 2 - 2 * Y2 * K) / D
+  B2 <- (-(K ** 2) - Y1 * K + Y2) / D
+
+  if (is_high_pass)
+  {
+    A1 <- -A1
+    B1 <- -B1
+  }
+
+  return (c(A0, A1, A2, B1, B2))
+}
+
+
+calculate_chebyshev_filter <- function(cutoff_frequency, is_high_pass, percent_ripple, number_of_poles)
+{
+  A <- array()   # holds the "a" coefficients upon program completion
+  B <- array()   # holds the "b" coefficients upon program completion
+  TA <- array()  #internal use for combining stages
+  TB <- array()  #internal use for combining stages
+
+  for (i in 1:23)
+  {
+    A[i] <- 0
+    B[i] <- 0
+  }
+  
+  A[3] <- 1
+  B[3] <- 1
+
+  for (pole_pair in 1:(number_of_poles/2))  # loop for each pole-pair
+  {
+    result <- calculate_chebyshev_coefficients(cutoff_frequency, is_high_pass, percent_ripple, number_of_poles, pole_pair)
+
+    print(result)
+
+    for (i in 1:23)
+    {
+      TA[i] <- A[i]
+      TB[i] <- B[i]
+    }
+
+    for (i in 3:23)
+    {
+      A[i] <- result[1] * TA[i] + result[2] * TA[i - 1] + result[3] * TA[i - 2]
+      B[i] <- TB[i] - result[4] * TB[i - 1] - result[5] * TB[i - 2]
+    }
+  }
+
+  B[3] <- 0  # finish combining coefficients
+
+  for (i in 1:21)
+  {
+    A[i] <- A[i + 2]
+    B[i] <- -B[i + 2]
+  }
+
+  SA <- 0  # NORMALIZE the gain
+  SB <- 0
+
+  for (i in 1:21)
+  {
+    if (is_high_pass)
+    {
+      SA <- SA + A[i] * (-1) ** i
+      SB <- SB + B[i] * (-1) ** i
+    }
+    else
+    {
+      SA <- SA + A[i]
+      SB <- SB + B[i]
+    }
+  }
+  
+  GAIN <- SA / (1 - SB)
+
+  for (i in 1:21)
+    A[i] <- A[i] / GAIN
+
+  return (c(A, B))
+}
+
+# calculate_chebyshev_filter(cutoff_frequency, is_high_pass, percent_ripple, number_of_poles)
+chebyshev_filter <- calculate_chebyshev_filter(0.05, TRUE, 5, 2)
+plot(chebyshev_filter, type="l")
+calculate_frequency_response(chebyshev_filter)
+
+
 plot_impulse_response <- function(samples, impulse_response, xlim, ylim)
 {
   main <- "Filter kernel"

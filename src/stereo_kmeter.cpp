@@ -25,10 +25,11 @@
 
 #include "stereo_kmeter.h"
 
-StereoKmeter::StereoKmeter(const String &componentName, int posX, int posY, int nHeadroom, bool bExpanded, int nSegmentHeight)
+StereoKmeter::StereoKmeter(const String &componentName, int posX, int posY, int nHeadroom, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight)
 {
 	setName(componentName);
 	isExpanded = bExpanded;
+	displayPeakMeter = bDisplayPeakMeter;
 
 	nPosX = posX;
 	nPosY = posY;
@@ -43,17 +44,28 @@ StereoKmeter::StereoKmeter(const String &componentName, int posX, int posY, int 
 	else
 		nMeterHeadroom = 20;
 
-	PeakMeterLeft = new MeterBar(T("Peak Meter Left"), 3, 28, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("left"));
-	PeakMeterRight = new MeterBar(T("Peak Meter Right"), 94, 28, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("right"));
-	
-	AverageMeterLeft = new MeterBar(T("Average Meter Left"), 17, 28, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
-	AverageMeterRight = new MeterBar(T("Average Meter Right"), 71, 28, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+	if (displayPeakMeter)
+	{
+	  PeakMeterLeft = new MeterBar(T("Peak Meter Left"), 3, 28, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("left"));
+	  PeakMeterRight = new MeterBar(T("Peak Meter Right"), 94, 28, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("right"));
 
-	addAndMakeVisible(PeakMeterLeft);
-	addAndMakeVisible(PeakMeterRight);
+	  addAndMakeVisible(PeakMeterLeft);
+	  addAndMakeVisible(PeakMeterRight);
 	
-	addAndMakeVisible(AverageMeterLeft);
-	addAndMakeVisible(AverageMeterRight);
+	  AverageMeterLeft = new MeterBar(T("Average Meter Left"), 17, 28, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+	  AverageMeterRight = new MeterBar(T("Average Meter Right"), 71, 28, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+
+	  addAndMakeVisible(AverageMeterLeft);
+	  addAndMakeVisible(AverageMeterRight);
+  	}
+	else
+	{
+	  AverageMeterLeft = new MeterBar(T("Average Meter Left"), 7, 28, 20, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+	  AverageMeterRight = new MeterBar(T("Average Meter Right"), 79, 28, 20, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+
+	  addAndMakeVisible(AverageMeterLeft);
+	  addAndMakeVisible(AverageMeterRight);
+  	}
 
 	OverflowMeterLeft = new OverflowMeter(T("Overflows Left"));
 	OverflowMeterLeft->setBounds(3, 3, 32, 16);
@@ -230,8 +242,11 @@ void StereoKmeter::resized()
 
 void StereoKmeter::setLevels(MeterBallistics* pMB)
 {
-	PeakMeterLeft->setLevels(pMB->getPeakMeterLeft(), pMB->getPeakMeterLeftPeak());
-	PeakMeterRight->setLevels(pMB->getPeakMeterRight(), pMB->getPeakMeterRightPeak());
+	if (displayPeakMeter)
+	{
+	  PeakMeterLeft->setLevels(pMB->getPeakMeterLeft(), pMB->getPeakMeterLeftPeak());
+	  PeakMeterRight->setLevels(pMB->getPeakMeterRight(), pMB->getPeakMeterRightPeak());
+	}
 
 	AverageMeterLeft->setLevels(pMB->getAverageMeterLeft(), pMB->getAverageMeterLeftPeak());
 	AverageMeterRight->setLevels(pMB->getAverageMeterRight(), pMB->getAverageMeterRightPeak());
@@ -247,16 +262,38 @@ void StereoKmeter::drawMarkers(Graphics& g, String& strMarker, int x, int y, int
 
 	g.setColour(Colours::grey);
 
-	int nMarkerX = x + 10;
 	int nMarkerY = y + 5;
+	int nStart = 0;
+	int nEnd = 0;
+	int nWidth = 0;
 
-	g.setPixel(nMarkerX++, nMarkerY);
-	g.setPixel(nMarkerX++, nMarkerY);
-	g.setPixel(nMarkerX++, nMarkerY);
+	if (displayPeakMeter)
+	{
+	  nWidth = 3;
+	  nStart = x + 10;
+	  nEnd = nStart + nWidth;
+	}
+	else
+	{
+	  nWidth = 9;
+	  nStart = x + 25;
+	  nEnd = nStart + nWidth;
+	}
 
-	nMarkerX = x + 87;
+	for (int nMarkerX=nStart; nMarkerX < nEnd; nMarkerX++)
+	  g.setPixel(nMarkerX, nMarkerY);
 
-	g.setPixel(nMarkerX++, nMarkerY);
-	g.setPixel(nMarkerX++, nMarkerY);
-	g.setPixel(nMarkerX++, nMarkerY);
+	if (displayPeakMeter)
+	{
+	  nStart = x + 89;
+	  nEnd = nStart - nWidth;
+	}
+	else
+	{
+	  nStart = x + 74;
+	  nEnd = nStart - nWidth;
+	}
+
+	for (int nMarkerX=nStart; nMarkerX > nEnd; nMarkerX--)
+	  g.setPixel(nMarkerX, nMarkerY);
 }

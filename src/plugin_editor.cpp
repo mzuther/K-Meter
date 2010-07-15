@@ -78,8 +78,26 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	ButtonNormal->addButtonListener(this);
 	addAndMakeVisible(ButtonNormal);
 
+	ButtonDisplayPeakMeter = new TextButton(T("Peaks"));
+	ButtonDisplayPeakMeter->setBounds(140, 125, 60, 20);
+	ButtonDisplayPeakMeter->setColour(TextButton::buttonColourId, Colours::grey);
+	ButtonDisplayPeakMeter->setColour(TextButton::buttonOnColourId, Colours::yellow);
+	ButtonDisplayPeakMeter->setClickingTogglesState(true);
+
+	ButtonDisplayPeakMeter->addButtonListener(this);
+	addAndMakeVisible(ButtonDisplayPeakMeter);
+
+	ButtonExpanded = new TextButton(T("Expand"));
+	ButtonExpanded->setBounds(140, 150, 60, 20);
+	ButtonExpanded->setColour(TextButton::buttonColourId, Colours::grey);
+	ButtonExpanded->setColour(TextButton::buttonOnColourId, Colours::yellow);
+	ButtonExpanded->setClickingTogglesState(true);
+
+	ButtonExpanded->addButtonListener(this);
+	addAndMakeVisible(ButtonExpanded);
+
 	ButtonPeakHold = new TextButton(T("Peak Hold"));
-	ButtonPeakHold->setBounds(140, 125, 60, 20);
+	ButtonPeakHold->setBounds(140, 190, 60, 20);
 	ButtonPeakHold->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonPeakHold->setColour(TextButton::buttonOnColourId, Colours::red);
 	ButtonPeakHold->setClickingTogglesState(true);
@@ -88,7 +106,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	addAndMakeVisible(ButtonPeakHold);
 
 	ButtonAverageHold = new TextButton(T("Avg Hold"));
-	ButtonAverageHold->setBounds(140, 150, 60, 20);
+	ButtonAverageHold->setBounds(140, 215, 60, 20);
 	ButtonAverageHold->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonAverageHold->setColour(TextButton::buttonOnColourId, Colours::red);
 	ButtonAverageHold->setClickingTogglesState(true);
@@ -96,17 +114,8 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	ButtonAverageHold->addButtonListener(this);
 	addAndMakeVisible(ButtonAverageHold);
 
-    ButtonExpanded = new TextButton(T("Expand"));
-    ButtonExpanded->setBounds(140, 175, 60, 20);
-    ButtonExpanded->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonExpanded->setColour(TextButton::buttonOnColourId, Colours::yellow);
-    ButtonExpanded->setClickingTogglesState(true);
-
-    ButtonExpanded->addButtonListener(this);
-    addAndMakeVisible(ButtonExpanded);
-
 	ButtonReset = new TextButton(T("Reset"));
-	ButtonReset->setBounds(140, 200, 60, 20);
+	ButtonReset->setBounds(140, 240, 60, 20);
 	ButtonReset->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonReset->setColour(TextButton::buttonOnColourId, Colours::red);
 
@@ -114,7 +123,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	addAndMakeVisible(ButtonReset);
 
 	ButtonMono = new TextButton(T("Mono"));
-	ButtonMono->setBounds(140, 240, 60, 20);
+	ButtonMono->setBounds(140, 280, 60, 20);
 	ButtonMono->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonMono->setColour(TextButton::buttonOnColourId, Colours::yellow);
 	ButtonMono->setClickingTogglesState(false);
@@ -151,6 +160,9 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	addAndMakeVisible(correlationMeter);
 
 	stereoKmeter = NULL;
+
+	// display peak meter
+	ButtonDisplayPeakMeter->setToggleState(true, false);
 
 	// display non-expanded meter
 	ButtonExpanded->setToggleState(false, false);
@@ -238,6 +250,11 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 	{
 		reloadStereoKmeter = true;
 	}
+	else if (button == ButtonDisplayPeakMeter)
+	{
+		reloadStereoKmeter = true;
+		ButtonPeakHold->setVisible(ButtonDisplayPeakMeter->getToggleState());
+	}
 	else if (button == ButtonReset)
 	{
 		MeterBallistics* pBallistics = pProcessor->getLevels();
@@ -266,7 +283,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 			delete stereoKmeter;
 		}
 
-		stereoKmeter = new StereoKmeter(T("Stereo K-Meter"), 15, 5, nHeadroom, ButtonExpanded->getToggleState(), 4);
+		stereoKmeter = new StereoKmeter(T("Stereo K-Meter"), 15, 5, nHeadroom, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
 		addAndMakeVisible(stereoKmeter);
 	}
 }

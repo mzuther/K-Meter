@@ -1,5 +1,11 @@
 
+o [mzuther] display showing highest peak level
+
 o [mzuther] band limiter for average section
 
 o [mzuther] validate meter readouts
+
+o [mzuther] implement ITU BS.1770 loudness weighting
+
+* inter-sample peak meter
 

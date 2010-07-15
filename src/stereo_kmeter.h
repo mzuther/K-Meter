@@ -38,7 +38,7 @@
 class StereoKmeter : public Component
 {
 public:
-    StereoKmeter(const String &componentName, int PosX, int PosY, int nHeadroom, bool bExpanded, int nSegmentHeight);
+	StereoKmeter(const String &componentName, int PosX, int PosY, int nHeadroom, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight);
     ~StereoKmeter();
 
 	void setLevels(MeterBallistics* pMB);
@@ -51,6 +51,7 @@ private:
 	int nPosY;
 	int nMainSegmentHeight;
 	bool isExpanded;
+	bool displayPeakMeter;
 
 	int nMeterHeadroom;
 

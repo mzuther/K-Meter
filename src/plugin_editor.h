@@ -67,6 +67,7 @@ private:
 	TextButton* ButtonK20;
 
 	TextButton *ButtonExpanded;
+	TextButton *ButtonDisplayPeakMeter;
 	TextButton* ButtonPeakHold;
 	TextButton* ButtonAverageHold;
 	TextButton* ButtonReset;
