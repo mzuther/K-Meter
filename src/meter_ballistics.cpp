@@ -58,6 +58,9 @@ void MeterBallistics::reset()
 	fAverageMeterLeftPeak = fMeterMinimumDecibel;
 	fAverageMeterRightPeak = fMeterMinimumDecibel;
 
+	fPeakMeterLeftMaximumPeak = fMeterMinimumDecibel;
+	fPeakMeterRightMaximumPeak = fMeterMinimumDecibel;
+
 	nOverflowsLeft = 0;
 	nOverflowsRight = 0;
 }
@@ -135,6 +138,16 @@ float MeterBallistics::getPeakMeterRightPeak()
 	return fPeakMeterRightPeak;
 }
 
+float MeterBallistics::getPeakMeterRightMaximumPeak()
+{
+	return fPeakMeterRightMaximumPeak;
+}
+
+float MeterBallistics::getPeakMeterLeftMaximumPeak()
+{
+	return fPeakMeterLeftMaximumPeak;
+}
+
 float MeterBallistics::getAverageMeterLeftPeak()
 {
 	return fAverageMeterLeftPeak;
@@ -188,6 +201,12 @@ void MeterBallistics::update(int nChannels, float fTimeFrame, float fPeakLeft, f
 	  fPeakRight = level2decibel(fPeakRight);
 	  fAverageRight = level2decibel(fAverageRight) + fAverageCorrection;
 	}
+
+	if (fPeakLeft > fPeakMeterLeftMaximumPeak)
+		fPeakMeterLeftMaximumPeak = fPeakLeft;
+
+	if (fPeakRight > fPeakMeterRightMaximumPeak)
+		fPeakMeterRightMaximumPeak = fPeakRight;
 
 	fPeakMeterLeft = PeakMeterBallistics(fTimeFrame, fPeakLeft, fPeakMeterLeft);
 	fPeakMeterLeftPeak = PeakMeterPeakBallistics(fTimeFrame, &fPeakMeterLeftPeakLastChanged, fPeakLeft, fPeakMeterLeftPeak);

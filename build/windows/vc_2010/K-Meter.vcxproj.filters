@@ -43,6 +43,9 @@
     <ClInclude Include="..\..\..\src\about_window.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\peak_label.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\main.cpp">
@@ -91,6 +94,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\about_window.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\peak_label.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

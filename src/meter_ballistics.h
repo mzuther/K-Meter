@@ -57,6 +57,9 @@ public:
 	float getAverageMeterLeftPeak();
 	float getAverageMeterRightPeak();
 
+	float getPeakMeterLeftMaximumPeak();
+	float getPeakMeterRightMaximumPeak();
+
 	int getOverflowsLeft();
 	int getOverflowsRight();
 
@@ -80,6 +83,9 @@ private:
 	float fPeakMeterRightPeak;
 	float fAverageMeterLeftPeak;
 	float fAverageMeterRightPeak;
+
+	float fPeakMeterLeftMaximumPeak;
+	float fPeakMeterRightMaximumPeak;
 
 	int nOverflowsLeft;
 	int nOverflowsRight;

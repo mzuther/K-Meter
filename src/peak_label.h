@@ -23,52 +23,28 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __STEREO_KMETER_H__
-#define __STEREO_KMETER_H__
+#ifndef __PEAK_LABEL_H__
+#define __PEAK_LABEL_H__
 
 #include "juce_library_code/juce_header.h"
-#include "meter_bar.h"
-#include "overflow_meter.h"
-#include "peak_label.h"
-#include "plugin_processor.h"
 
 
 //==============================================================================
 /**
 */
-class StereoKmeter : public Component
+class PeakLabel : public Label
 {
 public:
-	StereoKmeter(const String &componentName, int PosX, int PosY, int nHeadroom, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight);
-    ~StereoKmeter();
+	PeakLabel(const String &componentName, int nHeadroom);
+	~PeakLabel();
 
-	void setLevels(MeterBallistics* pMB);
-	void paint(Graphics& g);
-	void resized();
-	void visibilityChanged();
+	void resetLevel();
+	void updateLevel(float newLevel);
 
 private:
-	int nPosX;
-	int nPosY;
-	int nMainSegmentHeight;
-	bool isExpanded;
-	bool displayPeakMeter;
-
 	int nMeterHeadroom;
-
-	MeterBar* PeakMeterLeft;
-	MeterBar* PeakMeterRight;
-	MeterBar* AverageMeterLeft;
-	MeterBar* AverageMeterRight;
-
-	OverflowMeter* OverflowMeterLeft;
-	OverflowMeter* OverflowMeterRight;
-
-	PeakLabel* MaximumPeakLeft;
-	PeakLabel* MaximumPeakRight;
-
-	void drawMarkers(Graphics& g, String& strMarker, int x, int y, int width, int height);
+	float fMaximumLevel;
 };
 
 
-#endif  // __STEREO_KMETER_H__
+#endif  // __PEAK_LABEL_H__

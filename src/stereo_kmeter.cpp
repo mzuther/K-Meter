@@ -46,22 +46,22 @@ StereoKmeter::StereoKmeter(const String &componentName, int posX, int posY, int 
 
 	if (displayPeakMeter)
 	{
-	  PeakMeterLeft = new MeterBar(T("Peak Meter Left"), 3, 28, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("left"));
-	  PeakMeterRight = new MeterBar(T("Peak Meter Right"), 94, 28, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("right"));
+	  PeakMeterLeft = new MeterBar(T("Peak Meter Left"), 3, 48, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("left"));
+	  PeakMeterRight = new MeterBar(T("Peak Meter Right"), 94, 48, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("right"));
 
 	  addAndMakeVisible(PeakMeterLeft);
 	  addAndMakeVisible(PeakMeterRight);
 	
-	  AverageMeterLeft = new MeterBar(T("Average Meter Left"), 17, 28, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
-	  AverageMeterRight = new MeterBar(T("Average Meter Right"), 71, 28, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+	  AverageMeterLeft = new MeterBar(T("Average Meter Left"), 17, 48, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+	  AverageMeterRight = new MeterBar(T("Average Meter Right"), 71, 48, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
 
 	  addAndMakeVisible(AverageMeterLeft);
 	  addAndMakeVisible(AverageMeterRight);
   	}
 	else
 	{
-	  AverageMeterLeft = new MeterBar(T("Average Meter Left"), 7, 28, 20, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
-	  AverageMeterRight = new MeterBar(T("Average Meter Right"), 79, 28, 20, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+	  AverageMeterLeft = new MeterBar(T("Average Meter Left"), 7, 48, 20, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+	  AverageMeterRight = new MeterBar(T("Average Meter Right"), 79, 48, 20, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
 
 	  addAndMakeVisible(AverageMeterLeft);
 	  addAndMakeVisible(AverageMeterRight);
@@ -74,6 +74,14 @@ StereoKmeter::StereoKmeter(const String &componentName, int posX, int posY, int 
 	OverflowMeterRight = new OverflowMeter(T("Overflows Right"));
 	OverflowMeterRight->setBounds(71, 3, 32, 16);
 	addAndMakeVisible(OverflowMeterRight);
+
+	MaximumPeakLeft = new PeakLabel(T("Maximum Peak Left"), nHeadroom);
+	MaximumPeakLeft->setBounds(3, 23, 32, 16);
+	addAndMakeVisible(MaximumPeakLeft);
+
+	MaximumPeakRight = new PeakLabel(T("Maximum Peak Right"), nHeadroom);
+	MaximumPeakRight->setBounds(71, 23, 32, 16);
+	addAndMakeVisible(MaximumPeakRight);
 }
 
 StereoKmeter::~StereoKmeter()
@@ -83,7 +91,7 @@ StereoKmeter::~StereoKmeter()
 	
 void StereoKmeter::visibilityChanged()
 {
-	int height = 134 * nMainSegmentHeight + 32;
+	int height = 134 * nMainSegmentHeight + 52;
 	setBounds(nPosX, nPosY, 106, height);
 }
 
@@ -101,12 +109,17 @@ void StereoKmeter::paint(Graphics& g)
 	g.drawRect(1, 1, getWidth() - 2, getHeight() - 2);
 
 	int x = 3;
-	int y = 23;
+	int y = 43;
 	int width = 24;
 	int height = 11;
 	String strMarker;
 
 	g.setColour(Colours::white);
+	g.setFont(12.0f);
+
+	g.drawFittedText("Over", 35, 3, 36, 16, Justification::centred, 1, 1.0f);
+	g.drawFittedText("Peak", 35, 23, 36, 16, Justification::centred, 1, 1.0f);
+
 	g.setFont(11.0f);
 
 	if (isExpanded)
@@ -247,6 +260,9 @@ void StereoKmeter::setLevels(MeterBallistics* pMB)
 	  PeakMeterLeft->setLevels(pMB->getPeakMeterLeft(), pMB->getPeakMeterLeftPeak());
 	  PeakMeterRight->setLevels(pMB->getPeakMeterRight(), pMB->getPeakMeterRightPeak());
 	}
+
+	MaximumPeakLeft->updateLevel(pMB->getPeakMeterLeftMaximumPeak());
+	MaximumPeakRight->updateLevel(pMB->getPeakMeterRightMaximumPeak());
 
 	AverageMeterLeft->setLevels(pMB->getAverageMeterLeft(), pMB->getAverageMeterLeftPeak());
 	AverageMeterRight->setLevels(pMB->getAverageMeterRight(), pMB->getAverageMeterRightPeak());

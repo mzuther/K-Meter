@@ -20,6 +20,7 @@
     <ClInclude Include="..\..\..\src\meter_bar.h" />
     <ClInclude Include="..\..\..\src\meter_segment.h" />
     <ClInclude Include="..\..\..\src\overflow_meter.h" />
+    <ClInclude Include="..\..\..\src\peak_label.h" />
     <ClInclude Include="..\..\..\src\plugin_editor.h" />
     <ClInclude Include="..\..\..\src\plugin_processor.h" />
     <ClInclude Include="..\..\..\src\resources.h" />
@@ -38,6 +39,7 @@
     <ClCompile Include="..\..\..\src\meter_bar.cpp" />
     <ClCompile Include="..\..\..\src\meter_segment.cpp" />
     <ClCompile Include="..\..\..\src\overflow_meter.cpp" />
+    <ClCompile Include="..\..\..\src\peak_label.cpp" />
     <ClCompile Include="..\..\..\src\plugin_editor.cpp" />
     <ClCompile Include="..\..\..\src\plugin_processor.cpp" />
     <ClCompile Include="..\..\..\src\resources.cpp" />

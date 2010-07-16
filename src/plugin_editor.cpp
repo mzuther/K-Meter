@@ -30,7 +30,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     : AudioProcessorEditor(ownerFilter)
 {
 	// This is where our plugin's editor size is set.
-	setSize(220, 620);
+	setSize(220, 640);
 
 	nHeadroom = 0;
 	nNumberOfChannels = 0;
@@ -132,37 +132,37 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	addAndMakeVisible(ButtonMono);
 
 	Label* LabelReadoutWarning = new Label(T("Readout Warning"), "Read-out\nnot yet\nvalidated!");
-	LabelReadoutWarning->setBounds(130, 511, 80, 40);
+	LabelReadoutWarning->setBounds(130, 531, 80, 40);
 	LabelReadoutWarning->setColour(Label::textColourId, Colours::yellow);
 	LabelReadoutWarning->setJustificationType(Justification::centred);
 	addAndMakeVisible(LabelReadoutWarning);
 
 	#ifdef DEBUG
 	Label* LabelDebug = new Label(T("Debug Notification"), "DEBUG");
-	LabelDebug->setBounds(145, 567, 50, 16);
+	LabelDebug->setBounds(145, 587, 50, 16);
 	LabelDebug->setColour(Label::textColourId, Colours::red);
 	LabelDebug->setJustificationType(Justification::centred);
 	addAndMakeVisible(LabelDebug);
 	#endif
 
 	ButtonAbout = new TextButton(T("About"));
-	ButtonAbout->setBounds(140, 589, 60, 20);
+	ButtonAbout->setBounds(140, 609, 60, 20);
 	ButtonAbout->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
 	ButtonAbout->addButtonListener(this);
 	addAndMakeVisible(ButtonAbout);
 
-	stereoMeter = new StereoMeter(T("Stereo Meter"), 15, 580, 105, 15);
+	stereoMeter = new StereoMeter(T("Stereo Meter"), 15, 600, 105, 15);
 	addAndMakeVisible(stereoMeter);
 
-	correlationMeter = new CorrelationMeter(T("Correlation Meter"), 15, 600, 105, 13);
+	correlationMeter = new CorrelationMeter(T("Correlation Meter"), 15, 620, 105, 13);
 	addAndMakeVisible(correlationMeter);
 
 	stereoKmeter = NULL;
 
-	// display peak meter
-	ButtonDisplayPeakMeter->setToggleState(true, false);
+	// hide peak meter
+	ButtonDisplayPeakMeter->setToggleState(false, false);
 
 	// display non-expanded meter
 	ButtonExpanded->setToggleState(false, false);
