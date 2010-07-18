@@ -2,13 +2,13 @@
 # Functions
 #*******************
 
-calculate_chebyshev_coefficients <- function(cutoff_frequency, is_high_pass, percent_ripple, number_of_poles, pole_pair)
+calculate_chebyshev_stage_coefficients <- function(relative_cutoff_frequency, is_high_pass, percent_ripple, number_of_poles, pole_pair)
 # This function has been derived from "The Scientist and Engineer's
 # Guide to Digital Signal Processing." (http://www.dspguide.com/)
 # under the following copyright notice: "All these programs may be
 # copied, distributed, and used for any noncommercial purpose."
 #
-# cutoff_frequency:  cutoff frequency (0.0 to 0.5)
+# relative_cutoff_frequency:  cutoff frequency (0.0 to 0.5)
 # is_high_pass:  false --> low pass filter, true --> high pass filter
 # percent_ripple:  percent ripple (0 to 29)
 # number_of_poles:  number of poles (2,4,...20)
@@ -31,7 +31,7 @@ calculate_chebyshev_coefficients <- function(cutoff_frequency, is_high_pass, per
 
   # s-domain to z-domain conversion
   T <- 2 * tan(0.5)
-  W <- 2 * pi * cutoff_frequency
+  W <- 2 * pi * relative_cutoff_frequency
   M <- RP ** 2 + IP ** 2
   D <- 4 - (4 * RP * T) + (M * T ** 2)
   X0 <- T ** 2 / D
@@ -60,11 +60,15 @@ calculate_chebyshev_coefficients <- function(cutoff_frequency, is_high_pass, per
     B1 <- -B1
   }
 
-  return (c(A0, A1, A2, B1, B2))
+  return (data.frame(A0=A0, A1=A1, A2=A2, B1=B1, B2=B2))
 }
 
+## # validation of function "calculate_chebyshev_stage_coefficients"
+## calculate_chebyshev_stage_coefficients(0.1, FALSE, 0, 4, 1)
+## calculate_chebyshev_stage_coefficients(0.1, TRUE, 10, 4, 2)
 
-calculate_chebyshev_filter <- function(cutoff_frequency, is_high_pass, percent_ripple, number_of_poles)
+
+calculate_chebyshev_coefficients <- function(relative_cutoff_frequency, is_high_pass, percent_ripple, number_of_poles)
 {
   A <- array()   # holds the "a" coefficients upon program completion
   B <- array()   # holds the "b" coefficients upon program completion
@@ -82,10 +86,10 @@ calculate_chebyshev_filter <- function(cutoff_frequency, is_high_pass, percent_r
 
   for (pole_pair in 1:(number_of_poles/2))  # loop for each pole-pair
   {
-    result <- calculate_chebyshev_coefficients(cutoff_frequency, is_high_pass, percent_ripple, number_of_poles, pole_pair)
+    result <- calculate_chebyshev_stage_coefficients(relative_cutoff_frequency, is_high_pass, percent_ripple, number_of_poles, pole_pair)
 
     print(result)
-
+    
     for (i in 1:23)
     {
       TA[i] <- A[i]
@@ -94,11 +98,11 @@ calculate_chebyshev_filter <- function(cutoff_frequency, is_high_pass, percent_r
 
     for (i in 3:23)
     {
-      A[i] <- result[1] * TA[i] + result[2] * TA[i - 1] + result[3] * TA[i - 2]
-      B[i] <- TB[i] - result[4] * TB[i - 1] - result[5] * TB[i - 2]
+      A[i] <- as.double(result["A0"]) * TA[i] + as.double(result["A1"]) * TA[i - 1] + as.double(result["A2"]) * TA[i - 2]
+      B[i] <- TB[i] - as.double(result["B1"]) * TB[i - 1] - as.double(result["B2"]) * TB[i - 2]
     }
   }
-
+  
   B[3] <- 0  # finish combining coefficients
 
   for (i in 1:21)
@@ -129,13 +133,9 @@ calculate_chebyshev_filter <- function(cutoff_frequency, is_high_pass, percent_r
   for (i in 1:21)
     A[i] <- A[i] / GAIN
 
-  return (c(A, B))
+  coefficients <- data.frame(A, B)
+  return (coefficients)
 }
-
-# calculate_chebyshev_filter(cutoff_frequency, is_high_pass, percent_ripple, number_of_poles)
-chebyshev_filter <- calculate_chebyshev_filter(0.05, TRUE, 5, 2)
-plot(chebyshev_filter, type="l")
-calculate_frequency_response(chebyshev_filter)
 
 
 plot_impulse_response <- function(samples, impulse_response, xlim, ylim)
@@ -293,6 +293,57 @@ spectral_inversion <- function(impulse_response, samples)
 }
 
 
+iir_to_fir <- function(coefficients, samples)
+{
+  number_of_coefficients <- length(coefficients[, "A"])
+
+  impulse <- array()
+  filter_kernel <- array()
+
+  for (n in 1:(samples + number_of_coefficients))
+  {
+    impulse[n] <- 0.0
+    filter_kernel[n] <- 0.0
+  }
+  impulse[number_of_coefficients] <- 1.0
+
+  for (n in (1:samples) + number_of_coefficients)
+  {
+    filter_kernel[n] <- coefficients[0 + 1, "A"] * impulse[n]
+
+    for (i in 1:(number_of_coefficients - 1))  # array indices start with 1
+    {
+      filter_kernel[n] <- filter_kernel[n] + coefficients[i + 1, "A"] * impulse[n - i]
+      filter_kernel[n] <- filter_kernel[n] + coefficients[i + 1, "B"] * filter_kernel[n - i]
+    }
+  }
+
+  return (filter_kernel[1:samples])
+}
+
+
+chebyshev_lowpass <- function(samples, cutoff_frequency, sample_rate, percent_ripple, number_of_poles)
+{
+  relative_cutoff_frequency <- cutoff_frequency / sample_rate
+
+  coefficients <- calculate_chebyshev_coefficients(relative_cutoff_frequency, FALSE, percent_ripple, number_of_poles)
+  filter_kernel <- iir_to_fir(coefficients, samples)
+
+  return (filter_kernel)
+}
+
+
+chebyshev_highpass <- function(samples, cutoff_frequency, sample_rate, percent_ripple, number_of_poles)
+{
+  relative_cutoff_frequency <- cutoff_frequency / sample_rate
+
+  coefficients <- calculate_chebyshev_coefficients(relative_cutoff_frequency, TRUE, percent_ripple, number_of_poles)
+  filter_kernel <- iir_to_fir(coefficients, samples)
+
+  return (filter_kernel)
+}
+
+
 windowed_sinc_lowpass <- function(samples, relative_cutoff_frequency, sample_rate)
 {
   samples_half <- samples / 2
@@ -362,6 +413,11 @@ cutoff_frequency_2 <- 20100
 
 filter_kernel <- windowed_sinc_bandpass(samples, cutoff_frequency_1, cutoff_frequency_2, sample_rate)
 
+## cutoff_frequency_2 <- 11000
+## percent_ripple <- 25
+## number_of_poles <- 8
+## filter_kernel <- chebyshev_lowpass(samples, cutoff_frequency_2, sample_rate, percent_ripple, number_of_poles)
+
 for (i in c(samples:fft_size))
   filter_kernel[i] <- 0.0
 
@@ -391,7 +447,7 @@ screen(3)
 xlim <- c(10, sample_rate / 2)
 ylim <- c(-120, 0)
 
-plot_frequency_response(frequency, frequency_response, xlim=xlim, ylim=ylim, log_x=TRUE, log_y=TRUE)
+plot_frequency_response(frequency, frequency_response, xlim=xlim, ylim=ylim, log_x=FALSE, log_y=TRUE)
 
 
 screen(4)
