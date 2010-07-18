@@ -133,6 +133,8 @@ calculate_chebyshev_coefficients <- function(relative_cutoff_frequency, is_high_
   for (i in 1:21)
     A[i] <- A[i] / GAIN
 
+  B[1] <- NA
+
   coefficients <- data.frame(A, B)
   return (coefficients)
 }
@@ -278,7 +280,18 @@ calculate_phase_response <- function(impulse_response)
   # convert FFT from rectangular notation to polar notation
   phase_response <- atan(Im(phase_response) / Re(phase_response))
 
-  return (phase_response)
+  # unwrap phase
+  unwrapped_phase_response <- array()
+  unwrapped_phase_response[1] <- 0.0
+
+  for (n in 2:length(phase_response))
+  {
+    sample_jump <- as.integer((unwrapped_phase_response[n - 1] - phase_response[n]) / (2 * pi))
+    #cat (n, sample_jump, floor(sample_jump), "\n")
+    unwrapped_phase_response[n] <- phase_response[n] + sample_jump * 2 * pi
+  }
+
+  return (unwrapped_phase_response)
 }
 
 
@@ -305,7 +318,7 @@ iir_to_fir <- function(coefficients, samples)
     impulse[n] <- 0.0
     filter_kernel[n] <- 0.0
   }
-  impulse[number_of_coefficients] <- 1.0
+  impulse[number_of_coefficients + 1] <- 1.0
 
   for (n in (1:samples) + number_of_coefficients)
   {
@@ -408,18 +421,12 @@ fft_size <- 2 ** 14
 samples <- 2 ** 10  # "samples" must be even to yield an odd length (1:samples)
 samples_half <- samples / 2
 sample_rate <- 44100
-cutoff_frequency_1 <- 20
-cutoff_frequency_2 <- 20100
 
-filter_kernel <- windowed_sinc_bandpass(samples, cutoff_frequency_1, cutoff_frequency_2, sample_rate)
+cutoff_frequency <- 21000
+kernel_length <- 1025
+filter_kernel <- windowed_sinc_lowpass(kernel_length, cutoff_frequency, sample_rate)
 
-## cutoff_frequency_2 <- 11000
-## percent_ripple <- 25
-## number_of_poles <- 8
-## filter_kernel <- chebyshev_lowpass(samples, cutoff_frequency_2, sample_rate, percent_ripple, number_of_poles)
-
-for (i in c(samples:fft_size))
-  filter_kernel[i] <- 0.0
+filter_kernel[kernel_length:fft_size] <- 0.0
 
 step_response <- calculate_step_response(filter_kernel, samples)
 frequency_response <- calculate_frequency_response(filter_kernel)
@@ -447,7 +454,7 @@ screen(3)
 xlim <- c(10, sample_rate / 2)
 ylim <- c(-120, 0)
 
-plot_frequency_response(frequency, frequency_response, xlim=xlim, ylim=ylim, log_x=FALSE, log_y=TRUE)
+plot_frequency_response(frequency, frequency_response, xlim=xlim, ylim=ylim, log_x=TRUE, log_y=TRUE)
 
 
 screen(4)
