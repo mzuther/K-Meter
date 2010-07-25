@@ -52,7 +52,7 @@ solution "kmeter"
 	libdirs {
 		"../build",
 		"../libraries/juce/bin",
-		"../libraries/fftw3/.libs"
+		"../libraries/fftw3/bin"
 	}
 
 	configuration { "Debug*" }

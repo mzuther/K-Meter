@@ -46,6 +46,9 @@
     <ClInclude Include="..\..\..\src\peak_label.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\average_level_filtered_rms.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\main.cpp">
@@ -97,6 +100,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\peak_label.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\average_level_filtered_rms.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
