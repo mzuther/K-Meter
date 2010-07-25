@@ -34,7 +34,7 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 	pRingBuffer->clear();
 	nRingBufferPosition = 0;
 
-	pAverageLevelRms = new AverageLevelRms(pRingBuffer, KMETER_BUFFER_SIZE, getSampleRate());
+	pAverageLevelFilteredRms = new AverageLevelFilteredRms(pRingBuffer, KMETER_BUFFER_SIZE);
 
 	pMeterBallistics = new MeterBallistics(false, false);
 
@@ -60,7 +60,7 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
 	removeAllChangeListeners();
 
 	delete pRingBuffer;
-	delete pAverageLevelRms;
+	delete pAverageLevelFilteredRms;
 	delete pMeterBallistics;
 }
 
@@ -170,8 +170,33 @@ void KmeterAudioProcessor::releaseResources()
 
 void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
+	// This is the place where you'd normally do the guts of your
+	// plugin's audio processing...
+
+	// To hear the audio source after average filtering, make sure that
+	// your audio host's buffer matches the size of KMETER_BUFFER_SIZE.
+	// Only then set DEBUG_FILTER to 1.  This will also disable metering.
+	#define DEBUG_FILTER 0
+
+	if (DEBUG_FILTER)
+	{
+		DBG("Debugging average filtering.  Please reset DEBUG_FILTER when you're done!");
+		pRingBuffer->copyFrom(0, 0, buffer, 0, 0, KMETER_BUFFER_SIZE);
+		pRingBuffer->copyFrom(1, 0, buffer, 1, 0, KMETER_BUFFER_SIZE);
+
+		fAverageLeft = pAverageLevelFilteredRms->getLevel(0, getSampleRate());
+		fAverageRight = pAverageLevelFilteredRms->getLevel(1, getSampleRate());
+
+		buffer.copyFrom(0, 0, *pRingBuffer, 0, 0, KMETER_BUFFER_SIZE);
+		buffer.copyFrom(1, 0, *pRingBuffer, 1, 0, KMETER_BUFFER_SIZE);
+
+		// clear remaining output channels
+		for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
+			buffer.clear(i, 0, buffer.getNumSamples());
+
+		return;
+	}
+
 	for (int nSourcePosition=0; nSourcePosition < buffer.getNumSamples(); nSourcePosition++)
 	{
 		bool isStereo = (getNumInputChannels() > 1);
@@ -197,15 +222,14 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 		if (nRingBufferPosition == (KMETER_BUFFER_SIZE - 1))
 		{
 			fPeakLeft = pRingBuffer->getMagnitude(0, 0, KMETER_BUFFER_SIZE);
-			fAverageLeft = pAverageLevelRms->getLevel(0, getSampleRate());
+			fAverageLeft = pAverageLevelFilteredRms->getLevel(0, getSampleRate());
 			nOverflowsLeft = countContigousOverflows(pRingBuffer, 0, bLastSampleOverLeft);
 
 			if (isStereo)
 			{
 				fPeakRight = pRingBuffer->getMagnitude(1, 0, KMETER_BUFFER_SIZE);
-				fAverageRight = pAverageLevelRms->getLevel(1, getSampleRate());
+				fAverageRight = pAverageLevelFilteredRms->getLevel(1, getSampleRate());
 				nOverflowsRight = countContigousOverflows(pRingBuffer, 1, bLastSampleOverRight);
-
 
 				// do not process levels below -80 dB (and prevent division by zero)
 				if ((fAverageLeft < 0.0001f) && (fAverageRight < 0.0001f))
@@ -245,13 +269,11 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 		}
 	}
 
-    // In case we have more outputs than inputs, we'll clear any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
-    {
-        buffer.clear(i, 0, buffer.getNumSamples());
-    }
+	// In case we have more outputs than inputs, we'll clear any output
+	// channels that didn't contain input data, (because these aren't
+	// guaranteed to be empty - they may contain garbage).
+	for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
+		buffer.clear(i, 0, buffer.getNumSamples());
 }
 
 int KmeterAudioProcessor::countContigousOverflows(const AudioSampleBuffer* buffer, int channel, bool& bLastSampleOver)

@@ -66,6 +66,7 @@ endif
 OBJECTS := \
 	$(OBJDIR)/correlation_meter.o \
 	$(OBJDIR)/plugin_processor.o \
+	$(OBJDIR)/average_level_filtered_rms.o \
 	$(OBJDIR)/overflow_meter.o \
 	$(OBJDIR)/resources.o \
 	$(OBJDIR)/stereo_kmeter.o \
@@ -77,7 +78,6 @@ OBJECTS := \
 	$(OBJDIR)/meter_bar.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/meter_segment.o \
-	$(OBJDIR)/average_level_rms.o \
 	$(OBJDIR)/juce_library_code_1.o \
 	$(OBJDIR)/juce_library_code_2.o \
 	$(OBJDIR)/juce_library_code_4.o \
@@ -146,6 +146,9 @@ $(OBJDIR)/correlation_meter.o: ../../../src/correlation_meter.cpp
 $(OBJDIR)/plugin_processor.o: ../../../src/plugin_processor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/average_level_filtered_rms.o: ../../../src/average_level_filtered_rms.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/overflow_meter.o: ../../../src/overflow_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -177,9 +180,6 @@ $(OBJDIR)/main.o: ../../../src/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_segment.o: ../../../src/meter_segment.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/average_level_rms.o: ../../../src/average_level_rms.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_library_code_1.o: ../../../src/juce_library_code/juce_library_code_1.cpp

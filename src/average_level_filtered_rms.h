@@ -23,23 +23,45 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "average_level_rms.h"
+#ifndef __AVERAGE_LEVEL_FILTERED_RMS_H__
+#define __AVERAGE_LEVEL_FILTERED_RMS_H__
 
-AverageLevelRms::AverageLevelRms(AudioSampleBuffer* buffer, int buffer_size, int sample_rate)
+#include "juce_library_code/juce_header.h"
+#include <complex.h>  // must be included before "fftw3.h"!
+#include "fftw3/api/fftw3.h"
+
+//==============================================================================
+/**
+*/
+class AverageLevelFilteredRms
 {
-  pSampleBuffer = buffer;
-  nSampleRate = sample_rate;
-  nBufferSize = buffer_size;
-}
+public:
+  AverageLevelFilteredRms(AudioSampleBuffer* buffer, int buffer_size);
+  ~AverageLevelFilteredRms();
 
-AverageLevelRms::~AverageLevelRms()
-{
-}
+  float getLevel(int channel, int sample_rate);
 
-float AverageLevelRms::getLevel(int channel, int sample_rate)
-{
-  if (nSampleRate != sample_rate)
-	 nSampleRate = sample_rate;
+private:
+  void calculateFilterKernel();
+  void FilterSamples(int channel);
 
-  return pSampleBuffer->getRMSLevel(channel, 0, nBufferSize);
-}
+  AudioSampleBuffer* pSampleBuffer;
+  AudioSampleBuffer* pOverlapAddSamples;
+
+  float* arrFilterKernel_TD;
+  fftwf_complex* arrFilterKernel_FD;
+  fftwf_plan planFilterKernel_DFT;
+
+  float* arrAudioSamples_TD;
+  fftwf_complex* arrAudioSamples_FD;
+  fftwf_plan planAudioSamples_DFT;
+  fftwf_plan planAudioSamples_IDFT;
+
+  int nSampleRate;
+  int nBufferSize;
+  int nFftSize;
+  int nHalfFftSize;
+};
+
+
+#endif  // __AVERAGE_LEVEL_FILTERED_RMS_H__
