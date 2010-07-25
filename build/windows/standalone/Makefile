@@ -78,6 +78,7 @@ OBJECTS := \
 	$(OBJDIR)/meter_bar.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/meter_segment.o \
+	$(OBJDIR)/average_level_rms.o \
 	$(OBJDIR)/juce_library_code_1.o \
 	$(OBJDIR)/juce_library_code_2.o \
 	$(OBJDIR)/juce_library_code_4.o \
@@ -182,6 +183,9 @@ $(OBJDIR)/main.o: ../../../src/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_segment.o: ../../../src/meter_segment.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/average_level_rms.o: ../../../src/average_level_rms.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_library_code_1.o: ../../../src/juce_library_code/juce_library_code_1.cpp

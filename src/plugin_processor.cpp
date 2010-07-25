@@ -34,6 +34,8 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 	pRingBuffer->clear();
 	nRingBufferPosition = 0;
 
+	pAverageLevelRms = new AverageLevelRms(pRingBuffer, KMETER_BUFFER_SIZE, getSampleRate());
+
 	pMeterBallistics = new MeterBallistics(false, false);
 
 	isStereo = false;
@@ -58,6 +60,7 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
 	removeAllChangeListeners();
 
 	delete pRingBuffer;
+	delete pAverageLevelRms;
 	delete pMeterBallistics;
 }
 
@@ -194,13 +197,13 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 		if (nRingBufferPosition == (KMETER_BUFFER_SIZE - 1))
 		{
 			fPeakLeft = pRingBuffer->getMagnitude(0, 0, KMETER_BUFFER_SIZE);
-			fAverageLeft = pRingBuffer->getRMSLevel(0, 0, KMETER_BUFFER_SIZE);
+			fAverageLeft = pAverageLevelRms->getLevel(0, getSampleRate());
 			nOverflowsLeft = countContigousOverflows(pRingBuffer, 0, bLastSampleOverLeft);
 
 			if (isStereo)
 			{
 				fPeakRight = pRingBuffer->getMagnitude(1, 0, KMETER_BUFFER_SIZE);
-				fAverageRight = pRingBuffer->getRMSLevel(1, 0, KMETER_BUFFER_SIZE);
+				fAverageRight = pAverageLevelRms->getLevel(1, getSampleRate());
 				nOverflowsRight = countContigousOverflows(pRingBuffer, 1, bLastSampleOverRight);
 
 

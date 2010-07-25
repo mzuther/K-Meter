@@ -28,7 +28,7 @@ ifeq ($(config),debug32)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fno-inline
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L../../../libraries/fftw3/.libs -L/usr/X11R6/lib32 -v
+  LDFLAGS   += -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L../../../libraries/fftw3/.libs -L/usr/X11R6/lib32
   LIBS      += -lfftw3f -lfreetype -lpthread -lrt -lX11 -lXext -lasound -ljuce_debug32
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
@@ -78,6 +78,7 @@ OBJECTS := \
 	$(OBJDIR)/meter_bar.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/meter_segment.o \
+	$(OBJDIR)/average_level_rms.o \
 	$(OBJDIR)/juce_library_code_1.o \
 	$(OBJDIR)/juce_library_code_2.o \
 	$(OBJDIR)/juce_library_code_4.o \
@@ -182,6 +183,9 @@ $(OBJDIR)/main.o: ../../../src/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_segment.o: ../../../src/meter_segment.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/average_level_rms.o: ../../../src/average_level_rms.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_library_code_1.o: ../../../src/juce_library_code/juce_library_code_1.cpp

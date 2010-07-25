@@ -30,6 +30,7 @@
 
 #include "juce_library_code/juce_header.h"
 #include "juce_library_code/JucePluginCharacteristics.h"
+#include "average_level_rms.h"
 #include "meter_ballistics.h"
 
 //==============================================================================
@@ -89,6 +90,7 @@ public:
 
 private:
 	AudioSampleBuffer* pRingBuffer;
+	AverageLevelRms* pAverageLevelRms;
 	MeterBallistics* pMeterBallistics;
 
 	bool isStereo;
