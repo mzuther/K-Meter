@@ -27,6 +27,7 @@
 #define __PLUGINPROCESSOR_H_5573940C__
 
 #define KMETER_BUFFER_SIZE 1024
+#define KMETER_PREDELAY KMETER_BUFFER_SIZE / 2
 
 #include "juce_library_code/juce_header.h"
 #include "juce_library_code/JucePluginCharacteristics.h"
@@ -110,7 +111,7 @@ private:
 	bool bLastSampleOverLeft;
 	bool bLastSampleOverRight;
 
-	int countContigousOverflows(const AudioSampleBuffer* buffer, int channel, bool& bLastSampleOver);
+	int countContigousOverflows(const AudioSampleBuffer* buffer, int channel, int start_sample, int length, bool& bLastSampleOver);
 };
 
 #endif  // __PLUGINPROCESSOR_H_5573940C__

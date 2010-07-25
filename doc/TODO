@@ -1,5 +1,7 @@
 
-o [mzuther] band limiter for average section
+o [mzuther] correct overflow counting
+
+o [mzuther] correct pre-delay of FIR filter
 
 o [mzuther] validate meter readouts
 
