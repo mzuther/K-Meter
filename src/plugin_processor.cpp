@@ -35,7 +35,6 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 	nRingBufferPosition = 0;
 
 	pAverageLevelFilteredRms = new AverageLevelFilteredRms(pRingBuffer, KMETER_BUFFER_SIZE);
-
 	pMeterBallistics = new MeterBallistics(false, false);
 
 	isStereo = false;
@@ -200,22 +199,23 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 		return;
 	}
 
+	bool isStereo = (getNumInputChannels() > 1);
+
+	// convert stereo input to mono if "Mono" button has been pressed
+	if (isStereo && makeMono)
+	{
+	  float* output_left = buffer.getSampleData(0);
+	  float* output_right = buffer.getSampleData(1);
+
+	  for (int i=0; i < buffer.getNumSamples(); i++)
+	  {
+		 output_left[i] = 0.5f * (output_left[i] + output_right[i]);
+		 output_right[i] = output_left[i];
+	  }
+	}
+
 	for (int nSourcePosition=0; nSourcePosition < buffer.getNumSamples(); nSourcePosition++)
 	{
-		bool isStereo = (getNumInputChannels() > 1);
-
-		if (isStereo && makeMono)
-		{
-		  float* output_left = buffer.getSampleData(0);
-		  float* output_right = buffer.getSampleData(1);
-
-		  for (int i=0; i < buffer.getNumSamples(); i++)
-		  {
-			 output_left[i] = 0.5f * (output_left[i] + output_right[i]);
-			 output_right[i] = output_left[i];
-		  }
-		}
-
 		pRingBuffer->copyFrom(0, nRingBufferPosition, buffer, 0, nSourcePosition, 1);
 		if (isStereo)
 			pRingBuffer->copyFrom(1, nRingBufferPosition, buffer, 1, nSourcePosition, 1);
