@@ -460,6 +460,7 @@ plot_frequency_response(frequency, frequency_response, xlim=xlim, ylim=ylim, log
 screen(4)
 xlim <- c(1, samples)
 ylim <- c(-1, 1)
+
 plot_step_response(samples, step_response, xlim=xlim, ylim=ylim)
 
 

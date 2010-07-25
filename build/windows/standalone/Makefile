@@ -28,7 +28,7 @@ ifeq ($(config),debug32)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fno-inline
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -mwindows -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin
+  LDFLAGS   += -mwindows -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L../../../libraries/fftw3/.libs
   LIBS      += -ljuce_debug32
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
@@ -50,7 +50,7 @@ ifeq ($(config),release32)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -pipe -fvisibility=hidden
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -mwindows -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin
+  LDFLAGS   += -s -mwindows -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L../../../libraries/fftw3/.libs
   LIBS      += -ljuce32
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 

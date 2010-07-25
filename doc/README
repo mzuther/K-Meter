@@ -30,24 +30,6 @@
 Left to do.
 
 
-                               Depends
-                               =======
-
-Application:  premake (optional)
-Version:      4.2
-License:      GPL v2
-Homepage:     http://industriousone.com/premake
-
-Library:      JUCE library (required)
-Version:      1.5
-License:      GPL v2
-Homepage:     http://www.rawmaterialsoftware.com/juce.php)
-
-Library:      Virtual Studio Technology SDK (VST, optional)
-Version:      2.4
-License:      proprietary
-Homepage:     http://ygrabit.steinberg.de/~ygrabit/public_html/
-
                              Requirements
                              ============
 
@@ -57,24 +39,8 @@ Left to do.
                              Installation
                              ============
 
-Left to do.
+Please see the file "kmeter.pdf".
 
-To compile on 64-bit GNU/Linux operating systems, install the multilib
-files for g++ (Debian package: "g++-multilib").  Then, change the
-following lines in juce/build/linux/juce_premake.lua to match:
-
-	package.config["Debug"].target   = "juce_debug32"
-	package.config["Release"].target = "juce32"
-
-	package.config["Debug"].buildoptions    = { "-D_DEBUG -ggdb -Wall -fPIC -m32" }
-
-	package.config["Release"].buildoptions  = { "-fvisibility=hidden -fPIC -m32" }
-
-and then run:
-
-	./runpremake
-
-Finally, run make.
 
                                Problems
                                ========

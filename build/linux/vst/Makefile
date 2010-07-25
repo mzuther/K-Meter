@@ -28,8 +28,8 @@ ifeq ($(config),debug32)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fPIC -fno-inline
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -shared -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L/usr/X11R6/lib32
-  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -ljuce_debug32
+  LDFLAGS   += -shared -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L../../../libraries/fftw3/.libs -L/usr/X11R6/lib32
+  LIBS      += -lfftw3f -lfreetype -lpthread -lrt -lX11 -lXext -ljuce_debug32
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -50,8 +50,8 @@ ifeq ($(config),release32)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -fPIC -pipe -fvisibility=hidden
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -shared -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L/usr/X11R6/lib32
-  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -ljuce32
+  LDFLAGS   += -s -shared -m32 -L/usr/lib32 -L../.. -L../../../libraries/juce/bin -L../../../libraries/fftw3/.libs -L/usr/X11R6/lib32
+  LIBS      += -lfftw3f -lfreetype -lpthread -lrt -lX11 -lXext -ljuce32
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)

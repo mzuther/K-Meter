@@ -51,7 +51,8 @@ solution "kmeter"
 
 	libdirs {
 		"../build",
-		"../libraries/juce/bin"
+		"../libraries/juce/bin",
+		"../libraries/fftw3/.libs"
 	}
 
 	configuration { "Debug*" }
@@ -93,6 +94,7 @@ solution "kmeter"
 			}
 
 			links {
+				"fftw3f",
 				"freetype",
 				"pthread",
 				"rt",
@@ -167,6 +169,7 @@ solution "kmeter"
 			}
 
 			links {
+				"fftw3f",
 				"freetype",
 				"pthread",
 				"rt",
