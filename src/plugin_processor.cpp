@@ -181,14 +181,17 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 	if (DEBUG_FILTER)
 	{
 		DBG("Debugging average filtering.  Please reset DEBUG_FILTER when you're done!");
+
 		pRingBuffer->copyFrom(0, 0, buffer, 0, 0, KMETER_BUFFER_SIZE);
-		pRingBuffer->copyFrom(1, 0, buffer, 1, 0, KMETER_BUFFER_SIZE);
+		fAverageLeft = pAverageLevelFilteredRms->getLevel(0, (int) getSampleRate());
+		buffer.copyFrom(0, 0, pAverageLevelFilteredRms->getProcessedSamples(0), KMETER_BUFFER_SIZE);
 
-		fAverageLeft = pAverageLevelFilteredRms->getLevel(0, getSampleRate());
-		fAverageRight = pAverageLevelFilteredRms->getLevel(1, getSampleRate());
-
-		buffer.copyFrom(0, 0, *pRingBuffer, 0, 0, KMETER_BUFFER_SIZE);
-		buffer.copyFrom(1, 0, *pRingBuffer, 1, 0, KMETER_BUFFER_SIZE);
+		if (getNumInputChannels() > 1)
+		{
+			pRingBuffer->copyFrom(1, 0, buffer, 1, 0, KMETER_BUFFER_SIZE);
+			fAverageRight = pAverageLevelFilteredRms->getLevel(1, (int) getSampleRate());
+			buffer.copyFrom(1, 0, pAverageLevelFilteredRms->getProcessedSamples(1), KMETER_BUFFER_SIZE);
+		}
 
 		// clear remaining output channels
 		for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)

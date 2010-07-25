@@ -27,7 +27,6 @@
 #define __AVERAGE_LEVEL_FILTERED_RMS_H__
 
 #include "juce_library_code/juce_header.h"
-#include <complex.h>  // must be included before "fftw3.h"!
 #include "fftw3/api/fftw3.h"
 
 //==============================================================================
@@ -40,11 +39,13 @@ public:
   ~AverageLevelFilteredRms();
 
   float getLevel(int channel, int sample_rate);
+  float* getProcessedSamples(int channel);
 
 private:
   void calculateFilterKernel();
   void FilterSamples(int channel);
 
+  AudioSampleBuffer* pOriginalSampleBuffer;
   AudioSampleBuffer* pSampleBuffer;
   AudioSampleBuffer* pOverlapAddSamples;
 

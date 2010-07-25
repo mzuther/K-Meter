@@ -27,16 +27,18 @@
 
 AverageLevelFilteredRms::AverageLevelFilteredRms(AudioSampleBuffer* buffer, int buffer_size)
 {
-  pSampleBuffer = buffer;
+  pOriginalSampleBuffer = buffer;
   nSampleRate = -1;
   nBufferSize = buffer_size;
 
   nFftSize = nBufferSize * 2;
   nHalfFftSize = nFftSize / 2 + 1;
 
+  pSampleBuffer = new AudioSampleBuffer(2, nBufferSize);
   pOverlapAddSamples = new AudioSampleBuffer(2, nBufferSize);
 
   // make sure there's no overlap yet
+  pSampleBuffer->clear();
   pOverlapAddSamples->clear();
 
   arrFilterKernel_TD = (float*) fftwf_malloc(sizeof(float) * nFftSize);
@@ -54,6 +56,7 @@ AverageLevelFilteredRms::AverageLevelFilteredRms(AudioSampleBuffer* buffer, int 
 
 AverageLevelFilteredRms::~AverageLevelFilteredRms()
 {
+  delete pSampleBuffer;
   delete pOverlapAddSamples;
 
   fftwf_destroy_plan(planFilterKernel_DFT);
@@ -79,9 +82,9 @@ void AverageLevelFilteredRms::calculateFilterKernel()
   for (int i=0; i < nSamples; i++)
   {
 	 if (i == nSamplesHalf)
-		arrFilterKernel_TD[i] = 2.0f * M_PI * nRelativeCutoffFrequency;
+		arrFilterKernel_TD[i] = float (2.0 * M_PI * nRelativeCutoffFrequency);
 	 else
-		arrFilterKernel_TD[i] = sin(2.0f * M_PI * nRelativeCutoffFrequency * (i - nSamplesHalf)) / (i - nSamplesHalf) * (0.42f - 0.5f * cos(2.0f * M_PI * i / nSamples) + 0.08f * cos(4.0f * M_PI * i / nSamples));
+		arrFilterKernel_TD[i] = float (sin(2.0 * M_PI * nRelativeCutoffFrequency * (i - nSamplesHalf)) / (i - nSamplesHalf) * (0.42 - 0.5 * cos(2.0 * (float) M_PI * i / nSamples) + 0.08 * cos(4.0 * (float) M_PI * i / nSamples)));
   }
 
   // normalise filter kernel
@@ -103,7 +106,10 @@ void AverageLevelFilteredRms::calculateFilterKernel()
 
 void AverageLevelFilteredRms::FilterSamples(int channel)
 {
-  // copy audio data to temporary buffer as the original buffer is not
+  // copy data from original buffer to sample buffer
+  pSampleBuffer->copyFrom(channel, 0, *pOriginalSampleBuffer, channel, 0, nBufferSize);
+
+  // copy audio data to temporary buffer as the sample buffer is not
   // optimised for MME (note that "memcpy" does not work here)
   for (int i=0; i < nBufferSize; i++)
 	 arrAudioSamples_TD[i] = pSampleBuffer->getSampleData(channel)[i];
@@ -118,8 +124,13 @@ void AverageLevelFilteredRms::FilterSamples(int channel)
   // convolve audio data with filter kernel
   for (int i=0; i < nHalfFftSize; i++)
   {
-	 // multiplication of complex numbers!
-	 arrAudioSamples_FD[i] = arrAudioSamples_FD[i] * arrFilterKernel_FD[i];
+	 // multiplication of complex numbers: index 0 contains the real
+	 // part, index 1 the imaginary part
+	 float real_part = arrAudioSamples_FD[i][0] * arrFilterKernel_FD[i][0] - arrAudioSamples_FD[i][1] * arrFilterKernel_FD[i][1];
+	 float imaginary_part = arrAudioSamples_FD[i][1] * arrFilterKernel_FD[i][0] + arrAudioSamples_FD[i][0] * arrFilterKernel_FD[i][1];
+
+	 arrAudioSamples_FD[i][0] = real_part;
+	 arrAudioSamples_FD[i][1] = imaginary_part;
   }
 
   // synthesise audio data from frequency spectrum (this destroys the
@@ -130,7 +141,7 @@ void AverageLevelFilteredRms::FilterSamples(int channel)
   for (int i=0; i < nFftSize; i++)
 	 arrAudioSamples_TD[i] = arrAudioSamples_TD[i] / float(nFftSize);
 
-  // copy data from temporary buffer back to original buffer
+  // copy data from temporary buffer back to sample buffer
   pSampleBuffer->copyFrom(channel, 0, arrAudioSamples_TD, nBufferSize);
 
   // add old overlapping samples
@@ -150,8 +161,14 @@ float AverageLevelFilteredRms::getLevel(int channel, int sample_rate)
 	 calculateFilterKernel();
   }
 
-  // filter audio data (original data are being overwritten)
+  // filter audio data (overwrites contents of sample buffer)
   FilterSamples(channel);
 
   return pSampleBuffer->getRMSLevel(channel, 0, nBufferSize);
+}
+
+
+float* AverageLevelFilteredRms::getProcessedSamples(int channel)
+{
+	return pSampleBuffer->getSampleData(channel);
 }
