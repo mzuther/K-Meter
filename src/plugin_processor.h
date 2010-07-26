@@ -91,6 +91,7 @@ public:
 
 private:
 	AudioSampleBuffer* pRingBuffer;
+	AudioSampleBuffer* pTempBuffer;
 	AverageLevelFilteredRms* pAverageLevelFilteredRms;
 	MeterBallistics* pMeterBallistics;
 

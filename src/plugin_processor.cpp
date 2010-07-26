@@ -34,6 +34,9 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 	pRingBuffer->clear();
 	nRingBufferPosition = 0;
 
+	pTempBuffer = new AudioSampleBuffer(2, KMETER_PREDELAY);
+	pRingBuffer->clear();
+
 	pAverageLevelFilteredRms = new AverageLevelFilteredRms(pRingBuffer, KMETER_BUFFER_SIZE);
 	pMeterBallistics = new MeterBallistics(false, false);
 
@@ -293,9 +296,13 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 		if (nRingBufferPosition == (KMETER_BUFFER_SIZE - 1))
 		{
 			// copy old samples (KMETER_BUFFER_SIZE to KMETER_BUFFER_SIZE + KMETER_PREDELAY) to zero
-			pRingBuffer->copyFrom(0, 0, *pRingBuffer, 0, KMETER_BUFFER_SIZE, KMETER_PREDELAY);
+			pTempBuffer->copyFrom(0, 0, *pRingBuffer, 0, KMETER_BUFFER_SIZE, KMETER_PREDELAY);
 			if (isStereo)
-				pRingBuffer->copyFrom(1, 0, *pRingBuffer, 1, KMETER_BUFFER_SIZE, KMETER_PREDELAY);
+				pTempBuffer->copyFrom(1, 0, *pRingBuffer, 1, KMETER_BUFFER_SIZE, KMETER_PREDELAY);
+
+			pRingBuffer->copyFrom(0, 0, *pTempBuffer, 0, 0, KMETER_PREDELAY);
+			if (isStereo)
+				pRingBuffer->copyFrom(1, 0, *pTempBuffer, 1, 0, KMETER_PREDELAY);
 
 			// determine peak level from region zero to KMETER_BUFFER_SIZE samples
 			fPeakLeft = pRingBuffer->getMagnitude(0, 0, KMETER_BUFFER_SIZE);
