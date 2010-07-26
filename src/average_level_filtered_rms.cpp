@@ -110,9 +110,8 @@ void AverageLevelFilteredRms::FilterSamples(int channel)
   pSampleBuffer->copyFrom(channel, 0, *pOriginalSampleBuffer, channel, 0, nBufferSize);
 
   // copy audio data to temporary buffer as the sample buffer is not
-  // optimised for MME (note that "memcpy" does not work here)
-  for (int i=0; i < nBufferSize; i++)
-	 arrAudioSamples_TD[i] = pSampleBuffer->getSampleData(channel)[i];
+  // optimised for MME
+  memcpy(arrAudioSamples_TD, pSampleBuffer->getSampleData(channel), sizeof(float) * nBufferSize);
 
   // pad audio data with zeros
   for (int i=nBufferSize; i < nFftSize; i++)
