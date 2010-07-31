@@ -27,10 +27,13 @@
 #define __PLUGINPROCESSOR_H_5573940C__
 
 #define KMETER_BUFFER_SIZE 1024
-#define KMETER_PREDELAY KMETER_BUFFER_SIZE / 2
+#define DEBUG_FILTER 0
+
+class KmeterAudioProcessor;
 
 #include "juce_library_code/juce_header.h"
 #include "juce_library_code/JucePluginCharacteristics.h"
+#include "audio_ring_buffer.h"
 #include "average_level_filtered_rms.h"
 #include "meter_ballistics.h"
 
@@ -73,7 +76,8 @@ public:
     bool producesMidi() const;
 
 	MeterBallistics* getLevels();
-	void convertMono(bool bMono);
+	void convertMono(const bool bMono);
+	void processBufferChunk(AudioSampleBuffer& buffer, const unsigned uBufferPosition, const unsigned uProcessedSamples);
 
     //==============================================================================
     int getNumPrograms();
@@ -90,12 +94,11 @@ public:
     juce_UseDebuggingNewOperator
 
 private:
-	AudioSampleBuffer* pRingBuffer;
-	AudioSampleBuffer* pTempBuffer;
+	AudioRingBuffer* pRingBuffer;
+
 	AverageLevelFilteredRms* pAverageLevelFilteredRms;
 	MeterBallistics* pMeterBallistics;
 
-	bool isStereo;
 	bool makeMono;
 
 	int nRingBufferPosition;
@@ -112,7 +115,7 @@ private:
 	bool bLastSampleOverLeft;
 	bool bLastSampleOverRight;
 
-	int countContigousOverflows(const AudioSampleBuffer* buffer, int channel, int start_sample, int length, bool& bLastSampleOver);
+	int countContigousOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay, bool& bLastSampleOver);
 };
 
 #endif  // __PLUGINPROCESSOR_H_5573940C__

@@ -71,6 +71,7 @@ OBJECTS := \
 	$(OBJDIR)/resources.o \
 	$(OBJDIR)/stereo_kmeter.o \
 	$(OBJDIR)/meter_ballistics.o \
+	$(OBJDIR)/audio_ring_buffer.o \
 	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/stereo_meter.o \
 	$(OBJDIR)/peak_label.o \
@@ -159,6 +160,9 @@ $(OBJDIR)/stereo_kmeter.o: ../../../src/stereo_kmeter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_ballistics.o: ../../../src/meter_ballistics.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/audio_ring_buffer.o: ../../../src/audio_ring_buffer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_editor.o: ../../../src/plugin_editor.cpp

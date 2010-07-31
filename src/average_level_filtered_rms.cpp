@@ -25,9 +25,8 @@
 
 #include "average_level_filtered_rms.h"
 
-AverageLevelFilteredRms::AverageLevelFilteredRms(AudioSampleBuffer* buffer, int buffer_size)
+AverageLevelFilteredRms::AverageLevelFilteredRms(const int buffer_size)
 {
-  pOriginalSampleBuffer = buffer;
   nSampleRate = -1;
   nBufferSize = buffer_size;
 
@@ -104,14 +103,14 @@ void AverageLevelFilteredRms::calculateFilterKernel()
 }
 
 
-void AverageLevelFilteredRms::FilterSamples(int channel)
+void AverageLevelFilteredRms::FilterSamples(const int channel, float* pSamples)
 {
   // copy data from original buffer to sample buffer
-  pSampleBuffer->copyFrom(channel, 0, *pOriginalSampleBuffer, channel, 0, nBufferSize);
+  pSampleBuffer->copyFrom(channel, 0, pSamples, nBufferSize);
 
   // copy audio data to temporary buffer as the sample buffer is not
   // optimised for MME
-  memcpy(arrAudioSamples_TD, pSampleBuffer->getSampleData(channel), sizeof(float) * nBufferSize);
+  memcpy(arrAudioSamples_TD, pSampleBuffer->getSampleData(channel), nBufferSize * sizeof(float));
 
   // pad audio data with zeros
   for (int i=nBufferSize; i < nFftSize; i++)
@@ -151,7 +150,7 @@ void AverageLevelFilteredRms::FilterSamples(int channel)
 }
 
 
-float AverageLevelFilteredRms::getLevel(int channel, int sample_rate)
+float AverageLevelFilteredRms::getLevel(const int channel, const int sample_rate, float* pSamples)
 {
   // recalculate filter kernel when sample rate changes
   if (nSampleRate != sample_rate)
@@ -161,13 +160,13 @@ float AverageLevelFilteredRms::getLevel(int channel, int sample_rate)
   }
 
   // filter audio data (overwrites contents of sample buffer)
-  FilterSamples(channel);
+  FilterSamples(channel, pSamples);
 
   return pSampleBuffer->getRMSLevel(channel, 0, nBufferSize);
 }
 
 
-float* AverageLevelFilteredRms::getProcessedSamples(int channel)
+float* AverageLevelFilteredRms::getProcessedSamples(const int channel)
 {
 	return pSampleBuffer->getSampleData(channel);
 }

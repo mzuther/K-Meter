@@ -35,17 +35,16 @@
 class AverageLevelFilteredRms
 {
 public:
-  AverageLevelFilteredRms(AudioSampleBuffer* buffer, int buffer_size);
+  AverageLevelFilteredRms(const int buffer_size);
   ~AverageLevelFilteredRms();
 
-  float getLevel(int channel, int sample_rate);
-  float* getProcessedSamples(int channel);
+  float getLevel(const int channel, const int sample_rate, float* pSamples);
+  float* getProcessedSamples(const int channel);
 
 private:
   void calculateFilterKernel();
-  void FilterSamples(int channel);
+  void FilterSamples(const int channel, float* pSamples);
 
-  AudioSampleBuffer* pOriginalSampleBuffer;
   AudioSampleBuffer* pSampleBuffer;
   AudioSampleBuffer* pOverlapAddSamples;
 
