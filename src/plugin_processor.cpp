@@ -33,7 +33,7 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 	if (DEBUG_FILTER)
 	{
 		DBG("********************************************************************************");
-		DBG("*  Debugging average filtering.  Please reset DEBUG_FILTER when you're done!   *");
+		DBG("** Debugging average filtering.  Please reset DEBUG_FILTER before committing! **");
 		DBG("********************************************************************************");
 	}
 

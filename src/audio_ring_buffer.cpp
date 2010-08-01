@@ -37,14 +37,18 @@ AudioRingBuffer::AudioRingBuffer(const unsigned int channels, const unsigned int
   uPreDelay = pre_delay;
   uTotalLength = uLength + uPreDelay;
 
-  pAudioData = (float*) malloc(uChannels * uTotalLength * sizeof(float));
+  // pad memory areas with RING_BUFFER_MEM_TEST to allow detection of
+  // memory leaks
+  pAudioData = (float*) malloc(uChannels * (uTotalLength + 2) * sizeof(float));
+  for (unsigned int i=0; i < (uChannels * (uTotalLength + 2)); i++)
+	 pAudioData[i] = RING_BUFFER_MEM_TEST;
 
   uCurrentPosition = 0;
   uSamplesInBuffer = 0;
   uChannelOffset = new unsigned int[uChannels];
 
   for (unsigned int uChannel=0; uChannel < uChannels; uChannel++)
-	 uChannelOffset[uChannel] = uChannel * uTotalLength;
+	 uChannelOffset[uChannel] = uChannel * (uTotalLength + 2) + 1;
 
   this->clear();
 }
@@ -64,6 +68,16 @@ void AudioRingBuffer::clear()
   for (unsigned int uChannel=0; uChannel < uChannels; uChannel++)
 	 for (unsigned int uSample=0; uSample < uTotalLength; uSample++)
 		pAudioData[uSample + uChannelOffset[uChannel]] = 0.0f;
+
+#ifdef DEBUG
+  // detection of memory leaks
+  for (unsigned int uChannel=0; uChannel < uChannels; uChannel++)
+  {
+	 jassert(pAudioData[uChannelOffset[uChannel] - 1] == RING_BUFFER_MEM_TEST);
+	 jassert(pAudioData[uChannelOffset[uChannel]] != RING_BUFFER_MEM_TEST);
+	 jassert(pAudioData[uChannelOffset[uChannel] + uTotalLength] == RING_BUFFER_MEM_TEST);
+  }
+#endif
 }
 
 
@@ -132,6 +146,16 @@ unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer& source, const unsign
 
 	 uSamplesFinished += uSamplesToCopy;
   }
+
+#ifdef DEBUG
+  // detection of memory leaks
+  for (unsigned int uChannel=0; uChannel < uChannels; uChannel++)
+  {
+	 jassert(pAudioData[uChannelOffset[uChannel] - 1] == RING_BUFFER_MEM_TEST);
+	 jassert(pAudioData[uChannelOffset[uChannel]] != RING_BUFFER_MEM_TEST);
+	 jassert(pAudioData[uChannelOffset[uChannel] + uTotalLength] == RING_BUFFER_MEM_TEST);
+  }
+#endif
 
   return uProcessedSamples;
 }

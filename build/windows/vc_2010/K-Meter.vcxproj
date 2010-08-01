@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\about_window.h" />
+    <ClInclude Include="..\..\..\src\audio_ring_buffer.h" />
     <ClInclude Include="..\..\..\src\average_level_filtered_rms.h" />
     <ClInclude Include="..\..\..\src\correlation_meter.h" />
     <ClInclude Include="..\..\..\src\juce_library_code\app_config.h" />
@@ -30,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\about_window.cpp" />
+    <ClCompile Include="..\..\..\src\audio_ring_buffer.cpp" />
     <ClCompile Include="..\..\..\src\average_level_filtered_rms.cpp" />
     <ClCompile Include="..\..\..\src\correlation_meter.cpp" />
     <ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_1.cpp" />

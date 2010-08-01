@@ -26,6 +26,8 @@
 #ifndef __AUDIO_RING_BUFFER_H__
 #define __AUDIO_RING_BUFFER_H__
 
+#define RING_BUFFER_MEM_TEST 255.0f
+
 class AudioRingBuffer;
 
 #include "juce_library_code/juce_header.h"

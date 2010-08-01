@@ -49,6 +49,9 @@
     <ClInclude Include="..\..\..\src\average_level_filtered_rms.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\audio_ring_buffer.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\main.cpp">
@@ -103,6 +106,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\average_level_filtered_rms.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\audio_ring_buffer.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
