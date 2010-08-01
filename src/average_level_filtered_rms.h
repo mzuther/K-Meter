@@ -26,7 +26,10 @@
 #ifndef __AVERAGE_LEVEL_FILTERED_RMS_H__
 #define __AVERAGE_LEVEL_FILTERED_RMS_H__
 
+class AverageLevelFilteredRms;
+
 #include "juce_library_code/juce_header.h"
+#include "audio_ring_buffer.h"
 #include "fftw3/api/fftw3.h"
 
 //==============================================================================
@@ -35,15 +38,17 @@
 class AverageLevelFilteredRms
 {
 public:
-  AverageLevelFilteredRms(const int buffer_size);
+  AverageLevelFilteredRms(const int channels, const int buffer_size);
   ~AverageLevelFilteredRms();
 
-  float getLevel(const int channel, const int sample_rate, float* pSamples);
-  float* getProcessedSamples(const int channel);
+  float getLevel(const int channel);
+  void copyFromBuffer(AudioRingBuffer& ringBuffer, const int pre_delay, const int sample_rate);
+  void copyToBuffer(AudioRingBuffer& ringBuffer, const unsigned int pre_delay);
+  void copyToBuffer(AudioSampleBuffer& destination, const int channel, const int destStartSample, const int numSamples);
 
 private:
   void calculateFilterKernel();
-  void FilterSamples(const int channel, float* pSamples);
+  void FilterSamples(const int channel);
 
   AudioSampleBuffer* pSampleBuffer;
   AudioSampleBuffer* pOverlapAddSamples;
@@ -57,6 +62,7 @@ private:
   fftwf_plan planAudioSamples_DFT;
   fftwf_plan planAudioSamples_IDFT;
 
+  int nChannels;
   int nSampleRate;
   int nBufferSize;
   int nFftSize;
