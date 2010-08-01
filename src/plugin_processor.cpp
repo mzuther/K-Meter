@@ -217,10 +217,9 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 	  }
 	}
 
-	unsigned int uPreDelay = KMETER_BUFFER_SIZE;
 	unsigned int uUnwrappedSamples = pRingBufferInput->addSamples(buffer, 0, nNumSamples);
 
-	pRingBufferInput->copyToBuffer(buffer, nNumSamples - uUnwrappedSamples, uUnwrappedSamples, uPreDelay);
+	pRingBufferInput->copyToBuffer(buffer, nNumSamples - uUnwrappedSamples, uUnwrappedSamples, KMETER_BUFFER_SIZE);
 
 	// In case we have more outputs than inputs, we'll clear any output
 	// channels that didn't contain input data, (because these aren't
@@ -234,8 +233,6 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
 {
   unsigned int uPreDelay = KMETER_BUFFER_SIZE / 2;
   bool isStereo = (getNumInputChannels() > 1);
-
-  pRingBufferInput->copyToBuffer(buffer, uBufferPosition, uProcessedSamples, KMETER_BUFFER_SIZE);
 
   // copy ring buffer to determine average level (FIR filter already adds
   // delay of (KMETER_BUFFER_SIZE / 2) samples)
@@ -305,6 +302,8 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
   // before commiting your changes.
   if (DEBUG_FILTER)
     pAverageLevelFilteredRms->copyToBuffer(*pRingBufferOutput, 0);
+
+  pRingBufferInput->copyToBuffer(buffer, uBufferPosition, uProcessedSamples, KMETER_BUFFER_SIZE);
 }
 
 
