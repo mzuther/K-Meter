@@ -179,10 +179,10 @@ void AverageLevelFilteredRms::copyFromBuffer(AudioRingBuffer& ringBuffer, const 
 }
 
 
-void AverageLevelFilteredRms::copyToBuffer(AudioRingBuffer& ringBuffer, const unsigned int pre_delay)
+void AverageLevelFilteredRms::copyToBuffer(AudioRingBuffer& destination, const unsigned int sourceStartSample, const unsigned int numSamples)
 {
-  // copy data from sample buffer to ring buffer 
-  ringBuffer.addSamples(*pSampleBuffer, 0, nBufferSize);
+  // copy data from sample buffer to ring buffer
+  destination.addSamples(*pSampleBuffer, sourceStartSample, numSamples);
 }
 
 

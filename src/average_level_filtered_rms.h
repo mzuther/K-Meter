@@ -43,7 +43,7 @@ public:
 
   float getLevel(const int channel);
   void copyFromBuffer(AudioRingBuffer& ringBuffer, const int pre_delay, const int sample_rate);
-  void copyToBuffer(AudioRingBuffer& ringBuffer, const unsigned int pre_delay);
+  void copyToBuffer(AudioRingBuffer& destination, const unsigned int sourceStartSample, const unsigned int numSamples);
   void copyToBuffer(AudioSampleBuffer& destination, const int channel, const int destStartSample, const int numSamples);
 
 private:

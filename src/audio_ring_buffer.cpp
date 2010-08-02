@@ -25,17 +25,20 @@
 
 #include "audio_ring_buffer.h"
 
-AudioRingBuffer::AudioRingBuffer(const unsigned int channels, const unsigned int length, const unsigned int pre_delay)
+AudioRingBuffer::AudioRingBuffer(const juce_wchar* buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size)
 {
   jassert(channels > 0);
   jassert(length > 0);
 
   this->clearCallbackClass();
 
+  strBufferName = String(buffer_name);
+
   uChannels = channels;
   uLength = length;
   uPreDelay = pre_delay;
   uTotalLength = uLength + uPreDelay;
+  uChunkSize = chunk_size;
 
   // pad memory areas with RING_BUFFER_MEM_TEST to allow detection of
   // memory leaks
@@ -81,6 +84,42 @@ void AudioRingBuffer::clear()
 }
 
 
+String AudioRingBuffer::getBufferName()
+{
+  return strBufferName;
+}
+
+
+unsigned int AudioRingBuffer::getCurrentPosition()
+{
+  return uCurrentPosition;
+}
+
+
+unsigned int AudioRingBuffer::getSamplesInBuffer()
+{
+  return uSamplesInBuffer;
+}
+
+
+unsigned int AudioRingBuffer::getBufferLength()
+{
+  return uLength;
+}
+
+
+unsigned int AudioRingBuffer::getTotalLength()
+{
+  return uTotalLength;
+}
+
+
+unsigned int AudioRingBuffer::getPreDelay()
+{
+  return uPreDelay;
+}
+
+
 float AudioRingBuffer::getSample(const unsigned int channel, const unsigned int relative_position, const unsigned int pre_delay)
 {
   jassert(channel < uChannels);
@@ -92,7 +131,9 @@ float AudioRingBuffer::getSample(const unsigned int channel, const unsigned int 
   if (pre_delay)
 	 uPosition -= pre_delay;
 
-  uPosition += uTotalLength; // make sure "uPosition" is positive
+  while (uPosition < 0)
+	 uPosition += uTotalLength; // make sure "uPosition" is positive
+
   uPosition %= uTotalLength;
 
   return pAudioData[uPosition + uChannelOffset[channel]];
@@ -105,6 +146,7 @@ unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer& source, const unsign
 	 return 0;
 
   jassert(source.getNumChannels() >= (int) uChannels);
+  jassert(numSamples <= uLength);
   jassert((sourceStartSample + numSamples) <= (unsigned int) source.getNumSamples());
 
   unsigned int uSamplesLeft = numSamples;
@@ -113,7 +155,7 @@ unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer& source, const unsign
 
   while (uSamplesLeft > 0)
   {
-  	 unsigned int uSamplesToCopy = uLength - uSamplesInBuffer;
+  	 unsigned int uSamplesToCopy = uChunkSize - uSamplesInBuffer;
   	 unsigned int uSamplesToCopy_2 = uTotalLength - uCurrentPosition;
 
   	 if (uSamplesToCopy_2 < uSamplesToCopy)
@@ -130,8 +172,8 @@ unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer& source, const unsign
 	 uSamplesInBuffer += uSamplesToCopy;
 
 	 uProcessedSamples += uSamplesToCopy;
-	 bool bBufferFull = (uSamplesInBuffer == uLength);
-	 uSamplesInBuffer %= uLength;
+	 bool bBufferFull = (uSamplesInBuffer == uChunkSize);
+	 uSamplesInBuffer %= uChunkSize;
 
 	 uCurrentPosition += uSamplesToCopy;
 	 uCurrentPosition %= uTotalLength;
@@ -140,7 +182,7 @@ unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer& source, const unsign
 
 	 if (bBufferFull)
 	 {
-	 	triggerFullBuffer(source, sourceStartSample + uSamplesFinished, uProcessedSamples);
+	 	triggerFullBuffer(source, uChunkSize, sourceStartSample + uSamplesFinished, uProcessedSamples);
 		uProcessedSamples = 0;
 	 }
 
@@ -175,7 +217,10 @@ void AudioRingBuffer::copyToBuffer(AudioSampleBuffer& destination, const unsigne
   unsigned int uSamplesFinished = 0;
 
   unsigned int uStartPosition = uCurrentPosition - numSamples - pre_delay;
-  uStartPosition += uTotalLength; // make sure "uStartPosition" is positive
+
+  while (uStartPosition < 0)
+	 uStartPosition += uTotalLength; // make sure "uStartPosition" is positive
+
   uStartPosition %= uTotalLength;
 
   while (uSamplesLeft > 0)
@@ -241,8 +286,8 @@ void AudioRingBuffer::clearCallbackClass()
 }
 
 
-void AudioRingBuffer::triggerFullBuffer(AudioSampleBuffer& buffer, const unsigned uBufferPosition, const unsigned uProcessedSamples)
+void AudioRingBuffer::triggerFullBuffer(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
   if (pCallbackClass)
-	 pCallbackClass->processBufferChunk(buffer, uBufferPosition, uProcessedSamples);
+	 pCallbackClass->processBufferChunk(buffer, uChunkSize, uBufferPosition, uProcessedSamples);
 }

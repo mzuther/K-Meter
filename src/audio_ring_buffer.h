@@ -40,11 +40,18 @@ class AudioRingBuffer;
 class AudioRingBuffer
 {
 public:
-  AudioRingBuffer(const unsigned int channels, const unsigned int length, const unsigned int pre_delay=0);
+  AudioRingBuffer(const juce_wchar* buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size);
   ~AudioRingBuffer();
 
   void clear();
   void setCallbackClass(KmeterAudioProcessor* callback_class);
+
+  String getBufferName();
+  unsigned int getCurrentPosition();
+  unsigned int getSamplesInBuffer();
+  unsigned int getBufferLength();
+  unsigned int getTotalLength();
+  unsigned int getPreDelay();
 
   float getSample(const unsigned int channel, const unsigned int relative_position, const unsigned int pre_delay);
 
@@ -56,14 +63,16 @@ public:
 
 private:
   void clearCallbackClass();
-  void triggerFullBuffer(AudioSampleBuffer& buffer, const unsigned uBufferPosition, const unsigned uProcessedSamples);
+  void triggerFullBuffer(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
   KmeterAudioProcessor* pCallbackClass;
+  String strBufferName;
 
   unsigned int uChannels;
   unsigned int uLength;
   unsigned int uPreDelay;
   unsigned int uTotalLength;
+  unsigned int uChunkSize;
 
   unsigned int uCurrentPosition;
   unsigned int uSamplesInBuffer;

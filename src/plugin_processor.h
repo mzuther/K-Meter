@@ -77,7 +77,7 @@ public:
 
 	MeterBallistics* getLevels();
 	void convertMono(const bool bMono);
-	void processBufferChunk(AudioSampleBuffer& buffer, const unsigned uBufferPosition, const unsigned uProcessedSamples);
+	void processBufferChunk(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
     //==============================================================================
     int getNumPrograms();
@@ -102,7 +102,7 @@ private:
 
 	bool makeMono;
 
-	int nRingBufferPosition;
+	int nSamplesInBuffer;
 	float fTimeFrame;
 
 	float fPeakLeft;
