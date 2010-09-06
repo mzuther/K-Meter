@@ -126,17 +126,17 @@ float AudioRingBuffer::getSample(const unsigned int channel, const unsigned int 
   jassert(relative_position <= uLength);
   jassert(pre_delay <= uPreDelay);
 
-  unsigned int uPosition = uCurrentPosition - relative_position;
+  int nPosition = uCurrentPosition - relative_position;
 
   if (pre_delay)
-	 uPosition -= pre_delay;
+	 nPosition -= pre_delay;
 
-  while (uPosition < 0)
-	 uPosition += uTotalLength; // make sure "uPosition" is positive
+  while (nPosition < 0)
+	 nPosition += uTotalLength; // make sure "nPosition" is positive
 
-  uPosition %= uTotalLength;
+  nPosition %= uTotalLength;
 
-  return pAudioData[uPosition + uChannelOffset[channel]];
+  return pAudioData[nPosition + uChannelOffset[channel]];
 }
 
 
@@ -216,27 +216,27 @@ void AudioRingBuffer::copyToBuffer(AudioSampleBuffer& destination, const unsigne
   unsigned int uSamplesLeft = numSamples;
   unsigned int uSamplesFinished = 0;
 
-  unsigned int uStartPosition = uCurrentPosition - numSamples - pre_delay;
+  int nStartPosition = uCurrentPosition - numSamples - pre_delay;
 
-  while (uStartPosition < 0)
-	 uStartPosition += uTotalLength; // make sure "uStartPosition" is positive
+  while (nStartPosition < 0)
+	 nStartPosition += uTotalLength; // make sure "nStartPosition" is positive
 
-  uStartPosition %= uTotalLength;
+  nStartPosition %= uTotalLength;
 
   while (uSamplesLeft > 0)
   {
-  	 unsigned int uSamplesToCopy = uTotalLength - uStartPosition;
+  	 unsigned int uSamplesToCopy = uTotalLength - nStartPosition;
 
   	 if (uSamplesToCopy > uSamplesLeft)
   		uSamplesToCopy = uSamplesLeft;
 
 	 for (unsigned int uChannel=0; uChannel < uChannels; uChannel++)
 	 {
-		memcpy(destination.getSampleData(uChannel, destStartSample + uSamplesFinished), pAudioData + uStartPosition + uChannelOffset[uChannel], sizeof(float) * uSamplesToCopy);
+		memcpy(destination.getSampleData(uChannel, destStartSample + uSamplesFinished), pAudioData + nStartPosition + uChannelOffset[uChannel], sizeof(float) * uSamplesToCopy);
 	 }
 
-	 uStartPosition += uSamplesToCopy;
-	 uStartPosition %= uTotalLength;
+	 nStartPosition += uSamplesToCopy;
+	 nStartPosition %= uTotalLength;
 
   	 uSamplesLeft -= uSamplesToCopy;
 	 uSamplesFinished += uSamplesToCopy;
