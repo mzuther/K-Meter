@@ -5,8 +5,6 @@ o [mzuther] document code
 
 o [mzuther] write documentation
 
-o [mzuther] optimise meter magnification region
-
 * implement ITU BS.1770 loudness weighting
 
 * implement inter-sample peak meter

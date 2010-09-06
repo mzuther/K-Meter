@@ -99,7 +99,10 @@ MeterBar::MeterBar(const String &componentName, int posX, int posY, int Width, i
 	fLevel = 0.0f;
 
 	int nThreshold = 0; // bar threshold (in 0.1 dB)
-	int nKmeterLevel = nMeterHeadroom; // bar K-Meter level (in 0.1 dB)
+	if (isExpanded && (nMeterHeadroom > 80))
+		nThreshold = +80 - nMeterHeadroom; // zoom into important region
+
+	int nKmeterLevel = nThreshold + nMeterHeadroom; // bar K-Meter level (in 0.1 dB)
 	int nRange = 0; // bar level range (in 0.1 dB)
 	int nColor = 0;
 

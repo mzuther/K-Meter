@@ -127,14 +127,10 @@ void StereoKmeter::paint(Graphics& g)
 		y -= 10 * nMainSegmentHeight;
 		int nStart = 0;
 
-		if (nMeterHeadroom == 0)
+		if (nMeterHeadroom < 8)
 			nStart = 0;
-		else if (nMeterHeadroom == 12)
-			nStart = 12;
-		else if (nMeterHeadroom == 14)
-			nStart = 14;
 		else
-			nStart = 20;
+			nStart = 8; // zoom into important region
 
 		for (int n=0; n >= -13; n -= 1)
 		{
