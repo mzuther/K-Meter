@@ -30,7 +30,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     : AudioProcessorEditor(ownerFilter)
 {
 	// This is where our plugin's editor size is set.
-	setSize(220, 640);
+	setSize(202, 650);
 
 	nHeadroom = 0;
 	nNumberOfChannels = 0;
@@ -39,7 +39,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	pProcessor->addChangeListener(this);
 
 	ButtonK20 = new TextButton(T("K-20"));
-	ButtonK20->setBounds(140, 10, 60, 20);
+	ButtonK20->setBounds(132, 10, 60, 20);
 	ButtonK20->setRadioGroupId(1);
 	ButtonK20->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonK20->setColour(TextButton::buttonOnColourId, Colours::green);
@@ -49,46 +49,46 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	addAndMakeVisible(ButtonK20);
 
 	ButtonK14 = new TextButton(T("K-14"));
-	ButtonK14->setBounds(140, 35, 60, 20);
+	ButtonK14->setBounds(132, 35, 60, 20);
 	ButtonK14->setRadioGroupId(1);
 	ButtonK14->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonK14->setColour(TextButton::buttonOnColourId, Colours::green);
+	ButtonK14->setColour(TextButton::buttonOnColourId, Colours::yellow);
 	ButtonK14->setClickingTogglesState(true);
 
 	ButtonK14->addButtonListener(this);
 	addAndMakeVisible(ButtonK14);
 
 	ButtonK12 = new TextButton(T("K-12"));
-	ButtonK12->setBounds(140, 60, 60, 20);
+	ButtonK12->setBounds(132, 60, 60, 20);
 	ButtonK12->setRadioGroupId(1);
 	ButtonK12->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonK12->setColour(TextButton::buttonOnColourId, Colours::green);
+	ButtonK12->setColour(TextButton::buttonOnColourId, Colours::yellow);
 	ButtonK12->setClickingTogglesState(true);
 
 	ButtonK12->addButtonListener(this);
 	addAndMakeVisible(ButtonK12);
 
 	ButtonNormal = new TextButton(T("Normal"));
-	ButtonNormal->setBounds(140, 85, 60, 20);
+	ButtonNormal->setBounds(132, 85, 60, 20);
 	ButtonNormal->setRadioGroupId(1);
 	ButtonNormal->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonNormal->setColour(TextButton::buttonOnColourId, Colours::yellow);
+	ButtonNormal->setColour(TextButton::buttonOnColourId, Colours::red);
 	ButtonNormal->setClickingTogglesState(true);
 
 	ButtonNormal->addButtonListener(this);
 	addAndMakeVisible(ButtonNormal);
 
 	ButtonHold = new TextButton(T("Hold"));
-	ButtonHold->setBounds(140, 125, 60, 20);
+	ButtonHold->setBounds(132, 125, 60, 20);
 	ButtonHold->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonHold->setColour(TextButton::buttonOnColourId, Colours::red);
+	ButtonHold->setColour(TextButton::buttonOnColourId, Colours::yellow);
 	ButtonHold->setClickingTogglesState(true);
 
 	ButtonHold->addButtonListener(this);
 	addAndMakeVisible(ButtonHold);
 
 	ButtonDisplayPeakMeter = new TextButton(T("Peaks"));
-	ButtonDisplayPeakMeter->setBounds(140, 150, 60, 20);
+	ButtonDisplayPeakMeter->setBounds(132, 150, 60, 20);
 	ButtonDisplayPeakMeter->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonDisplayPeakMeter->setColour(TextButton::buttonOnColourId, Colours::yellow);
 	ButtonDisplayPeakMeter->setClickingTogglesState(true);
@@ -97,7 +97,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	addAndMakeVisible(ButtonDisplayPeakMeter);
 
 	ButtonExpanded = new TextButton(T("Expand"));
-	ButtonExpanded->setBounds(140, 175, 60, 20);
+	ButtonExpanded->setBounds(132, 175, 60, 20);
 	ButtonExpanded->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonExpanded->setColour(TextButton::buttonOnColourId, Colours::yellow);
 	ButtonExpanded->setClickingTogglesState(true);
@@ -106,27 +106,21 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	addAndMakeVisible(ButtonExpanded);
 
 	ButtonMono = new TextButton(T("Mono"));
-	ButtonMono->setBounds(140, 215, 60, 20);
+	ButtonMono->setBounds(132, 215, 60, 20);
 	ButtonMono->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonMono->setColour(TextButton::buttonOnColourId, Colours::yellow);
+	ButtonMono->setColour(TextButton::buttonOnColourId, Colours::red);
 	ButtonMono->setClickingTogglesState(false);
 
 	ButtonMono->addButtonListener(this);
 	addAndMakeVisible(ButtonMono);
 
 	ButtonReset = new TextButton(T("Reset"));
-	ButtonReset->setBounds(140, 240, 60, 20);
+	ButtonReset->setBounds(132, 240, 60, 20);
 	ButtonReset->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonReset->setColour(TextButton::buttonOnColourId, Colours::red);
 
 	ButtonReset->addButtonListener(this);
 	addAndMakeVisible(ButtonReset);
-
-	Label* LabelReadoutWarning = new Label(T("Readout Warning"), "Read-out\nnot yet\nvalidated!");
-	LabelReadoutWarning->setBounds(130, 531, 80, 40);
-	LabelReadoutWarning->setColour(Label::textColourId, Colours::yellow);
-	LabelReadoutWarning->setJustificationType(Justification::centred);
-	addAndMakeVisible(LabelReadoutWarning);
 
 	#ifdef DEBUG
 	Label* LabelDebug = new Label(T("Debug Notification"), "DEBUG");
@@ -137,17 +131,17 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	#endif
 
 	ButtonAbout = new TextButton(T("About"));
-	ButtonAbout->setBounds(140, 609, 60, 20);
+	ButtonAbout->setBounds(132, 619, 60, 20);
 	ButtonAbout->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
 	ButtonAbout->addButtonListener(this);
 	addAndMakeVisible(ButtonAbout);
 
-	stereoMeter = new StereoMeter(T("Stereo Meter"), 15, 600, 105, 15);
+	stereoMeter = new StereoMeter(T("Stereo Meter"), 10, 605, 105, 15);
 	addAndMakeVisible(stereoMeter);
 
-	correlationMeter = new CorrelationMeter(T("Correlation Meter"), 15, 620, 105, 13);
+	correlationMeter = new CorrelationMeter(T("Correlation Meter"), 10, 625, 105, 13);
 	addAndMakeVisible(correlationMeter);
 
 	stereoKmeter = NULL;
@@ -183,13 +177,11 @@ void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChang
 	  
 	  if (nNumberOfChannels == 1)
 	  {
-		 ButtonMono->setColour(TextButton::buttonOnColourId, Colours::red);
 		 ButtonMono->setClickingTogglesState(false);
 		 ButtonMono->setToggleState(true, true);
 	  }
 	  else
 	  {
-		 ButtonMono->setColour(TextButton::buttonOnColourId, Colours::yellow);
 		 ButtonMono->setClickingTogglesState(true);
 		 ButtonMono->setToggleState(false, true);
 	  }
@@ -269,7 +261,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 			delete stereoKmeter;
 		}
 
-		stereoKmeter = new StereoKmeter(T("Stereo K-Meter"), 15, 5, nHeadroom, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
+		stereoKmeter = new StereoKmeter(T("Stereo K-Meter"), 10, 10, nHeadroom, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
 		addAndMakeVisible(stereoKmeter);
 	}
 }

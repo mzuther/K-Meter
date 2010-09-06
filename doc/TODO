@@ -1,10 +1,6 @@
 
 o [mzuther] correct overflow counting
 
-o [mzuther] correct pre-delay of FIR filter
-
-o [mzuther] validate meter readouts
-
 o [mzuther] implement ITU BS.1770 loudness weighting
 
 * inter-sample peak meter

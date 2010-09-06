@@ -108,7 +108,7 @@ AboutWindow::AboutWindow(int nWidth, int nHeight)
   contentComponent->addAndMakeVisible(TextEditorAbout);
 
   ButtonAbout = new TextButton(T("About"));
-  ButtonAbout->setBounds(nWidth - 83, nHeight - 34, 60, 20);
+  ButtonAbout->setBounds(nWidth - 73, nHeight - 34, 60, 20);
   ButtonAbout->setColour(TextButton::buttonColourId, Colours::yellow);
   ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::grey);
 
