@@ -30,96 +30,64 @@ MeterBar::MeterBar(const String &componentName, int posX, int posY, int Width, i
 	setName(componentName);
 	isExpanded = bExpanded;
 
-	if (isExpanded)
+	// to prevent the inherent round-off errors of float subtraction,
+	// headroom and limits are stored as integers representing 0.1 dB
+	// steps
+	if (nHeadroom == 0)
 	{
-		nNumberOfBars = 134;
+		nMeterHeadroom = 0;
 
-		if (nHeadroom == 0)
-		{
-			nMeterHeadroom = 0;
+		nLimitTopBars = -20;
+		nLimitRedBars = -40;
+		nLimitAmberBars = -120;
+		nLimitGreenBars_1 = -400;
+		nLimitGreenBars_2 = nLimitGreenBars_1;
+	}
+	else if (nHeadroom == 12)
+	{
+		nMeterHeadroom = +120;
 
-			nLimitTopBars = 40;
-			nLimitRedBars = nLimitTopBars;
-			nLimitAmberBars = nLimitRedBars + 40;
-			nLimitGreenBars_1 = 800;
-			nLimitGreenBars_2 = nLimitGreenBars_1;
-		}
-		else if (nHeadroom == 12)
-		{
-			nMeterHeadroom = 12;
+		nLimitTopBars = +100;
+		nLimitRedBars = +40;
+		nLimitAmberBars = 0;
+		nLimitGreenBars_1 = -300;
+		nLimitGreenBars_2 = nLimitGreenBars_1;
+	}
+	else if (nHeadroom == 14)
+	{
+		nMeterHeadroom = +140;
 
-			nLimitTopBars = 80;
-			nLimitRedBars = nLimitTopBars;
-			nLimitAmberBars = nLimitRedBars + 40;
-			nLimitGreenBars_1 = 800;
-			nLimitGreenBars_2 = nLimitGreenBars_1;
-		}
-		else if (nHeadroom == 14)
-		{
-			nMeterHeadroom = 14;
-
-			nLimitTopBars = 100;
-			nLimitRedBars = nLimitTopBars;
-			nLimitAmberBars = nLimitRedBars + 40;
-			nLimitGreenBars_1 = 800;
-			nLimitGreenBars_2 = nLimitGreenBars_1;
-		}
-		else
-		{
-			nMeterHeadroom = 20;
-
-			nLimitTopBars = 160;
-			nLimitRedBars = nLimitTopBars;
-			nLimitAmberBars = nLimitRedBars + 40;
-			nLimitGreenBars_1 = 800;
-			nLimitGreenBars_2 = nLimitGreenBars_1;
-		}
+		nLimitTopBars = +120;
+		nLimitRedBars = +40;
+		nLimitAmberBars = 0;
+		nLimitGreenBars_1 = -300;
+		nLimitGreenBars_2 = nLimitGreenBars_1;
 	}
 	else
 	{
-		if (nHeadroom == 0) {
-			nMeterHeadroom = 0;
+		nMeterHeadroom = +200;
+
+		nLimitTopBars = +180;
+		nLimitRedBars = +40;
+		nLimitAmberBars = 0;
+		nLimitGreenBars_1 = -240;
+		nLimitGreenBars_2 = -300;
+	}
+
+	if (isExpanded)
+	{
+		nNumberOfBars = 134;
+	}
+	else
+	{
+		if (nHeadroom == 0)
 			nNumberOfBars = 47;
-
-			nLimitTopBars = 4;
-			nLimitRedBars = 6;
-			nLimitAmberBars = 14;
-			nLimitGreenBars_1 = 42;
-			nLimitGreenBars_2 = nLimitGreenBars_1;
-		}
 		else if (nHeadroom == 12)
-		{
-			nMeterHeadroom = 12;
 			nNumberOfBars = 48;
-
-			nLimitTopBars = 4;
-			nLimitRedBars = 10;
-			nLimitAmberBars = 14;
-			nLimitGreenBars_1 = 44;
-			nLimitGreenBars_2 = nLimitGreenBars_1;
-		}
 		else if (nHeadroom == 14)
-		{
-			nMeterHeadroom = 14;
 			nNumberOfBars = 50;
-
-			nLimitTopBars = 4;
-			nLimitRedBars = 12;
-			nLimitAmberBars = 16;
-			nLimitGreenBars_1 = 46;
-			nLimitGreenBars_2 = nLimitGreenBars_1;
-		}
 		else
-		{
-			nMeterHeadroom = 20;
 			nNumberOfBars = 51;
-
-			nLimitTopBars = 4;
-			nLimitRedBars = 18;
-			nLimitAmberBars = 22;
-			nLimitGreenBars_1 = 46;
-			nLimitGreenBars_2 = 47;
-		}
 	}
 
 	nPosX = posX;
@@ -130,8 +98,9 @@ MeterBar::MeterBar(const String &componentName, int posX, int posY, int Width, i
 
 	fLevel = 0.0f;
 
-	float fThreshold = 0.0f;
-	float fRange = 0.0f;
+	int nThreshold = 0; // bar threshold (in 0.1 dB)
+	int nKmeterLevel = nMeterHeadroom; // bar K-Meter level (in 0.1 dB)
+	int nRange = 0; // bar level range (in 0.1 dB)
 	int nColor = 0;
 
 	MeterArray = new MeterSegment*[nNumberOfBars];
@@ -140,30 +109,30 @@ MeterBar::MeterBar(const String &componentName, int posX, int posY, int Width, i
 	{
 		if (isExpanded)
 		{
-			fRange = 0.1f;
-			nColor = 0;
+			nRange = 1;
 		}
 		else
 		{
-			if (n < nLimitTopBars)
-				fRange = 0.5f;
-			else if (n < nLimitGreenBars_1)
-				fRange = 1.0f;
-			else if (n < nLimitGreenBars_2)
-				fRange = 6.0f;
+			if (nKmeterLevel > nLimitTopBars)
+				nRange = 5;
+			else if (nKmeterLevel > nLimitGreenBars_1)
+				nRange = 10;
+			else if (nKmeterLevel > nLimitGreenBars_2)
+				nRange = 60;
 			else
-				fRange = 10.0f;
+				nRange = 100;
 		}
 
-		if (n < nLimitRedBars)
+		if (nKmeterLevel > nLimitRedBars)
 			nColor = 0;
-		else if (n < nLimitAmberBars)
+		else if (nKmeterLevel > nLimitAmberBars)
 			nColor = 1;
 		else
 			nColor = 2;
 
-		fThreshold -= fRange;
-		MeterArray[n] = new MeterSegment(String(T("MeterSegment ") + n), fThreshold, fRange, nColor);
+		nThreshold -= nRange;
+		nKmeterLevel -= nRange;
+		MeterArray[n] = new MeterSegment(String(T("MeterSegment ") + n), nThreshold * 0.1f, nRange * 0.1f, nColor);
 
 		addAndMakeVisible(MeterArray[n]);
 	}
@@ -190,16 +159,35 @@ void MeterBar::visibilityChanged()
 	int height = 134 * nMainSegmentHeight + 1;
 	int segment_height = nMainSegmentHeight;
 
+	int nKmeterLevel = nMeterHeadroom; // bar K-Meter level (in 0.1 dB)
+	int nRange = 0; // bar level range (in 0.1 dB)
+
 	setBounds(nPosX, nPosY, width, height);
 
 	for (int n=0; n < nNumberOfBars; n++)
 	{
-		if (n < nLimitRedBars)
+		if (isExpanded)
+		{
+			nRange = 1;
+		}
+		else
+		{
+			if (nKmeterLevel > nLimitTopBars)
+				nRange = 5;
+			else if (nKmeterLevel > nLimitGreenBars_1)
+				nRange = 10;
+			else if (nKmeterLevel > nLimitGreenBars_2)
+				nRange = 60;
+			else
+				nRange = 100;
+		}
+
+		if (nKmeterLevel > nLimitRedBars)
 		{
 			width = nWidth;
 			x = 0;
 		}
-		else if (n < nLimitAmberBars)
+		else if (nKmeterLevel > nLimitAmberBars)
 		{
 			if (justifyMeter == T("left"))
 			{
@@ -238,19 +226,19 @@ void MeterBar::visibilityChanged()
 
 		if (isExpanded)
 			segment_height = nMainSegmentHeight;
-		else if (n < nLimitTopBars)
+		else if (nKmeterLevel > nLimitTopBars)
 			segment_height = nMainSegmentHeight;
-		else if (n < nLimitGreenBars_1)
+		else if (nKmeterLevel > nLimitGreenBars_1)
 			segment_height = 2 * nMainSegmentHeight;
-		else if (n < nLimitGreenBars_2)
+		else if (nKmeterLevel > nLimitGreenBars_2)
 			segment_height = 6 * nMainSegmentHeight;
 		else if (n == nNumberOfBars - 1)
 		{
 			if (nMeterHeadroom == 0)
 				segment_height = 14 * nMainSegmentHeight;
-			else if (nMeterHeadroom == 12)
+			else if (nMeterHeadroom == +120)
 				segment_height = 20 * nMainSegmentHeight;
-			else if (nMeterHeadroom == 14)
+			else if (nMeterHeadroom == +140)
 				segment_height = 16 * nMainSegmentHeight;
 			else
 				segment_height = 10 * nMainSegmentHeight;
@@ -260,6 +248,8 @@ void MeterBar::visibilityChanged()
 
 		MeterArray[n]->setBounds(x, y, width, segment_height + 1);
 		y += segment_height;
+
+		nKmeterLevel -= nRange;
 	}
 }
 
