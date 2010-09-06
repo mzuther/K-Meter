@@ -78,8 +78,17 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	ButtonNormal->addButtonListener(this);
 	addAndMakeVisible(ButtonNormal);
 
+	ButtonHold = new TextButton(T("Hold"));
+	ButtonHold->setBounds(140, 125, 60, 20);
+	ButtonHold->setColour(TextButton::buttonColourId, Colours::grey);
+	ButtonHold->setColour(TextButton::buttonOnColourId, Colours::red);
+	ButtonHold->setClickingTogglesState(true);
+
+	ButtonHold->addButtonListener(this);
+	addAndMakeVisible(ButtonHold);
+
 	ButtonDisplayPeakMeter = new TextButton(T("Peaks"));
-	ButtonDisplayPeakMeter->setBounds(140, 125, 60, 20);
+	ButtonDisplayPeakMeter->setBounds(140, 150, 60, 20);
 	ButtonDisplayPeakMeter->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonDisplayPeakMeter->setColour(TextButton::buttonOnColourId, Colours::yellow);
 	ButtonDisplayPeakMeter->setClickingTogglesState(true);
@@ -88,7 +97,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	addAndMakeVisible(ButtonDisplayPeakMeter);
 
 	ButtonExpanded = new TextButton(T("Expand"));
-	ButtonExpanded->setBounds(140, 150, 60, 20);
+	ButtonExpanded->setBounds(140, 175, 60, 20);
 	ButtonExpanded->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonExpanded->setColour(TextButton::buttonOnColourId, Colours::yellow);
 	ButtonExpanded->setClickingTogglesState(true);
@@ -96,23 +105,14 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	ButtonExpanded->addButtonListener(this);
 	addAndMakeVisible(ButtonExpanded);
 
-	ButtonPeakHold = new TextButton(T("Peak Hold"));
-	ButtonPeakHold->setBounds(140, 190, 60, 20);
-	ButtonPeakHold->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonPeakHold->setColour(TextButton::buttonOnColourId, Colours::red);
-	ButtonPeakHold->setClickingTogglesState(true);
+	ButtonMono = new TextButton(T("Mono"));
+	ButtonMono->setBounds(140, 215, 60, 20);
+	ButtonMono->setColour(TextButton::buttonColourId, Colours::grey);
+	ButtonMono->setColour(TextButton::buttonOnColourId, Colours::yellow);
+	ButtonMono->setClickingTogglesState(false);
 
-	ButtonPeakHold->addButtonListener(this);
-	addAndMakeVisible(ButtonPeakHold);
-
-	ButtonAverageHold = new TextButton(T("Avg Hold"));
-	ButtonAverageHold->setBounds(140, 215, 60, 20);
-	ButtonAverageHold->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonAverageHold->setColour(TextButton::buttonOnColourId, Colours::red);
-	ButtonAverageHold->setClickingTogglesState(true);
-
-	ButtonAverageHold->addButtonListener(this);
-	addAndMakeVisible(ButtonAverageHold);
+	ButtonMono->addButtonListener(this);
+	addAndMakeVisible(ButtonMono);
 
 	ButtonReset = new TextButton(T("Reset"));
 	ButtonReset->setBounds(140, 240, 60, 20);
@@ -121,15 +121,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
 	ButtonReset->addButtonListener(this);
 	addAndMakeVisible(ButtonReset);
-
-	ButtonMono = new TextButton(T("Mono"));
-	ButtonMono->setBounds(140, 280, 60, 20);
-	ButtonMono->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonMono->setColour(TextButton::buttonOnColourId, Colours::yellow);
-	ButtonMono->setClickingTogglesState(false);
-
-	ButtonMono->addButtonListener(this);
-	addAndMakeVisible(ButtonMono);
 
 	Label* LabelReadoutWarning = new Label(T("Readout Warning"), "Read-out\nnot yet\nvalidated!");
 	LabelReadoutWarning->setBounds(130, 531, 80, 40);
@@ -236,14 +227,10 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 		nHeadroom = 20;
 		reloadStereoKmeter = true;
 	}
-	else if (button == ButtonPeakHold)
+	else if (button == ButtonHold)
 	{
 		MeterBallistics* pBallistics = pProcessor->getLevels();
 		pBallistics->setPeakHold(button->getToggleState());
-	}
-	else if (button == ButtonAverageHold)
-	{
-		MeterBallistics* pBallistics = pProcessor->getLevels();
 		pBallistics->setAverageHold(button->getToggleState());
 	}
 	else if (button == ButtonExpanded)
@@ -253,7 +240,6 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 	else if (button == ButtonDisplayPeakMeter)
 	{
 		reloadStereoKmeter = true;
-		ButtonPeakHold->setVisible(ButtonDisplayPeakMeter->getToggleState());
 	}
 	else if (button == ButtonReset)
 	{
