@@ -140,9 +140,8 @@ calculate_chebyshev_coefficients <- function(relative_cutoff_frequency, is_high_
 }
 
 
-plot_impulse_response <- function(samples, impulse_response, xlim, ylim)
+plot_impulse_response <- function(samples, impulse_response, main, xlim, ylim, ...)
 {
-  main <- "Filter kernel"
   xlab <- "Sample number"
   ylab <- "Amplitude"
 
@@ -150,13 +149,12 @@ plot_impulse_response <- function(samples, impulse_response, xlim, ylim)
 
   box(which="plot")
 
-  lines(impulse_response[1:samples] ~ c(1:samples), type="l", lty=1)
+  lines(impulse_response[1:samples] ~ c(1:samples), type="l", lty=1, ...)
 }
 
 
-plot_step_response <- function(samples, step_response, xlim, ylim)
+plot_step_response <- function(samples, step_response, main, xlim, ylim, ...)
 {
-  main <- "Step response"
   xlab <- "Sample number"
   ylab <- "Amplitude"
 
@@ -164,13 +162,12 @@ plot_step_response <- function(samples, step_response, xlim, ylim)
 
   box(which="plot")
 
-  lines(step_response[1:samples] ~ c(1:samples), type="l", lty=1)
+  lines(step_response[1:samples] ~ c(1:samples), type="l", lty=1, ...)
 }
 
 
-plot_frequency_response <- function(frequency, amplitude, xlim, ylim, log_x=TRUE, log_y=TRUE)
+plot_frequency_response <- function(frequency, amplitude, main, xlim, ylim, log_x=TRUE, log_y=TRUE, ...)
 {
-  main <- "Frequency response"
   xlab <- "Frequency [Hz]"
 
   if (log_x)
@@ -209,13 +206,12 @@ plot_frequency_response <- function(frequency, amplitude, xlim, ylim, log_x=TRUE
 
   box(which="plot")
 
-  lines(amplitude[1:length(frequency)] ~ frequency, type="l", lty=1)
+  lines(amplitude[1:length(frequency)] ~ frequency, type="l", lty=1, ...)
 }
 
 
-plot_phase_response <- function(frequency, phase, xlim, ylim, log_x=TRUE)
+plot_phase_response <- function(frequency, phase, main, xlim, ylim, log_x=TRUE, ...)
 {
-  main <- "Phase response"
   xlab <- "Frequency [Hz]"
 
   if (log_x)
@@ -245,7 +241,7 @@ plot_phase_response <- function(frequency, phase, xlim, ylim, log_x=TRUE)
 
   box(which="plot")
 
-  lines(phase[1:length(frequency)] ~ frequency, type="l", lty=1)
+  lines(phase[1:length(frequency)] ~ frequency, type="l", lty=1, ...)
 }
 
 
@@ -415,12 +411,10 @@ windowed_sinc_bandpass <- function(samples, relative_cutoff_frequency_1, relativ
 # Filter design
 #*******************
 
-postscript("filter_design.eps", horizontal=FALSE, onefile=FALSE, height=9.0, width=16.0, pointsize=10, paper="special")
-
 fft_size <- 2 ** 14
 samples <- 2 ** 10  # "samples" must be even to yield an odd length (1:samples)
 samples_half <- samples / 2
-sample_rate <- 44100
+sample_rate <- 192000
 
 cutoff_frequency <- 21000
 kernel_length <- 1025
@@ -434,48 +428,65 @@ phase_response <- calculate_phase_response(filter_kernel)
 frequency <- sample_rate * (0:(fft_size / 2)) / fft_size
 
 
-split.screen(c(2, 3), erase=TRUE)
+pdf("filter_design_rms.pdf", onefile=FALSE, height=9.0, width=16.0, pointsize=10, paper="special")
+
+outer_margins <- rbind(
+# c(left, right, bottom, top)
+  c(0.00, 1.00,  0.90,   1.00),  # (1) top
+  c(0.00, 1.00,  0.00,   0.90)   # (2) bottom
+)
+split.screen(figs=outer_margins, erase=TRUE)
+split.screen(figs=c(2, 3), screen=2, erase=TRUE)
+#for (i in 1:8) {screen(i); box("figure", col="grey")}
+
 
 screen(1)
+
+mtext("RMS band-limiting filter", side=1, line=1.0, outer=FALSE, font=2, cex=2.0)
+mtext(paste("Windowed sinc low-pass @", cutoff_frequency, " Hz (", kernel_length, " samples)", sep=""), side=1, line=2.7, outer=FALSE, font=1, cex=1.2)
+mtext(paste("Sample rate: ", sample_rate / 1000, " kHz", sep=""), side=1, line=4.0, outer=FALSE, font=1, cex=1.2)
+
+screen(3)
+
 xlim <- c(1, samples)
 ylim <- c(-1, 1)
 
-plot_impulse_response(samples, filter_kernel, xlim=xlim, ylim=ylim)
-
-
-screen(2)
-xlim <- c(0, sample_rate / 2)
-ylim <- c(0, 1)
-
-plot_frequency_response(frequency, frequency_response, xlim=xlim, ylim=ylim, log_x=FALSE, log_y=FALSE)
-
-
-screen(3)
-xlim <- c(10, sample_rate / 2)
-ylim <- c(-120, 0)
-
-plot_frequency_response(frequency, frequency_response, xlim=xlim, ylim=ylim, log_x=TRUE, log_y=TRUE)
+plot_impulse_response(samples, filter_kernel, "Filter kernel", xlim=xlim, ylim=ylim)
 
 
 screen(4)
-xlim <- c(1, samples)
-ylim <- c(-1, 1)
+xlim <- c(0, sample_rate / 2)
+ylim <- c(0, 1)
 
-plot_step_response(samples, step_response, xlim=xlim, ylim=ylim)
+plot_frequency_response(frequency, frequency_response, "Frequency response (linear)", xlim=xlim, ylim=ylim, log_x=FALSE, log_y=FALSE)
 
 
 screen(5)
 xlim <- c(10, sample_rate / 2)
-ylim <- c(-2, 2)
+ylim <- c(-120, 0)
 
-plot_phase_response(frequency, phase_response, xlim=xlim, ylim=ylim, log_x=FALSE)
+plot_frequency_response(frequency, frequency_response, "Frequency response (logarithmic)", xlim=xlim, ylim=ylim, log_x=TRUE, log_y=TRUE)
 
 
 screen(6)
+xlim <- c(1, samples)
+ylim <- c(-1, 1)
+
+plot_step_response(samples, step_response, "Step response", xlim=xlim, ylim=ylim)
+
+
+screen(7)
 xlim <- c(10, sample_rate / 2)
 ylim <- c(-2, 2)
 
-plot_phase_response(frequency, phase_response, xlim=xlim, ylim=ylim, log_x=TRUE)
+plot_phase_response(frequency, phase_response, "Phase response (linear)", xlim=xlim, ylim=ylim, log_x=FALSE)
+
+
+screen(8)
+xlim <- c(10, sample_rate / 2)
+ylim <- c(-2, 2)
+
+plot_phase_response(frequency, phase_response, "Phase response (logarithmic)", xlim=xlim, ylim=ylim, log_x=TRUE)
 
 
 close.screen(all=TRUE)
