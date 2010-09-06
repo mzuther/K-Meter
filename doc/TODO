@@ -1,7 +1,13 @@
 
 o [mzuther] correct overflow counting
 
-o [mzuther] implement ITU BS.1770 loudness weighting
+o [mzuther] document code
 
-* inter-sample peak meter
+o [mzuther] write documentation
+
+o [mzuther] optimise meter magnification region
+
+* implement ITU BS.1770 loudness weighting
+
+* implement inter-sample peak meter
 
