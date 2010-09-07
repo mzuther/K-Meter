@@ -43,80 +43,97 @@ class KmeterAudioProcessor;
 class KmeterAudioProcessor  : public AudioProcessor, public ChangeBroadcaster
 {
 public:
-    //==============================================================================
-    KmeterAudioProcessor();
-    ~KmeterAudioProcessor();
+  //==============================================================================
+  KmeterAudioProcessor();
+  ~KmeterAudioProcessor();
 
-    //==============================================================================
-    void prepareToPlay(double sampleRate, int samplesPerBlock);
-    void releaseResources();
+  //==============================================================================
+  void prepareToPlay(double sampleRate, int samplesPerBlock);
+  void releaseResources();
 
-    void processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages);
+  void processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages);
 
-    //==============================================================================
-    AudioProcessorEditor* createEditor();
+  //==============================================================================
+  AudioProcessorEditor* createEditor();
 
-    //==============================================================================
-    const String getName() const;
+  //==============================================================================
+  const String getName() const;
 
-    int getNumParameters();
+  int getNumParameters();
 
-    float getParameter(int index);
-    void setParameter(int index, float newValue);
+  float getParameter(int index);
+  void setParameter(int index, float newValue);
 
-    const String getParameterName(int index);
-    const String getParameterText(int index);
+  const String getParameterName(int index);
+  const String getParameterText(int index);
 
-    const String getInputChannelName(const int channelIndex) const;
-    const String getOutputChannelName(const int channelIndex) const;
-    bool isInputChannelStereoPair(int index) const;
-    bool isOutputChannelStereoPair(int index) const;
+  const String getInputChannelName(const int channelIndex) const;
+  const String getOutputChannelName(const int channelIndex) const;
+  bool isInputChannelStereoPair(int index) const;
+  bool isOutputChannelStereoPair(int index) const;
 
-    bool acceptsMidi() const;
-    bool producesMidi() const;
+  bool acceptsMidi() const;
+  bool producesMidi() const;
 
-	MeterBallistics* getLevels();
-	void convertMono(const bool bMono);
-	void processBufferChunk(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
+  MeterBallistics* getLevels();
+  void convertMono(const bool bMono);
+  void processBufferChunk(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
-    //==============================================================================
-    int getNumPrograms();
-    int getCurrentProgram();
-    void setCurrentProgram(int index);
-    const String getProgramName(int index);
-    void changeProgramName(int index, const String& newName);
+  //==============================================================================
+  int getNumPrograms();
+  int getCurrentProgram();
+  void setCurrentProgram(int index);
+  const String getProgramName(int index);
+  void changeProgramName(int index, const String& newName);
 
-    //==============================================================================
-    void getStateInformation(MemoryBlock& destData);
-    void setStateInformation(const void* data, int sizeInBytes);
+  int nParam_Headroom;
+  bool bParam_Expanded;
+  bool bParam_Peak;
+  bool bParam_Hold;
+  bool bParam_Mono;
 
-    //==============================================================================
-    juce_UseDebuggingNewOperator
+  enum Parameters
+  {
+	 nSelect_Headroom = 0,
+	 nSelect_Expanded,
+	 nSelect_Peak,
+	 nSelect_Hold,
+	 nSelect_Mono,
+
+	 nSelect_TotalNumParameters
+  };
+
+  //==============================================================================
+  void getStateInformation(MemoryBlock& destData);
+  void setStateInformation(const void* data, int sizeInBytes);
+
+  //==============================================================================
+  juce_UseDebuggingNewOperator
 
 private:
-	AudioRingBuffer* pRingBufferInput;
-	AudioRingBuffer* pRingBufferOutput;
+  AudioRingBuffer* pRingBufferInput;
+  AudioRingBuffer* pRingBufferOutput;
 
-	AverageLevelFilteredRms* pAverageLevelFilteredRms;
-	MeterBallistics* pMeterBallistics;
+  AverageLevelFilteredRms* pAverageLevelFilteredRms;
+  MeterBallistics* pMeterBallistics;
 
-	bool makeMono;
+  bool makeMono;
 
-	int nSamplesInBuffer;
-	float fTimeFrame;
+  int nSamplesInBuffer;
+  float fTimeFrame;
 
-	float fPeakLeft;
-	float fPeakRight;
-	float fAverageLeft;
-	float fAverageRight;
-	float fCorrelation;
-	int nOverflowsLeft;
-	int nOverflowsRight;
+  float fPeakLeft;
+  float fPeakRight;
+  float fAverageLeft;
+  float fAverageRight;
+  float fCorrelation;
+  int nOverflowsLeft;
+  int nOverflowsRight;
 
-	short nPreviousSampleOverLeft;
-	short nPreviousSampleOverRight;
+  short nPreviousSampleOverLeft;
+  short nPreviousSampleOverRight;
 
-	int countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay, short& nPreviousSampleOver);
+  int countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay, short& nPreviousSampleOver);
 };
 
 #endif  // __PLUGINPROCESSOR_H_5573940C__

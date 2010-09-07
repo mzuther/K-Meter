@@ -30,114 +30,231 @@
 
 KmeterAudioProcessor::KmeterAudioProcessor()
 {
-	if (DEBUG_FILTER)
-	{
-		DBG("********************************************************************************");
-		DBG("** Debugging average filtering.  Please reset DEBUG_FILTER before committing! **");
-		DBG("********************************************************************************");
-	}
+  if (DEBUG_FILTER)
+  {
+	 DBG("********************************************************************************");
+	 DBG("** Debugging average filtering.  Please reset DEBUG_FILTER before committing! **");
+	 DBG("********************************************************************************");
+  }
 
-	pRingBufferInput = NULL;
-	pRingBufferOutput = NULL;
+  pRingBufferInput = NULL;
+  pRingBufferOutput = NULL;
 
-	pAverageLevelFilteredRms = new AverageLevelFilteredRms(2, KMETER_BUFFER_SIZE);
-	pMeterBallistics = new MeterBallistics(false, false);
+  pAverageLevelFilteredRms = new AverageLevelFilteredRms(2, KMETER_BUFFER_SIZE);
+  pMeterBallistics = new MeterBallistics(false, false);
 
-	makeMono = false;
+  makeMono = false;
 
-	fTimeFrame = 0.0f;
+  fTimeFrame = 0.0f;
 
-	fPeakLeft = 0.0f;
-	fPeakRight = 0.0f;
-	fAverageLeft = 0.0f;
-	fAverageRight = 0.0f;
-	fCorrelation = 0.0f;
-	nOverflowsLeft = 0;
-	nOverflowsRight = 0;
+  fPeakLeft = 0.0f;
+  fPeakRight = 0.0f;
+  fAverageLeft = 0.0f;
+  fAverageRight = 0.0f;
+  fCorrelation = 0.0f;
+  nOverflowsLeft = 0;
+  nOverflowsRight = 0;
 
-	nPreviousSampleOverLeft = 0;
-	nPreviousSampleOverRight = 0;
+  nPreviousSampleOverLeft = 0;
+  nPreviousSampleOverRight = 0;
+
+  nParam_Headroom = 14;
+  bParam_Expanded = false;
+  bParam_Peak = true;
+  bParam_Hold = false;
+  bParam_Mono = false;
 }
 
 
 KmeterAudioProcessor::~KmeterAudioProcessor()
 {
-	removeAllChangeListeners();
+  removeAllChangeListeners();
 
-	delete pAverageLevelFilteredRms;
-	pAverageLevelFilteredRms = NULL;
+  delete pAverageLevelFilteredRms;
+  pAverageLevelFilteredRms = NULL;
 
-	delete pMeterBallistics;
-	pMeterBallistics = NULL;
+  delete pMeterBallistics;
+  pMeterBallistics = NULL;
 }
 
 //==============================================================================
 
 const String KmeterAudioProcessor::getName() const
 {
-    return JucePlugin_Name;
+  return JucePlugin_Name;
 }
 
 
 int KmeterAudioProcessor::getNumParameters()
 {
-    return 0;
+  return nSelect_TotalNumParameters;
 }
 
 
 float KmeterAudioProcessor::getParameter(int index)
 {
-    return 0.0f;
+  // This method will be called by the host, probably on the audio
+  // thread, so it's absolutely time-critical. Don't use critical
+  // sections or anything UI-related, or anything at all that may
+  // block in any way!
+  switch (index)
+  {
+  case nSelect_Headroom:
+	 if (nParam_Headroom == 0)
+		return 0.00f;
+	 else if (nParam_Headroom == 12)
+		return 0.33f;
+	 else if (nParam_Headroom == 14)
+		return 0.66f;
+	 else
+		return 1.00f;
+	 break;
+
+  case nSelect_Expanded:
+	 return bParam_Expanded ? 1.0f : 0.0f;
+	 break;
+
+  case nSelect_Peak:
+	 return bParam_Peak ? 1.0f : 0.0f;
+	 break;
+
+  case nSelect_Hold:
+	 return bParam_Hold ? 1.0f : 0.0f;
+	 break;
+
+  case nSelect_Mono:
+	 return bParam_Mono ? 1.0f : 0.0f;
+	 break;
+
+  default:
+	 return 0.0f;
+	 break;
+  }
 }
 
 
 void KmeterAudioProcessor::setParameter(int index, float newValue)
 {
+  // This method will be called by the host, probably on the audio
+  // thread, so it's absolutely time-critical. Don't use critical
+  // sections or anything UI-related, or anything at all that may
+  // block in any way!
+
+  switch (index)
+  {
+  case nSelect_Headroom:
+	 if (newValue < 0.25f)
+		nParam_Headroom = 0;
+	 else if (newValue < 0.50f)
+		nParam_Headroom = 12;
+	 else if (newValue < 0.75f)
+		nParam_Headroom = 14;
+	 else
+		nParam_Headroom = 20;
+	 break;
+
+  case nSelect_Expanded:
+	 bParam_Expanded = (newValue < 0.5f) ? false : true;
+	 break;
+
+  case nSelect_Peak:
+	 bParam_Peak = (newValue < 0.5f) ? false : true;
+	 break;
+
+  case nSelect_Hold:
+	 bParam_Hold = (newValue < 0.5f) ? false : true;
+	 break;
+
+  case nSelect_Mono:
+	 bParam_Mono = (newValue < 0.5f) ? false : true;
+	 break;
+
+  default:
+	 break;
+  }
 }
 
 
 const String KmeterAudioProcessor::getParameterName(int index)
 {
-    return String::empty;
+  switch (index)
+  {
+  case nSelect_Headroom:
+	 return "Headroom";
+	 break;
+
+  case nSelect_Expanded:
+	 return "Expand";
+	 break;
+
+  case nSelect_Peak:
+	 return "Peak";
+	 break;
+
+  case nSelect_Hold:
+	 return "Hold";
+	 break;
+
+  case nSelect_Mono:
+	 return "Mono";
+	 break;
+
+  default:
+	 break;
+  }
+
+  return String::empty;
 }
 
 
 const String KmeterAudioProcessor::getParameterText(int index)
 {
-    return String::empty;
+  if (index == nSelect_Headroom)
+  {
+	 if (nParam_Headroom == 0)
+		return "Normal";
+	 else if (nParam_Headroom == 12)
+		return "K-12";
+	 else if (nParam_Headroom == 14)
+		return "K-14";
+	 else
+		return "K-20";
+  }
+  else
+	 return (getParameter(index) < 0.5f) ? "off" : "on";
 }
 
 
 const String KmeterAudioProcessor::getInputChannelName(const int channelIndex) const
 {
-    return String(channelIndex + 1);
+  return String(channelIndex + 1);
 }
 
 
 const String KmeterAudioProcessor::getOutputChannelName(const int channelIndex) const
 {
-    return String(channelIndex + 1);
+  return String(channelIndex + 1);
 }
 
 
 bool KmeterAudioProcessor::isInputChannelStereoPair(int index) const
 {
-    return true;
+  return true;
 }
 
 
 bool KmeterAudioProcessor::isOutputChannelStereoPair(int index) const
 {
-    return true;
+  return true;
 }
 
 
 bool KmeterAudioProcessor::acceptsMidi() const
 {
 #if JucePlugin_WantsMidiInput
-    return true;
+  return true;
 #else
-    return false;
+  return false;
 #endif
 }
 
@@ -145,22 +262,22 @@ bool KmeterAudioProcessor::acceptsMidi() const
 bool KmeterAudioProcessor::producesMidi() const
 {
 #if JucePlugin_ProducesMidiOutput
-    return true;
+  return true;
 #else
-    return false;
+  return false;
 #endif
 }
 
 
 int KmeterAudioProcessor::getNumPrograms()
 {
-    return 0;
+  return 0;
 }
 
 
 int KmeterAudioProcessor::getCurrentProgram()
 {
-    return 0;
+  return 0;
 }
 
 
@@ -171,7 +288,7 @@ void KmeterAudioProcessor::setCurrentProgram(int index)
 
 const String KmeterAudioProcessor::getProgramName(int index)
 {
-    return String::empty;
+  return String::empty;
 }
 
 
@@ -183,67 +300,67 @@ void KmeterAudioProcessor::changeProgramName(int index, const String& newName)
 
 void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-	// Use this method as the place to do any pre-playback
-	// initialisation that you need..
+  // Use this method as the place to do any pre-playback
+  // initialisation that you need..
 
-	// make sure that ring buffer can hold at least KMETER_BUFFER_SIZE
-	// samples and is large enough to receive a full block of audio
-	nSamplesInBuffer = 0;
-	unsigned int uRingBufferSize = (samplesPerBlock > KMETER_BUFFER_SIZE) ? samplesPerBlock : KMETER_BUFFER_SIZE;
+  // make sure that ring buffer can hold at least KMETER_BUFFER_SIZE
+  // samples and is large enough to receive a full block of audio
+  nSamplesInBuffer = 0;
+  unsigned int uRingBufferSize = (samplesPerBlock > KMETER_BUFFER_SIZE) ? samplesPerBlock : KMETER_BUFFER_SIZE;
 
-	pRingBufferInput = new AudioRingBuffer(T("Input ring buffer"), 2, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
-	pRingBufferInput->setCallbackClass(this);
+  pRingBufferInput = new AudioRingBuffer(T("Input ring buffer"), 2, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
+  pRingBufferInput->setCallbackClass(this);
 
-	pRingBufferOutput = new AudioRingBuffer(T("Output ring buffer"), 2, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
+  pRingBufferOutput = new AudioRingBuffer(T("Output ring buffer"), 2, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
 }
 
 
 void KmeterAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
+  // When playback stops, you can use this as an opportunity to free
+  // up any spare memory, etc.
 
-	delete pRingBufferOutput;
-	pRingBufferOutput = NULL;
+  delete pRingBufferOutput;
+  pRingBufferOutput = NULL;
 
-	delete pRingBufferInput;
-	pRingBufferInput = NULL;
+  delete pRingBufferInput;
+  pRingBufferInput = NULL;
 }
 
 
 void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
-	// This is the place where you'd normally do the guts of your
-	// plugin's audio processing...
+  // This is the place where you'd normally do the guts of your
+  // plugin's audio processing...
 
-	bool isStereo = (getNumInputChannels() > 1);
-	int nNumSamples = buffer.getNumSamples();
+  bool isStereo = (getNumInputChannels() > 1);
+  int nNumSamples = buffer.getNumSamples();
 
-	// convert stereo input to mono if "Mono" button has been pressed
-	if (isStereo && makeMono)
-	{
-	  float* output_left = buffer.getSampleData(0);
-	  float* output_right = buffer.getSampleData(1);
+  // convert stereo input to mono if "Mono" button has been pressed
+  if (isStereo && makeMono)
+  {
+	 float* output_left = buffer.getSampleData(0);
+	 float* output_right = buffer.getSampleData(1);
 
-	  for (int i=0; i < nNumSamples; i++)
-	  {
-		 output_left[i] = 0.5f * (output_left[i] + output_right[i]);
-		 output_right[i] = output_left[i];
-	  }
-	}
+	 for (int i=0; i < nNumSamples; i++)
+	 {
+		output_left[i] = 0.5f * (output_left[i] + output_right[i]);
+		output_right[i] = output_left[i];
+	 }
+  }
 
-	pRingBufferInput->addSamples(buffer, 0, nNumSamples);
+  pRingBufferInput->addSamples(buffer, 0, nNumSamples);
 
-	nSamplesInBuffer += nNumSamples;
-	nSamplesInBuffer %= KMETER_BUFFER_SIZE;
+  nSamplesInBuffer += nNumSamples;
+  nSamplesInBuffer %= KMETER_BUFFER_SIZE;
 
-	pRingBufferOutput->copyToBuffer(buffer, 0, nNumSamples, KMETER_BUFFER_SIZE - nSamplesInBuffer);
+  pRingBufferOutput->copyToBuffer(buffer, 0, nNumSamples, KMETER_BUFFER_SIZE - nSamplesInBuffer);
 
-	// In case we have more outputs than inputs, we'll clear any output
-	// channels that didn't contain input data, (because these aren't
-	// guaranteed to be empty - they may contain garbage).
-	for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
-		buffer.clear(i, 0, nNumSamples);
+  // In case we have more outputs than inputs, we'll clear any output
+  // channels that didn't contain input data, (because these aren't
+  // guaranteed to be empty - they may contain garbage).
+  for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
+	 buffer.clear(i, 0, nNumSamples);
 }
 
 
@@ -335,90 +452,127 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
 
 int KmeterAudioProcessor::countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay, short& nPreviousSampleOver)
 {
-	int nOverflows = 0;
+  int nOverflows = 0;
 
-	for (unsigned int uSample=0; uSample < length; uSample++)
-	{
-		float fSampleValue = ring_buffer->getSample(channel, uSample, pre_delay);
+  for (unsigned int uSample=0; uSample < length; uSample++)
+  {
+	 float fSampleValue = ring_buffer->getSample(channel, uSample, pre_delay);
 
-		// nPreviousSampleOver == 10:  previous sample counted as overflow; do not count again
-		// nPreviousSampleOver ==  1:  previous sample was 1.0f, not yet counted as overflow
-		// nPreviousSampleOver ==  0:  previous sample between -1.0f and 1.0f
-		// nPreviousSampleOver == -1:  previous sample was -1.0f, not yet counted as overflow
-		if ((fSampleValue > -1.0f) && (fSampleValue < 1.0f))
-			nPreviousSampleOver = 0;
-		else if (fSampleValue == 1.0f)
+	 // nPreviousSampleOver == 10:  previous sample counted as overflow; do not count again
+	 // nPreviousSampleOver ==  1:  previous sample was 1.0f, not yet counted as overflow
+	 // nPreviousSampleOver ==  0:  previous sample between -1.0f and 1.0f
+	 // nPreviousSampleOver == -1:  previous sample was -1.0f, not yet counted as overflow
+	 if ((fSampleValue > -1.0f) && (fSampleValue < 1.0f))
+		nPreviousSampleOver = 0;
+	 else if (fSampleValue == 1.0f)
+	 {
+		if ((nPreviousSampleOver == -1) ||(nPreviousSampleOver == 0))
 		{
-			if ((nPreviousSampleOver == -1) ||(nPreviousSampleOver == 0))
-			{
-				nPreviousSampleOver = 1;
-			}
-			else if (nPreviousSampleOver == 1)
-			{
-				nPreviousSampleOver = 10;
-				nOverflows++;
-			}
+		  nPreviousSampleOver = 1;
 		}
-		else if (fSampleValue == -1.0f)
+		else if (nPreviousSampleOver == 1)
 		{
-			if ((nPreviousSampleOver == 1) ||(nPreviousSampleOver == 0))
-			{
-				nPreviousSampleOver = -1;
-			}
-			else if (nPreviousSampleOver == -1)
-			{
-				nPreviousSampleOver = 10;
-				nOverflows++;
-			}
+		  nPreviousSampleOver = 10;
+		  nOverflows++;
 		}
-		else
+	 }
+	 else if (fSampleValue == -1.0f)
+	 {
+		if ((nPreviousSampleOver == 1) ||(nPreviousSampleOver == 0))
 		{
-			if (nPreviousSampleOver != 10)
-			{
-				nPreviousSampleOver = 10;
-				nOverflows++;
-			}
+		  nPreviousSampleOver = -1;
 		}
-	}
+		else if (nPreviousSampleOver == -1)
+		{
+		  nPreviousSampleOver = 10;
+		  nOverflows++;
+		}
+	 }
+	 else
+	 {
+		if (nPreviousSampleOver != 10)
+		{
+		  nPreviousSampleOver = 10;
+		  nOverflows++;
+		}
+	 }
+  }
 
-	return nOverflows;
+  return nOverflows;
 }
 
 
 MeterBallistics* KmeterAudioProcessor::getLevels()
 {
-	return pMeterBallistics;
+  return pMeterBallistics;
 }
 
 
 void KmeterAudioProcessor::convertMono(const bool bMono)
 {
-	makeMono = bMono;
+  makeMono = bMono;
 }
 
 //==============================================================================
+
 AudioProcessorEditor* KmeterAudioProcessor::createEditor()
 {
-	return new KmeterAudioProcessorEditor(this);
+  return new KmeterAudioProcessorEditor(this);
 }
 
 //==============================================================================
+
 void KmeterAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+  // You should use this method to store your parameters in the memory
+  // block.  Here's an example of how you can use XML to make it easy
+  // and more robust:
+
+  // Create an outer XML element..
+  XmlElement xml("KMETER_SETTINGS");
+
+  // add some attributes to it..
+  xml.setAttribute("Headroom", nParam_Headroom);
+  xml.setAttribute("Expanded", bParam_Expanded);
+  xml.setAttribute("Peak", bParam_Peak);
+  xml.setAttribute("Hold", bParam_Hold);
+  xml.setAttribute("Mono", bParam_Mono);
+
+  // then use this helper function to stuff it into the binary blob
+  // and return it..
+  copyXmlToBinary(xml, destData);
 }
+
 
 void KmeterAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+  // You should use this method to restore your parameters from this
+  // memory block, whose contents will have been created by the
+  // getStateInformation() call.
+
+  // This getXmlFromBinary() helper function retrieves our XML from
+  // the binary blob..
+  ScopedPointer<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+
+  if (xmlState != 0)
+  {
+	 // make sure that it's actually our type of XML object..
+	 if (xmlState->hasTagName("KMETER_SETTINGS"))
+	 {
+		// ok, now pull out our parameters..
+		nParam_Headroom = xmlState->getIntAttribute("Headroom", nParam_Headroom);
+		bParam_Expanded = xmlState->getBoolAttribute("Expanded", bParam_Expanded);
+		bParam_Peak = xmlState->getBoolAttribute("Peak", bParam_Peak);
+		bParam_Hold = xmlState->getBoolAttribute("Hold", bParam_Hold);
+		bParam_Mono = xmlState->getBoolAttribute("Mono", bParam_Mono);
+	 }
+  }
 }
 
 //==============================================================================
+
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new KmeterAudioProcessor();
+  return new KmeterAudioProcessor();
 }

@@ -66,12 +66,12 @@ private:
 	TextButton* ButtonK14;
 	TextButton* ButtonK20;
 
-	TextButton *ButtonExpanded;
-	TextButton *ButtonDisplayPeakMeter;
+	TextButton* ButtonExpanded;
+	TextButton* ButtonDisplayPeakMeter;
 	TextButton* ButtonHold;
 	TextButton* ButtonReset;
 
-	TextButton *ButtonMono;
+	TextButton* ButtonMono;
 	TextButton* ButtonAbout;
 };
 
