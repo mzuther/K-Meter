@@ -46,6 +46,7 @@ public:
 
 	void changeListenerCallback(void* objectThatHasChanged);
 	void buttonClicked(Button* button);
+	void changeParameter(int index, int nValue);
 
     //==============================================================================
     // This is just a standard Juce paint method...

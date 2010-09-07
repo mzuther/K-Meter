@@ -37,28 +37,25 @@ class KmeterAudioProcessor;
 #include "audio_ring_buffer.h"
 #include "meter_ballistics.h"
 
-//==============================================================================
-/**
-*/
+//============================================================================
 class KmeterAudioProcessor  : public AudioProcessor, public ChangeBroadcaster
 {
 public:
-  //==============================================================================
+  //==========================================================================
+
   KmeterAudioProcessor();
   ~KmeterAudioProcessor();
 
-  //==============================================================================
+  //==========================================================================
   void prepareToPlay(double sampleRate, int samplesPerBlock);
   void releaseResources();
 
   void processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages);
 
-  //==============================================================================
+  //==========================================================================
   AudioProcessorEditor* createEditor();
 
-  //==============================================================================
-  const String getName() const;
-
+  //==========================================================================
   int getNumParameters();
 
   float getParameter(int index);
@@ -66,6 +63,30 @@ public:
 
   const String getParameterName(int index);
   const String getParameterText(int index);
+
+  void changeParameter(int index, int newValue);
+  int getTranslatedParameter(int index);
+
+  enum Parameters  // public namespace!
+  {
+	 nSelect_Headroom = 0,
+	 nSelect_Expanded,
+	 nSelect_Peak,
+	 nSelect_Hold,
+	 nSelect_Mono,
+
+	 nSelect_NumParameters,
+
+	 nSelect_Normal = 0,
+	 nSelect_K12,
+	 nSelect_K14,
+	 nSelect_K20,
+
+	 nSelect_NumHeadrooms,
+  };
+
+  //==========================================================================
+  const String getName() const;
 
   const String getInputChannelName(const int channelIndex) const;
   const String getOutputChannelName(const int channelIndex) const;
@@ -76,38 +97,20 @@ public:
   bool producesMidi() const;
 
   MeterBallistics* getLevels();
-  void convertMono(const bool bMono);
   void processBufferChunk(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
-  //==============================================================================
+  //==========================================================================
   int getNumPrograms();
   int getCurrentProgram();
   void setCurrentProgram(int index);
   const String getProgramName(int index);
   void changeProgramName(int index, const String& newName);
 
-  int nParam_Headroom;
-  bool bParam_Expanded;
-  bool bParam_Peak;
-  bool bParam_Hold;
-  bool bParam_Mono;
-
-  enum Parameters
-  {
-	 nSelect_Headroom = 0,
-	 nSelect_Expanded,
-	 nSelect_Peak,
-	 nSelect_Hold,
-	 nSelect_Mono,
-
-	 nSelect_TotalNumParameters
-  };
-
-  //==============================================================================
+  //==========================================================================
   void getStateInformation(MemoryBlock& destData);
   void setStateInformation(const void* data, int sizeInBytes);
 
-  //==============================================================================
+  //==========================================================================
   juce_UseDebuggingNewOperator
 
 private:
@@ -116,8 +119,6 @@ private:
 
   AverageLevelFilteredRms* pAverageLevelFilteredRms;
   MeterBallistics* pMeterBallistics;
-
-  bool makeMono;
 
   int nSamplesInBuffer;
   float fTimeFrame;
@@ -133,7 +134,18 @@ private:
   short nPreviousSampleOverLeft;
   short nPreviousSampleOverRight;
 
+  int translateParameterToInt(int index, float fValue);
+  float translateParameterToFloat(int index, int nValue);
+
   int countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay, short& nPreviousSampleOver);
+
+  //==========================================================================
+  // plug-in parameters
+  int nParam_Headroom;
+  bool bParam_Expanded;
+  bool bParam_Peak;
+  bool bParam_Hold;
+  bool bParam_Mono;
 };
 
 #endif  // __PLUGINPROCESSOR_H_5573940C__
