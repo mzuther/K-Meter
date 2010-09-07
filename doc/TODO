@@ -1,9 +1,9 @@
 
-o [mzuther] correct overflow counting
-
 o [mzuther] document code
 
 o [mzuther] write documentation
+
+* save and restore default settings
 
 * implement ITU BS.1770 loudness weighting
 

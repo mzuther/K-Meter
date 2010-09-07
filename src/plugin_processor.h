@@ -113,10 +113,10 @@ private:
 	int nOverflowsLeft;
 	int nOverflowsRight;
 
-	bool bLastSampleOverLeft;
-	bool bLastSampleOverRight;
+	short nPreviousSampleOverLeft;
+	short nPreviousSampleOverRight;
 
-	int countContigousOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay, bool& bLastSampleOver);
+	int countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay, short& nPreviousSampleOver);
 };
 
 #endif  // __PLUGINPROCESSOR_H_5573940C__

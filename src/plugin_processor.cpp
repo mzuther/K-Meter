@@ -55,8 +55,8 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 	nOverflowsLeft = 0;
 	nOverflowsRight = 0;
 
-	bLastSampleOverLeft = false;
-	bLastSampleOverRight = false;
+	nPreviousSampleOverLeft = 0;
+	nPreviousSampleOverRight = 0;
 }
 
 
@@ -260,7 +260,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
   fPeakLeft = pRingBufferInput->getMagnitude(0, uChunkSize, uPreDelay);
 
   // determine overflows for uChunkSize samples (use pre-delay)
-  nOverflowsLeft = countContigousOverflows(pRingBufferInput, 0, uChunkSize, uPreDelay, bLastSampleOverLeft);
+  nOverflowsLeft = countOverflows(pRingBufferInput, 0, uChunkSize, uPreDelay, nPreviousSampleOverLeft);
 
   // determine average level for uChunkSize samples
   fAverageLeft = pAverageLevelFilteredRms->getLevel(0);
@@ -271,7 +271,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
 	 fPeakRight = pRingBufferInput->getMagnitude(1, uChunkSize, uPreDelay);
 
 	 // determine overflows for uChunkSize samples (use pre-delay)
-	 nOverflowsRight = countContigousOverflows(pRingBufferInput, 1, uChunkSize, uPreDelay, bLastSampleOverRight);
+	 nOverflowsRight = countOverflows(pRingBufferInput, 1, uChunkSize, uPreDelay, nPreviousSampleOverRight);
 
 	 // determine average level for uChunkSize samples (FIR filter
 	 // already adds delay of (uChunkSize / 2) samples)
@@ -333,28 +333,52 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
 }
 
 
-int KmeterAudioProcessor::countContigousOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay, bool& bLastSampleOver)
+int KmeterAudioProcessor::countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay, short& nPreviousSampleOver)
 {
 	int nOverflows = 0;
 
 	for (unsigned int uSample=0; uSample < length; uSample++)
 	{
-		float fSampleValue = fabsf(ring_buffer->getSample(channel, uSample, pre_delay));
+		float fSampleValue = ring_buffer->getSample(channel, uSample, pre_delay);
 
-		if (fSampleValue > 1.0f)
-		{
-			nOverflows++;
-			bLastSampleOver = true;
-		}
+		// nPreviousSampleOver == 10:  previous sample counted as overflow; do not count again
+		// nPreviousSampleOver ==  1:  previous sample was 1.0f, not yet counted as overflow
+		// nPreviousSampleOver ==  0:  previous sample between -1.0f and 1.0f
+		// nPreviousSampleOver == -1:  previous sample was -1.0f, not yet counted as overflow
+		if ((fSampleValue > -1.0f) && (fSampleValue < 1.0f))
+			nPreviousSampleOver = 0;
 		else if (fSampleValue == 1.0f)
 		{
-			if (bLastSampleOver)
+			if ((nPreviousSampleOver == -1) ||(nPreviousSampleOver == 0))
+			{
+				nPreviousSampleOver = 1;
+			}
+			else if (nPreviousSampleOver == 1)
+			{
+				nPreviousSampleOver = 10;
 				nOverflows++;
-
-			bLastSampleOver = true;
+			}
+		}
+		else if (fSampleValue == -1.0f)
+		{
+			if ((nPreviousSampleOver == 1) ||(nPreviousSampleOver == 0))
+			{
+				nPreviousSampleOver = -1;
+			}
+			else if (nPreviousSampleOver == -1)
+			{
+				nPreviousSampleOver = 10;
+				nOverflows++;
+			}
 		}
 		else
-			bLastSampleOver = false;
+		{
+			if (nPreviousSampleOver != 10)
+			{
+				nPreviousSampleOver = 10;
+				nOverflows++;
+			}
+		}
 	}
 
 	return nOverflows;
