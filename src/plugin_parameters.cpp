@@ -236,7 +236,12 @@ XmlElement KmeterPluginParameters::storeAsXml()
 {
   XmlElement xml("KMETER_SETTINGS");
 
-  xml.setAttribute("Headroom", getParameterAsInt(selHeadroom));
+  int nHeadroom = getParameterAsInt(selHeadroom);
+  if (nHeadroom == 0)
+	 xml.setAttribute("Headroom", 20);
+  else
+	 xml.setAttribute("Headroom", nHeadroom);
+
   xml.setAttribute("Expanded", getParameterAsInt(selExpanded));
   xml.setAttribute("Peak", getParameterAsInt(selPeak));
   xml.setAttribute("Hold", getParameterAsInt(selHold));
@@ -250,7 +255,12 @@ void KmeterPluginParameters::loadFromXml(XmlElement* xml)
 {
   if (xml && xml->hasTagName("KMETER_SETTINGS"))
   {
-	 setParameterFromInt(selHeadroom, xml->getIntAttribute("Headroom", getParameterAsInt(selHeadroom)));
+	 int nHeadroom = xml->getIntAttribute("Headroom", getParameterAsInt(selHeadroom));
+	 if (nHeadroom == 0)
+		setParameterFromInt(selHeadroom, 20);
+	 else
+		setParameterFromInt(selHeadroom, nHeadroom);
+
 	 setParameterFromInt(selExpanded, xml->getIntAttribute("Expanded", getParameterAsInt(selExpanded)));
 	 setParameterFromInt(selPeak, xml->getIntAttribute("Peak", getParameterAsInt(selPeak)));
 	 setParameterFromInt(selHold, xml->getIntAttribute("Hold", getParameterAsInt(selHold)));
