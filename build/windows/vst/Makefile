@@ -76,6 +76,7 @@ OBJECTS := \
 	$(OBJDIR)/stereo_meter.o \
 	$(OBJDIR)/peak_label.o \
 	$(OBJDIR)/about_window.o \
+	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/meter_bar.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/meter_segment.o \
@@ -175,6 +176,9 @@ $(OBJDIR)/peak_label.o: ../../../src/peak_label.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/about_window.o: ../../../src/about_window.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_parameters.o: ../../../src/plugin_parameters.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_bar.o: ../../../src/meter_bar.cpp

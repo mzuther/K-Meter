@@ -42,6 +42,7 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 
   pAverageLevelFilteredRms = new AverageLevelFilteredRms(2, KMETER_BUFFER_SIZE);
   pMeterBallistics = new MeterBallistics(false, false);
+  pPluginParameters = new KmeterPluginParameters();
 
   fTimeFrame = 0.0f;
 
@@ -55,12 +56,6 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 
   nPreviousSampleOverLeft = 0;
   nPreviousSampleOverRight = 0;
-
-  nParam_Headroom = 20;
-  bParam_Expanded = false;
-  bParam_Peak = false;
-  bParam_Hold = false;
-  bParam_Mono = false;
 }
 
 
@@ -73,7 +68,23 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
 
   delete pMeterBallistics;
   pMeterBallistics = NULL;
+
+  delete pPluginParameters;
+  pPluginParameters = NULL;
 }
+
+
+void KmeterAudioProcessor::addChangeListenerParameters(ChangeListener *listener) throw ()
+{
+  pPluginParameters->addChangeListener(listener);
+}
+
+
+void KmeterAudioProcessor::removeChangeListenerParameters(ChangeListener *listener) throw ()
+{
+  pPluginParameters->removeChangeListener(listener);
+}
+
 
 //==============================================================================
 
@@ -85,7 +96,7 @@ const String KmeterAudioProcessor::getName() const
 
 int KmeterAudioProcessor::getNumParameters()
 {
-  return nSelect_NumParameters;
+  return pPluginParameters->getNumParameters();
 }
 
 
@@ -96,32 +107,7 @@ float KmeterAudioProcessor::getParameter(int index)
   // sections or anything UI-related, or anything at all that may
   // block in any way!
 
-  switch (index)
-  {
-  case nSelect_Headroom:
-	 return translateParameterToFloat(index, nParam_Headroom);
-	 break;
-
-  case nSelect_Expanded:
-	 return translateParameterToFloat(index, bParam_Expanded);
-	 break;
-
-  case nSelect_Peak:
-	 return translateParameterToFloat(index, bParam_Peak);
-	 break;
-
-  case nSelect_Hold:
-	 return translateParameterToFloat(index, bParam_Hold);
-	 break;
-
-  case nSelect_Mono:
-	 return translateParameterToFloat(index, bParam_Mono);
-	 break;
-
-  default:
-	 return 0.0f;
-	 break;
-  }
+  return pPluginParameters->getParameterAsFloat(index);
 }
 
 
@@ -132,167 +118,57 @@ void KmeterAudioProcessor::setParameter(int index, float newValue)
   // sections or anything UI-related, or anything at all that may
   // block in any way!
 
-  switch (index)
-  {
-  case nSelect_Headroom:
-	 nParam_Headroom = translateParameterToInt(index, newValue);
-	 break;
-
-  case nSelect_Expanded:
-	 bParam_Expanded = translateParameterToInt(index, newValue);
-	 break;
-
-  case nSelect_Peak:
-	 bParam_Peak = translateParameterToInt(index, newValue);
-	 break;
-
-  case nSelect_Hold:
-	 bParam_Hold = translateParameterToInt(index, newValue);
-	 break;
-
-  case nSelect_Mono:
-	 bParam_Mono = translateParameterToInt(index, newValue);
-	 break;
-
-  default:
-	 break;
-  }
+  pPluginParameters->setParameterFromFloat(index, newValue);
 }
 
 
 const String KmeterAudioProcessor::getParameterName(int index)
 {
-  switch (index)
-  {
-  case nSelect_Headroom:
-	 return "Headroom";
-	 break;
-
-  case nSelect_Expanded:
-	 return "Expand";
-	 break;
-
-  case nSelect_Peak:
-	 return "Peak";
-	 break;
-
-  case nSelect_Hold:
-	 return "Hold";
-	 break;
-
-  case nSelect_Mono:
-	 return "Mono";
-	 break;
-
-  default:
-	 break;
-  }
-
-  return String::empty;
+  return pPluginParameters->getParameterName(index);
 }
 
 
 const String KmeterAudioProcessor::getParameterText(int index)
 {
-  if (index == nSelect_Headroom)
-  {
-	 if (nParam_Headroom == 0)
-		return "Normal";
-	 else if (nParam_Headroom == 12)
-		return "K-12";
-	 else if (nParam_Headroom == 14)
-		return "K-14";
-	 else
-		return "K-20";
-  }
-  else
-	 return (getParameter(index) < 0.5f) ? "off" : "on";
+  return pPluginParameters->getParameterText(index);
 }
 
 
-float KmeterAudioProcessor::translateParameterToFloat(int index, int nValue)
+int KmeterAudioProcessor::getParameterAsInt(int index)
 {
-  // This method will be called by the host, probably on the audio
-  // thread, so it's absolutely time-critical. Don't use critical
-  // sections or anything UI-related, or anything at all that may
-  // block in any way!
-
-  switch (index)
-  {
-  case nSelect_Headroom:
-	 if (nValue == 0)
-		return (nSelect_Normal / float(nSelect_NumHeadrooms - 1));
-	 else if (nValue == 12)
-		return (nSelect_K12 / float(nSelect_NumHeadrooms - 1));
-	 else if (nValue == 14)
-		return (nSelect_K14 / float(nSelect_NumHeadrooms - 1));
-	 else
-		return (nSelect_K20 / float(nSelect_NumHeadrooms - 1));
-	 break;
-
-  case nSelect_Expanded:
-  case nSelect_Peak:
-  case nSelect_Hold:
-  case nSelect_Mono:
-	 return nValue ? 1.0f : 0.0f;
-	 break;
-
-  default:
-	 return -1.0f;
-	 break;
-  }
-}
-
-
-int KmeterAudioProcessor::translateParameterToInt(int index, float fValue)
-{
-  // This method will be called by the host, probably on the audio
-  // thread, so it's absolutely time-critical. Don't use critical
-  // sections or anything UI-related, or anything at all that may
-  // block in any way!
-
-  switch (index)
-  {
-  case nSelect_Headroom:
-	 if (fValue < (nSelect_K12 / float(nSelect_NumHeadrooms)))
-		return 0;
-	 else if (fValue < (nSelect_K14 / float(nSelect_NumHeadrooms)))
-		return 12;
-	 else if (fValue < (nSelect_K20 / float(nSelect_NumHeadrooms)))
-		return 14;
-	 else
-		return 20;
-	 break;
-
-  case nSelect_Expanded:
-  case nSelect_Peak:
-  case nSelect_Hold:
-  case nSelect_Mono:
-	 return (fValue < 0.5f) ? false : true;
-	 break;
-
-  default:
-	 return -1;
-	 break;
-  }
-}
-
-
-int KmeterAudioProcessor::getTranslatedParameter(int index)
-{
-  float fValue = getParameter(index);
-  return translateParameterToInt(index, fValue);
+  return pPluginParameters->getParameterAsInt(index);
 }
 
 
 void KmeterAudioProcessor::changeParameter(int index, int nValue)
 {
+  if ((index == KmeterPluginParameters::selMono) && (pMeterBallistics->getNumberOfChannels() < 2))
+	 nValue = true;
+
   beginParameterChangeGesture(index);
 
-  float newValue = translateParameterToFloat(index, nValue);
+  float newValue = pPluginParameters->translateParameterToFloat(index, nValue);
   setParameterNotifyingHost(index, newValue);
 
   endParameterChangeGesture(index);
+}
+
+
+void KmeterAudioProcessor::MarkParameter(int nIndex)
+{
+  pPluginParameters->MarkParameter(nIndex);
+}
+
+
+void KmeterAudioProcessor::UnmarkParameter(int nIndex)
+{
+  pPluginParameters->UnmarkParameter(nIndex);
+}
+
+
+bool KmeterAudioProcessor::isParameterMarked(int nIndex)
+{
+  return pPluginParameters->isParameterMarked(nIndex);
 }
 
 
@@ -405,10 +281,11 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
   // plugin's audio processing...
 
   bool isStereo = (getNumInputChannels() > 1);
+  bool bMono = pPluginParameters->getParameterAsBool(KmeterPluginParameters::selMono);
   int nNumSamples = buffer.getNumSamples();
 
   // convert stereo input to mono if "Mono" button has been pressed
-  if (isStereo && bParam_Mono)
+  if (isStereo && bMono)
   {
 	 float* output_left = buffer.getSampleData(0);
 	 float* output_right = buffer.getSampleData(1);
@@ -439,6 +316,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
 {
   unsigned int uPreDelay = uChunkSize / 2;
   bool isStereo = (getNumInputChannels() > 1);
+  bool bMono = pPluginParameters->getParameterAsBool(KmeterPluginParameters::selMono);
 
   // copy ring buffer to determine average level (FIR filter already
   // adds delay of (uChunkSize / 2) samples)
@@ -453,7 +331,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
   // determine average level for uChunkSize samples
   fAverageLeft = pAverageLevelFilteredRms->getLevel(0);
 
-  if (isStereo && !bParam_Mono)
+  if (isStereo && !bMono)
   {
 	 // determine peak level for uChunkSize samples (use pre-delay)
 	 fPeakRight = pRingBufferInput->getMagnitude(1, uChunkSize, uPreDelay);
@@ -589,49 +467,14 @@ AudioProcessorEditor* KmeterAudioProcessor::createEditor()
 
 void KmeterAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
-  // You should use this method to store your parameters in the memory
-  // block.  Here's an example of how you can use XML to make it easy
-  // and more robust:
-
-  // Create an outer XML element..
-  XmlElement xml("KMETER_SETTINGS");
-
-  // add some attributes to it..
-  xml.setAttribute("Headroom", nParam_Headroom);
-  xml.setAttribute("Expanded", bParam_Expanded);
-  xml.setAttribute("Peak", bParam_Peak);
-  xml.setAttribute("Hold", bParam_Hold);
-  xml.setAttribute("Mono", bParam_Mono);
-
-  // then use this helper function to stuff it into the binary blob
-  // and return it..
-  copyXmlToBinary(xml, destData);
+  copyXmlToBinary(pPluginParameters->storeAsXml(), destData);
 }
 
 
 void KmeterAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
-  // You should use this method to restore your parameters from this
-  // memory block, whose contents will have been created by the
-  // getStateInformation() call.
-
-  // This getXmlFromBinary() helper function retrieves our XML from
-  // the binary blob..
-  ScopedPointer<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
-
-  if (xmlState != 0)
-  {
-	 // make sure that it's actually our type of XML object..
-	 if (xmlState->hasTagName("KMETER_SETTINGS"))
-	 {
-		// ok, now pull out our parameters..
-		nParam_Headroom = xmlState->getIntAttribute("Headroom", nParam_Headroom);
-		bParam_Expanded = xmlState->getBoolAttribute("Expanded", bParam_Expanded);
-		bParam_Peak = xmlState->getBoolAttribute("Peak", bParam_Peak);
-		bParam_Hold = xmlState->getBoolAttribute("Hold", bParam_Hold);
-		bParam_Mono = xmlState->getBoolAttribute("Mono", bParam_Mono);
-	 }
-  }
+  ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
+  pPluginParameters->loadFromXml(xml);
 }
 
 //==============================================================================

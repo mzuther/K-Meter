@@ -38,15 +38,16 @@
 //==============================================================================
 /**
 */
-class KmeterAudioProcessorEditor : public AudioProcessorEditor, public ChangeListener, public ButtonListener
+class KmeterAudioProcessorEditor : public AudioProcessorEditor, public ButtonListener, public ChangeListener
 {
 public:
     KmeterAudioProcessorEditor(KmeterAudioProcessor* ownerFilter);
     ~KmeterAudioProcessorEditor();
 
-	void changeListenerCallback(void* objectThatHasChanged);
 	void buttonClicked(Button* button);
-	void changeParameter(int index, int nValue);
+	void changeListenerCallback(void* objectThatHasChanged);
+	void changeParameter(int nIndex);
+	void changeParameter(int nIndex, int nValue);
 
     //==============================================================================
     // This is just a standard Juce paint method...
@@ -55,7 +56,6 @@ public:
 
 private:
 	int nHeadroom;
-	int nNumberOfChannels;
 
 	KmeterAudioProcessor* pProcessor;
 	StereoKmeter* stereoKmeter;

@@ -33,7 +33,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	setSize(202, 650);
 
 	nHeadroom = 0;
-	nNumberOfChannels = 0;
 
 	pProcessor = ownerFilter;
 	pProcessor->addChangeListener(this);
@@ -43,7 +42,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	ButtonK20->setRadioGroupId(1);
 	ButtonK20->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonK20->setColour(TextButton::buttonOnColourId, Colours::green);
-	ButtonK20->setClickingTogglesState(true);
 
 	ButtonK20->addButtonListener(this);
 	addAndMakeVisible(ButtonK20);
@@ -53,7 +51,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	ButtonK14->setRadioGroupId(1);
 	ButtonK14->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonK14->setColour(TextButton::buttonOnColourId, Colours::yellow);
-	ButtonK14->setClickingTogglesState(true);
 
 	ButtonK14->addButtonListener(this);
 	addAndMakeVisible(ButtonK14);
@@ -63,7 +60,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	ButtonK12->setRadioGroupId(1);
 	ButtonK12->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonK12->setColour(TextButton::buttonOnColourId, Colours::yellow);
-	ButtonK12->setClickingTogglesState(true);
 
 	ButtonK12->addButtonListener(this);
 	addAndMakeVisible(ButtonK12);
@@ -73,7 +69,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	ButtonNormal->setRadioGroupId(1);
 	ButtonNormal->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonNormal->setColour(TextButton::buttonOnColourId, Colours::red);
-	ButtonNormal->setClickingTogglesState(true);
 
 	ButtonNormal->addButtonListener(this);
 	addAndMakeVisible(ButtonNormal);
@@ -82,7 +77,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	ButtonHold->setBounds(132, 125, 60, 20);
 	ButtonHold->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonHold->setColour(TextButton::buttonOnColourId, Colours::yellow);
-	ButtonHold->setClickingTogglesState(true);
 
 	ButtonHold->addButtonListener(this);
 	addAndMakeVisible(ButtonHold);
@@ -91,7 +85,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	ButtonDisplayPeakMeter->setBounds(132, 150, 60, 20);
 	ButtonDisplayPeakMeter->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonDisplayPeakMeter->setColour(TextButton::buttonOnColourId, Colours::yellow);
-	ButtonDisplayPeakMeter->setClickingTogglesState(true);
 
 	ButtonDisplayPeakMeter->addButtonListener(this);
 	addAndMakeVisible(ButtonDisplayPeakMeter);
@@ -100,7 +93,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	ButtonExpanded->setBounds(132, 175, 60, 20);
 	ButtonExpanded->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonExpanded->setColour(TextButton::buttonOnColourId, Colours::yellow);
-	ButtonExpanded->setClickingTogglesState(true);
 
 	ButtonExpanded->addButtonListener(this);
 	addAndMakeVisible(ButtonExpanded);
@@ -109,7 +101,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	ButtonMono->setBounds(132, 215, 60, 20);
 	ButtonMono->setColour(TextButton::buttonColourId, Colours::grey);
 	ButtonMono->setColour(TextButton::buttonOnColourId, Colours::red);
-	ButtonMono->setClickingTogglesState(false);
 
 	ButtonMono->addButtonListener(this);
 	addAndMakeVisible(ButtonMono);
@@ -144,91 +135,136 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 	correlationMeter = new CorrelationMeter(T("Correlation Meter"), 10, 625, 105, 13);
 	addAndMakeVisible(correlationMeter);
 
+	pProcessor->addChangeListenerParameters(this);
+
 	stereoKmeter = NULL;
 
-	int index = KmeterAudioProcessor::nSelect_Headroom;
-	int nValue = pProcessor->getTranslatedParameter(index);
-	changeParameter(index, nValue);
+	int nIndex = KmeterPluginParameters::selHeadroom;
+	changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
-	index = KmeterAudioProcessor::nSelect_Expanded;
-	nValue = pProcessor->getTranslatedParameter(index);
-	changeParameter(index, nValue);
+	nIndex = KmeterPluginParameters::selExpanded;
+	changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
-	index = KmeterAudioProcessor::nSelect_Peak;
-	nValue = pProcessor->getTranslatedParameter(index);
-	changeParameter(index, nValue);
+	nIndex = KmeterPluginParameters::selPeak;
+	changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
-	index = KmeterAudioProcessor::nSelect_Hold;
-	nValue = pProcessor->getTranslatedParameter(index);
-	changeParameter(index, nValue);
+	nIndex = KmeterPluginParameters::selHold;
+	changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
-	index = KmeterAudioProcessor::nSelect_Mono;
-	nValue = pProcessor->getTranslatedParameter(index);
-	changeParameter(index, nValue);
+	nIndex = KmeterPluginParameters::selMono;
+	changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 }
+
 
 KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 {
 	pProcessor->removeChangeListener(this);
+	pProcessor->removeChangeListenerParameters(this);
 
 	deleteAllChildren();
 }
 
+
 void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChanged)
 {
-	MeterBallistics* pBallistics = pProcessor->getLevels();
+  if (objectThatHasChanged != pProcessor)
+  {
+	 for (int nIndex=0; nIndex < pProcessor->getNumParameters(); nIndex++)
+		changeParameter(nIndex);
+  }
+  else
+  {
+	 MeterBallistics* pBallistics = pProcessor->getLevels();
 
-	stereoKmeter->setLevels(pBallistics);
-	stereoMeter->setValue(pBallistics->getStereoMeterValue());
-	correlationMeter->setValue(pBallistics->getCorrelationMeterValue());
-
-	if (pBallistics->getNumberOfChannels() != nNumberOfChannels)
-	{
-	  nNumberOfChannels = pBallistics->getNumberOfChannels();
-	  
-	  if (nNumberOfChannels == 1)
-	  {
-		 ButtonMono->setClickingTogglesState(false);
-		 ButtonMono->setToggleState(true, true);
-	  }
-	  else
-	  {
-		 ButtonMono->setClickingTogglesState(true);
-		 ButtonMono->setToggleState(false, true);
-	  }
-	}
+	 stereoKmeter->setLevels(pBallistics);
+	 stereoMeter->setValue(pBallistics->getStereoMeterValue());
+	 correlationMeter->setValue(pBallistics->getCorrelationMeterValue());
+  }
 }
 
-void KmeterAudioProcessorEditor::changeParameter(int index, int nValue)
+
+void KmeterAudioProcessorEditor::changeParameter(int nIndex)
 {
-  switch (index)
+  if (pProcessor->isParameterMarked(nIndex))
   {
-  case KmeterAudioProcessor::nSelect_Headroom:
+	 int nValue = pProcessor->getParameterAsInt(nIndex);
+	 changeParameter(nIndex, nValue);
+	 pProcessor->UnmarkParameter(nIndex);
+  }
+}
+
+
+void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
+{
+  bool reloadStereoKmeter = false;
+  MeterBallistics* pBallistics = NULL;
+
+  switch (nIndex)
+  {
+  case KmeterPluginParameters::selHeadroom:
 	 if (nValue == 0)
-		ButtonNormal->setToggleState(true, true);
+	 {
+		nHeadroom = nValue;
+		reloadStereoKmeter = true;
+
+		ButtonNormal->setToggleState(true, false);
+	 }
 	 else if (nValue == 12)
-		ButtonK12->setToggleState(true, true);
+	 {
+		nHeadroom = nValue;
+		reloadStereoKmeter = true;
+
+		ButtonK12->setToggleState(true, false);
+	 }
 	 else if (nValue == 14)
-		ButtonK14->setToggleState(true, true);
+	 {
+		nHeadroom = nValue;
+		reloadStereoKmeter = true;
+
+		ButtonK14->setToggleState(true, false);
+	 }
 	 else
-		ButtonK20->setToggleState(true, true);
+	 {
+		nHeadroom = 20;
+		reloadStereoKmeter = true;
+
+		ButtonK20->setToggleState(true, false);
+	 }
 	 break;
 
-  case KmeterAudioProcessor::nSelect_Expanded:
-	 ButtonExpanded->setToggleState(nValue, true);
+  case KmeterPluginParameters::selExpanded:
+	 reloadStereoKmeter = true;
+	 ButtonExpanded->setToggleState(nValue != 0, false);
 	 break;
 
-  case KmeterAudioProcessor::nSelect_Peak:
-	 ButtonDisplayPeakMeter->setToggleState(nValue, true);
+  case KmeterPluginParameters::selPeak:
+	 reloadStereoKmeter = true;
+	 ButtonDisplayPeakMeter->setToggleState(nValue != 0, false);
 	 break;
 
-  case KmeterAudioProcessor::nSelect_Hold:
-	 ButtonHold->setToggleState(nValue, true);
+  case KmeterPluginParameters::selHold:
+	 pBallistics = pProcessor->getLevels();
+	 pBallistics->setPeakHold(nValue != 0);
+	 pBallistics->setAverageHold(nValue != 0);
+
+	 ButtonHold->setToggleState(nValue != 0, false);
 	 break;
 
-  case KmeterAudioProcessor::nSelect_Mono:
-	 ButtonMono->setToggleState(nValue, true);
+  case KmeterPluginParameters::selMono:
+	 ButtonMono->setToggleState(nValue != 0, false);
 	 break;
+  }
+
+  if (reloadStereoKmeter)
+  {
+	 if (stereoKmeter)
+	 {
+		removeChildComponent(stereoKmeter);
+		delete stereoKmeter;
+	 }
+
+	 stereoKmeter = new StereoKmeter(T("Stereo K-Meter"), 10, 10, nHeadroom, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
+	 addAndMakeVisible(stereoKmeter);
   }
 }
 
@@ -241,86 +277,39 @@ void KmeterAudioProcessorEditor::paint(Graphics& g)
 
 void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 {
-	bool reloadStereoKmeter = false;
+  if (button == ButtonNormal)
+	 pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 0);
+  else if (button == ButtonK12)
+	 pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 12);
+  else if (button == ButtonK14)
+	 pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 14);
+  else if (button == ButtonK20)
+	 pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 20);
+  else if (button == ButtonHold)
+	 pProcessor->changeParameter(KmeterPluginParameters::selHold, !button->getToggleState());
+  else if (button == ButtonExpanded)
+	 pProcessor->changeParameter(KmeterPluginParameters::selExpanded, !button->getToggleState());
+  else if (button == ButtonDisplayPeakMeter)
+	 pProcessor->changeParameter(KmeterPluginParameters::selPeak, !button->getToggleState());
+  else if (button == ButtonReset)
+  {
+	 MeterBallistics* pBallistics = pProcessor->getLevels();
+	 pBallistics->reset();
+  }
+  else if (button == ButtonMono)
+	 pProcessor->changeParameter(KmeterPluginParameters::selMono, !button->getToggleState());
+  else if (button == ButtonAbout)
+  {
+	 AboutWindow* aboutWindow = new AboutWindow(getWidth(), getHeight());
+	 addAndMakeVisible(aboutWindow);
 
-	if (button == ButtonNormal)
-	{
-		nHeadroom = 0;
-		reloadStereoKmeter = true;
+	 aboutWindow->runModalLoop();
 
-		pProcessor->changeParameter(KmeterAudioProcessor::nSelect_Headroom, nHeadroom);
-	}
-	else if (button == ButtonK12)
-	{
-		nHeadroom = 12;
-		reloadStereoKmeter = true;
-
-		pProcessor->changeParameter(KmeterAudioProcessor::nSelect_Headroom, nHeadroom);
-	}
-	else if (button == ButtonK14)
-	{
-		nHeadroom = 14;
-		reloadStereoKmeter = true;
-
-		pProcessor->changeParameter(KmeterAudioProcessor::nSelect_Headroom, nHeadroom);
-	}
-	else if (button == ButtonK20)
-	{
-		nHeadroom = 20;
-		reloadStereoKmeter = true;
-
-		pProcessor->changeParameter(KmeterAudioProcessor::nSelect_Headroom, nHeadroom);
-	}
-	else if (button == ButtonHold)
-	{
-		MeterBallistics* pBallistics = pProcessor->getLevels();
-		pBallistics->setPeakHold(button->getToggleState());
-		pBallistics->setAverageHold(button->getToggleState());
-
-		pProcessor->changeParameter(KmeterAudioProcessor::nSelect_Hold, button->getToggleState());
-	}
-	else if (button == ButtonExpanded)
-	{
-		reloadStereoKmeter = true;
-		pProcessor->changeParameter(KmeterAudioProcessor::nSelect_Expanded, button->getToggleState());
-	}
-	else if (button == ButtonDisplayPeakMeter)
-	{
-		reloadStereoKmeter = true;
-		pProcessor->changeParameter(KmeterAudioProcessor::nSelect_Peak, button->getToggleState());
-	}
-	else if (button == ButtonReset)
-	{
-		MeterBallistics* pBallistics = pProcessor->getLevels();
-		pBallistics->reset();
-	}
-	else if (button == ButtonMono)
-	{
-	  pProcessor->changeParameter(KmeterAudioProcessor::nSelect_Mono, button->getToggleState());
-	}
-	else if (button == ButtonAbout)
-	{
-	  AboutWindow* aboutWindow = new AboutWindow(getWidth(), getHeight());
-	  addAndMakeVisible(aboutWindow);
-
-	  aboutWindow->runModalLoop();
-
-	  removeChildComponent(aboutWindow);
-	  delete aboutWindow;
-	}
-
-	if (reloadStereoKmeter)
-	{
-		if (stereoKmeter)
-		{
-			removeChildComponent(stereoKmeter);
-			delete stereoKmeter;
-		}
-
-		stereoKmeter = new StereoKmeter(T("Stereo K-Meter"), 10, 10, nHeadroom, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
-		addAndMakeVisible(stereoKmeter);
-	}
+	 removeChildComponent(aboutWindow);
+	 delete aboutWindow;
+  }
 }
+
 
 void KmeterAudioProcessorEditor::resized()
 {

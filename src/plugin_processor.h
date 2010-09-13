@@ -36,6 +36,7 @@ class KmeterAudioProcessor;
 #include "average_level_filtered_rms.h"
 #include "audio_ring_buffer.h"
 #include "meter_ballistics.h"
+#include "plugin_parameters.h"
 
 //============================================================================
 class KmeterAudioProcessor  : public AudioProcessor, public ChangeBroadcaster
@@ -45,6 +46,9 @@ public:
 
   KmeterAudioProcessor();
   ~KmeterAudioProcessor();
+
+  void addChangeListenerParameters(ChangeListener *listener) throw ();
+  void removeChangeListenerParameters(ChangeListener *listener) throw ();
 
   //==========================================================================
   void prepareToPlay(double sampleRate, int samplesPerBlock);
@@ -65,25 +69,11 @@ public:
   const String getParameterText(int index);
 
   void changeParameter(int index, int newValue);
-  int getTranslatedParameter(int index);
+  int getParameterAsInt(int index);
 
-  enum Parameters  // public namespace!
-  {
-	 nSelect_Headroom = 0,
-	 nSelect_Expanded,
-	 nSelect_Peak,
-	 nSelect_Hold,
-	 nSelect_Mono,
-
-	 nSelect_NumParameters,
-
-	 nSelect_Normal = 0,
-	 nSelect_K12,
-	 nSelect_K14,
-	 nSelect_K20,
-
-	 nSelect_NumHeadrooms,
-  };
+  void MarkParameter(int nIndex);
+  void UnmarkParameter(int nIndex);
+  bool isParameterMarked(int nIndex);
 
   //==========================================================================
   const String getName() const;
@@ -120,6 +110,8 @@ private:
   AverageLevelFilteredRms* pAverageLevelFilteredRms;
   MeterBallistics* pMeterBallistics;
 
+  KmeterPluginParameters* pPluginParameters;
+
   int nSamplesInBuffer;
   float fTimeFrame;
 
@@ -134,18 +126,7 @@ private:
   short nPreviousSampleOverLeft;
   short nPreviousSampleOverRight;
 
-  int translateParameterToInt(int index, float fValue);
-  float translateParameterToFloat(int index, int nValue);
-
   int countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay, short& nPreviousSampleOver);
-
-  //==========================================================================
-  // plug-in parameters
-  int nParam_Headroom;
-  bool bParam_Expanded;
-  bool bParam_Peak;
-  bool bParam_Hold;
-  bool bParam_Mono;
 };
 
 #endif  // __PLUGINPROCESSOR_H_5573940C__

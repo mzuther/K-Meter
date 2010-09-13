@@ -24,6 +24,7 @@
     <ClInclude Include="..\..\..\src\overflow_meter.h" />
     <ClInclude Include="..\..\..\src\peak_label.h" />
     <ClInclude Include="..\..\..\src\plugin_editor.h" />
+    <ClInclude Include="..\..\..\src\plugin_parameters.h" />
     <ClInclude Include="..\..\..\src\plugin_processor.h" />
     <ClInclude Include="..\..\..\src\resources.h" />
     <ClInclude Include="..\..\..\src\stereo_kmeter.h" />
@@ -45,6 +46,7 @@
     <ClCompile Include="..\..\..\src\overflow_meter.cpp" />
     <ClCompile Include="..\..\..\src\peak_label.cpp" />
     <ClCompile Include="..\..\..\src\plugin_editor.cpp" />
+    <ClCompile Include="..\..\..\src\plugin_parameters.cpp" />
     <ClCompile Include="..\..\..\src\plugin_processor.cpp" />
     <ClCompile Include="..\..\..\src\resources.cpp" />
     <ClCompile Include="..\..\..\src\stereo_kmeter.cpp" />

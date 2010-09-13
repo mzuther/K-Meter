@@ -52,6 +52,9 @@
     <ClInclude Include="..\..\..\src\audio_ring_buffer.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\plugin_parameters.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\main.cpp">
@@ -109,6 +112,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\audio_ring_buffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugin_parameters.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
