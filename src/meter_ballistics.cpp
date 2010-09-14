@@ -35,7 +35,7 @@ MeterBallistics::MeterBallistics(bool bPeakHold, bool bAverageHold)
 	fAverageCorrection = 20.0f * log10(sqrt(2.0f));
 
 	fMeterMinimumDecibel = -(fMaximumHeadroom + fAverageCorrection + 70.0f);
-	
+
 	setPeakHold(bPeakHold);
 	setAverageHold(bAverageHold);
 
@@ -55,13 +55,13 @@ void MeterBallistics::reset()
 
 	fPeakMeterLeft = fMeterMinimumDecibel;
 	fPeakMeterRight = fMeterMinimumDecibel;
-	fAverageMeterLeft = fMeterMinimumDecibel;
-	fAverageMeterRight = fMeterMinimumDecibel;
+	fAverageMeterLeft = fMeterMinimumDecibel + fAverageCorrection;
+	fAverageMeterRight = fMeterMinimumDecibel + fAverageCorrection;
 
 	fPeakMeterLeftPeak = fMeterMinimumDecibel;
 	fPeakMeterRightPeak = fMeterMinimumDecibel;
-	fAverageMeterLeftPeak = fMeterMinimumDecibel;
-	fAverageMeterRightPeak = fMeterMinimumDecibel;
+	fAverageMeterLeftPeak = fMeterMinimumDecibel + fAverageCorrection;
+	fAverageMeterRightPeak = fMeterMinimumDecibel + fAverageCorrection;
 
 	fPeakMeterLeftMaximumPeak = fMeterMinimumDecibel;
 	fPeakMeterRightMaximumPeak = fMeterMinimumDecibel;
@@ -242,8 +242,11 @@ void MeterBallistics::update(int nChannels, float fTimeFrame, float fPeakLeft, f
 	  nOverflowsRight += OverflowsRight;
 	}
 
+	// uncomment for validation of K-System meter peak readings:
+	// DBG(String("[K-20 Peak]  L: ") + String(20.0f + fPeakMeterLeft, 2) + T(" dB   R: ") + String(20.0f + fPeakMeterRight, 2) + T(" dB"));
+
 	// uncomment for validation of K-System meter average readings:
-	// DBG(String("[K-20] L: ") + String(20.0f + fAverageMeterLeft, 2) + T(" dB   R: ") + String(20.0f + fAverageMeterRight, 2) + T(" dB"));
+	// DBG(String("[K-20 Average]  L: ") + String(20.0f + fAverageMeterLeft, 2) + T(" dB   R: ") + String(20.0f + fAverageMeterRight, 2) + T(" dB"));
 }
 
 float MeterBallistics::level2decibel(float level)
@@ -266,7 +269,7 @@ float MeterBallistics::PeakMeterBallistics(float fTimeFrame, float fLevelCurrent
 		return fLevelCurrent;
 	else
 	{
-		float fReleaseCoef = 9.0f / fTimeFrame;
+		float fReleaseCoef = 26.0f / (3.0f * fTimeFrame);
 		return fLevelOld - fReleaseCoef;
 	}
 }
@@ -335,7 +338,7 @@ float MeterBallistics::PeakMeterPeakBallistics(float fTimeFrame, float* fLastCha
 
 		if (*fLastChanged > fHoldTime)
 		{
-			float fReleaseCoef = 9.0f / fTimeFrame;
+			float fReleaseCoef = 26.0f / (3.0f * fTimeFrame);
 			fOutput -= fReleaseCoef;
 		}
 	}

@@ -1,21 +1,26 @@
 FLAC-compressed wave file (96 kHz, 24 bit)
 ==========================================
+Check correctness of K-System meter values.  Also check that peak and
+average readouts match for sine waves.  Please notice that K-System
+meter readings may deviate from the true value at very low frequencies
+(fluctuations due to meter ballistics and audio chunk size) and very
+high frequencies (aliasing in the wave file).
+
 00:00 - 00:03  Silence
 00:03 - 01:03  Sine sweep (10 Hz to 48 kHz, -4.00 dBFS, logarithmic)
-00:57          21 kHz
+
+00:57          check filter cutoff @21 kHz
+
 01:03 - 01:06  Silence
 01:06 - 01:26  Sine sweep (20 kHz to 24 kHz, -4.00 dBFS, linear)
-01:11          21 kHz
+
+01:11          check filter cutoff @21 kHz
+
 01:26 - 01:29  Silence
 01:29 - 01:49  Triangle sweep (20 Hz to 20 kHz, -4.00 dBFS, logarithmic)
 01:49 - 01:52  Silence
 01:52 - 02:12  Square sweep (20 Hz to 20 kHz, -4.00 dBFS, logarithmic)
 02:12 - 02:15  Silence
-
-Please notice that K-System meter readings may deviate from the true
-value at very low frequencies (fluctuations due to audio chunk size
-and meter ballistics) and very high frequencies (aliasing in the wave
-file).
 
 
 RMS correction of K-System meter (Sine wave, -4.00 dBFS)

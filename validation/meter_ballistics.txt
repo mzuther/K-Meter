@@ -1,0 +1,68 @@
+FLAC-compressed wave file (44.1 kHz, 16 bit)
+============================================
+00:00.000 - 00:02.000  Silence
+00:02.000 - 00:12.000  Sine wave (2 kHz, 0 dBFS)
+00:12.000 - 00:12.600  Silence
+
+00:12.600              [check fall time of average meters]
+
+00:12.600 - 00:14.600  Sine wave (2 kHz, 0 dBFS)
+00:14.600 - 00:24.600  Silence
+00:24.600 - 00:25.200  Sine wave (2 kHz, 0 dBFS)
+
+00:25.200              [check rise time of average meters]
+
+00:25.200 - 00:27.200  Silence
+00:27.200 - 00:37.200  Sine wave (2 kHz, 0 dBFS)
+00:37.200 - 00:40.200  Silence
+
+00:40.200              [check fall/rise time of peak meters]
+
+00:40.200 - 00:42.200  Sine wave (2 kHz, 0 dBFS)
+00:42.200 - 00:44.200  Silence
+
+
+Metering minima
+===============
+-(20.00 dB + 70.00 dB) = -90.00 dB
+(see constructor of class "MeterBallistics")
+
+
+Fall time of average meters (0 dBFS sine)
+=========================================
+99% of final reading in 600 ms integration time
+
+K-20 = 20.00 dB - 90.00 dB * 99% = -69.10 dB
+K-14 = 14.00 dB - 90.00 dB * 99% = -75.10 dB
+K-12 = 12.00 dB - 90.00 dB * 99% = -77.10 dB
+Norm =  0.00 dB - 90.00 dB * 99% = -89.10 dB
+
+
+Rise time of average meters (0 dBFS sine)
+=========================================
+99% of final reading in 600 ms integration time
+
+K-20 = 20.00 dB - 90.00 dB *  1% =  19.10 dB
+K-14 = 14.00 dB - 90.00 dB *  1% =  13.10 dB
+K-12 = 12.00 dB - 90.00 dB *  1% =  11.10 dB
+Norm =  0.00 dB - 90.00 dB *  1% =  -0.90 dB
+
+
+Fall time of peak meters (0 dBFS sine)
+======================================
+-26 dB in 3 seconds 
+
+K-20 = 20.00 dB - 26.00 dB =  -6.00 dB
+K-14 = 14.00 dB - 26.00 dB = -12.00 dB
+K-12 = 12.00 dB - 26.00 dB = -14.00 dB
+Norm =  0.00 dB - 26.00 dB = -26.00 dB
+
+
+Rise time of peak meters (0 dBFS sine)
+======================================
+immediate (one sample)
+
+K-20 = 20.00 dB
+K-14 = 14.00 dB
+K-12 = 12.00 dB
+Norm =  0.00 dB

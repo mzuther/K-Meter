@@ -45,7 +45,12 @@ PeakLabel::~PeakLabel()
 void PeakLabel::resetLevel()
 {
 	float fMaximumHeadroom = 20.0f; // i.e. K-20
-	float fAverageCorrection = 3.0f;
+
+	// the RMS of a sine wave is its amplitude divided by the square
+	// root of 2, thus the difference between peak value and RMS is the
+	// square root of 2 -- so let's convert this difference to dB
+	float fAverageCorrection = 20.0f * log10(sqrt(2.0f));
+
 	float fMeterMinimumDecibel = -(fMaximumHeadroom + fAverageCorrection + 70.0f);
 	fMaximumLevel = fMeterMinimumDecibel;
 }
