@@ -1,9 +1,7 @@
 v1.20 (2010-09-14)
 ==================
 
-* storing of plug-in parameters
-
-* plug-in parameter automation
+* automation and re/storing of plug-in parameters
 
 * corrected overflow counting
 

@@ -28,7 +28,12 @@
 MeterBallistics::MeterBallistics(bool bPeakHold, bool bAverageHold)
 {
 	float fMaximumHeadroom = 20.0f; // i.e. K-20
-	fAverageCorrection = 3.0f;
+
+	// the RMS of a sine wave is its amplitude divided by the square
+	// root of 2, thus the difference between peak value and RMS is the
+	// square root of 2 -- so let's convert this difference to dB
+	fAverageCorrection = 20.0f * log10(sqrt(2.0f));
+
 	fMeterMinimumDecibel = -(fMaximumHeadroom + fAverageCorrection + 70.0f);
 	
 	setPeakHold(bPeakHold);
@@ -236,6 +241,9 @@ void MeterBallistics::update(int nChannels, float fTimeFrame, float fPeakLeft, f
 
 	  nOverflowsRight += OverflowsRight;
 	}
+
+	// uncomment for validation of K-System meter average readings:
+	// DBG(String("[K-20] L: ") + String(20.0f + fAverageMeterLeft, 2) + T(" dB   R: ") + String(20.0f + fAverageMeterRight, 2) + T(" dB"));
 }
 
 float MeterBallistics::level2decibel(float level)
