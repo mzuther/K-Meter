@@ -1,0 +1,103 @@
+v1.20 (2010-09-14)
+==================
+
+* storing of plug-in parameters
+
+* plug-in parameter automation
+
+* corrected overflow counting
+
+* optimised displayed region of expanded meters
+
+
+
+v1.19 (2010-09-06)
+==================
+
+* validated output
+
+* fixed output buffer wrap-around
+
+* merged both hold buttons into one
+
+* some optical changes
+
+
+
+v1.18 (2010-08-01)
+==================
+
+* band limiter for calculation of average RMS levels: windowed-sinc,
+  high-pass @21 kHz (FFT convolution)
+
+* process input buffers of arbitrary length using audio ring buffers
+
+* pre-delay samples
+
+* several optimisations
+
+* first few manual pages
+
+
+
+v1.17 (2010-07-17)
+==================
+
+* added button to hide peak meter (suggested by Bob Katz)
+
+* added display showing maximum peak level
+
+
+
+v1.16 (2010-06-28)
+==================
+
+* added "about" dialog
+
+* average and peak meters now display the same value for sine waves
+
+* calculate highest average levels after applying ballistics
+
+
+
+v1.15 (2010-06-25)
+==================
+
+* added button to check mono compatibility
+
+* optimised processor usage for mono instances
+
+
+
+v1.14 (2010-06-21)
+==================
+
+* added correlation meter
+
+* corrected and optimised algorithms for stereo meter
+
+
+
+v1.13 (2010-06-20)
+==================
+
+* added graphical stereo meter
+
+* moved configuration file of standalone to ".config/kmeter/kmeterrc"
+
+
+
+v1.12 (2010-06-15, initial commit)
+==================================
+
+* K-20/RMS, K-14/RMS and K-12/RMS meters (plus normal meter for
+  channel strips)
+
+* meter ballistics, normal and 10x expanded scale, buttons for
+  infinite peak and average hold, overflow counter, reset button
+
+* GNU/Linux: VST plug-in, stand-alone (ALSA, Jack) Windows: VST
+  plug-in
+
+* still missing: band-limitation of average meter, validation of
+  read-out
