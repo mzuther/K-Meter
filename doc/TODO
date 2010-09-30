@@ -5,7 +5,6 @@ o [mzuther] write documentation
 
 * save and restore default settings
 
-* implement ITU BS.1770 loudness weighting
+* implement ITU BS.1770-1 loudness weighting
 
-* implement inter-sample peak meter
-
+* implement inter-sample peak meter (ITU BS.1770-1, Annex 2)

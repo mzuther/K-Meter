@@ -1,10 +1,12 @@
 FLAC-compressed wave file (96 kHz, 24 bit)
 ==========================================
-Check correctness of K-System meter values.  Also check that peak and
-average readouts match for sine waves.  Please notice that K-System
-meter readings may deviate from the true value at very low frequencies
-(fluctuations due to meter ballistics and audio chunk size) and very
-high frequencies (aliasing in the wave file).
+Please verify correctness of K-System meter values programmatically
+while making sure that peak and average readouts match for sine waves.
+
+Please notice that K-System meter readings may deviate from the true
+value at very low frequencies (fluctuations due to meter ballistics
+and audio chunk size) and very high frequencies (aliasing in the wave
+file).
 
 00:00 - 00:03  Silence
 00:03 - 01:03  Sine sweep (10 Hz to 48 kHz, -4.00 dBFS, logarithmic)
@@ -26,21 +28,13 @@ high frequencies (aliasing in the wave file).
 RMS correction of K-System meter (Sine wave, -4.00 dBFS)
 ========================================================
 RMS = A / sqrt(2)
-RMS / A  = sqrt(2) = 3.01 dB
-3.01 dB + (-4.00 dB) = -0.99 dB
+RMS / A  = sqrt(2) = +3.01 dB
++3.01 dB + (-4.00 dB) = -0.99 dB
 
 K-20 = 20.00 dB + (-0.99 dB) = 19.01 dB
 K-14 = 14.00 dB + (-0.99 dB) = 13.01 dB
 K-12 = 12.00 dB + (-0.99 dB) = 11.01 dB
 Norm =  0.00 dB + (-0.99 dB) = -0.99 dB
-
-
-Pink noise (20 Hz to 20 kHz, 0.00 dBFS)
-==========================================
-K-20 :=   0.00 dB  (crest factor: 20 dB)
-K-14 :=  -6.00 dB  (crest factor: 14 dB)
-K-12 :=  -8.00 dB  (crest factor: 12 dB)
-Norm := -20.00 dB  (crest factor:  0 dB)
 
 
 Sine wave (-4.00 dBFS)

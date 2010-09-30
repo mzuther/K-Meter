@@ -1,5 +1,7 @@
 FLAC-compressed wave file (44.1 kHz, 16 bit)
 ============================================
+Please verify correctness of meter ballistics programmatically.
+
 00:00.000 - 00:02.000  Silence
 00:02.000 - 00:12.000  Sine wave (2 kHz, 0 dBFS)
 00:12.000 - 00:12.600  Silence
