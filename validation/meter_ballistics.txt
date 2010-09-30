@@ -2,26 +2,26 @@ FLAC-compressed wave file (44.1 kHz, 16 bit)
 ============================================
 Please verify correctness of meter ballistics programmatically.
 
-00:00.000 - 00:02.000  Silence
-00:02.000 - 00:12.000  Sine wave (2 kHz, 0 dBFS)
-00:12.000 - 00:12.600  Silence
+00:00.000 - 00:02.000  silence
+00:02.000 - 00:12.000  sine wave (2 kHz, 0 dBFS)
+00:12.000 - 00:12.600  silence
 
 00:12.600              [check fall time of average meters]
 
-00:12.600 - 00:14.600  Sine wave (2 kHz, 0 dBFS)
-00:14.600 - 00:24.600  Silence
-00:24.600 - 00:25.200  Sine wave (2 kHz, 0 dBFS)
+00:12.600 - 00:14.600  sine wave (2 kHz, 0 dBFS)
+00:14.600 - 00:24.600  silence
+00:24.600 - 00:25.200  sine wave (2 kHz, 0 dBFS)
 
 00:25.200              [check rise time of average meters]
 
-00:25.200 - 00:27.200  Silence
-00:27.200 - 00:37.200  Sine wave (2 kHz, 0 dBFS)
-00:37.200 - 00:40.200  Silence
+00:25.200 - 00:27.200  silence
+00:27.200 - 00:37.200  sine wave (2 kHz, 0 dBFS)
+00:37.200 - 00:40.200  silence
 
 00:40.200              [check fall/rise time of peak meters]
 
-00:40.200 - 00:42.200  Sine wave (2 kHz, 0 dBFS)
-00:42.200 - 00:44.200  Silence
+00:40.200 - 00:42.200  sine wave (2 kHz, 0 dBFS)
+00:42.200 - 00:44.200  silence
 
 
 Metering minima

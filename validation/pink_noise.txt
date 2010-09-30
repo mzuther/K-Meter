@@ -3,9 +3,10 @@ FLAC-compressed wave file (48 kHz, 24 bit)
 Please verify the correctness of K-System meter values over time by
 making use of your eyes and the expanded metering mode.
 
-00:00 - 00:03  Silence
-00:03 - 01:03  Uncorrelated Pink Noise (20 Hz to 20000 Hz, -23.01 dB RMS)
-01:03 - 01:06  Silence
+00:00 - 00:03  silence
+00:03 - 01:03  uncorrelated band-limited pink noise (20 Hz to 20000 Hz,
+               -23.01 dB RMS)
+01:03 - 01:06  silence
 
 
 RMS correction of K-System meter

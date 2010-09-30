@@ -8,24 +8,24 @@ value at very low frequencies (fluctuations due to meter ballistics
 and audio chunk size) and very high frequencies (aliasing in the wave
 file).
 
-00:00 - 00:03  Silence
-00:03 - 01:03  Sine sweep (10 Hz to 48 kHz, -4.00 dBFS, logarithmic)
+00:00 - 00:03  silence
+00:03 - 01:03  sine sweep (10 Hz to 48 kHz, -4.00 dBFS, logarithmic)
 
 00:57          check filter cutoff @21 kHz
 
-01:03 - 01:06  Silence
-01:06 - 01:26  Sine sweep (20 kHz to 24 kHz, -4.00 dBFS, linear)
+01:03 - 01:06  silence
+01:06 - 01:26  sine sweep (20 kHz to 24 kHz, -4.00 dBFS, linear)
 
 01:11          check filter cutoff @21 kHz
 
-01:26 - 01:29  Silence
-01:29 - 01:49  Triangle sweep (20 Hz to 20 kHz, -4.00 dBFS, logarithmic)
-01:49 - 01:52  Silence
-01:52 - 02:12  Square sweep (20 Hz to 20 kHz, -4.00 dBFS, logarithmic)
-02:12 - 02:15  Silence
+01:26 - 01:29  silence
+01:29 - 01:49  triangle sweep (20 Hz to 20 kHz, -4.00 dBFS, logarithmic)
+01:49 - 01:52  silence
+01:52 - 02:12  square sweep (20 Hz to 20 kHz, -4.00 dBFS, logarithmic)
+02:12 - 02:15  silence
 
 
-RMS correction of K-System meter (Sine wave, -4.00 dBFS)
+RMS correction of K-System meter (sine wave, -4.00 dBFS)
 ========================================================
 RMS = A / sqrt(2)
 RMS / A  = sqrt(2) = +3.01 dB
