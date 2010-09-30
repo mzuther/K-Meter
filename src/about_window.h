@@ -29,22 +29,28 @@
 #include "juce_library_code/juce_header.h"
 #include "resources.h"
 
+
 class ProhibitingBoundsConstrainer : public ComponentBoundsConstrainer
 {
  public:
+  // inherit from ComponentBoundsConstrainer
   ProhibitingBoundsConstrainer() : ComponentBoundsConstrainer()
   {
   }
 
+  // do nothing till you hear from me
   ~ProhibitingBoundsConstrainer()
   {
   }
 
   void checkBounds(Rectangle<int> &bounds, const Rectangle<int> &previousBounds, const Rectangle<int> &limits, bool isStretchingTop, bool isStretchingLeft, bool isStretchingBottom, bool isStretchingRight)
   {
-    bounds = Rectangle<int> (previousBounds);
+	 // prohibit window movement and resizing by simply ignoring the
+	 // change
+    bounds = previousBounds;
   }
 };
+
 
 class AboutWindow : public ResizableWindow, ButtonListener
 {
@@ -67,5 +73,6 @@ private:
   Image* ImageButtonGplOver;
   Image* ImageButtonGplDown;
 };
+
 
 #endif  // __ABOUT_WINDOW_H__
