@@ -47,13 +47,5 @@ premake4 --cc=gcc --os=windows gmake
 echo
 premake4 --cc=gcc --os=linux gmake
 
-echo
-echo "=== Correcting makefiles (bug #3015312) ==="
-
-correct_premake4_bug_3015312 linux/standalone/Makefile
-correct_premake4_bug_3015312 linux/vst/Makefile
-correct_premake4_bug_3015312 windows/standalone/Makefile
-correct_premake4_bug_3015312 windows/vst/Makefile
-
 echo "Done."
 echo

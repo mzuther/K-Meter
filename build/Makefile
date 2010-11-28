@@ -13,11 +13,11 @@ PROJECTS := linux_standalone linux_vst
 all: $(PROJECTS)
 
 linux_standalone: 
-	@echo ==== Building linux_standalone ====
+	@echo "==== Building linux_standalone ($(config)) ===="
 	@${MAKE} --no-print-directory -C linux/standalone -f Makefile
 
 linux_vst: 
-	@echo ==== Building linux_vst ====
+	@echo "==== Building linux_vst ($(config)) ===="
 	@${MAKE} --no-print-directory -C linux/vst -f Makefile
 
 clean:
