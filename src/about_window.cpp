@@ -73,10 +73,10 @@ AboutWindow::AboutWindow(int nWidth, int nHeight)
   TextEditorAbout->insertTextAtCaret(T("Contributors\n"));
 
   TextEditorAbout->setFont(fontRegular);
-  TextEditorAbout->insertTextAtCaret(T(
-    "Martin Zuther\n"
-    "Bob Katz\n"
-    "bram@smartelectronix\n\n"));
+  TextEditorAbout->insertTextAtCaret(
+    L"Martin Zuther\n"
+    L"Bob Katz\n"
+    L"bram@smartelectronix\n\n");
 
 #ifdef KMETER_VST_PLUGIN
 
@@ -103,21 +103,21 @@ AboutWindow::AboutWindow(int nWidth, int nHeight)
   TextEditorAbout->insertTextAtCaret(T("License\n"));
 
   TextEditorAbout->setFont(fontRegular);
-  TextEditorAbout->insertTextAtCaret(T(
-    "This program is free software: you can redistribute it and/or modify "
-    "it under the terms of the GNU General Public License as published by "
-    "the Free Software Foundation, either version 3 of the License, or "
-    "(at your option) any later version.\n\n"
+  TextEditorAbout->insertTextAtCaret(
+    L"This program is free software: you can redistribute it and/or modify "
+    L"it under the terms of the GNU General Public License as published by "
+    L"the Free Software Foundation, either version 3 of the License, or "
+    L"(at your option) any later version.\n\n"
 
-    "This program is distributed in the hope that it will be useful, "
-    "but WITHOUT ANY WARRANTY; without even the implied warranty of "
-    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
-    "GNU General Public License for more details.\n\n"
+    L"This program is distributed in the hope that it will be useful, "
+    L"but WITHOUT ANY WARRANTY; without even the implied warranty of "
+    L"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
+    L"GNU General Public License for more details.\n\n"
 
-    "You should have received a copy of the GNU General Public License "
-    "along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\n"
+    L"You should have received a copy of the GNU General Public License "
+    L"along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\n"
 
-    "Thank you for using free software!\n\n"));
+    L"Thank you for using free software!\n\n");
 
   // in case the text has become too long to fit into the text editor
   // component, scroll to the beginning

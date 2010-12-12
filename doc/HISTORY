@@ -1,3 +1,16 @@
+v1.21 (2010-12-12)
+==================
+
+* wave files and instructions for validation of K-Meter
+
+* complete re-validation of K-Meter and corresponding fixes
+
+* moved from premake v4.2 to v4.3
+
+* generation of Visual C++ project files using premake4
+
+
+
 v1.20 (2010-09-14)
 ==================
 

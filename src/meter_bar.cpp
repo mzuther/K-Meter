@@ -267,7 +267,7 @@ void MeterBar::resized()
 
 void MeterBar::setLevels(float newLevel, float newPeak)
 {
-	if ((fLevel != newLevel) | (fPeak != newPeak))
+	if ((fLevel != newLevel) || (fPeak != newPeak))
 	{
 		fLevel = newLevel;
 		fPeak = newPeak;

@@ -28,12 +28,13 @@ if not _ACTION then
 elseif _ACTION == "gmake" then
 	print ("=== Generating project files (GNU g++, " .. os.get():upper() .. ") ===")
 elseif string.startswith(_ACTION, "vs") then
-	print "=== Generating project files (Visual C++) ==="
+	print "=== Generating project files (Visual C++, WINDOWS) ==="
 else
 	print "Action not specified\n"
 end
 
 solution "kmeter"
+	location "windows/vs_2010/"
 	language "C++"
 	configurations { "Debug", "Release" }
 	targetdir "../bin"
@@ -50,90 +51,31 @@ solution "kmeter"
 	}
 
 	libdirs {
-		"../libraries/juce/bin",
 		"../libraries/fftw3/bin"
+	}
+
+	flags {
+			"EnableSSE",
+			"EnableSSE2",
+			"NoMinimalRebuild",
+			"StaticRuntime",
+			"Unicode"
 	}
 
 	configuration { "Debug*" }
 		defines { "_DEBUG=1", "DEBUG=1" }
-		flags { "Symbols", "ExtraWarnings" }
-		buildoptions { "-fno-inline" }
+		flags { "Symbols" }
+		buildoptions { "" }
 
 	configuration { "Release*" }
-		defines { "NDEBUG" }
-		flags { "OptimizeSpeed", "NoFramePointer", "ExtraWarnings" }
-		buildoptions { "-pipe", "-fvisibility=hidden" }
+		defines { "NDEBUG=1" }
+		flags { "OptimizeSpeed", "NoFramePointer", "NoManifest" }
+		buildoptions { "/Zi" }
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_standalone")
-		kind "WindowedApp"
-		location (os.get() .. "/standalone")
-		targetprefix ""
-
-		platforms { "x32" }
-
-		defines {
-			"KMETER_STAND_ALONE=1",
-			"JUCETICE_USE_AMALGAMA=1",
-			"JUCE_USE_VSTSDK_2_4=0"
-		}
-
-		files {
-			"../libraries/juce/extras/audio plugins/wrapper/Standalone/*.h",
-			"../libraries/juce/extras/audio plugins/wrapper/Standalone/*.cpp"
-		}
-
-		configuration {"linux"}
-			defines {
-				"LINUX=1",
-				"JUCE_USE_XSHM=1",
-				"JUCE_ALSA=1",
-				"JUCE_JACK=1"
-			}
-
-			links {
-				"fftw3f",
-				"freetype",
-				"pthread",
-				"rt",
-				"X11",
-				"Xext",
-				"asound"
-			}
-
-			includedirs {
-				"/usr/include",
-				"/usr/include/freetype2"
-			}
-
-			libdirs {
-				"/usr/X11R6/lib32/"
-			}
-
-		configuration {"windows"}
-			defines {
-				"WIN32=1",
-				"JUCE_USE_XSHM=0",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0"
-			}
-
-		configuration "Debug"
-			targetname "kmeter_debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_debug")
-			links { "juce_debug32" }
-
-      configuration "Release"
-			targetname "kmeter"
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_release")
-			links { "juce32" }
-
---------------------------------------------------------------------------------
-
-	project (os.get() .. "_vst")
+	project ("kmeter")
 		kind "SharedLib"
-		location (os.get() .. "/vst")
 		targetprefix ""
 
 		platforms { "x32" }
@@ -177,18 +119,34 @@ solution "kmeter"
 
 		configuration {"windows"}
 			defines {
+				"_WINDOWS=1",
+				"_USE_MATH_DEFINES=1",
 				"WIN32=1",
 				"JUCE_USE_XSHM=0",
 				"JUCE_ALSA=0",
 				"JUCE_JACK=0"
 			}
 
+			links {
+				"libfftw3f-3",
+				"kernel32",
+				"user32",
+				"gdi32",
+				"winspool",
+				"comdlg32",
+				"advapi32",
+				"shell32",
+				"ole32",
+				"oleaut32",
+				"uuid",
+				"odbc32",
+				"odbccp32"
+			 }
+
 		configuration "Debug"
-			targetname "kmeter_vst_debug"
+			targetname "K-Meter (Debug)"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_debug")
-			links { "juce_debug32" }
 
       configuration "Release"
-			targetname "kmeter_vst"
+			targetname "K-Meter"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_release")
-			links { "juce32" }

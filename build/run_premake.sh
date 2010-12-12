@@ -25,27 +25,12 @@
 #
 # ----------------------------------------------------------------------------
 
-function correct_premake4_bug_3015312
-{
-	PREMAKE_TMP=$(mktemp)
-
-	if [ ! -w "$1" ]; then
-		echo "[ERR] File $1 not found."
-		return
-	fi
-
-	echo "Correcting $1..."
-	gawk '{ print gensub(/\$\(SILENT\) \$\(CXX\) \$\(CXXFLAGS\) -o \$@ -c \$</, "$(SILENT) $(CXX) $(CXXFLAGS) -o \"$@\" -c \"$<\"", "G" ); }' "$1" > "$PREMAKE_TMP"
-	mv "$PREMAKE_TMP" "$1"
-}
-
 cd $(dirname $0)
 
 echo
-premake4 --cc=gcc --os=windows gmake
+premake4 --file=vs_2010.lua --os=windows vs2010
 
 echo
 premake4 --cc=gcc --os=linux gmake
 
-echo "Done."
 echo
