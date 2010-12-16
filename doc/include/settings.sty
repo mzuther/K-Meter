@@ -1,0 +1,72 @@
+\documentclass[paper=a5,pagesize=auto,twoside=false,fontsize=12pt,DIV=classic,BCOR=0mm,headinclude=true,footinclude=false]{scrartcl} % final
+
+%% font selection
+\usepackage{utopia} % final
+\usepackage{avant} % final
+
+%% redefine headers
+\usepackage[headsepline]{scrpage2}
+\pagestyle{scrheadings}
+
+\setkomafont{pagehead}{%
+  \normalfont\itshape
+}
+
+\automark[section]{chapter}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+
+%% additional KOMA script options
+\KOMAoptions{parskip=half,headsepline=true,numbers=noendperiod,captions=tableheading}
+\recalctypearea{} % recalculate type area after selecting fonts
+
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{ifpdf}
+\usepackage[utf8x]{inputenc}
+\usepackage{paralist}
+\usepackage{ucs}
+\usepackage{url}
+
+% Make sure "hyperref" comes last of your loaded packages, to give it
+% a fighting chance of not being over-written, since its job is to
+% redefine many LATEX commands.
+\ifpdf
+	\usepackage[unicode,pdftex]{hyperref}
+\else
+	\usepackage[unicode,hypertex]{hyperref}
+\fi
+
+\hypersetup{ % final
+  unicode=true,                % non-Latin characters in Acrobat’s bookmarks
+  pdftitle=radix vs Raum 16,   % title
+  pdfauthor=Ole Lo"ding,       % author
+  pdfsubject=radix vs Raum 16, % subject of the document
+  pdfcreator=Martin Zuther,    % creator of the document
+  colorlinks=true,             % false: boxed links; true: colored links
+  linkcolor=blue,              % color of internal links
+  citecolor=blue,              % color of links to bibliography
+  filecolor=blue,              % color of file links
+  urlcolor=blue                % color of external links
+}
+
+%% KOMA script captions
+\addtokomafont{caption}{\small}
+\addtokomafont{captionlabel}{\bfseries}
+\setcapindent{0em}
+
+%% taken from package "l2tabu"
+\tolerance 1414
+\hbadness 1414
+\emergencystretch 1.5em
+\hfuzz 0.3pt
+\widowpenalty=10000
+\vfuzz
+\hfuzz
+\raggedbottom
+
+%% package "paralist"
+\setdefaultitem{\textbullet}{$\circ$}{}{}
+
+%% package "url"
+\urlstyle{rm}

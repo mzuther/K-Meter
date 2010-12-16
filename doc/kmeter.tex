@@ -1,0 +1,213 @@
+\input{include/settings.sty}
+\input{include/hyphenation.sty}
+
+\title{K-Meter}
+\author{Martin Zuther}
+% edition 1.01
+
+%% layout
+\usepackage[inner=18mm,outer=18mm,top=26mm,bottom=27mm,headsep=6.5mm,headheight=5mm]{geometry}
+
+\DeclareRobustCommand*{\application}[1]{\texttt{#1}}
+
+\begin{document}
+
+\section{K-Meter}
+
+Implementation of a K-System meter according to Bob Katz' specifications.
+
+\section{The loudness race}
+
+When comparing two similar pieces of music, the louder one is
+perceived as sounding better (although this is only true for short
+periods of time).  Accordingly, the loudness of music productions has
+continuously grown during the last decades.
+
+As maximum levels of records, tapes and digital media are limited,
+however, mastering engineers have started using sophisticated dynamic
+compression techniques to achieve higher loudness without distorting
+the music (as of 2010, distortion is increasingly being used in order
+to achieve even higher loudness).
+
+Unfortunately, this decrease in dynamic range does not leave the music
+unharmed.  Current compressed music blasts away your ears and makes
+you turn down the volume of your amplifier.  Having lowered the
+volume, you’ll find that the “better-sounding” compressed music
+suddenly sounds pretty dull and boring compared to uncompressed music.
+In contrast, music with high dynamic range makes you turn up the
+volume.
+
+\section{The K-System meter}
+
+The K-System meter has been devised by mastering engineer Bob Katz in
+order to counteract the ongoing loudness race and also help adjusting
+the levels of different songs during mastering.
+
+\section{Installation of pre-compiled binaries}
+
+In order to use the pre-compiled binaries, please install the
+\emph{Fastest Fourier Transform in the West} library first (see
+\url{http://www.fftw.org/download.html\#platformspecific} for
+instructions).
+
+When you're done, simply extract the K-Meter files from the downloaded
+archive.  For the VST plug-in, you’ll then have to move the files to
+your plug-in folder (\path{~/.vst}, \path{C:\Program
+  Files\Steinberg\VstPlugins\} or the like).
+
+\section{Preparing to build K-Meter}
+
+To build K-Meter yourself, you’ll first have to install the
+dependencies listed below.  To compile on 64-bit GNU/Linux operating
+systems, you’ll also have to install the multilib files for
+\application{g++} (Debian package: \application{g++-multilib}).
+
+\subsection{premake (required)}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Version:  \> 3.7 \\
+  License:  \> GPL v2 \\
+  Homepage: \> \url{http://premake.sourceforge.net/} \\
+\end{tabbing}
+
+\subsection{premake4 (required)}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Version:  \> 4.3 \\
+  License:  \> GPL v2 \\
+  Homepage: \> \url{http://industriousone.com/premake} \\
+\end{tabbing}
+
+\subsection{Fastest Fourier Transform in the West (required)}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Version:  \> 3.2.2 \\
+  License:  \> GPL v2 \\
+  Homepage: \> \url{http://www.fftw.org/}
+\end{tabbing}
+
+\subsubsection{Installation on GNU/Linux}
+
+Extract the archive into the directory \path{libraries/fftw3}, change
+into this directory and run:
+
+\begin{verbatim}
+  ./configure --enable-float CC="gcc -m32"
+  make
+  mkdir bin/
+  mv .libs/* bin/
+\end{verbatim}
+
+\subsubsection{Installation on Microsoft Windows}
+
+Extract the source code archive into the directory
+\path{libraries/fftw3} and the archive containing the pre-compiled
+binaries into the directories \path{libraries/fftw3/bin} and
+\path{%SystemDirectory%} (usually
+  \path{C:\WINDOWS\system32\}).
+
+\subsection{JUCE library (required)}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Version:  \> 1.51 \\
+  License:  \> GPL v2 \\
+  Homepage: \> \url{http://www.rawmaterialsoftware.com/juce.php}
+\end{tabbing}
+
+\subsubsection{Installation on GNU/Linux}
+
+Extract the archive into the directory \path{libraries/juce}, change
+into the directory \path{libraries/juce/build/linux/} and edit the
+following lines in \path{juce_premake.lua}:
+
+\begin{verbatim}
+  package.config["Debug"].target = "juce_debug32"
+  package.config["Release"].target = "juce32"
+
+  package.config["Debug"].buildoptions = \
+    { "-D_DEBUG -ggdb -Wall -fPIC -m32" }
+  package.config["Release"].buildoptions = \
+    { "-fvisibility=hidden -fPIC -m32" }
+\end{verbatim}
+
+Finally, run:
+
+\begin{verbatim}
+  chmod +x runpremake
+  ./runpremake
+  make CONFIG=Debug
+  make CONFIG=Release
+\end{verbatim}
+
+\subsubsection{Installation on Microsoft Windows}
+
+Extract the archive into the directory \path{libraries/juce}.
+
+\subsection{Virtual Studio Technology SDK (VST, optional)}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Version:  \> 2.4 \\
+  License:  \> proprietary \\
+  Homepage: \> \url{http://ygrabit.steinberg.de/~ygrabit/public_html/}
+\end{tabbing}
+
+\subsubsection{Installation on GNU/Linux}
+
+Extract the archive into the directory \path{libraries/vstsdk2.4}.
+
+\subsubsection{Installation on Microsoft Windows}
+
+Extract the archive into the directory \path{libraries/vstsdk2.4}.
+
+\subsubsection{Building on GNU/Linux}
+
+After preparing the dependencies, change into the directory \path{build} and
+run
+
+\begin{verbatim}
+  ./run_premake
+  make config=CFG TARGET
+\end{verbatim}
+
+where \application{CFG} is one of \application{debug32} and
+\application{release32}, and \application{TARGET} is one of
+\application{linux\_standalone} and \application{linux\_vst}.  The
+compiled binaries will end up in the directory \path{bin}.
+
+\subsubsection{Building on Microsoft Windows}
+
+After preparing the dependencies, change into the directory
+\path{build/windows/vs_2010}, open \path{kmeter.sln} with Visual C++
+2010 and build the project.  The compiled binaries will end up in the
+directory \path{bin}.
+
+\section{Final words}
+
+I love to hear from people who use my applications.  So if you can
+spare the time, have any suggestions or want to create a nice theme,
+head over to my website \href{http://www.mzuther.de/}{www.mzuther.de}
+and drop me an email!
+
+And now again: thanks for using free software.  I hope you’ll enjoy
+this experience \dots
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% mode: outline-minor
+%%% TeX-command-default: "Rubber"
+%%% TeX-PDF-mode: t
+%%% ispell-local-dictionary: "en_GB"
+%%% End:
