@@ -8,7 +8,7 @@
 \usepackage[headsepline]{scrpage2}
 \pagestyle{scrheadings}
 
-\setkomafont{pagehead}{%
+\setkomafont{pageheadfoot}{%
   \normalfont\itshape
 }
 
@@ -20,13 +20,13 @@
 \KOMAoptions{parskip=half,headsepline=true,numbers=noendperiod,captions=tableheading}
 \recalctypearea{} % recalculate type area after selecting fonts
 
-\usepackage[ngerman]{babel}
+\usepackage[british]{babel}
 \usepackage{graphicx}
 \usepackage{ifpdf}
 \usepackage[utf8x]{inputenc}
 \usepackage{paralist}
 \usepackage{ucs}
-\usepackage{url}
+\usepackage[hyphens]{url}
 
 % Make sure "hyperref" comes last of your loaded packages, to give it
 % a fighting chance of not being over-written, since its job is to
@@ -39,9 +39,9 @@
 
 \hypersetup{ % final
   unicode=true,                % non-Latin characters in Acrobat’s bookmarks
-  pdftitle=radix vs Raum 16,   % title
-  pdfauthor=Ole Lo"ding,       % author
-  pdfsubject=radix vs Raum 16, % subject of the document
+  pdftitle=K-Meter,            % title
+  pdfauthor=Martin Zuther,     % author
+  pdfsubject=K-Meter,          % subject of the document
   pdfcreator=Martin Zuther,    % creator of the document
   colorlinks=true,             % false: boxed links; true: colored links
   linkcolor=blue,              % color of internal links
