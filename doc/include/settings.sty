@@ -1,8 +1,9 @@
-\documentclass[paper=a5,pagesize=auto,twoside=false,fontsize=12pt,DIV=classic,BCOR=0mm,headinclude=true,footinclude=false]{scrartcl} % final
+\documentclass[paper=a5,pagesize=auto,twoside=false,fontsize=12pt,DIV=classic,BCOR=0mm,headinclude=true,footinclude=false]{scrbook}
 
 %% font selection
-\usepackage{utopia} % final
-\usepackage{avant} % final
+\usepackage{utopia}
+%\usepackage[poorman]{fourier}
+\usepackage{avant}
 
 %% redefine headers
 \usepackage[headsepline]{scrpage2}
@@ -12,9 +13,9 @@
   \normalfont\itshape
 }
 
-\automark[section]{chapter}
+\automark[chapter]{chapter}
 \renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
-\renewcommand{\sectionmark}[1]{\markright{#1}}
+%\renewcommand{\sectionmark}[1]{\markright{#1}}
 
 %% additional KOMA script options
 \KOMAoptions{parskip=half,headsepline=true,numbers=noendperiod,captions=tableheading}
@@ -39,7 +40,7 @@
 	\usepackage[unicode,hypertex]{hyperref}
 \fi
 
-\hypersetup{ % final
+\hypersetup{
   unicode=true,                % non-Latin characters in Acrobat’s bookmarks
   pdftitle=K-Meter,            % title
   pdfauthor=Martin Zuther,     % author
@@ -78,3 +79,23 @@
 
 %% scaling of screenshots
 \newcommand{\screenshotscale}{0.7}
+
+%% layout
+\usepackage[inner=18mm,outer=18mm,top=26mm,bottom=27mm,headsep=6.5mm,headheight=5mm]{geometry}
+
+% %% start new page for every section
+% \let\stdsection\section  
+% \renewcommand\section{\newpage\stdsection}
+
+%% command "application"
+\DeclareRobustCommand*{\application}[1]{\texttt{#1}}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% mode: outline-minor
+%%% TeX-command-default: "Rubber"
+%%% TeX-master: "../kmeter"
+%%% TeX-PDF-mode: t
+%%% ispell-local-dictionary: "british"
+%%% End:
