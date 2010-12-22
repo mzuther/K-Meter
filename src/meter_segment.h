@@ -46,8 +46,9 @@ private:
 	float fHue;
 	float fBrightness;
 
-	float fLevelThreshold;
-	float fLevelRange;
+	float fLowerThreshold;
+	float fUpperThreshold;
+	float fThresholdRange;
 
 	float fLevel;
 	bool bPeak;

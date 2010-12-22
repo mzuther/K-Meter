@@ -27,26 +27,40 @@
 
 MeterSegment::MeterSegment(const String &componentName, float fThreshold, float fRange, int nColor)
 {
+	// set component name 
 	setName(componentName);
 
-	fLevelThreshold = fThreshold;
-	fLevelRange = fRange;
+	// lower threshold, meter segment will be dark below this level
+	fLowerThreshold = fThreshold;
+
+	// level range above lower threshold that affects the brightness
+	fThresholdRange = fRange;
+
+	// upper threshold, meter segment will be lit above this level
+	fUpperThreshold = fThreshold + fThresholdRange;
 
 	fLevel = 0.0f;
 	bPeak = false;
-	
+
+	// initialise meter segment's brightness (0.0f is dark, 1.0f is
+	// fully lit)
 	fBrightness = 0.0f;
 
+	// set meter segment's hue from color number
 	if (nColor == 0)
+		// meter segment is red
 		fHue = 0.0f;
 	else if (nColor == 1)
+		// meter segment is yellow
 		fHue = 0.18f;
 	else
+		// meter segment is green
 		fHue = 0.3f;
 }
 
 MeterSegment::~MeterSegment()
 {
+	// nothing to do, really
 }
 
 void MeterSegment::paint(Graphics& g)
@@ -72,23 +86,25 @@ void MeterSegment::setLevels(float newLevel, float newPeak)
 {
 	fLevel = newLevel;
 
+	// store old brightness and peak values
 	float fBrightnessOld = fBrightness;
 	bool bPeakOld = bPeak;
 
-	if (fLevel > (fLevelThreshold + fLevelRange))
+	if (fLevel > fUpperThreshold)
 		fBrightness = 1.0f;
-	else if (fLevel < (fLevelThreshold))
+	else if (fLevel < (fLowerThreshold))
 		fBrightness = 0.0f;
 	else
-		fBrightness = (fLevel - fLevelThreshold) / fLevelRange;
+		fBrightness = (fLevel - fLowerThreshold) / fThresholdRange;
 
-	if ((newPeak > fLevelThreshold) & (newPeak <= (fLevelThreshold + fLevelRange)))
+	if ((newPeak > fLowerThreshold) && (newPeak <= fUpperThreshold))
 		bPeak = true;
 	else
 		bPeak = false;
 
 	fBrightness = fBrightness * 0.72f + 0.25f;
 
-	if ((fBrightness != fBrightnessOld) | (bPeak != bPeakOld))
+	// if brightness and/or peak have changed, re-paint meter segment
+	if ((fBrightness != fBrightnessOld) || (bPeak != bPeakOld))
 		repaint();
 }
