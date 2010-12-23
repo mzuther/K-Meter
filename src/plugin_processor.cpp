@@ -40,6 +40,8 @@ KmeterAudioProcessor::KmeterAudioProcessor()
   pRingBufferInput = NULL;
   pRingBufferOutput = NULL;
 
+  setLatencySamples(KMETER_BUFFER_SIZE);
+
   pAverageLevelFilteredRms = new AverageLevelFilteredRms(2, KMETER_BUFFER_SIZE);
   pMeterBallistics = new MeterBallistics(false, false);
   pPluginParameters = new KmeterPluginParameters();
