@@ -78,6 +78,35 @@ AboutWindow::AboutWindow(int nWidth, int nHeight)
     L"Bob Katz\n"
     L"bram@smartelectronix\n\n");
 
+  // display copyright notice
+  TextEditorAbout->setFont(fontHeadline);
+  TextEditorAbout->insertTextAtCaret(T("Copyright\n"));
+
+  TextEditorAbout->setFont(fontRegular);
+  TextEditorAbout->insertTextAtCaret(T(
+    "(c) 2010 Contributors\n\n"));
+
+  // display used libraries
+  TextEditorAbout->setFont(fontHeadline);
+  TextEditorAbout->insertTextAtCaret(T("Libraries\n"));
+
+  TextEditorAbout->setFont(fontRegular);
+  TextEditorAbout->insertTextAtCaret(
+#ifdef LINUX
+    L"ALSA\n"
+#endif
+    L"FFTW\n"
+#ifdef LINUX
+    L"FreeType\n"
+#endif
+    L"JUCE\n"
+#ifdef LINUX
+    L"POSIX Threads\n"
+	L"Xlib\n"
+	L"Xext\n\n"
+#endif
+  );
+
 #ifdef KMETER_VST_PLUGIN
 
   // display trademarks (but only when necessary)
@@ -89,14 +118,6 @@ AboutWindow::AboutWindow(int nWidth, int nHeight)
     "VST PlugIn Technology by Steinberg\n\n"));
 
 #endif
-
-  // display copyright notice
-  TextEditorAbout->setFont(fontHeadline);
-  TextEditorAbout->insertTextAtCaret(T("Copyright\n"));
-
-  TextEditorAbout->setFont(fontRegular);
-  TextEditorAbout->insertTextAtCaret(T(
-    "(c) 2010 Contributors\n\n"));
 
   // display license summary
   TextEditorAbout->setFont(fontHeadline);
