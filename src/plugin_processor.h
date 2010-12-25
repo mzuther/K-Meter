@@ -130,3 +130,8 @@ private:
 };
 
 #endif  // __PLUGINPROCESSOR_H_5573940C__
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

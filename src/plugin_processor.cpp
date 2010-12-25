@@ -468,3 +468,8 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
   return new KmeterAudioProcessor();
 }
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

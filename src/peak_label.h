@@ -48,3 +48,8 @@ private:
 
 
 #endif  // __PEAK_LABEL_H__
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

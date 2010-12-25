@@ -69,3 +69,8 @@ private:
 
 
 #endif  // __METER_BAR_H__
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

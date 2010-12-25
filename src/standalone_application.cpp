@@ -62,3 +62,8 @@ const String StandaloneApplication::getApplicationVersion()
 {
   return JucePlugin_VersionString;
 }
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

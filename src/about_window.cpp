@@ -168,7 +168,7 @@ AboutWindow::~AboutWindow()
 
 void AboutWindow::paint(Graphics& g)
 {
-  // fill window background with gray color gradient
+  // fill window background with grey colour gradient
   g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.4f), 0, 0, Colours::darkgrey.darker(1.0f), 0, (float) getHeight(), false));
   g.fillAll();
 }
@@ -188,3 +188,8 @@ void AboutWindow::buttonClicked(Button* button)
     URL(T("http://www.gnu.org/licenses/gpl-3.0.html")).launchInDefaultBrowser();
   }
 }
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

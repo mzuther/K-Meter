@@ -46,3 +46,8 @@ private:
 
 
 #endif  // __OVERFLOW_METER_H__
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

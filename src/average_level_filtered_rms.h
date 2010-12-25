@@ -71,3 +71,8 @@ private:
 
 
 #endif  // __AVERAGE_LEVEL_FILTERED_RMS_H__
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

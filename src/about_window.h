@@ -76,3 +76,8 @@ private:
 
 
 #endif  // __ABOUT_WINDOW_H__
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

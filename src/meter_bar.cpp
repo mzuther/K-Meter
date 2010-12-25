@@ -276,3 +276,8 @@ void MeterBar::setLevels(float newLevel, float newPeak)
 			MeterArray[n]->setLevels(fLevel, fPeak);
 	}
 }
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

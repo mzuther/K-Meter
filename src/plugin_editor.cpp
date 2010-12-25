@@ -315,3 +315,8 @@ void KmeterAudioProcessorEditor::resized()
 {
 }
 
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

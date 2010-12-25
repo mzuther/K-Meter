@@ -55,3 +55,8 @@ void OverflowMeter::setOverflows(int Overflows)
 			setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
 	}
 }
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

@@ -78,3 +78,8 @@ private:
 
 
 #endif  // __PLUGINEDITOR_H_E5792227__
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

@@ -38,3 +38,8 @@ START_JUCE_APPLICATION(StandaloneApplication)
 #include "juce/extras/audio plugins/wrapper/VST/juce_VST_Wrapper.cpp"
 
 #endif
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

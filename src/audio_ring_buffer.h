@@ -83,3 +83,8 @@ private:
 
 
 #endif  // __AUDIO_RING_BUFFER_H__
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

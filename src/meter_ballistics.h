@@ -109,3 +109,8 @@ private:
 
 
 #endif  // __METER_BALLISTICS_H__
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

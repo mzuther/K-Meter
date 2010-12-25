@@ -194,3 +194,8 @@ void AverageLevelFilteredRms::copyToBuffer(AudioSampleBuffer& destination, const
 
   memcpy(destination.getSampleData(channel, destStartSample), pSampleBuffer->getSampleData(channel), numSamples * sizeof(float));
 }
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

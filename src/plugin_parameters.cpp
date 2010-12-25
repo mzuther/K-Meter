@@ -267,3 +267,8 @@ void KmeterPluginParameters::loadFromXml(XmlElement* xml)
 	 setParameterFromInt(selMono, xml->getIntAttribute("Mono", getParameterAsInt(selMono)));
   }
 }
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

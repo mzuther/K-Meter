@@ -73,3 +73,8 @@ void PeakLabel::updateLevel(float newLevel)
 	else
 		setColour(Label::backgroundColourId, Colours::red.darker(0.2f));
 }
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

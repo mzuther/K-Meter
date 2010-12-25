@@ -291,3 +291,8 @@ void AudioRingBuffer::triggerFullBuffer(AudioSampleBuffer& buffer, const unsigne
   if (pCallbackClass)
 	 pCallbackClass->processBufferChunk(buffer, uChunkSize, uBufferPosition, uProcessedSamples);
 }
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

@@ -46,3 +46,8 @@ class StandaloneApplication : public JUCEApplication
 };
 
 #endif   // __STANDALONE_H__
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

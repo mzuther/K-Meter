@@ -108,3 +108,8 @@ void StereoMeter::setValue(float newValue)
 
 	repaint();
 }
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

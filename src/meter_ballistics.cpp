@@ -350,3 +350,8 @@ float MeterBallistics::AverageMeterPeakBallistics(float fTimeFrame, float* fLast
 {
 	return PeakMeterPeakBallistics(fTimeFrame, fLastChanged, fLevelCurrent, fLevelOld);
 }
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

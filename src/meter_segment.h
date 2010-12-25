@@ -38,9 +38,10 @@ public:
     MeterSegment(const String &componentName, float fThreshold, float fRange, int nColor);
     ~MeterSegment();
 
-	void setLevels(float newLevel, float newPeak);
+	void setLevels(float newLevel, float newPeakLevel);
     void paint(Graphics& g);
 	void resized();
+	void visibilityChanged();
 
 private:
 	float fHue;
@@ -51,8 +52,13 @@ private:
 	float fThresholdRange;
 
 	float fLevel;
-	bool bPeak;
+	bool bPeakMarker;
 };
 
 
 #endif  // __METER_SEGMENT_H__
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

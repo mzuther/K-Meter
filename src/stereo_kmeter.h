@@ -72,3 +72,8 @@ private:
 
 
 #endif  // __STEREO_KMETER_H__
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

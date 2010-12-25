@@ -309,3 +309,8 @@ void StereoKmeter::drawMarkers(Graphics& g, String& strMarker, int x, int y, int
 	for (int nMarkerX=nStart; nMarkerX > nEnd; nMarkerX--)
 	  g.setPixel(nMarkerX, nMarkerY);
 }
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:
