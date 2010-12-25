@@ -5,6 +5,8 @@ o [mzuther] write documentation
 
 * save and restore default settings
 
+* support surround sound
+
 * implement ITU BS.1770-1 loudness weighting
 
 * implement inter-sample peak meter (ITU BS.1770-1, Annex 2)

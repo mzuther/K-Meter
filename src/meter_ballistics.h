@@ -35,7 +35,7 @@
 class MeterBallistics
 {
 public:
-    MeterBallistics(bool bPeakHold, bool bAverageHold);
+    MeterBallistics(int nChannels, bool bPeakHold, bool bAverageHold);
     ~MeterBallistics();
 
 	void setPeakHold(bool bPeakHold);
@@ -44,8 +44,8 @@ public:
 
 	int getNumberOfChannels();
 
-	float	getStereoMeterValue();
-	float	getCorrelationMeterValue();
+	float getStereoMeterValue();
+	float getCorrelationMeterValue();
 
 	float getPeakMeterLeft();
 	float getPeakMeterRight();
@@ -63,7 +63,9 @@ public:
 	int getOverflowsLeft();
 	int getOverflowsRight();
 
-	void update(int nChannels, float fTimeFrame, float fPeakLeft, float fPeakRight, float fAverageLeft, float fAverageRight, float fCorrelation, int OverflowsLeft, int OverflowsRight);
+	void updateChannel(int nChannel, float fTimeFrame, float fPeak, float fAverage, int Overflows);
+	void updateCorrelation(float fTimeFrame, float fCorrelation);
+	void updateStereoMeter(float fTimeFrame, float fAverageLeft, float fAverageRight);
 
 private:
 	int nNumberOfChannels;
@@ -74,26 +76,18 @@ private:
 	float fStereoMeterValue;
 	float fCorrelationMeterValue;
 
-	float fPeakMeterLeft;
-	float fPeakMeterRight;
-	float fAverageMeterLeft;
-	float fAverageMeterRight;
+	float *fPeakMeter;
+	float *fAverageMeter;
 
-	float fPeakMeterLeftPeak;
-	float fPeakMeterRightPeak;
-	float fAverageMeterLeftPeak;
-	float fAverageMeterRightPeak;
+	float *fPeakMeterPeak;
+	float *fAverageMeterPeak;
 
-	float fPeakMeterLeftMaximumPeak;
-	float fPeakMeterRightMaximumPeak;
+	float *fPeakMeterMaximumPeak;
 
-	int nOverflowsLeft;
-	int nOverflowsRight;
+	int *nOverflows;
 
-	float fPeakMeterLeftPeakLastChanged;
-	float fPeakMeterRightPeakLastChanged;
-	float fAverageMeterLeftPeakLastChanged;
-	float fAverageMeterRightPeakLastChanged;
+	float *fPeakMeterPeakLastChanged;
+	float *fAverageMeterPeakLastChanged;
 
 	float level2decibel(float level);
 

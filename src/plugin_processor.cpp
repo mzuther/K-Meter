@@ -43,7 +43,8 @@ KmeterAudioProcessor::KmeterAudioProcessor()
   setLatencySamples(KMETER_BUFFER_SIZE);
 
   pAverageLevelFilteredRms = new AverageLevelFilteredRms(2, KMETER_BUFFER_SIZE);
-  pMeterBallistics = new MeterBallistics(false, false);
+  // TODO: number of channels is static!
+  pMeterBallistics = new MeterBallistics(getNumInputChannels(), false, false);
   pPluginParameters = new KmeterPluginParameters();
 
   fTimeFrame = 0.0f;
@@ -282,6 +283,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
   // This is the place where you'd normally do the guts of your
   // plugin's audio processing...
 
+  // TODO: number of channels is static!
   bool isStereo = (getNumInputChannels() > 1);
   bool bMono = pPluginParameters->getParameterAsBool(KmeterPluginParameters::selMono);
   int nNumSamples = buffer.getNumSamples();
@@ -309,6 +311,8 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
   // In case we have more outputs than inputs, we'll clear any output
   // channels that didn't contain input data, (because these aren't
   // guaranteed to be empty - they may contain garbage).
+
+  // TODO: number of channels is static!
   for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
 	 buffer.clear(i, 0, nNumSamples);
 }
@@ -317,6 +321,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
   unsigned int uPreDelay = uChunkSize / 2;
+  // TODO: number of channels is static!
   bool isStereo = (getNumInputChannels() > 1);
   bool bMono = pPluginParameters->getParameterAsBool(KmeterPluginParameters::selMono);
 
@@ -379,7 +384,13 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
   }
 
   fTimeFrame = (float) getSampleRate() / (float) uChunkSize;
-  pMeterBallistics->update(isStereo ? 2 : 1, fTimeFrame, fPeakLeft, fPeakRight, fAverageLeft, fAverageRight, fCorrelation, nOverflowsLeft, nOverflowsRight);
+  pMeterBallistics->updateCorrelation(fTimeFrame, fCorrelation);
+  pMeterBallistics->updateStereoMeter(fTimeFrame, fAverageLeft, fAverageRight);
+
+  pMeterBallistics->updateChannel(0, fTimeFrame, fPeakLeft, fAverageLeft, nOverflowsLeft);
+
+  if (isStereo)
+	  pMeterBallistics->updateChannel(1, fTimeFrame, fPeakRight, fAverageRight, nOverflowsRight);
 
   sendChangeMessage(this);
 
@@ -392,6 +403,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
   }
   else
   {
+	 // TODO: number of channels is static!
 	 int nNumInputChannels = getNumInputChannels();
 
 	 AudioSampleBuffer TempAudioBuffer = AudioSampleBuffer(nNumInputChannels, uChunkSize);
