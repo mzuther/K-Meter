@@ -135,75 +135,57 @@ float	MeterBallistics::getCorrelationMeterValue()
 }
 
 
-float MeterBallistics::getPeakMeterLeft()
+float MeterBallistics::getPeakMeter(int nChannel)
 {
-	return fPeakMeter[0];
+	jassert(nChannel >= 0);
+	jassert(nChannel < nNumberOfChannels);
+
+	return fPeakMeter[nChannel];
 }
 
 
-float MeterBallistics::getPeakMeterRight()
+float MeterBallistics::getAverageMeter(int nChannel)
 {
-	return fPeakMeter[1];
+	jassert(nChannel >= 0);
+	jassert(nChannel < nNumberOfChannels);
+
+	return fAverageMeter[nChannel];
 }
 
 
-float MeterBallistics::getAverageMeterLeft()
+float MeterBallistics::getPeakMeterPeak(int nChannel)
 {
-	return fAverageMeter[0];
+	jassert(nChannel >= 0);
+	jassert(nChannel < nNumberOfChannels);
+
+	return fPeakMeterPeak[nChannel];
 }
 
 
-float MeterBallistics::getAverageMeterRight()
+float MeterBallistics::getPeakMeterMaximumPeak(int nChannel)
 {
-	return fAverageMeter[1];
+	jassert(nChannel >= 0);
+	jassert(nChannel < nNumberOfChannels);
+
+	return fPeakMeterMaximumPeak[nChannel];
 }
 
 
-float MeterBallistics::getPeakMeterLeftPeak()
+float MeterBallistics::getAverageMeterPeak(int nChannel)
 {
-	return fPeakMeterPeak[0];
+	jassert(nChannel >= 0);
+	jassert(nChannel < nNumberOfChannels);
+
+	return fAverageMeterPeak[nChannel];
 }
 
 
-float MeterBallistics::getPeakMeterRightPeak()
+int MeterBallistics::getOverflows(int nChannel)
 {
-	return fPeakMeterPeak[1];
-}
+	jassert(nChannel >= 0);
+	jassert(nChannel < nNumberOfChannels);
 
-
-float MeterBallistics::getPeakMeterLeftMaximumPeak()
-{
-	return fPeakMeterMaximumPeak[0];
-}
-
-
-float MeterBallistics::getPeakMeterRightMaximumPeak()
-{
-	return fPeakMeterMaximumPeak[1];
-}
-
-
-float MeterBallistics::getAverageMeterLeftPeak()
-{
-	return fAverageMeterPeak[0];
-}
-
-
-float MeterBallistics::getAverageMeterRightPeak()
-{
-	return fAverageMeterPeak[1];
-}
-
-
-int MeterBallistics::getOverflowsLeft()
-{
-	return nOverflows[0];
-}
-
-
-int MeterBallistics::getOverflowsRight()
-{
-	return nOverflows[1];
+	return nOverflows[nChannel];
 }
 
 
@@ -231,6 +213,9 @@ void MeterBallistics::updateCorrelation(float fTimeFrame, float fCorrelation)
 
 void MeterBallistics::updateChannel(int nChannel, float fTimeFrame, float fPeak, float fAverage, int Overflows)
 {
+	jassert(nChannel >= 0);
+	jassert(nChannel < nNumberOfChannels);
+
 	// please make sure that the values of channel #0 are updated
 	// before all others!
 	if ((nNumberOfChannels == 1) && (nChannel > 0))

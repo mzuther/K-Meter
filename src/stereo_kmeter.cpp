@@ -253,18 +253,18 @@ void StereoKmeter::setLevels(MeterBallistics* pMB)
 {
 	if (displayPeakMeter)
 	{
-	  PeakMeterLeft->setLevels(pMB->getPeakMeterLeft(), pMB->getPeakMeterLeftPeak());
-	  PeakMeterRight->setLevels(pMB->getPeakMeterRight(), pMB->getPeakMeterRightPeak());
+	  PeakMeterLeft->setLevels(pMB->getPeakMeter(0), pMB->getPeakMeterPeak(0));
+	  PeakMeterRight->setLevels(pMB->getPeakMeter(1), pMB->getPeakMeterPeak(1));
 	}
 
-	MaximumPeakLeft->updateLevel(pMB->getPeakMeterLeftMaximumPeak());
-	MaximumPeakRight->updateLevel(pMB->getPeakMeterRightMaximumPeak());
+	MaximumPeakLeft->updateLevel(pMB->getPeakMeterMaximumPeak(0));
+	MaximumPeakRight->updateLevel(pMB->getPeakMeterMaximumPeak(1));
 
-	AverageMeterLeft->setLevels(pMB->getAverageMeterLeft(), pMB->getAverageMeterLeftPeak());
-	AverageMeterRight->setLevels(pMB->getAverageMeterRight(), pMB->getAverageMeterRightPeak());
+	AverageMeterLeft->setLevels(pMB->getAverageMeter(0), pMB->getAverageMeterPeak(0));
+	AverageMeterRight->setLevels(pMB->getAverageMeter(1), pMB->getAverageMeterPeak(1));
 
-	OverflowMeterLeft->setOverflows(pMB->getOverflowsLeft());
-	OverflowMeterRight->setOverflows(pMB->getOverflowsRight());
+	OverflowMeterLeft->setOverflows(pMB->getOverflows(0));
+	OverflowMeterRight->setOverflows(pMB->getOverflows(1));
 }
 
 void StereoKmeter::drawMarkers(Graphics& g, String& strMarker, int x, int y, int width, int height)

@@ -47,21 +47,14 @@ public:
 	float getStereoMeterValue();
 	float getCorrelationMeterValue();
 
-	float getPeakMeterLeft();
-	float getPeakMeterRight();
-	float getAverageMeterLeft();
-	float getAverageMeterRight();
+	float getPeakMeter(int nChannel);
+	float getAverageMeter(int nChannel);
 
-	float getPeakMeterLeftPeak();
-	float getPeakMeterRightPeak();
-	float getAverageMeterLeftPeak();
-	float getAverageMeterRightPeak();
+	float getPeakMeterPeak(int nChannel);
+	float getAverageMeterPeak(int nChannel);
 
-	float getPeakMeterLeftMaximumPeak();
-	float getPeakMeterRightMaximumPeak();
-
-	int getOverflowsLeft();
-	int getOverflowsRight();
+	float getPeakMeterMaximumPeak(int nChannel);
+	int getOverflows(int nChannel);
 
 	void updateChannel(int nChannel, float fTimeFrame, float fPeak, float fAverage, int Overflows);
 	void updateCorrelation(float fTimeFrame, float fCorrelation);
