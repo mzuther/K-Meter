@@ -112,6 +112,9 @@ private:
 
   KmeterPluginParameters* pPluginParameters;
 
+  int nNumInputChannels;
+  bool isStereo;
+
   int nSamplesInBuffer;
   float fTimeFrame;
 

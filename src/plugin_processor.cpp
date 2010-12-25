@@ -40,11 +40,12 @@ KmeterAudioProcessor::KmeterAudioProcessor()
   pRingBufferInput = NULL;
   pRingBufferOutput = NULL;
 
+  nNumInputChannels = 0;
+  pMeterBallistics = NULL;
+
   setLatencySamples(KMETER_BUFFER_SIZE);
 
   pAverageLevelFilteredRms = new AverageLevelFilteredRms(2, KMETER_BUFFER_SIZE);
-  // TODO: number of channels is static!
-  pMeterBallistics = new MeterBallistics(getNumInputChannels(), false, false);
   pPluginParameters = new KmeterPluginParameters();
 
   fTimeFrame = 0.0f;
@@ -253,6 +254,14 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
   // Use this method as the place to do any pre-playback
   // initialisation that you need..
 
+  nNumInputChannels = getNumInputChannels();
+  isStereo = (nNumInputChannels == 2);
+
+  DBG("[K-Meter] in method KmeterAudioProcessor::prepareToPlay()");
+  DBG(String("[K-Meter] nNumInputChannels:  ") + String(nNumInputChannels));
+
+  pMeterBallistics = new MeterBallistics(nNumInputChannels, false, false);
+
   // make sure that ring buffer can hold at least KMETER_BUFFER_SIZE
   // samples and is large enough to receive a full block of audio
   nSamplesInBuffer = 0;
@@ -270,6 +279,11 @@ void KmeterAudioProcessor::releaseResources()
   // When playback stops, you can use this as an opportunity to free
   // up any spare memory, etc.
 
+  DBG("[K-Meter] in method KmeterAudioProcessor::releaseResources()");
+
+  delete pMeterBallistics;
+  pMeterBallistics = NULL;
+
   delete pRingBufferOutput;
   pRingBufferOutput = NULL;
 
@@ -283,8 +297,12 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
   // This is the place where you'd normally do the guts of your
   // plugin's audio processing...
 
-  // TODO: number of channels is static!
-  bool isStereo = (getNumInputChannels() > 1);
+  if (nNumInputChannels < 1)
+  {
+    DBG("[K-Meter] nNumInputChannels < 1");
+    return;
+  }
+
   bool bMono = pPluginParameters->getParameterAsBool(KmeterPluginParameters::selMono);
   int nNumSamples = buffer.getNumSamples();
 
@@ -312,8 +330,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
   // channels that didn't contain input data, (because these aren't
   // guaranteed to be empty - they may contain garbage).
 
-  // TODO: number of channels is static!
-  for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
+  for (int i = nNumInputChannels; i < getNumOutputChannels(); ++i)
 	 buffer.clear(i, 0, nNumSamples);
 }
 
@@ -321,8 +338,6 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
   unsigned int uPreDelay = uChunkSize / 2;
-  // TODO: number of channels is static!
-  bool isStereo = (getNumInputChannels() > 1);
   bool bMono = pPluginParameters->getParameterAsBool(KmeterPluginParameters::selMono);
 
   // copy ring buffer to determine average level (FIR filter already
@@ -403,9 +418,6 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
   }
   else
   {
-	 // TODO: number of channels is static!
-	 int nNumInputChannels = getNumInputChannels();
-
 	 AudioSampleBuffer TempAudioBuffer = AudioSampleBuffer(nNumInputChannels, uChunkSize);
 	 pRingBufferInput->copyToBuffer(TempAudioBuffer, 0, uChunkSize, 0);
 	 pRingBufferOutput->addSamples(TempAudioBuffer, 0, uChunkSize);

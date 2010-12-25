@@ -42,7 +42,7 @@ public:
 	StereoKmeter(const String &componentName, int PosX, int PosY, int nHeadroom, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight);
     ~StereoKmeter();
 
-	void setLevels(MeterBallistics* pMB);
+	void setLevels(MeterBallistics* pMeterBallistics);
 	void paint(Graphics& g);
 	void resized();
 	void visibilityChanged();

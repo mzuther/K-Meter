@@ -174,11 +174,14 @@ void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChang
   }
   else
   {
-	 MeterBallistics* pBallistics = pProcessor->getLevels();
+	 MeterBallistics* pMeterBallistics = pProcessor->getLevels();
 
-	 stereoKmeter->setLevels(pBallistics);
-	 stereoMeter->setValue(pBallistics->getStereoMeterValue());
-	 correlationMeter->setValue(pBallistics->getCorrelationMeterValue());
+	 if (pMeterBallistics)
+	 {
+	   stereoKmeter->setLevels(pMeterBallistics);
+	   stereoMeter->setValue(pMeterBallistics->getStereoMeterValue());
+	   correlationMeter->setValue(pMeterBallistics->getCorrelationMeterValue());
+	 }
   }
 }
 
@@ -197,7 +200,7 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex)
 void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 {
   bool reloadStereoKmeter = false;
-  MeterBallistics* pBallistics = NULL;
+  MeterBallistics* pMeterBallistics = NULL;
 
   switch (nIndex)
   {
@@ -243,9 +246,12 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 	 break;
 
   case KmeterPluginParameters::selHold:
-	 pBallistics = pProcessor->getLevels();
-	 pBallistics->setPeakHold(nValue != 0);
-	 pBallistics->setAverageHold(nValue != 0);
+	 if (pMeterBallistics)
+	 {
+	   pMeterBallistics = pProcessor->getLevels();
+	   pMeterBallistics->setPeakHold(nValue != 0);
+	   pMeterBallistics->setAverageHold(nValue != 0);
+	 }
 
 	 ButtonHold->setToggleState(nValue != 0, false);
 	 break;
@@ -293,8 +299,9 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 	 pProcessor->changeParameter(KmeterPluginParameters::selPeak, !button->getToggleState());
   else if (button == ButtonReset)
   {
-	 MeterBallistics* pBallistics = pProcessor->getLevels();
-	 pBallistics->reset();
+	 MeterBallistics* pMeterBallistics = pProcessor->getLevels();
+	 if (pMeterBallistics)
+       pMeterBallistics->reset();
   }
   else if (button == ButtonMono)
 	 pProcessor->changeParameter(KmeterPluginParameters::selMono, !button->getToggleState());

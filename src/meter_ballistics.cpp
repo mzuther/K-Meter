@@ -246,10 +246,10 @@ void MeterBallistics::updateChannel(int nChannel, float fTimeFrame, float fPeak,
 	}
 
 	// uncomment for validation of K-System meter peak readings:
-	// DBG(String("[K-20 Peak]  ") + String(nChannel) + T(": ") + String(20.0f + fPeakMeter[nChannel], 2));
+	// DBG(String("[K-Meter] K-20 Peak (channel #") + String(nChannel) + T("): ") + String(20.0f + fPeakMeter[nChannel], 2));
 
 	// uncomment for validation of K-System meter average readings:
-	// DBG(String("[K-20 Average]  ") + String(nChannel) + T(": ") + String(20.0f + fAverageMeter[nChannel], 2));
+	// DBG(String("[K-Meter] K-20 Average (channel #") + String(nChannel) + T("): ") + String(20.0f + fAverageMeter[nChannel], 2));
 }
 
 
