@@ -28,8 +28,8 @@ ifeq ($(config),debug32)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fPIC -fno-inline
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -shared -m32 -L/usr/lib32 -L../../../libraries/juce/bin -L../../../libraries/fftw3/bin -L/usr/X11R6/lib32
-  LIBS      += -lfftw3f -lfreetype -lpthread -lrt -lX11 -lXext -ljuce_debug32
+  LDFLAGS   += -shared -m32 -L/usr/lib32 ../../../libraries/fftw3/bin/libfftw3f.a  ../../../libraries/juce/bin/libjuce_debug32.a -L/usr/X11R6/lib32
+  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -50,8 +50,8 @@ ifeq ($(config),release32)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -fPIC -pipe -fvisibility=hidden
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -shared -m32 -L/usr/lib32 -L../../../libraries/juce/bin -L../../../libraries/fftw3/bin -L/usr/X11R6/lib32
-  LIBS      += -lfftw3f -lfreetype -lpthread -lrt -lX11 -lXext -ljuce32
+  LDFLAGS   += -s -shared -m32 -L/usr/lib32 ../../../libraries/fftw3/bin/libfftw3f.a  ../../../libraries/juce/bin/libjuce32.a -L/usr/X11R6/lib32
+  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -64,26 +64,26 @@ ifeq ($(config),release32)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/plugin_processor.o \
-	$(OBJDIR)/overflow_meter.o \
-	$(OBJDIR)/meter_ballistics.o \
-	$(OBJDIR)/plugin_editor.o \
-	$(OBJDIR)/stereo_meter.o \
+	$(OBJDIR)/about_window.o \
 	$(OBJDIR)/meter_bar.o \
+	$(OBJDIR)/meter_ballistics.o \
+	$(OBJDIR)/main.o \
 	$(OBJDIR)/meter_segment.o \
-	$(OBJDIR)/stereo_kmeter.o \
-	$(OBJDIR)/resources.o \
+	$(OBJDIR)/plugin_parameters.o \
+	$(OBJDIR)/plugin_editor.o \
+	$(OBJDIR)/peak_label.o \
+	$(OBJDIR)/overflow_meter.o \
+	$(OBJDIR)/correlation_meter.o \
 	$(OBJDIR)/average_level_filtered_rms.o \
 	$(OBJDIR)/audio_ring_buffer.o \
-	$(OBJDIR)/correlation_meter.o \
-	$(OBJDIR)/about_window.o \
-	$(OBJDIR)/peak_label.o \
-	$(OBJDIR)/plugin_parameters.o \
-	$(OBJDIR)/main.o \
-	$(OBJDIR)/juce_library_code_1.o \
-	$(OBJDIR)/juce_library_code_2.o \
+	$(OBJDIR)/plugin_processor.o \
+	$(OBJDIR)/stereo_meter.o \
+	$(OBJDIR)/stereo_kmeter.o \
+	$(OBJDIR)/resources.o \
 	$(OBJDIR)/juce_library_code_4.o \
 	$(OBJDIR)/juce_library_code_3.o \
+	$(OBJDIR)/juce_library_code_1.o \
+	$(OBJDIR)/juce_library_code_2.o \
 
 RESOURCES := \
 
@@ -144,31 +144,34 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 endif
 
-$(OBJDIR)/plugin_processor.o: ../../../src/plugin_processor.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/overflow_meter.o: ../../../src/overflow_meter.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/meter_ballistics.o: ../../../src/meter_ballistics.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_editor.o: ../../../src/plugin_editor.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/stereo_meter.o: ../../../src/stereo_meter.cpp
+$(OBJDIR)/about_window.o: ../../../src/about_window.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_bar.o: ../../../src/meter_bar.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/meter_ballistics.o: ../../../src/meter_ballistics.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/main.o: ../../../src/main.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_segment.o: ../../../src/meter_segment.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/stereo_kmeter.o: ../../../src/stereo_kmeter.cpp
+$(OBJDIR)/plugin_parameters.o: ../../../src/plugin_parameters.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/resources.o: ../../../src/resources.cpp
+$(OBJDIR)/plugin_editor.o: ../../../src/plugin_editor.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/peak_label.o: ../../../src/peak_label.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/overflow_meter.o: ../../../src/overflow_meter.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/correlation_meter.o: ../../../src/correlation_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/average_level_filtered_rms.o: ../../../src/average_level_filtered_rms.cpp
@@ -177,31 +180,28 @@ $(OBJDIR)/average_level_filtered_rms.o: ../../../src/average_level_filtered_rms.
 $(OBJDIR)/audio_ring_buffer.o: ../../../src/audio_ring_buffer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/correlation_meter.o: ../../../src/correlation_meter.cpp
+$(OBJDIR)/plugin_processor.o: ../../../src/plugin_processor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/about_window.o: ../../../src/about_window.cpp
+$(OBJDIR)/stereo_meter.o: ../../../src/stereo_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/peak_label.o: ../../../src/peak_label.cpp
+$(OBJDIR)/stereo_kmeter.o: ../../../src/stereo_kmeter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_parameters.o: ../../../src/plugin_parameters.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/main.o: ../../../src/main.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_library_code_1.o: ../../../src/juce_library_code/juce_library_code_1.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_library_code_2.o: ../../../src/juce_library_code/juce_library_code_2.cpp
+$(OBJDIR)/resources.o: ../../../src/resources.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_library_code_4.o: ../../../src/juce_library_code/juce_library_code_4.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_library_code_3.o: ../../../src/juce_library_code/juce_library_code_3.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/juce_library_code_1.o: ../../../src/juce_library_code/juce_library_code_1.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/juce_library_code_2.o: ../../../src/juce_library_code/juce_library_code_2.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 

@@ -49,20 +49,28 @@ solution "kmeter"
 		"../libraries/vstsdk2.4"
 	}
 
-	libdirs {
-		"../libraries/juce/bin",
-		"../libraries/fftw3/bin"
+	linkoptions {
+		-- force static linking to FFTW
+		"../../../libraries/fftw3/bin/libfftw3f.a"
 	}
 
 	configuration { "Debug*" }
 		defines { "_DEBUG=1", "DEBUG=1" }
 		flags { "Symbols", "ExtraWarnings" }
 		buildoptions { "-fno-inline" }
+		linkoptions {
+			-- force static linking to JUCE (Debug)
+			" ../../../libraries/juce/bin/libjuce_debug32.a"
+		}
 
 	configuration { "Release*" }
 		defines { "NDEBUG" }
 		flags { "OptimizeSpeed", "NoFramePointer", "ExtraWarnings" }
 		buildoptions { "-pipe", "-fvisibility=hidden" }
+		linkoptions {
+			-- force static linking to JUCE
+			" ../../../libraries/juce/bin/libjuce32.a"
+		}
 
 --------------------------------------------------------------------------------
 
@@ -93,7 +101,6 @@ solution "kmeter"
 			}
 
 			links {
-				"fftw3f",
 				"freetype",
 				"pthread",
 				"rt",
@@ -122,12 +129,10 @@ solution "kmeter"
 		configuration "Debug"
 			targetname "kmeter_debug"
 			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_debug")
-			links { "juce_debug32" }
 
       configuration "Release"
 			targetname "kmeter"
 			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_release")
-			links { "juce32" }
 
 --------------------------------------------------------------------------------
 
@@ -167,12 +172,15 @@ solution "kmeter"
 			}
 
 			links {
-				"fftw3f",
 				"freetype",
 				"pthread",
 				"rt",
 				"X11",
 				"Xext"
+			}
+
+			linkoptions {
+				"../../../libraries/fftw3/bin/libfftw3f.a"
 			}
 
 		configuration {"windows"}
@@ -186,9 +194,7 @@ solution "kmeter"
 		configuration "Debug"
 			targetname "kmeter_vst_debug"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_debug")
-			links { "juce_debug32" }
 
       configuration "Release"
 			targetname "kmeter_vst"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_release")
-			links { "juce32" }
