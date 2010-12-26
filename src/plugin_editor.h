@@ -44,36 +44,36 @@ public:
     KmeterAudioProcessorEditor(KmeterAudioProcessor* ownerFilter);
     ~KmeterAudioProcessorEditor();
 
-	void buttonClicked(Button* button);
-	void changeListenerCallback(void* objectThatHasChanged);
-	void changeParameter(int nIndex);
-	void changeParameter(int nIndex, int nValue);
+    void buttonClicked(Button* button);
+    void changeListenerCallback(void* objectThatHasChanged);
+    void changeParameter(int nIndex);
+    void changeParameter(int nIndex, int nValue);
 
     //==============================================================================
     // This is just a standard Juce paint method...
-    void paint (Graphics& g);
-	void resized();
+    void paint(Graphics& g);
+    void resized();
 
 private:
-	int nHeadroom;
+    int nHeadroom;
 
-	KmeterAudioProcessor* pProcessor;
-	Kmeter* kmeter;
-	StereoMeter* stereoMeter;
-	CorrelationMeter* correlationMeter;
+    KmeterAudioProcessor* pProcessor;
+    Kmeter* kmeter;
+    StereoMeter* stereoMeter;
+    CorrelationMeter* correlationMeter;
 
-	TextButton* ButtonNormal;
-	TextButton* ButtonK12;
-	TextButton* ButtonK14;
-	TextButton* ButtonK20;
+    TextButton* ButtonNormal;
+    TextButton* ButtonK12;
+    TextButton* ButtonK14;
+    TextButton* ButtonK20;
 
-	TextButton* ButtonExpanded;
-	TextButton* ButtonDisplayPeakMeter;
-	TextButton* ButtonHold;
-	TextButton* ButtonReset;
+    TextButton* ButtonExpanded;
+    TextButton* ButtonDisplayPeakMeter;
+    TextButton* ButtonHold;
+    TextButton* ButtonReset;
 
-	TextButton* ButtonMono;
-	TextButton* ButtonAbout;
+    TextButton* ButtonMono;
+    TextButton* ButtonAbout;
 };
 
 

@@ -26,15 +26,16 @@
 # ----------------------------------------------------------------------------
 
 BINARY_BUILDER_DIR=../../libraries/juce/extras/binarybuilder/Builds/Linux/build
+OUTPUT_DIR=.
 
 cd $(dirname $0)
-"$BINARY_BUILDER_DIR/BinaryBuilder" output .. resources '*.png'
+"$BINARY_BUILDER_DIR/BinaryBuilder" output "$OUTPUT_DIR" resources '*.png'
 
 echo
 echo --------------------------------------------------------------------------------
 echo
 
-cat ../resources.h
+cat "$OUTPUT_DIR"/resources.h
 
 echo
 echo --------------------------------------------------------------------------------

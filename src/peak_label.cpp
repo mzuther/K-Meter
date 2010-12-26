@@ -25,17 +25,17 @@
 
 #include "peak_label.h"
 
-PeakLabel::PeakLabel(const String &componentName, int nHeadroom) : Label(componentName, T("0"))
+PeakLabel::PeakLabel(const String& componentName, int nHeadroom) : Label(componentName, T("0"))
 {
-	nMeterHeadroom = nHeadroom;
+    nMeterHeadroom = nHeadroom;
 
-	resetLevel();
+    resetLevel();
 
-	setFont(12.0f);
-	setJustificationType(Justification::centredRight);
-	setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
-	setColour(Label::textColourId, Colours::white);
-	setColour(Label::outlineColourId, Colours::grey.darker(0.2f));
+    setFont(12.0f);
+    setJustificationType(Justification::centredRight);
+    setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
+    setColour(Label::textColourId, Colours::white);
+    setColour(Label::outlineColourId, Colours::grey.darker(0.2f));
 }
 
 PeakLabel::~PeakLabel()
@@ -44,34 +44,44 @@ PeakLabel::~PeakLabel()
 
 void PeakLabel::resetLevel()
 {
-	float fMaximumHeadroom = 20.0f; // i.e. K-20
+    float fMaximumHeadroom = 20.0f; // i.e. K-20
 
-	// the RMS of a sine wave is its amplitude divided by the square
-	// root of 2, thus the difference between peak value and RMS is the
-	// square root of 2 -- so let's convert this difference to dB
-	float fAverageCorrection = 20.0f * log10(sqrt(2.0f));
+    // the RMS of a sine wave is its amplitude divided by the square
+    // root of 2, thus the difference between peak value and RMS is the
+    // square root of 2 -- so let's convert this difference to dB
+    float fAverageCorrection = 20.0f * log10(sqrt(2.0f));
 
-	float fMeterMinimumDecibel = -(fMaximumHeadroom + fAverageCorrection + 70.0f);
-	fMaximumLevel = fMeterMinimumDecibel;
+    float fMeterMinimumDecibel = -(fMaximumHeadroom + fAverageCorrection + 70.0f);
+    fMaximumLevel = fMeterMinimumDecibel;
 }
 
 void PeakLabel::updateLevel(float newLevel)
 {
-	if (newLevel == fMaximumLevel)
-		return;
+    if (newLevel == fMaximumLevel)
+    {
+        return;
+    }
 
-	fMaximumLevel = newLevel;
-	float fCorrectedLevel = fMaximumLevel + nMeterHeadroom;
+    fMaximumLevel = newLevel;
+    float fCorrectedLevel = fMaximumLevel + nMeterHeadroom;
 
-	if (fCorrectedLevel < 0.0f)
-	  setText(String(fCorrectedLevel, 1), false);
-	else
-	  setText(String("+") + String(fCorrectedLevel, 1), false);
+    if (fCorrectedLevel < 0.0f)
+    {
+        setText(String(fCorrectedLevel, 1), false);
+    }
+    else
+    {
+        setText(String("+") + String(fCorrectedLevel, 1), false);
+    }
 
-	if (fMaximumLevel < 0.0f)
-		setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
-	else
-		setColour(Label::backgroundColourId, Colours::red.darker(0.2f));
+    if (fMaximumLevel < 0.0f)
+    {
+        setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
+    }
+    else
+    {
+        setColour(Label::backgroundColourId, Colours::red.darker(0.2f));
+    }
 }
 
 

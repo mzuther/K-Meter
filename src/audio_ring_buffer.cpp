@@ -27,271 +27,302 @@
 
 AudioRingBuffer::AudioRingBuffer(const juce_wchar* buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size)
 {
-  jassert(channels > 0);
-  jassert(length > 0);
+    jassert(channels > 0);
+    jassert(length > 0);
 
-  this->clearCallbackClass();
+    this->clearCallbackClass();
 
-  strBufferName = String(buffer_name);
+    strBufferName = String(buffer_name);
 
-  uChannels = channels;
-  uLength = length;
-  uPreDelay = pre_delay;
-  uTotalLength = uLength + uPreDelay;
-  uChunkSize = chunk_size;
+    uChannels = channels;
+    uLength = length;
+    uPreDelay = pre_delay;
+    uTotalLength = uLength + uPreDelay;
+    uChunkSize = chunk_size;
 
-  // pad memory areas with RING_BUFFER_MEM_TEST to allow detection of
-  // memory leaks
-  pAudioData = (float*) malloc(uChannels * (uTotalLength + 2) * sizeof(float));
-  for (unsigned int i=0; i < (uChannels * (uTotalLength + 2)); i++)
-	 pAudioData[i] = RING_BUFFER_MEM_TEST;
+    // pad memory areas with RING_BUFFER_MEM_TEST to allow detection of
+    // memory leaks
+    pAudioData = (float*) malloc(uChannels * (uTotalLength + 2) * sizeof(float));
 
-  uCurrentPosition = 0;
-  uSamplesInBuffer = 0;
-  uChannelOffset = new unsigned int[uChannels];
+    for (unsigned int i = 0; i < (uChannels *(uTotalLength + 2)); i++)
+    {
+        pAudioData[i] = RING_BUFFER_MEM_TEST;
+    }
 
-  for (unsigned int uChannel=0; uChannel < uChannels; uChannel++)
-	 uChannelOffset[uChannel] = uChannel * (uTotalLength + 2) + 1;
+    uCurrentPosition = 0;
+    uSamplesInBuffer = 0;
+    uChannelOffset = new unsigned int[uChannels];
 
-  this->clear();
+    for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
+    {
+        uChannelOffset[uChannel] = uChannel * (uTotalLength + 2) + 1;
+    }
+
+    this->clear();
 }
 
 
 AudioRingBuffer::~AudioRingBuffer()
 {
-  delete [] uChannelOffset;
-  uChannelOffset = NULL;
+    delete [] uChannelOffset;
+    uChannelOffset = NULL;
 
-  free(pAudioData);
+    free(pAudioData);
 }
 
 
 void AudioRingBuffer::clear()
 {
-  uCurrentPosition = 0;
+    uCurrentPosition = 0;
 
-  for (unsigned int uChannel=0; uChannel < uChannels; uChannel++)
-	 for (unsigned int uSample=0; uSample < uTotalLength; uSample++)
-		pAudioData[uSample + uChannelOffset[uChannel]] = 0.0f;
+    for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
+        for (unsigned int uSample = 0; uSample < uTotalLength; uSample++)
+        {
+            pAudioData[uSample + uChannelOffset[uChannel]] = 0.0f;
+        }
 
 #ifdef DEBUG
-  // detection of memory leaks
-  for (unsigned int uChannel=0; uChannel < uChannels; uChannel++)
-  {
-	 jassert(pAudioData[uChannelOffset[uChannel] - 1] == RING_BUFFER_MEM_TEST);
-	 jassert(pAudioData[uChannelOffset[uChannel]] != RING_BUFFER_MEM_TEST);
-	 jassert(pAudioData[uChannelOffset[uChannel] + uTotalLength] == RING_BUFFER_MEM_TEST);
-  }
+
+    // detection of memory leaks
+    for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
+    {
+        jassert(pAudioData[uChannelOffset[uChannel] - 1] == RING_BUFFER_MEM_TEST);
+        jassert(pAudioData[uChannelOffset[uChannel]] != RING_BUFFER_MEM_TEST);
+        jassert(pAudioData[uChannelOffset[uChannel] + uTotalLength] == RING_BUFFER_MEM_TEST);
+    }
+
 #endif
 }
 
 
 String AudioRingBuffer::getBufferName()
 {
-  return strBufferName;
+    return strBufferName;
 }
 
 
 unsigned int AudioRingBuffer::getCurrentPosition()
 {
-  return uCurrentPosition;
+    return uCurrentPosition;
 }
 
 
 unsigned int AudioRingBuffer::getSamplesInBuffer()
 {
-  return uSamplesInBuffer;
+    return uSamplesInBuffer;
 }
 
 
 unsigned int AudioRingBuffer::getBufferLength()
 {
-  return uLength;
+    return uLength;
 }
 
 
 unsigned int AudioRingBuffer::getTotalLength()
 {
-  return uTotalLength;
+    return uTotalLength;
 }
 
 
 unsigned int AudioRingBuffer::getPreDelay()
 {
-  return uPreDelay;
+    return uPreDelay;
 }
 
 
 float AudioRingBuffer::getSample(const unsigned int channel, const unsigned int relative_position, const unsigned int pre_delay)
 {
-  jassert(channel < uChannels);
-  jassert(relative_position <= uLength);
-  jassert(pre_delay <= uPreDelay);
+    jassert(channel < uChannels);
+    jassert(relative_position <= uLength);
+    jassert(pre_delay <= uPreDelay);
 
-  int nPosition = uCurrentPosition - relative_position;
+    int nPosition = uCurrentPosition - relative_position;
 
-  if (pre_delay)
-	 nPosition -= pre_delay;
+    if (pre_delay)
+    {
+        nPosition -= pre_delay;
+    }
 
-  while (nPosition < 0)
-	 nPosition += uTotalLength; // make sure "nPosition" is positive
+    while (nPosition < 0)
+    {
+        nPosition += uTotalLength;    // make sure "nPosition" is positive
+    }
 
-  nPosition %= uTotalLength;
+    nPosition %= uTotalLength;
 
-  return pAudioData[nPosition + uChannelOffset[channel]];
+    return pAudioData[nPosition + uChannelOffset[channel]];
 }
 
 
 unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer& source, const unsigned int sourceStartSample, const unsigned int numSamples)
 {
-  if (numSamples <= 0)
-	 return 0;
+    if (numSamples <= 0)
+    {
+        return 0;
+    }
 
-  jassert(source.getNumChannels() >= (int) uChannels);
-  jassert(numSamples <= uLength);
-  jassert((sourceStartSample + numSamples) <= (unsigned int) source.getNumSamples());
+    jassert(source.getNumChannels() >= (int) uChannels);
+    jassert(numSamples <= uLength);
+    jassert((sourceStartSample + numSamples) <= (unsigned int) source.getNumSamples());
 
-  unsigned int uSamplesLeft = numSamples;
-  unsigned int uSamplesFinished = 0;
-  unsigned int uProcessedSamples = 0;
+    unsigned int uSamplesLeft = numSamples;
+    unsigned int uSamplesFinished = 0;
+    unsigned int uProcessedSamples = 0;
 
-  while (uSamplesLeft > 0)
-  {
-  	 unsigned int uSamplesToCopy = uChunkSize - uSamplesInBuffer;
-  	 unsigned int uSamplesToCopy_2 = uTotalLength - uCurrentPosition;
+    while (uSamplesLeft > 0)
+    {
+        unsigned int uSamplesToCopy = uChunkSize - uSamplesInBuffer;
+        unsigned int uSamplesToCopy_2 = uTotalLength - uCurrentPosition;
 
-  	 if (uSamplesToCopy_2 < uSamplesToCopy)
-		uSamplesToCopy = uSamplesToCopy_2;
+        if (uSamplesToCopy_2 < uSamplesToCopy)
+        {
+            uSamplesToCopy = uSamplesToCopy_2;
+        }
 
-  	 if (uSamplesToCopy > uSamplesLeft)
-  		uSamplesToCopy = uSamplesLeft;
+        if (uSamplesToCopy > uSamplesLeft)
+        {
+            uSamplesToCopy = uSamplesLeft;
+        }
 
-	 for (unsigned int uChannel=0; uChannel < uChannels; uChannel++)
-	 {
-		memcpy(pAudioData + uCurrentPosition + uChannelOffset[uChannel], source.getSampleData(uChannel, sourceStartSample + uSamplesFinished), sizeof(float) * uSamplesToCopy);
-	 }
+        for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
+        {
+            memcpy(pAudioData + uCurrentPosition + uChannelOffset[uChannel], source.getSampleData(uChannel, sourceStartSample + uSamplesFinished), sizeof(float) * uSamplesToCopy);
+        }
 
-	 uSamplesInBuffer += uSamplesToCopy;
+        uSamplesInBuffer += uSamplesToCopy;
 
-	 uProcessedSamples += uSamplesToCopy;
-	 bool bBufferFull = (uSamplesInBuffer == uChunkSize);
-	 uSamplesInBuffer %= uChunkSize;
+        uProcessedSamples += uSamplesToCopy;
+        bool bBufferFull = (uSamplesInBuffer == uChunkSize);
+        uSamplesInBuffer %= uChunkSize;
 
-	 uCurrentPosition += uSamplesToCopy;
-	 uCurrentPosition %= uTotalLength;
+        uCurrentPosition += uSamplesToCopy;
+        uCurrentPosition %= uTotalLength;
 
-  	 uSamplesLeft -= uSamplesToCopy;
+        uSamplesLeft -= uSamplesToCopy;
 
-	 if (bBufferFull)
-	 {
-	 	triggerFullBuffer(source, uChunkSize, sourceStartSample + uSamplesFinished, uProcessedSamples);
-		uProcessedSamples = 0;
-	 }
+        if (bBufferFull)
+        {
+            triggerFullBuffer(source, uChunkSize, sourceStartSample + uSamplesFinished, uProcessedSamples);
+            uProcessedSamples = 0;
+        }
 
-	 uSamplesFinished += uSamplesToCopy;
-  }
+        uSamplesFinished += uSamplesToCopy;
+    }
 
 #ifdef DEBUG
-  // detection of memory leaks
-  for (unsigned int uChannel=0; uChannel < uChannels; uChannel++)
-  {
-	 jassert(pAudioData[uChannelOffset[uChannel] - 1] == RING_BUFFER_MEM_TEST);
-	 jassert(pAudioData[uChannelOffset[uChannel]] != RING_BUFFER_MEM_TEST);
-	 jassert(pAudioData[uChannelOffset[uChannel] + uTotalLength] == RING_BUFFER_MEM_TEST);
-  }
+
+    // detection of memory leaks
+    for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
+    {
+        jassert(pAudioData[uChannelOffset[uChannel] - 1] == RING_BUFFER_MEM_TEST);
+        jassert(pAudioData[uChannelOffset[uChannel]] != RING_BUFFER_MEM_TEST);
+        jassert(pAudioData[uChannelOffset[uChannel] + uTotalLength] == RING_BUFFER_MEM_TEST);
+    }
+
 #endif
 
-  return uProcessedSamples;
+    return uProcessedSamples;
 }
 
 
 void AudioRingBuffer::copyToBuffer(AudioSampleBuffer& destination, const unsigned int destStartSample, const unsigned int numSamples, const unsigned int pre_delay)
 {
-  if (numSamples <= 0)
-	 return;
+    if (numSamples <= 0)
+    {
+        return;
+    }
 
-  jassert(destination.getNumChannels() >= (int) uChannels);
-  jassert(numSamples <= uLength);
-  jassert(pre_delay <= uPreDelay);
-  jassert((destStartSample + numSamples) <= (unsigned int) destination.getNumSamples());
+    jassert(destination.getNumChannels() >= (int) uChannels);
+    jassert(numSamples <= uLength);
+    jassert(pre_delay <= uPreDelay);
+    jassert((destStartSample + numSamples) <= (unsigned int) destination.getNumSamples());
 
-  unsigned int uSamplesLeft = numSamples;
-  unsigned int uSamplesFinished = 0;
+    unsigned int uSamplesLeft = numSamples;
+    unsigned int uSamplesFinished = 0;
 
-  int nStartPosition = uCurrentPosition - numSamples - pre_delay;
+    int nStartPosition = uCurrentPosition - numSamples - pre_delay;
 
-  while (nStartPosition < 0)
-	 nStartPosition += uTotalLength; // make sure "nStartPosition" is positive
+    while (nStartPosition < 0)
+    {
+        nStartPosition += uTotalLength;    // make sure "nStartPosition" is positive
+    }
 
-  nStartPosition %= uTotalLength;
+    nStartPosition %= uTotalLength;
 
-  while (uSamplesLeft > 0)
-  {
-  	 unsigned int uSamplesToCopy = uTotalLength - nStartPosition;
+    while (uSamplesLeft > 0)
+    {
+        unsigned int uSamplesToCopy = uTotalLength - nStartPosition;
 
-  	 if (uSamplesToCopy > uSamplesLeft)
-  		uSamplesToCopy = uSamplesLeft;
+        if (uSamplesToCopy > uSamplesLeft)
+        {
+            uSamplesToCopy = uSamplesLeft;
+        }
 
-	 for (unsigned int uChannel=0; uChannel < uChannels; uChannel++)
-	 {
-		memcpy(destination.getSampleData(uChannel, destStartSample + uSamplesFinished), pAudioData + nStartPosition + uChannelOffset[uChannel], sizeof(float) * uSamplesToCopy);
-	 }
+        for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
+        {
+            memcpy(destination.getSampleData(uChannel, destStartSample + uSamplesFinished), pAudioData + nStartPosition + uChannelOffset[uChannel], sizeof(float) * uSamplesToCopy);
+        }
 
-	 nStartPosition += uSamplesToCopy;
-	 nStartPosition %= uTotalLength;
+        nStartPosition += uSamplesToCopy;
+        nStartPosition %= uTotalLength;
 
-  	 uSamplesLeft -= uSamplesToCopy;
-	 uSamplesFinished += uSamplesToCopy;
-  }
+        uSamplesLeft -= uSamplesToCopy;
+        uSamplesFinished += uSamplesToCopy;
+    }
 }
 
 
 float AudioRingBuffer::getMagnitude(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay)
 {
-  float fMagnitude = 0.0f;
+    float fMagnitude = 0.0f;
 
-  for (unsigned int uSample=0; uSample < numSamples; uSample++)
-  {
-	 float fSampleValue = fabsf(getSample(channel, uSample, pre_delay));
+    for (unsigned int uSample = 0; uSample < numSamples; uSample++)
+    {
+        float fSampleValue = fabsf(getSample(channel, uSample, pre_delay));
 
-	 if (fSampleValue > fMagnitude)
-		fMagnitude = fSampleValue;
-  }
+        if (fSampleValue > fMagnitude)
+        {
+            fMagnitude = fSampleValue;
+        }
+    }
 
-  return fMagnitude;
+    return fMagnitude;
 }
 
 
 float AudioRingBuffer::getRMSLevel(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay)
 {
-  double dRunningSum = 0.0;
+    double dRunningSum = 0.0;
 
-  for (unsigned int uSample=0; uSample < numSamples; uSample++)
-  {
-	 float fSampleValue = getSample(channel, uSample, pre_delay);
-	 dRunningSum += fSampleValue * fSampleValue;
-  }
+    for (unsigned int uSample = 0; uSample < numSamples; uSample++)
+    {
+        float fSampleValue = getSample(channel, uSample, pre_delay);
+        dRunningSum += fSampleValue * fSampleValue;
+    }
 
-  return (float) sqrt(dRunningSum / numSamples);
+    return (float) sqrt(dRunningSum / numSamples);
 }
 
 
 void AudioRingBuffer::setCallbackClass(KmeterAudioProcessor* callback_class)
 {
-  pCallbackClass = callback_class;
+    pCallbackClass = callback_class;
 }
 
 
 void AudioRingBuffer::clearCallbackClass()
 {
-  pCallbackClass = NULL;
+    pCallbackClass = NULL;
 }
 
 
 void AudioRingBuffer::triggerFullBuffer(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
-  if (pCallbackClass)
-	 pCallbackClass->processBufferChunk(buffer, uChunkSize, uBufferPosition, uProcessedSamples);
+    if (pCallbackClass)
+    {
+        pCallbackClass->processBufferChunk(buffer, uChunkSize, uBufferPosition, uProcessedSamples);
+    }
 }
 
 

@@ -35,24 +35,24 @@
 class MeterSegment : public Component
 {
 public:
-    MeterSegment(const String &componentName, float fThreshold, float fRange, int nColor);
+    MeterSegment(const String& componentName, float fThreshold, float fRange, int nColor);
     ~MeterSegment();
 
-	void setLevels(float newLevel, float newPeakLevel);
+    void setLevels(float newLevel, float newPeakLevel);
     void paint(Graphics& g);
-	void resized();
-	void visibilityChanged();
+    void resized();
+    void visibilityChanged();
 
 private:
-	float fHue;
-	float fBrightness;
+    float fHue;
+    float fBrightness;
 
-	float fLowerThreshold;
-	float fUpperThreshold;
-	float fThresholdRange;
+    float fLowerThreshold;
+    float fUpperThreshold;
+    float fThresholdRange;
 
-	float fLevel;
-	bool bPeakMarker;
+    float fLevel;
+    bool bPeakMarker;
 };
 
 

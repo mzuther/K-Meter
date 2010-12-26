@@ -36,35 +36,35 @@
 class MeterBar : public Component
 {
 public:
-    MeterBar(const String &componentName, int PosX, int PosY, int Width, int nHeadroom, bool bExpanded, int nSegmentHeight, String justify);
+    MeterBar(const String& componentName, int PosX, int PosY, int Width, int nHeadroom, bool bExpanded, int nSegmentHeight, String justify);
     ~MeterBar();
 
-	void setLevels(float newLevel, float newPeak);
+    void setLevels(float newLevel, float newPeak);
     void paint(Graphics& g);
-	void resized();
-	void visibilityChanged();
+    void resized();
+    void visibilityChanged();
 
 private:
-	float fLevel;
-	float fPeak;
-	int nMeterHeadroom;
-	bool isExpanded;
+    float fLevel;
+    float fPeak;
+    int nMeterHeadroom;
+    bool isExpanded;
 
-	int nPosX;
-	int nPosY;
-	int nWidth;
-	int nMainSegmentHeight;
+    int nPosX;
+    int nPosY;
+    int nWidth;
+    int nMainSegmentHeight;
 
-	int nNumberOfBars;
-	int nLimitTopBars;
-	int nLimitRedBars;
-	int nLimitAmberBars;
-	int nLimitGreenBars_1;
-	int nLimitGreenBars_2;
+    int nNumberOfBars;
+    int nLimitTopBars;
+    int nLimitRedBars;
+    int nLimitAmberBars;
+    int nLimitGreenBars_1;
+    int nLimitGreenBars_2;
 
-	String justifyMeter;
+    String justifyMeter;
 
-	MeterSegment** MeterArray;
+    MeterSegment** MeterArray;
 };
 
 

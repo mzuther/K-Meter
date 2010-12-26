@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{4BD16D97-92AC-7A68-0C29-5823A1439CD5}</ProjectGuid>
+		<ProjectGuid>{F3179438-016E-8B2B-D675-238758842016}</ProjectGuid>
 		<RootNamespace>kmeter</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -115,56 +115,56 @@
 	</ItemDefinitionGroup>
 	<ItemGroup>
 		<ClInclude Include="..\..\..\src\meter_bar.h" />
-		<ClInclude Include="..\..\..\src\meter_ballistics.h" />
+		<ClInclude Include="..\..\..\src\meter_segment.h" />
+		<ClInclude Include="..\..\..\src\stereo_meter.h" />
+		<ClInclude Include="..\..\..\src\overflow_meter.h" />
+		<ClInclude Include="..\..\..\src\audio_ring_buffer.h" />
 		<ClInclude Include="..\..\..\src\about_window.h" />
 		<ClInclude Include="..\..\..\src\correlation_meter.h" />
-		<ClInclude Include="..\..\..\src\meter_segment.h" />
-		<ClInclude Include="..\..\..\src\plugin_parameters.h" />
-		<ClInclude Include="..\..\..\src\plugin_editor.h" />
 		<ClInclude Include="..\..\..\src\peak_label.h" />
-		<ClInclude Include="..\..\..\src\overflow_meter.h" />
-		<ClInclude Include="..\..\..\src\average_level_filtered_rms.h" />
-		<ClInclude Include="..\..\..\src\audio_ring_buffer.h" />
-		<ClInclude Include="..\..\..\src\plugin_processor.h" />
-		<ClInclude Include="..\..\..\src\stereo_meter.h" />
 		<ClInclude Include="..\..\..\src\kmeter.h" />
-		<ClInclude Include="..\..\..\src\resources.h" />
+		<ClInclude Include="..\..\..\src\plugin_parameters.h" />
+		<ClInclude Include="..\..\..\src\average_level_filtered_rms.h" />
+		<ClInclude Include="..\..\..\src\plugin_processor.h" />
+		<ClInclude Include="..\..\..\src\meter_ballistics.h" />
+		<ClInclude Include="..\..\..\src\plugin_editor.h" />
 		<ClInclude Include="..\..\..\src\juce_library_code\JucePluginCharacteristics.h" />
-		<ClInclude Include="..\..\..\src\juce_library_code\juce_header.h" />
 		<ClInclude Include="..\..\..\src\juce_library_code\app_config.h" />
+		<ClInclude Include="..\..\..\src\juce_library_code\juce_header.h" />
+		<ClInclude Include="..\..\..\src\resources\resources.h" />
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="..\..\..\src\about_window.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\meter_bar.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\meter_ballistics.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\main.cpp">
+		<ClCompile Include="..\..\..\src\stereo_meter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\meter_segment.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\src\plugin_processor.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\src\plugin_parameters.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\plugin_editor.cpp">
+		<ClCompile Include="..\..\..\src\main.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\correlation_meter.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\meter_bar.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\peak_label.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\overflow_meter.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\correlation_meter.cpp">
+		<ClCompile Include="..\..\..\src\kmeter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\average_level_filtered_rms.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\audio_ring_buffer.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\plugin_processor.cpp">
+		<ClCompile Include="..\..\..\src\meter_ballistics.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\stereo_meter.cpp">
+		<ClCompile Include="..\..\..\src\about_window.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\resources.cpp">
+		<ClCompile Include="..\..\..\src\plugin_editor.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\kmeter.cpp">
+		<ClCompile Include="..\..\..\src\overflow_meter.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_2.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_4.cpp">
 		</ClCompile>
@@ -172,7 +172,7 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_1.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_2.cpp">
+		<ClCompile Include="..\..\..\src\resources\resources.cpp">
 		</ClCompile>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

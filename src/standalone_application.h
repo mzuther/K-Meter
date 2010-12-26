@@ -31,18 +31,18 @@
 
 class StandaloneApplication : public JUCEApplication
 {
-   public:
-      StandaloneApplication();
-      ~StandaloneApplication();
+public:
+    StandaloneApplication();
+    ~StandaloneApplication();
 
-      void initialise(const String& commandLineParameters);
-      void shutdown();
+    void initialise(const String& commandLineParameters);
+    void shutdown();
 
-      const String getApplicationName();
-      const String getApplicationVersion();
+    const String getApplicationName();
+    const String getApplicationVersion();
 
-   private:
-      StandaloneFilterWindow *filterWindow;
+private:
+    StandaloneFilterWindow* filterWindow;
 };
 
 #endif   // __STANDALONE_H__

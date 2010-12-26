@@ -39,30 +39,30 @@
 class Kmeter : public Component
 {
 public:
-	Kmeter(const String &componentName, int PosX, int PosY, int nHeadroom, int nNumChannels, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight);
+    Kmeter(const String& componentName, int PosX, int PosY, int nHeadroom, int nNumChannels, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight);
     ~Kmeter();
 
-	void setLevels(MeterBallistics* pMeterBallistics);
-	void paint(Graphics& g);
-	void resized();
-	void visibilityChanged();
+    void setLevels(MeterBallistics* pMeterBallistics);
+    void paint(Graphics& g);
+    void resized();
+    void visibilityChanged();
 
 private:
-	int nPosX;
-	int nPosY;
-	int nMainSegmentHeight;
-	bool isExpanded;
-	bool displayPeakMeter;
+    int nPosX;
+    int nPosY;
+    int nMainSegmentHeight;
+    bool isExpanded;
+    bool displayPeakMeter;
 
-	int nMeterHeadroom;
-	int nChannels;
+    int nMeterHeadroom;
+    int nChannels;
 
-	MeterBar** PeakMeters;
-	MeterBar** AverageMeters;
-	OverflowMeter** OverflowMeters;
-	PeakLabel** MaximumPeakLabels;
+    MeterBar** PeakMeters;
+    MeterBar** AverageMeters;
+    OverflowMeter** OverflowMeters;
+    PeakLabel** MaximumPeakLabels;
 
-	void drawMarkers(Graphics& g, String& strMarker, int x, int y, int width, int height);
+    void drawMarkers(Graphics& g, String& strMarker, int x, int y, int width, int height);
 };
 
 

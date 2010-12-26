@@ -25,17 +25,17 @@
 
 #include "correlation_meter.h"
 
-CorrelationMeter::CorrelationMeter(const String &componentName, int PosX, int PosY, int Width, int Height)
+CorrelationMeter::CorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height)
 {
-	setName(componentName);
+    setName(componentName);
 
-	fValue = 0.0f;
-	nNeedlePosition = -1;
+    fValue = 0.0f;
+    nNeedlePosition = -1;
 
-	nPosX = PosX;
-	nPosY = PosY;
-	nWidth = Width;
-	nHeight = Height;
+    nPosX = PosX;
+    nPosY = PosY;
+    nWidth = Width;
+    nHeight = Height;
 }
 
 CorrelationMeter::~CorrelationMeter()
@@ -44,55 +44,61 @@ CorrelationMeter::~CorrelationMeter()
 
 void CorrelationMeter::paint(Graphics& g)
 {
-	int width = getWidth();
-	int height = getHeight();
-	int middle_of_meter = width / 2;
-	int height_of_meter = height;
+    int width = getWidth();
+    int height = getHeight();
+    int middle_of_meter = width / 2;
+    int height_of_meter = height;
 
-	ColourGradient colGrad(Colours::red.darker(1.0f), 0.0f, 0.0f, Colours::green.darker(1.0f), (float) width, 0.0f, false);
-	colGrad.addColour(0.2f, Colours::red.darker(1.0f));
-	colGrad.addColour(0.6f, Colours::yellow.darker(1.0f));
-	g.setGradientFill(colGrad);
-	g.fillRect(1, 1, width - 2, height - 2);
+    ColourGradient colGrad(Colours::red.darker(1.0f), 0.0f, 0.0f, Colours::green.darker(1.0f), (float) width, 0.0f, false);
+    colGrad.addColour(0.2f, Colours::red.darker(1.0f));
+    colGrad.addColour(0.6f, Colours::yellow.darker(1.0f));
+    g.setGradientFill(colGrad);
+    g.fillRect(1, 1, width - 2, height - 2);
 
-	g.setColour(Colours::darkgrey.darker(0.3f));
-	g.drawRect(0, 0, width, height, 1);
+    g.setColour(Colours::darkgrey.darker(0.3f));
+    g.drawRect(0, 0, width, height, 1);
 
-	g.setColour(Colours::white);
+    g.setColour(Colours::white);
 
-	g.setFont(11.0f);
-	g.drawFittedText(T("-1"), 1, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
-	g.drawFittedText(T("0"), middle_of_meter - height_of_meter / 2, 0, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
-	g.drawFittedText(T("+1"), width - height - 4, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
+    g.setFont(11.0f);
+    g.drawFittedText(T("-1"), 1, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
+    g.drawFittedText(T("0"), middle_of_meter - height_of_meter / 2, 0, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
+    g.drawFittedText(T("+1"), width - height - 4, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
 
-	g.setColour(Colours::red);
-	for (int y=1; y < (height_of_meter - 1); y++)
-		g.setPixel(nNeedlePosition, y);
+    g.setColour(Colours::red);
 
-	g.setColour(Colours::red.withAlpha(0.6f));
-	for (int y=1; y < (height_of_meter - 1); y++)
-	{
-		g.setPixel(nNeedlePosition - 1, y);
-		g.setPixel(nNeedlePosition + 1, y);
-	}
+    for (int y = 1; y < (height_of_meter - 1); y++)
+    {
+        g.setPixel(nNeedlePosition, y);
+    }
+
+    g.setColour(Colours::red.withAlpha(0.6f));
+
+    for (int y = 1; y < (height_of_meter - 1); y++)
+    {
+        g.setPixel(nNeedlePosition - 1, y);
+        g.setPixel(nNeedlePosition + 1, y);
+    }
 }
 
 void CorrelationMeter::visibilityChanged()
 {
-	setBounds(nPosX, nPosY, nWidth, nHeight);
+    setBounds(nPosX, nPosY, nWidth, nHeight);
 }
 
 void CorrelationMeter::setValue(float newValue)
 {
-	fValue = newValue;
+    fValue = newValue;
 
-	int nNeedlePositionOld = nNeedlePosition;
-	nNeedlePosition = int ((1.0f + fValue) / 2.0f * (getWidth() - 4) + 2);
+    int nNeedlePositionOld = nNeedlePosition;
+    nNeedlePosition = int ((1.0f + fValue) / 2.0f * (getWidth() - 4) + 2);
 
-	if (nNeedlePosition == nNeedlePositionOld)
-		return;
+    if (nNeedlePosition == nNeedlePositionOld)
+    {
+        return;
+    }
 
-	repaint();
+    repaint();
 }
 
 

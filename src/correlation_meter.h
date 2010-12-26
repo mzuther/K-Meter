@@ -35,21 +35,21 @@
 class CorrelationMeter : public Component
 {
 public:
-  CorrelationMeter(const String &componentName, int PosX, int PosY, int Width, int Height);
+    CorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height);
     ~CorrelationMeter();
 
-	void setValue(float newValue);
-	void paint(Graphics& g);
-	void visibilityChanged();
+    void setValue(float newValue);
+    void paint(Graphics& g);
+    void visibilityChanged();
 
 private:
-	float fValue;
-	int nNeedlePosition;
+    float fValue;
+    int nNeedlePosition;
 
-	int nPosX;
-	int nPosY;
-	int nWidth;
-	int nHeight;
+    int nPosX;
+    int nPosY;
+    int nWidth;
+    int nHeight;
 };
 
 

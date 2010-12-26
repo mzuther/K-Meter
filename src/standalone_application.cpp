@@ -35,32 +35,32 @@ StandaloneApplication::~StandaloneApplication()
 
 void StandaloneApplication::initialise(const String& commandLineParameters)
 {
-  ApplicationProperties::getInstance()->setStorageParameters(
-    T("kmeterrc"), String::empty, T(".config/kmeter"),
-	 400, PropertiesFile::storeAsXML);
+    ApplicationProperties::getInstance()->setStorageParameters(
+        T("kmeterrc"), String::empty, T(".config/kmeter"),
+        400, PropertiesFile::storeAsXML);
 
-  String strApplicationName = getApplicationName();
+    String strApplicationName = getApplicationName();
 
-  filterWindow = new StandaloneFilterWindow(strApplicationName, Colours::black);
+    filterWindow = new StandaloneFilterWindow(strApplicationName, Colours::black);
 
-  filterWindow->setTitleBarButtonsRequired(DocumentWindow::allButtons, false);
-  filterWindow->setVisible(true);
-  filterWindow->setResizable(false, true);
+    filterWindow->setTitleBarButtonsRequired(DocumentWindow::allButtons, false);
+    filterWindow->setVisible(true);
+    filterWindow->setResizable(false, true);
 }
 
 void StandaloneApplication::shutdown()
 {
-  deleteAndZero(filterWindow);
+    deleteAndZero(filterWindow);
 }
 
 const String StandaloneApplication::getApplicationName()
 {
-  return JucePlugin_Name;
+    return JucePlugin_Name;
 }
-      
+
 const String StandaloneApplication::getApplicationVersion()
 {
-  return JucePlugin_VersionString;
+    return JucePlugin_VersionString;
 }
 
 

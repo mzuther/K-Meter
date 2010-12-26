@@ -35,15 +35,15 @@
 class PeakLabel : public Label
 {
 public:
-	PeakLabel(const String &componentName, int nHeadroom);
-	~PeakLabel();
+    PeakLabel(const String& componentName, int nHeadroom);
+    ~PeakLabel();
 
-	void resetLevel();
-	void updateLevel(float newLevel);
+    void resetLevel();
+    void updateLevel(float newLevel);
 
 private:
-	int nMeterHeadroom;
-	float fMaximumLevel;
+    int nMeterHeadroom;
+    float fMaximumLevel;
 };
 
 

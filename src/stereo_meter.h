@@ -35,21 +35,21 @@
 class StereoMeter : public Component
 {
 public:
-  StereoMeter(const String &componentName, int PosX, int PosY, int Width, int Height);
+    StereoMeter(const String& componentName, int PosX, int PosY, int Width, int Height);
     ~StereoMeter();
 
-	void setValue(float newValue);
-	void paint(Graphics& g);
-	void visibilityChanged();
+    void setValue(float newValue);
+    void paint(Graphics& g);
+    void visibilityChanged();
 
 private:
-	float fValue;
-	int nNeedlePosition;
+    float fValue;
+    int nNeedlePosition;
 
-	int nPosX;
-	int nPosY;
-	int nWidth;
-	int nHeight;
+    int nPosX;
+    int nPosY;
+    int nWidth;
+    int nHeight;
 };
 
 

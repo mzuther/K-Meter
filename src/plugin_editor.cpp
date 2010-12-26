@@ -29,292 +29,316 @@
 KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* ownerFilter)
     : AudioProcessorEditor(ownerFilter)
 {
-	// This is where our plugin's editor size is set.
-	setSize(202, 650);
+    // This is where our plugin's editor size is set.
+    setSize(202, 650);
 
-	nHeadroom = 0;
+    nHeadroom = 0;
 
-	pProcessor = ownerFilter;
-	pProcessor->addChangeListener(this);
+    pProcessor = ownerFilter;
+    pProcessor->addChangeListener(this);
 
-	ButtonK20 = new TextButton(T("K-20"));
-	ButtonK20->setBounds(132, 10, 60, 20);
-	ButtonK20->setRadioGroupId(1);
-	ButtonK20->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonK20->setColour(TextButton::buttonOnColourId, Colours::green);
+    ButtonK20 = new TextButton(T("K-20"));
+    ButtonK20->setBounds(132, 10, 60, 20);
+    ButtonK20->setRadioGroupId(1);
+    ButtonK20->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonK20->setColour(TextButton::buttonOnColourId, Colours::green);
 
-	ButtonK20->addButtonListener(this);
-	addAndMakeVisible(ButtonK20);
+    ButtonK20->addButtonListener(this);
+    addAndMakeVisible(ButtonK20);
 
-	ButtonK14 = new TextButton(T("K-14"));
-	ButtonK14->setBounds(132, 35, 60, 20);
-	ButtonK14->setRadioGroupId(1);
-	ButtonK14->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonK14->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonK14 = new TextButton(T("K-14"));
+    ButtonK14->setBounds(132, 35, 60, 20);
+    ButtonK14->setRadioGroupId(1);
+    ButtonK14->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonK14->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-	ButtonK14->addButtonListener(this);
-	addAndMakeVisible(ButtonK14);
+    ButtonK14->addButtonListener(this);
+    addAndMakeVisible(ButtonK14);
 
-	ButtonK12 = new TextButton(T("K-12"));
-	ButtonK12->setBounds(132, 60, 60, 20);
-	ButtonK12->setRadioGroupId(1);
-	ButtonK12->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonK12->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonK12 = new TextButton(T("K-12"));
+    ButtonK12->setBounds(132, 60, 60, 20);
+    ButtonK12->setRadioGroupId(1);
+    ButtonK12->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonK12->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-	ButtonK12->addButtonListener(this);
-	addAndMakeVisible(ButtonK12);
+    ButtonK12->addButtonListener(this);
+    addAndMakeVisible(ButtonK12);
 
-	ButtonNormal = new TextButton(T("Normal"));
-	ButtonNormal->setBounds(132, 85, 60, 20);
-	ButtonNormal->setRadioGroupId(1);
-	ButtonNormal->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonNormal->setColour(TextButton::buttonOnColourId, Colours::red);
+    ButtonNormal = new TextButton(T("Normal"));
+    ButtonNormal->setBounds(132, 85, 60, 20);
+    ButtonNormal->setRadioGroupId(1);
+    ButtonNormal->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonNormal->setColour(TextButton::buttonOnColourId, Colours::red);
 
-	ButtonNormal->addButtonListener(this);
-	addAndMakeVisible(ButtonNormal);
+    ButtonNormal->addButtonListener(this);
+    addAndMakeVisible(ButtonNormal);
 
-	ButtonHold = new TextButton(T("Hold"));
-	ButtonHold->setBounds(132, 125, 60, 20);
-	ButtonHold->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonHold->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonHold = new TextButton(T("Hold"));
+    ButtonHold->setBounds(132, 125, 60, 20);
+    ButtonHold->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonHold->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-	ButtonHold->addButtonListener(this);
-	addAndMakeVisible(ButtonHold);
+    ButtonHold->addButtonListener(this);
+    addAndMakeVisible(ButtonHold);
 
-	ButtonDisplayPeakMeter = new TextButton(T("Peaks"));
-	ButtonDisplayPeakMeter->setBounds(132, 150, 60, 20);
-	ButtonDisplayPeakMeter->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonDisplayPeakMeter->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonDisplayPeakMeter = new TextButton(T("Peaks"));
+    ButtonDisplayPeakMeter->setBounds(132, 150, 60, 20);
+    ButtonDisplayPeakMeter->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonDisplayPeakMeter->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-	ButtonDisplayPeakMeter->addButtonListener(this);
-	addAndMakeVisible(ButtonDisplayPeakMeter);
+    ButtonDisplayPeakMeter->addButtonListener(this);
+    addAndMakeVisible(ButtonDisplayPeakMeter);
 
-	ButtonExpanded = new TextButton(T("Expand"));
-	ButtonExpanded->setBounds(132, 175, 60, 20);
-	ButtonExpanded->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonExpanded->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonExpanded = new TextButton(T("Expand"));
+    ButtonExpanded->setBounds(132, 175, 60, 20);
+    ButtonExpanded->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonExpanded->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-	ButtonExpanded->addButtonListener(this);
-	addAndMakeVisible(ButtonExpanded);
+    ButtonExpanded->addButtonListener(this);
+    addAndMakeVisible(ButtonExpanded);
 
-	ButtonMono = new TextButton(T("Mono"));
-	ButtonMono->setBounds(132, 215, 60, 20);
-	ButtonMono->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonMono->setColour(TextButton::buttonOnColourId, Colours::red);
+    ButtonMono = new TextButton(T("Mono"));
+    ButtonMono->setBounds(132, 215, 60, 20);
+    ButtonMono->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonMono->setColour(TextButton::buttonOnColourId, Colours::red);
 
-	ButtonMono->addButtonListener(this);
-	addAndMakeVisible(ButtonMono);
+    ButtonMono->addButtonListener(this);
+    addAndMakeVisible(ButtonMono);
 
-	ButtonReset = new TextButton(T("Reset"));
-	ButtonReset->setBounds(132, 240, 60, 20);
-	ButtonReset->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonReset->setColour(TextButton::buttonOnColourId, Colours::red);
+    ButtonReset = new TextButton(T("Reset"));
+    ButtonReset->setBounds(132, 240, 60, 20);
+    ButtonReset->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonReset->setColour(TextButton::buttonOnColourId, Colours::red);
 
-	ButtonReset->addButtonListener(this);
-	addAndMakeVisible(ButtonReset);
+    ButtonReset->addButtonListener(this);
+    addAndMakeVisible(ButtonReset);
 
-	#ifdef DEBUG
-	Label* LabelDebug = new Label(T("Debug Notification"), "DEBUG");
-	LabelDebug->setBounds(145, 587, 50, 16);
-	LabelDebug->setColour(Label::textColourId, Colours::red);
-	LabelDebug->setJustificationType(Justification::centred);
-	addAndMakeVisible(LabelDebug);
-	#endif
+#ifdef DEBUG
+    Label* LabelDebug = new Label(T("Debug Notification"), "DEBUG");
+    LabelDebug->setBounds(145, 587, 50, 16);
+    LabelDebug->setColour(Label::textColourId, Colours::red);
+    LabelDebug->setJustificationType(Justification::centred);
+    addAndMakeVisible(LabelDebug);
+#endif
 
-	ButtonAbout = new TextButton(T("About"));
-	ButtonAbout->setBounds(132, 619, 60, 20);
-	ButtonAbout->setColour(TextButton::buttonColourId, Colours::grey);
-	ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonAbout = new TextButton(T("About"));
+    ButtonAbout->setBounds(132, 619, 60, 20);
+    ButtonAbout->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-	ButtonAbout->addButtonListener(this);
-	addAndMakeVisible(ButtonAbout);
+    ButtonAbout->addButtonListener(this);
+    addAndMakeVisible(ButtonAbout);
 
-	stereoMeter = new StereoMeter(T("Stereo Meter"), 10, 605, 105, 15);
-	addAndMakeVisible(stereoMeter);
+    stereoMeter = new StereoMeter(T("Stereo Meter"), 10, 605, 105, 15);
+    addAndMakeVisible(stereoMeter);
 
-	correlationMeter = new CorrelationMeter(T("Correlation Meter"), 10, 625, 105, 13);
-	addAndMakeVisible(correlationMeter);
+    correlationMeter = new CorrelationMeter(T("Correlation Meter"), 10, 625, 105, 13);
+    addAndMakeVisible(correlationMeter);
 
-	pProcessor->addChangeListenerParameters(this);
+    pProcessor->addChangeListenerParameters(this);
 
-	kmeter = NULL;
+    kmeter = NULL;
 
-	int nIndex = KmeterPluginParameters::selHeadroom;
-	changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
+    int nIndex = KmeterPluginParameters::selHeadroom;
+    changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
-	nIndex = KmeterPluginParameters::selExpanded;
-	changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
+    nIndex = KmeterPluginParameters::selExpanded;
+    changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
-	nIndex = KmeterPluginParameters::selPeak;
-	changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
+    nIndex = KmeterPluginParameters::selPeak;
+    changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
-	nIndex = KmeterPluginParameters::selHold;
-	changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
+    nIndex = KmeterPluginParameters::selHold;
+    changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
-	nIndex = KmeterPluginParameters::selMono;
-	changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
+    nIndex = KmeterPluginParameters::selMono;
+    changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 }
 
 
 KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 {
-	pProcessor->removeChangeListener(this);
-	pProcessor->removeChangeListenerParameters(this);
+    pProcessor->removeChangeListener(this);
+    pProcessor->removeChangeListenerParameters(this);
 
-	deleteAllChildren();
+    deleteAllChildren();
 }
 
 
 void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChanged)
 {
-  if (objectThatHasChanged != pProcessor)
-  {
-	 for (int nIndex=0; nIndex < pProcessor->getNumParameters(); nIndex++)
-		changeParameter(nIndex);
-  }
-  else
-  {
-	 MeterBallistics* pMeterBallistics = pProcessor->getLevels();
+    if (objectThatHasChanged != pProcessor)
+    {
+        for (int nIndex = 0; nIndex < pProcessor->getNumParameters(); nIndex++)
+        {
+            changeParameter(nIndex);
+        }
+    }
+    else
+    {
+        MeterBallistics* pMeterBallistics = pProcessor->getLevels();
 
-	 if (pMeterBallistics)
-	 {
-	   kmeter->setLevels(pMeterBallistics);
-	   stereoMeter->setValue(pMeterBallistics->getStereoMeterValue());
-	   correlationMeter->setValue(pMeterBallistics->getCorrelationMeterValue());
-	 }
-  }
+        if (pMeterBallistics)
+        {
+            kmeter->setLevels(pMeterBallistics);
+            stereoMeter->setValue(pMeterBallistics->getStereoMeterValue());
+            correlationMeter->setValue(pMeterBallistics->getCorrelationMeterValue());
+        }
+    }
 }
 
 
 void KmeterAudioProcessorEditor::changeParameter(int nIndex)
 {
-  if (pProcessor->isParameterMarked(nIndex))
-  {
-	 int nValue = pProcessor->getParameterAsInt(nIndex);
-	 changeParameter(nIndex, nValue);
-	 pProcessor->UnmarkParameter(nIndex);
-  }
+    if (pProcessor->isParameterMarked(nIndex))
+    {
+        int nValue = pProcessor->getParameterAsInt(nIndex);
+        changeParameter(nIndex, nValue);
+        pProcessor->UnmarkParameter(nIndex);
+    }
 }
 
 
 void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 {
-  bool reloadKmeter = false;
-  MeterBallistics* pMeterBallistics = NULL;
+    bool reloadKmeter = false;
+    MeterBallistics* pMeterBallistics = NULL;
 
-  switch (nIndex)
-  {
-  case KmeterPluginParameters::selHeadroom:
-	 if (nValue == 0)
-	 {
-		nHeadroom = nValue;
-		reloadKmeter = true;
+    switch (nIndex)
+    {
+    case KmeterPluginParameters::selHeadroom:
 
-		ButtonNormal->setToggleState(true, false);
-	 }
-	 else if (nValue == 12)
-	 {
-		nHeadroom = nValue;
-		reloadKmeter = true;
+        if (nValue == 0)
+        {
+            nHeadroom = nValue;
+            reloadKmeter = true;
 
-		ButtonK12->setToggleState(true, false);
-	 }
-	 else if (nValue == 14)
-	 {
-		nHeadroom = nValue;
-		reloadKmeter = true;
+            ButtonNormal->setToggleState(true, false);
+        }
+        else if (nValue == 12)
+        {
+            nHeadroom = nValue;
+            reloadKmeter = true;
 
-		ButtonK14->setToggleState(true, false);
-	 }
-	 else
-	 {
-		nHeadroom = 20;
-		reloadKmeter = true;
+            ButtonK12->setToggleState(true, false);
+        }
+        else if (nValue == 14)
+        {
+            nHeadroom = nValue;
+            reloadKmeter = true;
 
-		ButtonK20->setToggleState(true, false);
-	 }
-	 break;
+            ButtonK14->setToggleState(true, false);
+        }
+        else
+        {
+            nHeadroom = 20;
+            reloadKmeter = true;
 
-  case KmeterPluginParameters::selExpanded:
-	 reloadKmeter = true;
-	 ButtonExpanded->setToggleState(nValue != 0, false);
-	 break;
+            ButtonK20->setToggleState(true, false);
+        }
 
-  case KmeterPluginParameters::selPeak:
-	 reloadKmeter = true;
-	 ButtonDisplayPeakMeter->setToggleState(nValue != 0, false);
-	 break;
+        break;
 
-  case KmeterPluginParameters::selHold:
-	 if (pMeterBallistics)
-	 {
-	   pMeterBallistics = pProcessor->getLevels();
-	   pMeterBallistics->setPeakHold(nValue != 0);
-	   pMeterBallistics->setAverageHold(nValue != 0);
-	 }
+    case KmeterPluginParameters::selExpanded:
+        reloadKmeter = true;
+        ButtonExpanded->setToggleState(nValue != 0, false);
+        break;
 
-	 ButtonHold->setToggleState(nValue != 0, false);
-	 break;
+    case KmeterPluginParameters::selPeak:
+        reloadKmeter = true;
+        ButtonDisplayPeakMeter->setToggleState(nValue != 0, false);
+        break;
 
-  case KmeterPluginParameters::selMono:
-	 ButtonMono->setToggleState(nValue != 0, false);
-	 break;
-  }
+    case KmeterPluginParameters::selHold:
 
-  if (reloadKmeter)
-  {
-	 if (kmeter)
-	 {
-		removeChildComponent(kmeter);
-		delete kmeter;
-	 }
+        if (pMeterBallistics)
+        {
+            pMeterBallistics = pProcessor->getLevels();
+            pMeterBallistics->setPeakHold(nValue != 0);
+            pMeterBallistics->setAverageHold(nValue != 0);
+        }
 
-	 kmeter = new Kmeter(T("K-Meter"), 10, 10, nHeadroom, 2, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
-	 addAndMakeVisible(kmeter);
-  }
+        ButtonHold->setToggleState(nValue != 0, false);
+        break;
+
+    case KmeterPluginParameters::selMono:
+        ButtonMono->setToggleState(nValue != 0, false);
+        break;
+    }
+
+    if (reloadKmeter)
+    {
+        if (kmeter)
+        {
+            removeChildComponent(kmeter);
+            delete kmeter;
+        }
+
+        kmeter = new Kmeter(T("K-Meter"), 10, 10, nHeadroom, 2, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
+        addAndMakeVisible(kmeter);
+    }
 }
 
 //==============================================================================
 void KmeterAudioProcessorEditor::paint(Graphics& g)
 {
-	g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.8f), 0, 0, Colours::darkgrey.darker(1.4f), 0, (float) getHeight(), false));
-	g.fillAll();
+    g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.8f), 0, 0, Colours::darkgrey.darker(1.4f), 0, (float) getHeight(), false));
+    g.fillAll();
 }
 
 void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 {
-  if (button == ButtonNormal)
-	 pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 0);
-  else if (button == ButtonK12)
-	 pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 12);
-  else if (button == ButtonK14)
-	 pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 14);
-  else if (button == ButtonK20)
-	 pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 20);
-  else if (button == ButtonHold)
-	 pProcessor->changeParameter(KmeterPluginParameters::selHold, !button->getToggleState());
-  else if (button == ButtonExpanded)
-	 pProcessor->changeParameter(KmeterPluginParameters::selExpanded, !button->getToggleState());
-  else if (button == ButtonDisplayPeakMeter)
-	 pProcessor->changeParameter(KmeterPluginParameters::selPeak, !button->getToggleState());
-  else if (button == ButtonReset)
-  {
-	 MeterBallistics* pMeterBallistics = pProcessor->getLevels();
-	 if (pMeterBallistics)
-       pMeterBallistics->reset();
-  }
-  else if (button == ButtonMono)
-	 pProcessor->changeParameter(KmeterPluginParameters::selMono, !button->getToggleState());
-  else if (button == ButtonAbout)
-  {
-	 AboutWindow* aboutWindow = new AboutWindow(getWidth(), getHeight());
-	 addAndMakeVisible(aboutWindow);
+    if (button == ButtonNormal)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 0);
+    }
+    else if (button == ButtonK12)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 12);
+    }
+    else if (button == ButtonK14)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 14);
+    }
+    else if (button == ButtonK20)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 20);
+    }
+    else if (button == ButtonHold)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selHold, !button->getToggleState());
+    }
+    else if (button == ButtonExpanded)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selExpanded, !button->getToggleState());
+    }
+    else if (button == ButtonDisplayPeakMeter)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selPeak, !button->getToggleState());
+    }
+    else if (button == ButtonReset)
+    {
+        MeterBallistics* pMeterBallistics = pProcessor->getLevels();
 
-	 aboutWindow->runModalLoop();
+        if (pMeterBallistics)
+        {
+            pMeterBallistics->reset();
+        }
+    }
+    else if (button == ButtonMono)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selMono, !button->getToggleState());
+    }
+    else if (button == ButtonAbout)
+    {
+        AboutWindow* aboutWindow = new AboutWindow(getWidth(), getHeight());
+        addAndMakeVisible(aboutWindow);
 
-	 removeChildComponent(aboutWindow);
-	 delete aboutWindow;
-  }
+        aboutWindow->runModalLoop();
+
+        removeChildComponent(aboutWindow);
+        delete aboutWindow;
+    }
 }
 
 

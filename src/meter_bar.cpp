@@ -25,241 +25,292 @@
 
 #include "meter_bar.h"
 
-MeterBar::MeterBar(const String &componentName, int posX, int posY, int Width, int nHeadroom, bool bExpanded, int nSegmentHeight, String justify)
+MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, int nHeadroom, bool bExpanded, int nSegmentHeight, String justify)
 {
-	setName(componentName);
-	isExpanded = bExpanded;
+    setName(componentName);
+    isExpanded = bExpanded;
 
-	// to prevent the inherent round-off errors of float subtraction,
-	// headroom and limits are stored as integers representing 0.1 dB
-	// steps
-	if (nHeadroom == 0)
-	{
-		nMeterHeadroom = 0;
+    // to prevent the inherent round-off errors of float subtraction,
+    // headroom and limits are stored as integers representing 0.1 dB
+    // steps
+    if (nHeadroom == 0)
+    {
+        nMeterHeadroom = 0;
 
-		nLimitTopBars = -20;
-		nLimitRedBars = -40;
-		nLimitAmberBars = -120;
-		nLimitGreenBars_1 = -400;
-		nLimitGreenBars_2 = nLimitGreenBars_1;
-	}
-	else if (nHeadroom == 12)
-	{
-		nMeterHeadroom = +120;
+        nLimitTopBars = -20;
+        nLimitRedBars = -40;
+        nLimitAmberBars = -120;
+        nLimitGreenBars_1 = -400;
+        nLimitGreenBars_2 = nLimitGreenBars_1;
+    }
+    else if (nHeadroom == 12)
+    {
+        nMeterHeadroom = +120;
 
-		nLimitTopBars = +100;
-		nLimitRedBars = +40;
-		nLimitAmberBars = 0;
-		nLimitGreenBars_1 = -300;
-		nLimitGreenBars_2 = nLimitGreenBars_1;
-	}
-	else if (nHeadroom == 14)
-	{
-		nMeterHeadroom = +140;
+        nLimitTopBars = +100;
+        nLimitRedBars = +40;
+        nLimitAmberBars = 0;
+        nLimitGreenBars_1 = -300;
+        nLimitGreenBars_2 = nLimitGreenBars_1;
+    }
+    else if (nHeadroom == 14)
+    {
+        nMeterHeadroom = +140;
 
-		nLimitTopBars = +120;
-		nLimitRedBars = +40;
-		nLimitAmberBars = 0;
-		nLimitGreenBars_1 = -300;
-		nLimitGreenBars_2 = nLimitGreenBars_1;
-	}
-	else
-	{
-		nMeterHeadroom = +200;
+        nLimitTopBars = +120;
+        nLimitRedBars = +40;
+        nLimitAmberBars = 0;
+        nLimitGreenBars_1 = -300;
+        nLimitGreenBars_2 = nLimitGreenBars_1;
+    }
+    else
+    {
+        nMeterHeadroom = +200;
 
-		nLimitTopBars = +180;
-		nLimitRedBars = +40;
-		nLimitAmberBars = 0;
-		nLimitGreenBars_1 = -240;
-		nLimitGreenBars_2 = -300;
-	}
+        nLimitTopBars = +180;
+        nLimitRedBars = +40;
+        nLimitAmberBars = 0;
+        nLimitGreenBars_1 = -240;
+        nLimitGreenBars_2 = -300;
+    }
 
-	if (isExpanded)
-	{
-		nNumberOfBars = 134;
-	}
-	else
-	{
-		if (nHeadroom == 0)
-			nNumberOfBars = 47;
-		else if (nHeadroom == 12)
-			nNumberOfBars = 48;
-		else if (nHeadroom == 14)
-			nNumberOfBars = 50;
-		else
-			nNumberOfBars = 51;
-	}
+    if (isExpanded)
+    {
+        nNumberOfBars = 134;
+    }
+    else
+    {
+        if (nHeadroom == 0)
+        {
+            nNumberOfBars = 47;
+        }
+        else if (nHeadroom == 12)
+        {
+            nNumberOfBars = 48;
+        }
+        else if (nHeadroom == 14)
+        {
+            nNumberOfBars = 50;
+        }
+        else
+        {
+            nNumberOfBars = 51;
+        }
+    }
 
-	nPosX = posX;
-	nPosY = posY;
-	nWidth = Width;
-	nMainSegmentHeight = nSegmentHeight;
-	justifyMeter = justify;
+    nPosX = posX;
+    nPosY = posY;
+    nWidth = Width;
+    nMainSegmentHeight = nSegmentHeight;
+    justifyMeter = justify;
 
-	fLevel = 0.0f;
+    fLevel = 0.0f;
 
-	int nThreshold = 0; // bar threshold (in 0.1 dB)
-	if (isExpanded && (nMeterHeadroom > 80))
-		nThreshold = +80 - nMeterHeadroom; // zoom into important region
+    int nThreshold = 0; // bar threshold (in 0.1 dB)
 
-	int nKmeterLevel = nThreshold + nMeterHeadroom; // bar K-Meter level (in 0.1 dB)
-	int nRange = 0; // bar level range (in 0.1 dB)
-	int nColor = 0;
+    if (isExpanded && (nMeterHeadroom > 80))
+    {
+        nThreshold = +80 - nMeterHeadroom;    // zoom into important region
+    }
 
-	MeterArray = new MeterSegment*[nNumberOfBars];
+    int nKmeterLevel = nThreshold + nMeterHeadroom; // bar K-Meter level (in 0.1 dB)
+    int nRange = 0; // bar level range (in 0.1 dB)
+    int nColor = 0;
 
-	for (int n=0; n < nNumberOfBars; n++)
-	{
-		if (isExpanded)
-		{
-			nRange = 1;
-		}
-		else
-		{
-			if (nKmeterLevel > nLimitTopBars)
-				nRange = 5;
-			else if (nKmeterLevel > nLimitGreenBars_1)
-				nRange = 10;
-			else if (nKmeterLevel > nLimitGreenBars_2)
-				nRange = 60;
-			else
-				nRange = 100;
-		}
+    MeterArray = new MeterSegment*[nNumberOfBars];
 
-		if (nKmeterLevel > nLimitRedBars)
-			nColor = 0;
-		else if (nKmeterLevel > nLimitAmberBars)
-			nColor = 1;
-		else
-			nColor = 2;
+    for (int n = 0; n < nNumberOfBars; n++)
+    {
+        if (isExpanded)
+        {
+            nRange = 1;
+        }
+        else
+        {
+            if (nKmeterLevel > nLimitTopBars)
+            {
+                nRange = 5;
+            }
+            else if (nKmeterLevel > nLimitGreenBars_1)
+            {
+                nRange = 10;
+            }
+            else if (nKmeterLevel > nLimitGreenBars_2)
+            {
+                nRange = 60;
+            }
+            else
+            {
+                nRange = 100;
+            }
+        }
 
-		nThreshold -= nRange;
-		nKmeterLevel -= nRange;
-		MeterArray[n] = new MeterSegment(String(T("MeterSegment ") + n), nThreshold * 0.1f, nRange * 0.1f, nColor);
+        if (nKmeterLevel > nLimitRedBars)
+        {
+            nColor = 0;
+        }
+        else if (nKmeterLevel > nLimitAmberBars)
+        {
+            nColor = 1;
+        }
+        else
+        {
+            nColor = 2;
+        }
 
-		addAndMakeVisible(MeterArray[n]);
-	}
+        nThreshold -= nRange;
+        nKmeterLevel -= nRange;
+        MeterArray[n] = new MeterSegment(String(T("MeterSegment ") + n), nThreshold * 0.1f, nRange * 0.1f, nColor);
+
+        addAndMakeVisible(MeterArray[n]);
+    }
 }
 
 MeterBar::~MeterBar()
 {
-	for (int n = 0; n < nNumberOfBars; n++)
-	{
-		removeChildComponent(MeterArray[n]);
-		delete MeterArray[n];
-	}
+    for (int n = 0; n < nNumberOfBars; n++)
+    {
+        removeChildComponent(MeterArray[n]);
+        delete MeterArray[n];
+    }
 
-	delete [] MeterArray;
-	MeterArray = NULL;
+    delete [] MeterArray;
+    MeterArray = NULL;
 
-	deleteAllChildren();
+    deleteAllChildren();
 }
 
 void MeterBar::visibilityChanged()
 {
-	int x = 0;
-	int y = 0;
-	int width = nWidth;
-	int height = 134 * nMainSegmentHeight + 1;
-	int segment_height = nMainSegmentHeight;
+    int x = 0;
+    int y = 0;
+    int width = nWidth;
+    int height = 134 * nMainSegmentHeight + 1;
+    int segment_height = nMainSegmentHeight;
 
-	int nKmeterLevel = nMeterHeadroom; // bar K-Meter level (in 0.1 dB)
-	int nRange = 0; // bar level range (in 0.1 dB)
+    int nKmeterLevel = nMeterHeadroom; // bar K-Meter level (in 0.1 dB)
+    int nRange = 0; // bar level range (in 0.1 dB)
 
-	setBounds(nPosX, nPosY, width, height);
+    setBounds(nPosX, nPosY, width, height);
 
-	for (int n=0; n < nNumberOfBars; n++)
-	{
-		if (isExpanded)
-		{
-			nRange = 1;
-		}
-		else
-		{
-			if (nKmeterLevel > nLimitTopBars)
-				nRange = 5;
-			else if (nKmeterLevel > nLimitGreenBars_1)
-				nRange = 10;
-			else if (nKmeterLevel > nLimitGreenBars_2)
-				nRange = 60;
-			else
-				nRange = 100;
-		}
+    for (int n = 0; n < nNumberOfBars; n++)
+    {
+        if (isExpanded)
+        {
+            nRange = 1;
+        }
+        else
+        {
+            if (nKmeterLevel > nLimitTopBars)
+            {
+                nRange = 5;
+            }
+            else if (nKmeterLevel > nLimitGreenBars_1)
+            {
+                nRange = 10;
+            }
+            else if (nKmeterLevel > nLimitGreenBars_2)
+            {
+                nRange = 60;
+            }
+            else
+            {
+                nRange = 100;
+            }
+        }
 
-		if (nKmeterLevel > nLimitRedBars)
-		{
-			width = nWidth;
-			x = 0;
-		}
-		else if (nKmeterLevel > nLimitAmberBars)
-		{
-			if (justifyMeter == T("left"))
-			{
-				width = (int) (nWidth * 0.85f);
-				x = nWidth - width;
-			}
-			else if (justifyMeter == T("right"))
-			{
-				width = (int) (nWidth * 0.85f);
-				x = 0;
-			}
-			else
-			{
-				width = nWidth;
-				x = 0;
-			}
-		}
-		else
-		{
-			if (justifyMeter == T("left"))
-			{
-				width = (int) (nWidth * 0.75f);
-				x = nWidth - width;
-			}
-			else if (justifyMeter == T("right"))
-			{
-				width = (int) (nWidth * 0.75f);
-				x = 0;
-			}
-			else
-			{
-				width = nWidth;
-				x = 0;
-			}
-		}
+        if (nKmeterLevel > nLimitRedBars)
+        {
+            width = nWidth;
+            x = 0;
+        }
+        else if (nKmeterLevel > nLimitAmberBars)
+        {
+            if (justifyMeter == T("left"))
+            {
+                width = (int)(nWidth * 0.85f);
+                x = nWidth - width;
+            }
+            else if (justifyMeter == T("right"))
+            {
+                width = (int)(nWidth * 0.85f);
+                x = 0;
+            }
+            else
+            {
+                width = nWidth;
+                x = 0;
+            }
+        }
+        else
+        {
+            if (justifyMeter == T("left"))
+            {
+                width = (int)(nWidth * 0.75f);
+                x = nWidth - width;
+            }
+            else if (justifyMeter == T("right"))
+            {
+                width = (int)(nWidth * 0.75f);
+                x = 0;
+            }
+            else
+            {
+                width = nWidth;
+                x = 0;
+            }
+        }
 
-		if (isExpanded)
-			segment_height = nMainSegmentHeight;
-		else if (nKmeterLevel > nLimitTopBars)
-			segment_height = nMainSegmentHeight;
-		else if (nKmeterLevel > nLimitGreenBars_1)
-			segment_height = 2 * nMainSegmentHeight;
-		else if (nKmeterLevel > nLimitGreenBars_2)
-			segment_height = 6 * nMainSegmentHeight;
-		else if (n == nNumberOfBars - 1)
-		{
-			if (nMeterHeadroom == 0)
-				segment_height = 14 * nMainSegmentHeight;
-			else if (nMeterHeadroom == +120)
-				segment_height = 20 * nMainSegmentHeight;
-			else if (nMeterHeadroom == +140)
-				segment_height = 16 * nMainSegmentHeight;
-			else
-				segment_height = 10 * nMainSegmentHeight;
-		}
-		else
-			segment_height = 10 * nMainSegmentHeight;
+        if (isExpanded)
+        {
+            segment_height = nMainSegmentHeight;
+        }
+        else if (nKmeterLevel > nLimitTopBars)
+        {
+            segment_height = nMainSegmentHeight;
+        }
+        else if (nKmeterLevel > nLimitGreenBars_1)
+        {
+            segment_height = 2 * nMainSegmentHeight;
+        }
+        else if (nKmeterLevel > nLimitGreenBars_2)
+        {
+            segment_height = 6 * nMainSegmentHeight;
+        }
+        else if (n == nNumberOfBars - 1)
+        {
+            if (nMeterHeadroom == 0)
+            {
+                segment_height = 14 * nMainSegmentHeight;
+            }
+            else if (nMeterHeadroom == +120)
+            {
+                segment_height = 20 * nMainSegmentHeight;
+            }
+            else if (nMeterHeadroom == +140)
+            {
+                segment_height = 16 * nMainSegmentHeight;
+            }
+            else
+            {
+                segment_height = 10 * nMainSegmentHeight;
+            }
+        }
+        else
+        {
+            segment_height = 10 * nMainSegmentHeight;
+        }
 
-		MeterArray[n]->setBounds(x, y, width, segment_height + 1);
-		y += segment_height;
+        MeterArray[n]->setBounds(x, y, width, segment_height + 1);
+        y += segment_height;
 
-		nKmeterLevel -= nRange;
-	}
+        nKmeterLevel -= nRange;
+    }
 }
 
 void MeterBar::paint(Graphics& g)
 {
-	g.fillAll(Colours::black);
+    g.fillAll(Colours::black);
 }
 
 void MeterBar::resized()
@@ -268,14 +319,16 @@ void MeterBar::resized()
 
 void MeterBar::setLevels(float newLevel, float newPeak)
 {
-	if ((fLevel != newLevel) || (fPeak != newPeak))
-	{
-		fLevel = newLevel;
-		fPeak = newPeak;
+    if ((fLevel != newLevel) || (fPeak != newPeak))
+    {
+        fLevel = newLevel;
+        fPeak = newPeak;
 
-		for (int n=0; n < nNumberOfBars; n++)
-			MeterArray[n]->setLevels(fLevel, fPeak);
-	}
+        for (int n = 0; n < nNumberOfBars; n++)
+        {
+            MeterArray[n]->setLevels(fLevel, fPeak);
+        }
+    }
 }
 
 

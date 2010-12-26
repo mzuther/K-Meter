@@ -35,55 +35,55 @@ class KmeterPluginParameters;
 class KmeterPluginParameters  : public ChangeBroadcaster
 {
 public:
-  //==========================================================================
+    //==========================================================================
 
-  KmeterPluginParameters();
-  ~KmeterPluginParameters();
+    KmeterPluginParameters();
+    ~KmeterPluginParameters();
 
-  int getNumParameters();
+    int getNumParameters();
 
-  bool getParameterAsBool(int nIndex);
-  float getParameterAsFloat(int nIndex);
-  int getParameterAsInt(int nIndex);
+    bool getParameterAsBool(int nIndex);
+    float getParameterAsFloat(int nIndex);
+    int getParameterAsInt(int nIndex);
 
-  void setParameterFromBool(int nIndex, bool bValue);
-  void setParameterFromFloat(int nIndex, float fValue);
-  void setParameterFromInt(int nIndex, int nValue);
+    void setParameterFromBool(int nIndex, bool bValue);
+    void setParameterFromFloat(int nIndex, float fValue);
+    void setParameterFromInt(int nIndex, int nValue);
 
-  void MarkParameter(int nIndex);
-  void UnmarkParameter(int nIndex);
-  bool isParameterMarked(int nIndex);
+    void MarkParameter(int nIndex);
+    void UnmarkParameter(int nIndex);
+    bool isParameterMarked(int nIndex);
 
-  const String getParameterName(int nIndex);
-  const String getParameterText(int nIndex);
+    const String getParameterName(int nIndex);
+    const String getParameterText(int nIndex);
 
-  int translateParameterToInt(int nIndex, float fValue);
-  float translateParameterToFloat(int nIndex, int nValue);
+    int translateParameterToInt(int nIndex, float fValue);
+    float translateParameterToFloat(int nIndex, int nValue);
 
-  XmlElement storeAsXml();
-  void loadFromXml(XmlElement* xml);
+    XmlElement storeAsXml();
+    void loadFromXml(XmlElement* xml);
 
-  enum Parameters  // public namespace!
-  {
-	 selHeadroom = 0,
-	 selExpanded,
-	 selPeak,
-	 selHold,
-	 selMono,
+    enum Parameters  // public namespace!
+    {
+        selHeadroom = 0,
+        selExpanded,
+        selPeak,
+        selHold,
+        selMono,
 
-	 nNumParameters,
+        nNumParameters,
 
-	 selNormal = 0,
-	 selK12,
-	 selK14,
-	 selK20,
+        selNormal = 0,
+        selK12,
+        selK14,
+        selK20,
 
-	 nNumHeadrooms,
-  };
+        nNumHeadrooms,
+    };
 
 private:
-  int* nParam;
-  bool* bParamChanged;
+    int* nParam;
+    bool* bParamChanged;
 };
 
 #endif  // __PLUGINPARAMETERS_H__

@@ -35,13 +35,13 @@
 class OverflowMeter : public Label
 {
 public:
-    OverflowMeter(const String &componentName);
+    OverflowMeter(const String& componentName);
     ~OverflowMeter();
 
-	void setOverflows(int Overflows);
+    void setOverflows(int Overflows);
 
 private:
-	int nOverflows;
+    int nOverflows;
 };
 
 

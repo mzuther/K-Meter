@@ -25,15 +25,15 @@
 
 #include "overflow_meter.h"
 
-OverflowMeter::OverflowMeter(const String &componentName) : Label(componentName, T("0"))
+OverflowMeter::OverflowMeter(const String& componentName) : Label(componentName, T("0"))
 {
-	nOverflows = 0;
+    nOverflows = 0;
 
-	setFont(12.0f);
-	setJustificationType(Justification::centredRight);
-	setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
-	setColour(Label::textColourId, Colours::white);
-	setColour(Label::outlineColourId, Colours::grey.darker(0.2f));
+    setFont(12.0f);
+    setJustificationType(Justification::centredRight);
+    setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
+    setColour(Label::textColourId, Colours::white);
+    setColour(Label::outlineColourId, Colours::grey.darker(0.2f));
 }
 
 OverflowMeter::~OverflowMeter()
@@ -42,18 +42,22 @@ OverflowMeter::~OverflowMeter()
 
 void OverflowMeter::setOverflows(int Overflows)
 {
-	int nOverflowsOld = nOverflows;
-	nOverflows = Overflows;
+    int nOverflowsOld = nOverflows;
+    nOverflows = Overflows;
 
-	if (nOverflows != nOverflowsOld)
-	{
-		setText(String(nOverflows), false);
+    if (nOverflows != nOverflowsOld)
+    {
+        setText(String(nOverflows), false);
 
-		if (nOverflowsOld == 0)
-			setColour(Label::backgroundColourId, Colours::red.darker(0.2f));
-		else if (nOverflows == 0)
-			setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
-	}
+        if (nOverflowsOld == 0)
+        {
+            setColour(Label::backgroundColourId, Colours::red.darker(0.2f));
+        }
+        else if (nOverflows == 0)
+        {
+            setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
+        }
+    }
 }
 
 

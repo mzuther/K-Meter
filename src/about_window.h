@@ -27,51 +27,51 @@
 #define __ABOUT_WINDOW_H__
 
 #include "juce_library_code/juce_header.h"
-#include "resources.h"
+#include "resources/resources.h"
 
 
 class ProhibitingBoundsConstrainer : public ComponentBoundsConstrainer
 {
- public:
-  // inherit from ComponentBoundsConstrainer
-  ProhibitingBoundsConstrainer() : ComponentBoundsConstrainer()
-  {
-  }
+public:
+    // inherit from ComponentBoundsConstrainer
+    ProhibitingBoundsConstrainer() : ComponentBoundsConstrainer()
+    {
+    }
 
-  // do nothing till you hear from me
-  ~ProhibitingBoundsConstrainer()
-  {
-  }
+    // do nothing till you hear from me
+    ~ProhibitingBoundsConstrainer()
+    {
+    }
 
-  void checkBounds(Rectangle<int> &bounds, const Rectangle<int> &previousBounds, const Rectangle<int> &limits, bool isStretchingTop, bool isStretchingLeft, bool isStretchingBottom, bool isStretchingRight)
-  {
-	 // prohibit window movement and resizing by simply ignoring the
-	 // change
-    bounds = previousBounds;
-  }
+    void checkBounds(Rectangle<int> &bounds, const Rectangle<int> &previousBounds, const Rectangle<int> &limits, bool isStretchingTop, bool isStretchingLeft, bool isStretchingBottom, bool isStretchingRight)
+    {
+        // prohibit window movement and resizing by simply ignoring
+        // the change
+        bounds = previousBounds;
+    }
 };
 
 
 class AboutWindow : public ResizableWindow, ButtonListener
 {
 public:
-  AboutWindow(int nWidth, int nHeight);
-  ~AboutWindow();
+    AboutWindow(int nWidth, int nHeight);
+    ~AboutWindow();
 
-  void paint(Graphics& g);
-  void buttonClicked(Button* button);
+    void paint(Graphics& g);
+    void buttonClicked(Button* button);
 
 private:
-  Component* contentComponent;
-  ProhibitingBoundsConstrainer* pConstrainer;
+    Component* contentComponent;
+    ProhibitingBoundsConstrainer* pConstrainer;
 
-  TextEditor* TextEditorAbout;
-  TextButton* ButtonAbout;
-  ImageButton* ButtonGpl;
+    TextEditor* TextEditorAbout;
+    TextButton* ButtonAbout;
+    ImageButton* ButtonGpl;
 
-  Image* ImageButtonGplNormal;
-  Image* ImageButtonGplOver;
-  Image* ImageButtonGplDown;
+    Image* ImageButtonGplNormal;
+    Image* ImageButtonGplOver;
+    Image* ImageButtonGplDown;
 };
 
 

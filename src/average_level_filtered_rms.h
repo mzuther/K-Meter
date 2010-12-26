@@ -38,35 +38,35 @@ class AverageLevelFilteredRms;
 class AverageLevelFilteredRms
 {
 public:
-  AverageLevelFilteredRms(const int channels, const int buffer_size);
-  ~AverageLevelFilteredRms();
+    AverageLevelFilteredRms(const int channels, const int buffer_size);
+    ~AverageLevelFilteredRms();
 
-  float getLevel(const int channel);
-  void copyFromBuffer(AudioRingBuffer& ringBuffer, const int pre_delay, const int sample_rate);
-  void copyToBuffer(AudioRingBuffer& destination, const unsigned int sourceStartSample, const unsigned int numSamples);
-  void copyToBuffer(AudioSampleBuffer& destination, const int channel, const int destStartSample, const int numSamples);
+    float getLevel(const int channel);
+    void copyFromBuffer(AudioRingBuffer& ringBuffer, const int pre_delay, const int sample_rate);
+    void copyToBuffer(AudioRingBuffer& destination, const unsigned int sourceStartSample, const unsigned int numSamples);
+    void copyToBuffer(AudioSampleBuffer& destination, const int channel, const int destStartSample, const int numSamples);
 
 private:
-  void calculateFilterKernel();
-  void FilterSamples(const int channel);
+    void calculateFilterKernel();
+    void FilterSamples(const int channel);
 
-  AudioSampleBuffer* pSampleBuffer;
-  AudioSampleBuffer* pOverlapAddSamples;
+    AudioSampleBuffer* pSampleBuffer;
+    AudioSampleBuffer* pOverlapAddSamples;
 
-  float* arrFilterKernel_TD;
-  fftwf_complex* arrFilterKernel_FD;
-  fftwf_plan planFilterKernel_DFT;
+    float* arrFilterKernel_TD;
+    fftwf_complex* arrFilterKernel_FD;
+    fftwf_plan planFilterKernel_DFT;
 
-  float* arrAudioSamples_TD;
-  fftwf_complex* arrAudioSamples_FD;
-  fftwf_plan planAudioSamples_DFT;
-  fftwf_plan planAudioSamples_IDFT;
+    float* arrAudioSamples_TD;
+    fftwf_complex* arrAudioSamples_FD;
+    fftwf_plan planAudioSamples_DFT;
+    fftwf_plan planAudioSamples_IDFT;
 
-  int nChannels;
-  int nSampleRate;
-  int nBufferSize;
-  int nFftSize;
-  int nHalfFftSize;
+    int nChannels;
+    int nSampleRate;
+    int nBufferSize;
+    int nFftSize;
+    int nHalfFftSize;
 };
 
 
