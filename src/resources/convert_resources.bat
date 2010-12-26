@@ -25,11 +25,18 @@
 @rem
 @rem ----------------------------------------------------------------------------
 
-@echo.
-@premake4 --file=vs_2010.lua --os=windows vs2010
+@set BINARY_BUILDER_DIR=..\..\libraries\juce\extras\prebuilt
+@set OUTPUT_DIR=.
+
+@"%BINARY_BUILDER_DIR%\BinaryBuilder.exe" "output" "%$OUTPUT_DIR%" resources "*.png"
 
 @echo.
-@premake4 --cc=gcc --os=linux gmake
+@echo --------------------------------------------------------------------------------
+
+@type "%OUTPUT_DIR%\resources.h"
 
 @echo.
+@echo --------------------------------------------------------------------------------
+@echo.
+
 @pause
