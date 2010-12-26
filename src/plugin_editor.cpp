@@ -137,7 +137,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
 	pProcessor->addChangeListenerParameters(this);
 
-	stereoKmeter = NULL;
+	kmeter = NULL;
 
 	int nIndex = KmeterPluginParameters::selHeadroom;
 	changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
@@ -178,7 +178,7 @@ void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChang
 
 	 if (pMeterBallistics)
 	 {
-	   stereoKmeter->setLevels(pMeterBallistics);
+	   kmeter->setLevels(pMeterBallistics);
 	   stereoMeter->setValue(pMeterBallistics->getStereoMeterValue());
 	   correlationMeter->setValue(pMeterBallistics->getCorrelationMeterValue());
 	 }
@@ -199,7 +199,7 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex)
 
 void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 {
-  bool reloadStereoKmeter = false;
+  bool reloadKmeter = false;
   MeterBallistics* pMeterBallistics = NULL;
 
   switch (nIndex)
@@ -208,40 +208,40 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 	 if (nValue == 0)
 	 {
 		nHeadroom = nValue;
-		reloadStereoKmeter = true;
+		reloadKmeter = true;
 
 		ButtonNormal->setToggleState(true, false);
 	 }
 	 else if (nValue == 12)
 	 {
 		nHeadroom = nValue;
-		reloadStereoKmeter = true;
+		reloadKmeter = true;
 
 		ButtonK12->setToggleState(true, false);
 	 }
 	 else if (nValue == 14)
 	 {
 		nHeadroom = nValue;
-		reloadStereoKmeter = true;
+		reloadKmeter = true;
 
 		ButtonK14->setToggleState(true, false);
 	 }
 	 else
 	 {
 		nHeadroom = 20;
-		reloadStereoKmeter = true;
+		reloadKmeter = true;
 
 		ButtonK20->setToggleState(true, false);
 	 }
 	 break;
 
   case KmeterPluginParameters::selExpanded:
-	 reloadStereoKmeter = true;
+	 reloadKmeter = true;
 	 ButtonExpanded->setToggleState(nValue != 0, false);
 	 break;
 
   case KmeterPluginParameters::selPeak:
-	 reloadStereoKmeter = true;
+	 reloadKmeter = true;
 	 ButtonDisplayPeakMeter->setToggleState(nValue != 0, false);
 	 break;
 
@@ -261,16 +261,16 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 	 break;
   }
 
-  if (reloadStereoKmeter)
+  if (reloadKmeter)
   {
-	 if (stereoKmeter)
+	 if (kmeter)
 	 {
-		removeChildComponent(stereoKmeter);
-		delete stereoKmeter;
+		removeChildComponent(kmeter);
+		delete kmeter;
 	 }
 
-	 stereoKmeter = new StereoKmeter(T("Stereo K-Meter"), 10, 10, nHeadroom, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
-	 addAndMakeVisible(stereoKmeter);
+	 kmeter = new Kmeter(T("K-Meter"), 10, 10, nHeadroom, 2, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
+	 addAndMakeVisible(kmeter);
   }
 }
 

@@ -45,7 +45,7 @@ MeterBallistics::MeterBallistics(int nChannels, bool bPeakHold, bool bAverageHol
 	fPeakMeterPeak = new float[nNumberOfChannels];
 	fAverageMeterPeak = new float[nNumberOfChannels];
 
-	fPeakMeterMaximumPeak = new float[nNumberOfChannels];
+	fMaximumPeak = new float[nNumberOfChannels];
 	nOverflows = new int[nNumberOfChannels];
 
 	fPeakMeterPeakLastChanged = new float[nNumberOfChannels];
@@ -61,16 +61,28 @@ MeterBallistics::MeterBallistics(int nChannels, bool bPeakHold, bool bAverageHol
 MeterBallistics::~MeterBallistics()
 {
 	delete [] fPeakMeter;
+	fPeakMeter = NULL;
+
 	delete [] fAverageMeter;
+	fAverageMeter = NULL;
 
 	delete [] fPeakMeterPeak;
-	delete [] fAverageMeterPeak;
+	fPeakMeterPeak = NULL;
 
-	delete [] fPeakMeterMaximumPeak;
+	delete [] fAverageMeterPeak;
+	fAverageMeterPeak = NULL;
+
+	delete [] fMaximumPeak;
+	fMaximumPeak = NULL;
+
 	delete [] nOverflows;
+	nOverflows = NULL;
 
 	delete [] fPeakMeterPeakLastChanged;
+	fPeakMeterPeakLastChanged = NULL;
+
 	delete [] fAverageMeterPeakLastChanged;
+	fAverageMeterPeakLastChanged = NULL;
 }
 
 
@@ -87,7 +99,7 @@ void MeterBallistics::reset()
 		fPeakMeterPeak[nChannel] = fMeterMinimumDecibel;
 		fAverageMeterPeak[nChannel] = fMeterMinimumDecibel + fAverageCorrection;
 
-		fPeakMeterMaximumPeak[nChannel] = fMeterMinimumDecibel;
+		fMaximumPeak[nChannel] = fMeterMinimumDecibel;
 		nOverflows[nChannel] = 0;
 	}
 }
@@ -162,12 +174,12 @@ float MeterBallistics::getPeakMeterPeak(int nChannel)
 }
 
 
-float MeterBallistics::getPeakMeterMaximumPeak(int nChannel)
+float MeterBallistics::getMaximumPeak(int nChannel)
 {
 	jassert(nChannel >= 0);
 	jassert(nChannel < nNumberOfChannels);
 
-	return fPeakMeterMaximumPeak[nChannel];
+	return fMaximumPeak[nChannel];
 }
 
 
@@ -233,8 +245,8 @@ void MeterBallistics::updateChannel(int nChannel, float fTimeFrame, float fPeak,
 		fPeak = level2decibel(fPeak);
 		fAverage = level2decibel(fAverage) + fAverageCorrection;
 
-		if (fPeak > fPeakMeterMaximumPeak[nChannel])
-			fPeakMeterMaximumPeak[nChannel] = fPeak;
+		if (fPeak > fMaximumPeak[nChannel])
+			fMaximumPeak[nChannel] = fPeak;
 
 		fPeakMeter[nChannel] = PeakMeterBallistics(fTimeFrame, fPeak, fPeakMeter[nChannel]);
 		fPeakMeterPeak[nChannel] = PeakMeterPeakBallistics(fTimeFrame, &fPeakMeterPeakLastChanged[nChannel], fPeak, fPeakMeterPeak[nChannel]);

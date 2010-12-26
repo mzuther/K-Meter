@@ -78,9 +78,9 @@ OBJECTS := \
 	$(OBJDIR)/audio_ring_buffer.o \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/stereo_meter.o \
-	$(OBJDIR)/stereo_kmeter.o \
 	$(OBJDIR)/standalone_application.o \
 	$(OBJDIR)/resources.o \
+	$(OBJDIR)/kmeter.o \
 	$(OBJDIR)/juce_library_code_4.o \
 	$(OBJDIR)/juce_library_code_3.o \
 	$(OBJDIR)/juce_library_code_1.o \
@@ -189,13 +189,13 @@ $(OBJDIR)/plugin_processor.o: ../../../src/plugin_processor.cpp
 $(OBJDIR)/stereo_meter.o: ../../../src/stereo_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/stereo_kmeter.o: ../../../src/stereo_kmeter.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/standalone_application.o: ../../../src/standalone_application.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/resources.o: ../../../src/resources.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/kmeter.o: ../../../src/kmeter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_library_code_4.o: ../../../src/juce_library_code/juce_library_code_4.cpp

@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __STEREO_KMETER_H__
-#define __STEREO_KMETER_H__
+#ifndef __KMETER_H__
+#define __KMETER_H__
 
 #include "juce_library_code/juce_header.h"
 #include "meter_bar.h"
@@ -36,11 +36,11 @@
 //==============================================================================
 /**
 */
-class StereoKmeter : public Component
+class Kmeter : public Component
 {
 public:
-	StereoKmeter(const String &componentName, int PosX, int PosY, int nHeadroom, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight);
-    ~StereoKmeter();
+	Kmeter(const String &componentName, int PosX, int PosY, int nHeadroom, int nNumChannels, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight);
+    ~Kmeter();
 
 	void setLevels(MeterBallistics* pMeterBallistics);
 	void paint(Graphics& g);
@@ -55,23 +55,18 @@ private:
 	bool displayPeakMeter;
 
 	int nMeterHeadroom;
+	int nChannels;
 
-	MeterBar* PeakMeterLeft;
-	MeterBar* PeakMeterRight;
-	MeterBar* AverageMeterLeft;
-	MeterBar* AverageMeterRight;
-
-	OverflowMeter* OverflowMeterLeft;
-	OverflowMeter* OverflowMeterRight;
-
-	PeakLabel* MaximumPeakLeft;
-	PeakLabel* MaximumPeakRight;
+	MeterBar** PeakMeters;
+	MeterBar** AverageMeters;
+	OverflowMeter** OverflowMeters;
+	PeakLabel** MaximumPeakLabels;
 
 	void drawMarkers(Graphics& g, String& strMarker, int x, int y, int width, int height);
 };
 
 
-#endif  // __STEREO_KMETER_H__
+#endif  // __KMETER_H__
 
 
 // Local Variables:

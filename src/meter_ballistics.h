@@ -53,7 +53,7 @@ public:
 	float getPeakMeterPeak(int nChannel);
 	float getAverageMeterPeak(int nChannel);
 
-	float getPeakMeterMaximumPeak(int nChannel);
+	float getMaximumPeak(int nChannel);
 	int getOverflows(int nChannel);
 
 	void updateChannel(int nChannel, float fTimeFrame, float fPeak, float fAverage, int Overflows);
@@ -75,7 +75,7 @@ private:
 	float *fPeakMeterPeak;
 	float *fAverageMeterPeak;
 
-	float *fPeakMeterMaximumPeak;
+	float *fMaximumPeak;
 
 	int *nOverflows;
 

@@ -23,11 +23,12 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "stereo_kmeter.h"
+#include "kmeter.h"
 
-StereoKmeter::StereoKmeter(const String &componentName, int posX, int posY, int nHeadroom, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight)
+Kmeter::Kmeter(const String &componentName, int posX, int posY, int nHeadroom, int nNumChannels, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight)
 {
 	setName(componentName);
+	nChannels = nNumChannels;
 	isExpanded = bExpanded;
 	displayPeakMeter = bDisplayPeakMeter;
 
@@ -44,58 +45,99 @@ StereoKmeter::StereoKmeter(const String &componentName, int posX, int posY, int 
 	else
 		nMeterHeadroom = 20;
 
+	int nPositionX = 0;
+
 	if (displayPeakMeter)
 	{
-	  PeakMeterLeft = new MeterBar(T("Peak Meter Left"), 3, 48, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("left"));
-	  PeakMeterRight = new MeterBar(T("Peak Meter Right"), 94, 48, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("right"));
+		AverageMeters = new MeterBar*[nChannels];
+		PeakMeters = new MeterBar*[nChannels];
 
-	  addAndMakeVisible(PeakMeterLeft);
-	  addAndMakeVisible(PeakMeterRight);
-	
-	  AverageMeterLeft = new MeterBar(T("Average Meter Left"), 17, 48, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
-	  AverageMeterRight = new MeterBar(T("Average Meter Right"), 71, 48, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+		for (int nChannel=0; nChannel < nChannels; nChannel++)
+		{
+			nPositionX = 17 + nChannel * 91 - (nChannel % 2) * 37;
 
-	  addAndMakeVisible(AverageMeterLeft);
-	  addAndMakeVisible(AverageMeterRight);
-  	}
+			AverageMeters[nChannel] = new MeterBar(String("Average Meter #") + String(nChannel), nPositionX, 48, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+			addAndMakeVisible(AverageMeters[nChannel]);
+
+			nPositionX = 3 + nChannel * 91;
+
+			PeakMeters[nChannel] = new MeterBar(String("Peak Meter #") + String(nChannel), nPositionX, 48, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, (nChannel % 2) ? T("left") : T("right"));
+			addAndMakeVisible(PeakMeters[nChannel]);
+		}
+	}
 	else
 	{
-	  AverageMeterLeft = new MeterBar(T("Average Meter Left"), 7, 48, 20, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
-	  AverageMeterRight = new MeterBar(T("Average Meter Right"), 79, 48, 20, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+		AverageMeters = new MeterBar*[nChannels];
+		PeakMeters = NULL;
 
-	  addAndMakeVisible(AverageMeterLeft);
-	  addAndMakeVisible(AverageMeterRight);
+		for (int nChannel=0; nChannel < nChannels; nChannel++)
+		{
+			nPositionX = 7 + nChannel * 72;
+
+			AverageMeters[nChannel] = new MeterBar(String("Average Meter #") + String(nChannel), nPositionX, 48, 20, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+			addAndMakeVisible(AverageMeters[nChannel]);
+		}
   	}
 
-	OverflowMeterLeft = new OverflowMeter(T("Overflows Left"));
-	OverflowMeterLeft->setBounds(3, 3, 32, 16);
-	addAndMakeVisible(OverflowMeterLeft);
+	OverflowMeters = new OverflowMeter*[nChannels];
+	MaximumPeakLabels = new PeakLabel*[nChannels];
 
-	OverflowMeterRight = new OverflowMeter(T("Overflows Right"));
-	OverflowMeterRight->setBounds(71, 3, 32, 16);
-	addAndMakeVisible(OverflowMeterRight);
+	for (int nChannel=0; nChannel < nChannels; nChannel++)
+	{
+		nPositionX = 3 + nChannel * 68;
 
-	MaximumPeakLeft = new PeakLabel(T("Maximum Peak Left"), nHeadroom);
-	MaximumPeakLeft->setBounds(3, 23, 32, 16);
-	addAndMakeVisible(MaximumPeakLeft);
+		OverflowMeters[nChannel] = new OverflowMeter(String("Overflows #") + String(nChannel));
+		OverflowMeters[nChannel]->setBounds(nPositionX, 3, 32, 16);
+		addAndMakeVisible(OverflowMeters[nChannel]);
 
-	MaximumPeakRight = new PeakLabel(T("Maximum Peak Right"), nHeadroom);
-	MaximumPeakRight->setBounds(71, 23, 32, 16);
-	addAndMakeVisible(MaximumPeakRight);
+		MaximumPeakLabels[nChannel] = new PeakLabel(String("Maximum Peak #") + String(nChannel), nHeadroom);
+		MaximumPeakLabels[nChannel]->setBounds(nPositionX, 23, 32, 16);
+		addAndMakeVisible(MaximumPeakLabels[nChannel]);
+	}
 }
 
-StereoKmeter::~StereoKmeter()
+Kmeter::~Kmeter()
 {
+	for (int nChannel=0; nChannel < nChannels; nChannel++)
+	{
+		delete AverageMeters[nChannel];
+		AverageMeters[nChannel] = NULL;
+
+		if (displayPeakMeter)
+		{
+			delete PeakMeters[nChannel];
+			PeakMeters[nChannel] = NULL;
+		}
+
+		delete OverflowMeters[nChannel];
+		OverflowMeters[nChannel] = NULL;
+
+		delete MaximumPeakLabels[nChannel];
+		MaximumPeakLabels[nChannel] = NULL;
+	}
+
+	delete [] AverageMeters;
+	AverageMeters = NULL;
+
+	delete [] PeakMeters;
+	PeakMeters = NULL;
+
+	delete [] OverflowMeters;
+	OverflowMeters = NULL;
+
+	delete [] MaximumPeakLabels;
+	MaximumPeakLabels = NULL;
+
 	deleteAllChildren();
 }
 	
-void StereoKmeter::visibilityChanged()
+void Kmeter::visibilityChanged()
 {
 	int height = 134 * nMainSegmentHeight + 52;
 	setBounds(nPosX, nPosY, 106, height);
 }
 
-void StereoKmeter::paint(Graphics& g)
+void Kmeter::paint(Graphics& g)
 {
 	g.fillAll(Colours::grey.withAlpha(0.1f));
 
@@ -245,29 +287,28 @@ void StereoKmeter::paint(Graphics& g)
 	}
 }
 
-void StereoKmeter::resized()
+void Kmeter::resized()
 {
 }
 
-void StereoKmeter::setLevels(MeterBallistics* pMeterBallistics)
+void Kmeter::setLevels(MeterBallistics* pMeterBallistics)
 {
-	if (displayPeakMeter && pMeterBallistics)
+	for (int nChannel=0; nChannel < nChannels; nChannel++)
 	{
-	  PeakMeterLeft->setLevels(pMeterBallistics->getPeakMeter(0), pMeterBallistics->getPeakMeterPeak(0));
-	  PeakMeterRight->setLevels(pMeterBallistics->getPeakMeter(1), pMeterBallistics->getPeakMeterPeak(1));
+		AverageMeters[nChannel]->setLevels(pMeterBallistics->getAverageMeter(nChannel), pMeterBallistics->getAverageMeterPeak(nChannel));
+
+		if (displayPeakMeter)
+		{
+			PeakMeters[nChannel]->setLevels(pMeterBallistics->getPeakMeter(nChannel), pMeterBallistics->getPeakMeterPeak(nChannel));
+		}
+
+		MaximumPeakLabels[nChannel]->updateLevel(pMeterBallistics->getMaximumPeak(nChannel));
+
+		OverflowMeters[nChannel]->setOverflows(pMeterBallistics->getOverflows(nChannel));
 	}
-
-	MaximumPeakLeft->updateLevel(pMeterBallistics->getPeakMeterMaximumPeak(0));
-	MaximumPeakRight->updateLevel(pMeterBallistics->getPeakMeterMaximumPeak(1));
-
-	AverageMeterLeft->setLevels(pMeterBallistics->getAverageMeter(0), pMeterBallistics->getAverageMeterPeak(0));
-	AverageMeterRight->setLevels(pMeterBallistics->getAverageMeter(1), pMeterBallistics->getAverageMeterPeak(1));
-
-	OverflowMeterLeft->setOverflows(pMeterBallistics->getOverflows(0));
-	OverflowMeterRight->setOverflows(pMeterBallistics->getOverflows(1));
 }
 
-void StereoKmeter::drawMarkers(Graphics& g, String& strMarker, int x, int y, int width, int height)
+void Kmeter::drawMarkers(Graphics& g, String& strMarker, int x, int y, int width, int height)
 {
 	g.setColour(Colours::white);
 	g.drawFittedText(strMarker, x + 38, y, width, height, Justification::centred, 1, 1.0f);

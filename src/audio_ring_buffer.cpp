@@ -60,6 +60,8 @@ AudioRingBuffer::AudioRingBuffer(const juce_wchar* buffer_name, const unsigned i
 AudioRingBuffer::~AudioRingBuffer()
 {
   delete [] uChannelOffset;
+  uChannelOffset = NULL;
+
   free(pAudioData);
 }
 

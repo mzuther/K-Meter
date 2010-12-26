@@ -51,7 +51,10 @@ KmeterPluginParameters::~KmeterPluginParameters()
   removeAllChangeListeners();
 
   delete [] nParam;
+  nParam = NULL;
+
   delete [] bParamChanged;
+  bParamChanged = NULL;
 }
 
 

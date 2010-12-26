@@ -29,7 +29,7 @@
 #include "juce_library_code/juce_header.h"
 #include "juce_library_code/JucePluginCharacteristics.h"
 #include "plugin_processor.h"
-#include "stereo_kmeter.h"
+#include "kmeter.h"
 #include "stereo_meter.h"
 #include "correlation_meter.h"
 #include "about_window.h"
@@ -58,7 +58,7 @@ private:
 	int nHeadroom;
 
 	KmeterAudioProcessor* pProcessor;
-	StereoKmeter* stereoKmeter;
+	Kmeter* kmeter;
 	StereoMeter* stereoMeter;
 	CorrelationMeter* correlationMeter;
 

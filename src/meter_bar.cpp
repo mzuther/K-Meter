@@ -150,6 +150,7 @@ MeterBar::~MeterBar()
 	}
 
 	delete [] MeterArray;
+	MeterArray = NULL;
 
 	deleteAllChildren();
 }
