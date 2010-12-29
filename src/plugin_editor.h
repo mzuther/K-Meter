@@ -31,7 +31,7 @@
 #include "plugin_processor.h"
 #include "kmeter.h"
 #include "stereo_meter.h"
-#include "correlation_meter.h"
+#include "phase_correlation_meter.h"
 #include "about_window.h"
 
 
@@ -60,7 +60,7 @@ private:
     KmeterAudioProcessor* pProcessor;
     Kmeter* kmeter;
     StereoMeter* stereoMeter;
-    CorrelationMeter* correlationMeter;
+    PhaseCorrelationMeter* phaseCorrelationMeter;
 
     TextButton* ButtonNormal;
     TextButton* ButtonK12;

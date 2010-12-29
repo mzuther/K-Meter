@@ -23,9 +23,9 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "correlation_meter.h"
+#include "phase_correlation_meter.h"
 
-CorrelationMeter::CorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height)
+PhaseCorrelationMeter::PhaseCorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height)
 {
     setName(componentName);
 
@@ -38,11 +38,11 @@ CorrelationMeter::CorrelationMeter(const String& componentName, int PosX, int Po
     nHeight = Height;
 }
 
-CorrelationMeter::~CorrelationMeter()
+PhaseCorrelationMeter::~PhaseCorrelationMeter()
 {
 }
 
-void CorrelationMeter::paint(Graphics& g)
+void PhaseCorrelationMeter::paint(Graphics& g)
 {
     int width = getWidth();
     int height = getHeight();
@@ -81,12 +81,12 @@ void CorrelationMeter::paint(Graphics& g)
     }
 }
 
-void CorrelationMeter::visibilityChanged()
+void PhaseCorrelationMeter::visibilityChanged()
 {
     setBounds(nPosX, nPosY, nWidth, nHeight);
 }
 
-void CorrelationMeter::setValue(float newValue)
+void PhaseCorrelationMeter::setValue(float newValue)
 {
     fValue = newValue;
 

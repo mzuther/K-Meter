@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{F3179438-016E-8B2B-D675-238758842016}</ProjectGuid>
+		<ProjectGuid>{147FBB4C-8A90-10DA-AB79-78A2037F1923}</ProjectGuid>
 		<RootNamespace>kmeter</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -120,9 +120,9 @@
 		<ClInclude Include="..\..\..\src\overflow_meter.h" />
 		<ClInclude Include="..\..\..\src\audio_ring_buffer.h" />
 		<ClInclude Include="..\..\..\src\about_window.h" />
-		<ClInclude Include="..\..\..\src\correlation_meter.h" />
 		<ClInclude Include="..\..\..\src\peak_label.h" />
 		<ClInclude Include="..\..\..\src\kmeter.h" />
+		<ClInclude Include="..\..\..\src\phase_correlation_meter.h" />
 		<ClInclude Include="..\..\..\src\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\src\average_level_filtered_rms.h" />
 		<ClInclude Include="..\..\..\src\plugin_processor.h" />
@@ -144,8 +144,6 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\main.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\correlation_meter.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\src\meter_bar.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\peak_label.cpp">
@@ -155,6 +153,8 @@
 		<ClCompile Include="..\..\..\src\average_level_filtered_rms.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\audio_ring_buffer.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\phase_correlation_meter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\meter_ballistics.cpp">
 		</ClCompile>

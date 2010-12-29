@@ -2,13 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="src">
-			<UniqueIdentifier>{A637A78D-3D33-13C1-BD9B-5CE741E71D93}</UniqueIdentifier>
+			<UniqueIdentifier>{F64777AA-9899-4E3C-A2EC-1EE9E9B41D7C}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="src\juce_library_code">
-			<UniqueIdentifier>{3D93DF70-F3BC-A6A7-DE37-801C3AC73533}</UniqueIdentifier>
+			<UniqueIdentifier>{3583F036-70B9-7C21-D240-D314006F28E5}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="src\resources">
-			<UniqueIdentifier>{75F74967-E2E9-E7EE-3B02-AE10C4CAA740}</UniqueIdentifier>
+			<UniqueIdentifier>{B1ABFE89-274B-1685-ABC0-76E74C2676B7}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -30,13 +30,13 @@
 		<ClInclude Include="..\..\..\src\about_window.h">
 			<Filter>src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\src\correlation_meter.h">
-			<Filter>src</Filter>
-		</ClInclude>
 		<ClInclude Include="..\..\..\src\peak_label.h">
 			<Filter>src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\src\kmeter.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\src\phase_correlation_meter.h">
 			<Filter>src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\src\plugin_parameters.h">
@@ -83,9 +83,6 @@
 		<ClCompile Include="..\..\..\src\main.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\correlation_meter.cpp">
-			<Filter>src</Filter>
-		</ClCompile>
 		<ClCompile Include="..\..\..\src\meter_bar.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
@@ -99,6 +96,9 @@
 			<Filter>src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\audio_ring_buffer.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\phase_correlation_meter.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\meter_ballistics.cpp">

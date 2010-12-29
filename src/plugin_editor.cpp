@@ -132,8 +132,8 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     stereoMeter = new StereoMeter(T("Stereo Meter"), 10, 605, 105, 15);
     addAndMakeVisible(stereoMeter);
 
-    correlationMeter = new CorrelationMeter(T("Correlation Meter"), 10, 625, 105, 13);
-    addAndMakeVisible(correlationMeter);
+    phaseCorrelationMeter = new PhaseCorrelationMeter(T("Correlation Meter"), 10, 625, 105, 13);
+    addAndMakeVisible(phaseCorrelationMeter);
 
     pProcessor->addChangeListenerParameters(this);
 
@@ -182,7 +182,7 @@ void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChang
         {
             kmeter->setLevels(pMeterBallistics);
             stereoMeter->setValue(pMeterBallistics->getStereoMeterValue());
-            correlationMeter->setValue(pMeterBallistics->getCorrelationMeterValue());
+            phaseCorrelationMeter->setValue(pMeterBallistics->getPhaseCorrelation());
         }
     }
 }

@@ -122,7 +122,7 @@ private:
     float fPeakRight;
     float fAverageLeft;
     float fAverageRight;
-    float fCorrelation;
+    float fPhaseCorrelation;
     int nOverflowsLeft;
     int nOverflowsRight;
 

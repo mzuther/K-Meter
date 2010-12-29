@@ -88,7 +88,7 @@ MeterBallistics::~MeterBallistics()
 
 void MeterBallistics::reset()
 {
-    fCorrelationMeterValue = 1.0f;
+    fPhaseCorrelation = 1.0f;
     fStereoMeterValue = 0.0f;
 
     for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
@@ -149,9 +149,9 @@ float	MeterBallistics::getStereoMeterValue()
 }
 
 
-float	MeterBallistics::getCorrelationMeterValue()
+float	MeterBallistics::getPhaseCorrelation()
 {
-    return fCorrelationMeterValue;
+    return fPhaseCorrelation;
 }
 
 
@@ -234,12 +234,12 @@ void MeterBallistics::updateStereoMeter(float fTimeFrame, float fAverageLeft, fl
 }
 
 
-void MeterBallistics::updateCorrelation(float fTimeFrame, float fCorrelation)
+void MeterBallistics::updatePhaseCorrelation(float fTimeFrame, float fCorrelation)
 {
-    fCorrelationMeterValue = CorrelationMeterBallistics(fTimeFrame, fCorrelation, fCorrelationMeterValue);
+    fPhaseCorrelation = PhaseCorrelationMeterBallistics(fTimeFrame, fCorrelation, fPhaseCorrelation);
 
 	// uncomment for validation of correlation meter readings:
-    // DBG(String("[K-Meter] Correlation meter: ") + String(fCorrelationMeterValue, 2));
+    // DBG(String("[K-Meter] Phase correlation: ") + String(fPhaseCorrelation, 2));
 }
 
 
@@ -340,11 +340,11 @@ float MeterBallistics::AverageMeterBallistics(float fTimeFrame, float fLevelCurr
 }
 
 
-float MeterBallistics::StereoMeterBallistics(float fTimeFrame, float fLevelCurrent, float fLevelOld)
+float MeterBallistics::StereoMeterBallistics(float fTimeFrame, float fStereoMeterCurrent, float fStereoMeterOld)
 {
     // Thanks to Bram from Smartelectronix (http://www.musicdsp.org/showone.php?id=136) for the code snippet!
-    float fOutput = fLevelOld;
-    float fTemp = fLevelCurrent;
+    float fOutput = fStereoMeterOld;
+    float fTemp = fStereoMeterCurrent;
 
     // level has changed
     if (fTemp != fOutput)
@@ -357,9 +357,9 @@ float MeterBallistics::StereoMeterBallistics(float fTimeFrame, float fLevelCurre
 }
 
 
-float MeterBallistics::CorrelationMeterBallistics(float fTimeFrame, float fLevelCurrent, float fLevelOld)
+float MeterBallistics::PhaseCorrelationMeterBallistics(float fTimeFrame, float fPhaseCorrelationCurrent, float fPhaseCorrelationOld)
 {
-    return StereoMeterBallistics(fTimeFrame, fLevelCurrent, fLevelOld);
+    return StereoMeterBallistics(fTimeFrame, fPhaseCorrelationCurrent, fPhaseCorrelationOld);
 }
 
 

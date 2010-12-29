@@ -54,7 +54,7 @@ KmeterAudioProcessor::KmeterAudioProcessor()
     fPeakRight = 0.0f;
     fAverageLeft = 0.0f;
     fAverageRight = 0.0f;
-    fCorrelation = 0.0f;
+    fPhaseCorrelation = 0.0f;
     nOverflowsLeft = 0;
     nOverflowsRight = 0;
 
@@ -373,7 +373,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
         // zero)
         if ((fAverageLeft < 0.0001f) && (fAverageRight < 0.0001f))
         {
-            fCorrelation = 1.0f;
+            fPhaseCorrelation = 1.0f;
         }
         else
         {
@@ -392,7 +392,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
                 sum_of_squares_right += ringbuffer_right * ringbuffer_right;
             }
 
-            fCorrelation = sum_of_product / sqrt(sum_of_squares_left * sum_of_squares_right);
+            fPhaseCorrelation = sum_of_product / sqrt(sum_of_squares_left * sum_of_squares_right);
         }
     }
     else
@@ -401,11 +401,11 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
         fAverageRight = fAverageLeft;
         nOverflowsRight = nOverflowsLeft;
 
-        fCorrelation = 1.0f;
+        fPhaseCorrelation = 1.0f;
     }
 
     fTimeFrame = (float) getSampleRate() / (float) uChunkSize;
-    pMeterBallistics->updateCorrelation(fTimeFrame, fCorrelation);
+    pMeterBallistics->updatePhaseCorrelation(fTimeFrame, fPhaseCorrelation);
     pMeterBallistics->updateStereoMeter(fTimeFrame, fAverageLeft, fAverageRight);
 
     pMeterBallistics->updateChannel(0, fTimeFrame, fPeakLeft, fAverageLeft, nOverflowsLeft);

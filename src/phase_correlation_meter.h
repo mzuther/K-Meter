@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __CORRELATION_METER_H__
-#define __CORRELATION_METER_H__
+#ifndef __PHASE_CORRELATION_METER_H__
+#define __PHASE_CORRELATION_METER_H__
 
 #include "juce_library_code/juce_header.h"
 
@@ -32,11 +32,11 @@
 //==============================================================================
 /**
 */
-class CorrelationMeter : public Component
+class PhaseCorrelationMeter : public Component
 {
 public:
-    CorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height);
-    ~CorrelationMeter();
+    PhaseCorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height);
+    ~PhaseCorrelationMeter();
 
     void setValue(float newValue);
     void paint(Graphics& g);
@@ -53,7 +53,7 @@ private:
 };
 
 
-#endif  // __CORRELATION_METER_H__
+#endif  // __PHASE_CORRELATION_METER_H__
 
 
 // Local Variables:

@@ -69,7 +69,7 @@ OBJECTS := \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/main.o \
-	$(OBJDIR)/correlation_meter.o \
+	$(OBJDIR)/phase_correlation_meter.o \
 	$(OBJDIR)/meter_bar.o \
 	$(OBJDIR)/peak_label.o \
 	$(OBJDIR)/kmeter.o \
@@ -159,7 +159,7 @@ $(OBJDIR)/plugin_parameters.o: ../../../src/plugin_parameters.cpp
 $(OBJDIR)/main.o: ../../../src/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/correlation_meter.o: ../../../src/correlation_meter.cpp
+$(OBJDIR)/phase_correlation_meter.o: ../../../src/phase_correlation_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_bar.o: ../../../src/meter_bar.cpp
