@@ -1,0 +1,45 @@
+FLAC-compressed wave file (44.1 kHz, 16 bit)
+============================================
+Please verify readout of stereo meter programmatically.
+
+00:00.000 - 00:02.000  silence
+
+00:02.000 - 00:05.000  sine waves (1 kHz)
+                       left channel:  -12.00 dBFS (100 %)
+                       right channel:  muted      (  0 %)
+
+                       [stereo meter should read -1.00]
+
+00:05.000 - 00:07.000  silence
+
+00:07.000 - 00:10.000  sine waves (1 kHz)
+                       left channel:  -12.00 dBFS (100 %)
+                       right channel: -18.02 dBFS ( 50 %)
+
+                       [stereo meter should read -0.50]
+
+00:10.000 - 00:12.000  silence
+
+00:12.000 - 00:15.000  sine waves (1 kHz)
+                       left channel:  -12.00 dBFS (100 %)
+                       right channel: -12.00 dBFS (100 %)
+
+                       [stereo meter should read  0.00]
+
+00:15.000 - 00:17.000  silence
+
+00:17.000 - 00:20.000  sine waves (1 kHz)
+                       left channel:  -18.02 dBFS ( 50 %)
+                       right channel: -12.00 dBFS (100 %)
+
+                       [stereo meter should read +0.50]
+
+00:20.000 - 00:22.000  silence
+
+00:22.000 - 00:25.000  sine waves (1 kHz)
+                       left channel:   muted      (  0 %)
+                       right channel: -12.00 dBFS (100 %)
+
+                       [stereo meter should read +1.00]
+
+00:25.000 - 00:27.000  silence

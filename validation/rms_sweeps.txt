@@ -19,7 +19,7 @@ file).
 01:11          check filter cutoff @21 kHz
 
 01:26 - 01:29  silence
-01:29 - 01:49  triangle sweep (20 Hz to 20 kHz, -4.00 dBFS, logarithmic)
+01:29 - 01:49  triangular sweep (20 Hz to 20 kHz, -4.00 dBFS, logarithmic)
 01:49 - 01:52  silence
 01:52 - 02:12  square sweep (20 Hz to 20 kHz, -4.00 dBFS, logarithmic)
 02:12 - 02:15  silence

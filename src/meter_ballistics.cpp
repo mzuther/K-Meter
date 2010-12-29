@@ -228,12 +228,18 @@ void MeterBallistics::updateStereoMeter(float fTimeFrame, float fAverageLeft, fl
     }
 
     fStereoMeterValue = StereoMeterBallistics(fTimeFrame, fStereoMeterValue, fStereoMeterValueOld);
+
+	// uncomment for validation of stereo meter readings:
+    // DBG(String("[K-Meter] Stereo meter: ") + String(fStereoMeterValue, 2));
 }
 
 
 void MeterBallistics::updateCorrelation(float fTimeFrame, float fCorrelation)
 {
     fCorrelationMeterValue = CorrelationMeterBallistics(fTimeFrame, fCorrelation, fCorrelationMeterValue);
+
+	// uncomment for validation of correlation meter readings:
+    // DBG(String("[K-Meter] Correlation meter: ") + String(fCorrelationMeterValue, 2));
 }
 
 
