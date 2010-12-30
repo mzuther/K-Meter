@@ -118,16 +118,11 @@ private:
     int nSamplesInBuffer;
     float fTimeFrame;
 
-    float fPeakLeft;
-    float fPeakRight;
-    float fAverageLeft;
-    float fAverageRight;
-    float fPhaseCorrelation;
-    int nOverflowsLeft;
-    int nOverflowsRight;
+    float* fPeakLevels;
+    float* fAverageLevels;
 
-    bool bPreviousSampleOverLeft;
-    bool bPreviousSampleOverRight;
+    int* nOverflows;
+    bool* bOverflowsPreviousSample;
 
     int countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay, bool& bPreviousSampleOver);
 };

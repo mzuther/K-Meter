@@ -58,7 +58,7 @@ public:
 
     void updateChannel(int nChannel, float fTimeFrame, float fPeak, float fAverage, int Overflows);
     void updatePhaseCorrelation(float fTimeFrame, float fCorrelation);
-    void updateStereoMeter(float fTimeFrame, float fAverageLeft, float fAverageRight);
+    void updateStereoMeter(float fTimeFrame, float fStereo);
 
 private:
     int nNumberOfChannels;

@@ -50,22 +50,19 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 
     fTimeFrame = 0.0f;
 
-    fPeakLeft = 0.0f;
-    fPeakRight = 0.0f;
-    fAverageLeft = 0.0f;
-    fAverageRight = 0.0f;
-    fPhaseCorrelation = 0.0f;
-    nOverflowsLeft = 0;
-    nOverflowsRight = 0;
+    fPeakLevels = NULL;
+    fAverageLevels = NULL;
 
-    bPreviousSampleOverLeft = false;
-    bPreviousSampleOverRight = false;
+    nOverflows = NULL;
+    bOverflowsPreviousSample = NULL;
 }
 
 
 KmeterAudioProcessor::~KmeterAudioProcessor()
 {
     removeAllChangeListeners();
+
+    releaseResources();
 
     delete pAverageLevelFilteredRms;
     pAverageLevelFilteredRms = NULL;
@@ -262,6 +259,21 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     DBG("[K-Meter] in method KmeterAudioProcessor::prepareToPlay()");
     DBG(String("[K-Meter] nNumInputChannels:  ") + String(nNumInputChannels));
 
+    fPeakLevels = new float[nNumInputChannels];
+    fAverageLevels = new float[nNumInputChannels];
+
+    nOverflows = new int[nNumInputChannels];
+    bOverflowsPreviousSample = new bool[nNumInputChannels];
+
+    for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
+    {
+        fPeakLevels[nChannel] = 0.0f;
+        fAverageLevels[nChannel] = 0.0f;
+
+        nOverflows[nChannel] = 0;
+        bOverflowsPreviousSample[nChannel] = false;
+    }
+
     pMeterBallistics = new MeterBallistics(nNumInputChannels, false, false);
 
     // make sure that ring buffer can hold at least KMETER_BUFFER_SIZE
@@ -291,6 +303,18 @@ void KmeterAudioProcessor::releaseResources()
 
     delete pRingBufferInput;
     pRingBufferInput = NULL;
+
+    delete [] fPeakLevels;
+    fPeakLevels = NULL;
+
+    delete [] fAverageLevels;
+    fAverageLevels = NULL;
+
+    delete [] nOverflows;
+    nOverflows = NULL;
+
+    delete [] bOverflowsPreviousSample;
+    bOverflowsPreviousSample = NULL;
 }
 
 
@@ -344,38 +368,49 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
     unsigned int uPreDelay = uChunkSize / 2;
     bool bMono = pPluginParameters->getParameterAsBool(KmeterPluginParameters::selMono);
 
+    fTimeFrame = (float) getSampleRate() / (float) uChunkSize;
+
     // copy ring buffer to determine average level (FIR filter already
     // adds delay of (uChunkSize / 2) samples)
     pAverageLevelFilteredRms->copyFromBuffer(*pRingBufferInput, 0, (int) getSampleRate());
 
-    // determine peak level for uChunkSize samples (use pre-delay)
-    fPeakLeft = pRingBufferInput->getMagnitude(0, uChunkSize, uPreDelay);
-
-    // determine overflows for uChunkSize samples (use pre-delay)
-    nOverflowsLeft = countOverflows(pRingBufferInput, 0, uChunkSize, uPreDelay, bPreviousSampleOverLeft);
-
-    // determine average level for uChunkSize samples
-    fAverageLeft = pAverageLevelFilteredRms->getLevel(0);
-
-    if (isStereo && !bMono)
+    for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
     {
-        // determine peak level for uChunkSize samples (use pre-delay)
-        fPeakRight = pRingBufferInput->getMagnitude(1, uChunkSize, uPreDelay);
+        if (bMono && (nChannel == 1))
+        {
+            fPeakLevels[nChannel] = fPeakLevels[0];
+            fAverageLevels[nChannel] = fAverageLevels[0];
+            nOverflows[nChannel] = nOverflows[0];
+        }
+        else
+        {
+            // determine peak level for uChunkSize samples (use pre-delay)
+            fPeakLevels[nChannel] = pRingBufferInput->getMagnitude(nChannel, uChunkSize, uPreDelay);
 
-        // determine overflows for uChunkSize samples (use pre-delay)
-        nOverflowsRight = countOverflows(pRingBufferInput, 1, uChunkSize, uPreDelay, bPreviousSampleOverRight);
+            // determine average level for uChunkSize samples
+            fAverageLevels[nChannel] = pAverageLevelFilteredRms->getLevel(nChannel);
 
-        // determine average level for uChunkSize samples (FIR filter
-        // already adds delay of (uChunkSize / 2) samples)
-        fAverageRight = pAverageLevelFilteredRms->getLevel(1);
+            // determine overflows for uChunkSize samples (use pre-delay)
+            nOverflows[nChannel] = countOverflows(pRingBufferInput, nChannel, uChunkSize, uPreDelay, bOverflowsPreviousSample[nChannel]);
+        }
 
-        // do not process levels below -80 dB (and prevent division by
-        // zero)
-        if ((fAverageLeft < 0.0001f) && (fAverageRight < 0.0001f))
+        // apply meter ballistics and store values so that the editor
+        // can access them
+        pMeterBallistics->updateChannel(nChannel, fTimeFrame, fPeakLevels[nChannel], fAverageLevels[nChannel], nOverflows[nChannel]);
+    }
+
+    // phase correlation is only defined for stereo signals
+    if (isStereo)
+    {
+        float fPhaseCorrelation = 1.0f;
+
+        // check whether the stereo signal has been mixed down to mono
+        if (bMono)
         {
             fPhaseCorrelation = 1.0f;
         }
-        else
+        // otherwise, process only levels at or above -80 dB
+        else if ((fAverageLevels[0] >= 0.0001f) || (fAverageLevels[1] >= 0.0001f))
         {
             float sum_of_product = 0.0f;
             float sum_of_squares_left = 0.0f;
@@ -392,27 +427,29 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
                 sum_of_squares_right += ringbuffer_right * ringbuffer_right;
             }
 
+            // TODO: what about division by zero?
             fPhaseCorrelation = sum_of_product / sqrt(sum_of_squares_left * sum_of_squares_right);
         }
-    }
-    else
-    {
-        fPeakRight = fPeakLeft;
-        fAverageRight = fAverageLeft;
-        nOverflowsRight = nOverflowsLeft;
 
-        fPhaseCorrelation = 1.0f;
-    }
+        pMeterBallistics->updatePhaseCorrelation(fTimeFrame, fPhaseCorrelation);
 
-    fTimeFrame = (float) getSampleRate() / (float) uChunkSize;
-    pMeterBallistics->updatePhaseCorrelation(fTimeFrame, fPhaseCorrelation);
-    pMeterBallistics->updateStereoMeter(fTimeFrame, fAverageLeft, fAverageRight);
+        float fStereoMeterValue = 0.0f;
 
-    pMeterBallistics->updateChannel(0, fTimeFrame, fPeakLeft, fAverageLeft, nOverflowsLeft);
+        // do not process levels below -80 dB
+        if ((fAverageLevels[0] < 0.0001f) && (fAverageLevels[1] < 0.0001f))
+        {
+            fStereoMeterValue = 0.0f;
+        }
+        else if (fAverageLevels[1] >= fAverageLevels[0])
+        {
+            fStereoMeterValue = (fAverageLevels[1] - fAverageLevels[0]) / fAverageLevels[1];
+        }
+        else
+        {
+            fStereoMeterValue = (fAverageLevels[1] - fAverageLevels[0]) / fAverageLevels[0];
+        }
 
-    if (isStereo)
-    {
-        pMeterBallistics->updateChannel(1, fTimeFrame, fPeakRight, fAverageRight, nOverflowsRight);
+        pMeterBallistics->updateStereoMeter(fTimeFrame, fStereoMeterValue);
     }
 
     sendChangeMessage(this);

@@ -145,12 +145,16 @@ int MeterBallistics::getNumberOfChannels()
 
 float	MeterBallistics::getStereoMeterValue()
 {
+    jassert(nNumberOfChannels == 2);
+
     return fStereoMeterValue;
 }
 
 
 float	MeterBallistics::getPhaseCorrelation()
 {
+    jassert(nNumberOfChannels == 2);
+
     return fPhaseCorrelation;
 }
 
@@ -209,36 +213,24 @@ int MeterBallistics::getOverflows(int nChannel)
 }
 
 
-void MeterBallistics::updateStereoMeter(float fTimeFrame, float fAverageLeft, float fAverageRight)
+void MeterBallistics::updateStereoMeter(float fTimeFrame, float fStereo)
 {
-    float fStereoMeterValueOld = fStereoMeterValue;
+    jassert(nNumberOfChannels == 2);
 
-    // do not process levels below -80 dB
-    if ((fAverageLeft < 0.0001f) && (fAverageRight < 0.0001f))
-    {
-        fStereoMeterValue = 0.0f;
-    }
-    else if (fAverageRight >= fAverageLeft)
-    {
-        fStereoMeterValue = (fAverageRight - fAverageLeft) / fAverageRight;
-    }
-    else
-    {
-        fStereoMeterValue = (fAverageRight - fAverageLeft) / fAverageLeft;
-    }
+    fStereoMeterValue = StereoMeterBallistics(fTimeFrame, fStereo, fStereoMeterValue);
 
-    fStereoMeterValue = StereoMeterBallistics(fTimeFrame, fStereoMeterValue, fStereoMeterValueOld);
-
-	// uncomment for validation of stereo meter readings:
+    // uncomment for validation of stereo meter readings:
     // DBG(String("[K-Meter] Stereo meter: ") + String(fStereoMeterValue, 2));
 }
 
 
 void MeterBallistics::updatePhaseCorrelation(float fTimeFrame, float fCorrelation)
 {
+    jassert(nNumberOfChannels == 2);
+
     fPhaseCorrelation = PhaseCorrelationMeterBallistics(fTimeFrame, fCorrelation, fPhaseCorrelation);
 
-	// uncomment for validation of correlation meter readings:
+    // uncomment for validation of correlation meter readings:
     // DBG(String("[K-Meter] Phase correlation: ") + String(fPhaseCorrelation, 2));
 }
 
