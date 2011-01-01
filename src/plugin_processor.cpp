@@ -48,7 +48,7 @@ KmeterAudioProcessor::KmeterAudioProcessor()
     pAverageLevelFilteredRms = new AverageLevelFilteredRms(2, KMETER_BUFFER_SIZE);
     pPluginParameters = new KmeterPluginParameters();
 
-    fTimeFrame = 0.0f;
+    fProcessedSeconds = 0.0f;
 
     fPeakLevels = NULL;
     fAverageLevels = NULL;
@@ -368,7 +368,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
     unsigned int uPreDelay = uChunkSize / 2;
     bool bMono = pPluginParameters->getParameterAsBool(KmeterPluginParameters::selMono);
 
-    fTimeFrame = (float) getSampleRate() / (float) uChunkSize;
+    fProcessedSeconds = (float) getSampleRate() / (float) uChunkSize;
 
     // copy ring buffer to determine average level (FIR filter already
     // adds delay of (uChunkSize / 2) samples)
@@ -396,7 +396,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
 
         // apply meter ballistics and store values so that the editor
         // can access them
-        pMeterBallistics->updateChannel(nChannel, fTimeFrame, fPeakLevels[nChannel], fAverageLevels[nChannel], nOverflows[nChannel]);
+        pMeterBallistics->updateChannel(nChannel, fProcessedSeconds, fPeakLevels[nChannel], fAverageLevels[nChannel], nOverflows[nChannel]);
     }
 
     // phase correlation is only defined for stereo signals
@@ -431,7 +431,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
             fPhaseCorrelation = sum_of_product / sqrt(sum_of_squares_left * sum_of_squares_right);
         }
 
-        pMeterBallistics->updatePhaseCorrelation(fTimeFrame, fPhaseCorrelation);
+        pMeterBallistics->setPhaseCorrelation(fProcessedSeconds, fPhaseCorrelation);
 
         float fStereoMeterValue = 0.0f;
 
@@ -449,7 +449,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
             fStereoMeterValue = (fAverageLevels[1] - fAverageLevels[0]) / fAverageLevels[0];
         }
 
-        pMeterBallistics->updateStereoMeter(fTimeFrame, fStereoMeterValue);
+        pMeterBallistics->setStereoMeterValue(fProcessedSeconds, fStereoMeterValue);
     }
 
     sendChangeMessage(this);

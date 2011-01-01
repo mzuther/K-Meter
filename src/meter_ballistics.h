@@ -44,21 +44,22 @@ public:
 
     int getNumberOfChannels();
 
+    float getPeakMeterLevel(int nChannel);
+    float getPeakMeterPeakLevel(int nChannel);
+
+    float getAverageMeterLevel(int nChannel);
+    float getAverageMeterPeakLevel(int nChannel);
+
+    float getMaximumPeakLevel(int nChannel);
+    int getNumberOfOverflows(int nChannel);
+
     float getStereoMeterValue();
+    void setStereoMeterValue(float fProcessedSeconds, float fStereoMeterValueNew);
+
     float getPhaseCorrelation();
+    void setPhaseCorrelation(float fProcessedSeconds, float fPhaseCorrelationNew);
 
-    float getPeakMeter(int nChannel);
-    float getAverageMeter(int nChannel);
-
-    float getPeakMeterPeak(int nChannel);
-    float getAverageMeterPeak(int nChannel);
-
-    float getMaximumPeak(int nChannel);
-    int getOverflows(int nChannel);
-
-    void updateChannel(int nChannel, float fTimeFrame, float fPeak, float fAverage, int Overflows);
-    void updatePhaseCorrelation(float fTimeFrame, float fCorrelation);
-    void updateStereoMeter(float fTimeFrame, float fStereo);
+    void updateChannel(int nChannel, float fProcessedSeconds, float fPeak, float fAverage, int Overflows);
 
 private:
     int nNumberOfChannels;
@@ -66,32 +67,32 @@ private:
     float fMeterMinimumDecibel;
     float fAverageCorrection;
 
-    float fStereoMeterValue;
-    float fPhaseCorrelation;
+    float* fPeakMeterLevels;
+    float* fPeakMeterPeakLevels;
 
-    float* fPeakMeter;
-    float* fAverageMeter;
+    float* fAverageMeterLevels;
+    float* fAverageMeterPeakLevels;
 
-    float* fPeakMeterPeak;
-    float* fAverageMeterPeak;
-
-    float* fMaximumPeak;
-
-    int* nOverflows;
+    float* fMaximumPeakLevels;
+    int* nNumberOfOverflows;
 
     float* fPeakMeterPeakLastChanged;
     float* fAverageMeterPeakLastChanged;
 
+    float fStereoMeterValue;
+    float fPhaseCorrelation;
+
     float level2decibel(float level);
 
-    float StereoMeterBallistics(float fTimeFrame, float fStereoMeterCurrent, float fStereoMeterOld);
-    float PhaseCorrelationMeterBallistics(float fTimeFrame, float fPhaseCorrelationCurrent, float fPhaseCorrelationOld);
+    float PeakMeterBallistics(float fProcessedSeconds, float fLevelCurrent, float fLevelOld);
+    float PeakMeterPeakBallistics(float fProcessedSeconds, float* fLastChanged, float fLevelCurrent, float fLevelOld);
 
-    float PeakMeterBallistics(float fTimeFrame, float fLevelCurrent, float fLevelOld);
-    float PeakMeterPeakBallistics(float fTimeFrame, float* fLastChanged, float fLevelCurrent, float fLevelOld);
+    float AverageMeterBallistics(float fProcessedSeconds, float fLevelCurrent, float fLevelOld);
+    float AverageMeterPeakBallistics(float fProcessedSeconds, float* fLastChanged, float fLevelCurrent, float fLevelOld);
 
-    float AverageMeterBallistics(float fTimeFrame, float fLevelCurrent, float fLevelOld);
-    float AverageMeterPeakBallistics(float fTimeFrame, float* fLastChanged, float fLevelCurrent, float fLevelOld);
+    float StereoMeterBallistics(float fProcessedSeconds, float fStereoMeterCurrent, float fStereoMeterOld);
+
+    float PhaseCorrelationMeterBallistics(float fProcessedSeconds, float fPhaseCorrelationCurrent, float fPhaseCorrelationOld);
 };
 
 

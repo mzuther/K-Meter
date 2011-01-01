@@ -116,7 +116,7 @@ private:
     bool isStereo;
 
     int nSamplesInBuffer;
-    float fTimeFrame;
+    float fProcessedSeconds;
 
     float* fPeakLevels;
     float* fAverageLevels;

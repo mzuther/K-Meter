@@ -39,17 +39,17 @@ MeterBallistics::MeterBallistics(int nChannels, bool bPeakHold, bool bAverageHol
 
     nNumberOfChannels = nChannels;
 
-    fPeakMeter = new float[nNumberOfChannels];
-    fAverageMeter = new float[nNumberOfChannels];
+    fPeakMeterLevels = new float[nNumberOfChannels];
+    fPeakMeterPeakLevels = new float[nNumberOfChannels];
 
-    fPeakMeterPeak = new float[nNumberOfChannels];
-    fAverageMeterPeak = new float[nNumberOfChannels];
-
-    fMaximumPeak = new float[nNumberOfChannels];
-    nOverflows = new int[nNumberOfChannels];
+    fAverageMeterLevels = new float[nNumberOfChannels];
+    fAverageMeterPeakLevels = new float[nNumberOfChannels];
 
     fPeakMeterPeakLastChanged = new float[nNumberOfChannels];
     fAverageMeterPeakLastChanged = new float[nNumberOfChannels];
+
+    fMaximumPeakLevels = new float[nNumberOfChannels];
+    nNumberOfOverflows = new int[nNumberOfChannels];
 
     setPeakHold(bPeakHold);
     setAverageHold(bAverageHold);
@@ -60,29 +60,29 @@ MeterBallistics::MeterBallistics(int nChannels, bool bPeakHold, bool bAverageHol
 
 MeterBallistics::~MeterBallistics()
 {
-    delete [] fPeakMeter;
-    fPeakMeter = NULL;
+    delete [] fPeakMeterLevels;
+    fPeakMeterLevels = NULL;
 
-    delete [] fAverageMeter;
-    fAverageMeter = NULL;
+    delete [] fPeakMeterPeakLevels;
+    fPeakMeterPeakLevels = NULL;
 
-    delete [] fPeakMeterPeak;
-    fPeakMeterPeak = NULL;
+    delete [] fAverageMeterLevels;
+    fAverageMeterLevels = NULL;
 
-    delete [] fAverageMeterPeak;
-    fAverageMeterPeak = NULL;
-
-    delete [] fMaximumPeak;
-    fMaximumPeak = NULL;
-
-    delete [] nOverflows;
-    nOverflows = NULL;
+    delete [] fAverageMeterPeakLevels;
+    fAverageMeterPeakLevels = NULL;
 
     delete [] fPeakMeterPeakLastChanged;
     fPeakMeterPeakLastChanged = NULL;
 
     delete [] fAverageMeterPeakLastChanged;
     fAverageMeterPeakLastChanged = NULL;
+
+    delete [] fMaximumPeakLevels;
+    fMaximumPeakLevels = NULL;
+
+    delete [] nNumberOfOverflows;
+    nNumberOfOverflows = NULL;
 }
 
 
@@ -93,14 +93,14 @@ void MeterBallistics::reset()
 
     for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
     {
-        fPeakMeter[nChannel] = fMeterMinimumDecibel;
-        fAverageMeter[nChannel] = fMeterMinimumDecibel + fAverageCorrection;
+        fPeakMeterLevels[nChannel] = fMeterMinimumDecibel;
+        fPeakMeterPeakLevels[nChannel] = fMeterMinimumDecibel;
 
-        fPeakMeterPeak[nChannel] = fMeterMinimumDecibel;
-        fAverageMeterPeak[nChannel] = fMeterMinimumDecibel + fAverageCorrection;
+        fAverageMeterLevels[nChannel] = fMeterMinimumDecibel + fAverageCorrection;
+        fAverageMeterPeakLevels[nChannel] = fMeterMinimumDecibel + fAverageCorrection;
 
-        fMaximumPeak[nChannel] = fMeterMinimumDecibel;
-        nOverflows[nChannel] = 0;
+        fMaximumPeakLevels[nChannel] = fMeterMinimumDecibel;
+        nNumberOfOverflows[nChannel] = 0;
     }
 }
 
@@ -138,104 +138,185 @@ void MeterBallistics::setAverageHold(bool bAverageHold)
 
 
 int MeterBallistics::getNumberOfChannels()
+/*  Get number of audio channels.
+
+    return value (float): returns the current number of processed
+    audio channels
+*/
 {
     return nNumberOfChannels;
 }
 
 
-float	MeterBallistics::getStereoMeterValue()
+float MeterBallistics::getPeakMeterLevel(int nChannel)
+/*  Get current level of an audio channel's peak level meter.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns the current level of the given audio
+    channel's peak level meter
+*/
 {
+    jassert(nChannel >= 0);
+    jassert(nChannel < nNumberOfChannels);
+
+    return fPeakMeterLevels[nChannel];
+}
+
+
+float MeterBallistics::getPeakMeterPeakLevel(int nChannel)
+/*  Get peak level of an audio channel's peak level meter.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns the (changing) peak level of the
+    given audio channel's peak level meter
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nNumberOfChannels);
+
+    return fPeakMeterPeakLevels[nChannel];
+}
+
+
+float MeterBallistics::getAverageMeterLevel(int nChannel)
+/*  Get current level of an audio channel's average level meter.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns the current level of the given audio
+    channel's average level meter
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nNumberOfChannels);
+
+    return fAverageMeterLevels[nChannel];
+}
+
+
+float MeterBallistics::getAverageMeterPeakLevel(int nChannel)
+/*  Get peak level of an audio channel's average level meter.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns the (changing) peak level of the
+    given audio channel's average level meter
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nNumberOfChannels);
+
+    return fAverageMeterPeakLevels[nChannel];
+}
+
+
+float MeterBallistics::getMaximumPeakLevel(int nChannel)
+/*  Get overall maximum peak level of an audio channel.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns the overall maximum peak level that
+    has been registered on the given audio channel
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nNumberOfChannels);
+
+    return fMaximumPeakLevels[nChannel];
+}
+
+
+int MeterBallistics::getNumberOfOverflows(int nChannel)
+/*  Get number of overflows of an audio channel.
+
+    nChannel (integer): selected audio channel
+
+    return value (integer): returns the number of overflows that has
+    been registered on the given audio channel
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nNumberOfChannels);
+
+    return nNumberOfOverflows[nChannel];
+}
+
+
+float MeterBallistics::getStereoMeterValue()
+/*  Get stereo meter value.
+
+    return value (float): returns the stereo meter value of a stereo
+    audio channel pair
+*/
+{
+    // assure that we are processing a stereo audio channel pair
     jassert(nNumberOfChannels == 2);
 
     return fStereoMeterValue;
 }
 
 
-float	MeterBallistics::getPhaseCorrelation()
+void MeterBallistics::setStereoMeterValue(float fProcessedSeconds, float fStereoMeterValueNew)
+/*  Set stereo meter value and apply meter ballistics.
+
+    fProcessedSeconds (float): length of current buffer chunk in
+    fractional seconds
+
+    fStereoMeterValueNew (float): current stereo meter value
+
+    return value: none
+*/
 {
+    // assure that we are processing a stereo audio channel pair
+    jassert(nNumberOfChannels == 2);
+
+    // apply meter ballistics
+    fStereoMeterValue = StereoMeterBallistics(fProcessedSeconds, fStereoMeterValueNew, fStereoMeterValue);
+
+    // uncomment for validation of stereo meter readings:
+    // DBG(String("[K-Meter] Stereo meter value: ") + String(fStereoMeterValue, 2));
+}
+
+
+float MeterBallistics::getPhaseCorrelation()
+/*  Get phase correlation.
+
+    return value (float): returns the phase correlation value of a
+    stereo audio channel pair
+*/
+{
+    // assure that we are processing a stereo audio channel pair
     jassert(nNumberOfChannels == 2);
 
     return fPhaseCorrelation;
 }
 
 
-float MeterBallistics::getPeakMeter(int nChannel)
+void MeterBallistics::setPhaseCorrelation(float fProcessedSeconds, float fPhaseCorrelationNew)
+/*  Set phase correlation and apply meter ballistics.
+
+    fProcessedSeconds (float): length of current buffer chunk in
+    fractional seconds
+
+    fPhaseCorrelationNew (float): current phase correlation
+
+    return value: none
+*/
 {
-    jassert(nChannel >= 0);
-    jassert(nChannel < nNumberOfChannels);
-
-    return fPeakMeter[nChannel];
-}
-
-
-float MeterBallistics::getAverageMeter(int nChannel)
-{
-    jassert(nChannel >= 0);
-    jassert(nChannel < nNumberOfChannels);
-
-    return fAverageMeter[nChannel];
-}
-
-
-float MeterBallistics::getPeakMeterPeak(int nChannel)
-{
-    jassert(nChannel >= 0);
-    jassert(nChannel < nNumberOfChannels);
-
-    return fPeakMeterPeak[nChannel];
-}
-
-
-float MeterBallistics::getMaximumPeak(int nChannel)
-{
-    jassert(nChannel >= 0);
-    jassert(nChannel < nNumberOfChannels);
-
-    return fMaximumPeak[nChannel];
-}
-
-
-float MeterBallistics::getAverageMeterPeak(int nChannel)
-{
-    jassert(nChannel >= 0);
-    jassert(nChannel < nNumberOfChannels);
-
-    return fAverageMeterPeak[nChannel];
-}
-
-
-int MeterBallistics::getOverflows(int nChannel)
-{
-    jassert(nChannel >= 0);
-    jassert(nChannel < nNumberOfChannels);
-
-    return nOverflows[nChannel];
-}
-
-
-void MeterBallistics::updateStereoMeter(float fTimeFrame, float fStereo)
-{
+    // assure that we are processing a stereo audio channel pair
     jassert(nNumberOfChannels == 2);
 
-    fStereoMeterValue = StereoMeterBallistics(fTimeFrame, fStereo, fStereoMeterValue);
-
-    // uncomment for validation of stereo meter readings:
-    // DBG(String("[K-Meter] Stereo meter: ") + String(fStereoMeterValue, 2));
-}
-
-
-void MeterBallistics::updatePhaseCorrelation(float fTimeFrame, float fCorrelation)
-{
-    jassert(nNumberOfChannels == 2);
-
-    fPhaseCorrelation = PhaseCorrelationMeterBallistics(fTimeFrame, fCorrelation, fPhaseCorrelation);
+    // apply meter ballistics
+    fPhaseCorrelation = PhaseCorrelationMeterBallistics(fProcessedSeconds, fPhaseCorrelationNew, fPhaseCorrelation);
 
     // uncomment for validation of correlation meter readings:
     // DBG(String("[K-Meter] Phase correlation: ") + String(fPhaseCorrelation, 2));
 }
 
 
-void MeterBallistics::updateChannel(int nChannel, float fTimeFrame, float fPeak, float fAverage, int Overflows)
+void MeterBallistics::updateChannel(int nChannel, float fProcessedSeconds, float fPeak, float fAverage, int Overflows)
 {
     jassert(nChannel >= 0);
     jassert(nChannel < nNumberOfChannels);
@@ -244,38 +325,38 @@ void MeterBallistics::updateChannel(int nChannel, float fTimeFrame, float fPeak,
     // before all others!
     if ((nNumberOfChannels == 1) && (nChannel > 0))
     {
-        fPeakMeter[nChannel] = fPeakMeter[0];
-        fPeakMeterPeak[nChannel] = fPeakMeterPeak[0];
+        fPeakMeterLevels[nChannel] = fPeakMeterLevels[0];
+        fPeakMeterPeakLevels[nChannel] = fPeakMeterPeakLevels[0];
 
-        fAverageMeter[nChannel] = fAverageMeter[0];
-        fAverageMeterPeak[nChannel] = fAverageMeterPeak[0];
+        fAverageMeterLevels[nChannel] = fAverageMeterLevels[0];
+        fAverageMeterPeakLevels[nChannel] = fAverageMeterPeakLevels[0];
 
-        nOverflows[nChannel] = nOverflows[0];
+        nNumberOfOverflows[nChannel] = nNumberOfOverflows[0];
     }
     else
     {
         fPeak = level2decibel(fPeak);
         fAverage = level2decibel(fAverage) + fAverageCorrection;
 
-        if (fPeak > fMaximumPeak[nChannel])
+        if (fPeak > fMaximumPeakLevels[nChannel])
         {
-            fMaximumPeak[nChannel] = fPeak;
+            fMaximumPeakLevels[nChannel] = fPeak;
         }
 
-        fPeakMeter[nChannel] = PeakMeterBallistics(fTimeFrame, fPeak, fPeakMeter[nChannel]);
-        fPeakMeterPeak[nChannel] = PeakMeterPeakBallistics(fTimeFrame, &fPeakMeterPeakLastChanged[nChannel], fPeak, fPeakMeterPeak[nChannel]);
+        fPeakMeterLevels[nChannel] = PeakMeterBallistics(fProcessedSeconds, fPeak, fPeakMeterLevels[nChannel]);
+        fPeakMeterPeakLevels[nChannel] = PeakMeterPeakBallistics(fProcessedSeconds, &fPeakMeterPeakLastChanged[nChannel], fPeak, fPeakMeterPeakLevels[nChannel]);
 
-        fAverageMeter[nChannel] = AverageMeterBallistics(fTimeFrame, fAverage, fAverageMeter[nChannel]);
-        fAverageMeterPeak[nChannel] = AverageMeterPeakBallistics(fTimeFrame, &fAverageMeterPeakLastChanged[nChannel], fAverageMeter[nChannel], fAverageMeterPeak[nChannel]);
+        fAverageMeterLevels[nChannel] = AverageMeterBallistics(fProcessedSeconds, fAverage, fAverageMeterLevels[nChannel]);
+        fAverageMeterPeakLevels[nChannel] = AverageMeterPeakBallistics(fProcessedSeconds, &fAverageMeterPeakLastChanged[nChannel], fAverageMeterLevels[nChannel], fAverageMeterPeakLevels[nChannel]);
 
-        nOverflows[nChannel] += Overflows;
+        nNumberOfOverflows[nChannel] += Overflows;
     }
 
     // uncomment for validation of K-System meter peak readings:
-    // DBG(String("[K-Meter] K-20 Peak (channel #") + String(nChannel) + T("): ") + String(20.0f + fPeakMeter[nChannel], 2));
+    // DBG(String("[K-Meter] K-20 Peak (channel #") + String(nChannel) + T("): ") + String(20.0f + fPeakMeterLevels[nChannel], 2));
 
     // uncomment for validation of K-System meter average readings:
-    // DBG(String("[K-Meter] K-20 Average (channel #") + String(nChannel) + T("): ") + String(20.0f + fAverageMeter[nChannel], 2));
+    // DBG(String("[K-Meter] K-20 Average (channel #") + String(nChannel) + T("): ") + String(20.0f + fAverageMeterLevels[nChannel], 2));
 }
 
 
@@ -301,7 +382,7 @@ float MeterBallistics::level2decibel(float level)
 }
 
 
-float MeterBallistics::PeakMeterBallistics(float fTimeFrame, float fLevelCurrent, float fLevelOld)
+float MeterBallistics::PeakMeterBallistics(float fProcessedSeconds, float fLevelCurrent, float fLevelOld)
 {
     if (fLevelCurrent >= fLevelOld)
     {
@@ -309,53 +390,13 @@ float MeterBallistics::PeakMeterBallistics(float fTimeFrame, float fLevelCurrent
     }
     else
     {
-        float fReleaseCoef = 26.0f / (3.0f * fTimeFrame);
+        float fReleaseCoef = 26.0f / (3.0f * fProcessedSeconds);
         return fLevelOld - fReleaseCoef;
     }
 }
 
 
-float MeterBallistics::AverageMeterBallistics(float fTimeFrame, float fLevelCurrent, float fLevelOld)
-{
-    // Thanks to Bram from Smartelectronix (http://www.musicdsp.org/showone.php?id=136) for the code snippet!
-    float fOutput = fLevelOld / fMeterMinimumDecibel;
-    float fTemp = fLevelCurrent / fMeterMinimumDecibel;
-
-    // level has changed
-    if (fTemp != fOutput)
-    {
-        float fAttackReleaseCoef = powf(0.01f, 1.0f / (0.600f * fTimeFrame));
-        fOutput = fAttackReleaseCoef * (fOutput - fTemp) + fTemp;
-    }
-
-    return fOutput * fMeterMinimumDecibel;
-}
-
-
-float MeterBallistics::StereoMeterBallistics(float fTimeFrame, float fStereoMeterCurrent, float fStereoMeterOld)
-{
-    // Thanks to Bram from Smartelectronix (http://www.musicdsp.org/showone.php?id=136) for the code snippet!
-    float fOutput = fStereoMeterOld;
-    float fTemp = fStereoMeterCurrent;
-
-    // level has changed
-    if (fTemp != fOutput)
-    {
-        float fAttackReleaseCoef = powf(0.01f, 1.0f / (1.200f * fTimeFrame));
-        fOutput = fAttackReleaseCoef * (fOutput - fTemp) + fTemp;
-    }
-
-    return fOutput;
-}
-
-
-float MeterBallistics::PhaseCorrelationMeterBallistics(float fTimeFrame, float fPhaseCorrelationCurrent, float fPhaseCorrelationOld)
-{
-    return StereoMeterBallistics(fTimeFrame, fPhaseCorrelationCurrent, fPhaseCorrelationOld);
-}
-
-
-float MeterBallistics::PeakMeterPeakBallistics(float fTimeFrame, float* fLastChanged, float fLevelCurrent, float fLevelOld)
+float MeterBallistics::PeakMeterPeakBallistics(float fProcessedSeconds, float* fLastChanged, float fLevelCurrent, float fLevelOld)
 {
     float fHoldTime = 10.0f;
     float fOutput = fMeterMinimumDecibel;
@@ -381,14 +422,14 @@ float MeterBallistics::PeakMeterPeakBallistics(float fTimeFrame, float* fLastCha
         // update hold time
         if (*fLastChanged >= 0.0f)
         {
-            *fLastChanged += (1.0f / fTimeFrame);
+            *fLastChanged += (1.0f / fProcessedSeconds);
         }
 
         fOutput = fLevelOld;
 
         if (*fLastChanged > fHoldTime)
         {
-            float fReleaseCoef = 26.0f / (3.0f * fTimeFrame);
+            float fReleaseCoef = 26.0f / (3.0f * fProcessedSeconds);
             fOutput -= fReleaseCoef;
         }
     }
@@ -397,9 +438,51 @@ float MeterBallistics::PeakMeterPeakBallistics(float fTimeFrame, float* fLastCha
 }
 
 
-float MeterBallistics::AverageMeterPeakBallistics(float fTimeFrame, float* fLastChanged, float fLevelCurrent, float fLevelOld)
+float MeterBallistics::AverageMeterBallistics(float fProcessedSeconds, float fLevelCurrent, float fLevelOld)
 {
-    return PeakMeterPeakBallistics(fTimeFrame, fLastChanged, fLevelCurrent, fLevelOld);
+    // Thanks to Bram from Smartelectronix for the code snippet!
+    // (http://www.musicdsp.org/showone.php?id=136)
+    float fOutput = fLevelOld / fMeterMinimumDecibel;
+    float fTemp = fLevelCurrent / fMeterMinimumDecibel;
+
+    // level has changed
+    if (fTemp != fOutput)
+    {
+        float fAttackReleaseCoef = powf(0.01f, 1.0f / (0.600f * fProcessedSeconds));
+        fOutput = fAttackReleaseCoef * (fOutput - fTemp) + fTemp;
+    }
+
+    return fOutput * fMeterMinimumDecibel;
+}
+
+
+float MeterBallistics::AverageMeterPeakBallistics(float fProcessedSeconds, float* fLastChanged, float fLevelCurrent, float fLevelOld)
+{
+    return PeakMeterPeakBallistics(fProcessedSeconds, fLastChanged, fLevelCurrent, fLevelOld);
+}
+
+
+float MeterBallistics::StereoMeterBallistics(float fProcessedSeconds, float fStereoMeterCurrent, float fStereoMeterOld)
+{
+    // Thanks to Bram from Smartelectronix for the code snippet!
+    // (http://www.musicdsp.org/showone.php?id=136)
+    float fOutput = fStereoMeterOld;
+    float fTemp = fStereoMeterCurrent;
+
+    // level has changed
+    if (fTemp != fOutput)
+    {
+        float fAttackReleaseCoef = powf(0.01f, 1.0f / (1.200f * fProcessedSeconds));
+        fOutput = fAttackReleaseCoef * (fOutput - fTemp) + fTemp;
+    }
+
+    return fOutput;
+}
+
+
+float MeterBallistics::PhaseCorrelationMeterBallistics(float fProcessedSeconds, float fPhaseCorrelationCurrent, float fPhaseCorrelationOld)
+{
+    return StereoMeterBallistics(fProcessedSeconds, fPhaseCorrelationCurrent, fPhaseCorrelationOld);
 }
 
 

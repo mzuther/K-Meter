@@ -327,16 +327,16 @@ void Kmeter::setLevels(MeterBallistics* pMeterBallistics)
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        AverageMeters[nChannel]->setLevels(pMeterBallistics->getAverageMeter(nChannel), pMeterBallistics->getAverageMeterPeak(nChannel));
+        AverageMeters[nChannel]->setLevels(pMeterBallistics->getAverageMeterLevel(nChannel), pMeterBallistics->getAverageMeterPeakLevel(nChannel));
 
         if (displayPeakMeter)
         {
-            PeakMeters[nChannel]->setLevels(pMeterBallistics->getPeakMeter(nChannel), pMeterBallistics->getPeakMeterPeak(nChannel));
+            PeakMeters[nChannel]->setLevels(pMeterBallistics->getPeakMeterLevel(nChannel), pMeterBallistics->getPeakMeterPeakLevel(nChannel));
         }
 
-        MaximumPeakLabels[nChannel]->updateLevel(pMeterBallistics->getMaximumPeak(nChannel));
+        MaximumPeakLabels[nChannel]->updateLevel(pMeterBallistics->getMaximumPeakLevel(nChannel));
 
-        OverflowMeters[nChannel]->setOverflows(pMeterBallistics->getOverflows(nChannel));
+        OverflowMeters[nChannel]->setOverflows(pMeterBallistics->getNumberOfOverflows(nChannel));
     }
 }
 
