@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@
 class MeterBar : public Component
 {
 public:
-    MeterBar(const String& componentName, int PosX, int PosY, int Width, int nHeadroom, bool bExpanded, int nSegmentHeight, String justify);
+    MeterBar(const String& componentName, int PosX, int PosY, int Width, int nCrestFactor, bool bExpanded, int nSegmentHeight, String justify);
     ~MeterBar();
 
     void setLevels(float newLevel, float newPeak);
@@ -47,7 +47,7 @@ public:
 private:
     float fLevel;
     float fPeak;
-    int nMeterHeadroom;
+    int nMeterCrestFactor;
     bool isExpanded;
 
     int nPosX;

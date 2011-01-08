@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -35,11 +35,11 @@
 class MeterBallistics
 {
 public:
-    MeterBallistics(int nChannels, bool bPeakHold, bool bAverageHold);
+    MeterBallistics(int nChannels, bool bPeakMeterInfiniteHold, bool bAverageMeterInfiniteHold);
     ~MeterBallistics();
 
-    void setPeakHold(bool bPeakHold);
-    void setAverageHold(bool bAverageHold);
+    void setPeakMeterInfiniteHold(bool bInfiniteHold);
+    void setAverageMeterInfiniteHold(bool bInfiniteHold);
     void reset();
 
     int getNumberOfChannels();
@@ -59,13 +59,13 @@ public:
     float getPhaseCorrelation();
     void setPhaseCorrelation(float fProcessedSeconds, float fPhaseCorrelationNew);
 
-    void updateChannel(int nChannel, float fProcessedSeconds, float fPeak, float fAverage, int Overflows);
+    void updateChannel(int nChannel, float fProcessedSeconds, float fPeak, float fAverage, int nOverflows);
 
 private:
     int nNumberOfChannels;
 
     float fMeterMinimumDecibel;
-    float fAverageCorrection;
+    float fPeakToAverageCorrection;
 
     float* fPeakMeterLevels;
     float* fPeakMeterPeakLevels;
@@ -82,13 +82,13 @@ private:
     float fStereoMeterValue;
     float fPhaseCorrelation;
 
-    float level2decibel(float level);
+    float level2decibel(float fLevel);
 
-    float PeakMeterBallistics(float fProcessedSeconds, float fLevelCurrent, float fLevelOld);
-    float PeakMeterPeakBallistics(float fProcessedSeconds, float* fLastChanged, float fLevelCurrent, float fLevelOld);
+    float PeakMeterBallistics(float fProcessedSeconds, float fPeakLevelCurrent, float fPeakLevelOld);
+    float PeakMeterPeakBallistics(float fProcessedSeconds, float* fLastChanged, float fPeakLevelCurrent, float fPeakLevelOld);
 
-    float AverageMeterBallistics(float fProcessedSeconds, float fLevelCurrent, float fLevelOld);
-    float AverageMeterPeakBallistics(float fProcessedSeconds, float* fLastChanged, float fLevelCurrent, float fLevelOld);
+    float AverageMeterBallistics(float fProcessedSeconds, float fAverageLevelCurrent, float fAverageLevelOld);
+    float AverageMeterPeakBallistics(float fProcessedSeconds, float* fLastChanged, float fAverageLevelCurrent, float fAverageLevelOld);
 
     float StereoMeterBallistics(float fProcessedSeconds, float fStereoMeterCurrent, float fStereoMeterOld);
 

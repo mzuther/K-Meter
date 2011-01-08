@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -65,10 +65,10 @@ public:
 
     enum Parameters  // public namespace!
     {
-        selHeadroom = 0,
+        selCrestFactor = 0,
         selExpanded,
         selPeak,
-        selHold,
+        selInfiniteHold,
         selMono,
 
         nNumParameters,
@@ -78,7 +78,7 @@ public:
         selK14,
         selK20,
 
-        nNumHeadrooms,
+        nNumCrestFactors,
     };
 
 private:

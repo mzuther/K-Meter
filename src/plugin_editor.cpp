@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     // This is where our plugin's editor size is set.
     setSize(202, 650);
 
-    nHeadroom = 0;
+    nCrestFactor = 0;
 
     pProcessor = ownerFilter;
     pProcessor->addChangeListener(this);
@@ -73,13 +73,13 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonNormal->addButtonListener(this);
     addAndMakeVisible(ButtonNormal);
 
-    ButtonHold = new TextButton(T("Hold"));
-    ButtonHold->setBounds(132, 125, 60, 20);
-    ButtonHold->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonHold->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonInfiniteHold = new TextButton(T("Infinite Hold"));
+    ButtonInfiniteHold->setBounds(132, 125, 60, 20);
+    ButtonInfiniteHold->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonInfiniteHold->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-    ButtonHold->addButtonListener(this);
-    addAndMakeVisible(ButtonHold);
+    ButtonInfiniteHold->addButtonListener(this);
+    addAndMakeVisible(ButtonInfiniteHold);
 
     ButtonDisplayPeakMeter = new TextButton(T("Peaks"));
     ButtonDisplayPeakMeter->setBounds(132, 150, 60, 20);
@@ -139,7 +139,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
     kmeter = NULL;
 
-    int nIndex = KmeterPluginParameters::selHeadroom;
+    int nIndex = KmeterPluginParameters::selCrestFactor;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
     nIndex = KmeterPluginParameters::selExpanded;
@@ -148,7 +148,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     nIndex = KmeterPluginParameters::selPeak;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
-    nIndex = KmeterPluginParameters::selHold;
+    nIndex = KmeterPluginParameters::selInfiniteHold;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
     nIndex = KmeterPluginParameters::selMono;
@@ -206,32 +206,32 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 
     switch (nIndex)
     {
-    case KmeterPluginParameters::selHeadroom:
+    case KmeterPluginParameters::selCrestFactor:
 
         if (nValue == 0)
         {
-            nHeadroom = nValue;
+            nCrestFactor = nValue;
             reloadKmeter = true;
 
             ButtonNormal->setToggleState(true, false);
         }
         else if (nValue == 12)
         {
-            nHeadroom = nValue;
+            nCrestFactor = nValue;
             reloadKmeter = true;
 
             ButtonK12->setToggleState(true, false);
         }
         else if (nValue == 14)
         {
-            nHeadroom = nValue;
+            nCrestFactor = nValue;
             reloadKmeter = true;
 
             ButtonK14->setToggleState(true, false);
         }
         else
         {
-            nHeadroom = 20;
+            nCrestFactor = 20;
             reloadKmeter = true;
 
             ButtonK20->setToggleState(true, false);
@@ -249,16 +249,16 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         ButtonDisplayPeakMeter->setToggleState(nValue != 0, false);
         break;
 
-    case KmeterPluginParameters::selHold:
+    case KmeterPluginParameters::selInfiniteHold:
+        pMeterBallistics = pProcessor->getLevels();
 
         if (pMeterBallistics)
         {
-            pMeterBallistics = pProcessor->getLevels();
-            pMeterBallistics->setPeakHold(nValue != 0);
-            pMeterBallistics->setAverageHold(nValue != 0);
+            pMeterBallistics->setPeakMeterInfiniteHold(nValue != 0);
+            pMeterBallistics->setAverageMeterInfiniteHold(nValue != 0);
         }
 
-        ButtonHold->setToggleState(nValue != 0, false);
+        ButtonInfiniteHold->setToggleState(nValue != 0, false);
         break;
 
     case KmeterPluginParameters::selMono:
@@ -274,7 +274,7 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
             delete kmeter;
         }
 
-        kmeter = new Kmeter(T("K-Meter"), 10, 10, nHeadroom, 2, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
+        kmeter = new Kmeter(T("K-Meter"), 10, 10, nCrestFactor, 2, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
         addAndMakeVisible(kmeter);
     }
 }
@@ -290,23 +290,23 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 {
     if (button == ButtonNormal)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 0);
+        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, 0);
     }
     else if (button == ButtonK12)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 12);
+        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, 12);
     }
     else if (button == ButtonK14)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 14);
+        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, 14);
     }
     else if (button == ButtonK20)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selHeadroom, 20);
+        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, 20);
     }
-    else if (button == ButtonHold)
+    else if (button == ButtonInfiniteHold)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selHold, !button->getToggleState());
+        pProcessor->changeParameter(KmeterPluginParameters::selInfiniteHold, !button->getToggleState());
     }
     else if (button == ButtonExpanded)
     {

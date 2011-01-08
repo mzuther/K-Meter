@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -25,17 +25,17 @@
 
 #include "meter_bar.h"
 
-MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, int nHeadroom, bool bExpanded, int nSegmentHeight, String justify)
+MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, int nCrestFactor, bool bExpanded, int nSegmentHeight, String justify)
 {
     setName(componentName);
     isExpanded = bExpanded;
 
     // to prevent the inherent round-off errors of float subtraction,
-    // headroom and limits are stored as integers representing 0.1 dB
-    // steps
-    if (nHeadroom == 0)
+    // crest factor and limits are stored as integers representing
+    // 0.1 dB steps
+    if (nCrestFactor == 0)
     {
-        nMeterHeadroom = 0;
+        nMeterCrestFactor = 0;
 
         nLimitTopBars = -20;
         nLimitRedBars = -40;
@@ -43,9 +43,9 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
         nLimitGreenBars_1 = -400;
         nLimitGreenBars_2 = nLimitGreenBars_1;
     }
-    else if (nHeadroom == 12)
+    else if (nCrestFactor == 12)
     {
-        nMeterHeadroom = +120;
+        nMeterCrestFactor = +120;
 
         nLimitTopBars = +100;
         nLimitRedBars = +40;
@@ -53,9 +53,9 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
         nLimitGreenBars_1 = -300;
         nLimitGreenBars_2 = nLimitGreenBars_1;
     }
-    else if (nHeadroom == 14)
+    else if (nCrestFactor == 14)
     {
-        nMeterHeadroom = +140;
+        nMeterCrestFactor = +140;
 
         nLimitTopBars = +120;
         nLimitRedBars = +40;
@@ -65,7 +65,7 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
     }
     else
     {
-        nMeterHeadroom = +200;
+        nMeterCrestFactor = +200;
 
         nLimitTopBars = +180;
         nLimitRedBars = +40;
@@ -80,15 +80,15 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
     }
     else
     {
-        if (nHeadroom == 0)
+        if (nCrestFactor == 0)
         {
             nNumberOfBars = 47;
         }
-        else if (nHeadroom == 12)
+        else if (nCrestFactor == 12)
         {
             nNumberOfBars = 48;
         }
-        else if (nHeadroom == 14)
+        else if (nCrestFactor == 14)
         {
             nNumberOfBars = 50;
         }
@@ -108,12 +108,12 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
 
     int nThreshold = 0; // bar threshold (in 0.1 dB)
 
-    if (isExpanded && (nMeterHeadroom > 80))
+    if (isExpanded && (nMeterCrestFactor > 80))
     {
-        nThreshold = +80 - nMeterHeadroom;    // zoom into important region
+        nThreshold = +80 - nMeterCrestFactor; // zoom into important region
     }
 
-    int nKmeterLevel = nThreshold + nMeterHeadroom; // bar K-Meter level (in 0.1 dB)
+    int nKmeterLevel = nThreshold + nMeterCrestFactor; // bar K-Meter level (in 0.1 dB)
     int nRange = 0; // bar level range (in 0.1 dB)
     int nColor = 0;
 
@@ -188,7 +188,7 @@ void MeterBar::visibilityChanged()
     int height = 134 * nMainSegmentHeight + 1;
     int segment_height = nMainSegmentHeight;
 
-    int nKmeterLevel = nMeterHeadroom; // bar K-Meter level (in 0.1 dB)
+    int nKmeterLevel = nMeterCrestFactor; // bar K-Meter level (in 0.1 dB)
     int nRange = 0; // bar level range (in 0.1 dB)
 
     setBounds(nPosX, nPosY, width, height);
@@ -279,15 +279,15 @@ void MeterBar::visibilityChanged()
         }
         else if (n == nNumberOfBars - 1)
         {
-            if (nMeterHeadroom == 0)
+            if (nMeterCrestFactor == 0)
             {
                 segment_height = 14 * nMainSegmentHeight;
             }
-            else if (nMeterHeadroom == +120)
+            else if (nMeterCrestFactor == +120)
             {
                 segment_height = 20 * nMainSegmentHeight;
             }
-            else if (nMeterHeadroom == +140)
+            else if (nMeterCrestFactor == +140)
             {
                 segment_height = 16 * nMainSegmentHeight;
             }

@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -25,9 +25,9 @@
 
 #include "peak_label.h"
 
-PeakLabel::PeakLabel(const String& componentName, int nHeadroom) : Label(componentName, T("0"))
+PeakLabel::PeakLabel(const String& componentName, int nCrestFactor) : Label(componentName, T("0"))
 {
-    nMeterHeadroom = nHeadroom;
+    nMeterCrestFactor = nCrestFactor;
 
     resetLevel();
 
@@ -44,14 +44,14 @@ PeakLabel::~PeakLabel()
 
 void PeakLabel::resetLevel()
 {
-    float fMaximumHeadroom = 20.0f; // i.e. K-20
+    float fMaximumCrestFactor = 20.0f; // i.e. K-20
 
     // the RMS of a sine wave is its amplitude divided by the square
     // root of 2, thus the difference between peak value and RMS is the
     // square root of 2 -- so let's convert this difference to dB
-    float fAverageCorrection = 20.0f * log10(sqrt(2.0f));
+    float fPeakToAverageCorrection = 20.0f * log10(sqrt(2.0f));
 
-    float fMeterMinimumDecibel = -(fMaximumHeadroom + fAverageCorrection + 70.0f);
+    float fMeterMinimumDecibel = -(fMaximumCrestFactor + fPeakToAverageCorrection + 70.0f);
     fMaximumLevel = fMeterMinimumDecibel;
 }
 
@@ -63,7 +63,7 @@ void PeakLabel::updateLevel(float newLevel)
     }
 
     fMaximumLevel = newLevel;
-    float fCorrectedLevel = fMaximumLevel + nMeterHeadroom;
+    float fCorrectedLevel = fMaximumLevel + nMeterCrestFactor;
 
     if (fCorrectedLevel < 0.0f)
     {

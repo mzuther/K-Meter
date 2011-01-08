@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@
 class Kmeter : public Component
 {
 public:
-    Kmeter(const String& componentName, int PosX, int PosY, int nHeadroom, int nNumChannels, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight);
+    Kmeter(const String& componentName, int PosX, int PosY, int nCrestFactor, int nNumChannels, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight);
     ~Kmeter();
 
     void setLevels(MeterBallistics* pMeterBallistics);
@@ -54,7 +54,7 @@ private:
     bool isExpanded;
     bool displayPeakMeter;
 
-    int nMeterHeadroom;
+    int nMeterCrestFactor;
     int nChannels;
 
     MeterBar** PeakMeters;

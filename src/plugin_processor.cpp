@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -368,7 +368,9 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
     unsigned int uPreDelay = uChunkSize / 2;
     bool bMono = pPluginParameters->getParameterAsBool(KmeterPluginParameters::selMono);
 
-    fProcessedSeconds = (float) getSampleRate() / (float) uChunkSize;
+    // length of buffer chunk in fractional seconds
+    // (1024 samples / 44100 samples/s = 23.2 ms)
+    fProcessedSeconds = (float) uChunkSize / (float) getSampleRate();
 
     // copy ring buffer to determine average level (FIR filter already
     // adds delay of (uChunkSize / 2) samples)

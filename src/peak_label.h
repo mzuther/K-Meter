@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -35,14 +35,14 @@
 class PeakLabel : public Label
 {
 public:
-    PeakLabel(const String& componentName, int nHeadroom);
+    PeakLabel(const String& componentName, int nCrestFactor);
     ~PeakLabel();
 
     void resetLevel();
     void updateLevel(float newLevel);
 
 private:
-    int nMeterHeadroom;
+    int nMeterCrestFactor;
     float fMaximumLevel;
 };
 

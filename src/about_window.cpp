@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -93,7 +93,7 @@ AboutWindow::AboutWindow(int nWidth, int nHeight)
 
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
-        T("(c) 2010 Contributors\n\n")
+        T("(c) 2010-2011 Contributors\n\n")
     );
 
     // display used libraries

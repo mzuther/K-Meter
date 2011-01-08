@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 
 #include "kmeter.h"
 
-Kmeter::Kmeter(const String& componentName, int posX, int posY, int nHeadroom, int nNumChannels, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight)
+Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor, int nNumChannels, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight)
 {
     setName(componentName);
     nChannels = nNumChannels;
@@ -36,21 +36,21 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nHeadroom, i
     nPosY = posY;
     nMainSegmentHeight = nSegmentHeight;
 
-    if (nHeadroom == 0)
+    if (nCrestFactor == 0)
     {
-        nMeterHeadroom = 0;
+        nMeterCrestFactor = 0;
     }
-    else if (nHeadroom == 12)
+    else if (nCrestFactor == 12)
     {
-        nMeterHeadroom = 12;
+        nMeterCrestFactor = 12;
     }
-    else if (nHeadroom == 14)
+    else if (nCrestFactor == 14)
     {
-        nMeterHeadroom = 14;
+        nMeterCrestFactor = 14;
     }
     else
     {
-        nMeterHeadroom = 20;
+        nMeterCrestFactor = 20;
     }
 
     int nPositionX = 0;
@@ -64,12 +64,12 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nHeadroom, i
         {
             nPositionX = 17 + nChannel * 91 - (nChannel % 2) * 37;
 
-            AverageMeters[nChannel] = new MeterBar(String("Average Meter #") + String(nChannel), nPositionX, 48, 18, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+            AverageMeters[nChannel] = new MeterBar(String("Average Meter #") + String(nChannel), nPositionX, 48, 18, nMeterCrestFactor, bExpanded, nMainSegmentHeight, T("center"));
             addAndMakeVisible(AverageMeters[nChannel]);
 
             nPositionX = 3 + nChannel * 91;
 
-            PeakMeters[nChannel] = new MeterBar(String("Peak Meter #") + String(nChannel), nPositionX, 48, 9, nMeterHeadroom, bExpanded, nMainSegmentHeight, (nChannel % 2) ? T("left") : T("right"));
+            PeakMeters[nChannel] = new MeterBar(String("Peak Meter #") + String(nChannel), nPositionX, 48, 9, nMeterCrestFactor, bExpanded, nMainSegmentHeight, (nChannel % 2) ? T("left") : T("right"));
             addAndMakeVisible(PeakMeters[nChannel]);
         }
     }
@@ -82,7 +82,7 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nHeadroom, i
         {
             nPositionX = 7 + nChannel * 72;
 
-            AverageMeters[nChannel] = new MeterBar(String("Average Meter #") + String(nChannel), nPositionX, 48, 20, nMeterHeadroom, bExpanded, nMainSegmentHeight, T("center"));
+            AverageMeters[nChannel] = new MeterBar(String("Average Meter #") + String(nChannel), nPositionX, 48, 20, nMeterCrestFactor, bExpanded, nMainSegmentHeight, T("center"));
             addAndMakeVisible(AverageMeters[nChannel]);
         }
     }
@@ -98,7 +98,7 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nHeadroom, i
         OverflowMeters[nChannel]->setBounds(nPositionX, 3, 32, 16);
         addAndMakeVisible(OverflowMeters[nChannel]);
 
-        MaximumPeakLabels[nChannel] = new PeakLabel(String("Maximum Peak #") + String(nChannel), nHeadroom);
+        MaximumPeakLabels[nChannel] = new PeakLabel(String("Maximum Peak #") + String(nChannel), nCrestFactor);
         MaximumPeakLabels[nChannel]->setBounds(nPositionX, 23, 32, 16);
         addAndMakeVisible(MaximumPeakLabels[nChannel]);
     }
@@ -177,7 +177,7 @@ void Kmeter::paint(Graphics& g)
         y -= 10 * nMainSegmentHeight;
         int nStart = 0;
 
-        if (nMeterHeadroom < 8)
+        if (nMeterCrestFactor < 8)
         {
             nStart = 0;
         }
@@ -201,7 +201,7 @@ void Kmeter::paint(Graphics& g)
             drawMarkers(g, strMarker, x, y, width, height);
         }
     }
-    else if (nMeterHeadroom == 0)
+    else if (nMeterCrestFactor == 0)
     {
         y -= 8 * nMainSegmentHeight;
 
@@ -228,7 +228,7 @@ void Kmeter::paint(Graphics& g)
             drawMarkers(g, strMarker, x, y, width, height);
         }
     }
-    else if (nMeterHeadroom == 12)
+    else if (nMeterCrestFactor == 12)
     {
         y -= 8 * nMainSegmentHeight;
 
@@ -257,7 +257,7 @@ void Kmeter::paint(Graphics& g)
             drawMarkers(g, strMarker, x, y, width, height);
         }
     }
-    else if (nMeterHeadroom == 14)
+    else if (nMeterCrestFactor == 14)
     {
         strMarker = String(T("+14"));
         drawMarkers(g, strMarker, x, y, width, height);

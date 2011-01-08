@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -33,10 +33,10 @@ KmeterPluginParameters::KmeterPluginParameters()
 {
     nParam = new int[nNumParameters];
 
-    nParam[selHeadroom] = 20;
+    nParam[selCrestFactor] = 20;
     nParam[selExpanded] = 0;
     nParam[selPeak] = 0;
-    nParam[selHold] = 0;
+    nParam[selInfiniteHold] = 0;
     nParam[selMono] = 0;
 
     bParamChanged = new bool[nNumParameters];
@@ -106,7 +106,7 @@ void KmeterPluginParameters::setParameterFromInt(int nIndex, int nValue)
 
     if (nParam[nIndex] != nValue)
     {
-        if (nIndex == selHeadroom)
+        if (nIndex == selCrestFactor)
         {
             if ((nValue == 0) || (nValue == 12) || (nValue == 14))
             {
@@ -156,8 +156,8 @@ const String KmeterPluginParameters::getParameterName(int nIndex)
 {
     switch (nIndex)
     {
-    case selHeadroom:
-        return "Headroom";
+    case selCrestFactor:
+        return "Crest factor";
         break;
 
     case selExpanded:
@@ -168,7 +168,7 @@ const String KmeterPluginParameters::getParameterName(int nIndex)
         return "Peak";
         break;
 
-    case selHold:
+    case selInfiniteHold:
         return "Hold";
         break;
 
@@ -187,17 +187,17 @@ const String KmeterPluginParameters::getParameterText(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
 
-    if (nIndex == selHeadroom)
+    if (nIndex == selCrestFactor)
     {
-        if (nParam[selHeadroom] == 0)
+        if (nParam[nIndex] == 0)
         {
             return "Normal";
         }
-        else if (nParam[selHeadroom] == 12)
+        else if (nParam[nIndex] == 12)
         {
             return "K-12";
         }
-        else if (nParam[selHeadroom] == 14)
+        else if (nParam[nIndex] == 14)
         {
             return "K-14";
         }
@@ -217,23 +217,23 @@ float KmeterPluginParameters::translateParameterToFloat(int nIndex, int nValue)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
 
-    if (nIndex == selHeadroom)
+    if (nIndex == selCrestFactor)
     {
         if (nValue == 0)
         {
-            return (selNormal / float(nNumHeadrooms - 1));
+            return (selNormal / float(nNumCrestFactors - 1));
         }
         else if (nValue == 12)
         {
-            return (selK12 / float(nNumHeadrooms - 1));
+            return (selK12 / float(nNumCrestFactors - 1));
         }
         else if (nValue == 14)
         {
-            return (selK14 / float(nNumHeadrooms - 1));
+            return (selK14 / float(nNumCrestFactors - 1));
         }
         else
         {
-            return (selK20 / float(nNumHeadrooms - 1));
+            return (selK20 / float(nNumCrestFactors - 1));
         }
     }
     else
@@ -247,17 +247,17 @@ int KmeterPluginParameters::translateParameterToInt(int nIndex, float fValue)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
 
-    if (nIndex == selHeadroom)
+    if (nIndex == selCrestFactor)
     {
-        if (fValue < (selK12 / float(nNumHeadrooms)))
+        if (fValue < (selK12 / float(nNumCrestFactors)))
         {
             return 0;
         }
-        else if (fValue < (selK14 / float(nNumHeadrooms)))
+        else if (fValue < (selK14 / float(nNumCrestFactors)))
         {
             return 12;
         }
-        else if (fValue < (selK20 / float(nNumHeadrooms)))
+        else if (fValue < (selK20 / float(nNumCrestFactors)))
         {
             return 14;
         }
@@ -277,20 +277,20 @@ XmlElement KmeterPluginParameters::storeAsXml()
 {
     XmlElement xml("KMETER_SETTINGS");
 
-    int nHeadroom = getParameterAsInt(selHeadroom);
+    int nCrestFactor = getParameterAsInt(selCrestFactor);
 
-    if (nHeadroom == 0)
+    if (nCrestFactor == 0)
     {
-        xml.setAttribute("Headroom", 20);
+        xml.setAttribute("CrestFactor", 20);
     }
     else
     {
-        xml.setAttribute("Headroom", nHeadroom);
+        xml.setAttribute("CrestFactor", nCrestFactor);
     }
 
     xml.setAttribute("Expanded", getParameterAsInt(selExpanded));
     xml.setAttribute("Peak", getParameterAsInt(selPeak));
-    xml.setAttribute("Hold", getParameterAsInt(selHold));
+    xml.setAttribute("Hold", getParameterAsInt(selInfiniteHold));
     xml.setAttribute("Mono", getParameterAsInt(selMono));
 
     return xml;
@@ -301,20 +301,30 @@ void KmeterPluginParameters::loadFromXml(XmlElement* xml)
 {
     if (xml && xml->hasTagName("KMETER_SETTINGS"))
     {
-        int nHeadroom = xml->getIntAttribute("Headroom", getParameterAsInt(selHeadroom));
+        int nCrestFactor = 0;
 
-        if (nHeadroom == 0)
+        // make sure settings for K-Meter v1.21 and below load fine
+        if (xml->hasAttribute("Headroom"))
         {
-            setParameterFromInt(selHeadroom, 20);
+            nCrestFactor = xml->getIntAttribute("Headroom", getParameterAsInt(selCrestFactor));
         }
         else
         {
-            setParameterFromInt(selHeadroom, nHeadroom);
+            nCrestFactor = xml->getIntAttribute("CrestFactor", getParameterAsInt(selCrestFactor));
+        }
+
+        if (nCrestFactor == 0)
+        {
+            setParameterFromInt(selCrestFactor, 20);
+        }
+        else
+        {
+            setParameterFromInt(selCrestFactor, nCrestFactor);
         }
 
         setParameterFromInt(selExpanded, xml->getIntAttribute("Expanded", getParameterAsInt(selExpanded)));
         setParameterFromInt(selPeak, xml->getIntAttribute("Peak", getParameterAsInt(selPeak)));
-        setParameterFromInt(selHold, xml->getIntAttribute("Hold", getParameterAsInt(selHold)));
+        setParameterFromInt(selInfiniteHold, xml->getIntAttribute("Hold", getParameterAsInt(selInfiniteHold)));
         setParameterFromInt(selMono, xml->getIntAttribute("Mono", getParameterAsInt(selMono)));
     }
 }
