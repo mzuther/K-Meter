@@ -54,12 +54,12 @@ public:
     int getNumberOfOverflows(int nChannel);
 
     float getStereoMeterValue();
-    void setStereoMeterValue(float fProcessedSeconds, float fStereoMeterValueNew);
+    void setStereoMeterValue(float fTimePassed, float fStereoMeterValueNew);
 
     float getPhaseCorrelation();
-    void setPhaseCorrelation(float fProcessedSeconds, float fPhaseCorrelationNew);
+    void setPhaseCorrelation(float fTimePassed, float fPhaseCorrelationNew);
 
-    void updateChannel(int nChannel, float fProcessedSeconds, float fPeak, float fAverage, int nOverflows);
+    void updateChannel(int nChannel, float fTimePassed, float fPeak, float fAverage, int nOverflows);
 
 private:
     int nNumberOfChannels;
@@ -84,15 +84,17 @@ private:
 
     float level2decibel(float fLevel);
 
-    float PeakMeterBallistics(float fProcessedSeconds, float fPeakLevelCurrent, float fPeakLevelOld);
-    float PeakMeterPeakBallistics(float fProcessedSeconds, float* fLastChanged, float fPeakLevelCurrent, float fPeakLevelOld);
+    float PeakMeterBallistics(float fTimePassed, float fPeakLevelCurrent, float fPeakLevelOld);
+    float PeakMeterPeakBallistics(float fTimePassed, float* fLastChanged, float fPeakLevelCurrent, float fPeakLevelOld);
 
-    float AverageMeterBallistics(float fProcessedSeconds, float fAverageLevelCurrent, float fAverageLevelOld);
-    float AverageMeterPeakBallistics(float fProcessedSeconds, float* fLastChanged, float fAverageLevelCurrent, float fAverageLevelOld);
+    void AverageMeterBallistics(int nChannel, float fTimePassed, float fAverageLevelCurrent);
+    float AverageMeterPeakBallistics(float fTimePassed, float* fLastChanged, float fAverageLevelCurrent, float fAverageLevelOld);
 
-    float StereoMeterBallistics(float fProcessedSeconds, float fStereoMeterCurrent, float fStereoMeterOld);
+    void StereoMeterBallistics(float fTimePassed, float fStereoMeterCurrent);
 
-    float PhaseCorrelationMeterBallistics(float fProcessedSeconds, float fPhaseCorrelationCurrent, float fPhaseCorrelationOld);
+    void PhaseCorrelationMeterBallistics(float fTimePassed, float fPhaseCorrelationCurrent);
+
+    void LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float& fReadout);
 };
 
 

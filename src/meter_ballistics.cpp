@@ -332,12 +332,12 @@ float MeterBallistics::getStereoMeterValue()
 }
 
 
-void MeterBallistics::setStereoMeterValue(float fProcessedSeconds, float fStereoMeterValueNew)
+void MeterBallistics::setStereoMeterValue(float fTimePassed, float fStereoMeterValueNew)
 /*  Set stereo meter value and apply meter ballistics (two input
     channels only!).
 
-    fProcessedSeconds (float): length of current buffer chunk in
-    fractional seconds
+    fTimePassed (float): time that has passed since last update (in
+    fractional seconds)
 
     fStereoMeterValueNew (float): current stereo meter value (-1.0 to
     1.0)
@@ -349,7 +349,7 @@ void MeterBallistics::setStereoMeterValue(float fProcessedSeconds, float fStereo
     jassert(nNumberOfChannels == 2);
 
     // apply meter ballistics
-    fStereoMeterValue = StereoMeterBallistics(fProcessedSeconds, fStereoMeterValueNew, fStereoMeterValue);
+    StereoMeterBallistics(fTimePassed, fStereoMeterValueNew);
 
     // uncomment for validation of stereo meter readings:
     // DBG(String("[K-Meter] Stereo meter value: ") + String(fStereoMeterValue, 2));
@@ -370,12 +370,12 @@ float MeterBallistics::getPhaseCorrelation()
 }
 
 
-void MeterBallistics::setPhaseCorrelation(float fProcessedSeconds, float fPhaseCorrelationNew)
+void MeterBallistics::setPhaseCorrelation(float fTimePassed, float fPhaseCorrelationNew)
 /*  Set phase correlation and apply meter ballistics (two input
     channels only!).
 
-    fProcessedSeconds (float): length of current buffer chunk in
-    fractional seconds
+    fTimePassed (float): time that has passed since last update (in
+    fractional seconds)
 
     fPhaseCorrelationNew (float): current phase correlation (-1.0 to
     1.0)
@@ -387,20 +387,20 @@ void MeterBallistics::setPhaseCorrelation(float fProcessedSeconds, float fPhaseC
     jassert(nNumberOfChannels == 2);
 
     // apply meter ballistics
-    fPhaseCorrelation = PhaseCorrelationMeterBallistics(fProcessedSeconds, fPhaseCorrelationNew, fPhaseCorrelation);
+    PhaseCorrelationMeterBallistics(fTimePassed, fPhaseCorrelationNew);
 
     // uncomment for validation of correlation meter readings:
     // DBG(String("[K-Meter] Phase correlation: ") + String(fPhaseCorrelation, 2));
 }
 
 
-void MeterBallistics::updateChannel(int nChannel, float fProcessedSeconds, float fPeak, float fAverage, int nOverflows)
+void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak, float fAverage, int nOverflows)
 /*  Update audio levels, overflows and apply meter ballistics.
 
     nChannel (integer): audio input channel to update
 
-    fProcessedSeconds (float): length of current buffer chunk in
-    fractional seconds
+    fTimePassed (float): time that has passed since last update (in
+    fractional seconds)
 
     fPeak (float): current peak meter level (linear scale)
 
@@ -431,13 +431,13 @@ void MeterBallistics::updateChannel(int nChannel, float fProcessedSeconds, float
 
     // apply peak meter's ballistics and store resulting level and
     // peak mark
-    fPeakMeterLevels[nChannel] = PeakMeterBallistics(fProcessedSeconds, fPeak, fPeakMeterLevels[nChannel]);
-    fPeakMeterPeakLevels[nChannel] = PeakMeterPeakBallistics(fProcessedSeconds, &fPeakMeterPeakLastChanged[nChannel], fPeak, fPeakMeterPeakLevels[nChannel]);
+    fPeakMeterLevels[nChannel] = PeakMeterBallistics(fTimePassed, fPeak, fPeakMeterLevels[nChannel]);
+    fPeakMeterPeakLevels[nChannel] = PeakMeterPeakBallistics(fTimePassed, &fPeakMeterPeakLastChanged[nChannel], fPeak, fPeakMeterPeakLevels[nChannel]);
 
     // apply average meter's ballistics and store resulting level and
     // peak mark
-    fAverageMeterLevels[nChannel] = AverageMeterBallistics(fProcessedSeconds, fAverage, fAverageMeterLevels[nChannel]);
-    fAverageMeterPeakLevels[nChannel] = AverageMeterPeakBallistics(fProcessedSeconds, &fAverageMeterPeakLastChanged[nChannel], fAverageMeterLevels[nChannel], fAverageMeterPeakLevels[nChannel]);
+    AverageMeterBallistics(nChannel, fTimePassed, fAverage);
+    fAverageMeterPeakLevels[nChannel] = AverageMeterPeakBallistics(fTimePassed, &fAverageMeterPeakLastChanged[nChannel], fAverageMeterLevels[nChannel], fAverageMeterPeakLevels[nChannel]);
 
     // update registered number of overflows
     nNumberOfOverflows[nChannel] += nOverflows;
@@ -487,11 +487,11 @@ float MeterBallistics::level2decibel(float fLevel)
 }
 
 
-float MeterBallistics::PeakMeterBallistics(float fProcessedSeconds, float fPeakLevelCurrent, float fPeakLevelOld)
+float MeterBallistics::PeakMeterBallistics(float fTimePassed, float fPeakLevelCurrent, float fPeakLevelOld)
 /*  Calculate ballistics for peak meter levels.
 
-    fProcessedSeconds (float): length of current buffer chunk in
-    fractional seconds
+    fTimePassed (float): time that has passed since last update (in
+    fractional seconds)
 
     fPeakLevelCurrent (float): current peak meter level in decibel
 
@@ -511,7 +511,7 @@ float MeterBallistics::PeakMeterBallistics(float fProcessedSeconds, float fPeakL
     else
     {
         // fall time: 26 dB in 3 seconds (linear)
-        float fReleaseCoef = 26.0f * fProcessedSeconds / 3.0f;
+        float fReleaseCoef = 26.0f * fTimePassed / 3.0f;
 
         // apply fall time and return new peak meter reading
         return fPeakLevelOld - fReleaseCoef;
@@ -519,11 +519,11 @@ float MeterBallistics::PeakMeterBallistics(float fProcessedSeconds, float fPeakL
 }
 
 
-float MeterBallistics::PeakMeterPeakBallistics(float fProcessedSeconds, float* fLastChanged, float fPeakCurrent, float fPeakOld)
+float MeterBallistics::PeakMeterPeakBallistics(float fTimePassed, float* fLastChanged, float fPeakCurrent, float fPeakOld)
 /*  Calculate ballistics for peak meter peak marks.
 
-    fProcessedSeconds (float): length of current buffer chunk in
-    fractional seconds
+    fTimePassed (float): time that has passed since last update (in
+    fractional seconds)
 
     fLastChanged (float pointer): time since peak mark was last
     changed in fractional seconds
@@ -567,7 +567,7 @@ float MeterBallistics::PeakMeterPeakBallistics(float fProcessedSeconds, float* f
         // starting to fall back down)
         if (*fLastChanged >= 0.0f)
         {
-            *fLastChanged += fProcessedSeconds;
+            *fLastChanged += fTimePassed;
         }
 
         // peak meter is EITHER set to "infinite peak hold" mode
@@ -583,7 +583,7 @@ float MeterBallistics::PeakMeterPeakBallistics(float fProcessedSeconds, float* f
         else
         {
             // fall time: 26 dB in 3 seconds (linear)
-            float fReleaseCoef = 26.0f * fProcessedSeconds / 3.0f;
+            float fReleaseCoef = 26.0f * fTimePassed / 3.0f;
 
             // apply fall time
             fOutput = fPeakOld - fReleaseCoef;
@@ -595,46 +595,28 @@ float MeterBallistics::PeakMeterPeakBallistics(float fProcessedSeconds, float* f
 }
 
 
-float MeterBallistics::AverageMeterBallistics(float fProcessedSeconds, float fAverageLevelCurrent, float fAverageLevelOld)
-/*  Calculate ballistics for average meter levels.
+void MeterBallistics::AverageMeterBallistics(int nChannel, float fTimePassed, float fAverageLevelCurrent)
+/*  Calculate ballistics for average meter levels and update readout.
 
-    fProcessedSeconds (float): length of current buffer chunk in
-    fractional seconds
+    fTimePassed (float): time that has passed since last update (in
+    fractional seconds)
 
     fAverageLevelCurrent (float): current average meter level in
     decibel
 
-    fAverageLevelOld (float): old average meter reading in decibel
-
-    return value (float): new average meter reading in decibel
+    return value: none
 */
 {
-    // if current average level and old meter reading are equal, we
-    // may skip the ballistics and simply return the current level
-    if (fAverageLevelCurrent == fAverageLevelOld)
-    {
-        return fAverageLevelCurrent;
-    }
-    // otherwise, calculate meter ballistics for current level
-    else
-    {
-        // Thanks to Bram from Smartelectronix for the code snippet!
-        // (http://www.musicdsp.org/showone.php?id=136)
-        //
-        // rise and fall: 99% of final reading in 0.6 s (logarithmic)
-        float fAttackReleaseCoef = powf(0.01f, fProcessedSeconds / 0.600f);
-        float fOutput = fAttackReleaseCoef * (fAverageLevelOld - fAverageLevelCurrent) + fAverageLevelCurrent;
-
-        return fOutput;
-    }
+    // meter ballistics: 99% of final reading in 0.6 s (logarithmic)
+    LogMeterBallistics(0.600f, fTimePassed, fAverageLevelCurrent, fAverageMeterLevels[nChannel]);
 }
 
 
-float MeterBallistics::AverageMeterPeakBallistics(float fProcessedSeconds, float* fLastChanged, float fPeakCurrent, float fPeakOld)
+float MeterBallistics::AverageMeterPeakBallistics(float fTimePassed, float* fLastChanged, float fPeakCurrent, float fPeakOld)
 /*  Calculate ballistics for average meter peak marks.
 
-    fProcessedSeconds (float): length of current buffer chunk in
-    fractional seconds
+    fTimePassed (float): time that has passed since last update (in
+    fractional seconds)
 
     fLastChanged (float pointer): time since peak mark was last
     changed in fractional seconds
@@ -648,61 +630,72 @@ float MeterBallistics::AverageMeterPeakBallistics(float fProcessedSeconds, float
 {
     // the peak marks ballistics of peak meter and average meter are
     // identical, so let's reuse the peak meter code
-    return PeakMeterPeakBallistics(fProcessedSeconds, fLastChanged, fPeakCurrent, fPeakOld);
+    return PeakMeterPeakBallistics(fTimePassed, fLastChanged, fPeakCurrent, fPeakOld);
 }
 
 
-float MeterBallistics::StereoMeterBallistics(float fProcessedSeconds, float fStereoMeterCurrent, float fStereoMeterOld)
-/*  Calculate ballistics for stereo meter values.
+void MeterBallistics::StereoMeterBallistics(float fTimePassed, float fStereoMeterCurrent)
+/*  Calculate ballistics for stereo meter values and update readout.
 
-    fProcessedSeconds (float): length of current buffer chunk in
-    fractional seconds
+    fTimePassed (float): time that has passed since last update (in
+    fractional seconds)
 
     fStereoMeterCurrent (float): current stereo meter value
 
-    fStereoMeterOld (float): old stereo meter value
-
-    return value (float): new stereo meter value
+    return value: none
 */
 {
-    // if current stereo meter value and old meter reading are equal,
-    // we may skip the ballistics and simply return the current value
-    if (fStereoMeterCurrent == fStereoMeterOld)
-    {
-        return fStereoMeterCurrent;
-    }
-    // otherwise, calculate meter ballistics for current value
-    else
-    {
-        // Thanks to Bram from Smartelectronix for the code snippet!
-        // (http://www.musicdsp.org/showone.php?id=136)
-        //
-        // rise and fall: 99% of final reading in 1.2 s (logarithmic)
-        float fAttackReleaseCoef = powf(0.01f, fProcessedSeconds / 1.200f);
-        float fOutput = fAttackReleaseCoef * (fStereoMeterOld - fStereoMeterCurrent) + fStereoMeterCurrent;
-
-        return fOutput;
-    }
+    // meter ballistics: 99% of final reading in 1.2 s (logarithmic)
+    LogMeterBallistics(1.200f, fTimePassed, fStereoMeterCurrent, fStereoMeterValue);
 }
 
 
-float MeterBallistics::PhaseCorrelationMeterBallistics(float fProcessedSeconds, float fPhaseCorrelationCurrent, float fPhaseCorrelationOld)
-/*  Calculate ballistics for phase correlation meter values.
+void MeterBallistics::PhaseCorrelationMeterBallistics(float fTimePassed, float fPhaseCorrelationCurrent)
+/*  Calculate ballistics for phase correlation meter values and update
+    readout.
 
-    fProcessedSeconds (float): length of current buffer chunk in
-    fractional seconds
+    fTimePassed (float): time that has passed since last update (in
+    fractional seconds)
 
     fPhaseCorrelationCurrent (float): current phase correlation meter
     value
 
-    fPhaseCorrelationOld (float): old phase correlation meter value
-
-    return value (float): new phase correlation meter value
+    return value: none
 */
 {
-    // the ballistics of stereo meter and phase correlation meter are
-    // identical, so let's reuse the stereo meter code
-    return StereoMeterBallistics(fProcessedSeconds, fPhaseCorrelationCurrent, fPhaseCorrelationOld);
+    // meter ballistics: 99% of final reading in 1.2 s (logarithmic)
+    LogMeterBallistics(1.200f, fTimePassed, fPhaseCorrelationCurrent, fPhaseCorrelation);
+}
+
+
+void MeterBallistics::LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float& fReadout)
+/*  Calculate logarithmic meter ballistics.
+
+    fMeterInertia (float): time needed to reach 99% of the final
+    readout (in fractional seconds)
+
+    fTimePassed (float): time that has passed since last update (in
+    fractional seconds)
+
+    fLevel (float): new meter level
+
+    fReadout (reference to float): old meter readout; this variable
+    will be updated by this function
+
+    return value: none
+*/
+{
+    // we only have to calculate meter ballistics if meter level and
+    // meter readout are not equal
+    if (fLevel != fReadout)
+    {
+        // Thanks to Bram from Smartelectronix for the code snippet!
+        // (http://www.musicdsp.org/showone.php?id=136)
+        //
+        // rise and fall: 99% of final reading in "fMeterInertia" seconds
+        float fAttackReleaseCoef = powf(0.01f, fTimePassed / fMeterInertia);
+        fReadout = fAttackReleaseCoef * (fReadout - fLevel) + fLevel;
+    }
 }
 
 
