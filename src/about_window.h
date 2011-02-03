@@ -68,10 +68,6 @@ private:
     TextEditor* TextEditorAbout;
     TextButton* ButtonAbout;
     ImageButton* ButtonGpl;
-
-    Image* ImageButtonGplNormal;
-    Image* ImageButtonGplOver;
-    Image* ImageButtonGplDown;
 };
 
 

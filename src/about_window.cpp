@@ -175,32 +175,30 @@ AboutWindow::AboutWindow(int nWidth, int nHeight)
     ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::grey);
 
     // add "about" window as button listener and display the button
-    ButtonAbout->addButtonListener(this);
+    ButtonAbout->addListener(this);
     contentComponent->addAndMakeVisible(ButtonAbout);
-
-    // prepare an image button by loading its images from memory
-    ImageButtonGplNormal = ImageCache::getFromMemory(resources::button_gpl_normal_png, resources::button_gpl_normal_pngSize);
-    ImageButtonGplOver = ImageCache::getFromMemory(resources::button_gpl_over_png, resources::button_gpl_over_pngSize);
-    ImageButtonGplDown = ImageCache::getFromMemory(resources::button_gpl_down_png, resources::button_gpl_down_pngSize);
 
     // create and position the image button which opens the license
     // text in a web browser
     ButtonGpl = new ImageButton(T("GPL Link"));
     ButtonGpl->setBounds(4, nHeight - 41, 64, 32);
     ButtonGpl->setImages(true, false, true,
-                         ImageButtonGplNormal, 1.0f, Colour(),
-                         ImageButtonGplOver, 1.0f, Colour(),
-                         ImageButtonGplDown, 1.0f, Colour()
+                         ImageCache::getFromMemory(resources::button_gpl_normal_png, resources::button_gpl_normal_pngSize), 1.0f, Colour(),
+                         ImageCache::getFromMemory(resources::button_gpl_over_png, resources::button_gpl_over_pngSize), 1.0f, Colour(),
+                         ImageCache::getFromMemory(resources::button_gpl_down_png, resources::button_gpl_down_pngSize), 1.0f, Colour()
                         );
 
     // add "about" window as button listener and display the button
-    ButtonGpl->addButtonListener(this);
+    ButtonGpl->addListener(this);
     contentComponent->addAndMakeVisible(ButtonGpl);
 }
 
 
 AboutWindow::~AboutWindow()
 {
+    delete pConstrainer;
+    pConstrainer = NULL;
+
     // delete all children of the window
     contentComponent->deleteAllChildren();
 }

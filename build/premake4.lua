@@ -60,7 +60,7 @@ solution "kmeter"
 		buildoptions { "-fno-inline" }
 		linkoptions {
 			-- force static linking to JUCE (Debug)
-			" ../../../libraries/juce/bin/libjuce_debug32.a"
+			" ../../../libraries/juce/bin/libjucedebug.a"
 		}
 
 	configuration { "Release*" }
@@ -69,7 +69,7 @@ solution "kmeter"
 		buildoptions { "-pipe", "-fvisibility=hidden" }
 		linkoptions {
 			-- force static linking to JUCE
-			" ../../../libraries/juce/bin/libjuce32.a"
+			" ../../../libraries/juce/bin/libjuce.a"
 		}
 
 --------------------------------------------------------------------------------

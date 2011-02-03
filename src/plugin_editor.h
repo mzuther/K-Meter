@@ -45,7 +45,7 @@ public:
     ~KmeterAudioProcessorEditor();
 
     void buttonClicked(Button* button);
-    void changeListenerCallback(void* objectThatHasChanged);
+    void changeListenerCallback(ChangeBroadcaster* objectThatHasChanged);
     void changeParameter(int nIndex);
     void changeParameter(int nIndex, int nValue);
 

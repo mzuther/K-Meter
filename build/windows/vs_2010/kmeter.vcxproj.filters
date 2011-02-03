@@ -2,13 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="src">
-			<UniqueIdentifier>{F64777AA-9899-4E3C-A2EC-1EE9E9B41D7C}</UniqueIdentifier>
+			<UniqueIdentifier>{BFE9547F-CAD1-3DDD-C4C7-F3205F8E2800}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="src\juce_library_code">
-			<UniqueIdentifier>{3583F036-70B9-7C21-D240-D314006F28E5}</UniqueIdentifier>
+			<UniqueIdentifier>{7CD7034F-A82F-144D-94E8-782869C8F316}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="src\resources">
-			<UniqueIdentifier>{B1ABFE89-274B-1685-ABC0-76E74C2676B7}</UniqueIdentifier>
+			<UniqueIdentifier>{74B2EC02-4F05-BD5D-FD20-7A3E925A19F7}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>

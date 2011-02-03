@@ -454,7 +454,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
         pMeterBallistics->setStereoMeterValue(fProcessedSeconds, fStereoMeterValue);
     }
 
-    sendChangeMessage(this);
+    sendChangeMessage();
 
     // To hear the audio source after average filtering, simply set
     // DEBUG_FILTER to 1.  Please remember to disable this setting
@@ -518,6 +518,11 @@ MeterBallistics* KmeterAudioProcessor::getLevels()
 AudioProcessorEditor* KmeterAudioProcessor::createEditor()
 {
     return new KmeterAudioProcessorEditor(this);
+}
+
+bool KmeterAudioProcessor::hasEditor() const
+{
+    return true;
 }
 
 //==============================================================================

@@ -333,17 +333,6 @@ systems, you'll also have to install the multilib files for
 
 \section{Dependencies}
 
-\subsection{premake}
-
-\begin{tabbing}
-  \hspace*{6em}\=\=\kill
-
-  Importance:  \> required \\
-  Version:     \> 3.7 \\
-  License:     \> GPL v2 \\
-  Homepage:    \> \href{http://premake.sourceforge.net/}{premake.sourceforge.net}
-\end{tabbing}
-
 \subsection{premake4}
 
 \begin{tabbing}
@@ -351,7 +340,7 @@ systems, you'll also have to install the multilib files for
 
   Importance:  \> required \\
   Version:     \> 4.3 \\
-  License:     \> GPL v2 \\
+  License:     \> BSD \\
   Homepage:    \> \href{http://industriousone.com/premake}{industriousone.com/premake}
 \end{tabbing}
 
@@ -392,35 +381,20 @@ binaries into the directories \path{libraries/fftw3/bin} and
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 1.51 \\
-  License:     \> GPL v2 \\
+  Version:     \> 1.52 \\
+  License:     \> GPL v3 \\
   Homepage:    \> \href{http://www.rawmaterialsoftware.com/juce.php}{www.rawmaterialsoftware.com/juce.php}
 \end{tabbing}
 
 \subsubsection{Installation on GNU/Linux}
 
 Extract the archive into the directory \path{libraries/juce}, change
-into the directory \path{libraries/juce/build/linux/} and edit the
-following lines in \path{juce_premake.lua} (please remove the
-backslash characters and the corresponding line breaks):
+into the directory \path{libraries/juce/Builds/Linux} and run:
 
 \begin{verbatim}
-  package.config["Debug"].target = "juce_debug32"
-  package.config["Release"].target = "juce32"
-
-  package.config["Debug"].buildoptions = \
-    { "-D_DEBUG -ggdb -Wall -fPIC -m32" }
-  package.config["Release"].buildoptions = \
-    { "-fvisibility=hidden -fPIC -m32" }
-\end{verbatim}
-
-Finally, run:
-
-\begin{verbatim}
-  chmod +x runpremake
-  ./runpremake
   make CONFIG=Debug
   make CONFIG=Release
+  mv build/libjuce*.a ../../bin/
 \end{verbatim}
 
 \subsubsection{Installation on Microsoft Windows}
