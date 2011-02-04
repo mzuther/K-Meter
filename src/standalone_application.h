@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __STANDALONE_H__
-#define __STANDALONE_H__
+#ifndef __STANDALONE_APPLICATION_H__
+#define __STANDALONE_APPLICATION_H__
 
 #include "juce_library_code/juce_header.h"
 #include "juce/extras/audio plugins/wrapper/Standalone/juce_StandaloneFilterWindow.h"
@@ -45,7 +45,7 @@ private:
     StandaloneFilterWindow* filterWindow;
 };
 
-#endif   // __STANDALONE_H__
+#endif   // __STANDALONE_APPLICATION_H__
 
 
 // Local Variables:

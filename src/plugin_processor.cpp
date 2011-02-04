@@ -175,13 +175,13 @@ bool KmeterAudioProcessor::isParameterMarked(int nIndex)
 }
 
 
-const String KmeterAudioProcessor::getInputChannelName(const int channelIndex) const
+const String KmeterAudioProcessor::getInputChannelName(int channelIndex) const
 {
     return String(channelIndex + 1);
 }
 
 
-const String KmeterAudioProcessor::getOutputChannelName(const int channelIndex) const
+const String KmeterAudioProcessor::getOutputChannelName(int channelIndex) const
 {
     return String(channelIndex + 1);
 }
