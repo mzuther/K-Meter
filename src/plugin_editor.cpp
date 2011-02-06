@@ -115,7 +115,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
 #ifdef DEBUG
     Label* LabelDebug = new Label(T("Debug Notification"), "DEBUG");
-    LabelDebug->setBounds(145, 587, 50, 16);
+    LabelDebug->setBounds(132, 592, 60, 16);
     LabelDebug->setColour(Label::textColourId, Colours::red);
     LabelDebug->setJustificationType(Justification::centred);
     addAndMakeVisible(LabelDebug);
@@ -138,6 +138,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     pProcessor->addChangeListenerParameters(this);
 
     kmeter = NULL;
+    dynamicRangeLabel = NULL;
 
     int nIndex = KmeterPluginParameters::selCrestFactor;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
@@ -181,6 +182,7 @@ void KmeterAudioProcessorEditor::changeListenerCallback(ChangeBroadcaster* objec
         if (pMeterBallistics)
         {
             kmeter->setLevels(pMeterBallistics);
+            dynamicRangeLabel->setValue(pMeterBallistics->getDynamicRangeValue());
             stereoMeter->setValue(pMeterBallistics->getStereoMeterValue());
             phaseCorrelationMeter->setValue(pMeterBallistics->getPhaseCorrelation());
         }
@@ -201,7 +203,7 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex)
 
 void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 {
-    bool reloadKmeter = false;
+    bool reloadMeters = false;
     MeterBallistics* pMeterBallistics = NULL;
 
     switch (nIndex)
@@ -211,28 +213,28 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         if (nValue == 0)
         {
             nCrestFactor = nValue;
-            reloadKmeter = true;
+            reloadMeters = true;
 
             ButtonNormal->setToggleState(true, false);
         }
         else if (nValue == 12)
         {
             nCrestFactor = nValue;
-            reloadKmeter = true;
+            reloadMeters = true;
 
             ButtonK12->setToggleState(true, false);
         }
         else if (nValue == 14)
         {
             nCrestFactor = nValue;
-            reloadKmeter = true;
+            reloadMeters = true;
 
             ButtonK14->setToggleState(true, false);
         }
         else
         {
             nCrestFactor = 20;
-            reloadKmeter = true;
+            reloadMeters = true;
 
             ButtonK20->setToggleState(true, false);
         }
@@ -240,12 +242,12 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         break;
 
     case KmeterPluginParameters::selExpanded:
-        reloadKmeter = true;
+        reloadMeters = true;
         ButtonExpanded->setToggleState(nValue != 0, false);
         break;
 
     case KmeterPluginParameters::selPeak:
-        reloadKmeter = true;
+        reloadMeters = true;
         ButtonDisplayPeakMeter->setToggleState(nValue != 0, false);
         break;
 
@@ -266,16 +268,28 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         break;
     }
 
-    if (reloadKmeter)
+    if (reloadMeters)
     {
         if (kmeter)
         {
             removeChildComponent(kmeter);
             delete kmeter;
+            kmeter = NULL;
+        }
+
+        if (dynamicRangeLabel)
+        {
+            removeChildComponent(dynamicRangeLabel);
+            delete dynamicRangeLabel;
+            dynamicRangeLabel = NULL;
         }
 
         kmeter = new Kmeter(T("K-Meter"), 10, 10, nCrestFactor, 2, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
         addAndMakeVisible(kmeter);
+
+        dynamicRangeLabel = new DynamicRangeLabel(T("Dynamic Range"));
+        dynamicRangeLabel->setBounds(142, 500, 40, 20);
+        addAndMakeVisible(dynamicRangeLabel);
     }
 }
 

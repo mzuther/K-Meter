@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{24803F19-B6B3-41E5-28C3-4DE64B69B8F7}</ProjectGuid>
+		<ProjectGuid>{D4B1E4FD-CA79-512C-1902-4F1B014A14D2}</ProjectGuid>
 		<RootNamespace>kmeter</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -127,6 +127,7 @@
 		<ClInclude Include="..\..\..\src\average_level_filtered_rms.h" />
 		<ClInclude Include="..\..\..\src\plugin_processor.h" />
 		<ClInclude Include="..\..\..\src\meter_ballistics.h" />
+		<ClInclude Include="..\..\..\src\dynamic_range_label.h" />
 		<ClInclude Include="..\..\..\src\plugin_editor.h" />
 		<ClInclude Include="..\..\..\src\juce_library_code\JucePluginCharacteristics.h" />
 		<ClInclude Include="..\..\..\src\juce_library_code\app_config.h" />
@@ -141,6 +142,8 @@
 		<ClCompile Include="..\..\..\src\plugin_processor.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\plugin_parameters.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\dynamic_range_label.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\main.cpp">
 		</ClCompile>

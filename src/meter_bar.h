@@ -45,6 +45,8 @@ public:
     void visibilityChanged();
 
 private:
+    JUCE_LEAK_DETECTOR(MeterBar);
+
     float fLevel;
     float fPeak;
     int nMeterCrestFactor;

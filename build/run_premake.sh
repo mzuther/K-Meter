@@ -28,7 +28,7 @@
 cd $(dirname $0)
 
 echo
-premake4 --file=vs_2010.lua --os=windows vs2010
+premake4 --file=visual_studio.lua --os=windows vs2010
 
 echo
 premake4 --cc=gcc --os=linux gmake

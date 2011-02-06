@@ -30,6 +30,8 @@ help:
 	@echo "CONFIGURATIONS:"
 	@echo "   debug32"
 	@echo "   release32"
+	@echo "   debug64"
+	@echo "   release64"
 	@echo ""
 	@echo "TARGETS:"
 	@echo "   all (default)"

@@ -43,6 +43,8 @@ public:
     void visibilityChanged();
 
 private:
+    JUCE_LEAK_DETECTOR(PhaseCorrelationMeter);
+
     float fValue;
     int nNeedlePosition;
 

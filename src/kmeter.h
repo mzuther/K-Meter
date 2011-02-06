@@ -48,6 +48,8 @@ public:
     void visibilityChanged();
 
 private:
+    JUCE_LEAK_DETECTOR(Kmeter);
+
     int nPosX;
     int nPosY;
     int nMainSegmentHeight;

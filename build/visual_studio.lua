@@ -34,7 +34,7 @@ else
 end
 
 solution "kmeter"
-	location "windows/vs_2010/"
+	location ("windows/" .. _ACTION .. "/")
 	language "C++"
 	configurations { "Debug", "Release" }
 	targetdir "../bin"

@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __OVERFLOW_METER_H__
-#define __OVERFLOW_METER_H__
+#ifndef __DYNAMIC_RANGE_LABEL_H__
+#define __DYNAMIC_RANGE_LABEL_H__
 
 #include "juce_library_code/juce_header.h"
 
@@ -32,22 +32,24 @@
 //==============================================================================
 /**
 */
-class OverflowMeter : public Label
+class DynamicRangeLabel : public Label
 {
 public:
-    OverflowMeter(const String& componentName);
-    ~OverflowMeter();
+    DynamicRangeLabel(const String& componentName);
+    ~DynamicRangeLabel();
 
-    void setOverflows(int Overflows);
+    void resetValue();
+    void setValue(int newValue);
 
 private:
-    JUCE_LEAK_DETECTOR(OverflowMeter);
+    JUCE_LEAK_DETECTOR(DynamicRangeLabel);
 
-    int nOverflows;
+    int nValue;
+    int nMeterCrestFactor;
 };
 
 
-#endif  // __OVERFLOW_METER_H__
+#endif  // __DYNAMIC_RANGE_LABEL_H__
 
 
 // Local Variables:

@@ -27,6 +27,7 @@
 #define __METER_BALLISTICS_H__
 
 #include "juce_library_code/juce_header.h"
+#include "plugin_processor.h"
 
 
 //==============================================================================
@@ -35,7 +36,10 @@
 class MeterBallistics
 {
 public:
-    MeterBallistics(int nChannels, bool bPeakMeterInfiniteHold, bool bAverageMeterInfiniteHold);
+    static const int NUMBER_OF_HISTOGRAMS = 3;
+    static const int HISTOGRAM_BINS = 10000;
+
+    MeterBallistics(int nChannels, int nSampleRate, bool bPeakMeterInfiniteHold, bool bAverageMeterInfiniteHold);
     ~MeterBallistics();
 
     void setPeakMeterInfiniteHold(bool bInfiniteHold);
@@ -53,15 +57,19 @@ public:
     float getMaximumPeakLevel(int nChannel);
     int getNumberOfOverflows(int nChannel);
 
+    int getDynamicRangeValue();
+
     float getStereoMeterValue();
     void setStereoMeterValue(float fTimePassed, float fStereoMeterValueNew);
 
     float getPhaseCorrelation();
     void setPhaseCorrelation(float fTimePassed, float fPhaseCorrelationNew);
 
-    void updateChannel(int nChannel, float fTimePassed, float fPeak, float fAverage, int nOverflows);
+    void updateChannel(int nChannel, float fTimePassed, float fPeak, float fAverage, float fAverageFiltered, int nOverflows);
 
 private:
+    JUCE_LEAK_DETECTOR(MeterBallistics);
+
     int nNumberOfChannels;
 
     float fMeterMinimumDecibel;
@@ -79,8 +87,22 @@ private:
     float* fPeakMeterPeakLastChanged;
     float* fAverageMeterPeakLastChanged;
 
+    unsigned short** fAverageLevelHistogram;
+    unsigned short** fPeakLevelHistogram;
+    bool* bHistogramIsValid;
+
+    int nDynamicRangeValue;
+    int nCurrentHistogram;
+
+    int nHistogramMaximumCounts;
+    int nHistogramTopTwentyCounts;
+    int nHistogramCurrentCounts;
+
     float fStereoMeterValue;
     float fPhaseCorrelation;
+
+    void calculateDynamicRangeValue();
+    void resetDynamicRangeHistogram(bool bResetAllHistograms);
 
     float level2decibel(float fLevel);
 

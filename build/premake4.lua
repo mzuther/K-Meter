@@ -35,8 +35,10 @@ end
 
 solution "kmeter"
 	language "C++"
+
+	platforms { "x32", "x64" }
+
 	configurations { "Debug", "Release" }
-	targetdir "../bin"
 
 	files {
 		"../src/**.h",
@@ -49,28 +51,31 @@ solution "kmeter"
 		"../libraries/vstsdk2.4"
 	}
 
-	linkoptions {
-		-- force static linking to FFTW
-		"../../../libraries/fftw3/bin/libfftw3f.a"
-	}
+	configuration { "x32" }
+		targetdir "../bin/i386/"
+
+		linkoptions {
+			-- force static linking to FFTW
+			"../../../libraries/fftw3/bin/i386/libfftw3f.a"
+		}
+
+	configuration { "x64" }
+		targetdir "../bin/amd64/"
+
+		linkoptions {
+			-- force static linking to FFTW
+			"../../../libraries/fftw3/bin/amd64/libfftw3f.a"
+		}
 
 	configuration { "Debug*" }
 		defines { "_DEBUG=1", "DEBUG=1" }
 		flags { "Symbols", "ExtraWarnings" }
 		buildoptions { "-fno-inline" }
-		linkoptions {
-			-- force static linking to JUCE (Debug)
-			" ../../../libraries/juce/bin/libjucedebug.a"
-		}
 
 	configuration { "Release*" }
 		defines { "NDEBUG" }
 		flags { "OptimizeSpeed", "NoFramePointer", "ExtraWarnings" }
 		buildoptions { "-pipe", "-fvisibility=hidden" }
-		linkoptions {
-			-- force static linking to JUCE
-			" ../../../libraries/juce/bin/libjuce.a"
-		}
 
 --------------------------------------------------------------------------------
 
@@ -78,8 +83,6 @@ solution "kmeter"
 		kind "WindowedApp"
 		location (os.get() .. "/standalone")
 		targetprefix ""
-
-		platforms { "x32" }
 
 		defines {
 			"KMETER_STAND_ALONE=1",
@@ -114,10 +117,6 @@ solution "kmeter"
 				"/usr/include/freetype2"
 			}
 
-			libdirs {
-				"/usr/X11R6/lib32/"
-			}
-
 		configuration {"windows"}
 			defines {
 				"WIN32=1",
@@ -140,8 +139,6 @@ solution "kmeter"
 		kind "SharedLib"
 		location (os.get() .. "/vst")
 		targetprefix ""
-
-		platforms { "x32" }
 
 		defines {
 			"KMETER_VST_PLUGIN=1",
@@ -167,20 +164,12 @@ solution "kmeter"
 				"/usr/include/freetype2"
 			}
 
-			libdirs {
-				"/usr/X11R6/lib32/"
-			}
-
 			links {
 				"freetype",
 				"pthread",
 				"rt",
 				"X11",
 				"Xext"
-			}
-
-			linkoptions {
-				"../../../libraries/fftw3/bin/libfftw3f.a"
 			}
 
 		configuration {"windows"}

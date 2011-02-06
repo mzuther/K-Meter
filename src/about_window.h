@@ -49,6 +49,9 @@ public:
         // the change
         bounds = previousBounds;
     }
+
+private:
+    JUCE_LEAK_DETECTOR(ProhibitingBoundsConstrainer);
 };
 
 
@@ -62,6 +65,8 @@ public:
     void buttonClicked(Button* button);
 
 private:
+    JUCE_LEAK_DETECTOR(AboutWindow);
+
     Component* contentComponent;
     ProhibitingBoundsConstrainer* pConstrainer;
 

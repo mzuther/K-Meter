@@ -30,6 +30,7 @@
 #define DEBUG_FILTER 0
 
 class KmeterAudioProcessor;
+class MeterBallistics;
 
 #include "juce_library_code/juce_header.h"
 #include "juce_library_code/JucePluginCharacteristics.h"
@@ -105,6 +106,8 @@ public:
     juce_UseDebuggingNewOperator
 
 private:
+    JUCE_LEAK_DETECTOR(KmeterAudioProcessor);
+
     AudioRingBuffer* pRingBufferInput;
     AudioRingBuffer* pRingBufferOutput;
 
@@ -121,6 +124,7 @@ private:
 
     float* fPeakLevels;
     float* fAverageLevels;
+    float* fAverageLevelsFiltered;
 
     int* nOverflows;
     bool* bOverflowsPreviousSample;

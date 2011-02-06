@@ -82,6 +82,8 @@ public:
     };
 
 private:
+    JUCE_LEAK_DETECTOR(KmeterPluginParameters);
+
     int* nParam;
     bool* bParamChanged;
 };

@@ -21,14 +21,14 @@ endif
 
 ifeq ($(config),debug32)
   OBJDIR     = ../../../bin/intermediate_linux/standalone_debug/x32
-  TARGETDIR  = ../../../bin
+  TARGETDIR  = ../../../bin/i386
   TARGET     = $(TARGETDIR)/kmeter_debug
   DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_STAND_ALONE=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1
   INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fno-inline
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -m32 -L/usr/lib32 ../../../libraries/fftw3/bin/libfftw3f.a  ../../../libraries/juce/bin/libjucedebug.a -L/usr/X11R6/lib32
+  LDFLAGS   += -m32 -L/usr/lib32 ../../../libraries/fftw3/bin/i386/libfftw3f.a
   LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
@@ -43,14 +43,58 @@ endif
 
 ifeq ($(config),release32)
   OBJDIR     = ../../../bin/intermediate_linux/standalone_release/x32
-  TARGETDIR  = ../../../bin
+  TARGETDIR  = ../../../bin/i386
   TARGET     = $(TARGETDIR)/kmeter
   DEFINES   += -DNDEBUG -DKMETER_STAND_ALONE=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1
   INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -pipe -fvisibility=hidden
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -m32 -L/usr/lib32 ../../../libraries/fftw3/bin/libfftw3f.a  ../../../libraries/juce/bin/libjuce.a -L/usr/X11R6/lib32
+  LDFLAGS   += -s -m32 -L/usr/lib32 ../../../libraries/fftw3/bin/i386/libfftw3f.a
+  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  RESFLAGS  += $(DEFINES) $(INCLUDES) 
+  LDDEPS    += 
+  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
+  define PREBUILDCMDS
+  endef
+  define PRELINKCMDS
+  endef
+  define POSTBUILDCMDS
+  endef
+endif
+
+ifeq ($(config),debug64)
+  OBJDIR     = ../../../bin/intermediate_linux/standalone_debug/x64
+  TARGETDIR  = ../../../bin/amd64
+  TARGET     = $(TARGETDIR)/kmeter_debug
+  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_STAND_ALONE=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1
+  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
+  CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m64 -fno-inline
+  CXXFLAGS  += $(CFLAGS) 
+  LDFLAGS   += -m64 -L/usr/lib64 ../../../libraries/fftw3/bin/amd64/libfftw3f.a
+  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  RESFLAGS  += $(DEFINES) $(INCLUDES) 
+  LDDEPS    += 
+  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
+  define PREBUILDCMDS
+  endef
+  define PRELINKCMDS
+  endef
+  define POSTBUILDCMDS
+  endef
+endif
+
+ifeq ($(config),release64)
+  OBJDIR     = ../../../bin/intermediate_linux/standalone_release/x64
+  TARGETDIR  = ../../../bin/amd64
+  TARGET     = $(TARGETDIR)/kmeter
+  DEFINES   += -DNDEBUG -DKMETER_STAND_ALONE=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1
+  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
+  CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m64 -pipe -fvisibility=hidden
+  CXXFLAGS  += $(CFLAGS) 
+  LDFLAGS   += -s -m64 -L/usr/lib64 ../../../libraries/fftw3/bin/amd64/libfftw3f.a
   LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
@@ -68,14 +112,15 @@ OBJECTS := \
 	$(OBJDIR)/meter_segment.o \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/plugin_parameters.o \
+	$(OBJDIR)/dynamic_range_label.o \
 	$(OBJDIR)/main.o \
-	$(OBJDIR)/phase_correlation_meter.o \
 	$(OBJDIR)/meter_bar.o \
 	$(OBJDIR)/peak_label.o \
 	$(OBJDIR)/kmeter.o \
 	$(OBJDIR)/average_level_filtered_rms.o \
 	$(OBJDIR)/audio_ring_buffer.o \
 	$(OBJDIR)/standalone_application.o \
+	$(OBJDIR)/phase_correlation_meter.o \
 	$(OBJDIR)/meter_ballistics.o \
 	$(OBJDIR)/about_window.o \
 	$(OBJDIR)/plugin_editor.o \
@@ -159,10 +204,10 @@ $(OBJDIR)/plugin_processor.o: ../../../src/plugin_processor.cpp
 $(OBJDIR)/plugin_parameters.o: ../../../src/plugin_parameters.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/main.o: ../../../src/main.cpp
+$(OBJDIR)/dynamic_range_label.o: ../../../src/dynamic_range_label.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/phase_correlation_meter.o: ../../../src/phase_correlation_meter.cpp
+$(OBJDIR)/main.o: ../../../src/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_bar.o: ../../../src/meter_bar.cpp
@@ -181,6 +226,9 @@ $(OBJDIR)/audio_ring_buffer.o: ../../../src/audio_ring_buffer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/standalone_application.o: ../../../src/standalone_application.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/phase_correlation_meter.o: ../../../src/phase_correlation_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_ballistics.o: ../../../src/meter_ballistics.cpp
