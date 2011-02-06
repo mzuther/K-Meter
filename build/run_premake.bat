@@ -26,6 +26,12 @@
 @rem ----------------------------------------------------------------------------
 
 @echo.
+@premake4 --file=visual_studio.lua --os=windows vs2005
+
+@echo.
+@premake4 --file=visual_studio.lua --os=windows vs2008
+
+@echo.
 @premake4 --file=visual_studio.lua --os=windows vs2010
 
 @echo.

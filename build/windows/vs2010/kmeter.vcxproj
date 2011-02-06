@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{D4B1E4FD-CA79-512C-1902-4F1B014A14D2}</ProjectGuid>
+		<ProjectGuid>{2EFAB9B0-42C6-49EC-DE94-890F86B88495}</ProjectGuid>
 		<RootNamespace>kmeter</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
