@@ -44,7 +44,7 @@ public:
     void visibilityChanged();
 
 private:
-    JUCE_LEAK_DETECTOR(MeterSegment);
+    // JUCE_LEAK_DETECTOR(MeterSegment);
 
     float fHue;
     float fBrightness;

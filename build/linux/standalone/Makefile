@@ -24,7 +24,7 @@ ifeq ($(config),debug32)
   TARGETDIR  = ../../../bin/i386
   TARGET     = $(TARGETDIR)/kmeter_debug
   DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_STAND_ALONE=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1
-  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
+  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fno-inline
   CXXFLAGS  += $(CFLAGS) 
@@ -46,7 +46,7 @@ ifeq ($(config),release32)
   TARGETDIR  = ../../../bin/i386
   TARGET     = $(TARGETDIR)/kmeter
   DEFINES   += -DNDEBUG -DKMETER_STAND_ALONE=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1
-  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
+  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -pipe -fvisibility=hidden
   CXXFLAGS  += $(CFLAGS) 
@@ -68,7 +68,7 @@ ifeq ($(config),debug64)
   TARGETDIR  = ../../../bin/amd64
   TARGET     = $(TARGETDIR)/kmeter_debug
   DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_STAND_ALONE=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1
-  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
+  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m64 -fno-inline
   CXXFLAGS  += $(CFLAGS) 
@@ -90,7 +90,7 @@ ifeq ($(config),release64)
   TARGETDIR  = ../../../bin/amd64
   TARGET     = $(TARGETDIR)/kmeter
   DEFINES   += -DNDEBUG -DKMETER_STAND_ALONE=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1
-  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
+  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m64 -pipe -fvisibility=hidden
   CXXFLAGS  += $(CFLAGS) 

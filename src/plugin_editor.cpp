@@ -43,7 +43,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonK20->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonK20->setColour(TextButton::buttonOnColourId, Colours::green);
 
-    ButtonK20->addListener(this);
+    ButtonK20->addButtonListener(this);
     addAndMakeVisible(ButtonK20);
 
     ButtonK14 = new TextButton(T("K-14"));
@@ -52,7 +52,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonK14->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonK14->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-    ButtonK14->addListener(this);
+    ButtonK14->addButtonListener(this);
     addAndMakeVisible(ButtonK14);
 
     ButtonK12 = new TextButton(T("K-12"));
@@ -61,7 +61,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonK12->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonK12->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-    ButtonK12->addListener(this);
+    ButtonK12->addButtonListener(this);
     addAndMakeVisible(ButtonK12);
 
     ButtonNormal = new TextButton(T("Normal"));
@@ -70,7 +70,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonNormal->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonNormal->setColour(TextButton::buttonOnColourId, Colours::red);
 
-    ButtonNormal->addListener(this);
+    ButtonNormal->addButtonListener(this);
     addAndMakeVisible(ButtonNormal);
 
     ButtonInfiniteHold = new TextButton(T("Hold"));
@@ -78,7 +78,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonInfiniteHold->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonInfiniteHold->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-    ButtonInfiniteHold->addListener(this);
+    ButtonInfiniteHold->addButtonListener(this);
     addAndMakeVisible(ButtonInfiniteHold);
 
     ButtonDisplayPeakMeter = new TextButton(T("Peaks"));
@@ -86,7 +86,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonDisplayPeakMeter->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonDisplayPeakMeter->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-    ButtonDisplayPeakMeter->addListener(this);
+    ButtonDisplayPeakMeter->addButtonListener(this);
     addAndMakeVisible(ButtonDisplayPeakMeter);
 
     ButtonExpanded = new TextButton(T("Expand"));
@@ -94,7 +94,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonExpanded->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonExpanded->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-    ButtonExpanded->addListener(this);
+    ButtonExpanded->addButtonListener(this);
     addAndMakeVisible(ButtonExpanded);
 
     ButtonMono = new TextButton(T("Mono"));
@@ -102,7 +102,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonMono->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonMono->setColour(TextButton::buttonOnColourId, Colours::red);
 
-    ButtonMono->addListener(this);
+    ButtonMono->addButtonListener(this);
     addAndMakeVisible(ButtonMono);
 
     ButtonReset = new TextButton(T("Reset"));
@@ -110,7 +110,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonReset->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonReset->setColour(TextButton::buttonOnColourId, Colours::red);
 
-    ButtonReset->addListener(this);
+    ButtonReset->addButtonListener(this);
     addAndMakeVisible(ButtonReset);
 
 #ifdef DEBUG
@@ -126,7 +126,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonAbout->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-    ButtonAbout->addListener(this);
+    ButtonAbout->addButtonListener(this);
     addAndMakeVisible(ButtonAbout);
 
     stereoMeter = new StereoMeter(T("Stereo Meter"), 10, 605, 105, 15);
@@ -166,7 +166,7 @@ KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 }
 
 
-void KmeterAudioProcessorEditor::changeListenerCallback(ChangeBroadcaster* objectThatHasChanged)
+void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChanged)
 {
     if (objectThatHasChanged != pProcessor)
     {

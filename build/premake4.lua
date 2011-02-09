@@ -47,8 +47,7 @@ solution "kmeter"
 
 	includedirs {
 		"../src/juce_library_code/",
-		"../libraries/",
-		"../libraries/vstsdk2.4"
+		"../libraries/"
 	}
 
 	configuration { "x32" }
@@ -144,6 +143,10 @@ solution "kmeter"
 			"KMETER_VST_PLUGIN=1",
 			"JUCETICE_USE_AMALGAMA=1",
 			"JUCE_USE_VSTSDK_2_4=1"
+		}
+
+		includedirs {
+			"../libraries/vstsdk2.4"
 		}
 
 		excludes {

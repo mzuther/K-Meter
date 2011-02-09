@@ -68,7 +68,7 @@ public:
     void updateChannel(int nChannel, float fTimePassed, float fPeak, float fAverage, float fAverageFiltered, int nOverflows);
 
 private:
-    JUCE_LEAK_DETECTOR(MeterBallistics);
+    // JUCE_LEAK_DETECTOR(MeterBallistics);
 
     int nNumberOfChannels;
 

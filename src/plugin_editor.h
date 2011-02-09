@@ -46,7 +46,7 @@ public:
     ~KmeterAudioProcessorEditor();
 
     void buttonClicked(Button* button);
-    void changeListenerCallback(ChangeBroadcaster* objectThatHasChanged);
+    void changeListenerCallback(void* objectThatHasChanged);
     void changeParameter(int nIndex);
     void changeParameter(int nIndex, int nValue);
 
@@ -56,7 +56,7 @@ public:
     void resized();
 
 private:
-    JUCE_LEAK_DETECTOR(KmeterAudioProcessorEditor);
+    // JUCE_LEAK_DETECTOR(KmeterAudioProcessorEditor);
 
     int nCrestFactor;
 

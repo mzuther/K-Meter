@@ -41,7 +41,7 @@ public:
     void setOverflows(int Overflows);
 
 private:
-    JUCE_LEAK_DETECTOR(OverflowMeter);
+    // JUCE_LEAK_DETECTOR(OverflowMeter);
 
     int nOverflows;
 };

@@ -176,13 +176,13 @@ bool KmeterAudioProcessor::isParameterMarked(int nIndex)
 }
 
 
-const String KmeterAudioProcessor::getInputChannelName(int channelIndex) const
+const String KmeterAudioProcessor::getInputChannelName(const int channelIndex) const
 {
     return String(channelIndex + 1);
 }
 
 
-const String KmeterAudioProcessor::getOutputChannelName(int channelIndex) const
+const String KmeterAudioProcessor::getOutputChannelName(const int channelIndex) const
 {
     return String(channelIndex + 1);
 }
@@ -464,7 +464,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
         pMeterBallistics->setStereoMeterValue(fProcessedSeconds, fStereoMeterValue);
     }
 
-    sendChangeMessage();
+    sendChangeMessage(this);
 
     // To hear the audio source after average filtering, simply set
     // DEBUG_FILTER to 1.  Please remember to disable this setting

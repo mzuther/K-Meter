@@ -123,7 +123,7 @@ void KmeterPluginParameters::setParameterFromInt(int nIndex, int nValue)
         }
 
         MarkParameter(nIndex);
-        sendChangeMessage();
+        sendChangeMessage(this);
     }
 }
 

@@ -51,7 +51,7 @@ public:
     }
 
 private:
-    JUCE_LEAK_DETECTOR(ProhibitingBoundsConstrainer);
+    // JUCE_LEAK_DETECTOR(ProhibitingBoundsConstrainer);
 };
 
 
@@ -65,7 +65,7 @@ public:
     void buttonClicked(Button* button);
 
 private:
-    JUCE_LEAK_DETECTOR(AboutWindow);
+    // JUCE_LEAK_DETECTOR(AboutWindow);
 
     Component* contentComponent;
     ProhibitingBoundsConstrainer* pConstrainer;
@@ -73,6 +73,10 @@ private:
     TextEditor* TextEditorAbout;
     TextButton* ButtonAbout;
     ImageButton* ButtonGpl;
+
+    Image* ImageButtonGplNormal;
+    Image* ImageButtonGplOver;
+    Image* ImageButtonGplDown;
 };
 
 

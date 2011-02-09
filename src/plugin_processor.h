@@ -80,8 +80,8 @@ public:
     //==========================================================================
     const String getName() const;
 
-    const String getInputChannelName(int channelIndex) const;
-    const String getOutputChannelName(int channelIndex) const;
+    const String getInputChannelName(const int channelIndex) const;
+    const String getOutputChannelName(const int channelIndex) const;
     bool isInputChannelStereoPair(int index) const;
     bool isOutputChannelStereoPair(int index) const;
 
@@ -106,7 +106,7 @@ public:
     juce_UseDebuggingNewOperator
 
 private:
-    JUCE_LEAK_DETECTOR(KmeterAudioProcessor);
+    // JUCE_LEAK_DETECTOR(KmeterAudioProcessor);
 
     AudioRingBuffer* pRingBufferInput;
     AudioRingBuffer* pRingBufferOutput;
