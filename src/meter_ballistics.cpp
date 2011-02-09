@@ -96,7 +96,7 @@ MeterBallistics::MeterBallistics(int nChannels, int nSampleRate, bool bPeakMeter
     bHistogramIsValid = new bool[NUMBER_OF_HISTOGRAMS];
 
     // allocate histogram bins for calculation of the dynamic range
-    // value; levels are seprated into bins of 0.01 dB each and run
+    // value; levels are separated into bins of 0.01 dB each and run
     // from -100.0 dBFS to 0.0 dBFS; to minimise overhead, histogram
     // indices are calculated as (-100 * level)
     for (int nHistogram = 0; nHistogram < NUMBER_OF_HISTOGRAMS; nHistogram++)

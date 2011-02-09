@@ -201,6 +201,9 @@ AboutWindow::~AboutWindow()
 
     // delete all children of the window
     contentComponent->deleteAllChildren();
+
+    // delete all children of the class
+    deleteAllChildren();
 }
 
 

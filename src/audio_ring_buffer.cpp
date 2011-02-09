@@ -25,14 +25,14 @@
 
 #include "audio_ring_buffer.h"
 
-AudioRingBuffer::AudioRingBuffer(const juce_wchar* buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size)
+AudioRingBuffer::AudioRingBuffer(const String& buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size)
 {
     jassert(channels > 0);
     jassert(length > 0);
 
     this->clearCallbackClass();
 
-    strBufferName = String(buffer_name);
+    strBufferName = buffer_name;
 
     uChannels = channels;
     uLength = length;

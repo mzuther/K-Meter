@@ -40,7 +40,7 @@ class AudioRingBuffer;
 class AudioRingBuffer
 {
 public:
-    AudioRingBuffer(const juce_wchar* buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size);
+    AudioRingBuffer(const String& buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size);
     ~AudioRingBuffer();
 
     void clear();
