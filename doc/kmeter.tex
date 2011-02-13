@@ -127,7 +127,7 @@ the K-System meter has been explicitly designed to \textbf{not} have
 \end{wrapfigure}
 
 Click on this button to toggle between infinite peak hold and
-``falling peaks''.  This settings applies to both K-System and peak
+``falling peaks''.  This setting applies to both K-System and peak
 meters.
 
 \section{Show peak meter}
@@ -171,11 +171,12 @@ If switched on, the 0\,dB mark is placed near the centre.
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_mono_off.png}
 \end{wrapfigure}
 
-Click this button to easily check the mono compatibility of your mix
-or master.  In \textbf{mono} mode, both stereo meters will be linked.
+Click this button to easily check the mono compatibility of your
+stereo mix or master.  In \textbf{mono} mode, both K-System meters and
+peak meters will be linked.
 
-If you insert the plug-in into a mono channel strip, \textbf{mono}
-mode will be selected and cannot be toggled.
+In case you insert the plug-in into a mono channel strip,
+\textbf{mono} mode will be selected and cannot be toggled.
 
 \section{Reset button}
 
@@ -183,9 +184,9 @@ mode will be selected and cannot be toggled.
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_reset.png}
 \end{wrapfigure}
 
-Click on this button to reset peaks, maximum peaks and overload
-counter of both K-System and peak meters.  You can also get rid of
-graphical artifacts, because the meters will be redrawn as well.
+Click on this button to reset all meters, peaks and counters.  You can
+also get rid of graphical artifacts, because all meters will be
+redrawn as well.
 
 \section{About window}
 
@@ -368,8 +369,8 @@ column):
 
 Please make the necessary changes to \texttt{username}.  You may also
 add additional users, like \texttt{another\_user}.  In case you are
-setting up a 32-bit chroot environment on a 64-bit system, you'll also
-have to change \texttt{linux} to \texttt{linux32}.
+setting up a 32-bit \texttt{chroot} environment on a 64-bit system,
+you'll also have to change \texttt{linux} to \texttt{linux32}.
 
 When \path{debootstrap} is done, log in as superuser:
 
@@ -497,8 +498,8 @@ platform, you should run \emph{astyle} using the scripts
 
 \section{Building on GNU/Linux}
 
-After preparing the dependencies, change into the directory
-\path{build} and execute
+After preparing the dependencies, start your \texttt{chroot}
+environment, change into the directory \path{build} and execute
 
 \begin{verbatim}
   ./run_premake.sh

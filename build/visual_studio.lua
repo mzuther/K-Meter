@@ -50,10 +50,6 @@ solution "kmeter"
 		"../libraries/vstsdk2.4"
 	}
 
-	libdirs {
-		"../libraries/fftw3/bin"
-	}
-
 	flags {
 			"EnableSSE",
 			"EnableSSE2",
@@ -91,32 +87,6 @@ solution "kmeter"
 			"../src/standalone_application.cpp"
 		}
 
-		configuration {"linux"}
-			defines {
-				"LINUX=1",
-				"JUCE_USE_XSHM=1",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0"
-			}
-
-			includedirs {
-				"/usr/include",
-				"/usr/include/freetype2"
-			}
-
-			libdirs {
-				"/usr/X11R6/lib32/"
-			}
-
-			links {
-				"fftw3f",
-				"freetype",
-				"pthread",
-				"rt",
-				"X11",
-				"Xext"
-			}
-
 		configuration {"windows"}
 			defines {
 				"_WINDOWS=1",
@@ -127,8 +97,13 @@ solution "kmeter"
 				"JUCE_JACK=0"
 			}
 
+
+			libdirs {
+				"../libraries/fftw3/bin"
+			}
+
 			links {
-				"libfftw3f-3",
+				"libfftw",
 				"kernel32",
 				"user32",
 				"gdi32",
