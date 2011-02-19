@@ -497,7 +497,10 @@ void MeterBallistics::calculateDynamicRangeValue()
         }
     }
 
-    float fDynamicRangeValueTotal = 0.0f;
+    // the overall dynamic range value is calculated from the dynamic
+    // range values of the channels; initialise a helper variable for
+    // holding a sum of these dynamic range values
+    float fDynamicRangeValueRunningSum = 0.0f;
 
     // loop through all channels
     for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
@@ -654,12 +657,14 @@ void MeterBallistics::calculateDynamicRangeValue()
         // specification should be 20.0f, so let's use level2decibel()
         fDynamicRangeValue = level2decibel(fDynamicRangeValue);
 
-        fDynamicRangeValueTotal += fDynamicRangeValue;
+        // add channel's dynamic range value to the running sum of
+        // dynamic range values
+        fDynamicRangeValueRunningSum += fDynamicRangeValue;
     }
 
-    // finish calculation of the dynamic range value and store the
-    // rounded result
-    nDynamicRangeValue = (int)(fDynamicRangeValueTotal / nNumberOfChannels + 0.5f);
+    // calculate the average dynamic range value and store the rounded
+    // result
+    nDynamicRangeValue = (int)(fDynamicRangeValueRunningSum / nNumberOfChannels + 0.5f);
 
     // select and reset next dynamic range histogram(s)
     resetDynamicRangeHistogram(false);
