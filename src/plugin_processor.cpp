@@ -63,6 +63,8 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
 {
     removeAllChangeListeners();
 
+    // call function "releaseResources()" by force to make sure all
+    // allocated memory is freed
     releaseResources();
 
     delete pAverageLevelFilteredRms;

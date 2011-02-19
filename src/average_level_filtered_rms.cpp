@@ -59,7 +59,10 @@ AverageLevelFilteredRms::AverageLevelFilteredRms(const int channels, const int b
 AverageLevelFilteredRms::~AverageLevelFilteredRms()
 {
     delete pSampleBuffer;
+    pSampleBuffer = NULL;
+
     delete pOverlapAddSamples;
+    pOverlapAddSamples = NULL;
 
     fftwf_destroy_plan(planFilterKernel_DFT);
     fftwf_free(arrFilterKernel_TD);

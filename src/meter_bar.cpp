@@ -172,6 +172,7 @@ MeterBar::~MeterBar()
     {
         removeChildComponent(MeterArray[n]);
         delete MeterArray[n];
+        MeterArray[n] = NULL;
     }
 
     delete [] MeterArray;

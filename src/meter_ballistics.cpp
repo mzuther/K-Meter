@@ -152,6 +152,9 @@ MeterBallistics::~MeterBallistics()
     delete [] fMaximumPeakLevels;
     fMaximumPeakLevels = NULL;
 
+    delete [] nNumberOfOverflows;
+    nNumberOfOverflows = NULL;
+
     // delete memory allocated for histogram channels and bins
     for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
     {
@@ -169,6 +172,9 @@ MeterBallistics::~MeterBallistics()
 
         delete [] fPeakLevelHistogram[nChannel];
         fPeakLevelHistogram[nChannel] = NULL;
+
+        delete [] bHistogramIsValid[nChannel];
+        bHistogramIsValid[nChannel] = NULL;
     }
 
     // delete memory allocated for histograms
@@ -180,9 +186,6 @@ MeterBallistics::~MeterBallistics()
 
     delete [] bHistogramIsValid;
     bHistogramIsValid = NULL;
-
-    delete [] nNumberOfOverflows;
-    nNumberOfOverflows = NULL;
 }
 
 

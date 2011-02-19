@@ -352,6 +352,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 
         removeChildComponent(aboutWindow);
         delete aboutWindow;
+        aboutWindow = NULL;
     }
 }
 
