@@ -50,6 +50,10 @@ solution "kmeter"
 		"../libraries/vstsdk2.4"
 	}
 
+	libdirs {
+		"../libraries/fftw3/bin"
+	}
+
 	flags {
 			"EnableSSE",
 			"EnableSSE2",
@@ -97,13 +101,8 @@ solution "kmeter"
 				"JUCE_JACK=0"
 			}
 
-
-			libdirs {
-				"../libraries/fftw3/bin"
-			}
-
 			links {
-				"libfftw",
+				"libfftw3f-3",
 				"kernel32",
 				"user32",
 				"gdi32",

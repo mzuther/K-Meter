@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="kmeter"
-	ProjectGUID="{CF297567-763B-8F94-DC86-09ACF4109E3B}"
+	ProjectGUID="{497764ED-E4D6-363F-89AC-A3AEE5EFFF87}"
 	RootNamespace="kmeter"
 	Keyword="Win32Proj"
 	>
@@ -66,7 +66,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libfftw.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="libfftw3f-3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
 				OutputFile="$(OutDir)\K-Meter (Debug).dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\..\libraries\fftw3\bin"
@@ -153,7 +153,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libfftw.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="libfftw3f-3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
 				OutputFile="$(OutDir)\K-Meter.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\libraries\fftw3\bin"
