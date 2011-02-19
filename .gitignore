@@ -1,9 +1,12 @@
 *~
 .*~
 *.log
+*.ncb
 *.sdf
 *.sln
 *.suo
+*.vcproj.*.user
+*.vcxproj.user
 
 .Rhistory
 
