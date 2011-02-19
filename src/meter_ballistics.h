@@ -87,9 +87,9 @@ private:
     float* fPeakMeterPeakLastChanged;
     float* fAverageMeterPeakLastChanged;
 
-    unsigned short** fAverageLevelHistogram;
-    unsigned short** fPeakLevelHistogram;
-    bool* bHistogramIsValid;
+    unsigned short** * fAverageLevelHistogram;
+    unsigned short** * fPeakLevelHistogram;
+    bool** bHistogramIsValid;
 
     int nDynamicRangeValue;
     int nCurrentHistogram;
