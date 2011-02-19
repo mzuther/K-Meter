@@ -648,14 +648,11 @@ void MeterBallistics::calculateDynamicRangeValue()
             }
         }
 
-        // calculate the dynamic range value; I have placed the value of
-        // 2.0f here rather than in the RMS calculation in order to make
-        // the calculations faster (it's mathematically equivalent)
-        float fDynamicRangeValue = sqrt(2.0f * fSumOfSquaredAverageLevels / nProcessedCounts) / fHighestPeakLevel_2;
-
-        // I guess the value -20.0f found in the dynamic range meter
-        // specification should be 20.0f, so let's use level2decibel()
-        fDynamicRangeValue = level2decibel(fDynamicRangeValue);
+        // calculate the dynamic range value; the original algorithm
+        // for the dynamic range value doesn't make sense at all and
+        // often gives completely random results; I have thus removed
+        // all the "weird" parts
+        float fDynamicRangeValue = sqrt(fSumOfSquaredAverageLevels / nProcessedCounts) - fHighestPeakLevel_2;
 
         // add channel's dynamic range value to the running sum of
         // dynamic range values
