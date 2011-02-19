@@ -51,7 +51,7 @@ KmeterAudioProcessor::KmeterAudioProcessor()
     fProcessedSeconds = 0.0f;
 
     fPeakLevels = NULL;
-    fAverageLevels = NULL;
+    fRmsLevels = NULL;
     fAverageLevelsFiltered = NULL;
 
     nOverflows = NULL;
@@ -261,7 +261,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     DBG(String("[K-Meter] nNumInputChannels: ") + String(nNumInputChannels));
 
     fPeakLevels = new float[nNumInputChannels];
-    fAverageLevels = new float[nNumInputChannels];
+    fRmsLevels = new float[nNumInputChannels];
     fAverageLevelsFiltered = new float[nNumInputChannels];
 
     nOverflows = new int[nNumInputChannels];
@@ -270,7 +270,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
     {
         fPeakLevels[nChannel] = 0.0f;
-        fAverageLevels[nChannel] = 0.0f;
+        fRmsLevels[nChannel] = 0.0f;
         fAverageLevelsFiltered[nChannel] = 0.0f;
 
         nOverflows[nChannel] = 0;
@@ -310,8 +310,8 @@ void KmeterAudioProcessor::releaseResources()
     delete [] fPeakLevels;
     fPeakLevels = NULL;
 
-    delete [] fAverageLevels;
-    fAverageLevels = NULL;
+    delete [] fRmsLevels;
+    fRmsLevels = NULL;
 
     delete [] fAverageLevelsFiltered;
     fAverageLevelsFiltered = NULL;
@@ -387,7 +387,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
         if (bMono && (nChannel == 1))
         {
             fPeakLevels[nChannel] = fPeakLevels[0];
-            fAverageLevels[nChannel] = fAverageLevels[0];
+            fRmsLevels[nChannel] = fRmsLevels[0];
             fAverageLevelsFiltered[nChannel] = fAverageLevelsFiltered[0];
             nOverflows[nChannel] = nOverflows[0];
         }
@@ -397,7 +397,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
             fPeakLevels[nChannel] = pRingBufferInput->getMagnitude(nChannel, uChunkSize, uPreDelay);
 
             // determine peak level for uChunkSize samples (use pre-delay)
-            fAverageLevels[nChannel] = pRingBufferInput->getRMSLevel(nChannel, uChunkSize, uPreDelay);
+            fRmsLevels[nChannel] = pRingBufferInput->getRMSLevel(nChannel, uChunkSize, uPreDelay);
 
             // determine filtered average level for uChunkSize samples
             fAverageLevelsFiltered[nChannel] = pAverageLevelFilteredRms->getLevel(nChannel);
@@ -408,7 +408,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
 
         // apply meter ballistics and store values so that the editor
         // can access them
-        pMeterBallistics->updateChannel(nChannel, fProcessedSeconds, fPeakLevels[nChannel], fAverageLevels[nChannel], fAverageLevelsFiltered[nChannel], nOverflows[nChannel]);
+        pMeterBallistics->updateChannel(nChannel, fProcessedSeconds, fPeakLevels[nChannel], fRmsLevels[nChannel], fAverageLevelsFiltered[nChannel], nOverflows[nChannel]);
     }
 
     // phase correlation is only defined for stereo signals

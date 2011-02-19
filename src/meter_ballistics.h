@@ -65,7 +65,7 @@ public:
     float getPhaseCorrelation();
     void setPhaseCorrelation(float fTimePassed, float fPhaseCorrelationNew);
 
-    void updateChannel(int nChannel, float fTimePassed, float fPeak, float fAverage, float fAverageFiltered, int nOverflows);
+    void updateChannel(int nChannel, float fTimePassed, float fPeak, float fRms, float fAverageFiltered, int nOverflows);
 
 private:
     // JUCE_LEAK_DETECTOR(MeterBallistics);
@@ -87,7 +87,7 @@ private:
     float* fPeakMeterPeakLastChanged;
     float* fAverageMeterPeakLastChanged;
 
-    unsigned short** * fAverageLevelHistogram;
+    unsigned short** * fRmsLevelHistogram;
     unsigned short** * fPeakLevelHistogram;
     bool** bHistogramIsValid;
 

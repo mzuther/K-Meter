@@ -123,7 +123,7 @@ private:
     float fProcessedSeconds;
 
     float* fPeakLevels;
-    float* fAverageLevels;
+    float* fRmsLevels;
     float* fAverageLevelsFiltered;
 
     int* nOverflows;

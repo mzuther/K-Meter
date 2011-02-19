@@ -91,7 +91,7 @@ MeterBallistics::MeterBallistics(int nChannels, int nSampleRate, bool bPeakMeter
 
     // allocate the histograms (average and peak levels) needed for
     // calculating the dynamic range value
-    fAverageLevelHistogram = new unsigned short** [nNumberOfChannels];
+    fRmsLevelHistogram = new unsigned short** [nNumberOfChannels];
     fPeakLevelHistogram = new unsigned short** [nNumberOfChannels];
     bHistogramIsValid = new bool*[nNumberOfChannels];
 
@@ -100,7 +100,7 @@ MeterBallistics::MeterBallistics(int nChannels, int nSampleRate, bool bPeakMeter
     {
         // allocate the histograms (average and peak levels) needed for
         // calculating the dynamic range value
-        fAverageLevelHistogram[nChannel] = new unsigned short*[NUMBER_OF_HISTOGRAMS];
+        fRmsLevelHistogram[nChannel] = new unsigned short*[NUMBER_OF_HISTOGRAMS];
         fPeakLevelHistogram[nChannel] = new unsigned short*[NUMBER_OF_HISTOGRAMS];
         bHistogramIsValid[nChannel] = new bool[NUMBER_OF_HISTOGRAMS];
 
@@ -110,7 +110,7 @@ MeterBallistics::MeterBallistics(int nChannels, int nSampleRate, bool bPeakMeter
         // indices are calculated as (-100 * level)
         for (int nHistogram = 0; nHistogram < NUMBER_OF_HISTOGRAMS; nHistogram++)
         {
-            fAverageLevelHistogram[nChannel][nHistogram] = new unsigned short[HISTOGRAM_BINS];
+            fRmsLevelHistogram[nChannel][nHistogram] = new unsigned short[HISTOGRAM_BINS];
             fPeakLevelHistogram[nChannel][nHistogram] = new unsigned short[HISTOGRAM_BINS];
         }
     }
@@ -157,23 +157,23 @@ MeterBallistics::~MeterBallistics()
     {
         for (int nHistogram = 0; nHistogram < NUMBER_OF_HISTOGRAMS; nHistogram++)
         {
-            delete [] fAverageLevelHistogram[nChannel][nHistogram];
-            fAverageLevelHistogram[nChannel][nHistogram] = NULL;
+            delete [] fRmsLevelHistogram[nChannel][nHistogram];
+            fRmsLevelHistogram[nChannel][nHistogram] = NULL;
 
             delete [] fPeakLevelHistogram[nChannel][nHistogram];
             fPeakLevelHistogram[nChannel][nHistogram] = NULL;
         }
 
-        delete [] fAverageLevelHistogram[nChannel];
-        fAverageLevelHistogram[nChannel] = NULL;
+        delete [] fRmsLevelHistogram[nChannel];
+        fRmsLevelHistogram[nChannel] = NULL;
 
         delete [] fPeakLevelHistogram[nChannel];
         fPeakLevelHistogram[nChannel] = NULL;
     }
 
     // delete memory allocated for histograms
-    delete [] fAverageLevelHistogram;
-    fAverageLevelHistogram = NULL;
+    delete [] fRmsLevelHistogram;
+    fRmsLevelHistogram = NULL;
 
     delete [] fPeakLevelHistogram;
     fPeakLevelHistogram = NULL;
@@ -253,7 +253,7 @@ void MeterBallistics::resetDynamicRangeHistogram(bool bResetAllHistograms)
                 {
                     // reset selected histogram bin (average and peak
                     // level)
-                    fAverageLevelHistogram[nChannel][nHistogram][nBin] = 0;
+                    fRmsLevelHistogram[nChannel][nHistogram][nBin] = 0;
                     fPeakLevelHistogram[nChannel][nHistogram][nBin] = 0;
                 }
 
@@ -276,7 +276,7 @@ void MeterBallistics::resetDynamicRangeHistogram(bool bResetAllHistograms)
             for (int nBin = 0; nBin < HISTOGRAM_BINS; nBin++)
             {
                 // reset selected histogram bin (average and peak level)
-                fAverageLevelHistogram[nChannel][nCurrentHistogram][nBin] = 0;
+                fRmsLevelHistogram[nChannel][nCurrentHistogram][nBin] = 0;
                 fPeakLevelHistogram[nChannel][nCurrentHistogram][nBin] = 0;
             }
 
@@ -610,7 +610,7 @@ void MeterBallistics::calculateDynamicRangeValue()
             {
                 // add the current histogram's counts to overall number of
                 // counts
-                nNumberOfCounts += fAverageLevelHistogram[nChannel][nHistogram][nBin];
+                nNumberOfCounts += fRmsLevelHistogram[nChannel][nHistogram][nBin];
             }
 
             // process bin only if it contains counts
@@ -742,7 +742,7 @@ void MeterBallistics::setPhaseCorrelation(float fTimePassed, float fPhaseCorrela
 }
 
 
-void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak, float fAverage, float fAverageFiltered, int nOverflows)
+void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak, float fRms, float fAverageFiltered, int nOverflows)
 /*  Update audio levels, overflows and apply meter ballistics.
 
     nChannel (integer): audio input channel to update
@@ -752,7 +752,7 @@ void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak
 
     fPeak (float): current peak meter level (linear scale)
 
-    fAverage (float): current average meter level (linear scale)
+    fRms (float): current RMS level (linear scale)
 
     fAverageFiltered (float): current pre-filtered average meter level
     (linear scale)
@@ -768,31 +768,30 @@ void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak
     // convert current peak meter level from linear scale to decibels
     fPeak = level2decibel(fPeak);
 
-    // convert current average meter level from linear scale to
-    // decibels
-    fAverage = level2decibel(fAverage);
+    // convert current RMS level from linear scale to decibels
+    fRms = level2decibel(fRms);
 
     // convert current filtered average meter level from linear scale
     // to decibels and apply peak-to-average correction so that sine
     // waves give the same read-out on peak and average meters
     fAverageFiltered = level2decibel(fAverageFiltered) + fPeakToAverageCorrection;
 
-    // convert (unfiltered) average level to histogram bin; to
-    // minimise overhead, bins are calculated as (-100 * level)
-    int nAverageBin = (int)(-100.0f * fAverage);
+    // convert RMS level to histogram bin; to minimise overhead, bins
+    // are calculated as (-100 * level)
+    int nRmsBin = (int)(-100.0f * fRms);
 
     // limit average level histogram bins to array indices
-    if (nAverageBin < 0)
+    if (nRmsBin < 0)
     {
-        nAverageBin = 0;
+        nRmsBin = 0;
     }
-    else if (nAverageBin >= HISTOGRAM_BINS)
+    else if (nRmsBin >= HISTOGRAM_BINS)
     {
-        nAverageBin = HISTOGRAM_BINS - 1;
+        nRmsBin = HISTOGRAM_BINS - 1;
     }
 
     // increment counts of selected bin (average level)
-    fAverageLevelHistogram[nChannel][nCurrentHistogram][nAverageBin]++;
+    fRmsLevelHistogram[nChannel][nCurrentHistogram][nRmsBin]++;
 
     // convert peak level to histogram bin
     int nPeakBin = (int)(-100.0f * fPeak);
