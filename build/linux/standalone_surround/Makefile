@@ -20,16 +20,16 @@ ifndef AR
 endif
 
 ifeq ($(config),debug32)
-  OBJDIR     = ../../../bin/intermediate_linux/vst_debug/x32
-  TARGETDIR  = ../../../bin/i386
-  TARGET     = $(TARGETDIR)/kmeter_vst_debug.so
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0
-  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
+  OBJDIR     = ../../../bin/intermediate_linux/standalone_surround_debug/x32
+  TARGETDIR  = ../../../bin
+  TARGET     = $(TARGETDIR)/kmeter_surround_debug
+  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_STAND_ALONE=1 -DKMETER_SURROUND=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1
+  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fPIC -fno-inline
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fno-inline
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -shared -m32 -L/usr/lib32 ../../../libraries/fftw3/bin/i386/libfftw3f.a
-  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext
+  LDFLAGS   += -m32 -L/usr/lib32 ../../../libraries/fftw3/bin/i386/libfftw3f.a
+  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -42,16 +42,16 @@ ifeq ($(config),debug32)
 endif
 
 ifeq ($(config),release32)
-  OBJDIR     = ../../../bin/intermediate_linux/vst_release/x32
-  TARGETDIR  = ../../../bin/i386
-  TARGET     = $(TARGETDIR)/kmeter_vst.so
-  DEFINES   += -DNDEBUG -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0
-  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
+  OBJDIR     = ../../../bin/intermediate_linux/standalone_surround_release/x32
+  TARGETDIR  = ../../../bin
+  TARGET     = $(TARGETDIR)/kmeter_surround
+  DEFINES   += -DNDEBUG -DKMETER_STAND_ALONE=1 -DKMETER_SURROUND=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1
+  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -fPIC -pipe -fvisibility=hidden
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -pipe -fvisibility=hidden
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -shared -m32 -L/usr/lib32 ../../../libraries/fftw3/bin/i386/libfftw3f.a
-  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext
+  LDFLAGS   += -s -m32 -L/usr/lib32 ../../../libraries/fftw3/bin/i386/libfftw3f.a
+  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -64,16 +64,16 @@ ifeq ($(config),release32)
 endif
 
 ifeq ($(config),debug64)
-  OBJDIR     = ../../../bin/intermediate_linux/vst_debug/x64
-  TARGETDIR  = ../../../bin/amd64
-  TARGET     = $(TARGETDIR)/kmeter_vst_debug.so
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0
-  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
+  OBJDIR     = ../../../bin/intermediate_linux/standalone_surround_debug/x64
+  TARGETDIR  = ../../../bin
+  TARGET     = $(TARGETDIR)/kmeter_surround_debug_x64
+  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DKMETER_STAND_ALONE=1 -DKMETER_SURROUND=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1
+  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m64 -fPIC -fno-inline
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m64 -fno-inline
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -shared -m64 -L/usr/lib64 ../../../libraries/fftw3/bin/amd64/libfftw3f.a
-  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext
+  LDFLAGS   += -m64 -L/usr/lib64 ../../../libraries/fftw3/bin/amd64/libfftw3f.a
+  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -86,16 +86,16 @@ ifeq ($(config),debug64)
 endif
 
 ifeq ($(config),release64)
-  OBJDIR     = ../../../bin/intermediate_linux/vst_release/x64
-  TARGETDIR  = ../../../bin/amd64
-  TARGET     = $(TARGETDIR)/kmeter_vst.so
-  DEFINES   += -DNDEBUG -DKMETER_VST_PLUGIN=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0
-  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
+  OBJDIR     = ../../../bin/intermediate_linux/standalone_surround_release/x64
+  TARGETDIR  = ../../../bin
+  TARGET     = $(TARGETDIR)/kmeter_surround_x64
+  DEFINES   += -DNDEBUG -DKMETER_STAND_ALONE=1 -DKMETER_SURROUND=1 -DJUCETICE_USE_AMALGAMA=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1
+  INCLUDES  += -I../../../src/juce_library_code -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m64 -fPIC -pipe -fvisibility=hidden
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m64 -pipe -fvisibility=hidden
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -shared -m64 -L/usr/lib64 ../../../libraries/fftw3/bin/amd64/libfftw3f.a
-  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext
+  LDFLAGS   += -s -m64 -L/usr/lib64 ../../../libraries/fftw3/bin/amd64/libfftw3f.a
+  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -119,6 +119,7 @@ OBJECTS := \
 	$(OBJDIR)/kmeter.o \
 	$(OBJDIR)/average_level_filtered_rms.o \
 	$(OBJDIR)/audio_ring_buffer.o \
+	$(OBJDIR)/standalone_application.o \
 	$(OBJDIR)/phase_correlation_meter.o \
 	$(OBJDIR)/meter_ballistics.o \
 	$(OBJDIR)/about_window.o \
@@ -129,6 +130,8 @@ OBJECTS := \
 	$(OBJDIR)/juce_library_code_3.o \
 	$(OBJDIR)/juce_library_code_1.o \
 	$(OBJDIR)/resources.o \
+	$(OBJDIR)/juce_AudioFilterStreamer.o \
+	$(OBJDIR)/juce_StandaloneFilterWindow.o \
 
 RESOURCES := \
 
@@ -146,7 +149,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking linux_vst
+	@echo Linking linux_standalone_surround
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -167,7 +170,7 @@ else
 endif
 
 clean:
-	@echo Cleaning linux_vst
+	@echo Cleaning linux_standalone_surround
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -222,6 +225,9 @@ $(OBJDIR)/average_level_filtered_rms.o: ../../../src/average_level_filtered_rms.
 $(OBJDIR)/audio_ring_buffer.o: ../../../src/audio_ring_buffer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/standalone_application.o: ../../../src/standalone_application.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/phase_correlation_meter.o: ../../../src/phase_correlation_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -250,6 +256,12 @@ $(OBJDIR)/juce_library_code_1.o: ../../../src/juce_library_code/juce_library_cod
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/resources.o: ../../../src/resources/resources.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/juce_AudioFilterStreamer.o: ../../../libraries/juce/extras/audio\ plugins/wrapper/Standalone/juce_AudioFilterStreamer.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/juce_StandaloneFilterWindow.o: ../../../libraries/juce/extras/audio\ plugins/wrapper/Standalone/juce_StandaloneFilterWindow.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 

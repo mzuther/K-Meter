@@ -34,14 +34,32 @@
 #define JucePlugin_Build_AU     0
 #define JucePlugin_Build_RTAS   0
 
-#define JucePlugin_Name                 "K-Meter"
+#ifdef KMETER_SURROUND
+#ifdef DEBUG
+#define JucePlugin_Name                 "K-Meter Surround (Debug)"
+#else
+#define JucePlugin_Name                 "K-Meter Surround"
+#endif
+#else
+#ifdef DEBUG
+#define JucePlugin_Name                 "K-Meter Stereo (Debug)"
+#else
+#define JucePlugin_Name                 "K-Meter Stereo"
+#endif
+#endif
 #define JucePlugin_Desc                 "Implementation of a K-System meter according to Bob Katz' specifications"
 #define JucePlugin_Manufacturer         "mzuther"
 #define JucePlugin_ManufacturerCode     'mz'
 #define JucePlugin_PluginCode           'kmet'
+#ifdef KMETER_SURROUND
+#define JucePlugin_MaxNumInputChannels  8
+#define JucePlugin_MaxNumOutputChannels 8
+#define JucePlugin_PreferredChannelConfigurations   {6, 6}, {8, 8}
+#else
 #define JucePlugin_MaxNumInputChannels  2
 #define JucePlugin_MaxNumOutputChannels 2
 #define JucePlugin_PreferredChannelConfigurations   {1, 1}, {2, 2}
+#endif
 #define JucePlugin_IsSynth              0
 #define JucePlugin_WantsMidiInput       0
 #define JucePlugin_ProducesMidiOutput   0

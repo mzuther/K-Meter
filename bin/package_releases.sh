@@ -93,15 +93,17 @@ echo
 echo "  === GNU/Linux Standalone (32 bit) ==="
 echo
 
-move_new_executable "kmeter"
+move_new_executable "kmeter_stereo"
+move_new_executable "kmeter_surround"
 
 delete_old_archive "$KMETER_RELEASE_DIR/linux32/kmeter-standalone.tar.bz2"
 
-KMETER_ARCHIVE_DIR="kmeter"
+KMETER_ARCHIVE_DIR="kmeter-standalone"
 
 create_new_archive "$KMETER_ARCHIVE_DIR"
 
-fill_archive "$KMETER_EXECUTABLE_DIR/kmeter" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_stereo" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_surround" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
 
@@ -113,7 +115,8 @@ compress_new_archive "$KMETER_RELEASE_DIR/linux32/kmeter-standalone.tar.bz2" "$K
 echo "  === GNU/Linux VST (32 bit) ==="
 echo
 
-move_new_executable "kmeter_vst.so"
+move_new_executable "kmeter_stereo.so"
+move_new_executable "kmeter_surround.so"
 
 delete_old_archive "$KMETER_RELEASE_DIR/linux32/kmeter-vst.tar.bz2"
 
@@ -121,7 +124,8 @@ KMETER_ARCHIVE_DIR="kmeter-vst"
 
 create_new_archive "$KMETER_ARCHIVE_DIR"
 
-fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_vst.so" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_stereo.so" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_surround.so" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
 
@@ -133,7 +137,8 @@ compress_new_archive "$KMETER_RELEASE_DIR/linux32/kmeter-vst.tar.bz2" "$KMETER_A
 echo "  === Windows VST (32 bit) ==="
 echo
 
-move_new_executable "K-Meter.dll"
+move_new_executable "K-Meter (Stereo).dll"
+move_new_executable "K-Meter (Surround).dll"
 
 delete_old_archive "$KMETER_RELEASE_DIR/w32/kmeter-vst.zip"
 
@@ -141,7 +146,8 @@ KMETER_ARCHIVE_DIR="kmeter-vst"
 
 create_new_archive "$KMETER_ARCHIVE_DIR"
 
-fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter.dll" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter (Stereo).dll" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter (Surround).dll" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
 

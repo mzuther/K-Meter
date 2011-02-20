@@ -39,6 +39,9 @@
 class Kmeter : public Component
 {
 public:
+    static const int KMETER_STEREO_WIDTH = 112;
+    static const int KMETER_STEREO_WIDTH_2 = KMETER_STEREO_WIDTH / 2;
+
     Kmeter(const String& componentName, int PosX, int PosY, int nCrestFactor, int nNumChannels, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight);
     ~Kmeter();
 
@@ -57,7 +60,8 @@ private:
     bool displayPeakMeter;
 
     int nMeterCrestFactor;
-    int nChannels;
+    int nInputChannels;
+    int nStereoInputChannels;
 
     MeterBar** PeakMeters;
     MeterBar** AverageMeters;

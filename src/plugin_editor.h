@@ -42,7 +42,7 @@
 class KmeterAudioProcessorEditor : public AudioProcessorEditor, public ButtonListener, public ChangeListener
 {
 public:
-    KmeterAudioProcessorEditor(KmeterAudioProcessor* ownerFilter);
+    KmeterAudioProcessorEditor(KmeterAudioProcessor* ownerFilter, int nNumChannels);
     ~KmeterAudioProcessorEditor();
 
     void buttonClicked(Button* button);
@@ -59,6 +59,10 @@ private:
     // JUCE_LEAK_DETECTOR(KmeterAudioProcessorEditor);
 
     int nCrestFactor;
+    int nInputChannels;
+    int nStereoInputChannels;
+    int nRightColumnStart;
+    int nHeight;
 
     KmeterAudioProcessor* pProcessor;
     Kmeter* kmeter;

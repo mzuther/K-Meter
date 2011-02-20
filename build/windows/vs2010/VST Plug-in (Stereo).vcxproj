@@ -11,8 +11,8 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{BFD6A7A3-B829-D13C-B1D1-3EA53F148CA2}</ProjectGuid>
-		<RootNamespace>kmeter</RootNamespace>
+		<ProjectGuid>{7D93DC4B-0D09-B569-C03B-76673236143A}</ProjectGuid>
+		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,13 +40,13 @@
 	<PropertyGroup>
 		<_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin\</OutDir>
-		<IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin\intermediate_windows\vst_debug\x32\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">K-Meter (Debug)</TargetName>
+		<IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin\intermediate_windows\vst_stereo_debug\x32\</IntDir>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">K-Meter Stereo (Debug)</TargetName>
 		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</IgnoreImportLibrary>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin\</OutDir>
-		<IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin\intermediate_windows\vst_release\x32\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">K-Meter</TargetName>
+		<IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin\intermediate_windows\vst_stereo_release\x32\</IntDir>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">K-Meter Stereo</TargetName>
 		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</IgnoreImportLibrary>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
 		<GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
@@ -56,7 +56,7 @@
 			<AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>Disabled</Optimization>
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
 			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -67,17 +67,17 @@
 			<DebugInformationFormat>EditAndContinue</DebugInformationFormat>
 		</ClCompile>
 		<ResourceCompile>
-			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>libfftw3f-3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)K-Meter (Debug).dll</OutputFile>
+			<OutputFile>$(OutDir)K-Meter Stereo (Debug).dll</OutputFile>
 			<AdditionalLibraryDirectories>..\..\..\libraries\fftw3\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<ProgramDataBaseFileName>$(OutDir)K-Meter (Debug).pdb</ProgramDataBaseFileName>
-			<ImportLibrary>..\..\..\bin\K-Meter (Debug).lib</ImportLibrary>
+			<ProgramDataBaseFileName>$(OutDir)K-Meter Stereo (Debug).pdb</ProgramDataBaseFileName>
+			<ImportLibrary>..\..\..\bin\K-Meter Stereo (Debug).lib</ImportLibrary>
 			<TargetMachine>MachineX86</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>
@@ -86,7 +86,7 @@
 			<AdditionalOptions>/Zi %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>MaxSpeed</Optimization>
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-			<PreprocessorDefinitions>NDEBUG=1;KMETER_VST_PLUGIN=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>NDEBUG=1;KMETER_VST_PLUGIN=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<StringPooling>true</StringPooling>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -98,18 +98,18 @@
 			<OmitFramePointers>true</OmitFramePointers>
 		</ClCompile>
 		<ResourceCompile>
-			<PreprocessorDefinitions>NDEBUG=1;KMETER_VST_PLUGIN=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>NDEBUG=1;KMETER_VST_PLUGIN=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>libfftw3f-3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)K-Meter.dll</OutputFile>
+			<OutputFile>$(OutDir)K-Meter Stereo.dll</OutputFile>
 			<AdditionalLibraryDirectories>..\..\..\libraries\fftw3\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>false</GenerateDebugInformation>
 			<OptimizeReferences>true</OptimizeReferences>
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<ImportLibrary>..\..\..\bin\K-Meter.lib</ImportLibrary>
+			<ImportLibrary>..\..\..\bin\K-Meter Stereo.lib</ImportLibrary>
 			<TargetMachine>MachineX86</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>

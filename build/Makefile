@@ -6,23 +6,33 @@ ifndef config
 endif
 export config
 
-PROJECTS := linux_standalone linux_vst
+PROJECTS := linux_standalone_stereo linux_standalone_surround linux_vst_stereo linux_vst_surround
 
 .PHONY: all clean help $(PROJECTS)
 
 all: $(PROJECTS)
 
-linux_standalone: 
-	@echo "==== Building linux_standalone ($(config)) ===="
-	@${MAKE} --no-print-directory -C linux/standalone -f Makefile
+linux_standalone_stereo: 
+	@echo "==== Building linux_standalone_stereo ($(config)) ===="
+	@${MAKE} --no-print-directory -C linux/standalone_stereo -f Makefile
 
-linux_vst: 
-	@echo "==== Building linux_vst ($(config)) ===="
-	@${MAKE} --no-print-directory -C linux/vst -f Makefile
+linux_standalone_surround: 
+	@echo "==== Building linux_standalone_surround ($(config)) ===="
+	@${MAKE} --no-print-directory -C linux/standalone_surround -f Makefile
+
+linux_vst_stereo: 
+	@echo "==== Building linux_vst_stereo ($(config)) ===="
+	@${MAKE} --no-print-directory -C linux/vst_stereo -f Makefile
+
+linux_vst_surround: 
+	@echo "==== Building linux_vst_surround ($(config)) ===="
+	@${MAKE} --no-print-directory -C linux/vst_surround -f Makefile
 
 clean:
-	@${MAKE} --no-print-directory -C linux/standalone -f Makefile clean
-	@${MAKE} --no-print-directory -C linux/vst -f Makefile clean
+	@${MAKE} --no-print-directory -C linux/standalone_stereo -f Makefile clean
+	@${MAKE} --no-print-directory -C linux/standalone_surround -f Makefile clean
+	@${MAKE} --no-print-directory -C linux/vst_stereo -f Makefile clean
+	@${MAKE} --no-print-directory -C linux/vst_surround -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -36,7 +46,9 @@ help:
 	@echo "TARGETS:"
 	@echo "   all (default)"
 	@echo "   clean"
-	@echo "   linux_standalone"
-	@echo "   linux_vst"
+	@echo "   linux_standalone_stereo"
+	@echo "   linux_standalone_surround"
+	@echo "   linux_vst_stereo"
+	@echo "   linux_vst_surround"
 	@echo ""
 	@echo "For more information, see http://industriousone.com/premake/quick-start"

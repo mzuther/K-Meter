@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="kmeter"
-	ProjectGUID="{497764ED-E4D6-363F-89AC-A3AEE5EFFF87}"
-	RootNamespace="kmeter"
+	Name="VST Plug-in (Surround)"
+	ProjectGUID="{587D5370-41D2-6A2F-5698-EFE216AF4BF1}"
+	RootNamespace="VST Plug-in (Surround)"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -18,7 +18,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="..\..\..\bin"
-			IntermediateDirectory="..\..\..\bin\intermediate_windows\vst_debug\x32"
+			IntermediateDirectory="..\..\..\bin\intermediate_windows\vst_surround_debug\x32"
 			ConfigurationType="2"
 			CharacterSet="1"
 			>
@@ -42,7 +42,7 @@
 				AdditionalOptions=""
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4"
-				PreprocessorDefinitions="_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0"
+				PreprocessorDefinitions="_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;KMETER_SURROUND=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				EnableFunctionLevelLinking="true"
@@ -50,7 +50,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
-				ProgramDataBaseFileName="$(OutDir)\K-Meter (Debug).pdb"
+				ProgramDataBaseFileName="$(OutDir)\K-Meter Surround (Debug).pdb"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -58,7 +58,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0"
+				PreprocessorDefinitions="_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;KMETER_SURROUND=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0"
 				AdditionalIncludeDirectories="..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4"
 			/>
 			<Tool
@@ -67,13 +67,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libfftw3f-3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
-				OutputFile="$(OutDir)\K-Meter (Debug).dll"
+				OutputFile="$(OutDir)\K-Meter Surround (Debug).dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\..\libraries\fftw3\bin"
 				GenerateDebugInformation="true"
-				ProgramDataBaseFileName="$(OutDir)\K-Meter (Debug).pdb"
+				ProgramDataBaseFileName="$(OutDir)\K-Meter Surround (Debug).pdb"
 				SubSystem="2"
-				ImportLibrary="..\..\..\bin\K-Meter (Debug).lib"
+				ImportLibrary="..\..\..\bin\K-Meter Surround (Debug).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -104,7 +104,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="..\..\..\bin"
-			IntermediateDirectory="..\..\..\bin\intermediate_windows\vst_release\x32"
+			IntermediateDirectory="..\..\..\bin\intermediate_windows\vst_surround_release\x32"
 			ConfigurationType="2"
 			CharacterSet="1"
 			>
@@ -129,7 +129,7 @@
 				Optimization="2"
 				OmitFramePointers="true"
 				AdditionalIncludeDirectories="..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4"
-				PreprocessorDefinitions="NDEBUG=1;KMETER_VST_PLUGIN=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0"
+				PreprocessorDefinitions="NDEBUG=1;KMETER_VST_PLUGIN=1;KMETER_SURROUND=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
@@ -137,7 +137,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
-				ProgramDataBaseFileName="$(OutDir)\K-Meter.pdb"
+				ProgramDataBaseFileName="$(OutDir)\K-Meter Surround.pdb"
 				DebugInformationFormat="0"
 			/>
 			<Tool
@@ -145,7 +145,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG=1;KMETER_VST_PLUGIN=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0"
+				PreprocessorDefinitions="NDEBUG=1;KMETER_VST_PLUGIN=1;KMETER_SURROUND=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0"
 				AdditionalIncludeDirectories="..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4"
 			/>
 			<Tool
@@ -154,7 +154,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libfftw3f-3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
-				OutputFile="$(OutDir)\K-Meter.dll"
+				OutputFile="$(OutDir)\K-Meter Surround.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\libraries\fftw3\bin"
 				GenerateManifest="false"
@@ -162,7 +162,7 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="..\..\..\bin\K-Meter.lib"
+				ImportLibrary="..\..\..\bin\K-Meter Surround.lib"
 				TargetMachine="1"
 			/>
 			<Tool

@@ -204,11 +204,9 @@ AboutWindow::~AboutWindow()
     delete pConstrainer;
     pConstrainer = NULL;
 
-    // delete all children of the window
+    // delete all children of the window; "contentComponent" will be
+    // deleted by the base class, so please leave it alone!
     contentComponent->deleteAllChildren();
-
-    // delete all children of the class
-    deleteAllChildren();
 }
 
 

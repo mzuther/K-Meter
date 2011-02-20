@@ -67,9 +67,6 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
     // allocated memory is freed
     releaseResources();
 
-    delete pMeterBallistics;
-    pMeterBallistics = NULL;
-
     delete pPluginParameters;
     pPluginParameters = NULL;
 }
@@ -143,9 +140,16 @@ int KmeterAudioProcessor::getParameterAsInt(int index)
 
 void KmeterAudioProcessor::changeParameter(int index, int nValue)
 {
-    if ((index == KmeterPluginParameters::selMono) && (nNumInputChannels < 2))
+    if (index == KmeterPluginParameters::selMono)
     {
-        nValue = true;
+        if (nNumInputChannels < 2)
+        {
+            nValue = true;
+        }
+        else if (nNumInputChannels > 2)
+        {
+            nValue = false;
+        }
     }
 
     beginParameterChangeGesture(index);
@@ -531,7 +535,14 @@ MeterBallistics* KmeterAudioProcessor::getLevels()
 
 AudioProcessorEditor* KmeterAudioProcessor::createEditor()
 {
-    return new KmeterAudioProcessorEditor(this);
+    if (nNumInputChannels > 0)
+    {
+        return new KmeterAudioProcessorEditor(this, nNumInputChannels);
+    }
+    else
+    {
+        return new KmeterAudioProcessorEditor(this, JucePlugin_MaxNumInputChannels);
+    }
 }
 
 bool KmeterAudioProcessor::hasEditor() const

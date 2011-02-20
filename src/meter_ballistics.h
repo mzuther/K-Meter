@@ -36,9 +36,6 @@
 class MeterBallistics
 {
 public:
-    static const int NUMBER_OF_HISTOGRAMS = 3;
-    static const int HISTOGRAM_BINS = 10000;
-
     MeterBallistics(int nChannels, int nSampleRate, bool bPeakMeterInfiniteHold, bool bAverageMeterInfiniteHold);
     ~MeterBallistics();
 
@@ -69,6 +66,9 @@ public:
 
 private:
     // JUCE_LEAK_DETECTOR(MeterBallistics);
+
+    static const int NUMBER_OF_HISTOGRAMS = 3;
+    static const int HISTOGRAM_BINS = 10000;
 
     int nNumberOfChannels;
 

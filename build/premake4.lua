@@ -50,17 +50,15 @@ solution "kmeter"
 		"../libraries/"
 	}
 
-	configuration { "x32" }
-		targetdir "../bin/i386/"
+	targetdir "../bin/"
 
+	configuration { "x32" }
 		linkoptions {
 			-- force static linking to FFTW
 			"../../../libraries/fftw3/bin/i386/libfftw3f.a"
 		}
 
 	configuration { "x64" }
-		targetdir "../bin/amd64/"
-
 		linkoptions {
 			-- force static linking to FFTW
 			"../../../libraries/fftw3/bin/amd64/libfftw3f.a"
@@ -76,15 +74,29 @@ solution "kmeter"
 		flags { "OptimizeSpeed", "NoFramePointer", "ExtraWarnings" }
 		buildoptions { "-pipe", "-fvisibility=hidden" }
 
+	configuration { "Debug", "x32" }
+		targetsuffix "_debug"
+
+	configuration { "Debug", "x64" }
+		targetsuffix "_debug_x64"
+
+	configuration { "Release", "x32" }
+		targetsuffix ""
+
+	configuration { "Release", "x64" }
+		targetsuffix "_x64"
+
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_standalone")
+	project (os.get() .. "_standalone_stereo")
 		kind "WindowedApp"
-		location (os.get() .. "/standalone")
+		location (os.get() .. "/standalone_stereo")
+		targetname "kmeter_stereo"
 		targetprefix ""
 
 		defines {
 			"KMETER_STAND_ALONE=1",
+			"KMETER_STEREO=1",
 			"JUCETICE_USE_AMALGAMA=1",
 			"JUCE_USE_VSTSDK_2_4=0"
 		}
@@ -125,22 +137,78 @@ solution "kmeter"
 			}
 
 		configuration "Debug"
-			targetname "kmeter_debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_debug")
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_stereo_debug")
 
-      configuration "Release"
-			targetname "kmeter"
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_release")
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_stereo_release")
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_vst")
+	project (os.get() .. "_standalone_surround")
+		kind "WindowedApp"
+		location (os.get() .. "/standalone_surround")
+		targetname "kmeter_surround"
+		targetprefix ""
+
+		defines {
+			"KMETER_STAND_ALONE=1",
+			"KMETER_SURROUND=1",
+			"JUCETICE_USE_AMALGAMA=1",
+			"JUCE_USE_VSTSDK_2_4=0"
+		}
+
+		files {
+			"../libraries/juce/extras/audio plugins/wrapper/Standalone/*.h",
+			"../libraries/juce/extras/audio plugins/wrapper/Standalone/*.cpp"
+		}
+
+		configuration {"linux"}
+			defines {
+				"LINUX=1",
+				"JUCE_USE_XSHM=1",
+				"JUCE_ALSA=1",
+				"JUCE_JACK=1"
+			}
+
+			links {
+				"freetype",
+				"pthread",
+				"rt",
+				"X11",
+				"Xext",
+				"asound"
+			}
+
+			includedirs {
+				"/usr/include",
+				"/usr/include/freetype2"
+			}
+
+		configuration {"windows"}
+			defines {
+				"WIN32=1",
+				"JUCE_USE_XSHM=0",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0"
+			}
+
+		configuration "Debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_surround_debug")
+
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_surround_release")
+
+--------------------------------------------------------------------------------
+
+	project (os.get() .. "_vst_stereo")
 		kind "SharedLib"
-		location (os.get() .. "/vst")
+		location (os.get() .. "/vst_stereo")
+		targetname "kmeter_stereo"
 		targetprefix ""
 
 		defines {
 			"KMETER_VST_PLUGIN=1",
+			"KMETER_STEREO=1",
 			"JUCETICE_USE_AMALGAMA=1",
 			"JUCE_USE_VSTSDK_2_4=1"
 		}
@@ -184,9 +252,66 @@ solution "kmeter"
 			}
 
 		configuration "Debug"
-			targetname "kmeter_vst_debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_debug")
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_debug")
 
-      configuration "Release"
-			targetname "kmeter_vst"
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_release")
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_release")
+
+--------------------------------------------------------------------------------
+
+	project (os.get() .. "_vst_surround")
+		kind "SharedLib"
+		location (os.get() .. "/vst_surround")
+		targetname "kmeter_surround"
+		targetprefix ""
+
+		defines {
+			"KMETER_VST_PLUGIN=1",
+			"KMETER_SURROUND=1",
+			"JUCETICE_USE_AMALGAMA=1",
+			"JUCE_USE_VSTSDK_2_4=1"
+		}
+
+		includedirs {
+			"../libraries/vstsdk2.4"
+		}
+
+		excludes {
+			"../src/standalone_application.h",
+			"../src/standalone_application.cpp"
+		}
+
+		configuration {"linux"}
+			defines {
+				"LINUX=1",
+				"JUCE_USE_XSHM=1",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0"
+			}
+
+			includedirs {
+				"/usr/include",
+				"/usr/include/freetype2"
+			}
+
+			links {
+				"freetype",
+				"pthread",
+				"rt",
+				"X11",
+				"Xext"
+			}
+
+		configuration {"windows"}
+			defines {
+				"WIN32=1",
+				"JUCE_USE_XSHM=0",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0"
+			}
+
+		configuration "Debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_surround_debug")
+
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_surround_release")

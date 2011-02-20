@@ -678,10 +678,16 @@ float MeterBallistics::getStereoMeterValue()
     audio channel pair (-1.0 to 1.0)
 */
 {
-    // assure that we are processing a stereo audio channel pair
-    jassert(nNumberOfChannels == 2);
-
-    return fStereoMeterValue;
+    // for a stereo audio channel pair, return stereo meter value
+    if (nNumberOfChannels == 2)
+    {
+        return fStereoMeterValue;
+    }
+    // otherwise, return default stereo meter value of "0" (centred)
+    else
+    {
+        return 0.0f;
+    }
 }
 
 
@@ -716,10 +722,17 @@ float MeterBallistics::getPhaseCorrelation()
     stereo audio channel pair (-1.0 to 1.0)
 */
 {
-    // assure that we are processing a stereo audio channel pair
-    jassert(nNumberOfChannels == 2);
-
-    return fPhaseCorrelation;
+    // for a stereo audio channel pair, return phase correlation value
+    if (nNumberOfChannels == 2)
+    {
+        return fPhaseCorrelation;
+    }
+    // otherwise, return default phase correlation of "+1.0"
+    // (mono-compatible)
+    else
+    {
+        return 1.0f;
+    }
 }
 
 

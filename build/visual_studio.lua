@@ -74,7 +74,7 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
-	project ("kmeter")
+	project ("VST Plug-in (Stereo)")
 		kind "SharedLib"
 		targetprefix ""
 
@@ -82,6 +82,7 @@ solution "kmeter"
 
 		defines {
 			"KMETER_VST_PLUGIN=1",
+			"KMETER_STEREO=1",
 			"JUCETICE_USE_AMALGAMA=1",
 			"JUCE_USE_VSTSDK_2_4=1"
 		}
@@ -118,9 +119,63 @@ solution "kmeter"
 			 }
 
 		configuration "Debug"
-			targetname "K-Meter (Debug)"
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_debug")
+			targetname "K-Meter Stereo (Debug)"
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_debug")
 
       configuration "Release"
-			targetname "K-Meter"
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_release")
+			targetname "K-Meter Stereo"
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_release")
+
+--------------------------------------------------------------------------------
+
+	project ("VST Plug-in (Surround)")
+		kind "SharedLib"
+		targetprefix ""
+
+		platforms { "x32" }
+
+		defines {
+			"KMETER_VST_PLUGIN=1",
+			"KMETER_SURROUND=1",
+			"JUCETICE_USE_AMALGAMA=1",
+			"JUCE_USE_VSTSDK_2_4=1"
+		}
+
+		excludes {
+			"../src/standalone_application.h",
+			"../src/standalone_application.cpp"
+		}
+
+		configuration {"windows"}
+			defines {
+				"_WINDOWS=1",
+				"_USE_MATH_DEFINES=1",
+				"WIN32=1",
+				"JUCE_USE_XSHM=0",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0"
+			}
+
+			links {
+				"libfftw3f-3",
+				"kernel32",
+				"user32",
+				"gdi32",
+				"winspool",
+				"comdlg32",
+				"advapi32",
+				"shell32",
+				"ole32",
+				"oleaut32",
+				"uuid",
+				"odbc32",
+				"odbccp32"
+			 }
+
+		configuration "Debug"
+			targetname "K-Meter Surround (Debug)"
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_surround_debug")
+
+      configuration "Release"
+			targetname "K-Meter Surround"
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_surround_release")
