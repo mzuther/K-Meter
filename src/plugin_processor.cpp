@@ -45,7 +45,7 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 
     setLatencySamples(KMETER_BUFFER_SIZE);
 
-    pAverageLevelFilteredRms = new AverageLevelFilteredRms(2, KMETER_BUFFER_SIZE);
+    pAverageLevelFilteredRms = NULL;
     pPluginParameters = new KmeterPluginParameters();
 
     fProcessedSeconds = 0.0f;
@@ -66,9 +66,6 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
     // call function "releaseResources()" by force to make sure all
     // allocated memory is freed
     releaseResources();
-
-    delete pAverageLevelFilteredRms;
-    pAverageLevelFilteredRms = NULL;
 
     delete pMeterBallistics;
     pMeterBallistics = NULL;
@@ -146,7 +143,7 @@ int KmeterAudioProcessor::getParameterAsInt(int index)
 
 void KmeterAudioProcessor::changeParameter(int index, int nValue)
 {
-    if ((index == KmeterPluginParameters::selMono) && (pMeterBallistics->getNumberOfChannels() < 2))
+    if ((index == KmeterPluginParameters::selMono) && (nNumInputChannels < 2))
     {
         nValue = true;
     }
@@ -180,13 +177,13 @@ bool KmeterAudioProcessor::isParameterMarked(int nIndex)
 
 const String KmeterAudioProcessor::getInputChannelName(const int channelIndex) const
 {
-    return String(channelIndex + 1);
+    return String("Input ") + String(channelIndex + 1);
 }
 
 
 const String KmeterAudioProcessor::getOutputChannelName(const int channelIndex) const
 {
-    return String(channelIndex + 1);
+    return String("Output ") + String(channelIndex + 1);
 }
 
 
@@ -279,6 +276,8 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
         bOverflowsPreviousSample[nChannel] = false;
     }
 
+    pAverageLevelFilteredRms = new AverageLevelFilteredRms(nNumInputChannels, KMETER_BUFFER_SIZE);
+
     pMeterBallistics = new MeterBallistics(nNumInputChannels, (int) sampleRate, false, false);
 
     // make sure that ring buffer can hold at least KMETER_BUFFER_SIZE
@@ -286,10 +285,10 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     nSamplesInBuffer = 0;
     unsigned int uRingBufferSize = (samplesPerBlock > KMETER_BUFFER_SIZE) ? samplesPerBlock : KMETER_BUFFER_SIZE;
 
-    pRingBufferInput = new AudioRingBuffer(T("Input ring buffer"), 2, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
+    pRingBufferInput = new AudioRingBuffer(T("Input ring buffer"), nNumInputChannels, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
     pRingBufferInput->setCallbackClass(this);
 
-    pRingBufferOutput = new AudioRingBuffer(T("Output ring buffer"), 2, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
+    pRingBufferOutput = new AudioRingBuffer(T("Output ring buffer"), nNumInputChannels, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
 }
 
 
@@ -299,6 +298,9 @@ void KmeterAudioProcessor::releaseResources()
     // up any spare memory, etc.
 
     DBG("[K-Meter] in method KmeterAudioProcessor::releaseResources()");
+
+    delete pAverageLevelFilteredRms;
+    pAverageLevelFilteredRms = NULL;
 
     delete pMeterBallistics;
     pMeterBallistics = NULL;
@@ -360,9 +362,9 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 
     pRingBufferOutput->copyToBuffer(buffer, 0, nNumSamples, KMETER_BUFFER_SIZE - nSamplesInBuffer);
 
-    // In case we have more outputs than inputs, we'll clear any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
+    // In case we have more outputs than inputs, we'll clear any
+    // output channels that didn't contain input data, because these
+    // aren't guaranteed to be empty -- they may contain garbage.
 
     for (int i = nNumInputChannels; i < getNumOutputChannels(); ++i)
     {
