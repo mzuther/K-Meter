@@ -36,15 +36,15 @@
 
 #ifdef KMETER_SURROUND
 #ifdef DEBUG
-#define JucePlugin_Name                 "K-Meter Surround (Debug)"
+#define JucePlugin_Name                 "K-Meter (Surround, Debug)"
 #else
-#define JucePlugin_Name                 "K-Meter Surround"
+#define JucePlugin_Name                 "K-Meter (Surround)"
 #endif
 #else
 #ifdef DEBUG
-#define JucePlugin_Name                 "K-Meter Stereo (Debug)"
+#define JucePlugin_Name                 "K-Meter (Stereo, Debug)"
 #else
-#define JucePlugin_Name                 "K-Meter Stereo"
+#define JucePlugin_Name                 "K-Meter (Stereo)"
 #endif
 #endif
 #define JucePlugin_Desc                 "Implementation of a K-System meter according to Bob Katz' specifications"

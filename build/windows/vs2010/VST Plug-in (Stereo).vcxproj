@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{7D93DC4B-0D09-B569-C03B-76673236143A}</ProjectGuid>
+		<ProjectGuid>{67593AD1-45A9-28A7-0D50-E75778D1F727}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -41,12 +41,12 @@
 		<_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin\</OutDir>
 		<IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin\intermediate_windows\vst_stereo_debug\x32\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">K-Meter Stereo (Debug)</TargetName>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">K-Meter (Stereo, Debug)</TargetName>
 		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</IgnoreImportLibrary>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin\</OutDir>
 		<IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin\intermediate_windows\vst_stereo_release\x32\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">K-Meter Stereo</TargetName>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">K-Meter (Stereo)</TargetName>
 		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</IgnoreImportLibrary>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
 		<GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
@@ -71,13 +71,13 @@
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
-			<AdditionalDependencies>libfftw3f-3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)K-Meter Stereo (Debug).dll</OutputFile>
-			<AdditionalLibraryDirectories>..\..\..\libraries\fftw3\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)K-Meter (Stereo, Debug).dll</OutputFile>
+			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<ProgramDataBaseFileName>$(OutDir)K-Meter Stereo (Debug).pdb</ProgramDataBaseFileName>
-			<ImportLibrary>..\..\..\bin\K-Meter Stereo (Debug).lib</ImportLibrary>
+			<ProgramDataBaseFileName>$(OutDir)K-Meter (Stereo, Debug).pdb</ProgramDataBaseFileName>
+			<ImportLibrary>..\..\..\bin\K-Meter (Stereo, Debug).lib</ImportLibrary>
 			<TargetMachine>MachineX86</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>
@@ -102,14 +102,14 @@
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
-			<AdditionalDependencies>libfftw3f-3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)K-Meter Stereo.dll</OutputFile>
-			<AdditionalLibraryDirectories>..\..\..\libraries\fftw3\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)K-Meter (Stereo).dll</OutputFile>
+			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>false</GenerateDebugInformation>
 			<OptimizeReferences>true</OptimizeReferences>
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<ImportLibrary>..\..\..\bin\K-Meter Stereo.lib</ImportLibrary>
+			<ImportLibrary>..\..\..\bin\K-Meter (Stereo).lib</ImportLibrary>
 			<TargetMachine>MachineX86</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>

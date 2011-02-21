@@ -29,6 +29,20 @@ AverageLevelFilteredRms::AverageLevelFilteredRms(const int channels, const int b
 {
     jassert(channels > 0);
 
+#ifdef _WIN32
+    File libraryFFTW = File::getSpecialLocation(File::currentExecutableFile).getSiblingFile(T("libfftw3f-3.dll"));
+    libraryHandleFFTW = PlatformUtilities::loadDynamicLibrary(libraryFFTW.getFullPathName());
+
+    fftwf_malloc = (void * (*)(size_t)) PlatformUtilities::getProcedureEntryPoint(libraryHandleFFTW, "fftwf_malloc");
+    fftwf_free = (void (*)(void*)) PlatformUtilities::getProcedureEntryPoint(libraryHandleFFTW, "fftwf_free");
+
+    fftwf_plan_dft_r2c_1d = (fftwf_plan(*)(int, float*, fftwf_complex*, unsigned)) PlatformUtilities::getProcedureEntryPoint(libraryHandleFFTW, "fftwf_plan_dft_r2c_1d");
+    fftwf_plan_dft_c2r_1d = (fftwf_plan(*)(int, fftwf_complex*, float*, unsigned)) PlatformUtilities::getProcedureEntryPoint(libraryHandleFFTW, "fftwf_plan_dft_c2r_1d");
+    fftwf_destroy_plan = (void (*)(fftwf_plan)) PlatformUtilities::getProcedureEntryPoint(libraryHandleFFTW, "fftwf_destroy_plan");
+
+    fftwf_execute = (void (*)(const fftwf_plan)) PlatformUtilities::getProcedureEntryPoint(libraryHandleFFTW, "fftwf_execute");
+#endif
+
     nChannels = channels;
     nSampleRate = -1;
     nBufferSize = buffer_size;
@@ -72,6 +86,20 @@ AverageLevelFilteredRms::~AverageLevelFilteredRms()
     fftwf_destroy_plan(planAudioSamples_IDFT);
     fftwf_free(arrAudioSamples_TD);
     fftwf_free(arrAudioSamples_FD);
+
+#ifdef _WIN32
+    fftwf_malloc = NULL;
+    fftwf_free = NULL;
+
+    fftwf_plan_dft_r2c_1d = NULL;
+    fftwf_plan_dft_c2r_1d = NULL;
+    fftwf_destroy_plan = NULL;
+
+    fftwf_execute = NULL;
+
+    PlatformUtilities::freeDynamicLibrary(libraryHandleFFTW);
+    libraryHandleFFTW = NULL;
+#endif
 }
 
 

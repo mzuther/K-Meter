@@ -151,8 +151,8 @@ fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter (Surround).dll" "$KMETER_ARCHIVE_DI
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
 
-fill_archive "$KMETER_EXECUTABLE_DIR/fftw/COPYRIGHT" "$KMETER_ARCHIVE_DIR/fftw"
-fill_archive "$KMETER_EXECUTABLE_DIR/fftw/LICENSE" "$KMETER_ARCHIVE_DIR/fftw"
-fill_archive "$KMETER_EXECUTABLE_DIR/fftw/libfftw3f-3.dll" "$KMETER_ARCHIVE_DIR/fftw"
+fill_archive "COPYRIGHT_FFTW" "$KMETER_ARCHIVE_DIR"
+fill_archive "LICENSE_FFTW" "$KMETER_ARCHIVE_DIR"
+fill_archive "libfftw3f-3.dll" "$KMETER_ARCHIVE_DIR"
 
 compress_new_archive "$KMETER_RELEASE_DIR/w32/kmeter-vst.zip" "$KMETER_ARCHIVE_DIR" "zip"

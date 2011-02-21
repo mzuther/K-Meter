@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{D5D50087-02AD-016C-51F2-9A28168F7B3D}</ProjectGuid>
+		<ProjectGuid>{2A1B2E6A-F939-1734-E9AC-796A12059C12}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Surround)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -41,12 +41,12 @@
 		<_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin\</OutDir>
 		<IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin\intermediate_windows\vst_surround_debug\x32\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">K-Meter Surround (Debug)</TargetName>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">K-Meter (Surround, Debug)</TargetName>
 		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</IgnoreImportLibrary>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin\</OutDir>
 		<IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin\intermediate_windows\vst_surround_release\x32\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">K-Meter Surround</TargetName>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">K-Meter (Surround)</TargetName>
 		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</IgnoreImportLibrary>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
 		<GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
@@ -71,13 +71,13 @@
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
-			<AdditionalDependencies>libfftw3f-3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)K-Meter Surround (Debug).dll</OutputFile>
-			<AdditionalLibraryDirectories>..\..\..\libraries\fftw3\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)K-Meter (Surround, Debug).dll</OutputFile>
+			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<ProgramDataBaseFileName>$(OutDir)K-Meter Surround (Debug).pdb</ProgramDataBaseFileName>
-			<ImportLibrary>..\..\..\bin\K-Meter Surround (Debug).lib</ImportLibrary>
+			<ProgramDataBaseFileName>$(OutDir)K-Meter (Surround, Debug).pdb</ProgramDataBaseFileName>
+			<ImportLibrary>..\..\..\bin\K-Meter (Surround, Debug).lib</ImportLibrary>
 			<TargetMachine>MachineX86</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>
@@ -102,14 +102,14 @@
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
-			<AdditionalDependencies>libfftw3f-3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)K-Meter Surround.dll</OutputFile>
-			<AdditionalLibraryDirectories>..\..\..\libraries\fftw3\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)K-Meter (Surround).dll</OutputFile>
+			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>false</GenerateDebugInformation>
 			<OptimizeReferences>true</OptimizeReferences>
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<ImportLibrary>..\..\..\bin\K-Meter Surround.lib</ImportLibrary>
+			<ImportLibrary>..\..\..\bin\K-Meter (Surround).lib</ImportLibrary>
 			<TargetMachine>MachineX86</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>

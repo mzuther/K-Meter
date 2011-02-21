@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Stereo)", "VST Plug-in (Stereo).vcproj", "{3F3D1D7C-F9EE-586B-3211-BD9697A0F547}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Stereo)", "VST Plug-in (Stereo).vcproj", "{2F9619E3-4DF0-951B-5DC7-28B43D51AE13}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Surround)", "VST Plug-in (Surround).vcproj", "{587D5370-41D2-6A2F-5698-EFE216AF4BF1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Surround)", "VST Plug-in (Surround).vcproj", "{A31FEAAA-B5ED-C57C-F977-92A0383D29CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +11,14 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3F3D1D7C-F9EE-586B-3211-BD9697A0F547}.Debug|Win32.ActiveCfg = Debug|Win32
-		{3F3D1D7C-F9EE-586B-3211-BD9697A0F547}.Debug|Win32.Build.0 = Debug|Win32
-		{3F3D1D7C-F9EE-586B-3211-BD9697A0F547}.Release|Win32.ActiveCfg = Release|Win32
-		{3F3D1D7C-F9EE-586B-3211-BD9697A0F547}.Release|Win32.Build.0 = Release|Win32
-		{587D5370-41D2-6A2F-5698-EFE216AF4BF1}.Debug|Win32.ActiveCfg = Debug|Win32
-		{587D5370-41D2-6A2F-5698-EFE216AF4BF1}.Debug|Win32.Build.0 = Debug|Win32
-		{587D5370-41D2-6A2F-5698-EFE216AF4BF1}.Release|Win32.ActiveCfg = Release|Win32
-		{587D5370-41D2-6A2F-5698-EFE216AF4BF1}.Release|Win32.Build.0 = Release|Win32
+		{2F9619E3-4DF0-951B-5DC7-28B43D51AE13}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2F9619E3-4DF0-951B-5DC7-28B43D51AE13}.Debug|Win32.Build.0 = Debug|Win32
+		{2F9619E3-4DF0-951B-5DC7-28B43D51AE13}.Release|Win32.ActiveCfg = Release|Win32
+		{2F9619E3-4DF0-951B-5DC7-28B43D51AE13}.Release|Win32.Build.0 = Release|Win32
+		{A31FEAAA-B5ED-C57C-F977-92A0383D29CB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A31FEAAA-B5ED-C57C-F977-92A0383D29CB}.Debug|Win32.Build.0 = Debug|Win32
+		{A31FEAAA-B5ED-C57C-F977-92A0383D29CB}.Release|Win32.ActiveCfg = Release|Win32
+		{A31FEAAA-B5ED-C57C-F977-92A0383D29CB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

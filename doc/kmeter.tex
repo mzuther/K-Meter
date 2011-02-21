@@ -90,15 +90,18 @@ For more information about the K-System, please see
 
 \chapter{Installation}
 
-In order to use the pre-compiled binaries, please install the
-``Fastest Fourier Transform in the West'' library first (see
-\href{http://www.fftw.org/download.html\#platformspecific}{their
-  website} for instructions).
+In order to use the pre-compiled binaries, simply extract the K-Meter
+files from the downloaded archive.  For the VST plug-in, you'll then
+have to move the extracted files to your plug-in folder
+(\path{~/.vst}, \path{C:\Program Files\Steinberg\VstPlugins\} or the
+  like).
 
-When you're done, simply extract the K-Meter files from the downloaded
-archive.  For the VST plug-in, you'll then have to move the extracted
-files to your plug-in folder (\path{~/.vst}, \path{C:\Program
-  Files\Steinberg\VstPlugins\} or the like).
+\section{Windows}
+
+If you move the pre-compiled binaries to another directory, please
+make sure to also move the file \path{libfftw3f-3.dll} to this
+directory.  Otherwise, you will not be able to execute the binaries
+anymore.
 
 \chapter{Controls}
 
@@ -440,9 +443,7 @@ into this directory and run:
 
 Extract the source code archive into the directory
 \path{libraries/fftw3} and the archive containing the pre-compiled
-binaries into the directories \path{libraries/fftw3/bin} and
-\path{%SystemDirectory%} (usually
-  \path{C:\WINDOWS\system32\}).
+binaries into the directory \path{libraries/fftw3/bin}.
 
 \subsection{JUCE library}
 

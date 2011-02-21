@@ -50,10 +50,6 @@ solution "kmeter"
 		"../libraries/vstsdk2.4"
 	}
 
-	libdirs {
-		"../libraries/fftw3/bin"
-	}
-
 	flags {
 			"EnableSSE",
 			"EnableSSE2",
@@ -103,7 +99,6 @@ solution "kmeter"
 			}
 
 			links {
-				"libfftw3f-3",
 				"kernel32",
 				"user32",
 				"gdi32",
@@ -119,11 +114,11 @@ solution "kmeter"
 			 }
 
 		configuration "Debug"
-			targetname "K-Meter Stereo (Debug)"
+			targetname "K-Meter (Stereo, Debug)"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_debug")
 
       configuration "Release"
-			targetname "K-Meter Stereo"
+			targetname "K-Meter (Stereo)"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_release")
 
 --------------------------------------------------------------------------------
@@ -157,7 +152,6 @@ solution "kmeter"
 			}
 
 			links {
-				"libfftw3f-3",
 				"kernel32",
 				"user32",
 				"gdi32",
@@ -173,9 +167,9 @@ solution "kmeter"
 			 }
 
 		configuration "Debug"
-			targetname "K-Meter Surround (Debug)"
+			targetname "K-Meter (Surround, Debug)"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_surround_debug")
 
       configuration "Release"
-			targetname "K-Meter Surround"
+			targetname "K-Meter (Surround)"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_surround_release")

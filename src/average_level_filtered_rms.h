@@ -69,6 +69,17 @@ private:
     int nBufferSize;
     int nFftSize;
     int nHalfFftSize;
+
+#ifdef _WIN32
+    void *(* fftwf_malloc)(size_t);
+    void (* fftwf_free)(void*);
+
+    fftwf_plan(*fftwf_plan_dft_r2c_1d)(int, float*, fftwf_complex*, unsigned);
+    fftwf_plan(*fftwf_plan_dft_c2r_1d)(int, fftwf_complex*, float*, unsigned);
+    void (* fftwf_destroy_plan)(fftwf_plan);
+
+    void (*fftwf_execute)(const fftwf_plan);
+#endif
 };
 
 

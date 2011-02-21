@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="VST Plug-in (Stereo)"
-	ProjectGUID="{3F3D1D7C-F9EE-586B-3211-BD9697A0F547}"
+	ProjectGUID="{2F9619E3-4DF0-951B-5DC7-28B43D51AE13}"
 	RootNamespace="VST Plug-in (Stereo)"
 	Keyword="Win32Proj"
 	>
@@ -50,7 +50,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
-				ProgramDataBaseFileName="$(OutDir)\K-Meter Stereo (Debug).pdb"
+				ProgramDataBaseFileName="$(OutDir)\K-Meter (Stereo, Debug).pdb"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -66,14 +66,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libfftw3f-3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
-				OutputFile="$(OutDir)\K-Meter Stereo (Debug).dll"
+				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
+				OutputFile="$(OutDir)\K-Meter (Stereo, Debug).dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\..\libraries\fftw3\bin"
+				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
-				ProgramDataBaseFileName="$(OutDir)\K-Meter Stereo (Debug).pdb"
+				ProgramDataBaseFileName="$(OutDir)\K-Meter (Stereo, Debug).pdb"
 				SubSystem="2"
-				ImportLibrary="..\..\..\bin\K-Meter Stereo (Debug).lib"
+				ImportLibrary="..\..\..\bin\K-Meter (Stereo, Debug).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -137,7 +137,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
-				ProgramDataBaseFileName="$(OutDir)\K-Meter Stereo.pdb"
+				ProgramDataBaseFileName="$(OutDir)\K-Meter (Stereo).pdb"
 				DebugInformationFormat="0"
 			/>
 			<Tool
@@ -153,16 +153,16 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libfftw3f-3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
-				OutputFile="$(OutDir)\K-Meter Stereo.dll"
+				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
+				OutputFile="$(OutDir)\K-Meter (Stereo).dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\..\libraries\fftw3\bin"
+				AdditionalLibraryDirectories=""
 				GenerateManifest="false"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="..\..\..\bin\K-Meter Stereo.lib"
+				ImportLibrary="..\..\..\bin\K-Meter (Stereo).lib"
 				TargetMachine="1"
 			/>
 			<Tool
