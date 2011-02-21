@@ -63,7 +63,7 @@ AboutWindow::AboutWindow(int nWidth, int nHeight)
     // display plug-in name and version number
     TextEditorAbout->setFont(fontHeadline);
     TextEditorAbout->insertTextAtCaret(
-        String(JucePlugin_Name) + T(" ") + JucePlugin_VersionString + T("\n")
+        String("K-Meter ") + JucePlugin_VersionString + T("\n")
     );
 
     // display plug-in description

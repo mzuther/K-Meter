@@ -71,6 +71,8 @@ private:
     int nHalfFftSize;
 
 #ifdef _WIN32
+    void* libraryHandleFFTW;
+
     void *(* fftwf_malloc)(size_t);
     void (* fftwf_free)(void*);
 
