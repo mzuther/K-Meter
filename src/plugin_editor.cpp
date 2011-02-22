@@ -32,15 +32,15 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     nInputChannels = nNumChannels;
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
     nCrestFactor = 0;
-    nRightColumnStart = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 28;
+    nRightColumnStart = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 20;
 
     if (nInputChannels <= 2)
     {
-        nHeight = 650;
+        nHeight = 649;
     }
     else
     {
-        nHeight = 608;
+        nHeight = 630;
     }
 
     // This is where our plugin's editor size is set.
@@ -143,10 +143,10 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
     if (nInputChannels <= 2)
     {
-        stereoMeter = new StereoMeter(T("Stereo Meter"), 10, nHeight - 45, 105, 15);
+        stereoMeter = new StereoMeter(T("Stereo Meter"), 10, nHeight - 44, 105, 15);
         addAndMakeVisible(stereoMeter);
 
-        phaseCorrelationMeter = new PhaseCorrelationMeter(T("Correlation Meter"), 10, nHeight - 25, 105, 13);
+        phaseCorrelationMeter = new PhaseCorrelationMeter(T("Correlation Meter"), 10, nHeight - 24, 105, 13);
         addAndMakeVisible(phaseCorrelationMeter);
     }
     else

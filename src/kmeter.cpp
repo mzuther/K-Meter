@@ -33,6 +33,15 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
     isExpanded = bExpanded;
     displayPeakMeter = bDisplayPeakMeter;
 
+    if (nInputChannels <= 2)
+    {
+        nMeterPositionTop = 0;
+    }
+    else
+    {
+        nMeterPositionTop = 20;
+    }
+
     nPosX = posX;
     nPosY = posY;
     nMainSegmentHeight = nSegmentHeight;
@@ -63,24 +72,24 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
 
         for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
         {
-            nPositionX = 17 + nChannel * KMETER_STEREO_WIDTH_2;
+            nPositionX = 18 + nChannel * KMETER_STEREO_WIDTH_2;
 
             if (nChannel % 2)
             {
-                nPositionX += 2;
+                nPositionX += -3;
             }
 
-            AverageMeters[nChannel] = new MeterBar(String("Average Meter #") + String(nChannel), nPositionX, 48, 18, nMeterCrestFactor, bExpanded, nMainSegmentHeight, T("center"));
+            AverageMeters[nChannel] = new MeterBar(String("Average Meter #") + String(nChannel), nPositionX, nMeterPositionTop + 48, 18, nMeterCrestFactor, bExpanded, nMainSegmentHeight, T("center"));
             addAndMakeVisible(AverageMeters[nChannel]);
 
-            nPositionX = 3 + nChannel * KMETER_STEREO_WIDTH_2;
+            nPositionX = 4 + nChannel * KMETER_STEREO_WIDTH_2;
 
             if (nChannel % 2)
             {
-                nPositionX += 39;
+                nPositionX += 34;
             }
 
-            PeakMeters[nChannel] = new MeterBar(String("Peak Meter #") + String(nChannel), nPositionX, 48, 9, nMeterCrestFactor, bExpanded, nMainSegmentHeight, (nChannel % 2) ? T("left") : T("right"));
+            PeakMeters[nChannel] = new MeterBar(String("Peak Meter #") + String(nChannel), nPositionX, nMeterPositionTop + 48, 9, nMeterCrestFactor, bExpanded, nMainSegmentHeight, (nChannel % 2) ? T("left") : T("right"));
             addAndMakeVisible(PeakMeters[nChannel]);
         }
     }
@@ -91,14 +100,14 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
 
         for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
         {
-            nPositionX = 7 + nChannel * KMETER_STEREO_WIDTH_2;
+            nPositionX = 8 + nChannel * KMETER_STEREO_WIDTH_2;
 
             if (nChannel % 2)
             {
-                nPositionX += 20;
+                nPositionX += 15;
             }
 
-            AverageMeters[nChannel] = new MeterBar(String("Average Meter #") + String(nChannel), nPositionX, 48, 20, nMeterCrestFactor, bExpanded, nMainSegmentHeight, T("center"));
+            AverageMeters[nChannel] = new MeterBar(String("Average Meter #") + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nMeterCrestFactor, bExpanded, nMainSegmentHeight, T("center"));
             addAndMakeVisible(AverageMeters[nChannel]);
         }
     }
@@ -108,19 +117,19 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
 
     for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
     {
-        nPositionX = 3 + nChannel * KMETER_STEREO_WIDTH_2;
+        nPositionX = 4 + nChannel * KMETER_STEREO_WIDTH_2;
 
         if (nChannel % 2)
         {
-            nPositionX += 16;
+            nPositionX += 11;
         }
 
         OverflowMeters[nChannel] = new OverflowMeter(String("Overflows #") + String(nChannel));
-        OverflowMeters[nChannel]->setBounds(nPositionX, 3, 32, 16);
+        OverflowMeters[nChannel]->setBounds(nPositionX, nMeterPositionTop + 3, 32, 16);
         addAndMakeVisible(OverflowMeters[nChannel]);
 
         MaximumPeakLabels[nChannel] = new PeakLabel(String("Maximum Peak #") + String(nChannel), nCrestFactor);
-        MaximumPeakLabels[nChannel]->setBounds(nPositionX, 23, 32, 16);
+        MaximumPeakLabels[nChannel]->setBounds(nPositionX, nMeterPositionTop + 23, 32, 16);
         addAndMakeVisible(MaximumPeakLabels[nChannel]);
     }
 }
@@ -162,37 +171,58 @@ Kmeter::~Kmeter()
 
 void Kmeter::visibilityChanged()
 {
-    int height = 134 * nMainSegmentHeight + 52;
+    int height = 134 * nMainSegmentHeight + 74;
     int width = nStereoInputChannels * KMETER_STEREO_WIDTH + 2;
     setBounds(nPosX, nPosY, width, height);
 }
 
 void Kmeter::paint(Graphics& g)
 {
-    g.fillAll(Colours::grey.withAlpha(0.1f));
-
-    g.setColour(Colours::darkgrey);
-    g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
-
-    g.setColour(Colours::darkgrey.darker(0.8f));
-    g.drawRect(1, 1, getWidth() - 1, getHeight() - 1);
-
-    g.setColour(Colours::darkgrey.darker(0.4f));
-    g.drawRect(1, 1, getWidth() - 2, getHeight() - 2);
-
     for (int nChannel = 0; nChannel < nStereoInputChannels; nChannel++)
     {
-        int x = 3 + nChannel * KMETER_STEREO_WIDTH;
-        int y = 43;
+        int x = 5 + nChannel * KMETER_STEREO_WIDTH;
+        int y = nMeterPositionTop + 43;
         int width = 24;
         int height = 11;
         String strMarker;
 
+        if (nInputChannels > 2)
+        {
+            g.setColour(Colours::white);
+            g.setFont(13.0f);
+
+            g.drawFittedText(String("Channels ") + String(2 * nChannel + 1) + T("+") + String(2 * nChannel + 2), x - 4, 0, KMETER_STEREO_WIDTH - 5, 17, Justification::centred, 1, 1.0f);
+
+            g.setColour(Colours::grey.withAlpha(0.3f));
+            g.fillRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
+
+            g.setColour(Colours::darkgrey);
+            g.drawRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
+
+            g.setColour(Colours::darkgrey.darker(0.8f));
+            g.drawRect(x - 3, 1, KMETER_STEREO_WIDTH - 6, 17);
+
+            g.setColour(Colours::darkgrey.darker(0.4f));
+            g.drawRect(x - 3, 1, KMETER_STEREO_WIDTH - 7, 16);
+        }
+
+        g.setColour(Colours::grey.withAlpha(0.1f));
+        g.fillRect(x - 4, nMeterPositionTop, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+
+        g.setColour(Colours::darkgrey);
+        g.drawRect(x - 4, nMeterPositionTop, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+
+        g.setColour(Colours::darkgrey.darker(0.8f));
+        g.drawRect(x - 3, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+
+        g.setColour(Colours::darkgrey.darker(0.4f));
+        g.drawRect(x - 3, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 7, getHeight() - 22);
+
         g.setColour(Colours::white);
         g.setFont(12.0f);
 
-        g.drawFittedText(T("Over"), x + 32, 3, 36, 16, Justification::centred, 1, 1.0f);
-        g.drawFittedText(T("Peak"), x + 32, 23, 36, 16, Justification::centred, 1, 1.0f);
+        g.drawFittedText(T("Over"), x + 31, nMeterPositionTop + 3, 36, 16, Justification::centred, 1, 1.0f);
+        g.drawFittedText(T("Peak"), x + 31, nMeterPositionTop + 23, 36, 16, Justification::centred, 1, 1.0f);
 
         g.setFont(11.0f);
 
@@ -368,7 +398,7 @@ void Kmeter::setLevels(MeterBallistics* pMeterBallistics)
 void Kmeter::drawMarkers(Graphics& g, String& strMarker, int x, int y, int width, int height)
 {
     g.setColour(Colours::white);
-    g.drawFittedText(strMarker, x + 38, y, width, height, Justification::centred, 1, 1.0f);
+    g.drawFittedText(strMarker, x + 36, y, width, height, Justification::centred, 1, 1.0f);
 
     g.setColour(Colours::grey);
 
@@ -380,7 +410,7 @@ void Kmeter::drawMarkers(Graphics& g, String& strMarker, int x, int y, int width
     if (displayPeakMeter)
     {
         nWidth = 3;
-        nStart = x + 10;
+        nStart = x + 9;
         nEnd = nStart + nWidth;
     }
     else
@@ -397,12 +427,12 @@ void Kmeter::drawMarkers(Graphics& g, String& strMarker, int x, int y, int width
 
     if (displayPeakMeter)
     {
-        nStart = x + 89;
+        nStart = x + 86;
         nEnd = nStart - nWidth;
     }
     else
     {
-        nStart = x + 74;
+        nStart = x + 70;
         nEnd = nStart - nWidth;
     }
 
