@@ -652,9 +652,9 @@ void MeterBallistics::calculateDynamicRangeValue()
         }
 
         // calculate the dynamic range value; the original algorithm
-        // for the dynamic range value doesn't make sense at all and
-        // often gives completely random results; I have thus removed
-        // all the "weird" parts
+        // for the dynamic range value takes the logarithm of a level
+        // that has already been converted to decibels; this doesn't
+        // make sense at all, so I have removed the "weird" part
         float fDynamicRangeValue = sqrt(fSumOfSquaredAverageLevels / nProcessedCounts) - fHighestPeakLevel_2;
 
         // add channel's dynamic range value to the running sum of

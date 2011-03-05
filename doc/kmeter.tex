@@ -239,7 +239,8 @@ seconds.
 Both stand-alone application and the plug-in only work at sampling
 rates between 44.1\,kHz and 192\,kHz and introduce a latency of 1024
 samples.  This latency is reported to your plug-in host so it may
-compensate for the introduced delay.
+compensate for the introduced delay.  Needless to say, the original
+unfiltered signal is passed to the outputs.
 
 \section{Average meter}
 
@@ -323,6 +324,66 @@ sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
 dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
 et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
 takimata sanctus est Lorem ipsum dolor sit amet.
+
+\chapter{Validation}
+
+I have gone to great lengths to ensure that all meters of the stereo
+version read correctly (the surround version shares most code and
+should follow suit).  You want to validate for yourself?  The
+directory \path{validation} of the source code contains instructions
+and FLAC-compressed wave files.
+
+\section{Validation status}
+
+\begin{minipage}{1.0\linewidth}
+  \renewcommand{\thempfootnote}{\arabic{mpfootnote}}
+  \begin{tabular}{>{\bfseries}lll}
+
+    average level meter &
+    readings &
+    valid \\
+
+    &
+    frequency response &
+    valid \\
+
+    &
+    meter ballistics &
+    valid \\
+
+    peak level meter &
+    readings &
+    ---\footnote{deviates from the correct value by some
+      small amount, probably due to dithering in the used hosts
+      \label{fn:validation_dithering}} \\
+
+    &
+    meter ballistics &
+    valid \\
+
+    &
+    frequency response &
+    valid \\
+
+    overload counter &
+    readings &
+    ---\footnote{doesn't validate correctly, probably due to dithering
+      in the used hosts} \\
+
+    maximum peak display &
+    readings &
+    ---\footref{fn:validation_dithering}\\
+
+    phase correlation meter &
+    readings &
+    valid \\
+
+    stereo meter &
+    readings &
+    valid \\
+
+  \end{tabular}
+\end{minipage}
 
 \chapter{Final words}
 
