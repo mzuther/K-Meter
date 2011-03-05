@@ -220,27 +220,41 @@ the license's website in your web browser \dots
 
 \section{K-System meter}
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-takimata sanctus est Lorem ipsum dolor sit amet.
+The K-System meter consists of an average level meter and an optional
+peak level meter.  The recommended K-20 meter has 20\,dB of headroom
+above 0\,dB, while the K-14 and K-12 meters have 14\,dB and 12\,dB of
+headroom, respectively.
+
+Each level meter is divided into segments of 1\,dB, with the exception
+of the top 2\,dB (segments of 0.5\,dB) and the bottom end (segments of
+10\,dB).  When magnified, level meters are divided into segments of
+0.1\,dB.
+
+Recent maximum level is displayed by a white rectangle around the
+corresponding meter segment.  Unless a higher level is encountered or
+``Infinite peak hold'' is switched on, maximum levels are held for 10
+seconds and then start falling with a fall time of 26\,dB per 3
+seconds.
+
+Both stand-alone application and the plug-in only work at sampling
+rates between 44.1\,kHz and 192\,kHz and introduce a latency of 1024
+samples.  This latency is reported to your plug-in host so it may
+compensate for the introduced delay.
+
+\section{Average meter}
+
+The average meter is an RMS meter with an averaging period of 1024
+samples.  It exhibits a flat frequency response between 20\,Hz and
+20\,kHz ($\pm$ 0.1\,dB) and is band-limited using a windowed-sinc
+low-pass filter with a cutoff frequency of 21.0\,kHz.  On level
+changes, it takes 600 milliseconds for the meter to reach 99\,\% of
+the final reading.
 
 \section{Peak meter}
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-takimata sanctus est Lorem ipsum dolor sit amet.
+The peak meter displays the unfiltered peak level and thus possesses a
+completely flat frequency response.  It has a rise time of one sample
+and a fall time of 26\,dB per 3 seconds.
 
 \section{Overload counter}
 
