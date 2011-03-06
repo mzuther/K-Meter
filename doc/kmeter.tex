@@ -41,11 +41,11 @@ perceived as sounding better (although this is only true for short
 periods of time).  Accordingly, the loudness of music productions has
 continuously grown during the last decades.
 
-As maximum levels of records, tapes and digital media are limited,
-however, mastering engineers have started using sophisticated dynamic
-compression techniques to achieve higher loudness without distorting
-the music (as of 2010, distortion is increasingly being used in order
-to achieve even higher loudness).
+As maximum levels of records, tapes and digital media have a natural
+limit, however, mastering engineers have started using sophisticated
+dynamic compression techniques to achieve higher loudness without
+distorting the music (as of 2010, distortion is increasingly being
+used in order to achieve even higher loudness).
 
 Unfortunately, this decrease in dynamic range does not leave the music
 unharmed.  Current compressed music blasts away your ears and makes
@@ -53,16 +53,17 @@ you turn down the volume of your amplifier.  Having lowered the
 volume, you'll find that the ``better-sounding'' compressed music
 suddenly sounds pretty dull and boring compared to uncompressed music.
 In contrast, music with high dynamic range makes you turn up the
-volume -- heck, it even sounds better when broadcast on the radio!
+volume -- heck, it even sounds better when being broadcast on the
+radio!
 
 \chapter{The K-System}
 
 The K-System has been devised by mastering engineer Bob Katz in order
 to counteract the ongoing loudness race and to help adjusting the
-levels of different songs during mastering.  K-System meters are
-average level meters that do \textbf{not} have 0\,dB on top.  Instead,
-0\,dB on K-System meters relate to a reference loudness.  There are
-three K-System scales:
+levels of different songs during mastering.  K-System meters are level
+meters that do \textbf{not} place the 0\,dB mark on top of the meter.
+Instead, 0\,dB on K-System meters relates to a reference loudness.
+There are three K-System scales:
 
 \begin{compactitem}
 \item K-20 (0\,dB at -20\,dBFS, recommended)
@@ -86,7 +87,8 @@ In case you want to use the K-14 meter, attenuate the monitor gain by
 
 For more information about the K-System, please see
 \href{http://www.digido.com/level-practices-part-2-includes-the-k-system.html}{Bob's
-  website}.
+  website} or his great book ``Mastering Audio -- The Art and the
+Science''.
 
 \chapter{Installation}
 
@@ -115,11 +117,11 @@ You can select the different K-System meter scales (\textbf{K-20}, \textbf{K-14}
 \textbf{K-12}) by clicking on these radio buttons.
 
 In the rare case you want to use the meter in a mixer's channel strip,
-click the \textbf{Normal} button (0\,dBFS on top).  Please note,
-however, that the \textbf{Normal} state will be neither saved, nor
-recalled in your DAW and the standalone version.  This is by design --
-the K-System meter has been explicitly designed to \textbf{not} have
-0\,dBFS on top!
+click the \textbf{Normal} button which will place 0\,dBFS on top.
+Please note, however, that the \textbf{Normal} state will be neither
+saved, nor recalled in your DAW and the standalone version.  This is
+by design -- the K-System meter has been explicitly designed to
+\textbf{not} have 0\,dBFS on top!
 
 \section{Infinite peak hold}
 
@@ -130,7 +132,7 @@ the K-System meter has been explicitly designed to \textbf{not} have
 \end{wrapfigure}
 
 Click on this button to toggle between infinite peak hold and
-``falling peaks''.  This setting applies to both K-System and peak
+``falling peaks''.  This setting applies to both average and peak
 meters.
 
 \section{Show peak meter}
@@ -160,7 +162,7 @@ Katz has asked me to hide them by default:
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_expand_meter_off.png}
 \end{wrapfigure}
 
-This button magnifies both K-System and peak meters to 0.1\,dB steps.
+This button magnifies both average and peak meters to 0.1\,dB steps.
 If switched on, the 0\,dB mark is placed near the centre.
 
 \emph{\underline{Hint:} by selecting different meter scales, you can
@@ -175,8 +177,8 @@ If switched on, the 0\,dB mark is placed near the centre.
 \end{wrapfigure}
 
 Click this button to easily check the mono compatibility of your
-stereo mix or master.  In \textbf{mono} mode, both K-System meters and
-peak meters will be linked.
+stereo mix or master.  In \textbf{mono} mode, audio channels will be
+down-mixed to mono and the meters will be linked.
 
 In case you insert the plug-in into a mono channel strip,
 \textbf{mono} mode will be selected and cannot be toggled.
@@ -224,8 +226,8 @@ the license's website in your web browser \dots
   \includegraphics[scale=\screenshotscale,clip]{include/images/level_meter_combined.png}
 \end{wrapfigure}
 
-The K-System meter consists of an average level meter (wide meter on
-the graphic) and an optional peak level meter (thin meter).  The
+The K-System meter consists of an average level meter (graphic on the
+right, wide bars) and an optional peak level meter (thin bars).  The
 recommended K-20 meter has 20\,dB of headroom above 0\,dB, while the
 K-14 and K-12 meters have 14\,dB and 12\,dB of headroom, respectively.
 
@@ -235,10 +237,9 @@ of the top 2\,dB (segments of 0.5\,dB) and the bottom end (segments of
 0.1\,dB.
 
 Recent maximum level is displayed by a white rectangle around the
-corresponding meter segment.  Unless a higher level is encountered or
-``Infinite peak hold'' is switched on, maximum levels are held for 10
-seconds and then start falling with a fall time of 26\,dB per 3
-seconds.
+corresponding meter segment.  Unless ``Infinite peak hold'' is
+switched on, maximum levels are held for 10 seconds and then start
+falling with a fall time of 26\,dB per 3 seconds.
 
 Both stand-alone application and the plug-in only work at sampling
 rates between 44.1\,kHz and 192\,kHz and introduce a latency of 1024
@@ -286,10 +287,10 @@ Please note that this meter does not search for inter-sample peaks.
   \includegraphics[scale=\screenshotscale,clip]{include/images/maximum_peak_clipped.png}
 \end{wrapfigure}
 
-This meter displays the maximum peak level encountered in a channel.
-If this level is above 0\,dBFS (this can occur in plug-in hosts that
-do not clip plug-in output levels to 0\,dBFS) have sufficient
-headroom), the meter will turn red.
+This meter displays the maximum peak level encountered so far.  If
+this level is above 0\,dBFS (this can occur in plug-in hosts that do
+not clip the output level of plug-ins to 0\,dBFS), the meter will turn
+red.
 
 \section{Phase correlation meter}
 
@@ -302,7 +303,7 @@ correlation between left and right channel.  Cross correlation is a
 measure of how much two signals are correlated.  Thus, a value of +1
 means that both channels are \emph{in phase}, whereas a value of -1
 signals that the channels are completely \emph{out of phase}.  Please
-note, however, that the meter's scale is not linear!
+note that the meter's scale is not linear!
 
 For the non-tech savvy musician: if you find that this meter hits the
 red area, you should check the mono-compatibility of your mix.  But
@@ -320,10 +321,9 @@ your ears!
 \end{wrapfigure}
 
 The stereo meter obviously only works for stereo channels and displays
-the average stereo position of the music or sound that you are
-listening to.  It may indicate a bias to one stereo channel that you
-might have overheard due to impaired hearing, wrong placement of your
-monitors or other problems.
+the average stereo position of your mix.  It may indicate a bias to
+one stereo channel that you might have overheard due to impaired
+hearing, wrong placement of your monitors or similar problems.
 
 But please don't get the false notion that the needle should stay in
 the middle all time in order to achieve a good mix!  Again: do not mix
@@ -357,16 +357,12 @@ and FLAC-compressed wave files.
 
     peak level meter &
     readings &
-    ---\footnote{deviates from the correct value by some
-      small amount, probably due to dithering in the used hosts
+    ---\footnote{deviates from the correct value by a small
+      amount, probably due to dithering in the used hosts
       \label{fn:validation_dithering}} \\
 
     &
     meter ballistics &
-    valid \\
-
-    &
-    frequency response &
     valid \\
 
     overload counter &
@@ -395,9 +391,9 @@ As K-Meter was coded using cross-platform code, it should be easy to
 compile versions for Windows (64 bit) and Mac OS X.  I just don’t have
 the adequate systems and compilers.
 
-In case you want to help, please see below for an email address.
-You’ll need sufficient experience in coding, compiling and debugging,
-though, so no beginners please!
+In case you want to help, please see the next chapter for an email
+address.  You’ll need sufficient experience in coding, compiling and
+debugging, though, so no beginners please!
 
 \chapter{Final words}
 
@@ -540,6 +536,12 @@ Extract the source code archive into the directory
 \path{libraries/fftw3} and the archive containing the pre-compiled
 binaries into the directory \path{libraries/fftw3/bin}.
 
+Please note that in order to run K-Meter on Windows, the library
+\path{libfftw3f-3.dll} \textbf{must} be located in the same directory
+as the standalone or plug-in.  To make things a little easier for you,
+I have already placed \path{libfftw3f-3.dll} in the directory
+\path{bin}.
+
 \subsection{JUCE library}
 
 \begin{tabbing}
@@ -603,7 +605,7 @@ environment, change into the directory \path{build} and execute
 \end{verbatim}
 
 where \application{CFG} is one of \application{debug32},
-\application{release32}, \application{debug64} and
+\application{debug64}, \application{release32} and
 \application{release64}, and \application{TARGET} is one of
 \application{linux\_standalone\_stereo},
 \application{linux\_standalone\_surround},
