@@ -37,6 +37,8 @@ KmeterAudioProcessor::KmeterAudioProcessor()
         DBG("********************************************************************************");
     }
 
+    bSampleRateIsValid = false;
+
     pRingBufferInput = NULL;
     pRingBufferOutput = NULL;
 
@@ -55,7 +57,6 @@ KmeterAudioProcessor::KmeterAudioProcessor()
     fAverageLevelsFiltered = NULL;
 
     nOverflows = NULL;
-    bOverflowsPreviousSample = NULL;
 }
 
 
@@ -257,6 +258,16 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 
+    if ((sampleRate < 44100) || (sampleRate > 192000))
+    {
+        bSampleRateIsValid = false;
+        return;
+    }
+    else
+    {
+        bSampleRateIsValid = true;
+    }
+
     nNumInputChannels = getNumInputChannels();
     isStereo = (nNumInputChannels == 2);
 
@@ -268,7 +279,6 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     fAverageLevelsFiltered = new float[nNumInputChannels];
 
     nOverflows = new int[nNumInputChannels];
-    bOverflowsPreviousSample = new bool[nNumInputChannels];
 
     for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
     {
@@ -277,7 +287,6 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
         fAverageLevelsFiltered[nChannel] = 0.0f;
 
         nOverflows[nChannel] = 0;
-        bOverflowsPreviousSample[nChannel] = false;
     }
 
     pAverageLevelFilteredRms = new AverageLevelFilteredRms(nNumInputChannels, KMETER_BUFFER_SIZE);
@@ -303,6 +312,11 @@ void KmeterAudioProcessor::releaseResources()
 
     DBG("[K-Meter] in method KmeterAudioProcessor::releaseResources()");
 
+    if (!bSampleRateIsValid)
+    {
+        return;
+    }
+
     delete pAverageLevelFilteredRms;
     pAverageLevelFilteredRms = NULL;
 
@@ -326,9 +340,6 @@ void KmeterAudioProcessor::releaseResources()
 
     delete [] nOverflows;
     nOverflows = NULL;
-
-    delete [] bOverflowsPreviousSample;
-    bOverflowsPreviousSample = NULL;
 }
 
 
@@ -336,6 +347,11 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 {
     // This is the place where you'd normally do the guts of your
     // plugin's audio processing...
+
+    if (!bSampleRateIsValid)
+    {
+        return;
+    }
 
     if (nNumInputChannels < 1)
     {
@@ -411,7 +427,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
             fAverageLevelsFiltered[nChannel] = pAverageLevelFilteredRms->getLevel(nChannel);
 
             // determine overflows for uChunkSize samples (use pre-delay)
-            nOverflows[nChannel] = countOverflows(pRingBufferInput, nChannel, uChunkSize, uPreDelay, bOverflowsPreviousSample[nChannel]);
+            nOverflows[nChannel] = countOverflows(pRingBufferInput, nChannel, uChunkSize, uPreDelay);
         }
 
         // apply meter ballistics and store values so that the editor
@@ -490,7 +506,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
 }
 
 
-int KmeterAudioProcessor::countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay, bool& bPreviousSampleOver)
+int KmeterAudioProcessor::countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay)
 {
     // initialise number of overflows in this buffer
     int nOverflows = 0;
@@ -505,19 +521,7 @@ int KmeterAudioProcessor::countOverflows(AudioRingBuffer* ring_buffer, const uns
         // overflow
         if ((fSampleValue <= -1.0f) || (fSampleValue >= 1.0f))
         {
-            // previous sample did not reach or exceed digital full scale,
-            // so count current sample as overflow and remember this
-            if (!bPreviousSampleOver)
-            {
-                nOverflows++;
-                bPreviousSampleOver = true;
-            }
-        }
-        // current sample does not reach digital full scale, so reset
-        // bPreviousSampleOver
-        else
-        {
-            bPreviousSampleOver = false;
+            nOverflows++;
         }
     }
 

@@ -220,10 +220,14 @@ the license's website in your web browser \dots
 
 \section{K-System meter}
 
-The K-System meter consists of an average level meter and an optional
-peak level meter.  The recommended K-20 meter has 20\,dB of headroom
-above 0\,dB, while the K-14 and K-12 meters have 14\,dB and 12\,dB of
-headroom, respectively.
+\begin{wrapfigure}{r}{0.14\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/level_meter_combined.png}
+\end{wrapfigure}
+
+The K-System meter consists of an average level meter (wide meter on
+the graphic) and an optional peak level meter (thin meter).  The
+recommended K-20 meter has 20\,dB of headroom above 0\,dB, while the
+K-14 and K-12 meters have 14\,dB and 12\,dB of headroom, respectively.
 
 Each level meter is divided into segments of 1\,dB, with the exception
 of the top 2\,dB (segments of 0.5\,dB) and the bottom end (segments of
@@ -241,6 +245,8 @@ rates between 44.1\,kHz and 192\,kHz and introduce a latency of 1024
 samples.  This latency is reported to your plug-in host so it may
 compensate for the introduced delay.  Needless to say, the original
 unfiltered signal is passed to the outputs.
+
+You can reset all meters by clicking on the ``Reset'' button.
 
 \section{Average meter}
 
@@ -265,15 +271,12 @@ and a fall time of 26\,dB per 3 seconds.
   \includegraphics[scale=\screenshotscale,clip]{include/images/overload_counter_clipped.png}
 \end{wrapfigure}
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-takimata sanctus est Lorem ipsum dolor sit amet.
+The overload counter displays the number of samples that have reached
+or exceeded digital full scale (0\,dBFS).  This is a conservative
+approach to estimate overloads -- but I'd rather have an excess
+warning than have my audio files clip.
+
+Please note that this meter does not search for inter-sample peaks.
 
 \section{Maximum peak display}
 
@@ -283,15 +286,10 @@ takimata sanctus est Lorem ipsum dolor sit amet.
   \includegraphics[scale=\screenshotscale,clip]{include/images/maximum_peak_clipped.png}
 \end{wrapfigure}
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-takimata sanctus est Lorem ipsum dolor sit amet.
+This meter displays the maximum peak level encountered in a channel.
+If this level is above 0\,dBFS (this can occur in plug-in hosts that
+do not clip plug-in output levels to 0\,dBFS) have sufficient
+headroom), the meter will turn red.
 
 \section{Phase correlation meter}
 
@@ -299,15 +297,21 @@ takimata sanctus est Lorem ipsum dolor sit amet.
   \includegraphics[scale=\screenshotscale,clip]{include/images/phase_correlation_meter.png}
 \end{wrapfigure}
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-takimata sanctus est Lorem ipsum dolor sit amet.
+This meter only works for stereo channels and displays the cross
+correlation between left and right channel.  Cross correlation is a
+measure of how much two signals are correlated.  Thus, a value of +1
+means that both channels are \emph{in phase}, whereas a value of -1
+signals that the channels are completely \emph{out of phase}.  Please
+note, however, that the meter's scale is not linear!
+
+For the non-tech savvy musician: if you find that this meter hits the
+red area, you should check the mono-compatibility of your mix.  But
+although phase correlation meters often prove helpful, you cannot
+always rely on their readout.  The only way to make sure that your
+mixes are mono-compatible is to actually listen to them in mono.
+
+That's a universal truth, by the way.  Do not mix by your eyes, mix by
+your ears!
 
 \section{Stereo meter}
 
@@ -315,20 +319,20 @@ takimata sanctus est Lorem ipsum dolor sit amet.
   \includegraphics[scale=\screenshotscale,clip]{include/images/stereo_meter.png}
 \end{wrapfigure}
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-takimata sanctus est Lorem ipsum dolor sit amet.
+The stereo meter obviously only works for stereo channels and displays
+the average stereo position of the music or sound that you are
+listening to.  It may indicate a bias to one stereo channel that you
+might have overheard due to impaired hearing, wrong placement of your
+monitors or other problems.
+
+But please don't get the false notion that the needle should stay in
+the middle all time in order to achieve a good mix!  Again: do not mix
+by your eyes \dots
 
 \chapter{Validation}
 
 I have gone to great lengths to ensure that all meters of the stereo
-version read correctly (the surround version shares most code and
+version read correctly (the surround version shares the same code and
 should follow suit).  You want to validate for yourself?  The
 directory \path{validation} of the source code contains instructions
 and FLAC-compressed wave files.
@@ -385,7 +389,23 @@ and FLAC-compressed wave files.
   \end{tabular}
 \end{minipage}
 
+\chapter{Help needed}
+
+As K-Meter was coded using cross-platform code, it should be easy to
+compile versions for Windows (64 bit) and Mac OS X.  I just don’t have
+the adequate systems and compilers.
+
+In case you want to help, please see below for an email address.
+You’ll need sufficient experience in coding, compiling and debugging,
+though, so no beginners please!
+
 \chapter{Final words}
+
+I'd like to thank Bob Katz for kindly answering all of my questions
+regarding the K-System meter.  Moreover, thanks are due to
+bram@smartelectronix for his code to calculate logarithmic rise and
+fall times, and to the users of K-Meter for their suggestions and bug
+reports.
 
 Although coding K-Meter has been a lot of fun, it has also been a lot
 of work.  So if you like K-Meter, why not send me a short email and

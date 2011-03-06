@@ -8,3 +8,5 @@ o [mzuther] write documentation
 * implement ITU BS.1770-1 loudness weighting
 
 * implement inter-sample peak meter (ITU BS.1770-1, Annex 2)
+
+* use "juce_UseDebuggingNewOperator"

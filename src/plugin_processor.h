@@ -118,6 +118,7 @@ private:
 
     int nNumInputChannels;
     bool isStereo;
+    bool bSampleRateIsValid;
 
     int nSamplesInBuffer;
     float fProcessedSeconds;
@@ -127,9 +128,8 @@ private:
     float* fAverageLevelsFiltered;
 
     int* nOverflows;
-    bool* bOverflowsPreviousSample;
 
-    int countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay, bool& bPreviousSampleOver);
+    int countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay);
 };
 
 #endif  // __PLUGINPROCESSOR_H_5573940C__
