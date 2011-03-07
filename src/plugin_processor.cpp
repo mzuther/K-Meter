@@ -258,8 +258,11 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 
+    DBG("[K-Meter] in method KmeterAudioProcessor::prepareToPlay()");
+
     if ((sampleRate < 44100) || (sampleRate > 192000))
     {
+        DBG(String("[K-Meter] sample rate of ") + String(sampleRate) + T(" Hz not supported"));
         bSampleRateIsValid = false;
         return;
     }
@@ -271,7 +274,6 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     nNumInputChannels = getNumInputChannels();
     isStereo = (nNumInputChannels == 2);
 
-    DBG("[K-Meter] in method KmeterAudioProcessor::prepareToPlay()");
     DBG(String("[K-Meter] nNumInputChannels: ") + String(nNumInputChannels));
 
     fPeakLevels = new float[nNumInputChannels];
@@ -350,6 +352,23 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 
     if (!bSampleRateIsValid)
     {
+        int nNumSamples = buffer.getNumSamples();
+        int nNumChannels = getNumInputChannels();
+
+        // In case we have more outputs than inputs, we'll clear any
+        // output channels that didn't contain input data, because these
+        // aren't guaranteed to be empty -- they may contain garbage.
+
+        if (getNumOutputChannels() > nNumChannels)
+        {
+            nNumChannels = getNumOutputChannels();
+        }
+
+        for (int i = 0; i < nNumChannels; i++)
+        {
+            buffer.clear(i, 0, nNumSamples);
+        }
+
         return;
     }
 
@@ -386,7 +405,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
     // output channels that didn't contain input data, because these
     // aren't guaranteed to be empty -- they may contain garbage.
 
-    for (int i = nNumInputChannels; i < getNumOutputChannels(); ++i)
+    for (int i = nNumInputChannels; i < getNumOutputChannels(); i++)
     {
         buffer.clear(i, 0, nNumSamples);
     }
