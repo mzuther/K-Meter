@@ -385,10 +385,10 @@ and FLAC-compressed wave files.
   \end{tabular}
 \end{minipage}
 
-\section{Frequency response}
+\section{Frequency and phase response}
 
-The VST plug-in's frequency response has been determined at a sample
-rate of 192\,kHz using Christian-W. Budde's
+The VST plug-in's frequency and phase response has been determined at
+a sample rate of 192\,kHz using Christian-W. Budde's
 \href{http://www.savioursofsoul.de/Christian/programs/measurement-programs/}{VST
   Plugin Analyser}.
 
@@ -396,21 +396,37 @@ rate of 192\,kHz using Christian-W. Budde's
   0\,dB $\pm$0.01\,dB):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-clean.png}
+  \includegraphics[scale=0.65,clip]{include/images/fft_192khz_freq-fx_path.png}
+\end{center}
+
+\textbf{Phase response of complete effect path (5\,Hz to 96\,kHz,
+  0\textdegree{} $\pm$0.1\textdegree{}):}
+
+\begin{center}
+  \includegraphics[scale=0.65,clip]{include/images/fft_192khz_phase-fx_path.png}
 \end{center}
 
 \textbf{Frequency response of band-limited RMS detection stage (5\,Hz
   to 96\,kHz, -140\,dB to 0\,dB):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-rms.png}
+  \includegraphics[scale=0.65,clip]{include/images/fft_192khz_freq-rms.png}
 \end{center}
+
+\textbf{Phase response of band-limited RMS detection stage (5\,Hz to
+  96\,kHz, -180\textdegree{} to 180\textdegree{}):}
+
+\begin{center}
+  \includegraphics[scale=0.65,clip]{include/images/fft_192khz_phase-rms.png}
+\end{center}
+
+\newpage %% layout
 
 \textbf{Frequency response of band-limited RMS detection stage (5\,Hz
   to 20\,kHz, 0\,dB $\pm$0.01\,dB):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-rms_zoomed.png}
+  \includegraphics[scale=0.65,clip]{include/images/fft_192khz_freq-rms_zoomed.png}
 \end{center}
 
 \chapter{Help needed}
