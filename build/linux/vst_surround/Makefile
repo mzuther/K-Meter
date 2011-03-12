@@ -123,6 +123,7 @@ OBJECTS := \
 	$(OBJDIR)/meter_ballistics.o \
 	$(OBJDIR)/about_window.o \
 	$(OBJDIR)/plugin_editor.o \
+	$(OBJDIR)/audio_file_player.o \
 	$(OBJDIR)/overflow_meter.o \
 	$(OBJDIR)/juce_library_code_2.o \
 	$(OBJDIR)/juce_library_code_4.o \
@@ -232,6 +233,9 @@ $(OBJDIR)/about_window.o: ../../../src/about_window.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_editor.o: ../../../src/plugin_editor.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/audio_file_player.o: ../../../src/audio_file_player.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/overflow_meter.o: ../../../src/overflow_meter.cpp

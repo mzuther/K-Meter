@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="VST Plug-in (Stereo)"
-	ProjectGUID="{5E42C123-94FF-6C30-03CB-0894C5CCD001}"
+	ProjectGUID="{2C130009-870B-E3EF-ECAB-73855CA3C1ED}"
 	RootNamespace="VST Plug-in (Stereo)"
 	Keyword="Win32Proj"
 	>
@@ -279,6 +279,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\audio_file_player.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\plugin_parameters.h"
 				>
 			</File>
@@ -360,6 +364,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\plugin_editor.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\audio_file_player.cpp"
 				>
 			</File>
 			<File

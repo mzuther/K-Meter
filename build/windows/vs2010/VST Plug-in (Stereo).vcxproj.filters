@@ -2,13 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="src">
-			<UniqueIdentifier>{B835A7B5-447F-C79C-039B-CBC07C518C68}</UniqueIdentifier>
+			<UniqueIdentifier>{8FE80E35-9712-2A45-CFFB-35DB06FCB92F}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="src\juce_library_code">
-			<UniqueIdentifier>{61F47FF4-66EB-C721-F908-023A32DD2EA6}</UniqueIdentifier>
+			<UniqueIdentifier>{A53FAFFA-3945-D025-5720-0AFBF49F8DF4}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="src\resources">
-			<UniqueIdentifier>{8B6DA93F-1273-EED2-C7AE-DF5A5A76C6BF}</UniqueIdentifier>
+			<UniqueIdentifier>{2E8AE8FF-F966-E52A-091E-F60E4F259B30}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -37,6 +37,9 @@
 			<Filter>src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\src\phase_correlation_meter.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\src\audio_file_player.h">
 			<Filter>src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\src\plugin_parameters.h">
@@ -114,6 +117,9 @@
 			<Filter>src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\plugin_editor.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\audio_file_player.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\overflow_meter.cpp">

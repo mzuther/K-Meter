@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Stereo)", "VST Plug-in (Stereo).vcxproj", "{67593AD1-45A9-28A7-0D50-E75778D1F727}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Stereo)", "VST Plug-in (Stereo).vcxproj", "{BEA4D534-84DA-AD08-C884-51988F9A776F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Surround)", "VST Plug-in (Surround).vcxproj", "{2A1B2E6A-F939-1734-E9AC-796A12059C12}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Surround)", "VST Plug-in (Surround).vcxproj", "{38112205-A1E2-89B2-F007-6A186C3EAEA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +11,14 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{67593AD1-45A9-28A7-0D50-E75778D1F727}.Debug|Win32.ActiveCfg = Debug|Win32
-		{67593AD1-45A9-28A7-0D50-E75778D1F727}.Debug|Win32.Build.0 = Debug|Win32
-		{67593AD1-45A9-28A7-0D50-E75778D1F727}.Release|Win32.ActiveCfg = Release|Win32
-		{67593AD1-45A9-28A7-0D50-E75778D1F727}.Release|Win32.Build.0 = Release|Win32
-		{2A1B2E6A-F939-1734-E9AC-796A12059C12}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2A1B2E6A-F939-1734-E9AC-796A12059C12}.Debug|Win32.Build.0 = Debug|Win32
-		{2A1B2E6A-F939-1734-E9AC-796A12059C12}.Release|Win32.ActiveCfg = Release|Win32
-		{2A1B2E6A-F939-1734-E9AC-796A12059C12}.Release|Win32.Build.0 = Release|Win32
+		{BEA4D534-84DA-AD08-C884-51988F9A776F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BEA4D534-84DA-AD08-C884-51988F9A776F}.Debug|Win32.Build.0 = Debug|Win32
+		{BEA4D534-84DA-AD08-C884-51988F9A776F}.Release|Win32.ActiveCfg = Release|Win32
+		{BEA4D534-84DA-AD08-C884-51988F9A776F}.Release|Win32.Build.0 = Release|Win32
+		{38112205-A1E2-89B2-F007-6A186C3EAEA2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{38112205-A1E2-89B2-F007-6A186C3EAEA2}.Debug|Win32.Build.0 = Debug|Win32
+		{38112205-A1E2-89B2-F007-6A186C3EAEA2}.Release|Win32.ActiveCfg = Release|Win32
+		{38112205-A1E2-89B2-F007-6A186C3EAEA2}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

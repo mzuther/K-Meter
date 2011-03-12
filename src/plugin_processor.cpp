@@ -38,6 +38,7 @@ KmeterAudioProcessor::KmeterAudioProcessor()
     }
 
     bSampleRateIsValid = false;
+    audioFilePlayer = NULL;
 
     pRingBufferInput = NULL;
     pRingBufferOutput = NULL;
@@ -70,6 +71,9 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
 
     delete pPluginParameters;
     pPluginParameters = NULL;
+
+    delete audioFilePlayer;
+    audioFilePlayer = NULL;
 }
 
 
@@ -262,7 +266,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 
     if ((sampleRate < 44100) || (sampleRate > 192000))
     {
-        DBG(String("[K-Meter] sample rate of ") + String(sampleRate) + T(" Hz not supported"));
+        Logger::outputDebugString(String("[K-Meter] WARNING: sample rate of ") + String(sampleRate) + T(" Hz not supported"));
         bSampleRateIsValid = false;
         return;
     }
@@ -274,7 +278,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     nNumInputChannels = getNumInputChannels();
     isStereo = (nNumInputChannels == 2);
 
-    DBG(String("[K-Meter] nNumInputChannels: ") + String(nNumInputChannels));
+    DBG(String("[K-Meter] number of input channels: ") + String(nNumInputChannels));
 
     fPeakLevels = new float[nNumInputChannels];
     fRmsLevels = new float[nNumInputChannels];
@@ -304,6 +308,12 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     pRingBufferInput->setCallbackClass(this);
 
     pRingBufferOutput = new AudioRingBuffer(T("Output ring buffer"), nNumInputChannels, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
+
+#ifdef VALIDATION_FILE
+    String strAudioFile = String(VALIDATION_FILE);
+    audioFilePlayer = new AudioFilePlayer(strAudioFile, (int) sampleRate, pMeterBallistics);
+    audioFilePlayer->setReporters(-1, true, true, true, true);
+#endif
 }
 
 
@@ -342,6 +352,9 @@ void KmeterAudioProcessor::releaseResources()
 
     delete [] nOverflows;
     nOverflows = NULL;
+
+    delete audioFilePlayer;
+    audioFilePlayer = NULL;
 }
 
 
@@ -376,6 +389,11 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
     {
         DBG("[K-Meter] nNumInputChannels < 1");
         return;
+    }
+
+    if (audioFilePlayer)
+    {
+        audioFilePlayer->fillBufferChunk(&buffer);
     }
 
     bool bMono = pPluginParameters->getParameterAsBool(KmeterPluginParameters::selMono);

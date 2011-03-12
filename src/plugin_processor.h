@@ -29,13 +29,17 @@
 #define KMETER_BUFFER_SIZE 1024
 #define DEBUG_FILTER 0
 
+// you should probably use an absolute file name here...
+// #define VALIDATION_FILE "../validation/pink_noise.flac"
+
 class KmeterAudioProcessor;
 class MeterBallistics;
 
 #include "juce_library_code/juce_header.h"
 #include "juce_library_code/JucePluginCharacteristics.h"
-#include "average_level_filtered_rms.h"
+#include "audio_file_player.h"
 #include "audio_ring_buffer.h"
+#include "average_level_filtered_rms.h"
 #include "meter_ballistics.h"
 #include "plugin_parameters.h"
 
@@ -107,6 +111,8 @@ public:
 
 private:
     // JUCE_LEAK_DETECTOR(KmeterAudioProcessor);
+
+    AudioFilePlayer* audioFilePlayer;
 
     AudioRingBuffer* pRingBufferInput;
     AudioRingBuffer* pRingBufferOutput;

@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{67593AD1-45A9-28A7-0D50-E75778D1F727}</ProjectGuid>
+		<ProjectGuid>{BEA4D534-84DA-AD08-C884-51988F9A776F}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -123,6 +123,7 @@
 		<ClInclude Include="..\..\..\src\peak_label.h" />
 		<ClInclude Include="..\..\..\src\kmeter.h" />
 		<ClInclude Include="..\..\..\src\phase_correlation_meter.h" />
+		<ClInclude Include="..\..\..\src\audio_file_player.h" />
 		<ClInclude Include="..\..\..\src\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\src\average_level_filtered_rms.h" />
 		<ClInclude Include="..\..\..\src\plugin_processor.h" />
@@ -164,6 +165,8 @@
 		<ClCompile Include="..\..\..\src\about_window.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\plugin_editor.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\audio_file_player.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\overflow_meter.cpp">
 		</ClCompile>

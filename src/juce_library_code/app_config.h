@@ -38,7 +38,7 @@
 //#define    JUCE_JACK
 #define    JUCE_QUICKTIME 0
 #define    JUCE_OPENGL 0
-#define    JUCE_USE_FLAC 0
+#define    JUCE_USE_FLAC 1
 #define    JUCE_USE_OGGVORBIS 0
 #define    JUCE_USE_CDBURNER 0
 #define    JUCE_USE_CDREADER 0

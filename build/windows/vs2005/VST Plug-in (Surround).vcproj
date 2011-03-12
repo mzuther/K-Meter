@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="VST Plug-in (Surround)"
-	ProjectGUID="{A31FEAAA-B5ED-C57C-F977-92A0383D29CB}"
+	ProjectGUID="{E5D5DCCB-B6EC-7AA8-2606-8E9964414DB9}"
 	RootNamespace="VST Plug-in (Surround)"
 	Keyword="Win32Proj"
 	>
@@ -281,6 +281,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\audio_file_player.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\plugin_parameters.h"
 				>
 			</File>
@@ -362,6 +366,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\plugin_editor.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\audio_file_player.cpp"
 				>
 			</File>
 			<File

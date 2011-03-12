@@ -709,9 +709,6 @@ void MeterBallistics::setStereoMeterValue(float fTimePassed, float fStereoMeterV
 
     // apply meter ballistics
     StereoMeterBallistics(fTimePassed, fStereoMeterValueNew);
-
-    // uncomment for validation of stereo meter readings:
-    // DBG(String("[K-Meter] Stereo meter value: ") + String(fStereoMeterValue, 2));
 }
 
 
@@ -754,9 +751,6 @@ void MeterBallistics::setPhaseCorrelation(float fTimePassed, float fPhaseCorrela
 
     // apply meter ballistics
     PhaseCorrelationMeterBallistics(fTimePassed, fPhaseCorrelationNew);
-
-    // uncomment for validation of correlation meter readings:
-    // DBG(String("[K-Meter] Phase correlation: ") + String(fPhaseCorrelation, 2));
 }
 
 
@@ -864,14 +858,6 @@ void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak
 
     // update registered number of overflows
     nNumberOfOverflows[nChannel] += nOverflows;
-
-    // uncomment for validation of K-System meter peak readings:
-    // if (nChannel == 0)
-    //     DBG(String("[K-Meter] K-20 Peak (channel #") + String(nChannel) + T("): ") + String(20.0f + fPeakMeterLevels[nChannel], 2));
-
-    // uncomment for validation of K-System meter average readings:
-    // if (nChannel == 0)
-    //     DBG(String("[K-Meter] K-20 Average (channel #") + String(nChannel) + T("): ") + String(20.0f + fAverageMeterLevels[nChannel], 2));
 }
 
 
