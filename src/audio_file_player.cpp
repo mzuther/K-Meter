@@ -54,7 +54,7 @@ AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBal
         outputMessage(String("Audio file: \"") + audioFile.getFullPathName() + T("\""));
         outputMessage(String(formatReader->numChannels) + T(" channel(s), ") + String(formatReader->sampleRate) + T(" Hz, ") + String(formatReader->bitsPerSample) + T(" bit"));
 
-        fSampleRate = formatReader->sampleRate;
+        fSampleRate = (float) formatReader->sampleRate;
 
         if (formatReader->sampleRate != sample_rate)
         {

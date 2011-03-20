@@ -167,21 +167,21 @@ void WindowValidation::buttonClicked(Button* button)
     // find out which button has been clicked
     if (button == ButtonValidation)
     {
-        int nSelectedChannel = SliderDumpSelectedChannel->getValue();
-        float fSelectedChannel = (nSelectedChannel + 1.0f) / 10.0f;
+        int nSelectedChannel = (int) SliderDumpSelectedChannel->getValue();
+        float fSelectedChannel = (nSelectedChannel + 1.0f) / 100.0f;
         pProcessor->setParameter(KmeterPluginParameters::selValidationSelectedChannel, fSelectedChannel);
 
         bool bPeakMeterLevel = ButtonDumpPeakMeterLevel->getToggleState();
-        pProcessor->setParameter(KmeterPluginParameters::selValidationPeakMeterLevel, bPeakMeterLevel ? 1 : 0);
+        pProcessor->setParameter(KmeterPluginParameters::selValidationPeakMeterLevel, bPeakMeterLevel ? 1.0f : 0.0f);
 
         bool bAverageMeterLevel = ButtonDumpAverageMeterLevel->getToggleState();
-        pProcessor->setParameter(KmeterPluginParameters::selValidationAverageMeterLevel, bAverageMeterLevel ? 1 : 0);
+        pProcessor->setParameter(KmeterPluginParameters::selValidationAverageMeterLevel, bAverageMeterLevel ? 1.0f : 0.0f);
 
         bool bStereoMeterValue = ButtonDumpStereoMeterValue->getToggleState();
-        pProcessor->setParameter(KmeterPluginParameters::selValidationStereoMeterValue, bStereoMeterValue ? 1 : 0);
+        pProcessor->setParameter(KmeterPluginParameters::selValidationStereoMeterValue, bStereoMeterValue ? 1.0f : 0.0f);
 
         bool bPhaseCorrelation = ButtonDumpPhaseCorrelation->getToggleState();
-        pProcessor->setParameter(KmeterPluginParameters::selValidationPhaseCorrelation, bPhaseCorrelation ? 1 : 0);
+        pProcessor->setParameter(KmeterPluginParameters::selValidationPhaseCorrelation, bPhaseCorrelation ? 1.0f : 0.0f);
 
         // validation file has already been initialised
         pProcessor->startValidation(fileValidation, nSelectedChannel, bPeakMeterLevel, bAverageMeterLevel, bStereoMeterValue, bPhaseCorrelation);

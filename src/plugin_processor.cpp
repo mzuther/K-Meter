@@ -580,7 +580,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
 
 void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel, bool bPeakMeterLevel, bool bAverageMeterLevel, bool bStereoMeterValue, bool bPhaseCorrelation)
 {
-    audioFilePlayer = new AudioFilePlayer(fileAudio, getSampleRate(), pMeterBallistics);
+    audioFilePlayer = new AudioFilePlayer(fileAudio, (int) getSampleRate(), pMeterBallistics);
     audioFilePlayer->setReporters(nSelectedChannel, bPeakMeterLevel, bAverageMeterLevel, bStereoMeterValue, bPhaseCorrelation);
 
     // refresh editor

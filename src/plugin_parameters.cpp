@@ -334,7 +334,7 @@ float KmeterPluginParameters::translateParameterToFloat(int nIndex, int nValue)
         // 0.02f: dump channel #1
         // ...
         // 1.00f: dump channel #99
-        return (nValue + 1) / 100.0f;
+        return (nValue + 1.0f) / 100.0f;
     }
     else
     {

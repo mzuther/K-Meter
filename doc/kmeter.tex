@@ -96,7 +96,12 @@ In order to use the pre-compiled binaries, simply extract the K-Meter
 files from the downloaded archive.  For the VST plug-in, you'll then
 have to move the extracted files to your plug-in folder
 (\path{~/.vst}, \path{C:\Program Files\Steinberg\VstPlugins\} or the
-  like).
+like).
+
+Loading the plug-in may take a few seconds: it checks your computer's
+capabilities on start-up so that FFT calculations will run at maximum
+speed.  Depending on your computer, this little wait in the beginning
+may well result in lower resource usage later.
 
 \section{Windows}
 
@@ -442,10 +447,10 @@ debugging, though, so no beginners please!
 \chapter{Final words}
 
 I'd like to thank Bob Katz for kindly answering all of my questions
-regarding the K-System meter.  Moreover, thanks are due to
-bram@smartelectronix for his code to calculate logarithmic rise and
-fall times, and to the users of K-Meter for their suggestions and bug
-reports.
+regarding the K-System meter and checking this document for technical
+errors.  Moreover, thanks are due to bram@smartelectronix for his code
+to calculate logarithmic rise and fall times, and to the users of
+K-Meter for their suggestions and bug reports.
 
 Although coding K-Meter has been a lot of fun, it has also been a lot
 of work.  So if you like K-Meter, why not send me a short email and
