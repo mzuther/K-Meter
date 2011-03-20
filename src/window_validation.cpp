@@ -49,7 +49,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     setContentComponent(contentComponent);
 
     LabelFileSelection = new Label("Label FileSelection", fileValidation.getFileName());
-    LabelFileSelection->setBounds(8, 10, nWidth - 57, 20);
+    LabelFileSelection->setBounds(nWidth - 188, nHeight - 209, 138, 20);
     LabelFileSelection->setMinimumHorizontalScale(1.0f);
     LabelFileSelection->setColour(Label::textColourId, Colours::white);
     LabelFileSelection->setColour(Label::backgroundColourId, Colours::grey.darker(0.6f));
@@ -61,21 +61,19 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     // create and position an "about" button that appears as if it
     // were pressed down and which closes the window when clicked
     ButtonFileSelection = new TextButton(T("..."));
-    ButtonFileSelection->setBounds(nWidth - 43, 10, 30, 20);
-    ButtonFileSelection->setColour(TextButton::buttonColourId, Colours::yellow);
-    ButtonFileSelection->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonFileSelection->setBounds(nWidth - 45, nHeight - 209, 30, 20);
 
     // add "about" window as button listener and display the button
     ButtonFileSelection->addButtonListener(this);
     contentComponent->addAndMakeVisible(ButtonFileSelection);
 
     LabelDumpSelectedChannel = new Label(T("Selected channel"), T("Channel: "));
-    LabelDumpSelectedChannel->setBounds(8, 50, 75, 20);
+    LabelDumpSelectedChannel->setBounds(nWidth - 192, nHeight - 179, 75, 20);
     LabelDumpSelectedChannel->setColour(Label::textColourId, Colours::white);
     contentComponent->addAndMakeVisible(LabelDumpSelectedChannel);
 
     SliderDumpSelectedChannel = new ChannelSlider(T("Selected channel"), pProcessor->getNumChannels() - 1);
-    SliderDumpSelectedChannel->setBounds(75, 50, 80, 20);
+    SliderDumpSelectedChannel->setBounds(nWidth - 126, nHeight - 179, 70, 20);
     SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxTextColourId, Colours::white);
     SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxBackgroundColourId, Colours::grey.darker(0.6f));
     SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxOutlineColourId, Colours::black);
@@ -84,25 +82,25 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     contentComponent->addAndMakeVisible(SliderDumpSelectedChannel);
 
     ButtonDumpPeakMeterLevel = new ToggleButton(T("Peak meter level"));
-    ButtonDumpPeakMeterLevel->setBounds(8, 75, 180, 20);
+    ButtonDumpPeakMeterLevel->setBounds(nWidth - 192, nHeight - 154, 180, 20);
     ButtonDumpPeakMeterLevel->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpPeakMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPeakMeterLevel), false);
     contentComponent->addAndMakeVisible(ButtonDumpPeakMeterLevel);
 
     ButtonDumpAverageMeterLevel = new ToggleButton(T("Average meter level"));
-    ButtonDumpAverageMeterLevel->setBounds(8, 95, 180, 20);
+    ButtonDumpAverageMeterLevel->setBounds(nWidth - 192, nHeight - 134, 180, 20);
     ButtonDumpAverageMeterLevel->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpAverageMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationAverageMeterLevel), false);
     contentComponent->addAndMakeVisible(ButtonDumpAverageMeterLevel);
 
     ButtonDumpStereoMeterValue = new ToggleButton(T("Stereo meter value"));
-    ButtonDumpStereoMeterValue->setBounds(8, 115, 180, 20);
+    ButtonDumpStereoMeterValue->setBounds(nWidth - 192, nHeight - 114, 180, 20);
     ButtonDumpStereoMeterValue->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpStereoMeterValue->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationStereoMeterValue), false);
     contentComponent->addAndMakeVisible(ButtonDumpStereoMeterValue);
 
     ButtonDumpPhaseCorrelation = new ToggleButton(T("Stereo phase correlation"));
-    ButtonDumpPhaseCorrelation->setBounds(8, 135, 180, 20);
+    ButtonDumpPhaseCorrelation->setBounds(nWidth - 192, nHeight - 94, 180, 20);
     ButtonDumpPhaseCorrelation->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpPhaseCorrelation->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPhaseCorrelation), false);
     contentComponent->addAndMakeVisible(ButtonDumpPhaseCorrelation);
@@ -110,9 +108,9 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     // create and position a "validation" button which closes the
     // window and runs the selected audio file when clicked
     ButtonValidation = new TextButton(T("Validate"));
-    ButtonValidation->setBounds(nWidth - 73, nHeight - 58, 60, 20);
-    ButtonValidation->setColour(TextButton::textColourOffId, Colours::white);
-    ButtonValidation->setColour(TextButton::buttonColourId, Colours::blue);
+    ButtonValidation->setBounds(nWidth - 73, nHeight - 59, 60, 20);
+    ButtonValidation->setColour(TextButton::textColourOffId, Colours::black);
+    ButtonValidation->setColour(TextButton::buttonColourId, Colours::red);
     ButtonValidation->setColour(TextButton::buttonOnColourId, Colours::grey);
 
     // add "validation" window as button listener and display the
@@ -123,10 +121,10 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     // create and position a "validation" button which closes the
     // window when clicked
     ButtonCancel = new TextButton(T("Cancel"));
-    ButtonCancel->setBounds(nWidth - 73, nHeight - 34, 60, 20);
+    ButtonCancel->setBounds(nWidth - 138, nHeight - 59, 60, 20);
     ButtonCancel->setColour(TextButton::textColourOffId, Colours::black);
-    ButtonCancel->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonCancel->setColour(TextButton::buttonOnColourId, Colours::red);
+    ButtonCancel->setColour(TextButton::buttonColourId, Colours::yellow);
+    ButtonCancel->setColour(TextButton::buttonOnColourId, Colours::grey);
 
     // add "validation" window as button listener and display the button
     ButtonCancel->addButtonListener(this);
@@ -147,9 +145,20 @@ WindowValidation::~WindowValidation()
 
 void WindowValidation::paint(Graphics& g)
 {
+    int nHeight = getHeight();
+    int nWidth = getWidth();
+
     // fill window background with grey colour gradient
-    g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.4f), 0, 0, Colours::darkgrey.darker(1.0f), 0, (float) getHeight(), false));
+    g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.4f), 0, 0, Colours::darkgrey.darker(1.0f), 0, (float) nHeight, false));
     g.fillAll();
+
+    g.setColour(Colours::white);
+    g.setOpacity(0.15f);
+    g.drawRect(nWidth - 189, nHeight - 210, 182, 178);
+
+    g.setColour(Colours::white);
+    g.setOpacity(0.05f);
+    g.fillRect(nWidth - 188, nHeight - 209, 180, 176);
 }
 
 

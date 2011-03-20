@@ -29,7 +29,7 @@ ChannelSlider::ChannelSlider(const String& componentName, int nNumChannels) : Sl
 {
     setRange(-1.0f, nNumChannels, 1.0f);
     setSliderStyle(Slider::IncDecButtons);
-    setTextBoxStyle(Slider::TextBoxLeft, true, 40, 20);
+    setTextBoxStyle(Slider::TextBoxLeft, true, 30, 20);
     setIncDecButtonsMode(Slider::incDecButtonsNotDraggable);
 
     setValue(-1, false, false);
