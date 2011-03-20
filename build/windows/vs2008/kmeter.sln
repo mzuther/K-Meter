@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Stereo)", "VST Plug-in (Stereo).vcproj", "{2C130009-870B-E3EF-ECAB-73855CA3C1ED}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Stereo)", "VST Plug-in (Stereo).vcproj", "{F8995879-F45B-322E-F50D-BDEB735692A7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Surround)", "VST Plug-in (Surround).vcproj", "{784E0F75-13DE-48BD-CB15-ABFB181C6C7E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Surround)", "VST Plug-in (Surround).vcproj", "{30628E4B-18A9-B0D9-080D-391DCC69381D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +11,14 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2C130009-870B-E3EF-ECAB-73855CA3C1ED}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2C130009-870B-E3EF-ECAB-73855CA3C1ED}.Debug|Win32.Build.0 = Debug|Win32
-		{2C130009-870B-E3EF-ECAB-73855CA3C1ED}.Release|Win32.ActiveCfg = Release|Win32
-		{2C130009-870B-E3EF-ECAB-73855CA3C1ED}.Release|Win32.Build.0 = Release|Win32
-		{784E0F75-13DE-48BD-CB15-ABFB181C6C7E}.Debug|Win32.ActiveCfg = Debug|Win32
-		{784E0F75-13DE-48BD-CB15-ABFB181C6C7E}.Debug|Win32.Build.0 = Debug|Win32
-		{784E0F75-13DE-48BD-CB15-ABFB181C6C7E}.Release|Win32.ActiveCfg = Release|Win32
-		{784E0F75-13DE-48BD-CB15-ABFB181C6C7E}.Release|Win32.Build.0 = Release|Win32
+		{F8995879-F45B-322E-F50D-BDEB735692A7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F8995879-F45B-322E-F50D-BDEB735692A7}.Debug|Win32.Build.0 = Debug|Win32
+		{F8995879-F45B-322E-F50D-BDEB735692A7}.Release|Win32.ActiveCfg = Release|Win32
+		{F8995879-F45B-322E-F50D-BDEB735692A7}.Release|Win32.Build.0 = Release|Win32
+		{30628E4B-18A9-B0D9-080D-391DCC69381D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{30628E4B-18A9-B0D9-080D-391DCC69381D}.Debug|Win32.Build.0 = Debug|Win32
+		{30628E4B-18A9-B0D9-080D-391DCC69381D}.Release|Win32.ActiveCfg = Release|Win32
+		{30628E4B-18A9-B0D9-080D-391DCC69381D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

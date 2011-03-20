@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{38112205-A1E2-89B2-F007-6A186C3EAEA2}</ProjectGuid>
+		<ProjectGuid>{B0803392-7DAE-E43F-8CBA-906B1EF246CF}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Surround)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -115,14 +115,17 @@
 	</ItemDefinitionGroup>
 	<ItemGroup>
 		<ClInclude Include="..\..\..\src\meter_bar.h" />
+		<ClInclude Include="..\..\..\src\window_validation.h" />
+		<ClInclude Include="..\..\..\src\prohibiting_bounds_constrainer.h" />
+		<ClInclude Include="..\..\..\src\channel_slider.h" />
 		<ClInclude Include="..\..\..\src\meter_segment.h" />
 		<ClInclude Include="..\..\..\src\stereo_meter.h" />
 		<ClInclude Include="..\..\..\src\overflow_meter.h" />
 		<ClInclude Include="..\..\..\src\audio_ring_buffer.h" />
-		<ClInclude Include="..\..\..\src\about_window.h" />
 		<ClInclude Include="..\..\..\src\peak_label.h" />
 		<ClInclude Include="..\..\..\src\kmeter.h" />
 		<ClInclude Include="..\..\..\src\phase_correlation_meter.h" />
+		<ClInclude Include="..\..\..\src\window_about.h" />
 		<ClInclude Include="..\..\..\src\audio_file_player.h" />
 		<ClInclude Include="..\..\..\src\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\src\average_level_filtered_rms.h" />
@@ -148,6 +151,8 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\main.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\src\window_validation.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\src\meter_bar.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\peak_label.cpp">
@@ -160,15 +165,17 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\phase_correlation_meter.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\meter_ballistics.cpp">
+		<ClCompile Include="..\..\..\src\window_about.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\about_window.cpp">
+		<ClCompile Include="..\..\..\src\meter_ballistics.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\plugin_editor.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\audio_file_player.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\overflow_meter.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\channel_slider.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_2.cpp">
 		</ClCompile>

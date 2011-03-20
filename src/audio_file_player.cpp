@@ -26,7 +26,7 @@
 #include "audio_file_player.h"
 
 
-AudioFilePlayer::AudioFilePlayer(const String file_name, int sample_rate, MeterBallistics* meter_ballistics)
+AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBallistics* meter_ballistics)
 {
     nReportChannel = -1;
     bReports = false;
@@ -40,7 +40,6 @@ AudioFilePlayer::AudioFilePlayer(const String file_name, int sample_rate, MeterB
     AudioFormatManager formatManager;
     formatManager.registerBasicFormats();
 
-    File audioFile = File(file_name);
     AudioFormatReader* formatReader = formatManager.createReaderFor(audioFile);
 
     if (formatReader)
@@ -52,8 +51,10 @@ AudioFilePlayer::AudioFilePlayer(const String file_name, int sample_rate, MeterB
         // pause for three seconds after playback
         nNumberOfSamples += 3 * sample_rate;
 
-        outputMessage(String("Audio file: \"") + file_name + T("\""));
+        outputMessage(String("Audio file: \"") + audioFile.getFullPathName() + T("\""));
         outputMessage(String(formatReader->numChannels) + T(" channel(s), ") + String(formatReader->sampleRate) + T(" Hz, ") + String(formatReader->bitsPerSample) + T(" bit"));
+
+        fSampleRate = formatReader->sampleRate;
 
         if (formatReader->sampleRate != sample_rate)
         {
@@ -61,17 +62,27 @@ AudioFilePlayer::AudioFilePlayer(const String file_name, int sample_rate, MeterB
             outputMessage(String("WARNING: sample rate mismatch (host: ") + String(sample_rate) + T(" Hz)!"));
             outputMessage(String::empty);
         }
+
+        outputMessage(String::empty);
+        outputMessage(T("Starting validation ..."));
+        outputMessage(String::empty);
     }
     else
     {
         audioFileSource = NULL;
         bIsPlaying = false;
+        bReports = false;
     }
 }
 
 
 AudioFilePlayer::~AudioFilePlayer()
 {
+    if (isPlaying())
+    {
+        outputMessage(T("Stopping validation ..."));
+    }
+
     delete audioFileSource;
     audioFileSource = NULL;
 }
@@ -99,7 +110,10 @@ bool AudioFilePlayer::isPlaying()
         }
         else
         {
+            outputMessage(T("Stopping validation ..."));
+
             bIsPlaying = false;
+            bReports = false;
             return false;
         }
     }
@@ -121,12 +135,26 @@ void AudioFilePlayer::fillBufferChunk(AudioSampleBuffer* buffer)
             {
                 for (int nChannel = 0; nChannel < pMeterBallistics->getNumberOfChannels(); nChannel++)
                 {
-                    outputMessage(String("K-20 peak (ch. ") + String(nChannel) + T("):     ") + String(20.0f + pMeterBallistics->getPeakMeterLevel(nChannel), 2) + T(" dB"));
+                    String strPeakMeterLevel = String(20.0f + pMeterBallistics->getPeakMeterLevel(nChannel), 2) + T(" dB");
+
+                    if (!strPeakMeterLevel.startsWithChar(T('-')))
+                    {
+                        strPeakMeterLevel = String("+") + strPeakMeterLevel;
+                    }
+
+                    outputMessage(String("K-20 peak (ch. ") + String(nChannel) + T("):     ") + strPeakMeterLevel);
                 }
             }
             else
             {
-                outputMessage(String("K-20 peak (ch. ") + String(nReportChannel) + T("):     ") + String(20.0f + pMeterBallistics->getPeakMeterLevel(nReportChannel), 2) + T(" dB"));
+                String strPeakMeterLevel = String(20.0f + pMeterBallistics->getPeakMeterLevel(nReportChannel), 2) + T(" dB");
+
+                if (!strPeakMeterLevel.startsWithChar(T('-')))
+                {
+                    strPeakMeterLevel = String("+") + strPeakMeterLevel;
+                }
+
+                outputMessage(String("K-20 peak (ch. ") + String(nReportChannel) + T("):     ") + strPeakMeterLevel);
             }
         }
 
@@ -136,23 +164,51 @@ void AudioFilePlayer::fillBufferChunk(AudioSampleBuffer* buffer)
             {
                 for (int nChannel = 0; nChannel < pMeterBallistics->getNumberOfChannels(); nChannel++)
                 {
-                    outputMessage(String("K-20 average (ch. ") + String(nChannel) + T("):  ") + String(20.0f + pMeterBallistics->getAverageMeterLevel(nChannel), 2) + T(" dB"));
+                    String strAverageMeterLevel = String(20.0f + pMeterBallistics->getAverageMeterLevel(nChannel), 2) + T(" dB");
+
+                    if (!strAverageMeterLevel.startsWithChar(T('-')))
+                    {
+                        strAverageMeterLevel = String("+") + strAverageMeterLevel;
+                    }
+
+                    outputMessage(String("K-20 average (ch. ") + String(nChannel) + T("):  ") + strAverageMeterLevel);
                 }
             }
             else
             {
-                outputMessage(String("K-20 average (ch. ") + String(nReportChannel) + T("):  ") + String(20.0f + pMeterBallistics->getAverageMeterLevel(nReportChannel), 2) + T(" dB"));
+                String strAverageMeterLevel = String(20.0f + pMeterBallistics->getAverageMeterLevel(nReportChannel), 2) + T(" dB");
+
+                if (!strAverageMeterLevel.startsWithChar(T('-')))
+                {
+                    strAverageMeterLevel = String("+") + strAverageMeterLevel;
+                }
+
+                outputMessage(String("K-20 average (ch. ") + String(nReportChannel) + T("):  ") + strAverageMeterLevel);
             }
         }
 
         if (bReportStereoMeterValue)
         {
-            outputMessage(String("Stereo meter value:    ") + String(pMeterBallistics->getStereoMeterValue(), 2));
+            String strStereoMeterValue = String(pMeterBallistics->getStereoMeterValue(), 2);
+
+            if (!strStereoMeterValue.startsWithChar(T('-')))
+            {
+                strStereoMeterValue = String("+") + strStereoMeterValue;
+            }
+
+            outputMessage(String("Stereo meter value:    ") + strStereoMeterValue);
         }
 
         if (bReportPhaseCorrelation)
         {
-            outputMessage(String("Phase correlation:     ") + String(pMeterBallistics->getPhaseCorrelation(), 2));
+            String strPhaseCorrelation = String(pMeterBallistics->getPhaseCorrelation(), 2);
+
+            if (!strPhaseCorrelation.startsWithChar(T('-')))
+            {
+                strPhaseCorrelation = String("+") + strPhaseCorrelation;
+            }
+
+            outputMessage(String("Phase correlation:     ") + strPhaseCorrelation);
         }
 
         outputMessage(String::empty);
@@ -172,5 +228,18 @@ void AudioFilePlayer::fillBufferChunk(AudioSampleBuffer* buffer)
 
 void AudioFilePlayer::outputMessage(const String& strMessage)
 {
-    Logger::outputDebugString(String("[K-Meter validation] ") + strMessage);
+    float fTime = audioFileSource->getNextReadPosition() / fSampleRate;
+    int nTime = int(fTime);
+    int nMilliSeconds = int(1000.0f * (fTime - nTime) + 0.5f);
+
+    String strMinutes = String(nTime / 60).paddedLeft(T('0'), 2);
+    String strSeconds = String(nTime % 60).paddedLeft(T('0'), 2);
+    String strMilliSeconds = String(nMilliSeconds).paddedLeft(T('0'), 3);
+
+    Logger::outputDebugString(String("[K-Meter validation - ") + strMinutes + T(":") + strSeconds + T(".") + strMilliSeconds + String("] ") + strMessage);
 }
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

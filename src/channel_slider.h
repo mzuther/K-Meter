@@ -23,44 +23,30 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __AUDIO_FILE_PLAYER__
-#define __AUDIO_FILE_PLAYER__
-
-class AudioFilePlayer;
+#ifndef __CHANNEL_SLIDER_H__
+#define __CHANNEL_SLIDER_H__
 
 #include "juce_library_code/juce_header.h"
-#include "meter_ballistics.h"
 
 
-class AudioFilePlayer
+//==============================================================================
+/**
+*/
+class ChannelSlider : public Slider
 {
 public:
-    AudioFilePlayer(const File audioFile, int sample_rate, MeterBallistics* meter_ballistics);
-    ~AudioFilePlayer();
+    ChannelSlider(const String& componentName, int nNumChannels);
+    ~ChannelSlider();
 
-    bool isPlaying();
-    void fillBufferChunk(AudioSampleBuffer* buffer);
-    void setReporters(int nChannel, bool bPeakMeterLevel, bool bAverageMeterLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
+    double getValueFromText(const String& strText);
+    const String getTextFromValue(double fValue);
 
 private:
-    bool bIsPlaying;
-    int nNumberOfSamples;
-    float fSampleRate;
-
-    int nReportChannel;
-    bool bReports;
-    bool bReportPeakMeterLevel;
-    bool bReportAverageMeterLevel;
-    bool bReportStereoMeterValue;
-    bool bReportPhaseCorrelation;
-
-    AudioFormatReaderSource* audioFileSource;
-    MeterBallistics* pMeterBallistics;
-
-    void outputMessage(const String& strMessage);
+    // JUCE_LEAK_DETECTOR(ChannelSlider);
 };
 
-#endif   // __AUDIO_FILE_PLAYER__
+
+#endif  // __CHANNEL_SLIDER_H__
 
 
 // Local Variables:

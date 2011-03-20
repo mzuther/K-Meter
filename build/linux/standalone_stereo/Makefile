@@ -114,6 +114,7 @@ OBJECTS := \
 	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/dynamic_range_label.o \
 	$(OBJDIR)/main.o \
+	$(OBJDIR)/window_validation.o \
 	$(OBJDIR)/meter_bar.o \
 	$(OBJDIR)/peak_label.o \
 	$(OBJDIR)/kmeter.o \
@@ -121,11 +122,12 @@ OBJECTS := \
 	$(OBJDIR)/audio_ring_buffer.o \
 	$(OBJDIR)/standalone_application.o \
 	$(OBJDIR)/phase_correlation_meter.o \
+	$(OBJDIR)/window_about.o \
 	$(OBJDIR)/meter_ballistics.o \
-	$(OBJDIR)/about_window.o \
 	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/audio_file_player.o \
 	$(OBJDIR)/overflow_meter.o \
+	$(OBJDIR)/channel_slider.o \
 	$(OBJDIR)/juce_library_code_2.o \
 	$(OBJDIR)/juce_library_code_4.o \
 	$(OBJDIR)/juce_library_code_3.o \
@@ -211,6 +213,9 @@ $(OBJDIR)/dynamic_range_label.o: ../../../src/dynamic_range_label.cpp
 $(OBJDIR)/main.o: ../../../src/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/window_validation.o: ../../../src/window_validation.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_bar.o: ../../../src/meter_bar.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -232,10 +237,10 @@ $(OBJDIR)/standalone_application.o: ../../../src/standalone_application.cpp
 $(OBJDIR)/phase_correlation_meter.o: ../../../src/phase_correlation_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/meter_ballistics.o: ../../../src/meter_ballistics.cpp
+$(OBJDIR)/window_about.o: ../../../src/window_about.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/about_window.o: ../../../src/about_window.cpp
+$(OBJDIR)/meter_ballistics.o: ../../../src/meter_ballistics.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_editor.o: ../../../src/plugin_editor.cpp
@@ -245,6 +250,9 @@ $(OBJDIR)/audio_file_player.o: ../../../src/audio_file_player.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/overflow_meter.o: ../../../src/overflow_meter.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/channel_slider.o: ../../../src/channel_slider.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_library_code_2.o: ../../../src/juce_library_code/juce_library_code_2.cpp

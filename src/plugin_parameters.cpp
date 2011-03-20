@@ -39,6 +39,14 @@ KmeterPluginParameters::KmeterPluginParameters()
     nParam[selInfiniteHold] = 0;
     nParam[selMono] = 0;
 
+    nParam[selValidationSelectedChannel] = -1;
+    nParam[selValidationPeakMeterLevel] = 1;
+    nParam[selValidationAverageMeterLevel] = 1;
+    nParam[selValidationStereoMeterValue] = 1;
+    nParam[selValidationPhaseCorrelation] = 1;
+
+    strValidationFile = String::empty;
+
     bParamChanged = new bool[nNumParameters];
 
     for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
@@ -60,9 +68,16 @@ KmeterPluginParameters::~KmeterPluginParameters()
 }
 
 
-int KmeterPluginParameters::getNumParameters()
+int KmeterPluginParameters::getNumParameters(bool bIncludeHiddenParameters)
 {
-    return nNumParameters;
+    if (bIncludeHiddenParameters)
+    {
+        return nNumParameters;
+    }
+    else
+    {
+        return nNumParametersRevealed;
+    }
 }
 
 
@@ -117,6 +132,10 @@ void KmeterPluginParameters::setParameterFromInt(int nIndex, int nValue)
                 nParam[nIndex] = 20;
             }
         }
+        else if (nIndex == selValidationSelectedChannel)
+        {
+            nParam[nIndex] = nValue;
+        }
         else
         {
             nParam[nIndex] = (nValue != 0) ? 1 : 0;
@@ -124,6 +143,30 @@ void KmeterPluginParameters::setParameterFromInt(int nIndex, int nValue)
 
         MarkParameter(nIndex);
         sendChangeMessage(this);
+    }
+}
+
+
+File KmeterPluginParameters::getValidationFile()
+{
+    File fileValidation = File(strValidationFile);
+
+    if (fileValidation.existsAsFile())
+    {
+        return fileValidation;
+    }
+    else
+    {
+        return File::nonexistent;
+    }
+}
+
+
+void KmeterPluginParameters::setValidationFile(File& fileValidation)
+{
+    if (fileValidation.existsAsFile())
+    {
+        strValidationFile = fileValidation.getFullPathName();
     }
 }
 
@@ -176,6 +219,30 @@ const String KmeterPluginParameters::getParameterName(int nIndex)
         return "Mono";
         break;
 
+    case selValidationFileName:
+        return "Validation: file name";
+        break;
+
+    case selValidationSelectedChannel:
+        return "Validation: selected channel";
+        break;
+
+    case selValidationPeakMeterLevel:
+        return "Validation: peak meter level";
+        break;
+
+    case selValidationAverageMeterLevel:
+        return "Validation: average meter level";
+        break;
+
+    case selValidationStereoMeterValue:
+        return "Validation: stereo meter value";
+        break;
+
+    case selValidationPhaseCorrelation:
+        return "Validation: phase correlation";
+        break;
+
     default:
         return "invalid";
         break;
@@ -204,6 +271,30 @@ const String KmeterPluginParameters::getParameterText(int nIndex)
         else
         {
             return "K-20";
+        }
+    }
+    else if (nIndex == selValidationFileName)
+    {
+        File fileValidation = File(strValidationFile);
+
+        if (fileValidation.existsAsFile())
+        {
+            return strValidationFile;
+        }
+        else
+        {
+            return String::empty;
+        }
+    }
+    else if (nIndex == selValidationSelectedChannel)
+    {
+        if (nParam[nIndex] < 0)
+        {
+            return "All";
+        }
+        else
+        {
+            return String(nParam[nIndex]);
         }
     }
     else
@@ -236,6 +327,15 @@ float KmeterPluginParameters::translateParameterToFloat(int nIndex, int nValue)
             return (selK20 / float(nNumCrestFactors - 1));
         }
     }
+    else if (nIndex == selValidationSelectedChannel)
+    {
+        // 0.00f: dump all channels
+        // 0.01f: dump channel #0
+        // 0.02f: dump channel #1
+        // ...
+        // 1.00f: dump channel #99
+        return (nValue + 1) / 100.0f;
+    }
     else
     {
         return (nValue != 0) ? 1.0f : 0.0f;
@@ -266,6 +366,16 @@ int KmeterPluginParameters::translateParameterToInt(int nIndex, float fValue)
             return 20;
         }
     }
+    else if (nIndex == selValidationSelectedChannel)
+    {
+        // 0.00f: dump all channels
+        // 0.01f: dump channel #0
+        // 0.02f: dump channel #1
+        // ...
+        // 1.00f: dump channel #99
+        int nRoundedValue = int(fValue * 100.0f + 0.5f);
+        return nRoundedValue - 1;
+    }
     else
     {
         return (fValue > 0.5f) ? true : false;
@@ -292,6 +402,13 @@ XmlElement KmeterPluginParameters::storeAsXml()
     xml.setAttribute("Peak", getParameterAsInt(selPeak));
     xml.setAttribute("Hold", getParameterAsInt(selInfiniteHold));
     xml.setAttribute("Mono", getParameterAsInt(selMono));
+
+    xml.setAttribute("ValidationFile", strValidationFile);
+    xml.setAttribute("ValidationSelectedChannel", getParameterAsInt(selValidationSelectedChannel));
+    xml.setAttribute("ValidationPeakMeterLevel", getParameterAsInt(selValidationPeakMeterLevel));
+    xml.setAttribute("ValidationAverageMeterLevel", getParameterAsInt(selValidationAverageMeterLevel));
+    xml.setAttribute("ValidationStereoMeterValue", getParameterAsInt(selValidationStereoMeterValue));
+    xml.setAttribute("ValidationPhaseCorrelation", getParameterAsInt(selValidationPhaseCorrelation));
 
     return xml;
 }
@@ -326,6 +443,15 @@ void KmeterPluginParameters::loadFromXml(XmlElement* xml)
         setParameterFromInt(selPeak, xml->getIntAttribute("Peak", getParameterAsInt(selPeak)));
         setParameterFromInt(selInfiniteHold, xml->getIntAttribute("Hold", getParameterAsInt(selInfiniteHold)));
         setParameterFromInt(selMono, xml->getIntAttribute("Mono", getParameterAsInt(selMono)));
+
+        File fileValidation = File(xml->getStringAttribute("ValidationFile", strValidationFile));
+        setValidationFile(fileValidation);
+
+        setParameterFromInt(selValidationSelectedChannel, xml->getIntAttribute("ValidationSelectedChannel", getParameterAsInt(selValidationSelectedChannel)));
+        setParameterFromInt(selValidationPeakMeterLevel, xml->getIntAttribute("ValidationPeakMeterLevel", getParameterAsInt(selValidationPeakMeterLevel)));
+        setParameterFromInt(selValidationAverageMeterLevel, xml->getIntAttribute("ValidationAverageMeterLevel", getParameterAsInt(selValidationAverageMeterLevel)));
+        setParameterFromInt(selValidationStereoMeterValue, xml->getIntAttribute("ValidationStereoMeterValue", getParameterAsInt(selValidationStereoMeterValue)));
+        setParameterFromInt(selValidationPhaseCorrelation, xml->getIntAttribute("ValidationPhaseCorrelation", getParameterAsInt(selValidationPhaseCorrelation)));
     }
 }
 

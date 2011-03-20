@@ -99,7 +99,7 @@ const String KmeterAudioProcessor::getName() const
 
 int KmeterAudioProcessor::getNumParameters()
 {
-    return pPluginParameters->getNumParameters();
+    return pPluginParameters->getNumParameters(false);
 }
 
 
@@ -107,7 +107,7 @@ float KmeterAudioProcessor::getParameter(int index)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
-    // sections or anything UI-related, or anything at all that may
+    // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
     return pPluginParameters->getParameterAsFloat(index);
@@ -118,10 +118,45 @@ void KmeterAudioProcessor::setParameter(int index, float newValue)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
-    // sections or anything UI-related, or anything at all that may
+    // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
+    // Please use this method for non-automatable values only!
+
     pPluginParameters->setParameterFromFloat(index, newValue);
+}
+
+
+bool KmeterAudioProcessor::getParameterAsBool(int nIndex)
+{
+    // This method will be called by the host, probably on the audio
+    // thread, so it's absolutely time-critical. Don't use critical
+    // sections or anything GUI-related, or anything at all that may
+    // block in any way!
+
+    return pPluginParameters->getParameterAsBool(nIndex);
+}
+
+
+File KmeterAudioProcessor::getParameterValidationFile()
+{
+    // This method will be called by the host, probably on the audio
+    // thread, so it's absolutely time-critical. Don't use critical
+    // sections or anything GUI-related, or anything at all that may
+    // block in any way!
+
+    return pPluginParameters->getValidationFile();
+}
+
+
+void KmeterAudioProcessor::setParameterValidationFile(File& fileValidation)
+{
+    // This method will be called by the host, probably on the audio
+    // thread, so it's absolutely time-critical. Don't use critical
+    // sections or anything GUI-related, or anything at all that may
+    // block in any way!
+
+    pPluginParameters->setValidationFile(fileValidation);
 }
 
 
@@ -228,6 +263,12 @@ bool KmeterAudioProcessor::producesMidi() const
 }
 
 
+int KmeterAudioProcessor::getNumChannels()
+{
+    return nNumInputChannels;
+}
+
+
 int KmeterAudioProcessor::getNumPrograms()
 {
     return 0;
@@ -308,12 +349,6 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     pRingBufferInput->setCallbackClass(this);
 
     pRingBufferOutput = new AudioRingBuffer(T("Output ring buffer"), nNumInputChannels, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
-
-#ifdef VALIDATION_FILE
-    String strAudioFile = String(VALIDATION_FILE);
-    audioFilePlayer = new AudioFilePlayer(strAudioFile, (int) sampleRate, pMeterBallistics);
-    audioFilePlayer->setReporters(-1, true, true, true, true);
-#endif
 }
 
 
@@ -361,7 +396,7 @@ void KmeterAudioProcessor::releaseResources()
 void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     // This is the place where you'd normally do the guts of your
-    // plugin's audio processing...
+    // plug-in's audio processing...
 
     if (!bSampleRateIsValid)
     {
@@ -396,7 +431,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
         audioFilePlayer->fillBufferChunk(&buffer);
     }
 
-    bool bMono = pPluginParameters->getParameterAsBool(KmeterPluginParameters::selMono);
+    bool bMono = getParameterAsBool(KmeterPluginParameters::selMono);
     int nNumSamples = buffer.getNumSamples();
 
     // convert stereo input to mono if "Mono" button has been pressed
@@ -433,7 +468,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
     unsigned int uPreDelay = uChunkSize / 2;
-    bool bMono = pPluginParameters->getParameterAsBool(KmeterPluginParameters::selMono);
+    bool bMono = getParameterAsBool(KmeterPluginParameters::selMono);
 
     // length of buffer chunk in fractional seconds
     // (1024 samples / 44100 samples/s = 23.2 ms)
@@ -529,7 +564,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
 
     // To hear the audio source after average filtering, simply set
     // DEBUG_FILTER to 1.  Please remember to disable this setting
-    // before commiting your changes.
+    // before committing your changes.
     if (DEBUG_FILTER)
     {
         pAverageLevelFilteredRms->copyToBuffer(*pRingBufferOutput, 0, uChunkSize);
@@ -539,6 +574,47 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
         AudioSampleBuffer TempAudioBuffer = AudioSampleBuffer(nNumInputChannels, uChunkSize);
         pRingBufferInput->copyToBuffer(TempAudioBuffer, 0, uChunkSize, 0);
         pRingBufferOutput->addSamples(TempAudioBuffer, 0, uChunkSize);
+    }
+}
+
+
+void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel, bool bPeakMeterLevel, bool bAverageMeterLevel, bool bStereoMeterValue, bool bPhaseCorrelation)
+{
+    audioFilePlayer = new AudioFilePlayer(fileAudio, getSampleRate(), pMeterBallistics);
+    audioFilePlayer->setReporters(nSelectedChannel, bPeakMeterLevel, bAverageMeterLevel, bStereoMeterValue, bPhaseCorrelation);
+
+    // refresh editor
+    sendChangeMessage(NULL);
+}
+
+
+void KmeterAudioProcessor::stopValidation()
+{
+    delete audioFilePlayer;
+    audioFilePlayer = NULL;
+
+    // refresh editor
+    sendChangeMessage(NULL);
+}
+
+
+bool KmeterAudioProcessor::isValidating()
+{
+    if (audioFilePlayer == NULL)
+    {
+        return false;
+    }
+    else
+    {
+        if (audioFilePlayer->isPlaying())
+        {
+            return true;
+        }
+        else
+        {
+            stopValidation();
+            return false;
+        }
     }
 }
 
@@ -607,7 +683,7 @@ void KmeterAudioProcessor::setStateInformation(const void* data, int sizeInBytes
 
 //==============================================================================
 
-// This creates new instances of the plugin..
+// This creates new instances of the plug-in..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new KmeterAudioProcessor();

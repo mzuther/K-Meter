@@ -23,44 +23,48 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __AUDIO_FILE_PLAYER__
-#define __AUDIO_FILE_PLAYER__
+#include "channel_slider.h"
 
-class AudioFilePlayer;
-
-#include "juce_library_code/juce_header.h"
-#include "meter_ballistics.h"
-
-
-class AudioFilePlayer
+ChannelSlider::ChannelSlider(const String& componentName, int nNumChannels) : Slider(componentName)
 {
-public:
-    AudioFilePlayer(const File audioFile, int sample_rate, MeterBallistics* meter_ballistics);
-    ~AudioFilePlayer();
+    setRange(-1.0f, nNumChannels, 1.0f);
+    setSliderStyle(Slider::IncDecButtons);
+    setTextBoxStyle(Slider::TextBoxLeft, true, 40, 20);
+    setIncDecButtonsMode(Slider::incDecButtonsNotDraggable);
 
-    bool isPlaying();
-    void fillBufferChunk(AudioSampleBuffer* buffer);
-    void setReporters(int nChannel, bool bPeakMeterLevel, bool bAverageMeterLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
+    setValue(-1, false, false);
+}
 
-private:
-    bool bIsPlaying;
-    int nNumberOfSamples;
-    float fSampleRate;
 
-    int nReportChannel;
-    bool bReports;
-    bool bReportPeakMeterLevel;
-    bool bReportAverageMeterLevel;
-    bool bReportStereoMeterValue;
-    bool bReportPhaseCorrelation;
+ChannelSlider::~ChannelSlider()
+{
+}
 
-    AudioFormatReaderSource* audioFileSource;
-    MeterBallistics* pMeterBallistics;
 
-    void outputMessage(const String& strMessage);
-};
+double ChannelSlider::getValueFromText(const String& strText)
+{
+    if (strText == "All")
+    {
+        return -1.0f;
+    }
+    else
+    {
+        return strText.getFloatValue() - 1.0f;
+    }
+}
 
-#endif   // __AUDIO_FILE_PLAYER__
+
+const String ChannelSlider::getTextFromValue(double fValue)
+{
+    if (fValue < 0)
+    {
+        return String("All");
+    }
+    else
+    {
+        return String(int(fValue + 0.5f) + 1);
+    }
+}
 
 
 // Local Variables:

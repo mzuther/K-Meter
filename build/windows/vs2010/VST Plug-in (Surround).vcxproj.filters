@@ -2,17 +2,26 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="src">
-			<UniqueIdentifier>{AF4D5E38-A818-ABEB-A6CD-64E1CE27D49A}</UniqueIdentifier>
+			<UniqueIdentifier>{FBC5DD5A-2EC8-0A64-C1F1-1EF5B3BA780C}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="src\juce_library_code">
-			<UniqueIdentifier>{D30C5BD2-D908-EA30-38BE-3C2BB9A1AF74}</UniqueIdentifier>
+			<UniqueIdentifier>{A5CAE1F8-167B-CD9C-7E34-053383B0A71F}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="src\resources">
-			<UniqueIdentifier>{58B7C12B-BF08-A66B-8235-C943FC5437ED}</UniqueIdentifier>
+			<UniqueIdentifier>{93C6DB7B-39FD-9DED-1F24-4802170DEB47}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
 		<ClInclude Include="..\..\..\src\meter_bar.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\src\window_validation.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\src\prohibiting_bounds_constrainer.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\src\channel_slider.h">
 			<Filter>src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\src\meter_segment.h">
@@ -27,9 +36,6 @@
 		<ClInclude Include="..\..\..\src\audio_ring_buffer.h">
 			<Filter>src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\src\about_window.h">
-			<Filter>src</Filter>
-		</ClInclude>
 		<ClInclude Include="..\..\..\src\peak_label.h">
 			<Filter>src</Filter>
 		</ClInclude>
@@ -37,6 +43,9 @@
 			<Filter>src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\src\phase_correlation_meter.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\src\window_about.h">
 			<Filter>src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\src\audio_file_player.h">
@@ -92,6 +101,9 @@
 		<ClCompile Include="..\..\..\src\main.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
+		<ClCompile Include="..\..\..\src\window_validation.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
 		<ClCompile Include="..\..\..\src\meter_bar.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
@@ -110,10 +122,10 @@
 		<ClCompile Include="..\..\..\src\phase_correlation_meter.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\meter_ballistics.cpp">
+		<ClCompile Include="..\..\..\src\window_about.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\about_window.cpp">
+		<ClCompile Include="..\..\..\src\meter_ballistics.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\plugin_editor.cpp">
@@ -123,6 +135,9 @@
 			<Filter>src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\overflow_meter.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\channel_slider.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_2.cpp">

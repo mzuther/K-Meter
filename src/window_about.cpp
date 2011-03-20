@@ -23,10 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "about_window.h"
+#include "window_about.h"
 
 
-AboutWindow::AboutWindow(int nWidth, int nHeight)
+WindowAbout::WindowAbout(int nWidth, int nHeight)
     : ResizableWindow(T("About K-Meter"), false)
     // create new window child of width "nWidth" and height "nHeight"
 {
@@ -199,7 +199,7 @@ AboutWindow::AboutWindow(int nWidth, int nHeight)
 }
 
 
-AboutWindow::~AboutWindow()
+WindowAbout::~WindowAbout()
 {
     delete pConstrainer;
     pConstrainer = NULL;
@@ -210,7 +210,7 @@ AboutWindow::~AboutWindow()
 }
 
 
-void AboutWindow::paint(Graphics& g)
+void WindowAbout::paint(Graphics& g)
 {
     // fill window background with grey colour gradient
     g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.4f), 0, 0, Colours::darkgrey.darker(1.0f), 0, (float) getHeight(), false));
@@ -218,7 +218,7 @@ void AboutWindow::paint(Graphics& g)
 }
 
 
-void AboutWindow::buttonClicked(Button* button)
+void WindowAbout::buttonClicked(Button* button)
 {
     // find out which button has been clicked
     if (button == ButtonAbout)

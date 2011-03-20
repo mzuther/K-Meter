@@ -1,6 +1,10 @@
 
 o [mzuther] document code
 
+* hide buttons using a button :)
+
+* hide superflous surround channels
+
 * save and restore default settings
 
 * implement ITU BS.1770-1 loudness weighting

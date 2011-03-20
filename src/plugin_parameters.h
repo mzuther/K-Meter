@@ -40,7 +40,7 @@ public:
     KmeterPluginParameters();
     ~KmeterPluginParameters();
 
-    int getNumParameters();
+    int getNumParameters(bool bIncludeHiddenParameters);
 
     bool getParameterAsBool(int nIndex);
     float getParameterAsFloat(int nIndex);
@@ -49,6 +49,9 @@ public:
     void setParameterFromBool(int nIndex, bool bValue);
     void setParameterFromFloat(int nIndex, float fValue);
     void setParameterFromInt(int nIndex, int nValue);
+
+    File getValidationFile();
+    void setValidationFile(File& fileValidation);
 
     void MarkParameter(int nIndex);
     void UnmarkParameter(int nIndex);
@@ -71,6 +74,15 @@ public:
         selInfiniteHold,
         selMono,
 
+        nNumParametersRevealed,
+
+        selValidationFileName = nNumParametersRevealed,
+        selValidationSelectedChannel,
+        selValidationPeakMeterLevel,
+        selValidationAverageMeterLevel,
+        selValidationStereoMeterValue,
+        selValidationPhaseCorrelation,
+
         nNumParameters,
 
         selNormal = 0,
@@ -86,6 +98,7 @@ private:
 
     int* nParam;
     bool* bParamChanged;
+    String strValidationFile;
 };
 
 #endif  // __PLUGINPARAMETERS_H__

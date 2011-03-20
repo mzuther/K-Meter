@@ -33,7 +33,8 @@
 #include "dynamic_range_label.h"
 #include "stereo_meter.h"
 #include "phase_correlation_meter.h"
-#include "about_window.h"
+#include "window_about.h"
+#include "window_validation.h"
 
 
 //==============================================================================
@@ -58,6 +59,7 @@ public:
 private:
     // JUCE_LEAK_DETECTOR(KmeterAudioProcessorEditor);
 
+    bool bIsValidating;
     int nCrestFactor;
     int nInputChannels;
     int nStereoInputChannels;
@@ -81,6 +83,7 @@ private:
     TextButton* ButtonReset;
 
     TextButton* ButtonMono;
+    TextButton* ButtonValidation;
     TextButton* ButtonAbout;
 };
 

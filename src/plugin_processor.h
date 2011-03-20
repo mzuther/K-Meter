@@ -29,9 +29,6 @@
 #define KMETER_BUFFER_SIZE 1024
 #define DEBUG_FILTER 0
 
-// you should probably use an absolute file name here...
-// #define VALIDATION_FILE "../validation/pink_noise.flac"
-
 class KmeterAudioProcessor;
 class MeterBallistics;
 
@@ -61,6 +58,10 @@ public:
 
     void processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages);
 
+    void startValidation(File fileAudio, int nSelectedChannel, bool bPeakMeterLevel, bool bAverageMeterLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
+    void stopValidation();
+    bool isValidating();
+
     //==========================================================================
     AudioProcessorEditor* createEditor();
     bool hasEditor() const;
@@ -69,7 +70,12 @@ public:
     int getNumParameters();
 
     float getParameter(int index);
+    bool getParameterAsBool(int nIndex);
+
     void setParameter(int index, float newValue);
+
+    File getParameterValidationFile();
+    void setParameterValidationFile(File& fileValidation);
 
     const String getParameterName(int index);
     const String getParameterText(int index);
@@ -97,6 +103,7 @@ public:
 
     //==========================================================================
     int getNumPrograms();
+    int getNumChannels();
     int getCurrentProgram();
     void setCurrentProgram(int index);
     const String getProgramName(int index);

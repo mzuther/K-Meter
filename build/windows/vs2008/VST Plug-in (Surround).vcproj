@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="VST Plug-in (Surround)"
-	ProjectGUID="{784E0F75-13DE-48BD-CB15-ABFB181C6C7E}"
+	ProjectGUID="{30628E4B-18A9-B0D9-080D-391DCC69381D}"
 	RootNamespace="VST Plug-in (Surround)"
 	Keyword="Win32Proj"
 	>
@@ -247,6 +247,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\window_validation.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\prohibiting_bounds_constrainer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\channel_slider.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\meter_segment.h"
 				>
 			</File>
@@ -263,10 +275,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\about_window.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\peak_label.h"
 				>
 			</File>
@@ -276,6 +284,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\phase_correlation_meter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\window_about.h"
 				>
 			</File>
 			<File
@@ -331,6 +343,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\window_validation.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\meter_bar.cpp"
 				>
 			</File>
@@ -355,11 +371,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\meter_ballistics.cpp"
+				RelativePath="..\..\..\src\window_about.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\about_window.cpp"
+				RelativePath="..\..\..\src\meter_ballistics.cpp"
 				>
 			</File>
 			<File
@@ -372,6 +388,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\overflow_meter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\channel_slider.cpp"
 				>
 			</File>
 		</Filter>

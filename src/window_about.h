@@ -23,44 +23,40 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __AUDIO_FILE_PLAYER__
-#define __AUDIO_FILE_PLAYER__
-
-class AudioFilePlayer;
+#ifndef __WINDOW_ABOUT_H__
+#define __WINDOW_ABOUT_H__
 
 #include "juce_library_code/juce_header.h"
-#include "meter_ballistics.h"
+#include "resources/resources.h"
+#include "prohibiting_bounds_constrainer.h"
 
 
-class AudioFilePlayer
+class WindowAbout : public ResizableWindow, ButtonListener
 {
 public:
-    AudioFilePlayer(const File audioFile, int sample_rate, MeterBallistics* meter_ballistics);
-    ~AudioFilePlayer();
+    WindowAbout(int nWidth, int nHeight);
+    ~WindowAbout();
 
-    bool isPlaying();
-    void fillBufferChunk(AudioSampleBuffer* buffer);
-    void setReporters(int nChannel, bool bPeakMeterLevel, bool bAverageMeterLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
+    void paint(Graphics& g);
+    void buttonClicked(Button* button);
 
 private:
-    bool bIsPlaying;
-    int nNumberOfSamples;
-    float fSampleRate;
+    // JUCE_LEAK_DETECTOR(WindowAbout);
 
-    int nReportChannel;
-    bool bReports;
-    bool bReportPeakMeterLevel;
-    bool bReportAverageMeterLevel;
-    bool bReportStereoMeterValue;
-    bool bReportPhaseCorrelation;
+    Component* contentComponent;
+    ProhibitingBoundsConstrainer* pConstrainer;
 
-    AudioFormatReaderSource* audioFileSource;
-    MeterBallistics* pMeterBallistics;
+    TextEditor* TextEditorAbout;
+    TextButton* ButtonAbout;
+    ImageButton* ButtonGpl;
 
-    void outputMessage(const String& strMessage);
+    Image* ImageButtonGplNormal;
+    Image* ImageButtonGplOver;
+    Image* ImageButtonGplDown;
 };
 
-#endif   // __AUDIO_FILE_PLAYER__
+
+#endif  // __WINDOW_ABOUT_H__
 
 
 // Local Variables:

@@ -23,44 +23,48 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __AUDIO_FILE_PLAYER__
-#define __AUDIO_FILE_PLAYER__
-
-class AudioFilePlayer;
+#ifndef __WINDOW_VALIDATION_H__
+#define __WINDOW_VALIDATION_H__
 
 #include "juce_library_code/juce_header.h"
-#include "meter_ballistics.h"
+#include "channel_slider.h"
+#include "plugin_processor.h"
+#include "prohibiting_bounds_constrainer.h"
 
 
-class AudioFilePlayer
+class WindowValidation : public ResizableWindow, ButtonListener
 {
 public:
-    AudioFilePlayer(const File audioFile, int sample_rate, MeterBallistics* meter_ballistics);
-    ~AudioFilePlayer();
+    WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor* processor);
+    ~WindowValidation();
 
-    bool isPlaying();
-    void fillBufferChunk(AudioSampleBuffer* buffer);
-    void setReporters(int nChannel, bool bPeakMeterLevel, bool bAverageMeterLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
+    void paint(Graphics& g);
+    void buttonClicked(Button* button);
 
 private:
-    bool bIsPlaying;
-    int nNumberOfSamples;
-    float fSampleRate;
+    // JUCE_LEAK_DETECTOR(WindowValidation);
 
-    int nReportChannel;
-    bool bReports;
-    bool bReportPeakMeterLevel;
-    bool bReportAverageMeterLevel;
-    bool bReportStereoMeterValue;
-    bool bReportPhaseCorrelation;
+    KmeterAudioProcessor* pProcessor;
+    File fileValidation;
 
-    AudioFormatReaderSource* audioFileSource;
-    MeterBallistics* pMeterBallistics;
+    Component* contentComponent;
+    ProhibitingBoundsConstrainer* pConstrainer;
 
-    void outputMessage(const String& strMessage);
+    Label* LabelFileSelection;
+    TextButton* ButtonFileSelection;
+    TextButton* ButtonValidation;
+    TextButton* ButtonCancel;
+
+    Label* LabelDumpSelectedChannel;
+    ChannelSlider* SliderDumpSelectedChannel;
+    ToggleButton* ButtonDumpPeakMeterLevel;
+    ToggleButton* ButtonDumpAverageMeterLevel;
+    ToggleButton* ButtonDumpStereoMeterValue;
+    ToggleButton* ButtonDumpPhaseCorrelation;
 };
 
-#endif   // __AUDIO_FILE_PLAYER__
+
+#endif  // __WINDOW_VALIDATION_H__
 
 
 // Local Variables:

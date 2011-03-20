@@ -29,6 +29,8 @@
 KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* ownerFilter, int nNumChannels)
     : AudioProcessorEditor(ownerFilter)
 {
+    bIsValidating = false;
+
     nInputChannels = nNumChannels;
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
     nCrestFactor = 0;
@@ -43,7 +45,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
         nHeight = 630;
     }
 
-    // This is where our plugin's editor size is set.
+    // This is where our plug-in's editor size is set.
     setSize(nRightColumnStart + 70, nHeight);
 
     pProcessor = ownerFilter;
@@ -127,11 +129,20 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
 #ifdef DEBUG
     Label* LabelDebug = new Label(T("Debug Notification"), "DEBUG");
-    LabelDebug->setBounds(nRightColumnStart, nHeight - 58, 60, 16);
+    LabelDebug->setBounds(nRightColumnStart, nHeight - 82, 60, 16);
     LabelDebug->setColour(Label::textColourId, Colours::red);
     LabelDebug->setJustificationType(Justification::centred);
     addAndMakeVisible(LabelDebug);
 #endif
+
+    ButtonValidation = new TextButton(T("Validate"));
+    ButtonValidation->setBounds(nRightColumnStart, nHeight - 56, 60, 20);
+    ButtonValidation->setColour(TextButton::textColourOnId, Colours::white);
+    ButtonValidation->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonValidation->setColour(TextButton::buttonOnColourId, Colours::blue);
+
+    ButtonValidation->addButtonListener(this);
+    addAndMakeVisible(ButtonValidation);
 
     ButtonAbout = new TextButton(T("About"));
     ButtonAbout->setBounds(nRightColumnStart, nHeight - 31, 60, 20);
@@ -188,7 +199,16 @@ KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 
 void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChanged)
 {
-    if (objectThatHasChanged != pProcessor)
+    // editor needs refreshing
+    if (objectThatHasChanged == NULL)
+    {
+        if (pProcessor->isValidating())
+        {
+            bIsValidating = true;
+            ButtonValidation->setColour(TextButton::buttonColourId, Colours::red);
+        }
+    }
+    else if (objectThatHasChanged != pProcessor)
     {
         for (int nIndex = 0; nIndex < pProcessor->getNumParameters(); nIndex++)
         {
@@ -213,6 +233,12 @@ void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChang
             {
                 phaseCorrelationMeter->setValue(pMeterBallistics->getPhaseCorrelation());
             }
+        }
+
+        if (bIsValidating && !pProcessor->isValidating())
+        {
+            bIsValidating = false;
+            ButtonValidation->setColour(TextButton::buttonColourId, Colours::grey);
         }
     }
 }
@@ -373,14 +399,25 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     }
     else if (button == ButtonAbout)
     {
-        AboutWindow* aboutWindow = new AboutWindow(getWidth(), getHeight());
-        addAndMakeVisible(aboutWindow);
+        WindowAbout* windowAbout = new WindowAbout(getWidth(), getHeight());
+        addAndMakeVisible(windowAbout);
 
-        aboutWindow->runModalLoop();
+        windowAbout->runModalLoop();
 
-        removeChildComponent(aboutWindow);
-        delete aboutWindow;
-        aboutWindow = NULL;
+        removeChildComponent(windowAbout);
+        delete windowAbout;
+        windowAbout = NULL;
+    }
+    else if (button == ButtonValidation)
+    {
+        WindowValidation* windowValidation = new WindowValidation(getWidth(), getHeight(), pProcessor);
+        addAndMakeVisible(windowValidation);
+
+        windowValidation->runModalLoop();
+
+        removeChildComponent(windowValidation);
+        delete windowValidation;
+        windowValidation = NULL;
     }
 }
 

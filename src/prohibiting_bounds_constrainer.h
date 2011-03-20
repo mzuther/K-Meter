@@ -23,11 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __ABOUT_WINDOW_H__
-#define __ABOUT_WINDOW_H__
+#ifndef __PROHIBITING_BOUNDS_CONSTRAINER_H__
+#define __PROHIBITING_BOUNDS_CONSTRAINER_H__
 
 #include "juce_library_code/juce_header.h"
-#include "resources/resources.h"
 
 
 class ProhibitingBoundsConstrainer : public ComponentBoundsConstrainer
@@ -55,32 +54,7 @@ private:
 };
 
 
-class AboutWindow : public ResizableWindow, ButtonListener
-{
-public:
-    AboutWindow(int nWidth, int nHeight);
-    ~AboutWindow();
-
-    void paint(Graphics& g);
-    void buttonClicked(Button* button);
-
-private:
-    // JUCE_LEAK_DETECTOR(AboutWindow);
-
-    Component* contentComponent;
-    ProhibitingBoundsConstrainer* pConstrainer;
-
-    TextEditor* TextEditorAbout;
-    TextButton* ButtonAbout;
-    ImageButton* ButtonGpl;
-
-    Image* ImageButtonGplNormal;
-    Image* ImageButtonGplOver;
-    Image* ImageButtonGplDown;
-};
-
-
-#endif  // __ABOUT_WINDOW_H__
+#endif  // __PROHIBITING_BOUNDS_CONSTRAINER_H__
 
 
 // Local Variables:
