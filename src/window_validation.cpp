@@ -49,7 +49,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     setContentComponent(contentComponent);
 
     LabelFileSelection = new Label("Label FileSelection", fileValidation.getFileName());
-    LabelFileSelection->setBounds(nWidth - 188, nHeight - 209, 138, 20);
+    LabelFileSelection->setBounds(nWidth - 188, nHeight - 224, 138, 20);
     LabelFileSelection->setMinimumHorizontalScale(1.0f);
     LabelFileSelection->setColour(Label::textColourId, Colours::white);
     LabelFileSelection->setColour(Label::backgroundColourId, Colours::grey.darker(0.6f));
@@ -58,22 +58,39 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     // add and display the label
     contentComponent->addAndMakeVisible(LabelFileSelection);
 
-    // create and position an "about" button that appears as if it
-    // were pressed down and which closes the window when clicked
     ButtonFileSelection = new TextButton(T("..."));
-    ButtonFileSelection->setBounds(nWidth - 45, nHeight - 209, 30, 20);
+    ButtonFileSelection->setBounds(nWidth - 45, nHeight - 224, 30, 20);
 
-    // add "about" window as button listener and display the button
     ButtonFileSelection->addButtonListener(this);
     contentComponent->addAndMakeVisible(ButtonFileSelection);
 
+    LabelSampleRateValue = new Label(T("Label SampleRate"), T("Host SR: "));
+    LabelSampleRateValue->setBounds(nWidth - 192, nHeight - 199, 75, 20);
+    LabelSampleRateValue->setColour(Label::textColourId, Colours::white);
+    contentComponent->addAndMakeVisible(LabelSampleRateValue);
+
+    int nSampleRate = pProcessor->getSampleRate();
+    String strSampleRateThousands = String(nSampleRate / 1000);
+    String strSampleRateOnes = String(nSampleRate % 1000).paddedLeft(T('0'), 3);
+    String strSampleRate = strSampleRateThousands + T(" ") + strSampleRateOnes + T(" Hz");
+
+    LabelSampleRateValue = new Label("Label SampleRateValue", strSampleRate);
+    LabelSampleRateValue->setBounds(nWidth - 126, nHeight - 199, 82, 20);
+    LabelSampleRateValue->setMinimumHorizontalScale(1.0f);
+    LabelSampleRateValue->setColour(Label::textColourId, Colours::white);
+    LabelSampleRateValue->setColour(Label::backgroundColourId, Colours::grey.darker(0.6f));
+    LabelSampleRateValue->setColour(Label::outlineColourId, Colours::black);
+
+    // add and display the label
+    contentComponent->addAndMakeVisible(LabelSampleRateValue);
+
     LabelDumpSelectedChannel = new Label(T("Selected channel"), T("Channel: "));
-    LabelDumpSelectedChannel->setBounds(nWidth - 192, nHeight - 179, 75, 20);
+    LabelDumpSelectedChannel->setBounds(nWidth - 192, nHeight - 174, 75, 20);
     LabelDumpSelectedChannel->setColour(Label::textColourId, Colours::white);
     contentComponent->addAndMakeVisible(LabelDumpSelectedChannel);
 
     SliderDumpSelectedChannel = new ChannelSlider(T("Selected channel"), pProcessor->getNumChannels() - 1);
-    SliderDumpSelectedChannel->setBounds(nWidth - 126, nHeight - 179, 70, 20);
+    SliderDumpSelectedChannel->setBounds(nWidth - 126, nHeight - 174, 70, 20);
     SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxTextColourId, Colours::white);
     SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxBackgroundColourId, Colours::grey.darker(0.6f));
     SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxOutlineColourId, Colours::black);
@@ -82,25 +99,25 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     contentComponent->addAndMakeVisible(SliderDumpSelectedChannel);
 
     ButtonDumpPeakMeterLevel = new ToggleButton(T("Peak meter level"));
-    ButtonDumpPeakMeterLevel->setBounds(nWidth - 192, nHeight - 154, 180, 20);
+    ButtonDumpPeakMeterLevel->setBounds(nWidth - 192, nHeight - 149, 180, 20);
     ButtonDumpPeakMeterLevel->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpPeakMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPeakMeterLevel), false);
     contentComponent->addAndMakeVisible(ButtonDumpPeakMeterLevel);
 
     ButtonDumpAverageMeterLevel = new ToggleButton(T("Average meter level"));
-    ButtonDumpAverageMeterLevel->setBounds(nWidth - 192, nHeight - 134, 180, 20);
+    ButtonDumpAverageMeterLevel->setBounds(nWidth - 192, nHeight - 129, 180, 20);
     ButtonDumpAverageMeterLevel->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpAverageMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationAverageMeterLevel), false);
     contentComponent->addAndMakeVisible(ButtonDumpAverageMeterLevel);
 
     ButtonDumpStereoMeterValue = new ToggleButton(T("Stereo meter value"));
-    ButtonDumpStereoMeterValue->setBounds(nWidth - 192, nHeight - 114, 180, 20);
+    ButtonDumpStereoMeterValue->setBounds(nWidth - 192, nHeight - 109, 180, 20);
     ButtonDumpStereoMeterValue->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpStereoMeterValue->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationStereoMeterValue), false);
     contentComponent->addAndMakeVisible(ButtonDumpStereoMeterValue);
 
     ButtonDumpPhaseCorrelation = new ToggleButton(T("Phase correlation"));
-    ButtonDumpPhaseCorrelation->setBounds(nWidth - 192, nHeight - 94, 180, 20);
+    ButtonDumpPhaseCorrelation->setBounds(nWidth - 192, nHeight - 89, 180, 20);
     ButtonDumpPhaseCorrelation->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpPhaseCorrelation->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPhaseCorrelation), false);
     contentComponent->addAndMakeVisible(ButtonDumpPhaseCorrelation);
@@ -154,11 +171,11 @@ void WindowValidation::paint(Graphics& g)
 
     g.setColour(Colours::white);
     g.setOpacity(0.15f);
-    g.drawRect(nWidth - 189, nHeight - 210, 182, 178);
+    g.drawRect(nWidth - 189, nHeight - 225, 182, 194);
 
     g.setColour(Colours::white);
     g.setOpacity(0.05f);
-    g.fillRect(nWidth - 188, nHeight - 209, 180, 176);
+    g.fillRect(nWidth - 188, nHeight - 224, 180, 192);
 }
 
 

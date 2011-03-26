@@ -51,6 +51,9 @@ private:
     ProhibitingBoundsConstrainer* pConstrainer;
 
     Label* LabelFileSelection;
+    Label* LabelSampleRate;
+    Label* LabelSampleRateValue;
+
     TextButton* ButtonFileSelection;
     TextButton* ButtonValidation;
     TextButton* ButtonCancel;
