@@ -99,7 +99,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     ButtonDumpStereoMeterValue->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationStereoMeterValue), false);
     contentComponent->addAndMakeVisible(ButtonDumpStereoMeterValue);
 
-    ButtonDumpPhaseCorrelation = new ToggleButton(T("Stereo phase correlation"));
+    ButtonDumpPhaseCorrelation = new ToggleButton(T("Phase correlation"));
     ButtonDumpPhaseCorrelation->setBounds(nWidth - 192, nHeight - 94, 180, 20);
     ButtonDumpPhaseCorrelation->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpPhaseCorrelation->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPhaseCorrelation), false);
