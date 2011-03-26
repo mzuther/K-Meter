@@ -535,8 +535,20 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
                 sum_of_squares_right += ringbuffer_right * ringbuffer_right;
             }
 
-            // TODO: what about division by zero?
-            fPhaseCorrelation = sum_of_product / sqrt(sum_of_squares_left * sum_of_squares_right);
+            float fSumsOfSquares = sum_of_squares_left * sum_of_squares_right;
+
+            // prevent division by zero and taking the square root of
+            // a negative number
+            if (fSumsOfSquares > 0.0f)
+            {
+                fPhaseCorrelation = sum_of_product / sqrt(fSumsOfSquares);
+            }
+            else
+            {
+                // this is mathematically incorrect, but "musically"
+                // correct (i.e. signal is mono-compatible)
+                fPhaseCorrelation = 1.0f;
+            }
         }
 
         pMeterBallistics->setPhaseCorrelation(fProcessedSeconds, fPhaseCorrelation);
