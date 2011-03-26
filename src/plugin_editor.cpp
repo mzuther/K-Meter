@@ -222,7 +222,7 @@ void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChang
         if (pMeterBallistics)
         {
             kmeter->setLevels(pMeterBallistics);
-            dynamicRangeLabel->setValue(pMeterBallistics->getDynamicRangeValue());
+            // dynamicRangeLabel->setValue(pMeterBallistics->getDynamicRangeValue());
 
             if (stereoMeter)
             {
@@ -331,19 +331,19 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
             kmeter = NULL;
         }
 
-        if (dynamicRangeLabel)
-        {
-            removeChildComponent(dynamicRangeLabel);
-            delete dynamicRangeLabel;
-            dynamicRangeLabel = NULL;
-        }
+        // if (dynamicRangeLabel)
+        // {
+        //     removeChildComponent(dynamicRangeLabel);
+        //     delete dynamicRangeLabel;
+        //     dynamicRangeLabel = NULL;
+        // }
 
         kmeter = new Kmeter(T("K-Meter"), 10, 10, nCrestFactor, nInputChannels, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
         addAndMakeVisible(kmeter);
 
-        dynamicRangeLabel = new DynamicRangeLabel(T("Dynamic Range"));
-        dynamicRangeLabel->setBounds(nRightColumnStart + 10, 500, 40, 20);
-        addAndMakeVisible(dynamicRangeLabel);
+        // dynamicRangeLabel = new DynamicRangeLabel(T("Dynamic Range"));
+        // dynamicRangeLabel->setBounds(nRightColumnStart + 10, 500, 40, 20);
+        // addAndMakeVisible(dynamicRangeLabel);
     }
 }
 
