@@ -229,6 +229,13 @@ void AudioFilePlayer::fillBufferChunk(AudioSampleBuffer* buffer)
 void AudioFilePlayer::outputMessage(const String& strMessage)
 {
     float fTime = audioFileSource->getNextReadPosition() / fSampleRate;
+
+    // check for NaN
+    if (fTime != fTime)
+    {
+        fTime = 0.0f;
+    }
+
     int nTime = int(fTime);
     int nMilliSeconds = int(1000.0f * (fTime - nTime) + 0.5f);
 
