@@ -35,6 +35,17 @@ making use of your eyes and the expanded metering mode.
 01:03 - 01:06  silence
 
 
+Validation settings
+===================
+File:     pink_noise.flac
+Host SR:  48 000 Hz
+Channel:  All
+Display:  [ ] Peak meter level
+          [x] Average meter level
+          [ ] Stereo meter value
+          [ ] Phase correlation
+
+
 RMS correction of K-System meter
 ================================
 RMS = A / sqrt(2)

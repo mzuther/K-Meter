@@ -50,6 +50,17 @@ Please verify correctness of meter ballistics programmatically.
 00:42.200 - 00:44.200  silence
 
 
+Validation settings
+===================
+File:     meter_ballistics.flac
+Host SR:  44 100 Hz
+Channel:  All
+Display:  [x] Peak meter level
+          [x] Average meter level
+          [ ] Stereo meter value
+          [ ] Phase correlation
+
+
 Metering minima
 ===============
 -(20.00 dB + 70.00 dB) = -90.00 dB

@@ -69,3 +69,14 @@ Please verify readout of stereo meter programmatically.
                        [stereo meter should read +1.00]
 
 00:25.000 - 00:27.000  silence
+
+
+Validation settings
+===================
+File:     stereo_meter.flac
+Host SR:  44 100 Hz
+Channel:  All
+Display:  [ ] Peak meter level
+          [ ] Average meter level
+          [x] Stereo meter value
+          [ ] Phase correlation

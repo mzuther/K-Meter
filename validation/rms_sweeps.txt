@@ -37,18 +37,37 @@ file).
 00:00 - 00:03  silence
 00:03 - 01:03  sine sweep (10 Hz to 48 kHz, -4.00 dBFS, logarithmic)
 
-00:57          check filter cutoff @21 kHz
+               [check peak and average meter, see above]
+00:57          [check peak meter for RMS filter cutoff @21 kHz]
 
 01:03 - 01:06  silence
 01:06 - 01:26  sine sweep (20 kHz to 24 kHz, -4.00 dBFS, linear)
 
-01:11          check filter cutoff @21 kHz
+               [check peak and average meter, see above]
+01:11          [check peak meter for RMS filter cutoff @21 kHz]
 
 01:26 - 01:29  silence
 01:29 - 01:49  triangular sweep (20 Hz to 20 kHz, -4.00 dBFS, logarithmic)
+
+               [check peak and average meter, see above]
+
 01:49 - 01:52  silence
 01:52 - 02:12  square sweep (20 Hz to 20 kHz, -4.00 dBFS, logarithmic)
+
+               [check peak and average meter, see above]
+
 02:12 - 02:15  silence
+
+
+Validation settings
+===================
+File:     rms_sweeps.flac
+Host SR:  96 000 Hz
+Channel:  All
+Display:  [x] Peak meter level
+          [x] Average meter level
+          [ ] Stereo meter value
+          [ ] Phase correlation
 
 
 RMS correction of K-System meter (sine wave, -4.00 dBFS)

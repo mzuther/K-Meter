@@ -35,7 +35,7 @@ Please verify phase correlation meter programmatically.
                        right channel: 441.1 Hz, -12 dBFS
 
                        [phase correlation meter should oscillate *twice*
-                        from +1.00 to -1.00 and back]
+                        from approximately +1.00 to -1.00 and back]
 
 00:22.000 - 00:24.000  silence
 
@@ -86,6 +86,17 @@ Please verify phase correlation meter programmatically.
                        [phase correlation meter should read -1.00]
 
 00:52.000 - 00:54.000  silence
+
+
+Validation settings
+===================
+File:     phase_correlation_meter.flac
+Host SR:  44 100 Hz
+Channel:  All
+Display:  [ ] Peak meter level
+          [ ] Average meter level
+          [ ] Stereo meter value
+          [x] Phase correlation
 
 
 Linear phase sweep
