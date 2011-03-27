@@ -31,9 +31,9 @@
 //#define  JUCE_FORCE_DEBUG
 //#define  JUCE_LOG_ASSERTIONS
 //#define    JUCETICE_USE_AMALGAMA
-#define    JUCE_ASIO 0
+//#define    JUCE_ASIO 0
 #define    JUCE_WASAPI 0
-#define    JUCE_DIRECTSOUND 0
+//#define    JUCE_DIRECTSOUND 0
 //#define    JUCE_ALSA
 //#define    JUCE_JACK
 #define    JUCE_QUICKTIME 0

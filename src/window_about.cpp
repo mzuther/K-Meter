@@ -115,11 +115,12 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
 #ifdef LINUX
         L"POSIX Threads\n"
         L"Xlib\n"
-        L"Xext\n\n"
+        L"Xext\n"
 #endif
+        L"\n"
     );
 
-#ifdef KMETER_VST_PLUGIN
+#if (JUCE_USE_VSTSDK_2_4 != 0)
 
     // display trademarks (but only when necessary)
     TextEditorAbout->setFont(fontHeadline);
@@ -130,6 +131,21 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
         T("VST PlugIn Technology by Steinberg\n\n")
+    );
+
+#endif
+
+#if (JUCE_ASIO != 0)
+
+    // display trademarks (but only when necessary)
+    TextEditorAbout->setFont(fontHeadline);
+    TextEditorAbout->insertTextAtCaret(
+        T("Trademarks\n")
+    );
+
+    TextEditorAbout->setFont(fontRegular);
+    TextEditorAbout->insertTextAtCaret(
+        T("ASIO Technology by Steinberg Media Technologies GmbH\n\n")
     );
 
 #endif

@@ -36,8 +36,10 @@ end
 solution "kmeter"
 	location ("windows/" .. _ACTION .. "/")
 	language "C++"
+
+	platforms { "x32" }
+
 	configurations { "Debug", "Release" }
-	targetdir "../bin"
 
 	files {
 		"../src/**.h",
@@ -46,16 +48,18 @@ solution "kmeter"
 
 	includedirs {
 		"../src/juce_library_code/",
-		"../libraries/",
-		"../libraries/vstsdk2.4"
+		"../libraries/"
 	}
+
+	targetdir "../bin/"
 
 	flags {
 			"EnableSSE",
 			"EnableSSE2",
 			"NoMinimalRebuild",
 			"StaticRuntime",
-			"Unicode"
+			"Unicode",
+			"WinMain"
 	}
 
 	configuration { "Debug*" }
@@ -68,13 +72,130 @@ solution "kmeter"
 		flags { "OptimizeSpeed", "NoFramePointer", "NoManifest" }
 		buildoptions { "/Zi" }
 
+	configuration { "Debug", "x32" }
+		targetsuffix ", Debug)"
+
+	configuration { "Release", "x32" }
+		targetsuffix ")"
+
+--------------------------------------------------------------------------------
+
+	project ("Stand-alone (Stereo)")
+		kind "WindowedApp"
+		targetname "K-Meter (Stereo"
+		targetprefix ""
+
+		defines {
+			"KMETER_STAND_ALONE=1",
+			"KMETER_STEREO=1",
+			"JUCETICE_USE_AMALGAMA=1",
+			"JUCE_USE_VSTSDK_2_4=0"
+		}
+
+		includedirs {
+			"../libraries/asiosdk2.2/common"
+		}
+
+		files {
+			"../libraries/juce/extras/audio plugins/wrapper/Standalone/*.h",
+			"../libraries/juce/extras/audio plugins/wrapper/Standalone/*.cpp"
+		}
+
+		configuration {"windows"}
+			defines {
+				"_WINDOWS=1",
+				"_USE_MATH_DEFINES=1",
+				"WIN32=1",
+				"JUCE_USE_XSHM=0",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0",
+				"JUCE_ASIO=1",
+				"JUCE_DIRECTSOUND=1"
+			}
+
+			links {
+				"kernel32",
+				"user32",
+				"gdi32",
+				"winspool",
+				"comdlg32",
+				"advapi32",
+				"shell32",
+				"ole32",
+				"oleaut32",
+				"uuid",
+				"odbc32",
+				"odbccp32"
+			 }
+
+		configuration "Debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_stereo_debug")
+
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_stereo_release")
+
+--------------------------------------------------------------------------------
+
+	project ("Stand-alone (Surround)")
+		kind "WindowedApp"
+		targetname "K-Meter (Surround"
+		targetprefix ""
+
+		defines {
+			"KMETER_STAND_ALONE=1",
+			"KMETER_SURROUND=1",
+			"JUCETICE_USE_AMALGAMA=1",
+			"JUCE_USE_VSTSDK_2_4=0"
+		}
+
+		includedirs {
+			"../libraries/asiosdk2.2/common"
+		}
+
+		files {
+			"../libraries/juce/extras/audio plugins/wrapper/Standalone/*.h",
+			"../libraries/juce/extras/audio plugins/wrapper/Standalone/*.cpp"
+		}
+
+		configuration {"windows"}
+			defines {
+				"_WINDOWS=1",
+				"_USE_MATH_DEFINES=1",
+				"WIN32=1",
+				"JUCE_USE_XSHM=0",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0",
+				"JUCE_ASIO=1",
+				"JUCE_DIRECTSOUND=1"
+			}
+
+			links {
+				"kernel32",
+				"user32",
+				"gdi32",
+				"winspool",
+				"comdlg32",
+				"advapi32",
+				"shell32",
+				"ole32",
+				"oleaut32",
+				"uuid",
+				"odbc32",
+				"odbccp32"
+			 }
+
+		configuration "Debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_surround_debug")
+
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_surround_release")
+
 --------------------------------------------------------------------------------
 
 	project ("VST Plug-in (Stereo)")
 		kind "SharedLib"
+		targetname "K-Meter (Stereo"
 		targetprefix ""
-
-		platforms { "x32" }
 
 		defines {
 			"KMETER_VST_PLUGIN=1",
@@ -83,6 +204,10 @@ solution "kmeter"
 			"JUCE_USE_VSTSDK_2_4=1"
 		}
 
+		includedirs {
+			"../libraries/vstsdk2.4"
+		}
+
 		excludes {
 			"../src/standalone_application.h",
 			"../src/standalone_application.cpp"
@@ -95,7 +220,9 @@ solution "kmeter"
 				"WIN32=1",
 				"JUCE_USE_XSHM=0",
 				"JUCE_ALSA=0",
-				"JUCE_JACK=0"
+				"JUCE_JACK=0",
+				"JUCE_ASIO=0",
+				"JUCE_DIRECTSOUND=0"
 			}
 
 			links {
@@ -114,20 +241,17 @@ solution "kmeter"
 			 }
 
 		configuration "Debug"
-			targetname "K-Meter (Stereo, Debug)"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_debug")
 
-      configuration "Release"
-			targetname "K-Meter (Stereo)"
+		configuration "Release"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_release")
 
 --------------------------------------------------------------------------------
 
 	project ("VST Plug-in (Surround)")
 		kind "SharedLib"
+		targetname "K-Meter (Surround"
 		targetprefix ""
-
-		platforms { "x32" }
 
 		defines {
 			"KMETER_VST_PLUGIN=1",
@@ -136,6 +260,10 @@ solution "kmeter"
 			"JUCE_USE_VSTSDK_2_4=1"
 		}
 
+		includedirs {
+			"../libraries/vstsdk2.4"
+		}
+
 		excludes {
 			"../src/standalone_application.h",
 			"../src/standalone_application.cpp"
@@ -148,7 +276,9 @@ solution "kmeter"
 				"WIN32=1",
 				"JUCE_USE_XSHM=0",
 				"JUCE_ALSA=0",
-				"JUCE_JACK=0"
+				"JUCE_JACK=0",
+				"JUCE_ASIO=0",
+				"JUCE_DIRECTSOUND=0"
 			}
 
 			links {
@@ -167,9 +297,7 @@ solution "kmeter"
 			 }
 
 		configuration "Debug"
-			targetname "K-Meter (Surround, Debug)"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_surround_debug")
 
-      configuration "Release"
-			targetname "K-Meter (Surround)"
+		configuration "Release"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_surround_release")

@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{816262B4-8770-8C94-80D3-C5C7816120BF}</ProjectGuid>
+		<ProjectGuid>{ED4D2D47-2CC0-F810-37B4-36B7B71619C5}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -56,7 +56,7 @@
 			<AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>Disabled</Optimization>
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
 			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -67,7 +67,7 @@
 			<DebugInformationFormat>EditAndContinue</DebugInformationFormat>
 		</ClCompile>
 		<ResourceCompile>
-			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
@@ -86,7 +86,7 @@
 			<AdditionalOptions>/Zi %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>MaxSpeed</Optimization>
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-			<PreprocessorDefinitions>NDEBUG=1;KMETER_VST_PLUGIN=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>NDEBUG=1;KMETER_VST_PLUGIN=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<StringPooling>true</StringPooling>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -98,7 +98,7 @@
 			<OmitFramePointers>true</OmitFramePointers>
 		</ClCompile>
 		<ResourceCompile>
-			<PreprocessorDefinitions>NDEBUG=1;KMETER_VST_PLUGIN=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>NDEBUG=1;KMETER_VST_PLUGIN=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>

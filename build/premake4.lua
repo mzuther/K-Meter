@@ -28,7 +28,7 @@ if not _ACTION then
 elseif _ACTION == "gmake" then
 	print ("=== Generating project files (GNU g++, " .. os.get():upper() .. ") ===")
 elseif string.startswith(_ACTION, "vs") then
-	print "=== Generating project files (Visual C++) ==="
+	print "=== Generating project files (Visual C++, WINDOWS) ==="
 else
 	print "Action not specified\n"
 end
@@ -111,7 +111,9 @@ solution "kmeter"
 				"LINUX=1",
 				"JUCE_USE_XSHM=1",
 				"JUCE_ALSA=1",
-				"JUCE_JACK=1"
+				"JUCE_JACK=1",
+				"JUCE_ASIO=0",
+				"JUCE_DIRECTSOUND=0"
 			}
 
 			links {
@@ -126,14 +128,6 @@ solution "kmeter"
 			includedirs {
 				"/usr/include",
 				"/usr/include/freetype2"
-			}
-
-		configuration {"windows"}
-			defines {
-				"WIN32=1",
-				"JUCE_USE_XSHM=0",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0"
 			}
 
 		configuration "Debug"
@@ -167,7 +161,9 @@ solution "kmeter"
 				"LINUX=1",
 				"JUCE_USE_XSHM=1",
 				"JUCE_ALSA=1",
-				"JUCE_JACK=1"
+				"JUCE_JACK=1",
+				"JUCE_ASIO=0",
+				"JUCE_DIRECTSOUND=0"
 			}
 
 			links {
@@ -182,14 +178,6 @@ solution "kmeter"
 			includedirs {
 				"/usr/include",
 				"/usr/include/freetype2"
-			}
-
-		configuration {"windows"}
-			defines {
-				"WIN32=1",
-				"JUCE_USE_XSHM=0",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0"
 			}
 
 		configuration "Debug"
@@ -227,7 +215,9 @@ solution "kmeter"
 				"LINUX=1",
 				"JUCE_USE_XSHM=1",
 				"JUCE_ALSA=0",
-				"JUCE_JACK=0"
+				"JUCE_JACK=0",
+				"JUCE_ASIO=0",
+				"JUCE_DIRECTSOUND=0"
 			}
 
 			includedirs {
@@ -241,14 +231,6 @@ solution "kmeter"
 				"rt",
 				"X11",
 				"Xext"
-			}
-
-		configuration {"windows"}
-			defines {
-				"WIN32=1",
-				"JUCE_USE_XSHM=0",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0"
 			}
 
 		configuration "Debug"
@@ -286,7 +268,9 @@ solution "kmeter"
 				"LINUX=1",
 				"JUCE_USE_XSHM=1",
 				"JUCE_ALSA=0",
-				"JUCE_JACK=0"
+				"JUCE_JACK=0",
+				"JUCE_ASIO=0",
+				"JUCE_DIRECTSOUND=0"
 			}
 
 			includedirs {
@@ -300,14 +284,6 @@ solution "kmeter"
 				"rt",
 				"X11",
 				"Xext"
-			}
-
-		configuration {"windows"}
-			defines {
-				"WIN32=1",
-				"JUCE_USE_XSHM=0",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0"
 			}
 
 		configuration "Debug"

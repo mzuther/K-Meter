@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Stereo)", "VST Plug-in (Stereo).vcproj", "{069DB03F-9145-19A6-4E25-99B20CD91977}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stand-alone (Stereo)", "Stand-alone (Stereo).vcproj", "{42545418-B236-EAAA-B9F0-57270610B2D8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Surround)", "VST Plug-in (Surround).vcproj", "{F813C691-A9E1-2378-4BAE-144728AD990E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stand-alone (Surround)", "Stand-alone (Surround).vcproj", "{CB71BCD9-4B9B-F58D-469A-1282AFB1E530}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Stereo)", "VST Plug-in (Stereo).vcproj", "{1C76FB24-8B8F-5CD2-BDA6-AA50316F1EE5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Surround)", "VST Plug-in (Surround).vcproj", "{09704492-A974-63D0-8393-01B1957017A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +15,22 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{069DB03F-9145-19A6-4E25-99B20CD91977}.Debug|Win32.ActiveCfg = Debug|Win32
-		{069DB03F-9145-19A6-4E25-99B20CD91977}.Debug|Win32.Build.0 = Debug|Win32
-		{069DB03F-9145-19A6-4E25-99B20CD91977}.Release|Win32.ActiveCfg = Release|Win32
-		{069DB03F-9145-19A6-4E25-99B20CD91977}.Release|Win32.Build.0 = Release|Win32
-		{F813C691-A9E1-2378-4BAE-144728AD990E}.Debug|Win32.ActiveCfg = Debug|Win32
-		{F813C691-A9E1-2378-4BAE-144728AD990E}.Debug|Win32.Build.0 = Debug|Win32
-		{F813C691-A9E1-2378-4BAE-144728AD990E}.Release|Win32.ActiveCfg = Release|Win32
-		{F813C691-A9E1-2378-4BAE-144728AD990E}.Release|Win32.Build.0 = Release|Win32
+		{42545418-B236-EAAA-B9F0-57270610B2D8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{42545418-B236-EAAA-B9F0-57270610B2D8}.Debug|Win32.Build.0 = Debug|Win32
+		{42545418-B236-EAAA-B9F0-57270610B2D8}.Release|Win32.ActiveCfg = Release|Win32
+		{42545418-B236-EAAA-B9F0-57270610B2D8}.Release|Win32.Build.0 = Release|Win32
+		{CB71BCD9-4B9B-F58D-469A-1282AFB1E530}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CB71BCD9-4B9B-F58D-469A-1282AFB1E530}.Debug|Win32.Build.0 = Debug|Win32
+		{CB71BCD9-4B9B-F58D-469A-1282AFB1E530}.Release|Win32.ActiveCfg = Release|Win32
+		{CB71BCD9-4B9B-F58D-469A-1282AFB1E530}.Release|Win32.Build.0 = Release|Win32
+		{1C76FB24-8B8F-5CD2-BDA6-AA50316F1EE5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1C76FB24-8B8F-5CD2-BDA6-AA50316F1EE5}.Debug|Win32.Build.0 = Debug|Win32
+		{1C76FB24-8B8F-5CD2-BDA6-AA50316F1EE5}.Release|Win32.ActiveCfg = Release|Win32
+		{1C76FB24-8B8F-5CD2-BDA6-AA50316F1EE5}.Release|Win32.Build.0 = Release|Win32
+		{09704492-A974-63D0-8393-01B1957017A7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{09704492-A974-63D0-8393-01B1957017A7}.Debug|Win32.Build.0 = Debug|Win32
+		{09704492-A974-63D0-8393-01B1957017A7}.Release|Win32.ActiveCfg = Release|Win32
+		{09704492-A974-63D0-8393-01B1957017A7}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,13 +2,31 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="src">
-			<UniqueIdentifier>{E096CE1D-222E-246E-322D-89003F227EE1}</UniqueIdentifier>
+			<UniqueIdentifier>{957C21AD-A476-C61D-5B92-47C6758FE607}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="src\juce_library_code">
-			<UniqueIdentifier>{F5DAC629-CA10-715E-E9F7-66B8ABC23ACD}</UniqueIdentifier>
+			<UniqueIdentifier>{F6313AD4-5910-FB2C-DAF2-2C270FD6C415}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="src\resources">
-			<UniqueIdentifier>{19DA75D0-F53F-4676-02F0-79F5680DF4F0}</UniqueIdentifier>
+			<UniqueIdentifier>{1C7573C0-7500-F243-FE9D-83D77A775EA5}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries">
+			<UniqueIdentifier>{3A42BD9E-E173-E524-C498-CAA18F12F72A}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce">
+			<UniqueIdentifier>{1FFFA28C-7A14-246F-0302-FB5E85AC58E6}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\extras">
+			<UniqueIdentifier>{A54230AD-D9D4-A57D-6FB0-162D26DE5150}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\extras\plugins">
+			<UniqueIdentifier>{F95EFF76-4DB9-777C-BA9D-B410F8283BD2}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\extras\plugins\wrapper">
+			<UniqueIdentifier>{3A91DB05-E0DA-001A-6164-8424DB35F2AA}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\extras\plugins\wrapper\Standalone">
+			<UniqueIdentifier>{D84FEDE8-92AF-7028-F42D-CDC39D4F0892}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -69,6 +87,9 @@
 		<ClInclude Include="..\..\..\src\plugin_editor.h">
 			<Filter>src</Filter>
 		</ClInclude>
+		<ClInclude Include="..\..\..\src\standalone_application.h">
+			<Filter>src</Filter>
+		</ClInclude>
 		<ClInclude Include="..\..\..\src\juce_library_code\JucePluginCharacteristics.h">
 			<Filter>src\juce_library_code</Filter>
 		</ClInclude>
@@ -80,6 +101,12 @@
 		</ClInclude>
 		<ClInclude Include="..\..\..\src\resources\resources.h">
 			<Filter>src\resources</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\libraries\juce\extras\audio plugins\wrapper\Standalone\juce_StandaloneFilterWindow.h">
+			<Filter>libraries\juce\extras\audio plugins\wrapper\Standalone</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\libraries\juce\extras\audio plugins\wrapper\Standalone\juce_AudioFilterStreamer.h">
+			<Filter>libraries\juce\extras\audio plugins\wrapper\Standalone</Filter>
 		</ClInclude>
 	</ItemGroup>
 	<ItemGroup>
@@ -119,6 +146,9 @@
 		<ClCompile Include="..\..\..\src\audio_ring_buffer.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
+		<ClCompile Include="..\..\..\src\standalone_application.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
 		<ClCompile Include="..\..\..\src\phase_correlation_meter.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
@@ -154,6 +184,12 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\resources\resources.cpp">
 			<Filter>src\resources</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\extras\audio plugins\wrapper\Standalone\juce_AudioFilterStreamer.cpp">
+			<Filter>libraries\juce\extras\audio plugins\wrapper\Standalone</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\extras\audio plugins\wrapper\Standalone\juce_StandaloneFilterWindow.cpp">
+			<Filter>libraries\juce\extras\audio plugins\wrapper\Standalone</Filter>
 		</ClCompile>
 	</ItemGroup>
 </Project>

@@ -69,7 +69,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     LabelSampleRateValue->setColour(Label::textColourId, Colours::white);
     contentComponent->addAndMakeVisible(LabelSampleRateValue);
 
-    int nSampleRate = pProcessor->getSampleRate();
+    int nSampleRate = (int) pProcessor->getSampleRate();
     String strSampleRateThousands = String(nSampleRate / 1000);
     String strSampleRateOnes = String(nSampleRate % 1000).paddedLeft(T('0'), 3);
     String strSampleRate = strSampleRateThousands + T(" ") + strSampleRateOnes + T(" Hz");

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
-	Name="VST Plug-in (Surround)"
-	ProjectGUID="{09704492-A974-63D0-8393-01B1957017A7}"
-	RootNamespace="VST Plug-in (Surround)"
+	Version="9.00"
+	Name="Stand-alone (Surround)"
+	ProjectGUID="{9B90CEA9-8D87-D820-DAE9-EB40ECF06497}"
+	RootNamespace="Stand-alone (Surround)"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -18,8 +18,8 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="..\..\..\bin"
-			IntermediateDirectory="..\..\..\bin\intermediate_windows\vst_surround_debug\x32"
-			ConfigurationType="2"
+			IntermediateDirectory="..\..\..\bin\intermediate_windows\standalone_surround_debug\x32"
+			ConfigurationType="1"
 			CharacterSet="1"
 			>
 			<Tool
@@ -41,15 +41,14 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions=""
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4"
-				PreprocessorDefinitions="_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;KMETER_SURROUND=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_DIRECTSOUND=0"
+				AdditionalIncludeDirectories="..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common"
+				PreprocessorDefinitions="_DEBUG=1;DEBUG=1;KMETER_STAND_ALONE=1;KMETER_SURROUND=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_DIRECTSOUND=1"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				EnableFunctionLevelLinking="true"
 				EnableEnhancedInstructionSet="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
 				ProgramDataBaseFileName="$(OutDir)\K-Meter (Surround, Debug).pdb"
 				DebugInformationFormat="4"
 			/>
@@ -58,8 +57,8 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG=1;DEBUG=1;KMETER_VST_PLUGIN=1;KMETER_SURROUND=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_DIRECTSOUND=0"
-				AdditionalIncludeDirectories="..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4"
+				PreprocessorDefinitions="_DEBUG=1;DEBUG=1;KMETER_STAND_ALONE=1;KMETER_SURROUND=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_DIRECTSOUND=1"
+				AdditionalIncludeDirectories="..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -67,13 +66,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
-				OutputFile="$(OutDir)\K-Meter (Surround, Debug).dll"
+				OutputFile="$(OutDir)\K-Meter (Surround, Debug).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				ProgramDataBaseFileName="$(OutDir)\K-Meter (Surround, Debug).pdb"
 				SubSystem="2"
-				ImportLibrary="..\..\..\bin\K-Meter (Surround, Debug).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -104,8 +102,8 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="..\..\..\bin"
-			IntermediateDirectory="..\..\..\bin\intermediate_windows\vst_surround_release\x32"
-			ConfigurationType="2"
+			IntermediateDirectory="..\..\..\bin\intermediate_windows\standalone_surround_release\x32"
+			ConfigurationType="1"
 			CharacterSet="1"
 			>
 			<Tool
@@ -128,15 +126,14 @@
 				AdditionalOptions="/Zi"
 				Optimization="2"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4"
-				PreprocessorDefinitions="NDEBUG=1;KMETER_VST_PLUGIN=1;KMETER_SURROUND=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_DIRECTSOUND=0"
+				AdditionalIncludeDirectories="..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common"
+				PreprocessorDefinitions="NDEBUG=1;KMETER_STAND_ALONE=1;KMETER_SURROUND=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_DIRECTSOUND=1"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				EnableEnhancedInstructionSet="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
 				ProgramDataBaseFileName="$(OutDir)\K-Meter (Surround).pdb"
 				DebugInformationFormat="0"
 			/>
@@ -145,8 +142,8 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG=1;KMETER_VST_PLUGIN=1;KMETER_SURROUND=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_DIRECTSOUND=0"
-				AdditionalIncludeDirectories="..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\vstsdk2.4"
+				PreprocessorDefinitions="NDEBUG=1;KMETER_STAND_ALONE=1;KMETER_SURROUND=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_DIRECTSOUND=1"
+				AdditionalIncludeDirectories="..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -154,7 +151,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
-				OutputFile="$(OutDir)\K-Meter (Surround).dll"
+				OutputFile="$(OutDir)\K-Meter (Surround).exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
 				GenerateManifest="false"
@@ -162,7 +159,6 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="..\..\..\bin\K-Meter (Surround).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -321,6 +317,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\standalone_application.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\stereo_meter.cpp"
 				>
 			</File>
@@ -369,6 +369,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\standalone_application.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\phase_correlation_meter.cpp"
 				>
 			</File>
@@ -396,6 +400,52 @@
 				RelativePath="..\..\..\src\channel_slider.cpp"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="libraries"
+			Filter=""
+			>
+			<Filter
+				Name="juce"
+				Filter=""
+				>
+				<Filter
+					Name="extras"
+					Filter=""
+					>
+					<Filter
+						Name="audio plugins"
+						Filter=""
+						>
+						<Filter
+							Name="wrapper"
+							Filter=""
+							>
+							<Filter
+								Name="Standalone"
+								Filter=""
+								>
+								<File
+									RelativePath="..\..\..\libraries\juce\extras\audio plugins\wrapper\Standalone\juce_StandaloneFilterWindow.h"
+									>
+								</File>
+								<File
+									RelativePath="..\..\..\libraries\juce\extras\audio plugins\wrapper\Standalone\juce_AudioFilterStreamer.h"
+									>
+								</File>
+								<File
+									RelativePath="..\..\..\libraries\juce\extras\audio plugins\wrapper\Standalone\juce_AudioFilterStreamer.cpp"
+									>
+								</File>
+								<File
+									RelativePath="..\..\..\libraries\juce\extras\audio plugins\wrapper\Standalone\juce_StandaloneFilterWindow.cpp"
+									>
+								</File>
+							</Filter>
+						</Filter>
+					</Filter>
+				</Filter>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
