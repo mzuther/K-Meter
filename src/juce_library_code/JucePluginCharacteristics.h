@@ -52,9 +52,9 @@
 #define JucePlugin_ManufacturerCode     'mz'
 #define JucePlugin_PluginCode           'kmet'
 #ifdef KMETER_SURROUND
-#define JucePlugin_MaxNumInputChannels  8
-#define JucePlugin_MaxNumOutputChannels 8
-#define JucePlugin_PreferredChannelConfigurations   {6, 6}, {8, 8}
+#define JucePlugin_MaxNumInputChannels  6
+#define JucePlugin_MaxNumOutputChannels 6
+#define JucePlugin_PreferredChannelConfigurations   {6, 6}
 #else
 #define JucePlugin_MaxNumInputChannels  2
 #define JucePlugin_MaxNumOutputChannels 2
