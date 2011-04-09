@@ -40,8 +40,9 @@ KmeterPluginParameters::KmeterPluginParameters()
     nParam[selMono] = 0;
 
     nParam[selValidationSelectedChannel] = -1;
-    nParam[selValidationPeakMeterLevel] = 1;
     nParam[selValidationAverageMeterLevel] = 1;
+    nParam[selValidationPeakMeterLevel] = 1;
+    nParam[selValidationMaximumPeakLevel] = 1;
     nParam[selValidationStereoMeterValue] = 1;
     nParam[selValidationPhaseCorrelation] = 1;
 
@@ -227,12 +228,16 @@ const String KmeterPluginParameters::getParameterName(int nIndex)
         return "Validation: selected channel";
         break;
 
+    case selValidationAverageMeterLevel:
+        return "Validation: average meter level";
+        break;
+
     case selValidationPeakMeterLevel:
         return "Validation: peak meter level";
         break;
 
-    case selValidationAverageMeterLevel:
-        return "Validation: average meter level";
+    case selValidationMaximumPeakLevel:
+        return "Validation: maximum peak level";
         break;
 
     case selValidationStereoMeterValue:
@@ -405,8 +410,9 @@ XmlElement KmeterPluginParameters::storeAsXml()
 
     xml.setAttribute("ValidationFile", strValidationFile);
     xml.setAttribute("ValidationSelectedChannel", getParameterAsInt(selValidationSelectedChannel));
-    xml.setAttribute("ValidationPeakMeterLevel", getParameterAsInt(selValidationPeakMeterLevel));
     xml.setAttribute("ValidationAverageMeterLevel", getParameterAsInt(selValidationAverageMeterLevel));
+    xml.setAttribute("ValidationPeakMeterLevel", getParameterAsInt(selValidationPeakMeterLevel));
+    xml.setAttribute("ValidationMaximumPeakLevel", getParameterAsInt(selValidationMaximumPeakLevel));
     xml.setAttribute("ValidationStereoMeterValue", getParameterAsInt(selValidationStereoMeterValue));
     xml.setAttribute("ValidationPhaseCorrelation", getParameterAsInt(selValidationPhaseCorrelation));
 
@@ -448,8 +454,9 @@ void KmeterPluginParameters::loadFromXml(XmlElement* xml)
         setValidationFile(fileValidation);
 
         setParameterFromInt(selValidationSelectedChannel, xml->getIntAttribute("ValidationSelectedChannel", getParameterAsInt(selValidationSelectedChannel)));
-        setParameterFromInt(selValidationPeakMeterLevel, xml->getIntAttribute("ValidationPeakMeterLevel", getParameterAsInt(selValidationPeakMeterLevel)));
         setParameterFromInt(selValidationAverageMeterLevel, xml->getIntAttribute("ValidationAverageMeterLevel", getParameterAsInt(selValidationAverageMeterLevel)));
+        setParameterFromInt(selValidationPeakMeterLevel, xml->getIntAttribute("ValidationPeakMeterLevel", getParameterAsInt(selValidationPeakMeterLevel)));
+        setParameterFromInt(selValidationMaximumPeakLevel, xml->getIntAttribute("ValidationMaximumPeakLevel", getParameterAsInt(selValidationMaximumPeakLevel)));
         setParameterFromInt(selValidationStereoMeterValue, xml->getIntAttribute("ValidationStereoMeterValue", getParameterAsInt(selValidationStereoMeterValue)));
         setParameterFromInt(selValidationPhaseCorrelation, xml->getIntAttribute("ValidationPhaseCorrelation", getParameterAsInt(selValidationPhaseCorrelation)));
     }

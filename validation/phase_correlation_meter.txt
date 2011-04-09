@@ -93,8 +93,9 @@ Validation settings
 File:     phase_correlation_meter.flac
 Host SR:  44 100 Hz
 Channel:  All
-Display:  [ ] Peak meter level
-          [ ] Average meter level
+Display:  [ ] Average meter level
+          [ ] Peak meter level
+          [ ] Maximum peak level
           [ ] Stereo meter value
           [x] Phase correlation
 

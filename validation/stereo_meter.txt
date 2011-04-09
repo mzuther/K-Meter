@@ -76,7 +76,8 @@ Validation settings
 File:     stereo_meter.flac
 Host SR:  44 100 Hz
 Channel:  All
-Display:  [ ] Peak meter level
-          [ ] Average meter level
+Display:  [ ] Average meter level
+          [ ] Peak meter level
+          [ ] Maximum peak level
           [x] Stereo meter value
           [ ] Phase correlation

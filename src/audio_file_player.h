@@ -40,7 +40,7 @@ public:
 
     bool isPlaying();
     void fillBufferChunk(AudioSampleBuffer* buffer);
-    void setReporters(int nChannel, bool bPeakMeterLevel, bool bAverageMeterLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
+    void setReporters(int nChannel, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
 
 private:
     bool bIsPlaying;
@@ -49,8 +49,9 @@ private:
 
     int nReportChannel;
     bool bReports;
-    bool bReportPeakMeterLevel;
     bool bReportAverageMeterLevel;
+    bool bReportPeakMeterLevel;
+    bool bReportMaximumPeakLevel;
     bool bReportStereoMeterValue;
     bool bReportPhaseCorrelation;
 

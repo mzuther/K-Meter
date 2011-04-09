@@ -590,13 +590,13 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
 }
 
 
-void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel, bool bPeakMeterLevel, bool bAverageMeterLevel, bool bStereoMeterValue, bool bPhaseCorrelation)
+void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation)
 {
     // reset all meters before we start the validation
     pMeterBallistics->reset();
 
     audioFilePlayer = new AudioFilePlayer(fileAudio, (int) getSampleRate(), pMeterBallistics);
-    audioFilePlayer->setReporters(nSelectedChannel, bPeakMeterLevel, bAverageMeterLevel, bStereoMeterValue, bPhaseCorrelation);
+    audioFilePlayer->setReporters(nSelectedChannel, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bStereoMeterValue, bPhaseCorrelation);
 
     // refresh editor
     sendChangeMessage(NULL);

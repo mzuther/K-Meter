@@ -40,8 +40,9 @@ Validation settings
 File:     pink_noise.flac
 Host SR:  48 000 Hz
 Channel:  All
-Display:  [ ] Peak meter level
-          [x] Average meter level
+Display:  [x] Average meter level
+          [ ] Peak meter level
+          [ ] Maximum peak level
           [ ] Stereo meter value
           [ ] Phase correlation
 

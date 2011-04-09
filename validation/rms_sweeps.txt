@@ -64,8 +64,9 @@ Validation settings
 File:     rms_sweeps.flac
 Host SR:  96 000 Hz
 Channel:  All
-Display:  [x] Peak meter level
-          [x] Average meter level
+Display:  [x] Average meter level
+          [x] Peak meter level
+          [ ] Maximum peak level
           [ ] Stereo meter value
           [ ] Phase correlation
 

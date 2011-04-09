@@ -78,8 +78,9 @@ public:
 
         selValidationFileName = nNumParametersRevealed,
         selValidationSelectedChannel,
-        selValidationPeakMeterLevel,
         selValidationAverageMeterLevel,
+        selValidationPeakMeterLevel,
+        selValidationMaximumPeakLevel,
         selValidationStereoMeterValue,
         selValidationPhaseCorrelation,
 

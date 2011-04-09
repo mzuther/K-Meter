@@ -55,8 +55,9 @@ Validation settings
 File:     meter_ballistics.flac
 Host SR:  44 100 Hz
 Channel:  All
-Display:  [x] Peak meter level
-          [x] Average meter level
+Display:  [x] Average meter level
+          [x] Peak meter level
+          [ ] Maximum peak level
           [ ] Stereo meter value
           [ ] Phase correlation
 

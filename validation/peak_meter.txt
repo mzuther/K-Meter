@@ -1,0 +1,124 @@
+------------------------------------------------------------------------------
+
+  K-Meter
+  =======
+  Implementation of a K-System meter according to Bob Katz' specifications
+
+  Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  Thank you for using free software!
+
+------------------------------------------------------------------------------
+
+
+FLAC-compressed wave file (44.1 kHz, 24 bit)
+============================================
+Please verify correctness of peak meter and maximum peak meter
+programmatically.
+
+Given values describe the left channel.  The right channel is delayed
+by one second and its level has been attenuated by 1.93 dB.
+
+00:00.000 - 00:02.000  silence
+00:02.000 - 00:07.000  square wave (  20 Hz, -41.0 dBFS)
+
+                       [left  peak meter should read -21.00 dB (K-20)]
+                       [right peak meter should read -22.93 dB (K-20)]
+
+                       [left  maximum peak should read -21.00 dB (K-20)]
+                       [right maximum peak should read -22.93 dB (K-20)]
+
+00:07.000 - 00:09.000  silence
+00:09.000 - 00:14.000  square wave ( 180 Hz, -29.0 dBFS)
+
+                       [left  peak meter should read  -9.00 dB (K-20)]
+                       [right peak meter should read -10.93 dB (K-20)]
+
+                       [left  maximum peak should read  -9.00 dB (K-20)]
+                       [right maximum peak should read -10.93 dB (K-20)]
+
+00:14.000 - 00:16.000  silence
+00:16.000 - 00:21.000  square wave ( 530 Hz, -17.5 dBFS)
+
+                       [left  peak meter should read  +2.50 dB (K-20)]
+                       [right peak meter should read  +0.57 dB (K-20)]
+
+                       [left  maximum peak should read  +2.50 dB (K-20)]
+                       [right maximum peak should read  +0.57 dB (K-20)]
+
+00:21.000 - 00:23.000  silence
+00:23.000 - 00:28.000  square wave (1111 Hz,  -8.3 dBFS)
+
+                       [left  peak meter should read +11.70 dB (K-20)]
+                       [right peak meter should read  +9.77 dB (K-20)]
+
+                       [left  maximum peak should read +11.70 dB (K-20)]
+                       [right maximum peak should read  +9.77 dB (K-20)]
+
+00:28.000 - 00:30.000  silence
+00:30.000 - 00:35.000  square wave (1501 Hz,  -0.1 dBFS)
+
+                       [left  peak meter should read +19.90 dB (K-20)]
+                       [right peak meter should read +17.97 dB (K-20)]
+
+                       [left  maximum peak should read +19.90 dB (K-20)]
+                       [right maximum peak should read +17.97 dB (K-20)]
+
+00:35.000 - 00:37.000  silence
+00:37.000 - 00:42.000  square wave (2890 Hz, -36.0 dBFS)
+
+                       [left  peak meter should read -16.00 dB (K-20)]
+                       [right peak meter should read -17.93 dB (K-20)]
+
+                       [left  maximum peak should read +19.90 dB (K-20)]
+                       [right maximum peak should read +17.97 dB (K-20)]
+
+00:42.000 - 00:44.000  silence
+00:44.000 - 00:49.000  square wave (4190 Hz, -69.5 dBFS)
+
+                       [left  peak meter should read -49.50 dB (K-20)]
+                       [right peak meter should read -51.43 dB (K-20)]
+
+                       [left  maximum peak should read +19.90 dB (K-20)]
+                       [right maximum peak should read +17.97 dB (K-20)]
+
+00:49.000 - 00:51.000  silence
+00:51.000 - 00:56.000  square wave (8345 Hz, -85.0 dBFS)
+
+                       (it seems like I have driven Sound Forge's test
+                        tone generator to its limits -- the peak level
+                        meter readings given below have been measured
+                        using the "Statistics" dialog in Sound Forge)
+
+                       [left  peak meter should read -65.05 dB (K-20)]
+                       [right peak meter should read -66.99 dB (K-20)]
+
+                       [left  maximum peak should read +19.90 dB (K-20)]
+                       [right maximum peak should read +17.97 dB (K-20)]
+
+00:56.000 - 00:59.000  silence
+
+
+Validation settings
+===================
+File:     peak_meter.flac
+Host SR:  44 100 Hz
+Channel:  All
+Display:  [ ] Average meter level
+          [x] Peak meter level
+          [x] Maximum peak level
+          [ ] Stereo meter value
+          [ ] Phase correlation

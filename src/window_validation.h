@@ -60,8 +60,9 @@ private:
 
     Label* LabelDumpSelectedChannel;
     ChannelSlider* SliderDumpSelectedChannel;
-    ToggleButton* ButtonDumpPeakMeterLevel;
     ToggleButton* ButtonDumpAverageMeterLevel;
+    ToggleButton* ButtonDumpPeakMeterLevel;
+    ToggleButton* ButtonDumpMaximumPeakLevel;
     ToggleButton* ButtonDumpStereoMeterValue;
     ToggleButton* ButtonDumpPhaseCorrelation;
 };

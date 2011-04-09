@@ -50,8 +50,9 @@ Validation settings
 File:     overflow.flac
 Host SR:  44 100 Hz
 Channel:  All
-Display:  [ ] Peak meter level
-          [ ] Average meter level
+Display:  [ ] Average meter level
+          [ ] Peak meter level
+          [ ] Maximum peak level
           [ ] Stereo meter value
           [ ] Phase correlation
 
@@ -61,12 +62,12 @@ Samples reaching digital full scale
 both channels:  1 sample of integer level 32'764
                 1 adjoining negated sample of integer level 32'764
 
-				--> these peaks MUST NOT register
+                --> these peaks MUST NOT register
 
 both channels:  1 sample of integer level 32'765
                 1 adjoining negated sample of integer level 32'765
 
-				--> these peaks MUST register
+                --> these peaks MUST register
 
 left  channel:  4 continuous positive samples
 
