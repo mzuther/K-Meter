@@ -35,11 +35,12 @@
 \clearpage  % layout
 
 \chapter{The loudness race}
+\label{chap:loudness_race}
 
 When comparing two similar pieces of music, the louder one is
-perceived as sounding better (although this is only true for short
-periods of time).  Accordingly, the loudness of music productions has
-continuously grown during the last decades.
+perceived as sounding better (although this is only true for very
+short periods of time).  Accordingly, the loudness of music
+productions has continuously grown during the last decades.
 
 As maximum levels of records, tapes and digital media have a natural
 limit, however, mastering engineers have started using sophisticated
@@ -57,6 +58,7 @@ volume -- heck, it even sounds better when being broadcast on the
 radio!
 
 \chapter{The K-System}
+\label{chap:k_system}
 
 The K-System has been devised by mastering engineer Bob Katz in order
 to counteract the ongoing loudness race and to help adjusting the
@@ -73,10 +75,11 @@ loudness.  There are three K-System scales:
 
 Using the K-System is easy.  Just calibrate your monitor system so
 that pink noise (\SI{-20}{\dBFS} RMS, \SI{20}{\hertz} to
-\SI{20}{\kilo\hertz}; see the K-Meter source code for a
-FLAC-compressed wave file) on one channel yields \SI{83}{\dB}\,SPL on
-a loudness meter set to \emph{C-weighted, slow}.  Then mark the
-monitor's gain position as ``K-20''.
+\SI{20}{\kilo\hertz}; \ref{chap:validation} will tell you where to
+find a suitable audio file) on one channel yields \SI{83}{\dB}\,SPL on
+a loudness meter placed at your listening position and set to
+\emph{C-weighted, slow}.  Then mark the monitor's gain position as
+``K-20''.
 
 When your mixes or masters seem to have just the right loudness, they
 should now yield \SI{0}{\dB} on a K-20 meter.
@@ -92,6 +95,7 @@ For more information about the K-System, please see
 Science''.
 
 \chapter{Installation}
+\label{chap:installation}
 
 In order to use the pre-compiled binaries, simply extract the K-Meter
 files from the downloaded archive.  For the VST plug-in, you'll then
@@ -112,6 +116,7 @@ directory.  Otherwise, you will not be able to execute the binaries
 anymore.
 
 \chapter{Controls}
+\label{chap:controls}
 
 \section{Meter selection}
 
@@ -177,6 +182,8 @@ centre.
   easily magnify the whole range between \SI{-25}{\dBFS} and
   \SI{0}{\dBFS}.}
 
+\newpage %% layout
+
 \section{Mono mode}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
@@ -192,6 +199,29 @@ down-mixed to mono and the meters will be linked.
 In case you insert the plug-in into a mono channel strip,
 \textbf{mono} mode will be selected and cannot be toggled.
 
+\section{Validation button}
+\label{sec:validation_button}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_validate_on.png}
+  \newline \vspace{-0.9\baselineskip}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_validate_off.png}
+\end{wrapfigure}
+
+Click on this button to open the \textbf{validation window} (see
+\ref{chap:validation}) which allows you to play an audio file (WAV,
+AIFF or FLAC) through K-Meter and dump internal data.  During
+validation, the button will light up and clicking it will stop the
+validation.
+
+On Linux, dumped data will be written to \path{stderr}, so just start
+the K-Meter standalone or your VST host from the shell and watch the
+output coming.  On Windows, have a look at your VST host's log files
+(I was successful using Ableton Live).  If that doesn't work, you'll
+probably have to start either standalone or your host from a debugger.
+
+\newpage %% layout
+
 \section{Reset button}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
@@ -202,7 +232,7 @@ Click on this button to reset all meters, peaks and counters.  You can
 also get rid of graphical artifacts, because all meters will be
 redrawn as well.
 
-\section{About window}
+\section{About button}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_about_on.png}
@@ -210,7 +240,7 @@ redrawn as well.
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_about_off.png}
 \end{wrapfigure}
 
-Clicking on this button will open the \textbf{about} window where you
+Clicking on this button will open the \textbf{about window} where you
 will be informed about version number, contributors, copyright and the
 GNU General Public License.
 
@@ -228,6 +258,7 @@ advertise that you are using free software licensed under the
 the license's website in your web browser \dots
 
 \chapter{Meters}
+\label{chap:meters}
 
 \section{K-System meter}
 
@@ -276,6 +307,8 @@ The peak meter displays the unfiltered peak level and thus possesses a
 completely flat frequency response.  It has a rise time of one sample
 and a fall time of \SI{8.67}{\dB\per\second}.
 
+\newpage %% layout
+
 \section{Overload counter}
 
 \begin{wrapfigure}{r}{0.23\linewidth}
@@ -291,7 +324,8 @@ levels above \SI{-0.001}{\dBFS} to address the granularity of
 approach to estimate overloads -- but I'd rather have an excess
 warning than have my audio files clip.
 
-Please note that this meter does not search for inter-sample peaks.
+\emph{Please note that this counter does not register inter-sample
+  peaks.}
 
 \section{Maximum peak display}
 
@@ -301,10 +335,9 @@ Please note that this meter does not search for inter-sample peaks.
   \includegraphics[scale=\screenshotscale,clip]{include/images/maximum_peak_clipped.png}
 \end{wrapfigure}
 
-This meter displays the maximum peak level encountered so far.  If
-this level exceeds \SI{0.0}{\dBFS} (this can occur in plug-in hosts
-that do not clip the output level of plug-ins to \SI{0.0}{\dBFS}), the
-meter will turn red.
+This meter displays the maximum peak level encountered so far.  In
+case the level exceeds \SI{0.0}{\dBFS} (this can occur in hosts that
+do not clip levels to \SI{0.0}{\dBFS}), the meter will turn red.
 
 \section{Phase correlation meter}
 
@@ -345,12 +378,41 @@ the middle all time in order to achieve a good mix!  Again: do not mix
 by your eyes \dots
 
 \chapter{Validation}
+\label{chap:validation}
 
 I have gone to great lengths to ensure that all meters of the stereo
 version read correctly (the surround version shares the same code and
-should follow suit).  You want to validate for yourself?  The
-directory \path{validation} of the source code contains instructions
-and FLAC-compressed wave files.
+should follow suit).  You want to validate for yourself?  Just
+download and extract the source code.  The directory \path{validation}
+contains instructions and FLAC-compressed wave files.  A word of
+warning: these audio files may \textbf{damage} your ears and speakers,
+so please watch your monitor levels!
+
+\begin{wrapfigure}{r}{0.395\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/dialog_validation.png}
+\end{wrapfigure}
+
+After opening the \textbf{validation window} (see
+\ref{sec:validation_button}), click on the ellipsis button (the one
+with the dots) to select an audio file for playback through K-Meter.
+Please make sure that the sample rates of your host (\textbf{Host SR})
+and the audio file match, otherwise the results may be incorrect.
+
+Now, select which \textbf{variables} (if any) should be dumped.  You
+may also restrict the dumped data to a specific audio
+\textbf{channel}.
+
+Finally, click on the \textbf{validate} button to start playback of
+the selected audio file.  All audio input will be discarded during
+playback and for an additional ten seconds.  To stop playback early,
+simply click on the \textbf{validate} button again.
+
+In case you want to calibrate your monitor system, simply select the
+file \path{pink_noise.flac} (uncorrelated band-limited pink noise,
+\SI{-23.01}{\dBFS}\,RMS, \SI{20}{\hertz} to \SI{20}{\kilo\hertz}) and
+click on the \textbf{validate} button.  You may want to make sure that
+all intermediate software and hardware mixers are set to the correct
+output levels.
 
 \section{Validation status}
 
@@ -397,10 +459,12 @@ and FLAC-compressed wave files.
   \end{tabular}
 \end{minipage}
 
+\newpage %% layout
+
 \section{Frequency and phase response}
 
-The VST plug-in's frequency and phase response has been determined at
-a sample rate of \SI{192}{\kilo\hertz} using Christian-W. Budde's
+Frequency and phase response have been determined at a sample rate of
+\SI{192}{\kilo\hertz} using Christian-W. Budde's
 \href{http://www.savioursofsoul.de/Christian/programs/measurement-programs/}{VST
   Plugin Analyser}.
 
@@ -412,11 +476,13 @@ a sample rate of \SI{192}{\kilo\hertz} using Christian-W. Budde's
 \end{center}
 
 \textbf{Phase response of complete effect path (\SI{5}{\hertz} to
-  \SI{96}{\kilo\hertz}, \SI{0}{\degree} \SI{\pm 0.1}{\degree}):}
+  \SI{96}{\kilo\hertz}, \SI{0}{\degree}\,\SI{\pm 0.1}{\degree}):}
 
 \begin{center}
   \includegraphics[scale=0.65,clip]{include/images/fft_192khz_phase-fx_path.png}
 \end{center}
+
+\newpage %% layout
 
 \textbf{Frequency response of band-limited RMS detection stage
   (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{-140}{\dB} to
@@ -437,7 +503,7 @@ a sample rate of \SI{192}{\kilo\hertz} using Christian-W. Budde's
 \newpage %% layout
 
 \textbf{Frequency response of band-limited RMS detection stage
-  (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{0}{\dB} \SI{\pm
+  (\SI{5}{\hertz} to \SI{21}{\kilo\hertz}, \SI{0}{\dB} \SI{\pm
     0.01}{\dB}):}
 
 \begin{center}
@@ -445,6 +511,7 @@ a sample rate of \SI{192}{\kilo\hertz} using Christian-W. Budde's
 \end{center}
 
 \chapter{Help needed}
+\label{chap:help_needed}
 
 As K-Meter was coded using cross-platform code, it should be easy to
 compile versions for Windows (\num{64} bit) and Mac OS X.  I just
@@ -455,12 +522,13 @@ address.  You’ll need sufficient experience in coding, compiling and
 debugging, though, so no beginners please!
 
 \chapter{Final words}
+\label{chap:final_words}
 
 I'd like to thank Bob Katz for kindly answering all of my questions
 regarding the K-System meter and checking this document for technical
-errors.  Moreover, thanks are due to bram@smartelectronix for his code
-to calculate logarithmic rise and fall times, and to the users of
-K-Meter for their suggestions and bug reports.
+errors.  Moreover, I want to thank bram@smartelectronix for his code
+to calculate logarithmic rise and fall times and the users of K-Meter
+for their suggestions and bug reports.
 
 Although coding K-Meter has been a lot of fun, it has also been a lot
 of work.  So if you like K-Meter, why not send me a short email and
@@ -482,6 +550,7 @@ Thanks for using free software.  I hope you'll enjoy it!
 \appendix
 
 \chapter{How to build K-Meter}
+\label{chap:build_kmeter}
 
 \section{Preparing GNU/Linux}
 
@@ -545,10 +614,10 @@ to install a few packages:
   apt-get clean
 \end{verbatim}
 
-Finally, log out and log in with your user name:
+Finally, log out and log in as normal user:
 
 \begin{verbatim}
-  schroot -c maverick-i386 -u username
+  schroot -c maverick-i386
 \end{verbatim}
 
 Congratulations -- after you have installed the dependencies (see
@@ -569,7 +638,11 @@ below), you are ready to build K-Meter!
 
 \subsubsection{Installation}
 
-Place the binary somewhere in your \path{PATH}.
+Place the binary somewhere in your \path{PATH}.  Depending on your
+platform, you should run \emph{premake} using the scripts
+\path{build/run_premake.sh} or \path{build/run_premake.bat}.
+
+\newpage %% layout
 
 \subsection{Fastest Fourier Transform in the West}
 
@@ -603,8 +676,8 @@ binaries into the directory \path{libraries/fftw3/bin}.
 Please note that in order to run K-Meter on Windows, the library
 \path{libfftw3f-3.dll} \textbf{must} be located in the same directory
 as the standalone or plug-in.  To make things a little easier for you,
-I have already placed \path{libfftw3f-3.dll} in the directory
-\path{bin}.
+I have already placed \path{libfftw3f-3.dll} in the directories
+\path{bin} and \path{bin/final}.
 
 \subsection{JUCE library}
 
@@ -621,7 +694,7 @@ I have already placed \path{libfftw3f-3.dll} in the directory
 
 Extract the archive into the directory \path{libraries/juce}.
 
-\subsection{Virtual Studio Technology SDK (VST)}
+\subsection{Virtual Studio Technology SDK}
 
 \begin{tabbing}
   \hspace*{6em}\=\=\kill
@@ -637,7 +710,7 @@ Extract the archive into the directory \path{libraries/juce}.
 Just extract the archive into the directory
 \path{libraries/vstsdk2.4}.
 
-\subsection{Audio Streaming Input Output SDK (ASIO)}
+\subsection{Audio Streaming Input Output SDK}
 
 \begin{tabbing}
   \hspace*{6em}\=\=\kill
