@@ -25,7 +25,7 @@
 
 #include "peak_label.h"
 
-PeakLabel::PeakLabel(const String& componentName, int nCrestFactor) : Label(componentName, T("0"))
+PeakLabel::PeakLabel(const String& componentName, int nCrestFactor) : Label(componentName, T(""))
 {
     nMeterCrestFactor = nCrestFactor;
 
@@ -52,7 +52,9 @@ void PeakLabel::resetLevel()
     float fPeakToAverageCorrection = 20.0f * log10(sqrt(2.0f));
 
     float fMeterMinimumDecibel = -(fMaximumCrestFactor + fPeakToAverageCorrection + 70.0f);
-    fMaximumLevel = fMeterMinimumDecibel;
+
+    // ensure peak label update on next call of updateLevel()
+    fMaximumLevel = fMeterMinimumDecibel - 0.1f;
 }
 
 void PeakLabel::updateLevel(float newLevel)

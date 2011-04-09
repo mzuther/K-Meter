@@ -1,0 +1,93 @@
+------------------------------------------------------------------------------
+
+  K-Meter
+  =======
+  Implementation of a K-System meter according to Bob Katz' specifications
+
+  Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  Thank you for using free software!
+
+------------------------------------------------------------------------------
+
+
+FLAC-compressed wave file (44.1 kHz, 16 bit)
+============================================
+Please verify readout of overflow counter by making use of your eyes
+and ears.
+
+Given values describe the left channel.  The right channel is delayed
+by one second and contains a sine wave with a frequency of 500 Hz.
+
+00:00.000 - 00:02.000  silence
+
+00:02.000 - 00:05.000  sine wave (150 Hz, -5.5 dBFS)
+
+                       [both channels:  first audible click must not register]
+                       [both channels:  second audible click must register]
+
+                       [left  channel:  a total of 16 clips must register]
+                       [right channel:  a total of  9 clips must register]
+
+00:05.000 - 00:07.000  silence
+
+
+Validation settings
+===================
+File:     overflow.flac
+Host SR:  44 100 Hz
+Channel:  All
+Display:  [ ] Peak meter level
+          [ ] Average meter level
+          [ ] Stereo meter value
+          [ ] Phase correlation
+
+
+Samples reaching digital full scale
+===================================
+both channels:  1 sample of integer level 32'764
+                1 adjoining negated sample of integer level 32'764
+
+				--> these peaks MUST NOT register
+
+both channels:  1 sample of integer level 32'765
+                1 adjoining negated sample of integer level 32'765
+
+				--> these peaks MUST register
+
+left  channel:  4 continuous positive samples
+
+left  channel:  2 continuous negative samples
+
+left  channel:  1 positive sample
+                1 adjoining negative sample
+
+left  channel:  2 continuous positive samples
+                1 "valid" sample
+                2 continuous negative samples
+
+right channel:  1 positive sample
+
+right channel:  1 negative sample
+                1 adjoining positive sample
+
+left  channel:  1 negative sample
+
+left  channel:  1 positive sample
+
+right channel:  2 continuous negative samples
+                1 "valid" sample
+                2 continuous positive samples

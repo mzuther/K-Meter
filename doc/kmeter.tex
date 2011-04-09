@@ -61,29 +61,30 @@ radio!
 The K-System has been devised by mastering engineer Bob Katz in order
 to counteract the ongoing loudness race and to help adjusting the
 levels of different songs during mastering.  K-System meters are level
-meters that do \textbf{not} place the 0\,dB mark on top of the meter.
-Instead, 0\,dB on K-System meters relates to a reference loudness.
-There are three K-System scales:
+meters that do \textbf{not} place the \SI{0}{\dB} mark on top of the
+meter.  Instead, \SI{0}{\dB} on K-System meters relates to a reference
+loudness.  There are three K-System scales:
 
 \begin{compactitem}
-\item K-20 (0\,dB at -20\,dBFS, recommended)
-\item K-14 (0\,dB at -14\,dBFS)
-\item K-12 (0\,dB at -12\,dBFS)
+\item K-20 (\SI{0}{\dB} at \SI{-20}{\dBFS}, recommended)
+\item K-14 (\SI{0}{\dB} at \SI{-14}{\dBFS})
+\item K-12 (\SI{0}{\dB} at \SI{-12}{\dBFS})
 \end{compactitem}
 
 Using the K-System is easy.  Just calibrate your monitor system so
-that pink noise (-20\,dBFS RMS, 20\,Hz to 20\,kHz; see the K-Meter
-source code for a FLAC-compressed wave file) on one channel yields
-83\,dB\,SPL on a loudness meter set to \emph{C-weighted, slow}.  Then
-mark the monitor's gain position as ``K-20''.
+that pink noise (\SI{-20}{\dBFS} RMS, \SI{20}{\hertz} to
+\SI{20}{\kilo\hertz}; see the K-Meter source code for a
+FLAC-compressed wave file) on one channel yields \SI{83}{\dB}\,SPL on
+a loudness meter set to \emph{C-weighted, slow}.  Then mark the
+monitor's gain position as ``K-20''.
 
 When your mixes or masters seem to have just the right loudness, they
-should now yield 0\,dB on a K-20 meter.
+should now yield \SI{0}{\dB} on a K-20 meter.
 
 In case you want to use the K-14 meter, attenuate the monitor gain by
-6\,dB or repeat the above process so that pink noise yields
-77\,dB\,SPL.  For K-12, attenuate the monitor gain by another 2\,dB
-(pink noise should yield 75\,dB\,SPL).
+\SI{6}{\dB} or repeat the above process so that pink noise yields
+\SI{77}{\dB}\,SPL.  For K-12, attenuate the monitor gain by another
+\SI{2}{\dB} (pink noise should yield \SI{75}{\dB}\,SPL).
 
 For more information about the K-System, please see
 \href{http://www.digido.com/level-practices-part-2-includes-the-k-system.html}{Bob's
@@ -98,7 +99,7 @@ have to move the extracted files to your plug-in folder
 (\path{~/.vst}, \path{C:\Program Files\Steinberg\VstPlugins\} or the
 like).
 
-Loading the plug-in may take a few seconds: it checks your computer's
+Loading K-Meter may take a few seconds: it checks your computer's
 capabilities on start-up so that FFT calculations will run at maximum
 speed.  Depending on your computer, this little wait in the beginning
 may well result in lower resource usage later.
@@ -118,15 +119,15 @@ anymore.
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_meter_selection.png}
 \end{wrapfigure}
 
-You can select the different K-System meter scales (\textbf{K-20}, \textbf{K-14} and
-\textbf{K-12}) by clicking on these radio buttons.
+You can select the different K-System meter scales (\textbf{K-20},
+\textbf{K-14} and \textbf{K-12}) by clicking on these radio buttons.
 
 In the rare case you want to use the meter in a mixer's channel strip,
-click the \textbf{Normal} button which will place 0\,dBFS on top.
-Please note, however, that the \textbf{Normal} state will be neither
-saved, nor recalled in your DAW and the standalone version.  This is
-by design -- the K-System meter has been explicitly designed to
-\textbf{not} have 0\,dBFS on top!
+click the \textbf{Normal} button which will place \SI{0}{\dBFS} on
+top.  Please note, however, that the \textbf{Normal} state will be
+neither saved, nor recalled in your DAW and the standalone version.
+This is by design -- the K-System meter has been explicitly designed
+to \textbf{not} have \SI{0}{\dBFS} on top!
 
 \section{Infinite peak hold}
 
@@ -156,7 +157,8 @@ Katz has asked me to hide them by default:
   \emph{``Too many people will try to normalize the peak to full scale
     if they see a peak meter, and that's what we want to avoid.  You
     can still make a K-System meter like the original, but if we meet
-    again in 15 years I hope that peak metering will be outlawed.''}
+    again in \num{15} years I hope that peak metering will be
+    outlawed.''}
 \end{quotation}
 
 \section{Magnify meters}
@@ -167,11 +169,13 @@ Katz has asked me to hide them by default:
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_expand_meter_off.png}
 \end{wrapfigure}
 
-This button magnifies both average and peak meters to 0.1\,dB steps.
-If switched on, the 0\,dB mark is placed near the centre.
+This button magnifies both average and peak meters to \SI{0.1}{\dB}
+steps.  If switched on, the \SI{0}{\dB} mark is placed near the
+centre.
 
 \emph{\underline{Hint:} by selecting different meter scales, you can
-  easily magnify the whole range between -25\,dBFS and 0\,dBFS.}
+  easily magnify the whole range between \SI{-25}{\dBFS} and
+  \SI{0}{\dBFS}.}
 
 \section{Mono mode}
 
@@ -233,41 +237,44 @@ the license's website in your web browser \dots
 
 The K-System meter consists of an average level meter (graphic on the
 right, wide bars) and an optional peak level meter (thin bars).  The
-recommended K-20 meter has 20\,dB of headroom above 0\,dB, while the
-K-14 and K-12 meters have 14\,dB and 12\,dB of headroom, respectively.
+recommended K-20 meter has \SI{20}{\dB} of headroom above \SI{0}{\dB},
+while the K-14 and K-12 meters have \SI{14}{\dB} and \SI{12}{\dB} of
+headroom, respectively.
 
-Each level meter is divided into segments of 1\,dB, with the exception
-of the top 2\,dB (segments of 0.5\,dB) and the bottom end (segments of
-10\,dB).  When magnified, level meters are divided into segments of
-0.1\,dB.
+Each level meter is divided into segments of \SI{1}{\dB}, with the
+exception of the top \SI{2}{\dB} (segments of \SI{0.5}{\dB}) and the
+bottom end (segments of \SI{10}{\dB}).  When magnified, level meters
+are divided into segments of \SI{0.1}{\dB}.
 
 Recent maximum level is displayed by a white rectangle around the
 corresponding meter segment.  Unless ``Infinite peak hold'' is
-switched on, maximum levels are held for 10 seconds and then start
-falling with a fall time of 26\,dB per 3 seconds.
+switched on, maximum levels are held for \SI{10}{\second} and then
+start falling with a fall time of \SI{8.67}{\dB\per\second}.
 
 Both stand-alone application and the plug-in only work at sampling
-rates between 44.1\,kHz and 192\,kHz and introduce a latency of 1024
-samples.  This latency is reported to your plug-in host so it may
-compensate for the introduced delay.  Needless to say, the original
-unfiltered signal is passed to the outputs.
+rates between \SI{44.1}{\kilo\hertz} and \SI{192}{\kilo\hertz} and
+introduce a latency of \num{1024} samples.  This latency is reported
+to your plug-in host so it may compensate for the introduced delay.
+Needless to say, the original unfiltered signal is passed to the
+outputs.
 
 You can reset all meters by clicking on the ``Reset'' button.
 
 \section{Average meter}
 
-The average meter is an RMS meter with an averaging period of 1024
-samples.  It exhibits a flat frequency response between 20\,Hz and
-20\,kHz ($\pm$0.01\,dB) and is band-limited using a windowed-sinc
-low-pass filter with a cutoff frequency of 21.0\,kHz.  On level
-changes, it takes 600 milliseconds for the meter to reach 99\,\% of
+The average meter is an RMS meter with an averaging period of
+\num{1024} samples.  It exhibits a flat frequency response between
+\SI{20}{\hertz} and \SI{20}{\kilo\hertz} (\SI{\pm 0.01}{\dB}) and is
+band-limited using a windowed-sinc low-pass filter with a cutoff
+frequency of \SI{21.0}{\kilo\hertz}.  On level changes, it takes
+\SI{600}{\milli\second} for the meter to reach \SI{99}{\percent} of
 the final reading.
 
 \section{Peak meter}
 
 The peak meter displays the unfiltered peak level and thus possesses a
 completely flat frequency response.  It has a rise time of one sample
-and a fall time of 26\,dB per 3 seconds.
+and a fall time of \SI{8.67}{\dB\per\second}.
 
 \section{Overload counter}
 
@@ -278,7 +285,9 @@ and a fall time of 26\,dB per 3 seconds.
 \end{wrapfigure}
 
 The overload counter displays the number of samples that have reached
-or exceeded digital full scale (0\,dBFS).  This is a conservative
+or exceeded digital full scale (to be exact, the counter registers
+levels above \SI{-0.001}{\dBFS} to address the granularity of
+\num{16}-bit floating-point numbers).  This is a very conservative
 approach to estimate overloads -- but I'd rather have an excess
 warning than have my audio files clip.
 
@@ -293,9 +302,9 @@ Please note that this meter does not search for inter-sample peaks.
 \end{wrapfigure}
 
 This meter displays the maximum peak level encountered so far.  If
-this level is above 0\,dBFS (this can occur in plug-in hosts that do
-not clip the output level of plug-ins to 0\,dBFS), the meter will turn
-red.
+this level exceeds \SI{0.0}{\dBFS} (this can occur in plug-in hosts
+that do not clip the output level of plug-ins to \SI{0.0}{\dBFS}), the
+meter will turn red.
 
 \section{Phase correlation meter}
 
@@ -305,10 +314,11 @@ red.
 
 This meter only works for stereo channels and displays the cross
 correlation between left and right channel.  Cross correlation is a
-measure of how much two signals are correlated.  Thus, a value of +1
-means that both channels are \emph{in phase}, whereas a value of -1
-signals that the channels are completely \emph{out of phase}.  Please
-note that the meter's scale is not linear!
+measure of how much two signals are correlated.  Thus, a value of
+\num[retainplus]{+1} means that both channels are \emph{in phase},
+whereas a value of \num{-1} signals that the channels are completely
+\emph{out of phase}.  Please note that the meter's scale is not
+linear!
 
 For the non-tech savvy musician: if you find that this meter hits the
 red area, you should check the mono-compatibility of your mix.  But
@@ -362,8 +372,8 @@ and FLAC-compressed wave files.
 
     peak level meter &
     readings &
-    ---\footnote{deviates from the correct value by a small
-      amount, probably due to dithering in the used hosts
+    ---\footnote{deviates from the correct value by a tiny
+      amount, probably due to the time granularity of sampled sine waves
       \label{fn:validation_dithering}} \\
 
     &
@@ -372,8 +382,7 @@ and FLAC-compressed wave files.
 
     overload counter &
     readings &
-    ---\footnote{doesn't validate correctly, probably due to dithering
-      in the used hosts} \\
+    valid \\
 
     maximum peak display &
     readings &
@@ -393,33 +402,35 @@ and FLAC-compressed wave files.
 \section{Frequency and phase response}
 
 The VST plug-in's frequency and phase response has been determined at
-a sample rate of 192\,kHz using Christian-W. Budde's
+a sample rate of \SI{192}{\kilo\hertz} using Christian-W. Budde's
 \href{http://www.savioursofsoul.de/Christian/programs/measurement-programs/}{VST
   Plugin Analyser}.
 
-\textbf{Frequency response of complete effect path (5\,Hz to 96\,kHz,
-  0\,dB $\pm$0.01\,dB):}
+\textbf{Frequency response of complete effect path (\SI{5}{\hertz} to
+  \SI{96}{\kilo\hertz}, \SI{0}{\dB} \SI{\pm 0.01}{\dB}):}
 
 \begin{center}
   \includegraphics[scale=0.65,clip]{include/images/fft_192khz_freq-fx_path.png}
 \end{center}
 
-\textbf{Phase response of complete effect path (5\,Hz to 96\,kHz,
-  0\textdegree{} $\pm$0.1\textdegree{}):}
+\textbf{Phase response of complete effect path (\SI{5}{\hertz} to
+  \SI{96}{\kilo\hertz}, \SI{0}{\degree} \SI{\pm 0.1}{\degree}):}
 
 \begin{center}
   \includegraphics[scale=0.65,clip]{include/images/fft_192khz_phase-fx_path.png}
 \end{center}
 
-\textbf{Frequency response of band-limited RMS detection stage (5\,Hz
-  to 96\,kHz, -140\,dB to 0\,dB):}
+\textbf{Frequency response of band-limited RMS detection stage
+  (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{-140}{\dB} to
+  \SI{0}{\dB}):}
 
 \begin{center}
   \includegraphics[scale=0.65,clip]{include/images/fft_192khz_freq-rms.png}
 \end{center}
 
-\textbf{Phase response of band-limited RMS detection stage (5\,Hz to
-  96\,kHz, -180\textdegree{} to 180\textdegree{}):}
+\textbf{Phase response of band-limited RMS detection stage
+  (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{-180}{\degree} to
+  \SI[addsign]{+180}{\degree}):}
 
 \begin{center}
   \includegraphics[scale=0.65,clip]{include/images/fft_192khz_phase-rms.png}
@@ -427,8 +438,9 @@ a sample rate of 192\,kHz using Christian-W. Budde's
 
 \newpage %% layout
 
-\textbf{Frequency response of band-limited RMS detection stage (5\,Hz
-  to 20\,kHz, 0\,dB $\pm$0.01\,dB):}
+\textbf{Frequency response of band-limited RMS detection stage
+  (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{0}{\dB} \SI{\pm
+    0.01}{\dB}):}
 
 \begin{center}
   \includegraphics[scale=0.65,clip]{include/images/fft_192khz_freq-rms_zoomed.png}
@@ -437,8 +449,8 @@ a sample rate of 192\,kHz using Christian-W. Budde's
 \chapter{Help needed}
 
 As K-Meter was coded using cross-platform code, it should be easy to
-compile versions for Windows (64 bit) and Mac OS X.  I just don’t have
-the adequate systems and compilers.
+compile versions for Windows (\num{64} bit) and Mac OS X.  I just
+don’t have the adequate systems and compilers.
 
 In case you want to help, please see the next chapter for an email
 address.  You’ll need sufficient experience in coding, compiling and
@@ -479,8 +491,9 @@ To build K-Meter yourself, I recommend setting up a \texttt{chroot}
 environment.  This is fast and easy to do on Debian-based systems and
 might save you a \textbf{lot} of trouble.  At the time of writing, I'm
 using Kubuntu 10.10 (\texttt{maverick}), but the procedure should be
-similar on your distribution of choice.  If you aim at generic 64-bit
-compilation, simply change \texttt{i386} to \texttt{amd64}.
+similar on your distribution of choice.  If you aim at generic
+\num{64}-bit compilation, simply change \texttt{i386} to
+\texttt{amd64}.
 
 To install the necessary packages and install the \texttt{chroot} base
 system, execute the following statements (please change
@@ -515,8 +528,9 @@ column):
 
 Please make the necessary changes to \texttt{username}.  You may also
 add additional users, like \texttt{another\_user}.  In case you are
-setting up a 32-bit \texttt{chroot} environment on a 64-bit system,
-you'll also have to change \texttt{linux} to \texttt{linux32}.
+setting up a \num{32}-bit \texttt{chroot} environment on a
+\num{64}-bit system, you'll also have to change \texttt{linux} to
+\texttt{linux32}.
 
 When \path{debootstrap} is done, log in as superuser:
 

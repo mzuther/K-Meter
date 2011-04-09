@@ -592,6 +592,9 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
 
 void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel, bool bPeakMeterLevel, bool bAverageMeterLevel, bool bStereoMeterValue, bool bPhaseCorrelation)
 {
+    // reset all meters before we start the validation
+    pMeterBallistics->reset();
+
     audioFilePlayer = new AudioFilePlayer(fileAudio, (int) getSampleRate(), pMeterBallistics);
     audioFilePlayer->setReporters(nSelectedChannel, bPeakMeterLevel, bAverageMeterLevel, bStereoMeterValue, bPhaseCorrelation);
 
@@ -642,9 +645,12 @@ int KmeterAudioProcessor::countOverflows(AudioRingBuffer* ring_buffer, const uns
         // get current sample value
         float fSampleValue = ring_buffer->getSample(channel, uSample, pre_delay);
 
-        // current sample reaches or exceeds digital full scale; treat as
-        // overflow
-        if ((fSampleValue <= -1.0f) || (fSampleValue >= 1.0f))
+        // in the 16-bit domain, full scale corresponds to an absolute
+        // integer value of 32'767 or 32'768, so we'll treat absolute
+        // levels of 32'767 and above as overflows; this corresponds
+        // to a floating-point level of 32'767 / 32'768 = 0.9999694
+        // (approx. -0.001 dBFS).
+        if ((fSampleValue < -0.9999f) || (fSampleValue > 0.9999f))
         {
             nOverflows++;
         }
