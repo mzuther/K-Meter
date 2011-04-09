@@ -1,3 +1,35 @@
+Git HEAD
+========
+
+* Windows: run-time dynamic linking to FFTW, releases include FFTW DLL
+
+* Windows: stand-alone application (ASIO, DirectX)
+
+* manual with full documentation
+
+* another complete re-validation of K-Meter
+
+* validation is now possible directly from within K-Meter
+
+* wave files and instructions for validation of peak meter, overflow
+  counter, phase correlation meter and stereo meter; corresponding
+  fixes
+
+* experimental support for surround sound
+
+* changed overflow detection
+
+* notify host of plug-in latency
+
+* silenced output for unsupported sample rates
+
+* fixed a few memory leaks and some minor bugs
+
+* streamlined code and started commenting the code
+
+* beautified meters
+
+
 v1.21 (2010-12-12)
 ==================
 

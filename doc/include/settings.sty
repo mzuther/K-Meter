@@ -30,11 +30,12 @@
 \usepackage{ucs}
 \usepackage[obeyall]{siunitx}
 \usepackage[hyphens]{url}
+\usepackage{varioref}
 \usepackage{wrapfig}  % must be included after package "float"
 
-% Make sure "hyperref" comes last of your loaded packages, to give it
-% a fighting chance of not being over-written, since its job is to
-% redefine many LATEX commands.
+%% Make sure "hyperref" comes last of your loaded packages, to give it
+%% a fighting chance of not being over-written, since its job is to
+%% redefine many LATEX commands.
 \ifpdf
 	\usepackage[unicode,pdftex]{hyperref}
 \else
@@ -68,6 +69,15 @@
 \vfuzz
 \hfuzz
 \raggedbottom
+
+%% package "varioref"
+\labelformat{chapter}{chapter~#1}
+\labelformat{section}{section~#1}
+\labelformat{subsection}{section~#1}
+\labelformat{subsubsection}{section~#1}
+
+\labelformat{figure}{figure~#1}
+\labelformat{table}{table~#1}
 
 %% package "paralist"
 \setdefaultitem{\textbullet}{$\circ$}{}{}
