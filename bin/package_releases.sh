@@ -156,3 +156,29 @@ fill_archive "LICENSE_FFTW" "$KMETER_ARCHIVE_DIR"
 fill_archive "libfftw3f-3.dll" "$KMETER_ARCHIVE_DIR"
 
 compress_new_archive "$KMETER_RELEASE_DIR/w32/kmeter-vst.zip" "$KMETER_ARCHIVE_DIR" "zip"
+
+
+# ----- Windows Standalone (32 bit) -----
+
+echo "  === Windows Standalone (32 bit) ==="
+echo
+
+move_new_executable "K-Meter (Stereo).exe"
+move_new_executable "K-Meter (Surround).exe"
+
+delete_old_archive "$KMETER_RELEASE_DIR/w32/kmeter-standalone.zip"
+
+KMETER_ARCHIVE_DIR="kmeter-standalone"
+
+create_new_archive "$KMETER_ARCHIVE_DIR"
+
+fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter (Stereo).exe" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter (Surround).exe" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
+
+fill_archive "COPYRIGHT_FFTW" "$KMETER_ARCHIVE_DIR"
+fill_archive "LICENSE_FFTW" "$KMETER_ARCHIVE_DIR"
+fill_archive "libfftw3f-3.dll" "$KMETER_ARCHIVE_DIR"
+
+compress_new_archive "$KMETER_RELEASE_DIR/w32/kmeter-standalone.tar.bz2" "$KMETER_ARCHIVE_DIR" "bzip2"

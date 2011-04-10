@@ -1,6 +1,12 @@
 Git HEAD
 ========
 
+* empty
+
+
+v1.22 (2011-04-10)
+==================
+
 * Windows: run-time dynamic linking to FFTW, releases include FFTW DLL
 
 * Windows: stand-alone application (ASIO, DirectX)
