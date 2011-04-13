@@ -181,4 +181,4 @@ fill_archive "COPYRIGHT_FFTW" "$KMETER_ARCHIVE_DIR"
 fill_archive "LICENSE_FFTW" "$KMETER_ARCHIVE_DIR"
 fill_archive "libfftw3f-3.dll" "$KMETER_ARCHIVE_DIR"
 
-compress_new_archive "$KMETER_RELEASE_DIR/w32/kmeter-standalone.tar.bz2" "$KMETER_ARCHIVE_DIR" "bzip2"
+compress_new_archive "$KMETER_RELEASE_DIR/w32/kmeter-standalone.zip" "$KMETER_ARCHIVE_DIR" "zip"
