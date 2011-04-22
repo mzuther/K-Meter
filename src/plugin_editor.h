@@ -77,6 +77,9 @@ private:
     TextButton* ButtonK14;
     TextButton* ButtonK20;
 
+    TextButton* ButtonItuBs1770;
+    TextButton* ButtonRms;
+
     TextButton* ButtonExpanded;
     TextButton* ButtonDisplayPeakMeter;
     TextButton* ButtonInfiniteHold;

@@ -23,10 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __AVERAGE_LEVEL_FILTERED_RMS_H__
-#define __AVERAGE_LEVEL_FILTERED_RMS_H__
+#ifndef __AVERAGE_LEVEL_FILTERED_H__
+#define __AVERAGE_LEVEL_FILTERED_H__
 
-class AverageLevelFilteredRms;
+class AverageLevelFiltered;
 
 #include "juce_library_code/juce_header.h"
 #include "audio_ring_buffer.h"
@@ -35,21 +35,25 @@ class AverageLevelFilteredRms;
 //==============================================================================
 /**
 */
-class AverageLevelFilteredRms
+class AverageLevelFiltered
 {
 public:
-    AverageLevelFilteredRms(const int channels, const int buffer_size);
-    ~AverageLevelFilteredRms();
+    AverageLevelFiltered(const int channels, const int buffer_size);
+    ~AverageLevelFiltered();
 
     float getLevel(const int channel);
+    int getAlgorithm();
+    void setAlgorithm(const int average_algorithm);
     void copyFromBuffer(AudioRingBuffer& ringBuffer, const int pre_delay, const int sample_rate);
     void copyToBuffer(AudioRingBuffer& destination, const unsigned int sourceStartSample, const unsigned int numSamples);
     void copyToBuffer(AudioSampleBuffer& destination, const int channel, const int destStartSample, const int numSamples);
 
 private:
-    // JUCE_LEAK_DETECTOR(AverageLevelFilteredRms);
+    // JUCE_LEAK_DETECTOR(AverageLevelFiltered);
 
     void calculateFilterKernel();
+    void calculateFilterKernel_Rms();
+    void calculateFilterKernel_ItuBs1770();
     void FilterSamples(const int channel);
 
     AudioSampleBuffer* pSampleBuffer;
@@ -65,6 +69,7 @@ private:
     fftwf_plan planAudioSamples_IDFT;
 
     int nChannels;
+    int nAverageAlgorithm;
     int nSampleRate;
     int nBufferSize;
     int nFftSize;
@@ -85,7 +90,7 @@ private:
 };
 
 
-#endif  // __AVERAGE_LEVEL_FILTERED_RMS_H__
+#endif  // __AVERAGE_LEVEL_FILTERED_H__
 
 
 // Local Variables:

@@ -23,9 +23,9 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "average_level_filtered_rms.h"
+#include "average_level_filtered.h"
 
-AverageLevelFilteredRms::AverageLevelFilteredRms(const int channels, const int buffer_size)
+AverageLevelFiltered::AverageLevelFiltered(const int channels, const int buffer_size)
 {
     jassert(channels > 0);
 
@@ -44,6 +44,7 @@ AverageLevelFilteredRms::AverageLevelFilteredRms(const int channels, const int b
 #endif
 
     nChannels = channels;
+    nAverageAlgorithm = -1;
     nSampleRate = -1;
     nBufferSize = buffer_size;
 
@@ -70,7 +71,7 @@ AverageLevelFilteredRms::AverageLevelFilteredRms(const int channels, const int b
 }
 
 
-AverageLevelFilteredRms::~AverageLevelFilteredRms()
+AverageLevelFiltered::~AverageLevelFiltered()
 {
     delete pSampleBuffer;
     pSampleBuffer = NULL;
@@ -103,7 +104,45 @@ AverageLevelFilteredRms::~AverageLevelFilteredRms()
 }
 
 
-void AverageLevelFilteredRms::calculateFilterKernel()
+int AverageLevelFiltered::getAlgorithm()
+{
+    return nAverageAlgorithm;
+}
+
+
+void AverageLevelFiltered::setAlgorithm(const int average_algorithm)
+{
+    if ((average_algorithm >= 0) && (average_algorithm < KmeterPluginParameters::nNumAlgorithms))
+    {
+        nAverageAlgorithm = average_algorithm;
+    }
+    else
+    {
+        nAverageAlgorithm = KmeterPluginParameters::selAlgorithmRms;
+    }
+
+    calculateFilterKernel();
+}
+
+
+void AverageLevelFiltered::calculateFilterKernel()
+{
+    // make sure there's no overlap yet
+    pSampleBuffer->clear();
+    pOverlapAddSamples->clear();
+
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        calculateFilterKernel_ItuBs1770();
+    }
+    else
+    {
+        calculateFilterKernel_Rms();
+    }
+}
+
+
+void AverageLevelFiltered::calculateFilterKernel_Rms()
 {
     float nCutoffFrequency = 21000.0f;
     float nRelativeCutoffFrequency = nCutoffFrequency / nSampleRate;
@@ -148,7 +187,20 @@ void AverageLevelFilteredRms::calculateFilterKernel()
 }
 
 
-void AverageLevelFilteredRms::FilterSamples(const int channel)
+void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
+{
+    // fill filter kernel with zeros
+    for (int i = 0; i < nFftSize; i++)
+    {
+        arrFilterKernel_TD[i] = 0.0f;
+    }
+
+    // calculate DFT of filter kernel
+    fftwf_execute(planFilterKernel_DFT);
+}
+
+
+void AverageLevelFiltered::FilterSamples(const int channel)
 {
     jassert(channel >= 0);
     jassert(channel < nChannels);
@@ -199,7 +251,7 @@ void AverageLevelFilteredRms::FilterSamples(const int channel)
 }
 
 
-float AverageLevelFilteredRms::getLevel(const int channel)
+float AverageLevelFiltered::getLevel(const int channel)
 {
     jassert(channel >= 0);
     jassert(channel < nChannels);
@@ -211,7 +263,7 @@ float AverageLevelFilteredRms::getLevel(const int channel)
 }
 
 
-void AverageLevelFilteredRms::copyFromBuffer(AudioRingBuffer& ringBuffer, const int pre_delay, const int sample_rate)
+void AverageLevelFiltered::copyFromBuffer(AudioRingBuffer& ringBuffer, const int pre_delay, const int sample_rate)
 {
     // recalculate filter kernel when sample rate changes
     if (nSampleRate != sample_rate)
@@ -225,14 +277,14 @@ void AverageLevelFilteredRms::copyFromBuffer(AudioRingBuffer& ringBuffer, const 
 }
 
 
-void AverageLevelFilteredRms::copyToBuffer(AudioRingBuffer& destination, const unsigned int sourceStartSample, const unsigned int numSamples)
+void AverageLevelFiltered::copyToBuffer(AudioRingBuffer& destination, const unsigned int sourceStartSample, const unsigned int numSamples)
 {
     // copy data from sample buffer to ring buffer
     destination.addSamples(*pSampleBuffer, sourceStartSample, numSamples);
 }
 
 
-void AverageLevelFilteredRms::copyToBuffer(AudioSampleBuffer& destination, const int channel, const int destStartSample, const int numSamples)
+void AverageLevelFiltered::copyToBuffer(AudioSampleBuffer& destination, const int channel, const int destStartSample, const int numSamples)
 {
     jassert(channel >= 0);
     jassert(channel < nChannels);

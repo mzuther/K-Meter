@@ -36,7 +36,7 @@ class MeterBallistics;
 #include "juce_library_code/JucePluginCharacteristics.h"
 #include "audio_file_player.h"
 #include "audio_ring_buffer.h"
-#include "average_level_filtered_rms.h"
+#include "average_level_filtered.h"
 #include "meter_ballistics.h"
 #include "plugin_parameters.h"
 
@@ -124,7 +124,7 @@ private:
     AudioRingBuffer* pRingBufferInput;
     AudioRingBuffer* pRingBufferOutput;
 
-    AverageLevelFilteredRms* pAverageLevelFilteredRms;
+    AverageLevelFiltered* pAverageLevelFiltered;
     MeterBallistics* pMeterBallistics;
 
     KmeterPluginParameters* pPluginParameters;

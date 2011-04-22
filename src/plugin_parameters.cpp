@@ -34,6 +34,7 @@ KmeterPluginParameters::KmeterPluginParameters()
     nParam = new int[nNumParameters];
 
     nParam[selCrestFactor] = 20;
+    nParam[selAverageAlgorithm] = selAlgorithmRms;
     nParam[selExpanded] = 0;
     nParam[selPeak] = 0;
     nParam[selInfiniteHold] = 0;
@@ -204,6 +205,10 @@ const String KmeterPluginParameters::getParameterName(int nIndex)
         return "Crest factor";
         break;
 
+    case selAverageAlgorithm:
+        return "Average Algorithm";
+        break;
+
     case selExpanded:
         return "Expand";
         break;
@@ -278,6 +283,17 @@ const String KmeterPluginParameters::getParameterText(int nIndex)
             return "K-20";
         }
     }
+    else if (nIndex == selAverageAlgorithm)
+    {
+        if (nParam[nIndex] == selAlgorithmItuBs1770)
+        {
+            return "ITU-R";
+        }
+        else
+        {
+            return "RMS";
+        }
+    }
     else if (nIndex == selValidationFileName)
     {
         File fileValidation = File(strValidationFile);
@@ -332,6 +348,10 @@ float KmeterPluginParameters::translateParameterToFloat(int nIndex, int nValue)
             return (selK20 / float(nNumCrestFactors - 1));
         }
     }
+    else if (nIndex == selAverageAlgorithm)
+    {
+        return nValue;
+    }
     else if (nIndex == selValidationSelectedChannel)
     {
         // 0.00f: dump all channels
@@ -371,6 +391,11 @@ int KmeterPluginParameters::translateParameterToInt(int nIndex, float fValue)
             return 20;
         }
     }
+    else if (nIndex == selAverageAlgorithm)
+    {
+        int nRoundedValue = int(fValue + 0.5f);
+        return nRoundedValue;
+    }
     else if (nIndex == selValidationSelectedChannel)
     {
         // 0.00f: dump all channels
@@ -403,6 +428,7 @@ XmlElement KmeterPluginParameters::storeAsXml()
         xml.setAttribute("CrestFactor", nCrestFactor);
     }
 
+    xml.setAttribute("AverageAlgorithm", getParameterAsInt(selAverageAlgorithm));
     xml.setAttribute("Expanded", getParameterAsInt(selExpanded));
     xml.setAttribute("Peak", getParameterAsInt(selPeak));
     xml.setAttribute("Hold", getParameterAsInt(selInfiniteHold));
@@ -445,6 +471,7 @@ void KmeterPluginParameters::loadFromXml(XmlElement* xml)
             setParameterFromInt(selCrestFactor, nCrestFactor);
         }
 
+        setParameterFromInt(selAverageAlgorithm, xml->getIntAttribute("AverageAlgorithm", getParameterAsInt(selAverageAlgorithm)));
         setParameterFromInt(selExpanded, xml->getIntAttribute("Expanded", getParameterAsInt(selExpanded)));
         setParameterFromInt(selPeak, xml->getIntAttribute("Peak", getParameterAsInt(selPeak)));
         setParameterFromInt(selInfiniteHold, xml->getIntAttribute("Hold", getParameterAsInt(selInfiniteHold)));

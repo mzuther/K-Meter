@@ -48,7 +48,7 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 
     setLatencySamples(KMETER_BUFFER_SIZE);
 
-    pAverageLevelFilteredRms = NULL;
+    pAverageLevelFiltered = NULL;
     pPluginParameters = new KmeterPluginParameters();
 
     fProcessedSeconds = 0.0f;
@@ -124,6 +124,11 @@ void KmeterAudioProcessor::setParameter(int index, float newValue)
     // Please use this method for non-automatable values only!
 
     pPluginParameters->setParameterFromFloat(index, newValue);
+
+    if (index == KmeterPluginParameters::selAverageAlgorithm)
+    {
+        pAverageLevelFiltered->setAlgorithm(getParameterAsInt(index));
+    }
 }
 
 
@@ -336,7 +341,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
         nOverflows[nChannel] = 0;
     }
 
-    pAverageLevelFilteredRms = new AverageLevelFilteredRms(nNumInputChannels, KMETER_BUFFER_SIZE);
+    pAverageLevelFiltered = new AverageLevelFiltered(nNumInputChannels, KMETER_BUFFER_SIZE);
 
     pMeterBallistics = new MeterBallistics(nNumInputChannels, (int) sampleRate, false, false);
 
@@ -364,8 +369,8 @@ void KmeterAudioProcessor::releaseResources()
         return;
     }
 
-    delete pAverageLevelFilteredRms;
-    pAverageLevelFilteredRms = NULL;
+    delete pAverageLevelFiltered;
+    pAverageLevelFiltered = NULL;
 
     delete pMeterBallistics;
     pMeterBallistics = NULL;
@@ -476,7 +481,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
 
     // copy ring buffer to determine average level (FIR filter already
     // adds delay of (uChunkSize / 2) samples)
-    pAverageLevelFilteredRms->copyFromBuffer(*pRingBufferInput, 0, (int) getSampleRate());
+    pAverageLevelFiltered->copyFromBuffer(*pRingBufferInput, 0, (int) getSampleRate());
 
     for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
     {
@@ -496,7 +501,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
             fRmsLevels[nChannel] = pRingBufferInput->getRMSLevel(nChannel, uChunkSize, uPreDelay);
 
             // determine filtered average level for uChunkSize samples
-            fAverageLevelsFiltered[nChannel] = pAverageLevelFilteredRms->getLevel(nChannel);
+            fAverageLevelsFiltered[nChannel] = pAverageLevelFiltered->getLevel(nChannel);
 
             // determine overflows for uChunkSize samples (use pre-delay)
             nOverflows[nChannel] = countOverflows(pRingBufferInput, nChannel, uChunkSize, uPreDelay);
@@ -579,7 +584,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
     // before committing your changes.
     if (DEBUG_FILTER)
     {
-        pAverageLevelFilteredRms->copyToBuffer(*pRingBufferOutput, 0, uChunkSize);
+        pAverageLevelFiltered->copyToBuffer(*pRingBufferOutput, 0, uChunkSize);
     }
     else
     {

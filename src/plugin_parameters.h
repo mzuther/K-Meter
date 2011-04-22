@@ -69,6 +69,7 @@ public:
     enum Parameters  // public namespace!
     {
         selCrestFactor = 0,
+        selAverageAlgorithm,
         selExpanded,
         selPeak,
         selInfiniteHold,
@@ -92,6 +93,11 @@ public:
         selK20,
 
         nNumCrestFactors,
+
+        selAlgorithmRms = 0,
+        selAlgorithmItuBs1770,
+
+        nNumAlgorithms,
     };
 
 private:

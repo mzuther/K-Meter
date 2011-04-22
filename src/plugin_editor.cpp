@@ -87,8 +87,26 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonNormal->addButtonListener(this);
     addAndMakeVisible(ButtonNormal);
 
+    ButtonItuBs1770 = new TextButton(T("ITU-R"));
+    ButtonItuBs1770->setBounds(nRightColumnStart, 125, 60, 20);
+    ButtonItuBs1770->setRadioGroupId(2);
+    ButtonItuBs1770->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonItuBs1770->setColour(TextButton::buttonOnColourId, Colours::green);
+
+    ButtonItuBs1770->addButtonListener(this);
+    addAndMakeVisible(ButtonItuBs1770);
+
+    ButtonRms = new TextButton(T("RMS"));
+    ButtonRms->setBounds(nRightColumnStart, 150, 60, 20);
+    ButtonRms->setRadioGroupId(2);
+    ButtonRms->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonRms->setColour(TextButton::buttonOnColourId, Colours::yellow);
+
+    ButtonRms->addButtonListener(this);
+    addAndMakeVisible(ButtonRms);
+
     ButtonInfiniteHold = new TextButton(T("Hold"));
-    ButtonInfiniteHold->setBounds(nRightColumnStart, 125, 60, 20);
+    ButtonInfiniteHold->setBounds(nRightColumnStart, 190, 60, 20);
     ButtonInfiniteHold->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonInfiniteHold->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
@@ -96,7 +114,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     addAndMakeVisible(ButtonInfiniteHold);
 
     ButtonDisplayPeakMeter = new TextButton(T("Peaks"));
-    ButtonDisplayPeakMeter->setBounds(nRightColumnStart, 150, 60, 20);
+    ButtonDisplayPeakMeter->setBounds(nRightColumnStart, 215, 60, 20);
     ButtonDisplayPeakMeter->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonDisplayPeakMeter->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
@@ -104,7 +122,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     addAndMakeVisible(ButtonDisplayPeakMeter);
 
     ButtonExpanded = new TextButton(T("Expand"));
-    ButtonExpanded->setBounds(nRightColumnStart, 175, 60, 20);
+    ButtonExpanded->setBounds(nRightColumnStart, 240, 60, 20);
     ButtonExpanded->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonExpanded->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
@@ -112,7 +130,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     addAndMakeVisible(ButtonExpanded);
 
     ButtonMono = new TextButton(T("Mono"));
-    ButtonMono->setBounds(nRightColumnStart, 215, 60, 20);
+    ButtonMono->setBounds(nRightColumnStart, 280, 60, 20);
     ButtonMono->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonMono->setColour(TextButton::buttonOnColourId, Colours::red);
 
@@ -120,7 +138,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     addAndMakeVisible(ButtonMono);
 
     ButtonReset = new TextButton(T("Reset"));
-    ButtonReset->setBounds(nRightColumnStart, 240, 60, 20);
+    ButtonReset->setBounds(nRightColumnStart, 305, 60, 20);
     ButtonReset->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonReset->setColour(TextButton::buttonOnColourId, Colours::red);
 
@@ -172,6 +190,9 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     dynamicRangeLabel = NULL;
 
     int nIndex = KmeterPluginParameters::selCrestFactor;
+    changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
+
+    nIndex = KmeterPluginParameters::selAverageAlgorithm;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
     nIndex = KmeterPluginParameters::selExpanded;
@@ -295,6 +316,21 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 
         break;
 
+    case KmeterPluginParameters::selAverageAlgorithm:
+
+        if (nValue == KmeterPluginParameters::selAlgorithmItuBs1770)
+        {
+            ButtonItuBs1770->setToggleState(true, false);
+            pProcessor->setParameter(KmeterPluginParameters::selAverageAlgorithm, nValue);
+        }
+        else
+        {
+            ButtonRms->setToggleState(true, false);
+            pProcessor->setParameter(KmeterPluginParameters::selAverageAlgorithm, KmeterPluginParameters::selAlgorithmRms);
+        }
+
+        break;
+
     case KmeterPluginParameters::selExpanded:
         reloadMeters = true;
         ButtonExpanded->setToggleState(nValue != 0, false);
@@ -375,6 +411,26 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     else if (button == ButtonInfiniteHold)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selInfiniteHold, !button->getToggleState());
+    }
+    else if (button == ButtonRms)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selAverageAlgorithm, KmeterPluginParameters::selAlgorithmRms);
+        MeterBallistics* pMeterBallistics = pProcessor->getLevels();
+
+        if (pMeterBallistics)
+        {
+            pMeterBallistics->reset();
+        }
+    }
+    else if (button == ButtonItuBs1770)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selAverageAlgorithm, KmeterPluginParameters::selAlgorithmItuBs1770);
+        MeterBallistics* pMeterBallistics = pProcessor->getLevels();
+
+        if (pMeterBallistics)
+        {
+            pMeterBallistics->reset();
+        }
     }
     else if (button == ButtonExpanded)
     {
