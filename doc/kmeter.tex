@@ -557,25 +557,23 @@ Thanks for using free software.  I hope you'll enjoy it!
 To build K-Meter yourself, I recommend setting up a \texttt{chroot}
 environment.  This is fast and easy to do on Debian-based systems and
 might save you a \textbf{lot} of trouble.  At the time of writing, I'm
-using Kubuntu 10.10 (\texttt{maverick}), but the procedure should be
-similar on your distribution of choice.  If you aim at generic
-\num{64}-bit compilation, simply change \texttt{i386} to
-\texttt{amd64}.
+using Debian 6.0 (Squeeze), but the procedure should be similar on
+your distribution of choice.  If you aim at generic \num{64}-bit
+compilation, simply change \texttt{i386} to \texttt{amd64}.
 
 To install the necessary packages and install the \texttt{chroot} base
 system, execute the following statements (please change
-\url{http://archive.ubuntu.com/ubuntu/} to a
-\href{http://launchpad.net/ubuntu/+archivemirrors}{mirror} close to
-you):
+\url{http://ftp.de.debian.org/debian/} to a
+\href{http://www.debian.org/mirror/list}{mirror} close to you):
 
 \begin{verbatim}
   sudo apt-get install debootstrap schroot
 
-  sudo mkdir -p /srv/chroot/maverick_i386
+  sudo mkdir -p /srv/chroot/squeeze_i386
   sudo debootstrap --variant=buildd \
-    --arch i386 maverick \
-    /srv/chroot/maverick_i386 \
-    http://archive.ubuntu.com/ubuntu/
+    --arch i386 squeeze \
+    /srv/chroot/squeeze_i386 \
+    http://ftp.de.debian.org/debian/
 \end{verbatim}
 
 Running \path{debootstrap} will take some time.  Meanwhile, add the
@@ -584,9 +582,9 @@ remove all preceding white space so that each line begins in the first
 column):
 
 \begin{verbatim}
-  [maverick-i386]
-  description=Ubuntu 10.10 Maverick Meerkat (i386)
-  directory=/srv/chroot/maverick_i386
+  [squeeze-i386]
+  description=Debian 6 (Squeeze, i386)
+  directory=/srv/chroot/squeeze_i386
   personality=linux
   root-users=username
   type=directory
@@ -602,22 +600,33 @@ setting up a \num{32}-bit \texttt{chroot} environment on a
 When \path{debootstrap} is done, log in as superuser:
 
 \begin{verbatim}
-  schroot -c maverick-i386 -u root
+  schroot -c squeeze-i386 -u root
 \end{verbatim}
 
-to install a few packages:
+to install a few packages.  The packages \path{less} and \path{vim}
+are optional, but might come in handy:
 
 \begin{verbatim}
   apt-get update
-  apt-get install libasound2-dev mesa-common-dev \
-    xorg-dev language-pack-de ubuntu-minimal
+  apt-get install bash-completion libasound2-dev \
+    libjack-jackd2-dev mesa-common-dev xorg-dev
+  apt-get install less vim
   apt-get clean
+\end{verbatim}
+
+If you like \path{bash} completion, you might also want to open the
+file \path{/etc/bash.bashrc} and unquote these lines:
+
+\begin{verbatim}
+  # enable bash completion in interactive shells
+  [two more lines...]
+  fi
 \end{verbatim}
 
 Finally, log out and log in as normal user:
 
 \begin{verbatim}
-  schroot -c maverick-i386
+  schroot -c squeeze-i386
 \end{verbatim}
 
 Congratulations -- after you have installed the dependencies (see
