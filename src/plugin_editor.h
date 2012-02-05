@@ -40,14 +40,14 @@
 //==============================================================================
 /**
 */
-class KmeterAudioProcessorEditor : public AudioProcessorEditor, public ButtonListener, public ChangeListener
+class KmeterAudioProcessorEditor : public AudioProcessorEditor, public ButtonListener, public ActionListener
 {
 public:
     KmeterAudioProcessorEditor(KmeterAudioProcessor* ownerFilter, int nNumChannels);
     ~KmeterAudioProcessorEditor();
 
     void buttonClicked(Button* button);
-    void changeListenerCallback(void* objectThatHasChanged);
+    void actionListenerCallback(const String& message);
     void changeParameter(int nIndex);
     void changeParameter(int nIndex, int nValue);
 

@@ -66,7 +66,7 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 
 KmeterAudioProcessor::~KmeterAudioProcessor()
 {
-    removeAllChangeListeners();
+    removeAllActionListeners();
 
     // call function "releaseResources()" by force to make sure all
     // allocated memory is freed
@@ -80,15 +80,15 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
 }
 
 
-void KmeterAudioProcessor::addChangeListenerParameters(ChangeListener* listener) throw()
+void KmeterAudioProcessor::addActionListenerParameters(ActionListener* listener) throw()
 {
-    pPluginParameters->addChangeListener(listener);
+    pPluginParameters->addActionListener(listener);
 }
 
 
-void KmeterAudioProcessor::removeChangeListenerParameters(ChangeListener* listener) throw()
+void KmeterAudioProcessor::removeActionListenerParameters(ActionListener* listener) throw()
 {
-    pPluginParameters->removeChangeListener(listener);
+    pPluginParameters->removeActionListener(listener);
 }
 
 
@@ -587,7 +587,8 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
         pMeterBallistics->setStereoMeterValue(fProcessedSeconds, fStereoMeterValue);
     }
 
-    sendChangeMessage(this);
+    // "UM" --> update meters
+    sendActionMessage("UM");
 
     // To hear the audio source after average filtering, simply set
     // DEBUG_FILTER to 1.  Please remember to disable this setting
@@ -613,8 +614,8 @@ void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel,
     audioFilePlayer = new AudioFilePlayer(fileAudio, (int) getSampleRate(), pMeterBallistics);
     audioFilePlayer->setReporters(nSelectedChannel, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bStereoMeterValue, bPhaseCorrelation);
 
-    // refresh editor
-    sendChangeMessage(NULL);
+    // refresh editor; "V+" --> validation started
+    sendActionMessage("V+");
 }
 
 
@@ -623,8 +624,8 @@ void KmeterAudioProcessor::stopValidation()
     delete audioFilePlayer;
     audioFilePlayer = NULL;
 
-    // refresh editor
-    sendChangeMessage(NULL);
+    // refresh editor; "V-" --> validation stopped
+    sendActionMessage("V-");
 }
 
 
@@ -695,7 +696,9 @@ void KmeterAudioProcessor::setAverageAlgorithmFinal(const int average_algorithm)
     //  the level averaging alghorithm has been changed, so update the
     // "RMS" and "ITU-R" buttons to make sure that the correct button
     // is lit
-    sendChangeMessage(NULL);
+    //
+    // "AC" --> algorithm changed
+    sendActionMessage("AC");
 }
 
 //==============================================================================

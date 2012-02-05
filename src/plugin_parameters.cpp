@@ -60,7 +60,7 @@ KmeterPluginParameters::KmeterPluginParameters()
 
 KmeterPluginParameters::~KmeterPluginParameters()
 {
-    removeAllChangeListeners();
+    removeAllActionListeners();
 
     delete [] nParam;
     nParam = NULL;
@@ -144,7 +144,9 @@ void KmeterPluginParameters::setParameterFromInt(int nIndex, int nValue)
         }
 
         MarkParameter(nIndex);
-        sendChangeMessage(this);
+        // "PC" --> parameter changed, followed by a hash and the
+        // parameter's ID
+        sendActionMessage("PC#" + String(nIndex));
     }
 }
 

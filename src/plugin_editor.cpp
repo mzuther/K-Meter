@@ -50,7 +50,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     setSize(nRightColumnStart + 70, nHeight);
 
     pProcessor = ownerFilter;
-    pProcessor->addChangeListener(this);
+    pProcessor->addActionListener(this);
 
     ButtonK20 = new TextButton(T("K-20"));
     ButtonK20->setBounds(nRightColumnStart, 10, 60, 20);
@@ -185,7 +185,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
         phaseCorrelationMeter = NULL;
     }
 
-    pProcessor->addChangeListenerParameters(this);
+    pProcessor->addActionListenerParameters(this);
 
     kmeter = NULL;
     dynamicRangeLabel = NULL;
@@ -212,39 +212,28 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
 KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 {
-    pProcessor->removeChangeListener(this);
-    pProcessor->removeChangeListenerParameters(this);
+    pProcessor->removeActionListener(this);
+    pProcessor->removeActionListenerParameters(this);
 
     deleteAllChildren();
 }
 
 
-void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChanged)
+void KmeterAudioProcessorEditor::actionListenerCallback(const String& message)
 {
-    // editor needs refreshing
-    if (objectThatHasChanged == NULL)
+    // "PC" --> parameter changed, followed by a hash and the
+    // parameter's ID
+    if (message.startsWith("PC#"))
     {
-        if (pProcessor->isValidating())
-        {
-            bIsValidating = true;
-            ButtonValidation->setColour(TextButton::buttonColourId, Colours::red);
+        String strIndex = message.substring(3);
+        int nIndex = strIndex.getIntValue();
+        jassert(nIndex >= 0);
+        jassert(nIndex < pProcessor->getNumParameters());
 
-            updateAverageAlgorithm(true);
-        }
-        // update "Average Algorithm" buttons
-        else
-        {
-            updateAverageAlgorithm(true);
-        }
+        changeParameter(nIndex);
     }
-    else if (objectThatHasChanged != pProcessor)
-    {
-        for (int nIndex = 0; nIndex < pProcessor->getNumParameters(); nIndex++)
-        {
-            changeParameter(nIndex);
-        }
-    }
-    else
+    // "UM" --> update meters
+    else if (!message.compare("UM"))
     {
         MeterBallistics* pMeterBallistics = pProcessor->getLevels();
 
@@ -269,6 +258,26 @@ void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChang
             bIsValidating = false;
             ButtonValidation->setColour(TextButton::buttonColourId, Colours::grey);
         }
+    }
+    // "AC" --> algorithm changed
+    else if (!message.compare("AC"))
+    {
+        updateAverageAlgorithm(true);
+    }
+    // "V+" --> validation started
+    else if ((!message.compare("V+")) && pProcessor->isValidating())
+    {
+        bIsValidating = true;
+        ButtonValidation->setColour(TextButton::buttonColourId, Colours::red);
+    }
+    // "V-" --> validation stopped
+    else if (!message.compare("V-"))
+    {
+        // do nothing till you hear from me... :)
+    }
+    else
+    {
+        DBG("[K-Meter] Received unknown action message \"" + message + "\".");
     }
 }
 

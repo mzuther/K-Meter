@@ -32,7 +32,7 @@ class KmeterPluginParameters;
 #include "juce_library_code/JucePluginCharacteristics.h"
 
 //============================================================================
-class KmeterPluginParameters  : public ChangeBroadcaster
+class KmeterPluginParameters  : public ActionBroadcaster
 {
 public:
     //==========================================================================

@@ -41,7 +41,7 @@ class MeterBallistics;
 #include "plugin_parameters.h"
 
 //============================================================================
-class KmeterAudioProcessor  : public AudioProcessor, public ChangeBroadcaster
+class KmeterAudioProcessor  : public AudioProcessor, public ActionBroadcaster
 {
 public:
     //==========================================================================
@@ -49,8 +49,8 @@ public:
     KmeterAudioProcessor();
     ~KmeterAudioProcessor();
 
-    void addChangeListenerParameters(ChangeListener* listener) throw();
-    void removeChangeListenerParameters(ChangeListener* listener) throw();
+    void addActionListenerParameters(ActionListener* listener) throw();
+    void removeActionListenerParameters(ActionListener* listener) throw();
 
     //==========================================================================
     void prepareToPlay(double sampleRate, int samplesPerBlock);
