@@ -26,6 +26,9 @@
 #include "meter_ballistics.h"
 
 
+float MeterBallistics::fMeterMinimumDecibel;
+
+
 MeterBallistics::MeterBallistics(int nChannels, int nSampleRate, bool bPeakMeterInfiniteHold, bool bAverageMeterInfiniteHold)
 /*  Constructor.
 
@@ -46,17 +49,10 @@ MeterBallistics::MeterBallistics(int nChannels, int nSampleRate, bool bPeakMeter
     // all K-System meters
     float fMaximumCrestFactor = 20.0f;
 
-    // the RMS of a sine wave is its amplitude divided by the square
-    // root of 2, thus the difference between peak value and RMS is
-    // the square root of 2 -- so let's convert this difference to dB
-    // and store the result (a factor of 20.0 is needed to calculate
-    // *level* ratios, whereas 10.0 is needed for *power* ratios!)
-    fPeakToAverageCorrection = 20.0f * log10(sqrt(2.0f));
-
     // logarithmic levels have no minimum level, so let's define one
-    // (70 dB meter range + maximum crest factor + peak-to-average
-    // correction) and store it for later use
-    fMeterMinimumDecibel = -(70.0f + fMaximumCrestFactor + fPeakToAverageCorrection);
+    // (70 dB meter range + maximum crest factor) and store it for
+    // later use
+    fMeterMinimumDecibel = -(70.0f + fMaximumCrestFactor);
 
     // store the number of audio input channels
     nNumberOfChannels = nChannels;
@@ -212,10 +208,8 @@ void MeterBallistics::reset()
         fPeakMeterPeakLevels[nChannel] = fMeterMinimumDecibel;
 
         // set average meter's level and peak mark to meter's minimum
-        // and apply peak-to-average correction so that sine waves
-        // read the same value on peak and average meters
-        fAverageMeterLevels[nChannel] = fMeterMinimumDecibel + fPeakToAverageCorrection;
-        fAverageMeterPeakLevels[nChannel] = fMeterMinimumDecibel + fPeakToAverageCorrection;
+        fAverageMeterLevels[nChannel] = fMeterMinimumDecibel;
+        fAverageMeterPeakLevels[nChannel] = fMeterMinimumDecibel;
 
         // set overall maximum peak level to meter's minimum
         fMaximumPeakLevels[nChannel] = fMeterMinimumDecibel;
@@ -767,7 +761,7 @@ void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak
     fRms (float): current RMS level (linear scale)
 
     fAverageFiltered (float): current pre-filtered average meter level
-    (linear scale)
+    (in decibels!)
 
     nOverflows (integer): number of overflows in buffer chunk
 
@@ -782,11 +776,6 @@ void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak
 
     // convert current RMS level from linear scale to decibels
     fRms = level2decibel(fRms);
-
-    // convert current filtered average meter level from linear scale
-    // to decibels and apply peak-to-average correction so that sine
-    // waves give the same read-out on peak and average meters
-    fAverageFiltered = level2decibel(fAverageFiltered) + fPeakToAverageCorrection;
 
     // convert RMS level to histogram bin; to minimise overhead, bins
     // are calculated as (-100 * level)
@@ -893,6 +882,12 @@ float MeterBallistics::level2decibel(float fLevel)
             return fDecibels;
         }
     }
+}
+
+
+float MeterBallistics::getMeterMinimumDecibel()
+{
+    return fMeterMinimumDecibel;
 }
 
 

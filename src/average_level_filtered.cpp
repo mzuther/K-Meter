@@ -25,7 +25,7 @@
 
 #include "average_level_filtered.h"
 
-AverageLevelFiltered::AverageLevelFiltered(const int channels, const int buffer_size)
+AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor* processor, const int channels, const int buffer_size, const int sample_rate, const int average_algorithm)
 {
     jassert(channels > 0);
 
@@ -43,16 +43,51 @@ AverageLevelFiltered::AverageLevelFiltered(const int channels, const int buffer_
     fftwf_execute = (void (*)(const fftwf_plan)) PlatformUtilities::getProcedureEntryPoint(libraryHandleFFTW, "fftwf_execute");
 #endif
 
+    pProcessor = processor;
     nChannels = channels;
-    nAverageAlgorithm = -1;
-    nSampleRate = -1;
+    nSampleRate = sample_rate;
     nBufferSize = buffer_size;
+    fPeakToAverageCorrection = 0.0f;
 
     nFftSize = nBufferSize * 2;
     nHalfFftSize = nFftSize / 2 + 1;
 
     pSampleBuffer = new AudioSampleBuffer(nChannels, nBufferSize);
     pOverlapAddSamples = new AudioSampleBuffer(nChannels, nBufferSize);
+
+    // IIR coefficients: 0 represents input, 1 represents output
+    pIIRCoefficients_1 = new float*[2];
+    pIIRCoefficients_1[0] = new float[KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS];
+    pIIRCoefficients_1[1] = new float[KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS];
+
+    pIIRCoefficients_2 = new float*[2];
+    pIIRCoefficients_2[0] = new float[KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS];
+    pIIRCoefficients_2[1] = new float[KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS];
+
+    // previous samples
+    pPreviousSamplesInput_1 = new AudioSampleBuffer(nChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
+    pPreviousSamplesOutput_1 = new AudioSampleBuffer(nChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
+
+    pPreviousSamplesInput_2 = new AudioSampleBuffer(nChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
+    pPreviousSamplesOutput_2 = new AudioSampleBuffer(nChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
+
+    pPreviousSamplesOutputTemp = new AudioSampleBuffer(1, nBufferSize);
+
+    // reset IIR coefficients and previous samples
+    for (int nSource = 0; nSource <= 1; nSource++)
+    {
+        for (int nSample = 0; nSample < KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS; nSample++)
+        {
+            pIIRCoefficients_1[nSource][nSample] = 0.0f;
+            pIIRCoefficients_2[nSource][nSample] = 0.0f;
+        }
+    }
+
+    pPreviousSamplesInput_1->clear();
+    pPreviousSamplesOutput_1->clear();
+
+    pPreviousSamplesInput_2->clear();
+    pPreviousSamplesOutput_2->clear();
 
     // make sure there's no overlap yet
     pSampleBuffer->clear();
@@ -68,6 +103,8 @@ AverageLevelFiltered::AverageLevelFiltered(const int channels, const int buffer_
 
     planAudioSamples_DFT = fftwf_plan_dft_r2c_1d(nFftSize, arrAudioSamples_TD, arrAudioSamples_FD, FFTW_MEASURE);
     planAudioSamples_IDFT = fftwf_plan_dft_c2r_1d(nFftSize, arrAudioSamples_FD, arrAudioSamples_TD, FFTW_MEASURE);
+
+    setAlgorithm(average_algorithm);
 }
 
 
@@ -78,6 +115,36 @@ AverageLevelFiltered::~AverageLevelFiltered()
 
     delete pOverlapAddSamples;
     pOverlapAddSamples = NULL;
+
+    for (int nSource = 0; nSource <= 1; nSource++)
+    {
+        delete [] pIIRCoefficients_1[nSource];
+        pIIRCoefficients_1[nSource] = NULL;
+
+        delete [] pIIRCoefficients_2[nSource];
+        pIIRCoefficients_2[nSource] = NULL;
+    }
+
+    delete [] pIIRCoefficients_1;
+    pIIRCoefficients_1 = NULL;
+
+    delete [] pIIRCoefficients_2;
+    pIIRCoefficients_2 = NULL;
+
+    delete pPreviousSamplesInput_1;
+    pPreviousSamplesInput_1 = NULL;
+
+    delete pPreviousSamplesOutput_1;
+    pPreviousSamplesOutput_1 = NULL;
+
+    delete pPreviousSamplesInput_2;
+    pPreviousSamplesInput_2 = NULL;
+
+    delete pPreviousSamplesOutput_2;
+    pPreviousSamplesOutput_2 = NULL;
+
+    delete pPreviousSamplesOutputTemp;
+    pPreviousSamplesOutputTemp = NULL;
 
     fftwf_destroy_plan(planFilterKernel_DFT);
     fftwf_free(arrFilterKernel_TD);
@@ -112,21 +179,43 @@ int AverageLevelFiltered::getAlgorithm()
 
 void AverageLevelFiltered::setAlgorithm(const int average_algorithm)
 {
+    if (average_algorithm == nAverageAlgorithm)
+    {
+        return;
+    }
+
     if ((average_algorithm >= 0) && (average_algorithm < KmeterPluginParameters::nNumAlgorithms))
     {
         nAverageAlgorithm = average_algorithm;
     }
     else
     {
-        nAverageAlgorithm = KmeterPluginParameters::selAlgorithmRms;
+        nAverageAlgorithm = KmeterPluginParameters::selAlgorithmItuBs1770;
     }
 
     calculateFilterKernel();
+    pProcessor->setAverageAlgorithmFinal(nAverageAlgorithm);
 }
 
 
 void AverageLevelFiltered::calculateFilterKernel()
 {
+    // reset IIR coefficients and previous samples
+    for (int nSource = 0; nSource <= 1; nSource++)
+    {
+        for (int nSample = 0; nSample < KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS; nSample++)
+        {
+            pIIRCoefficients_1[nSource][nSample] = 0.0f;
+            pIIRCoefficients_2[nSource][nSample] = 0.0f;
+        }
+    }
+
+    pPreviousSamplesInput_1->clear();
+    pPreviousSamplesOutput_1->clear();
+
+    pPreviousSamplesInput_2->clear();
+    pPreviousSamplesOutput_2->clear();
+
     // make sure there's no overlap yet
     pSampleBuffer->clear();
     pOverlapAddSamples->clear();
@@ -134,10 +223,25 @@ void AverageLevelFiltered::calculateFilterKernel()
     if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
         calculateFilterKernel_ItuBs1770();
+
+        // "Regardless of the frequency response or methodology of the
+        // loudness method, reference 0 dB of all meters is calibrated
+        // such that 20-20 kHz pink noise at 0 dB reads 83 dB SPL, C
+        // weighted, slow." (Bob Katz on his website)
+        //
+        // Thus, I have simply taken the mean average level of both
+        // stereo channels on validation with "pink_noise.flac".
+        fPeakToAverageCorrection = MeterBallistics::level2decibel(sqrt(2.0f));
     }
     else
     {
         calculateFilterKernel_Rms();
+
+        // the RMS of a sine wave is its amplitude divided by the
+        // square root of 2, thus the difference between peak value
+        // and RMS is the square root of 2 -- so let's convert this
+        // difference to dB and store the result
+        fPeakToAverageCorrection = MeterBallistics::level2decibel(sqrt(2.0f));
     }
 }
 
@@ -189,18 +293,70 @@ void AverageLevelFiltered::calculateFilterKernel_Rms()
 
 void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
 {
-    // fill filter kernel with zeros
-    for (int i = 0; i < nFftSize; i++)
-    {
-        arrFilterKernel_TD[i] = 0.0f;
-    }
+    // filter specifications were taken from Raiden's wonderful paper
+    // "ITU-R BS.1770-1 filter specifications (unofficial)" as found
+    // on http://www.scribd.com/doc/49991813/ITU-R-BS-1770-1-filters
+    //
+    // please see here for Raiden's original forum thread:
+    // http://www.hydrogenaudio.org/forums/index.php?showtopic=86116
 
-    // calculate DFT of filter kernel
-    fftwf_execute(planFilterKernel_DFT);
+    // initialise pre-filter (ITU-r BS.1770-2)
+    float pf_vh = 1.584864701130855f;
+    float pf_vb = sqrt(pf_vh);
+    float pf_vl = 1.0f;
+    float pf_q = 0.7071752369554196f;
+    float pf_cutoff = 1681.974450955533f;
+    float pf_omega = (float) tan(M_PI * pf_cutoff / nSampleRate);
+    float pf_omega_2 = powf(pf_omega, 2.0f);
+    float pf_omega_q = pf_omega / pf_q;
+    float pf_div = (pf_omega_2 + pf_omega_q + 1.0f);
+
+    pIIRCoefficients_1[0][0] = (pf_vl * pf_omega_2 + pf_vb * pf_omega_q + pf_vh) / pf_div;
+    pIIRCoefficients_1[0][1] = 2.0f * (pf_vl * pf_omega_2 - pf_vh) / pf_div;
+    pIIRCoefficients_1[0][2] = (pf_vl * pf_omega_2 - pf_vb * pf_omega_q + pf_vh) / pf_div;
+
+    pIIRCoefficients_1[1][0] = -1.0f;
+    pIIRCoefficients_1[1][1] = -2.0f * (pf_omega_2 - 1.0f) / pf_div;
+    pIIRCoefficients_1[1][2] = -(pf_omega_2 - pf_omega_q + 1.0f) / pf_div;
+
+    // initialise RLB weighting curve (ITU-r BS.1770-2)
+    float rlb_vh = 1.0f;
+    float rlb_vb = 0.0f;
+    float rlb_vl = 0.0f;
+    float rlb_q = 0.5003270373238773f;
+    float rlb_cutoff = 38.13547087602444f;
+    float rlb_omega = (float) tan(M_PI * rlb_cutoff / nSampleRate);
+    float rlb_omega_2 = powf(rlb_omega, 2.0f);
+    float rlb_omega_q = rlb_omega / rlb_q;
+    float rlb_div_1 = (rlb_vl * rlb_omega_2 + rlb_vb * rlb_omega_q + rlb_vh);
+    float rlb_div_2 = (rlb_omega_2 + rlb_omega_q + 1.0f);
+
+    pIIRCoefficients_2[0][0] = 1.0f;
+    pIIRCoefficients_2[0][1] = 2.0f * (rlb_vl * rlb_omega_2 - rlb_vh) / rlb_div_1;
+    pIIRCoefficients_2[0][2] = (rlb_vl * rlb_omega_2 - rlb_vb * rlb_omega_q + rlb_vh) / rlb_div_1;
+
+    pIIRCoefficients_2[1][0] = -1.0f;
+    pIIRCoefficients_2[1][1] = -2.0f * (rlb_omega_2 - 1) / rlb_div_2;
+    pIIRCoefficients_2[1][2] = -(rlb_omega_2 - rlb_omega_q + 1) / rlb_div_2;
+
+    calculateFilterKernel_Rms();
 }
 
 
 void AverageLevelFiltered::FilterSamples(const int channel)
+{
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        FilterSamples_ItuBs1770(channel);
+    }
+    else
+    {
+        FilterSamples_Rms(channel);
+    }
+}
+
+
+void AverageLevelFiltered::FilterSamples_Rms(const int channel)
 {
     jassert(channel >= 0);
     jassert(channel < nChannels);
@@ -210,9 +366,9 @@ void AverageLevelFiltered::FilterSamples(const int channel)
     memcpy(arrAudioSamples_TD, pSampleBuffer->getSampleData(channel), nBufferSize * sizeof(float));
 
     // pad audio data with zeros
-    for (int i = nBufferSize; i < nFftSize; i++)
+    for (int nSample = nBufferSize; nSample < nFftSize; nSample++)
     {
-        arrAudioSamples_TD[i] = 0.0f;
+        arrAudioSamples_TD[nSample] = 0.0f;
     }
 
     // calculate DFT of audio data
@@ -251,6 +407,119 @@ void AverageLevelFiltered::FilterSamples(const int channel)
 }
 
 
+void AverageLevelFiltered::FilterSamples_ItuBs1770(const int channel)
+{
+    jassert(channel >= 0);
+    jassert(channel < nChannels);
+
+    // pre-filter
+    pPreviousSamplesOutputTemp->clear();
+    float* pSamplesInput = pSampleBuffer->getSampleData(channel);
+    float* pSamplesOutput = pPreviousSamplesOutputTemp->getSampleData(0);
+
+    float* pSamplesInputOld_1 = pPreviousSamplesInput_1->getSampleData(channel);
+    float* pSamplesOutputOld_1 = pPreviousSamplesOutput_1->getSampleData(channel);
+
+    for (int nSample = 0; nSample < nBufferSize; nSample++)
+    {
+        if (nSample < 2)
+        {
+            if (nSample == 0)
+            {
+                pSamplesOutput[nSample] =
+                    pIIRCoefficients_1[0][0] * pSamplesInput[nSample] +
+                    pIIRCoefficients_1[0][1] * pSamplesInputOld_1[1] +
+                    pIIRCoefficients_1[0][2] * pSamplesInputOld_1[0] +
+                    pIIRCoefficients_1[1][1] * pSamplesOutputOld_1[1] +
+                    pIIRCoefficients_1[1][2] * pSamplesOutputOld_1[0];
+            }
+            else
+            {
+                pSamplesOutput[nSample] =
+                    pIIRCoefficients_1[0][0] * pSamplesInput[nSample] +
+                    pIIRCoefficients_1[0][1] * pSamplesInput[nSample - 1] +
+                    pIIRCoefficients_1[0][2] * pSamplesInputOld_1[1] +
+                    pIIRCoefficients_1[1][1] * pSamplesOutput[nSample - 1] +
+                    pIIRCoefficients_1[1][2] * pSamplesOutputOld_1[1];
+            }
+
+            // avoid underflows (1e-20f corresponds to -400 dBFS)
+            if (fabs(pSamplesOutput[nSample]) < 1e-20f)
+            {
+                pSamplesOutput[nSample] = 0.0f;
+            }
+        }
+        else
+        {
+            pSamplesOutput[nSample] =
+                pIIRCoefficients_1[0][0] * pSamplesInput[nSample] +
+                pIIRCoefficients_1[0][1] * pSamplesInput[nSample - 1] +
+                pIIRCoefficients_1[0][2] * pSamplesInput[nSample - 2] +
+                pIIRCoefficients_1[1][1] * pSamplesOutput[nSample - 1] +
+                pIIRCoefficients_1[1][2] * pSamplesOutput[nSample - 2];
+        }
+    }
+
+    pPreviousSamplesInput_1->copyFrom(channel, 0, *pSampleBuffer, channel, nBufferSize - 2, 2);
+    pPreviousSamplesOutput_1->copyFrom(channel, 0, *pPreviousSamplesOutputTemp, 0, nBufferSize - 2, 2);
+
+    pSampleBuffer->copyFrom(channel, 0, *pPreviousSamplesOutputTemp, 0, 0, nBufferSize);
+
+    // RLB weighting filter
+    pPreviousSamplesOutputTemp->clear();
+
+    float* pSamplesInputOld_2 = pPreviousSamplesInput_2->getSampleData(channel);
+    float* pSamplesOutputOld_2 = pPreviousSamplesOutput_2->getSampleData(channel);
+
+    for (int nSample = 0; nSample < nBufferSize; nSample++)
+    {
+        if (nSample < 2)
+        {
+            if (nSample == 0)
+            {
+                pSamplesOutput[nSample] =
+                    pIIRCoefficients_2[0][0] * pSamplesInput[nSample] +
+                    pIIRCoefficients_2[0][1] * pSamplesInputOld_2[1] +
+                    pIIRCoefficients_2[0][2] * pSamplesInputOld_2[0] +
+                    pIIRCoefficients_2[1][1] * pSamplesOutputOld_2[1] +
+                    pIIRCoefficients_2[1][2] * pSamplesOutputOld_2[0];
+            }
+            else
+            {
+                pSamplesOutput[nSample] =
+                    pIIRCoefficients_2[0][0] * pSamplesInput[nSample] +
+                    pIIRCoefficients_2[0][1] * pSamplesInput[nSample - 1] +
+                    pIIRCoefficients_2[0][2] * pSamplesInputOld_2[1] +
+                    pIIRCoefficients_2[1][1] * pSamplesOutput[nSample - 1] +
+                    pIIRCoefficients_2[1][2] * pSamplesOutputOld_2[1];
+            }
+
+            // avoid underflows (1e-20f corresponds to -400 dBFS)
+            if (fabs(pSamplesOutput[nSample]) < 1e-20f)
+            {
+                pSamplesOutput[nSample] = 0.0f;
+            }
+        }
+        else
+        {
+            pSamplesOutput[nSample] =
+                pIIRCoefficients_2[0][0] * pSamplesInput[nSample] +
+                pIIRCoefficients_2[0][1] * pSamplesInput[nSample - 1] +
+                pIIRCoefficients_2[0][2] * pSamplesInput[nSample - 2] +
+                pIIRCoefficients_2[1][1] * pSamplesOutput[nSample - 1] +
+                pIIRCoefficients_2[1][2] * pSamplesOutput[nSample - 2];
+        }
+    }
+
+    pPreviousSamplesInput_2->copyFrom(channel, 0, *pSampleBuffer, channel, nBufferSize - 2, 2);
+    pPreviousSamplesOutput_2->copyFrom(channel, 0, *pPreviousSamplesOutputTemp, 0, nBufferSize - 2, 2);
+
+    pSampleBuffer->copyFrom(channel, 0, *pPreviousSamplesOutputTemp, 0, 0, nBufferSize);
+
+    FilterSamples_Rms(channel);
+}
+
+
 float AverageLevelFiltered::getLevel(const int channel)
 {
     jassert(channel >= 0);
@@ -259,7 +528,48 @@ float AverageLevelFiltered::getLevel(const int channel)
     // filter audio data (overwrites contents of sample buffer)
     FilterSamples(channel);
 
-    return pSampleBuffer->getRMSLevel(channel, 0, nBufferSize);
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        // weighting factor for L, C, R (incorrect for surround
+        // channels and LFE!)
+        float fWeightingFactor = 1.0f;
+
+        float fAverageLevel = pSampleBuffer->getRMSLevel(channel, 0, nBufferSize);
+        float fMeterMinimumDecibel = MeterBallistics::getMeterMinimumDecibel() - fPeakToAverageCorrection;
+
+        // the square root of this level has already been taken, so
+        // revert this to fit the formula (of course, the formula
+        // could easily be modified to accept RMS levels, but this
+        // would introduce a bug as soon as some channels were summed)
+        fAverageLevel = powf(fWeightingFactor * fAverageLevel, 2.0f);
+
+        if (fAverageLevel == 0.0f)
+        {
+            fAverageLevel = fMeterMinimumDecibel;
+        }
+        else
+        {
+            // apply the formula from ITU-R BS.1770-2
+            fAverageLevel = -0.691f + 10.0f * log10(fAverageLevel);
+
+            if (fAverageLevel < fMeterMinimumDecibel)
+            {
+                fAverageLevel = fMeterMinimumDecibel;
+            }
+        }
+
+        // apply peak-to-average correction so that sine waves give
+        // the same read-out on peak and average meters
+        return fAverageLevel + fPeakToAverageCorrection;
+    }
+    else
+    {
+        float fAverageLevel = MeterBallistics::level2decibel(pSampleBuffer->getRMSLevel(channel, 0, nBufferSize));
+
+        // apply peak-to-average correction so that sine waves give
+        // the same read-out on peak and average meters
+        return fAverageLevel + fPeakToAverageCorrection;
+    }
 }
 
 

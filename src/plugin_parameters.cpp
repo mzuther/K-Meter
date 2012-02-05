@@ -34,7 +34,7 @@ KmeterPluginParameters::KmeterPluginParameters()
     nParam = new int[nNumParameters];
 
     nParam[selCrestFactor] = 20;
-    nParam[selAverageAlgorithm] = selAlgorithmRms;
+    nParam[selAverageAlgorithm] = selAlgorithmItuBs1770;
     nParam[selExpanded] = 0;
     nParam[selPeak] = 0;
     nParam[selInfiniteHold] = 0;
@@ -350,7 +350,7 @@ float KmeterPluginParameters::translateParameterToFloat(int nIndex, int nValue)
     }
     else if (nIndex == selAverageAlgorithm)
     {
-        return nValue;
+        return (float) nValue;
     }
     else if (nIndex == selValidationSelectedChannel)
     {

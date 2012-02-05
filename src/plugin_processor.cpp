@@ -51,6 +51,9 @@ KmeterAudioProcessor::KmeterAudioProcessor()
     pAverageLevelFiltered = NULL;
     pPluginParameters = new KmeterPluginParameters();
 
+    // depends on "KmeterPluginParameters"!
+    nAverageAlgorithm = getParameterAsInt(KmeterPluginParameters::selAverageAlgorithm);
+
     fProcessedSeconds = 0.0f;
 
     fPeakLevels = NULL;
@@ -203,6 +206,11 @@ void KmeterAudioProcessor::changeParameter(int index, int nValue)
     setParameterNotifyingHost(index, newValue);
 
     endParameterChangeGesture(index);
+
+    if (index == KmeterPluginParameters::selAverageAlgorithm)
+    {
+        pAverageLevelFiltered->setAlgorithm(nValue);
+    }
 }
 
 
@@ -326,6 +334,8 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 
     DBG(String("[K-Meter] number of input channels: ") + String(nNumInputChannels));
 
+    pMeterBallistics = new MeterBallistics(nNumInputChannels, (int) sampleRate, false, false);
+
     fPeakLevels = new float[nNumInputChannels];
     fRmsLevels = new float[nNumInputChannels];
     fAverageLevelsFiltered = new float[nNumInputChannels];
@@ -336,14 +346,12 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     {
         fPeakLevels[nChannel] = 0.0f;
         fRmsLevels[nChannel] = 0.0f;
-        fAverageLevelsFiltered[nChannel] = 0.0f;
+        fAverageLevelsFiltered[nChannel] = MeterBallistics::getMeterMinimumDecibel();
 
         nOverflows[nChannel] = 0;
     }
 
-    pAverageLevelFiltered = new AverageLevelFiltered(nNumInputChannels, KMETER_BUFFER_SIZE);
-
-    pMeterBallistics = new MeterBallistics(nNumInputChannels, (int) sampleRate, false, false);
+    pAverageLevelFiltered = new AverageLevelFiltered(this, nNumInputChannels, KMETER_BUFFER_SIZE, (int) sampleRate, getParameterAsInt(KmeterPluginParameters::selAverageAlgorithm));
 
     // make sure that ring buffer can hold at least KMETER_BUFFER_SIZE
     // samples and is large enough to receive a full block of audio
@@ -501,6 +509,8 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
             fRmsLevels[nChannel] = pRingBufferInput->getRMSLevel(nChannel, uChunkSize, uPreDelay);
 
             // determine filtered average level for uChunkSize samples
+            // (please note that this level has already been converted
+            // to decibels!)
             fAverageLevelsFiltered[nChannel] = pAverageLevelFiltered->getLevel(nChannel);
 
             // determine overflows for uChunkSize samples (use pre-delay)
@@ -523,7 +533,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
             fPhaseCorrelation = 1.0f;
         }
         // otherwise, process only levels at or above -80 dB
-        else if ((fAverageLevelsFiltered[0] >= 0.0001f) || (fAverageLevelsFiltered[1] >= 0.0001f))
+        else if ((fRmsLevels[0] >= 0.0001f) || (fRmsLevels[1] >= 0.0001f))
         {
             float sum_of_product = 0.0f;
             float sum_of_squares_left = 0.0f;
@@ -561,17 +571,17 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
         float fStereoMeterValue = 0.0f;
 
         // do not process levels below -80 dB
-        if ((fAverageLevelsFiltered[0] < 0.0001f) && (fAverageLevelsFiltered[1] < 0.0001f))
+        if ((fRmsLevels[0] < 0.0001f) && (fRmsLevels[1] < 0.0001f))
         {
             fStereoMeterValue = 0.0f;
         }
-        else if (fAverageLevelsFiltered[1] >= fAverageLevelsFiltered[0])
+        else if (fRmsLevels[1] >= fRmsLevels[0])
         {
-            fStereoMeterValue = (fAverageLevelsFiltered[1] - fAverageLevelsFiltered[0]) / fAverageLevelsFiltered[1];
+            fStereoMeterValue = 1.0f - fRmsLevels[0] / fRmsLevels[1];
         }
         else
         {
-            fStereoMeterValue = (fAverageLevelsFiltered[1] - fAverageLevelsFiltered[0]) / fAverageLevelsFiltered[0];
+            fStereoMeterValue = fRmsLevels[1] / fRmsLevels[0] - 1.0f;
         }
 
         pMeterBallistics->setStereoMeterValue(fProcessedSeconds, fStereoMeterValue);
@@ -669,6 +679,23 @@ int KmeterAudioProcessor::countOverflows(AudioRingBuffer* ring_buffer, const uns
 MeterBallistics* KmeterAudioProcessor::getLevels()
 {
     return pMeterBallistics;
+}
+
+
+int KmeterAudioProcessor::getAverageAlgorithm()
+{
+    return nAverageAlgorithm;
+}
+
+
+void KmeterAudioProcessor::setAverageAlgorithmFinal(const int average_algorithm)
+{
+    nAverageAlgorithm = average_algorithm;
+
+    //  the level averaging alghorithm has been changed, so update the
+    // "RMS" and "ITU-R" buttons to make sure that the correct button
+    // is lit
+    sendChangeMessage(NULL);
 }
 
 //==============================================================================

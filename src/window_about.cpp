@@ -82,7 +82,8 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     TextEditorAbout->insertTextAtCaret(
         L"Martin Zuther\n"
         L"Bob Katz\n"
-        L"bram@smartelectronix\n\n"
+        L"bram@smartelectronix\n"
+        L"Raiden\n\n"
     );
 
     // display copyright notice

@@ -30,6 +30,8 @@ class AverageLevelFiltered;
 
 #include "juce_library_code/juce_header.h"
 #include "audio_ring_buffer.h"
+#include "meter_ballistics.h"
+#include "plugin_processor.h"
 #include "fftw3/api/fftw3.h"
 
 //==============================================================================
@@ -38,7 +40,9 @@ class AverageLevelFiltered;
 class AverageLevelFiltered
 {
 public:
-    AverageLevelFiltered(const int channels, const int buffer_size);
+    static const int KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS = 3;
+
+    AverageLevelFiltered(KmeterAudioProcessor* processor, const int channels, const int buffer_size, const int sample_rate, const int average_algorithm);
     ~AverageLevelFiltered();
 
     float getLevel(const int channel);
@@ -54,7 +58,10 @@ private:
     void calculateFilterKernel();
     void calculateFilterKernel_Rms();
     void calculateFilterKernel_ItuBs1770();
+
     void FilterSamples(const int channel);
+    void FilterSamples_Rms(const int channel);
+    void FilterSamples_ItuBs1770(const int channel);
 
     AudioSampleBuffer* pSampleBuffer;
     AudioSampleBuffer* pOverlapAddSamples;
@@ -68,12 +75,26 @@ private:
     fftwf_plan planAudioSamples_DFT;
     fftwf_plan planAudioSamples_IDFT;
 
+    float** pIIRCoefficients_1;
+    float** pIIRCoefficients_2;
+
+    AudioSampleBuffer* pPreviousSamplesOutputTemp;
+
+    AudioSampleBuffer* pPreviousSamplesInput_1;
+    AudioSampleBuffer* pPreviousSamplesOutput_1;
+
+    AudioSampleBuffer* pPreviousSamplesInput_2;
+    AudioSampleBuffer* pPreviousSamplesOutput_2;
+
+    KmeterAudioProcessor* pProcessor;
     int nChannels;
     int nAverageAlgorithm;
     int nSampleRate;
     int nBufferSize;
     int nFftSize;
     int nHalfFftSize;
+
+    float fPeakToAverageCorrection;
 
 #ifdef _WIN32
     void* libraryHandleFFTW;

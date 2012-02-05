@@ -64,6 +64,9 @@ public:
 
     void updateChannel(int nChannel, float fTimePassed, float fPeak, float fRms, float fAverageFiltered, int nOverflows);
 
+    static float level2decibel(float fLevel);
+    static float getMeterMinimumDecibel();
+
 private:
     // JUCE_LEAK_DETECTOR(MeterBallistics);
 
@@ -72,8 +75,7 @@ private:
 
     int nNumberOfChannels;
 
-    float fMeterMinimumDecibel;
-    float fPeakToAverageCorrection;
+    static float fMeterMinimumDecibel;
 
     float* fPeakMeterLevels;
     float* fPeakMeterPeakLevels;
@@ -103,8 +105,6 @@ private:
 
     void calculateDynamicRangeValue();
     void resetDynamicRangeHistogram(bool bResetAllHistograms);
-
-    float level2decibel(float fLevel);
 
     float PeakMeterBallistics(float fTimePassed, float fPeakLevelCurrent, float fPeakLevelOld);
     float PeakMeterPeakBallistics(float fTimePassed, float* fLastChanged, float fPeakLevelCurrent, float fPeakLevelOld);

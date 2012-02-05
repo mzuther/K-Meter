@@ -30,6 +30,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     : AudioProcessorEditor(ownerFilter)
 {
     bIsValidating = false;
+    bReloadMeters = false;
 
     nInputChannels = nNumChannels;
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
@@ -89,7 +90,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
     ButtonItuBs1770 = new TextButton(T("ITU-R"));
     ButtonItuBs1770->setBounds(nRightColumnStart, 125, 60, 20);
-    ButtonItuBs1770->setRadioGroupId(2);
     ButtonItuBs1770->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonItuBs1770->setColour(TextButton::buttonOnColourId, Colours::green);
 
@@ -98,12 +98,13 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
     ButtonRms = new TextButton(T("RMS"));
     ButtonRms->setBounds(nRightColumnStart, 150, 60, 20);
-    ButtonRms->setRadioGroupId(2);
     ButtonRms->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonRms->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
     ButtonRms->addButtonListener(this);
     addAndMakeVisible(ButtonRms);
+
+    updateAverageAlgorithm(false);
 
     ButtonInfiniteHold = new TextButton(T("Hold"));
     ButtonInfiniteHold->setBounds(nRightColumnStart, 190, 60, 20);
@@ -227,6 +228,13 @@ void KmeterAudioProcessorEditor::changeListenerCallback(void* objectThatHasChang
         {
             bIsValidating = true;
             ButtonValidation->setColour(TextButton::buttonColourId, Colours::red);
+
+            updateAverageAlgorithm(true);
+        }
+        // update "Average Algorithm" buttons
+        else
+        {
+            updateAverageAlgorithm(true);
         }
     }
     else if (objectThatHasChanged != pProcessor)
@@ -278,7 +286,6 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex)
 
 void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 {
-    bool reloadMeters = false;
     MeterBallistics* pMeterBallistics = NULL;
 
     switch (nIndex)
@@ -288,28 +295,28 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         if (nValue == 0)
         {
             nCrestFactor = nValue;
-            reloadMeters = true;
+            bReloadMeters = true;
 
             ButtonNormal->setToggleState(true, false);
         }
         else if (nValue == 12)
         {
             nCrestFactor = nValue;
-            reloadMeters = true;
+            bReloadMeters = true;
 
             ButtonK12->setToggleState(true, false);
         }
         else if (nValue == 14)
         {
             nCrestFactor = nValue;
-            reloadMeters = true;
+            bReloadMeters = true;
 
             ButtonK14->setToggleState(true, false);
         }
         else
         {
             nCrestFactor = 20;
-            reloadMeters = true;
+            bReloadMeters = true;
 
             ButtonK20->setToggleState(true, false);
         }
@@ -318,26 +325,22 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 
     case KmeterPluginParameters::selAverageAlgorithm:
 
-        if (nValue == KmeterPluginParameters::selAlgorithmItuBs1770)
-        {
-            ButtonItuBs1770->setToggleState(true, false);
-            pProcessor->setParameter(KmeterPluginParameters::selAverageAlgorithm, nValue);
-        }
-        else
-        {
-            ButtonRms->setToggleState(true, false);
-            pProcessor->setParameter(KmeterPluginParameters::selAverageAlgorithm, KmeterPluginParameters::selAlgorithmRms);
-        }
+        // do nothing till you hear from me... :)
+        //
+        // the "RMS" and "ITU-R" buttons will be updated from the code
+        // that actually switches the level averaging alghorithm, thus
+        // making sure that the correct button is lit in any given
+        // situation
 
         break;
 
     case KmeterPluginParameters::selExpanded:
-        reloadMeters = true;
+        bReloadMeters = true;
         ButtonExpanded->setToggleState(nValue != 0, false);
         break;
 
     case KmeterPluginParameters::selPeak:
-        reloadMeters = true;
+        bReloadMeters = true;
         ButtonDisplayPeakMeter->setToggleState(nValue != 0, false);
         break;
 
@@ -358,8 +361,10 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         break;
     }
 
-    if (reloadMeters)
+    if (bReloadMeters)
     {
+        bReloadMeters = false;
+
         if (kmeter)
         {
             removeChildComponent(kmeter);
@@ -415,22 +420,10 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     else if (button == ButtonRms)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selAverageAlgorithm, KmeterPluginParameters::selAlgorithmRms);
-        MeterBallistics* pMeterBallistics = pProcessor->getLevels();
-
-        if (pMeterBallistics)
-        {
-            pMeterBallistics->reset();
-        }
     }
     else if (button == ButtonItuBs1770)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selAverageAlgorithm, KmeterPluginParameters::selAlgorithmItuBs1770);
-        MeterBallistics* pMeterBallistics = pProcessor->getLevels();
-
-        if (pMeterBallistics)
-        {
-            pMeterBallistics->reset();
-        }
     }
     else if (button == ButtonExpanded)
     {
@@ -477,6 +470,29 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     }
 }
 
+
+void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
+{
+    if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        ButtonItuBs1770->setToggleState(true, false);
+        ButtonRms->setToggleState(false, false);
+    }
+    else
+    {
+        ButtonItuBs1770->setToggleState(false, false);
+        ButtonRms->setToggleState(true, false);
+    }
+
+    bReloadMeters = reload_meters;
+    MeterBallistics* pMeterBallistics = pProcessor->getLevels();
+
+    if (pMeterBallistics)
+    {
+        pMeterBallistics->reset();
+    }
+
+}
 
 void KmeterAudioProcessorEditor::resized()
 {

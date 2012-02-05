@@ -101,6 +101,9 @@ public:
     MeterBallistics* getLevels();
     void processBufferChunk(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
+    int getAverageAlgorithm();
+    void setAverageAlgorithmFinal(const int average_algorithm);
+
     //==========================================================================
     int getNumPrograms();
     int getNumChannels();
@@ -133,6 +136,7 @@ private:
     bool isStereo;
     bool bSampleRateIsValid;
 
+    int nAverageAlgorithm;
     int nSamplesInBuffer;
     float fProcessedSeconds;
 

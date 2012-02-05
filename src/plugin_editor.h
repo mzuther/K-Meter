@@ -59,6 +59,9 @@ public:
 private:
     // JUCE_LEAK_DETECTOR(KmeterAudioProcessorEditor);
 
+    void updateAverageAlgorithm(bool reload_meters);
+
+    bool bReloadMeters;
     bool bIsValidating;
     int nCrestFactor;
     int nInputChannels;
