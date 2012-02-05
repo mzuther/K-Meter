@@ -420,7 +420,7 @@ output levels.
   \renewcommand{\thempfootnote}{\arabic{mpfootnote}}
   \begin{tabular}{>{\bfseries}lll}
 
-    average level meter &
+    average level meter (RMS) &
     readings &
     valid \\
 
@@ -431,6 +431,18 @@ output levels.
     &
     meter ballistics &
     valid \\
+
+    average level meter (ITU-R) &
+    readings &
+    --- \\
+
+    &
+    frequency response &
+    valid \\
+
+    &
+    meter ballistics &
+    --- \\
 
     peak level meter &
     readings &
@@ -464,32 +476,32 @@ output levels.
 \section{Frequency and phase response}
 
 Frequency and phase response have been determined at a sample rate of
-\SI{192}{\kilo\hertz} using Christian-W. Budde's
+\SI{192}{\kilo\hertz} using
 \href{http://www.savioursofsoul.de/Christian/programs/measurement-programs/}{VST
   Plugin Analyser}.
 
 \textbf{Frequency response of complete effect path (\SI{5}{\hertz} to
-  \SI{96}{\kilo\hertz}, \SI{0}{\dB} \SI{\pm 0.01}{\dB}):}
+  \SI{96}{\kilo\hertz}, \SI{0}{\dB} \SI{\pm 0.1}{\dB}):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz_freq-fx_path.png}
+  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-freq-fx_path.png}
 \end{center}
 
 \textbf{Phase response of complete effect path (\SI{5}{\hertz} to
   \SI{96}{\kilo\hertz}, \SI{0}{\degree}\,\SI{\pm 0.1}{\degree}):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz_phase-fx_path.png}
+  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-phase-fx_path.png}
 \end{center}
 
 \newpage %% layout
 
 \textbf{Frequency response of band-limited RMS detection stage
   (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{-140}{\dB} to
-  \SI{0}{\dB}):}
+  \SI{5}{\dB}):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz_freq-rms.png}
+  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-freq-rms.png}
 \end{center}
 
 \textbf{Phase response of band-limited RMS detection stage
@@ -497,17 +509,42 @@ Frequency and phase response have been determined at a sample rate of
   \SI[addsign]{+180}{\degree}):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz_phase-rms.png}
+  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-phase-rms.png}
+\end{center}
+\newpage %% layout
+
+\textbf{Frequency response of band-limited ITU-R BS.1770-2 detection stage
+  (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{-140}{\dB} to
+  \SI{5}{\dB}):}
+
+\begin{center}
+  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-freq-itu_r.png}
+\end{center}
+
+\textbf{Phase response of band-limited ITU-R BS.1770-2 detection stage
+  (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{-180}{\degree} to
+  \SI[addsign]{+180}{\degree}):}
+
+\begin{center}
+  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-phase-itu_r.png}
 \end{center}
 
 \newpage %% layout
 
 \textbf{Frequency response of band-limited RMS detection stage
-  (\SI{5}{\hertz} to \SI{21}{\kilo\hertz}, \SI{0}{\dB} \SI{\pm
-    0.01}{\dB}):}
+  (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{0}{\dB} \SI{\pm
+    1}{\dB}):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz_freq-rms_zoomed.png}
+  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-freq_zoomed-rms.png}
+\end{center}
+
+\textbf{Frequency response of band-limited ITU-R BS.1770-2 detection stage
+  (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{0}{\dB} \SI{-6}{\dB} to
+  \SI{4}{\dB}):}
+
+\begin{center}
+  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-freq_zoomed-itu_r.png}
 \end{center}
 
 \chapter{Help needed}
