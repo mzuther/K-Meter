@@ -740,6 +740,20 @@ I have already placed \path{libfftw3f-3.dll} in the directories
 
 Extract the archive into the directory \path{libraries/juce}.
 
+On GNU/Linux, please also open the file
+\path{libraries/juce/src/native/linux/juce_linux_JackAudio.cpp} and
+add ellipsis (\texttt{...}) to the function declaration on line 62.
+This fixes a
+\href{http://www.rawmaterialsoftware.com/viewtopic.php?f=5&t=6335}{problem
+  with JACK}:
+
+\begin{verbatim}
+  JUCE_DECL_JACK_FUNCTION (jack_client_t*,
+    jack_client_open, (const char* client_name,
+    jack_options_t options, jack_status_t*
+    status, ...), (client_name, options, status));
+\end{verbatim}
+
 \subsection{Virtual Studio Technology SDK}
 
 \begin{tabbing}
