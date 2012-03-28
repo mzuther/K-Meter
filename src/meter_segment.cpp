@@ -26,10 +26,13 @@
 #include "meter_segment.h"
 
 
-MeterSegment::MeterSegment(const String& componentName, float fThreshold, float fRange, int nColor)
+MeterSegment::MeterSegment(const String& componentName, float fThreshold, float fRange, bool bDisplayPeakMeter, int nColor)
 {
     // set component name
     setName(componentName);
+
+    // display additional peak meter?
+    displayPeakMeter = bDisplayPeakMeter;
 
     // lower threshold, meter segment will be dark below this level
     fLowerThreshold = fThreshold;
@@ -40,10 +43,6 @@ MeterSegment::MeterSegment(const String& componentName, float fThreshold, float 
     // upper threshold, meter segment will be fully lit above this
     // level
     fUpperThreshold = fThreshold + fThresholdRange;
-
-    // current level in decibel (initialise to a very low level so
-    // segment won't be lit by default)
-    fLevel = -1000.0f;
 
     // show peak level marker on segment?
     bPeakMarker = false;
@@ -112,41 +111,51 @@ void MeterSegment::resized()
 }
 
 
-void MeterSegment::setLevels(float newLevel, float newPeakLevel)
+void MeterSegment::setLevels(float fPeakLevel, float fAverageLevel, float fPeakLevelPeak, float fAverageLevelPeak)
 {
-    // update current level
-    fLevel = newLevel;
-
     // store old brightness and peak marker values
     float fBrightnessOld = fBrightness;
     bool bPeakMarkerOld = bPeakMarker;
 
-    // current level lies on or above upper threshold, so fully light
-    // meter segment
-    if (fLevel >= fUpperThreshold)
+    // current average level lies on or above upper threshold, so
+    // fully light meter segment
+    if (fAverageLevel >= fUpperThreshold)
     {
         fBrightness = 0.97f;
     }
-    // current level lies on or below lower threshold, so set meter
-    // segment to dark
-    else if (fLevel <= (fLowerThreshold))
+    // peak metering is enabled and current peak level lies within
+    // thresholds or on upper threshold, so fully light meter segment
+    else if (displayPeakMeter && (fPeakLevel > fLowerThreshold) && (fPeakLevel <= fUpperThreshold))
+    {
+        fBrightness = 0.97f;
+    }
+    // current average level lies on or below lower threshold, so set
+    // meter segment to dark
+    else if (fAverageLevel <= fLowerThreshold)
     {
         fBrightness = 0.25f;
     }
-    // current level lies within thresholds, so calculate brightness
-    // from current level
+    // current average level lies within thresholds, so calculate
+    // brightness from current level
     else
     {
-        fBrightness = (fLevel - fLowerThreshold) / fThresholdRange;
+        fBrightness = (fAverageLevel - fLowerThreshold) / fThresholdRange;
 
         // to look well, meter segments should be left with some
         // colour and not have maximum brightness
         fBrightness = fBrightness * 0.72f + 0.25f;
     }
 
-    // if meter's peak level lies above lower threshold and below or
-    // on upper threshold, show peak marker on segment
-    if ((newPeakLevel > fLowerThreshold) && (newPeakLevel <= fUpperThreshold))
+    // meter's average level peak lies within thresholds or on upper
+    // threshold, so show peak marker on segment
+    if ((fAverageLevelPeak > fLowerThreshold) && (fAverageLevelPeak <= fUpperThreshold))
+    {
+        bPeakMarker = true;
+    }
+    // peak metering is enabled and meter's peak level peak lies
+    // within thresholds or on upper threshold, so show peak marker on
+    // segment
+    else if (displayPeakMeter && (fPeakLevelPeak > fLowerThreshold) && (fPeakLevelPeak <= fUpperThreshold))
     {
         bPeakMarker = true;
     }

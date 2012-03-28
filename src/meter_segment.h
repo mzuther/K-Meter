@@ -35,10 +35,10 @@
 class MeterSegment : public Component
 {
 public:
-    MeterSegment(const String& componentName, float fThreshold, float fRange, int nColor);
+    MeterSegment(const String& componentName, float fThreshold, float fRange, bool bDisplayPeakMeter, int nColor);
     ~MeterSegment();
 
-    void setLevels(float newLevel, float newPeakLevel);
+    void setLevels(float fPeakLevel, float fAverageLevel, float fPeakLevelPeak, float fAverageLevelPeak);
     void paint(Graphics& g);
     void resized();
     void visibilityChanged();
@@ -53,8 +53,8 @@ private:
     float fUpperThreshold;
     float fThresholdRange;
 
-    float fLevel;
     bool bPeakMarker;
+    bool displayPeakMeter;
 };
 
 
