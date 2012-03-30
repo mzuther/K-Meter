@@ -224,24 +224,19 @@ void AverageLevelFiltered::calculateFilterKernel()
     {
         calculateFilterKernel_ItuBs1770();
 
-        // "Regardless of the frequency response or methodology of the
-        // loudness method, reference 0 dB of all meters is calibrated
-        // such that 20-20 kHz pink noise at 0 dB reads 83 dB SPL, C
-        // weighted, slow." (Bob Katz on his website)
-        //
-        // Thus, I have simply taken the mean average level of both
-        // stereo channels on validation with "pink_noise.flac".
-        fPeakToAverageCorrection = MeterBallistics::level2decibel(sqrt(2.0f));
+        // this is simply the difference between peak and average
+        // meter readings during validation, measured using a 1 kHz
+        // pure sine wave with a level of 0 dB FS
+        fPeakToAverageCorrection = +2.99619f;
     }
     else
     {
         calculateFilterKernel_Rms();
 
-        // the RMS of a sine wave is its amplitude divided by the
-        // square root of 2, thus the difference between peak value
-        // and RMS is the square root of 2 -- so let's convert this
-        // difference to dB and store the result
-        fPeakToAverageCorrection = MeterBallistics::level2decibel(sqrt(2.0f));
+        // this is simply the difference between peak and average
+        // meter readings during validation, measured using a 1 kHz
+        // pure sine wave with a level of 0 dB FS
+        fPeakToAverageCorrection = +3.01145f;
     }
 }
 
