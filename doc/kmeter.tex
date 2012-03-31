@@ -76,8 +76,8 @@ loudness.  There are three K-System scales:
 Using the K-System is easy.  Just calibrate your monitor system so
 that pink noise (\SI{-23.01}{\dBFS}\,RMS, \SI{20}{\hertz} to
 \SI{20}{\kilo\hertz}; \ref{chap:validation} will tell you where to
-find a suitable audio file) on one channel yields \SI{83}{\dB}\,SPL on
-a loudness meter placed at your listening position and set to
+find a suitable audio file) on one channel yields \SI{83}{\dBSPL} on a
+loudness meter placed at your listening position and set to
 \emph{C-weighted, slow}.  Then mark the monitor's gain position as
 ``K-20''.
 
@@ -86,8 +86,8 @@ should now yield \SI{0}{\dB} on a K-20 meter.
 
 In case you want to use the K-14 meter, attenuate the monitor gain by
 \SI{6}{\dB} or repeat the above process so that pink noise yields
-\SI{77}{\dB}\,SPL.  For K-12, attenuate the monitor gain by another
-\SI{2}{\dB} (pink noise should yield \SI{75}{\dB}\,SPL).
+\SI{77}{\dBSPL}.  For K-12, attenuate the monitor gain by another
+\SI{2}{\dB} (pink noise should yield \SI{75}{\dBSPL}).
 
 For more information about the K-System, please see
 \href{http://www.digido.com/level-practices-part-2-includes-the-k-system.html}{Bob's
@@ -267,18 +267,18 @@ the license's website in your web browser \dots
 \end{wrapfigure}
 
 The K-System meter consists of an average level meter (graphic on the
-right, wide bars) and an optional peak level meter (thin bars).  The
-recommended K-20 meter has \SI{20}{\dB} of headroom above \SI{0}{\dB},
-while the K-14 and K-12 meters have \SI{14}{\dB} and \SI{12}{\dB} of
-headroom, respectively.
+right, contiguous lit segments) and an optional peak level meter
+(single lit segment on top).  The recommended K-20 meter has
+\SI{20}{\dB} of headroom above \SI{0}{\dB}, while the K-14 and K-12
+meters have \SI{14}{\dB} and \SI{12}{\dB} of headroom, respectively.
 
 Each level meter is divided into segments of \SI{1}{\dB}, with the
 exception of the top \SI{2}{\dB} (segments of \SI{0.5}{\dB}) and the
-bottom end (segments of \SI{10}{\dB}).  When magnified, level meters
-are divided into segments of \SI{0.1}{\dB}.
+bottom end (segments of \SI{10}{\dB}).  Magnified level meters are
+divided into segments of \SI{0.1}{\dB}.
 
-Recent maximum level is displayed by a white rectangle around the
-corresponding meter segment.  Unless ``Infinite peak hold'' is
+Recent maximum levels are displayed by white rectangles around the
+corresponding meter segments.  Unless ``Infinite peak hold'' is
 switched on, maximum levels are held for \SI{10}{\second} and then
 start falling with a fall time of \SI{8.67}{\dB\per\second}.
 
