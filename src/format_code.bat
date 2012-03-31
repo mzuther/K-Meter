@@ -6,7 +6,7 @@ rem  K-Meter
 rem  =======
 rem  Implementation of a K-System meter according to Bob Katz' specifications
 rem
-rem  Copyright (c) 2010-2011 Martin Zuther (http://www.mzuther.de/)
+rem  Copyright (c) 2010-2012 Martin Zuther (http://www.mzuther.de/)
 rem
 rem  This program is free software: you can redistribute it and/or modify
 rem  it under the terms of the GNU General Public License as published by
