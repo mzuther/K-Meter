@@ -25,10 +25,11 @@
 
 #include "meter_bar.h"
 
-MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, int nCrestFactor, bool bExpanded, int nSegmentHeight, String justify)
+MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, int nCrestFactor, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight, String justify)
 {
     setName(componentName);
     isExpanded = bExpanded;
+    displayPeakMeter = bDisplayPeakMeter;
 
     // to prevent the inherent round-off errors of float subtraction,
     // crest factor and limits are stored as integers representing
@@ -104,7 +105,11 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
     nMainSegmentHeight = nSegmentHeight;
     justifyMeter = justify;
 
-    fLevel = 0.0f;
+    fPeakLevel = 0.0f;
+    fAverageLevel = 0.0f;
+
+    fPeakLevelPeak = 0.0f;
+    fAverageLevelPeak = 0.0f;
 
     int nThreshold = 0; // bar threshold (in 0.1 dB)
 
@@ -160,7 +165,7 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
 
         nThreshold -= nRange;
         nKmeterLevel -= nRange;
-        MeterArray[n] = new MeterSegment(String("MeterSegment #") + String(n) + T(" (") + componentName + T(")"), nThreshold * 0.1f, nRange * 0.1f, nColor);
+        MeterArray[n] = new MeterSegment(String("MeterSegment #") + String(n) + T(" (") + componentName + T(")"), nThreshold * 0.1f, nRange * 0.1f, displayPeakMeter, nColor);
 
         addAndMakeVisible(MeterArray[n]);
     }
@@ -318,16 +323,20 @@ void MeterBar::resized()
 {
 }
 
-void MeterBar::setLevels(float newLevel, float newPeak)
+
+void MeterBar::setLevels(float peakLevel, float averageLevel, float peakLevelPeak, float averageLevelPeak)
 {
-    if ((fLevel != newLevel) || (fPeak != newPeak))
+    if ((peakLevel != fPeakLevel) || (averageLevel != fAverageLevel) || (peakLevelPeak != fPeakLevelPeak) || (averageLevelPeak != fAverageLevelPeak))
     {
-        fLevel = newLevel;
-        fPeak = newPeak;
+        fPeakLevel = peakLevel;
+        fAverageLevel = averageLevel;
+
+        fPeakLevelPeak = peakLevelPeak;
+        fAverageLevelPeak = averageLevelPeak;
 
         for (int n = 0; n < nNumberOfBars; n++)
         {
-            MeterArray[n]->setLevels(fLevel, fPeak);
+            MeterArray[n]->setLevels(fPeakLevel, fAverageLevel, fPeakLevelPeak, fAverageLevelPeak);
         }
     }
 }

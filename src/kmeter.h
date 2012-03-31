@@ -64,8 +64,7 @@ private:
     int nInputChannels;
     int nStereoInputChannels;
 
-    MeterBar** PeakMeters;
-    MeterBar** AverageMeters;
+    MeterBar** LevelMeters;
     OverflowMeter** OverflowMeters;
     PeakLabel** MaximumPeakLabels;
 

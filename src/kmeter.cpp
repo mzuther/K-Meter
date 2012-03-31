@@ -64,52 +64,19 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
     }
 
     int nPositionX = 0;
+    LevelMeters = new MeterBar*[nInputChannels];
 
-    if (displayPeakMeter)
+    for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
     {
-        AverageMeters = new MeterBar*[nInputChannels];
-        PeakMeters = new MeterBar*[nInputChannels];
+        nPositionX = 8 + nChannel * KMETER_STEREO_WIDTH_2;
 
-        for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
+        if (nChannel % 2)
         {
-            nPositionX = 18 + nChannel * KMETER_STEREO_WIDTH_2;
-
-            if (nChannel % 2)
-            {
-                nPositionX += -3;
-            }
-
-            AverageMeters[nChannel] = new MeterBar(String("Average Meter #") + String(nChannel), nPositionX, nMeterPositionTop + 48, 18, nMeterCrestFactor, bExpanded, nMainSegmentHeight, T("center"));
-            addAndMakeVisible(AverageMeters[nChannel]);
-
-            nPositionX = 4 + nChannel * KMETER_STEREO_WIDTH_2;
-
-            if (nChannel % 2)
-            {
-                nPositionX += 34;
-            }
-
-            PeakMeters[nChannel] = new MeterBar(String("Peak Meter #") + String(nChannel), nPositionX, nMeterPositionTop + 48, 9, nMeterCrestFactor, bExpanded, nMainSegmentHeight, (nChannel % 2) ? T("left") : T("right"));
-            addAndMakeVisible(PeakMeters[nChannel]);
+            nPositionX += 15;
         }
-    }
-    else
-    {
-        AverageMeters = new MeterBar*[nInputChannels];
-        PeakMeters = NULL;
 
-        for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
-        {
-            nPositionX = 8 + nChannel * KMETER_STEREO_WIDTH_2;
-
-            if (nChannel % 2)
-            {
-                nPositionX += 15;
-            }
-
-            AverageMeters[nChannel] = new MeterBar(String("Average Meter #") + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nMeterCrestFactor, bExpanded, nMainSegmentHeight, T("center"));
-            addAndMakeVisible(AverageMeters[nChannel]);
-        }
+        LevelMeters[nChannel] = new MeterBar(String("Level Meter #") + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight, T("center"));
+        addAndMakeVisible(LevelMeters[nChannel]);
     }
 
     OverflowMeters = new OverflowMeter*[nInputChannels];
@@ -138,14 +105,8 @@ Kmeter::~Kmeter()
 {
     for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
     {
-        delete AverageMeters[nChannel];
-        AverageMeters[nChannel] = NULL;
-
-        if (displayPeakMeter)
-        {
-            delete PeakMeters[nChannel];
-            PeakMeters[nChannel] = NULL;
-        }
+        delete LevelMeters[nChannel];
+        LevelMeters[nChannel] = NULL;
 
         delete OverflowMeters[nChannel];
         OverflowMeters[nChannel] = NULL;
@@ -154,11 +115,8 @@ Kmeter::~Kmeter()
         MaximumPeakLabels[nChannel] = NULL;
     }
 
-    delete [] AverageMeters;
-    AverageMeters = NULL;
-
-    delete [] PeakMeters;
-    PeakMeters = NULL;
+    delete [] LevelMeters;
+    LevelMeters = NULL;
 
     delete [] OverflowMeters;
     OverflowMeters = NULL;
@@ -382,12 +340,7 @@ void Kmeter::setLevels(MeterBallistics* pMeterBallistics)
 {
     for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
     {
-        AverageMeters[nChannel]->setLevels(pMeterBallistics->getAverageMeterLevel(nChannel), pMeterBallistics->getAverageMeterPeakLevel(nChannel));
-
-        if (displayPeakMeter)
-        {
-            PeakMeters[nChannel]->setLevels(pMeterBallistics->getPeakMeterLevel(nChannel), pMeterBallistics->getPeakMeterPeakLevel(nChannel));
-        }
+        LevelMeters[nChannel]->setLevels(pMeterBallistics->getPeakMeterLevel(nChannel), pMeterBallistics->getAverageMeterLevel(nChannel), pMeterBallistics->getPeakMeterPeakLevel(nChannel), pMeterBallistics->getAverageMeterPeakLevel(nChannel));
 
         MaximumPeakLabels[nChannel]->updateLevel(pMeterBallistics->getMaximumPeakLevel(nChannel));
 
@@ -407,34 +360,17 @@ void Kmeter::drawMarkers(Graphics& g, String& strMarker, int x, int y, int width
     int nEnd = 0;
     int nWidth = 0;
 
-    if (displayPeakMeter)
-    {
-        nWidth = 3;
-        nStart = x + 9;
-        nEnd = nStart + nWidth;
-    }
-    else
-    {
-        nWidth = 9;
-        nStart = x + 25;
-        nEnd = nStart + nWidth;
-    }
+    nWidth = 9;
+    nStart = x + 25;
+    nEnd = nStart + nWidth;
 
     for (int nMarkerX = nStart; nMarkerX < nEnd; nMarkerX++)
     {
         g.setPixel(nMarkerX, nMarkerY);
     }
 
-    if (displayPeakMeter)
-    {
-        nStart = x + 86;
-        nEnd = nStart - nWidth;
-    }
-    else
-    {
-        nStart = x + 70;
-        nEnd = nStart - nWidth;
-    }
+    nStart = x + 70;
+    nEnd = nStart - nWidth;
 
     for (int nMarkerX = nStart; nMarkerX > nEnd; nMarkerX--)
     {
