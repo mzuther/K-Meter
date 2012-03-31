@@ -3,13 +3,9 @@ o [mzuther] document code
 
 o [mzuther] add const to methods
 
-* hide buttons using a button :)
-
 * hide superflous surround channels
 
 * save and restore default settings
-
-* implement ITU BS.1770-1 loudness weighting
 
 * implement inter-sample peak meter (ITU BS.1770-1, Annex 2)
 

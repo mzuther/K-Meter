@@ -225,18 +225,20 @@ void AverageLevelFiltered::calculateFilterKernel()
         calculateFilterKernel_ItuBs1770();
 
         // this is simply the difference between peak and average
-        // meter readings during validation, measured using a 1 kHz
-        // pure sine wave with a level of 0 dB FS
-        fPeakToAverageCorrection = +2.99619f;
+        // meter readings during validation, measured using a file
+        // from Bob Katz containing 15 seconds of uncorrelated pink
+        // noise with a level of -20 dB FS RMS
+        fPeakToAverageCorrection = +2.1980f;
     }
     else
     {
         calculateFilterKernel_Rms();
 
         // this is simply the difference between peak and average
-        // meter readings during validation, measured using a 1 kHz
-        // pure sine wave with a level of 0 dB FS
-        fPeakToAverageCorrection = +3.01145f;
+        // meter readings during validation, measured using a file
+        // from Bob Katz containing 15 seconds of uncorrelated pink
+        // noise with a level of -20 dB FS RMS
+        fPeakToAverageCorrection = +2.9881f;
     }
 }
 
