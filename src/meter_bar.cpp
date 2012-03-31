@@ -230,12 +230,12 @@ void MeterBar::visibilityChanged()
             if (justifyMeter == T("left"))
             {
                 width = (int)(nWidth * 0.85f);
-                x = nWidth - width;
+                x = 0;
             }
             else if (justifyMeter == T("right"))
             {
                 width = (int)(nWidth * 0.85f);
-                x = 0;
+                x = nWidth - width;
             }
             else
             {
@@ -248,12 +248,12 @@ void MeterBar::visibilityChanged()
             if (justifyMeter == T("left"))
             {
                 width = (int)(nWidth * 0.75f);
-                x = nWidth - width;
+                x = 0;
             }
             else if (justifyMeter == T("right"))
             {
                 width = (int)(nWidth * 0.75f);
-                x = 0;
+                x = nWidth - width;
             }
             else
             {
