@@ -25,7 +25,7 @@
 
 #include "meter_bar.h"
 
-MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, int nCrestFactor, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight, String justify)
+MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, int nCrestFactor, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight)
 {
     setName(componentName);
     isExpanded = bExpanded;
@@ -103,7 +103,6 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
     nPosY = posY;
     nWidth = Width;
     nMainSegmentHeight = nSegmentHeight;
-    justifyMeter = justify;
 
     fPeakLevel = 0.0f;
     fAverageLevel = 0.0f;
@@ -225,47 +224,8 @@ void MeterBar::visibilityChanged()
             }
         }
 
-        if (nKmeterLevel > nLimitRedBars)
-        {
-            width = nWidth;
-            x = 0;
-        }
-        else if (nKmeterLevel > nLimitAmberBars)
-        {
-            if (justifyMeter == T("left"))
-            {
-                width = (int)(nWidth * 0.85f);
-                x = 0;
-            }
-            else if (justifyMeter == T("right"))
-            {
-                width = (int)(nWidth * 0.85f);
-                x = nWidth - width;
-            }
-            else
-            {
-                width = nWidth;
-                x = 0;
-            }
-        }
-        else
-        {
-            if (justifyMeter == T("left"))
-            {
-                width = (int)(nWidth * 0.75f);
-                x = 0;
-            }
-            else if (justifyMeter == T("right"))
-            {
-                width = (int)(nWidth * 0.75f);
-                x = nWidth - width;
-            }
-            else
-            {
-                width = nWidth;
-                x = 0;
-            }
-        }
+        width = nWidth;
+        x = 0;
 
         if (isExpanded)
         {

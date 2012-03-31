@@ -75,7 +75,7 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
             nPositionX += 15;
         }
 
-        LevelMeters[nChannel] = new MeterBar(String("Level Meter #") + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight, T("center"));
+        LevelMeters[nChannel] = new MeterBar(String("Level Meter #") + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
         addAndMakeVisible(LevelMeters[nChannel]);
     }
 

@@ -36,7 +36,7 @@
 class MeterBar : public Component
 {
 public:
-    MeterBar(const String& componentName, int PosX, int PosY, int Width, int nCrestFactor, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight, String justify);
+    MeterBar(const String& componentName, int PosX, int PosY, int Width, int nCrestFactor, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight);
     ~MeterBar();
 
     void setLevels(float peakLevel, float averageLevel, float peakLevelPeak, float averageLevelPeak);
@@ -68,8 +68,6 @@ private:
     int nLimitAmberBars;
     int nLimitGreenBars_1;
     int nLimitGreenBars_2;
-
-    String justifyMeter;
 
     MeterSegment** MeterArray;
 };
