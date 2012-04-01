@@ -1,7 +1,20 @@
 Git HEAD
 ========
 
-* empty
+* ITU-R BS.1770-2 loudness weighting
+
+* combined peak and average level meter
+
+* display of current dynamic range (DR value)
+
+* updated framework to JUCE v1.53
+
+* code cleanup
+
+* updated documentation
+
+* validation: re-calibrated average level meters and updated
+  documentation
 
 
 v1.22 (2011-04-10)
