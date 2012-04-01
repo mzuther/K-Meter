@@ -90,8 +90,8 @@ public:
     //==========================================================================
     const String getName() const;
 
-    const String getInputChannelName(const int channelIndex) const;
-    const String getOutputChannelName(const int channelIndex) const;
+    const String getInputChannelName(int channelIndex) const;
+    const String getOutputChannelName(int channelIndex) const;
     bool isInputChannelStereoPair(int index) const;
     bool isOutputChannelStereoPair(int index) const;
 

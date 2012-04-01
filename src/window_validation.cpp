@@ -46,7 +46,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     // empty windows are boring, so let's prepare a space for some
     // window components
     contentComponent = new Component(T("Window Area"));
-    setContentComponent(contentComponent);
+    setContentOwned(contentComponent, false);
 
     LabelFileSelection = new Label("Label FileSelection", fileValidation.getFileName());
     LabelFileSelection->setBounds(nWidth - 188, nHeight - 244, 138, 20);
@@ -61,7 +61,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     ButtonFileSelection = new TextButton(T("..."));
     ButtonFileSelection->setBounds(nWidth - 45, nHeight - 244, 30, 20);
 
-    ButtonFileSelection->addButtonListener(this);
+    ButtonFileSelection->addListener(this);
     contentComponent->addAndMakeVisible(ButtonFileSelection);
 
     LabelSampleRateValue = new Label(T("Label SampleRate"), T("Host SR: "));
@@ -138,7 +138,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
 
     // add "validation" window as button listener and display the
     // button
-    ButtonValidation->addButtonListener(this);
+    ButtonValidation->addListener(this);
     contentComponent->addAndMakeVisible(ButtonValidation);
 
     // create and position a "validation" button which closes the
@@ -150,7 +150,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     ButtonCancel->setColour(TextButton::buttonOnColourId, Colours::grey);
 
     // add "validation" window as button listener and display the button
-    ButtonCancel->addButtonListener(this);
+    ButtonCancel->addListener(this);
     contentComponent->addAndMakeVisible(ButtonCancel);
 }
 

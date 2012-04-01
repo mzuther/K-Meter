@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{2ED213A3-F623-7014-AE13-5E60BF0DD926}</ProjectGuid>
+		<ProjectGuid>{5E24E5A4-0689-F6E1-2E9E-5464921BD6B9}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -54,7 +54,7 @@
 			<AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>Disabled</Optimization>
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;KMETER_STAND_ALONE=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;KMETER_STAND_ALONE=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
 			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -65,7 +65,7 @@
 			<DebugInformationFormat>EditAndContinue</DebugInformationFormat>
 		</ClCompile>
 		<ResourceCompile>
-			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;KMETER_STAND_ALONE=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;KMETER_STAND_ALONE=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
@@ -83,7 +83,7 @@
 			<AdditionalOptions>/Zi %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>MaxSpeed</Optimization>
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-			<PreprocessorDefinitions>NDEBUG=1;KMETER_STAND_ALONE=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;KMETER_STAND_ALONE=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<StringPooling>true</StringPooling>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -95,7 +95,7 @@
 			<OmitFramePointers>true</OmitFramePointers>
 		</ClCompile>
 		<ResourceCompile>
-			<PreprocessorDefinitions>NDEBUG=1;KMETER_STAND_ALONE=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;KMETER_STAND_ALONE=1;KMETER_STEREO=1;JUCETICE_USE_AMALGAMA=1;JUCE_USE_VSTSDK_2_4=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<AdditionalIncludeDirectories>..\..\..\src\juce_library_code;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
@@ -110,87 +110,84 @@
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemGroup>
-		<ClInclude Include="..\..\..\src\average_level_filtered.h" />
-		<ClInclude Include="..\..\..\src\audio_ring_buffer.h" />
-		<ClInclude Include="..\..\..\src\dynamic_range_label.h" />
-		<ClInclude Include="..\..\..\src\kmeter.h" />
-		<ClInclude Include="..\..\..\src\meter_ballistics.h" />
 		<ClInclude Include="..\..\..\src\meter_bar.h" />
+		<ClInclude Include="..\..\..\src\window_validation.h" />
+		<ClInclude Include="..\..\..\src\prohibiting_bounds_constrainer.h" />
+		<ClInclude Include="..\..\..\src\channel_slider.h" />
+		<ClInclude Include="..\..\..\src\average_level_filtered.h" />
 		<ClInclude Include="..\..\..\src\meter_segment.h" />
+		<ClInclude Include="..\..\..\src\stereo_meter.h" />
 		<ClInclude Include="..\..\..\src\overflow_meter.h" />
+		<ClInclude Include="..\..\..\src\audio_ring_buffer.h" />
 		<ClInclude Include="..\..\..\src\peak_label.h" />
+		<ClInclude Include="..\..\..\src\kmeter.h" />
 		<ClInclude Include="..\..\..\src\phase_correlation_meter.h" />
-		<ClInclude Include="..\..\..\src\plugin_editor.h" />
+		<ClInclude Include="..\..\..\src\window_about.h" />
+		<ClInclude Include="..\..\..\src\audio_file_player.h" />
 		<ClInclude Include="..\..\..\src\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\src\plugin_processor.h" />
+		<ClInclude Include="..\..\..\src\meter_ballistics.h" />
+		<ClInclude Include="..\..\..\src\dynamic_range_label.h" />
+		<ClInclude Include="..\..\..\src\plugin_editor.h" />
 		<ClInclude Include="..\..\..\src\standalone_application.h" />
-		<ClInclude Include="..\..\..\src\stereo_meter.h" />
-		<ClInclude Include="..\..\..\src\audio_file_player.h" />
-		<ClInclude Include="..\..\..\src\window_about.h" />
-		<ClInclude Include="..\..\..\src\prohibiting_bounds_constrainer.h" />
-		<ClInclude Include="..\..\..\src\window_validation.h" />
-		<ClInclude Include="..\..\..\src\channel_slider.h" />
-		<ClInclude Include="..\..\..\src\juce_library_code\app_config.h" />
 		<ClInclude Include="..\..\..\src\juce_library_code\JucePluginCharacteristics.h" />
+		<ClInclude Include="..\..\..\src\juce_library_code\app_config.h" />
 		<ClInclude Include="..\..\..\src\juce_library_code\juce_header.h" />
 		<ClInclude Include="..\..\..\src\resources\resources.h" />
-		<ClInclude Include="..\..\..\libraries\juce\extras\audio plugins\wrapper\Standalone\juce_AudioFilterStreamer.h" />
-		<ClInclude Include="..\..\..\libraries\juce\extras\audio plugins\wrapper\Standalone\juce_StandaloneFilterWindow.h" />
+		<ClInclude Include="..\..\..\libraries\juce\src\audio\plugin_client\Standalone\juce_StandaloneFilterWindow.h" />
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="..\..\..\src\audio_ring_buffer.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\average_level_filtered.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\dynamic_range_label.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\kmeter.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\main.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\meter_ballistics.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\meter_bar.cpp">
+		<ClCompile Include="..\..\..\src\stereo_meter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\meter_segment.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\overflow_meter.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\peak_label.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\phase_correlation_meter.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\plugin_editor.cpp">
+		<ClCompile Include="..\..\..\src\plugin_processor.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\plugin_parameters.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\plugin_processor.cpp">
+		<ClCompile Include="..\..\..\src\dynamic_range_label.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\standalone_application.cpp">
+		<ClCompile Include="..\..\..\src\main.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\src\stereo_meter.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\window_about.cpp">
+		<ClCompile Include="..\..\..\src\average_level_filtered.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\window_validation.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\src\meter_bar.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\peak_label.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\kmeter.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\audio_ring_buffer.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\standalone_application.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\phase_correlation_meter.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\window_about.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\meter_ballistics.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\plugin_editor.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\src\audio_file_player.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\src\overflow_meter.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\src\channel_slider.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_3.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_1.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_2.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_4.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_3.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\juce_library_code\juce_library_code_1.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\src\resources\resources.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\libraries\juce\extras\audio plugins\wrapper\Standalone\juce_AudioFilterStreamer.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\libraries\juce\extras\audio plugins\wrapper\Standalone\juce_StandaloneFilterWindow.cpp">
+		<ClCompile Include="..\..\..\libraries\juce\src\audio\plugin_client\Standalone\juce_StandaloneFilterWindow.cpp">
 		</ClCompile>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

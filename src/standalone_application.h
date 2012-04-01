@@ -27,7 +27,7 @@
 #define __STANDALONE_APPLICATION_H__
 
 #include "juce_library_code/juce_header.h"
-#include "juce/extras/audio plugins/wrapper/Standalone/juce_StandaloneFilterWindow.h"
+#include "juce/src/audio/plugin_client/Standalone/juce_StandaloneFilterWindow.h"
 
 class StandaloneApplication : public JUCEApplication
 {

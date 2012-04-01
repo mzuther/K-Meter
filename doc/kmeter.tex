@@ -216,9 +216,10 @@ validation.
 
 On Linux, dumped data will be written to \path{stderr}, so just start
 the K-Meter standalone or your VST host from the shell and watch the
-output coming.  On Windows, have a look at your VST host's log files
-(I was successful using Ableton Live).  If that doesn't work, you'll
-probably have to start either standalone or your host from a debugger.
+output coming.  On other systems, have a look at your VST host's log
+files (I have successfully used Ableton Live for this).  If that
+doesn't work, you might have to start either the K-Meter standalone or
+your VST host from a debugger.
 
 \newpage %% layout
 
@@ -385,7 +386,7 @@ version read correctly (the surround version shares the same code and
 should follow suit).  You want to validate for yourself?  Just
 download and extract the source code.  The directory \path{validation}
 contains instructions and FLAC-compressed wave files.  A word of
-warning: these audio files may \textbf{damage} your ears and speakers,
+warning: these audio files may \textbf{damage your ears} and speakers,
 so please watch your monitor levels!
 
 \begin{wrapfigure}{r}{0.395\linewidth}
@@ -396,16 +397,16 @@ After opening the \textbf{validation window} (see
 \ref{sec:validation_button}), click on the ellipsis button (the one
 with the dots) to select an audio file for playback through K-Meter.
 Please make sure that the sample rates of your host (\textbf{Host SR})
-and the audio file match, otherwise the results may be incorrect.
+and the audio file match, otherwise the results will not be correct.
 
 Now, select which \textbf{variables} (if any) should be dumped.  You
 may also restrict the dumped data to a specific audio
 \textbf{channel}.
 
-Finally, click on the \textbf{validate} button to start playback of
-the selected audio file.  All audio input will be discarded during
-playback and for an additional ten seconds.  To stop playback early,
-simply click on the \textbf{validate} button again.
+Finally, click on the \textbf{validate} button to reset all meters and
+start playback of the selected audio file.  All audio input will be
+discarded during playback and for an additional ten seconds.  To stop
+playback early, simply click on the \textbf{validate} button again.
 
 In case you want to calibrate your monitor system, simply select the
 file \path{pink_noise.flac} (uncorrelated band-limited pink noise,
@@ -731,7 +732,7 @@ I have already placed \path{libfftw3f-3.dll} in the directories
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 1.51 \\
+  Version:     \> 1.53 \\
   License:     \> GPL v2 \\
   Homepage:    \> \href{http://www.rawmaterialsoftware.com/juce.php}{www.rawmaterialsoftware.com/juce.php}
 \end{tabbing}
@@ -739,20 +740,6 @@ I have already placed \path{libfftw3f-3.dll} in the directories
 \subsubsection{Installation}
 
 Extract the archive into the directory \path{libraries/juce}.
-
-On GNU/Linux, please also open the file
-\path{libraries/juce/src/native/linux/juce_linux_JackAudio.cpp} and
-add ellipsis (\texttt{...}) to the function declaration on line 62.
-This fixes a
-\href{http://www.rawmaterialsoftware.com/viewtopic.php?f=5&t=6335}{problem
-  with JACK}:
-
-\begin{verbatim}
-  JUCE_DECL_JACK_FUNCTION (jack_client_t*,
-    jack_client_open, (const char* client_name,
-    jack_options_t options, jack_status_t*
-    status, ...), (client_name, options, status));
-\end{verbatim}
 
 \subsection{Virtual Studio Technology SDK}
 

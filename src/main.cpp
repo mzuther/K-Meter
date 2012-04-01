@@ -35,7 +35,7 @@ START_JUCE_APPLICATION(StandaloneApplication)
 // build VST plugin
 #ifdef KMETER_VST_PLUGIN
 
-#include "juce/extras/audio plugins/wrapper/VST/juce_VST_Wrapper.cpp"
+#include "juce/src/audio/plugin_client/VST/juce_VST_Wrapper.cpp"
 
 #endif
 

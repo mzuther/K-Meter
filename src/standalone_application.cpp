@@ -35,10 +35,12 @@ StandaloneApplication::~StandaloneApplication()
 
 void StandaloneApplication::initialise(const String& commandLineParameters)
 {
-    ApplicationProperties::getInstance()->setStorageParameters(
-        T("kmeterrc"), String::empty, T(".config/kmeter"),
-        400, PropertiesFile::storeAsXML);
+    PropertiesFile::Options options;
+    options.applicationName     = "kmeter";
+    options.folderName          = ".config";
+    options.filenameSuffix      = "ini";
 
+    ApplicationProperties::getInstance()->setStorageParameters(options);
     String strApplicationName = getApplicationName();
 
     filterWindow = new StandaloneFilterWindow(strApplicationName, Colours::black);

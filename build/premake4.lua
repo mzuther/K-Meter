@@ -65,12 +65,12 @@ solution "kmeter"
 		}
 
 	configuration { "Debug*" }
-		defines { "_DEBUG=1", "DEBUG=1" }
+		defines { "_DEBUG=1", "DEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=1" }
 		flags { "Symbols", "ExtraWarnings" }
 		buildoptions { "-fno-inline" }
 
 	configuration { "Release*" }
-		defines { "NDEBUG" }
+		defines { "NDEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=0" }
 		flags { "OptimizeSpeed", "NoFramePointer", "ExtraWarnings" }
 		buildoptions { "-pipe", "-fvisibility=hidden" }
 
@@ -102,8 +102,8 @@ solution "kmeter"
 		}
 
 		files {
-			"../libraries/juce/extras/audio plugins/wrapper/Standalone/*.h",
-			"../libraries/juce/extras/audio plugins/wrapper/Standalone/*.cpp"
+			"../libraries/juce/src/audio/plugin_client/Standalone/*.h",
+			"../libraries/juce/src/audio/plugin_client/Standalone/*.cpp"
 		}
 
 		configuration {"linux"}
@@ -152,8 +152,8 @@ solution "kmeter"
 		}
 
 		files {
-			"../libraries/juce/extras/audio plugins/wrapper/Standalone/*.h",
-			"../libraries/juce/extras/audio plugins/wrapper/Standalone/*.cpp"
+			"../libraries/juce/src/audio/plugin_client/Standalone/*.h",
+			"../libraries/juce/src/audio/plugin_client/Standalone/*.cpp"
 		}
 
 		configuration {"linux"}
