@@ -44,7 +44,7 @@ public:
 
 private:
     bool bIsPlaying;
-	int64 nNumberOfSamples;
+    int64 nNumberOfSamples;
     float fSampleRate;
 
     int nReportChannel;
