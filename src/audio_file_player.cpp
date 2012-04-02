@@ -26,7 +26,7 @@
 #include "audio_file_player.h"
 
 
-AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBallistics* meter_ballistics)
+AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBallistics* meter_ballistics, int crest_factor)
 {
     nReportChannel = -1;
     bReports = false;
@@ -35,6 +35,8 @@ AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBal
     bReportMaximumPeakLevel = false;
     bReportStereoMeterValue = false;
     bReportPhaseCorrelation = false;
+
+    setCrestFactor(crest_factor);
 
     pMeterBallistics = meter_ballistics;
 
@@ -89,6 +91,29 @@ AudioFilePlayer::~AudioFilePlayer()
 }
 
 
+void AudioFilePlayer::setCrestFactor(int crest_factor)
+{
+    fCrestFactor = crest_factor;
+
+    if (crest_factor == 20)
+    {
+        strCrestFactor = "K-20";
+    }
+    else if (crest_factor == 14)
+    {
+        strCrestFactor = "K-14";
+    }
+    else if (crest_factor == 12)
+    {
+        strCrestFactor = "K-12";
+    }
+    else
+    {
+        strCrestFactor = "NORM";
+    }
+}
+
+
 void AudioFilePlayer::setReporters(int nChannel, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation)
 {
     nReportChannel = nChannel;
@@ -137,26 +162,26 @@ void AudioFilePlayer::fillBufferChunk(AudioSampleBuffer* buffer)
             {
                 for (int nChannel = 0; nChannel < pMeterBallistics->getNumberOfChannels(); nChannel++)
                 {
-                    String strAverageMeterLevel = String(20.0f + pMeterBallistics->getAverageMeterLevel(nChannel), 2) + T(" dB");
+                    String strAverageMeterLevel = String(fCrestFactor + pMeterBallistics->getAverageMeterLevel(nChannel), 2) + T(" dB");
 
                     if (!strAverageMeterLevel.startsWithChar(T('-')))
                     {
                         strAverageMeterLevel = String("+") + strAverageMeterLevel;
                     }
 
-                    outputMessage(String("K-20 average (ch. ") + String(nChannel) + T("):  ") + strAverageMeterLevel);
+                    outputMessage(strCrestFactor + " average (ch. " + String(nChannel) + T("):  ") + strAverageMeterLevel);
                 }
             }
             else
             {
-                String strAverageMeterLevel = String(20.0f + pMeterBallistics->getAverageMeterLevel(nReportChannel), 2) + T(" dB");
+                String strAverageMeterLevel = String(fCrestFactor + pMeterBallistics->getAverageMeterLevel(nReportChannel), 2) + T(" dB");
 
                 if (!strAverageMeterLevel.startsWithChar(T('-')))
                 {
                     strAverageMeterLevel = String("+") + strAverageMeterLevel;
                 }
 
-                outputMessage(String("K-20 average (ch. ") + String(nReportChannel) + T("):  ") + strAverageMeterLevel);
+                outputMessage(strCrestFactor + " average (ch. " + String(nReportChannel) + T("):  ") + strAverageMeterLevel);
             }
         }
 
@@ -166,26 +191,26 @@ void AudioFilePlayer::fillBufferChunk(AudioSampleBuffer* buffer)
             {
                 for (int nChannel = 0; nChannel < pMeterBallistics->getNumberOfChannels(); nChannel++)
                 {
-                    String strPeakMeterLevel = String(20.0f + pMeterBallistics->getPeakMeterLevel(nChannel), 2) + T(" dB");
+                    String strPeakMeterLevel = String(fCrestFactor + pMeterBallistics->getPeakMeterLevel(nChannel), 2) + T(" dB");
 
                     if (!strPeakMeterLevel.startsWithChar(T('-')))
                     {
                         strPeakMeterLevel = String("+") + strPeakMeterLevel;
                     }
 
-                    outputMessage(String("K-20 peak (ch. ") + String(nChannel) + T("):     ") + strPeakMeterLevel);
+                    outputMessage(strCrestFactor + " peak (ch. " + String(nChannel) + T("):     ") + strPeakMeterLevel);
                 }
             }
             else
             {
-                String strPeakMeterLevel = String(20.0f + pMeterBallistics->getPeakMeterLevel(nReportChannel), 2) + T(" dB");
+                String strPeakMeterLevel = String(fCrestFactor + pMeterBallistics->getPeakMeterLevel(nReportChannel), 2) + T(" dB");
 
                 if (!strPeakMeterLevel.startsWithChar(T('-')))
                 {
                     strPeakMeterLevel = String("+") + strPeakMeterLevel;
                 }
 
-                outputMessage(String("K-20 peak (ch. ") + String(nReportChannel) + T("):     ") + strPeakMeterLevel);
+                outputMessage(strCrestFactor + " peak (ch. " + String(nReportChannel) + T("):     ") + strPeakMeterLevel);
             }
         }
 
@@ -195,26 +220,26 @@ void AudioFilePlayer::fillBufferChunk(AudioSampleBuffer* buffer)
             {
                 for (int nChannel = 0; nChannel < pMeterBallistics->getNumberOfChannels(); nChannel++)
                 {
-                    String strMaximumPeakLevel = String(20.0f + pMeterBallistics->getMaximumPeakLevel(nChannel), 2) + T(" dB");
+                    String strMaximumPeakLevel = String(fCrestFactor + pMeterBallistics->getMaximumPeakLevel(nChannel), 2) + T(" dB");
 
                     if (!strMaximumPeakLevel.startsWithChar(T('-')))
                     {
                         strMaximumPeakLevel = String("+") + strMaximumPeakLevel;
                     }
 
-                    outputMessage(String("K-20 maximum (ch. ") + String(nChannel) + T("):  ") + strMaximumPeakLevel);
+                    outputMessage(strCrestFactor + " maximum (ch. " + String(nChannel) + T("):  ") + strMaximumPeakLevel);
                 }
             }
             else
             {
-                String strMaximumPeakLevel = String(20.0f + pMeterBallistics->getMaximumPeakLevel(nReportChannel), 2) + T(" dB");
+                String strMaximumPeakLevel = String(fCrestFactor + pMeterBallistics->getMaximumPeakLevel(nReportChannel), 2) + T(" dB");
 
                 if (!strMaximumPeakLevel.startsWithChar(T('-')))
                 {
                     strMaximumPeakLevel = String("+") + strMaximumPeakLevel;
                 }
 
-                outputMessage(String("K-20 maximum (ch. ") + String(nReportChannel) + T("):  ") + strMaximumPeakLevel);
+                outputMessage(strCrestFactor + " maximum (ch. " + String(nReportChannel) + T("):  ") + strMaximumPeakLevel);
             }
         }
 

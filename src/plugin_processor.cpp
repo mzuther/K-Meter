@@ -199,6 +199,13 @@ void KmeterAudioProcessor::changeParameter(int index, int nValue)
             nValue = false;
         }
     }
+    else if (index == KmeterPluginParameters::selCrestFactor)
+    {
+        if (isValidating())
+        {
+            audioFilePlayer->setCrestFactor(nValue);
+        }
+    }
 
     beginParameterChangeGesture(index);
 
@@ -611,7 +618,8 @@ void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel,
     // reset all meters before we start the validation
     pMeterBallistics->reset();
 
-    audioFilePlayer = new AudioFilePlayer(fileAudio, (int) getSampleRate(), pMeterBallistics);
+    int nCrestFactor = getParameterAsInt(KmeterPluginParameters::selCrestFactor);
+    audioFilePlayer = new AudioFilePlayer(fileAudio, (int) getSampleRate(), pMeterBallistics, nCrestFactor);
     audioFilePlayer->setReporters(nSelectedChannel, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bStereoMeterValue, bPhaseCorrelation);
 
     // refresh editor; "V+" --> validation started

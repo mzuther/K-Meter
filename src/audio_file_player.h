@@ -35,17 +35,20 @@ class AudioFilePlayer;
 class AudioFilePlayer
 {
 public:
-    AudioFilePlayer(const File audioFile, int sample_rate, MeterBallistics* meter_ballistics);
+    AudioFilePlayer(const File audioFile, int sample_rate, MeterBallistics* meter_ballistics, int crest_factor);
     ~AudioFilePlayer();
 
     bool isPlaying();
     void fillBufferChunk(AudioSampleBuffer* buffer);
+    void setCrestFactor(int crest_factor);
     void setReporters(int nChannel, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
 
 private:
     bool bIsPlaying;
     int64 nNumberOfSamples;
     float fSampleRate;
+    float fCrestFactor;
+    String strCrestFactor;
 
     int nReportChannel;
     bool bReports;
