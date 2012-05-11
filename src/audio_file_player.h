@@ -61,6 +61,7 @@ private:
     AudioFormatReaderSource* audioFileSource;
     MeterBallistics* pMeterBallistics;
 
+    void outputValue(const float fValue, const String& strPrefix, const String& strSuffix);
     void outputMessage(const String& strMessage);
 };
 
