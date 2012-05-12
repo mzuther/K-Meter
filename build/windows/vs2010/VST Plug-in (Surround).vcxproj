@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{DDAF059A-CF6F-69B5-955C-FCCCC5DAF5F6}</ProjectGuid>
+		<ProjectGuid>{85240B84-C9B3-0D46-7D84-2F13CCFDD72B}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Surround)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -133,6 +133,7 @@
 		<ClInclude Include="..\..\..\src\meter_ballistics.h" />
 		<ClInclude Include="..\..\..\src\dynamic_range_label.h" />
 		<ClInclude Include="..\..\..\src\plugin_editor.h" />
+		<ClInclude Include="..\..\..\src\averager.h" />
 		<ClInclude Include="..\..\..\src\juce_library_code\JucePluginCharacteristics.h" />
 		<ClInclude Include="..\..\..\src\juce_library_code\app_config.h" />
 		<ClInclude Include="..\..\..\src\juce_library_code\juce_header.h" />
@@ -146,6 +147,8 @@
 		<ClCompile Include="..\..\..\src\plugin_processor.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\plugin_parameters.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\averager.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\dynamic_range_label.cpp">
 		</ClCompile>

@@ -29,6 +29,7 @@
 class AudioFilePlayer;
 
 #include "juce_library_code/juce_header.h"
+#include "averager.h"
 #include "meter_ballistics.h"
 
 
@@ -47,11 +48,14 @@ private:
     JUCE_LEAK_DETECTOR(AudioFilePlayer);
 
     bool bIsPlaying;
+    int nSamplesMovingAverage;
     int64 nNumberOfSamples;
     float fSampleRate;
     float fCrestFactor;
+    float fMeterMinimumDecibel;
     String strCrestFactor;
 
+    int nNumberOfChannels;
     int nReportChannel;
     bool bReports;
     bool bReportAverageMeterLevel;
@@ -60,10 +64,13 @@ private:
     bool bReportStereoMeterValue;
     bool bReportPhaseCorrelation;
 
+    Averager** pAverager_AverageMeterLevels;
+    Averager** pAverager_PeakMeterLevels;
+
     AudioFormatReaderSource* audioFileSource;
     MeterBallistics* pMeterBallistics;
 
-    void outputValue(const float fValue, const String& strPrefix, const String& strSuffix);
+    void outputValue(const float fValue, Averager* pAverager, const String& strPrefix, const String& strSuffix);
     void outputMessage(const String& strMessage);
 };
 

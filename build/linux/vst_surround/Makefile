@@ -112,6 +112,7 @@ OBJECTS := \
 	$(OBJDIR)/meter_segment.o \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/plugin_parameters.o \
+	$(OBJDIR)/averager.o \
 	$(OBJDIR)/dynamic_range_label.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/average_level_filtered.o \
@@ -202,6 +203,9 @@ $(OBJDIR)/plugin_processor.o: ../../../src/plugin_processor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_parameters.o: ../../../src/plugin_parameters.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/averager.o: ../../../src/averager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/dynamic_range_label.o: ../../../src/dynamic_range_label.cpp

@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="VST Plug-in (Surround)"
-	ProjectGUID="{E9AD208B-594F-59F3-5694-000E493A375D}"
+	ProjectGUID="{7A933E8A-9D1B-AEEE-0C7D-922677846E8B}"
 	RootNamespace="VST Plug-in (Surround)"
 	Keyword="Win32Proj"
 	>
@@ -319,6 +319,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\averager.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\stereo_meter.cpp"
 				>
 			</File>
@@ -332,6 +336,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\plugin_parameters.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\averager.cpp"
 				>
 			</File>
 			<File

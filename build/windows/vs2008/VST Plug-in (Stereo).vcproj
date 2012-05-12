@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="VST Plug-in (Stereo)"
-	ProjectGUID="{F981E975-4FE1-213E-328C-5BEA21399149}"
+	ProjectGUID="{D3128673-AE5F-3665-B9C6-4BC91BBCC672}"
 	RootNamespace="VST Plug-in (Stereo)"
 	Keyword="Win32Proj"
 	>
@@ -319,6 +319,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\averager.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\stereo_meter.cpp"
 				>
 			</File>
@@ -332,6 +336,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\plugin_parameters.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\averager.cpp"
 				>
 			</File>
 			<File

@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="Stand-alone (Surround)"
-	ProjectGUID="{C0075D00-2147-B0FE-F996-C2B3C9A7349A}"
+	ProjectGUID="{4B3A1AE7-3AE3-1FC8-951C-53DD5A2BDB77}"
 	RootNamespace="Stand-alone (Surround)"
 	Keyword="Win32Proj"
 	>
@@ -323,6 +323,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\averager.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\stereo_meter.cpp"
 				>
 			</File>
@@ -336,6 +340,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\plugin_parameters.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\averager.cpp"
 				>
 			</File>
 			<File

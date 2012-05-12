@@ -2,13 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="src">
-			<UniqueIdentifier>{65D25B7D-44BA-8445-3DA4-13CF252D02B9}</UniqueIdentifier>
+			<UniqueIdentifier>{59E9D39C-7FFD-89C1-6186-8404E77681F9}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="src\juce_library_code">
-			<UniqueIdentifier>{80FC9C40-14AB-E5DF-0ABA-983915E4B82C}</UniqueIdentifier>
+			<UniqueIdentifier>{65DBCCD4-D378-1C94-C84B-2258DDD14C33}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="src\resources">
-			<UniqueIdentifier>{9597FCD0-BD98-503D-A779-606A80FDA03B}</UniqueIdentifier>
+			<UniqueIdentifier>{16D0C12A-92DE-46C4-DE4E-06C7804C2FE3}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -69,6 +69,9 @@
 		<ClInclude Include="..\..\..\src\plugin_editor.h">
 			<Filter>src</Filter>
 		</ClInclude>
+		<ClInclude Include="..\..\..\src\averager.h">
+			<Filter>src</Filter>
+		</ClInclude>
 		<ClInclude Include="..\..\..\src\juce_library_code\JucePluginCharacteristics.h">
 			<Filter>src\juce_library_code</Filter>
 		</ClInclude>
@@ -93,6 +96,9 @@
 			<Filter>src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\plugin_parameters.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\src\averager.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\src\dynamic_range_label.cpp">
