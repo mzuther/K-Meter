@@ -41,7 +41,7 @@ public:
     void buttonClicked(Button* button);
 
 private:
-    // JUCE_LEAK_DETECTOR(WindowAbout);
+    JUCE_LEAK_DETECTOR(WindowAbout);
 
     Component* contentComponent;
     ProhibitingBoundsConstrainer* pConstrainer;

@@ -62,7 +62,7 @@ public:
     float getRMSLevel(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay);
 
 private:
-    // JUCE_LEAK_DETECTOR(AudioRingBuffer);
+    JUCE_LEAK_DETECTOR(AudioRingBuffer);
 
     void clearCallbackClass();
     void triggerFullBuffer(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);

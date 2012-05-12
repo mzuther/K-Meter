@@ -42,7 +42,7 @@ public:
     const String getTextFromValue(double fValue);
 
 private:
-    // JUCE_LEAK_DETECTOR(ChannelSlider);
+    JUCE_LEAK_DETECTOR(ChannelSlider);
 };
 
 

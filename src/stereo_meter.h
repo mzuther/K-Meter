@@ -43,7 +43,7 @@ public:
     void visibilityChanged();
 
 private:
-    // JUCE_LEAK_DETECTOR(StereoMeter);
+    JUCE_LEAK_DETECTOR(StereoMeter);
 
     float fValue;
     int nNeedlePosition;

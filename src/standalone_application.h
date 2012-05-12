@@ -42,7 +42,7 @@ public:
     const String getApplicationVersion();
 
 private:
-    // JUCE_LEAK_DETECTOR(StandaloneApplication);
+    JUCE_LEAK_DETECTOR(StandaloneApplication);
 
     StandaloneFilterWindow* filterWindow;
 };

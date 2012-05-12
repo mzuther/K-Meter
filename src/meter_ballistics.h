@@ -68,7 +68,7 @@ public:
     static float getMeterMinimumDecibel();
 
 private:
-    // JUCE_LEAK_DETECTOR(MeterBallistics);
+    JUCE_LEAK_DETECTOR(MeterBallistics);
 
     static const int NUMBER_OF_HISTOGRAMS = 3;
     static const int HISTOGRAM_BINS = 10000;

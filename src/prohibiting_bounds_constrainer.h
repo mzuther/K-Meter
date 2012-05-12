@@ -50,7 +50,7 @@ public:
     }
 
 private:
-    // JUCE_LEAK_DETECTOR(ProhibitingBoundsConstrainer);
+    JUCE_LEAK_DETECTOR(ProhibitingBoundsConstrainer);
 };
 
 

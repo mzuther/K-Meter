@@ -51,7 +51,7 @@ public:
     void visibilityChanged();
 
 private:
-    // JUCE_LEAK_DETECTOR(Kmeter);
+    JUCE_LEAK_DETECTOR(Kmeter);
 
     int nPosX;
     int nPosY;

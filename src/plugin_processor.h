@@ -120,7 +120,7 @@ public:
     juce_UseDebuggingNewOperator
 
 private:
-    // JUCE_LEAK_DETECTOR(KmeterAudioProcessor);
+    JUCE_LEAK_DETECTOR(KmeterAudioProcessor);
 
     AudioFilePlayer* audioFilePlayer;
 

@@ -42,7 +42,7 @@ public:
     void buttonClicked(Button* button);
 
 private:
-    // JUCE_LEAK_DETECTOR(WindowValidation);
+    JUCE_LEAK_DETECTOR(WindowValidation);
 
     KmeterAudioProcessor* pProcessor;
     File fileValidation;

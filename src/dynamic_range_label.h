@@ -42,7 +42,7 @@ public:
     void setValue(int newValue);
 
 private:
-    // JUCE_LEAK_DETECTOR(DynamicRangeLabel);
+    JUCE_LEAK_DETECTOR(DynamicRangeLabel);
 
     int nValue;
     int nMeterCrestFactor;

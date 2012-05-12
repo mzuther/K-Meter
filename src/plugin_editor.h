@@ -57,7 +57,7 @@ public:
     void resized();
 
 private:
-    // JUCE_LEAK_DETECTOR(KmeterAudioProcessorEditor);
+    JUCE_LEAK_DETECTOR(KmeterAudioProcessorEditor);
 
     void updateAverageAlgorithm(bool reload_meters);
 

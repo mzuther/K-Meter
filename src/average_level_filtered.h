@@ -53,7 +53,7 @@ public:
     void copyToBuffer(AudioSampleBuffer& destination, const int channel, const int destStartSample, const int numSamples);
 
 private:
-    // JUCE_LEAK_DETECTOR(AverageLevelFiltered);
+    JUCE_LEAK_DETECTOR(AverageLevelFiltered);
 
     void calculateFilterKernel();
     void calculateFilterKernel_Rms();

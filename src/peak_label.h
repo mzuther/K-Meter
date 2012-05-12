@@ -42,7 +42,7 @@ public:
     void updateLevel(float newLevel);
 
 private:
-    // JUCE_LEAK_DETECTOR(PeakLabel);
+    JUCE_LEAK_DETECTOR(PeakLabel);
 
     int nMeterCrestFactor;
     float fMaximumLevel;

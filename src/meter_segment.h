@@ -44,7 +44,7 @@ public:
     void visibilityChanged();
 
 private:
-    // JUCE_LEAK_DETECTOR(MeterSegment);
+    JUCE_LEAK_DETECTOR(MeterSegment);
 
     static const int PEAK_MARKER_NONE = 0;
     static const int PEAK_MARKER_PEAK = 1;

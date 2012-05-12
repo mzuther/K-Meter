@@ -44,6 +44,8 @@ public:
     void setReporters(int nChannel, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
 
 private:
+    JUCE_LEAK_DETECTOR(AudioFilePlayer);
+
     bool bIsPlaying;
     int64 nNumberOfSamples;
     float fSampleRate;
