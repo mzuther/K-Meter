@@ -134,6 +134,23 @@ neither saved, nor recalled in your DAW and the standalone version.
 This is by design -- the K-System meter has been explicitly designed
 to \textbf{not} have \SI{0}{\dBFS} on top!
 
+\section{Averaging method}
+
+\begin{wrapfigure}{r}{0pt}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_averaging_selection.png}
+\end{wrapfigure}
+
+The average level meters can either read loudness-weighted levels
+according to \href{http://www.itu.int/rec/R-REC-BS.1770}{ITU-R
+  BS.1770-2} (\textbf{ITU-R}) or unweighted levels (\textbf{RMS}).
+Click on the corresponding radio button to make your selection.  To
+reference a meter, state both K-System meter scale and averaging
+method, separated by a slash, such as ``K-20/ITU''.
+
+\emph{\underline{Note:} K-Meter implements ITU-R BS.1770-2 'K'
+  frequency weighting and mean square calculation, but neither gated
+  loudness, nor channel-weighted summation.}
+
 \section{Infinite peak hold}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
@@ -182,8 +199,6 @@ centre.
   easily magnify the whole range between \SI{-25}{\dBFS} and
   \SI{0}{\dBFS}.}
 
-\newpage %% layout
-
 \section{Mono mode}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
@@ -221,8 +236,6 @@ files (I have successfully used Ableton Live for this).  If that
 doesn't work, you might have to start either the K-Meter standalone or
 your VST host from a debugger.
 
-\newpage %% layout
-
 \section{Reset button}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
@@ -244,6 +257,8 @@ redrawn as well.
 Clicking on this button will open the \textbf{about window} where you
 will be informed about version number, contributors, copyright and the
 GNU General Public License.
+
+\newpage %% layout
 
 \section{Display license}
 
@@ -562,11 +577,15 @@ debugging, though, so no beginners please!
 \chapter{Final words}
 \label{chap:final_words}
 
-I'd like to thank Bob Katz for kindly answering all of my questions
-regarding the K-System meter and checking this document for technical
-errors.  Moreover, I want to thank bram@smartelectronix for his code
-to calculate logarithmic rise and fall times and the users of K-Meter
-for their suggestions and bug reports.
+I want to express my gratitude to \textbf{Bob Katz} for kindly
+answering all of my questions regarding the K-System meter and
+checking this document for technical errors.  I'd further like to
+thank \textbf{bram@smartelectronix} for his code to calculate
+logarithmic rise and fall times, and \textbf{Raiden} for working out
+the ITU-R BS.1770-1 filter specifications.  I must also thank the
+\textbf{users of K-Meter} for sending kind words, suggestions and bug
+reports.  Finally, I want to thank the \textbf{open source community}
+for making all of this possible.
 
 Although coding K-Meter has been a lot of fun, it has also been a lot
 of work.  So if you like K-Meter, why not send me a short email and
