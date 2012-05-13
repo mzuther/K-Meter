@@ -224,11 +224,10 @@ void AverageLevelFiltered::calculateFilterKernel()
     {
         calculateFilterKernel_ItuBs1770();
 
-        // this is simply the difference between peak and average
-        // meter readings during validation, measured using a file
-        // from Bob Katz containing 15 seconds of uncorrelated pink
-        // noise with a level of -20 dB FS RMS
-        fPeakToAverageCorrection = +2.1980f;
+        // this reverses the difference between peak and average meter
+        // readings for a 1 kHz sine wave with a peak level of 0 dB FS
+        // (-3.01 LKFS; taken from the ITU-R BS.1770-2 specification)
+        fPeakToAverageCorrection = +3.01f;
     }
     else
     {
@@ -297,16 +296,16 @@ void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
     // please see here for Raiden's original forum thread:
     // http://www.hydrogenaudio.org/forums/index.php?showtopic=86116
 
-    // initialise pre-filter (ITU-r BS.1770-2)
-    float pf_vh = 1.584864701130855f;
-    float pf_vb = sqrt(pf_vh);
-    float pf_vl = 1.0f;
-    float pf_q = 0.7071752369554196f;
-    float pf_cutoff = 1681.974450955533f;
-    float pf_omega = (float) tan(M_PI * pf_cutoff / nSampleRate);
-    float pf_omega_2 = powf(pf_omega, 2.0f);
-    float pf_omega_q = pf_omega / pf_q;
-    float pf_div = (pf_omega_2 + pf_omega_q + 1.0f);
+    // initialise pre-filter (ITU-R BS.1770-2)
+    double pf_vh = 1.584864701130855;
+    double pf_vb = sqrt(pf_vh);
+    double pf_vl = 1.0;
+    double pf_q = 0.7071752369554196;
+    double pf_cutoff = 1681.974450955533;
+    double pf_omega = tan(M_PI * pf_cutoff / double(nSampleRate));
+    double pf_omega_2 = pow(pf_omega, 2.0);
+    double pf_omega_q = pf_omega / pf_q;
+    double pf_div = (pf_omega_2 + pf_omega_q + 1.0);
 
     pIIRCoefficients_1[0][0] = (pf_vl * pf_omega_2 + pf_vb * pf_omega_q + pf_vh) / pf_div;
     pIIRCoefficients_1[0][1] = 2.0f * (pf_vl * pf_omega_2 - pf_vh) / pf_div;
@@ -316,17 +315,17 @@ void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
     pIIRCoefficients_1[1][1] = -2.0f * (pf_omega_2 - 1.0f) / pf_div;
     pIIRCoefficients_1[1][2] = -(pf_omega_2 - pf_omega_q + 1.0f) / pf_div;
 
-    // initialise RLB weighting curve (ITU-r BS.1770-2)
-    float rlb_vh = 1.0f;
-    float rlb_vb = 0.0f;
-    float rlb_vl = 0.0f;
-    float rlb_q = 0.5003270373238773f;
-    float rlb_cutoff = 38.13547087602444f;
-    float rlb_omega = (float) tan(M_PI * rlb_cutoff / nSampleRate);
-    float rlb_omega_2 = powf(rlb_omega, 2.0f);
-    float rlb_omega_q = rlb_omega / rlb_q;
-    float rlb_div_1 = (rlb_vl * rlb_omega_2 + rlb_vb * rlb_omega_q + rlb_vh);
-    float rlb_div_2 = (rlb_omega_2 + rlb_omega_q + 1.0f);
+    // initialise RLB weighting curve (ITU-R BS.1770-2)
+    double rlb_vh = 1.0;
+    double rlb_vb = 0.0;
+    double rlb_vl = 0.0;
+    double rlb_q = 0.5003270373238773;
+    double rlb_cutoff = 38.13547087602444;
+    double rlb_omega = tan(M_PI * rlb_cutoff / double(nSampleRate));
+    double rlb_omega_2 = pow(rlb_omega, 2.0);
+    double rlb_omega_q = rlb_omega / rlb_q;
+    double rlb_div_1 = (rlb_vl * rlb_omega_2 + rlb_vb * rlb_omega_q + rlb_vh);
+    double rlb_div_2 = (rlb_omega_2 + rlb_omega_q + 1.0);
 
     pIIRCoefficients_2[0][0] = 1.0f;
     pIIRCoefficients_2[0][1] = 2.0f * (rlb_vl * rlb_omega_2 - rlb_vh) / rlb_div_1;
@@ -527,18 +526,27 @@ float AverageLevelFiltered::getLevel(const int channel)
 
     if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
-        // weighting factor for L, C, R (incorrect for surround
-        // channels and LFE!)
+        float fAverageLevel = 0.0f;
+        float* fSampleData = pSampleBuffer->getSampleData(channel);
+
+        // calculate mean square of the filtered input signal
+        for (int n = 0; n < nBufferSize; n++)
+        {
+            fAverageLevel += (fSampleData[n] * fSampleData[n]);
+        }
+
+        fAverageLevel /= float(nBufferSize);
+
+        // apply weighting factor to channels (as we process each
+        // channel on its own, we do not apply any weighting!)
+        //
+        // L, C, R => 1.00
+        // LS, LR  => 1.41
+        // LFE     => 0.00
         float fWeightingFactor = 1.0f;
+        fAverageLevel *= fWeightingFactor;
 
-        float fAverageLevel = pSampleBuffer->getRMSLevel(channel, 0, nBufferSize);
         float fMeterMinimumDecibel = MeterBallistics::getMeterMinimumDecibel() - fPeakToAverageCorrection;
-
-        // the square root of this level has already been taken, so
-        // revert this to fit the formula (of course, the formula
-        // could easily be modified to accept RMS levels, but this
-        // would introduce a bug as soon as some channels were summed)
-        fAverageLevel = powf(fWeightingFactor * fAverageLevel, 2.0f);
 
         if (fAverageLevel == 0.0f)
         {
@@ -546,7 +554,13 @@ float AverageLevelFiltered::getLevel(const int channel)
         }
         else
         {
-            // apply the formula from ITU-R BS.1770-2
+            // apply the formula from ITU-R BS.1770-2; here's my guess
+            // to what the factors mean:
+            //
+            // -0.691 => 'K' filter frequency response at 1 kHz
+            // 10.000 => factor for conversion to decibels (20.0) and
+            //           square root for conversion from mean square
+            //           to RMS (log10(sqrt(x)) = 0.5 * log10(x))
             fAverageLevel = -0.691f + 10.0f * log10(fAverageLevel);
 
             if (fAverageLevel < fMeterMinimumDecibel)
