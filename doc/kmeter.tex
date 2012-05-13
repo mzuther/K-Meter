@@ -140,16 +140,23 @@ to \textbf{not} have \SI{0}{\dBFS} on top!
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_averaging_selection.png}
 \end{wrapfigure}
 
-The average level meters can either read loudness-weighted levels
-according to \href{http://www.itu.int/rec/R-REC-BS.1770}{ITU-R
-  BS.1770-2} (\textbf{ITU-R}) or unweighted levels (\textbf{RMS}).
-Click on the corresponding radio button to make your selection.  To
-reference a meter, state both K-System meter scale and averaging
-method, separated by a slash, such as ``K-20/ITU''.
+The average level meters can either read unweighted levels
+(\textbf{RMS}) or loudness-weighted levels according to
+\href{http://www.itu.int/rec/R-REC-BS.1770}{ITU-R BS.1770-1}
+(\textbf{ITU-R}).  Click on the corresponding radio button to make
+your selection.
 
-\emph{\underline{Note:} K-Meter implements ITU-R BS.1770-2 'K'
-  frequency weighting and mean square calculation, but neither gated
-  loudness, nor channel-weighted summation.}
+According to Bob Katz, the unweighted \textbf{RMS} method has been
+designed for stereophonic metering, while the loudness-weighted
+\textbf{ITU-R} method should be used for channel-summed loudness
+metering.  To reference a meter, state both K-System meter scale and
+averaging method, separated by a slash, such as ``K-20/ITU''.
+
+\emph{\underline{Note:} K-Meter fully implements Annex 1 of the now
+  superseded ITU-R BS.1770-1 standard ('K' frequency weighting, mean
+  square calculation and channel-weighted summation), whereas the
+  gated loudness measurement specified in ITU-R BS.1770-2 is not yet
+  supported.}
 
 \section{Infinite peak hold}
 
@@ -246,6 +253,8 @@ Click on this button to reset all meters, peaks and counters.  You can
 also get rid of graphical artifacts, because all meters will be
 redrawn as well.
 
+\newpage %% layout
+
 \section{About button}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
@@ -257,8 +266,6 @@ redrawn as well.
 Clicking on this button will open the \textbf{about window} where you
 will be informed about version number, contributors, copyright and the
 GNU General Public License.
-
-\newpage %% layout
 
 \section{Display license}
 
@@ -529,7 +536,7 @@ Frequency and phase response have been determined at a sample rate of
 \end{center}
 \newpage %% layout
 
-\textbf{Frequency response of band-limited ITU-R BS.1770-2 detection stage
+\textbf{Frequency response of band-limited ITU-R BS.1770-1 detection stage
   (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{-140}{\dB} to
   \SI{5}{\dB}):}
 
@@ -537,7 +544,7 @@ Frequency and phase response have been determined at a sample rate of
   \includegraphics[scale=0.65,clip]{include/images/fft_192khz-freq-itu_r.png}
 \end{center}
 
-\textbf{Phase response of band-limited ITU-R BS.1770-2 detection stage
+\textbf{Phase response of band-limited ITU-R BS.1770-1 detection stage
   (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{-180}{\degree} to
   \SI[addsign]{+180}{\degree}):}
 
@@ -555,7 +562,7 @@ Frequency and phase response have been determined at a sample rate of
   \includegraphics[scale=0.65,clip]{include/images/fft_192khz-freq_zoomed-rms.png}
 \end{center}
 
-\textbf{Frequency response of band-limited ITU-R BS.1770-2 detection stage
+\textbf{Frequency response of band-limited ITU-R BS.1770-1 detection stage
   (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{0}{\dB} \SI{-6}{\dB} to
   \SI{4}{\dB}):}
 
