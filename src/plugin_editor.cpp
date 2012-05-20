@@ -148,7 +148,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
 #ifdef DEBUG
     Label* LabelDebug = new Label(T("Debug Notification"), "DEBUG");
-    LabelDebug->setBounds(nRightColumnStart, nHeight - 120, 60, 16);
+    LabelDebug->setBounds(nRightColumnStart, nHeight - 92, 60, 16);
     LabelDebug->setColour(Label::textColourId, Colours::red);
     LabelDebug->setJustificationType(Justification::centred);
     addAndMakeVisible(LabelDebug);
@@ -188,7 +188,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     pProcessor->addActionListenerParameters(this);
 
     kmeter = NULL;
-    dynamicRangeLabel = NULL;
 
     int nIndex = KmeterPluginParameters::selCrestFactor;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
@@ -240,7 +239,6 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String& message)
         if (pMeterBallistics)
         {
             kmeter->setLevels(pMeterBallistics);
-            dynamicRangeLabel->setValue(pMeterBallistics->getDynamicRangeValue());
 
             if (stereoMeter)
             {
@@ -381,19 +379,8 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
             kmeter = NULL;
         }
 
-        if (dynamicRangeLabel)
-        {
-            removeChildComponent(dynamicRangeLabel);
-            delete dynamicRangeLabel;
-            dynamicRangeLabel = NULL;
-        }
-
         kmeter = new Kmeter(T("K-Meter"), 10, 10, nCrestFactor, nInputChannels, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
         addAndMakeVisible(kmeter);
-
-        dynamicRangeLabel = new DynamicRangeLabel(T("Dynamic Range"));
-        dynamicRangeLabel->setBounds(nRightColumnStart + 10, nHeight - 92, 40, 20);
-        addAndMakeVisible(dynamicRangeLabel);
     }
 }
 
@@ -500,7 +487,6 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
     {
         pMeterBallistics->reset();
     }
-
 }
 
 void KmeterAudioProcessorEditor::resized()

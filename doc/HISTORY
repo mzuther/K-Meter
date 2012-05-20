@@ -5,8 +5,6 @@ Git HEAD
 
 * combined peak and average level meter
 
-* display of current dynamic range (DR value)
-
 * updated framework to JUCE v1.53
 
 * code cleanup

@@ -30,7 +30,6 @@
 #include "juce_library_code/JucePluginCharacteristics.h"
 #include "plugin_processor.h"
 #include "kmeter.h"
-#include "dynamic_range_label.h"
 #include "stereo_meter.h"
 #include "phase_correlation_meter.h"
 #include "window_about.h"
@@ -73,7 +72,6 @@ private:
     Kmeter* kmeter;
     StereoMeter* stereoMeter;
     PhaseCorrelationMeter* phaseCorrelationMeter;
-    DynamicRangeLabel* dynamicRangeLabel;
 
     TextButton* ButtonNormal;
     TextButton* ButtonK12;

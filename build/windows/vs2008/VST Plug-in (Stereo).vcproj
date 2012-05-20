@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="VST Plug-in (Stereo)"
-	ProjectGUID="{D3128673-AE5F-3665-B9C6-4BC91BBCC672}"
+	ProjectGUID="{370C39C5-B928-BEA0-7EE3-543D654CB508}"
 	RootNamespace="VST Plug-in (Stereo)"
 	Keyword="Win32Proj"
 	>
@@ -197,39 +197,6 @@
 			Filter=""
 			>
 			<Filter
-				Name="juce_library_code"
-				Filter=""
-				>
-				<File
-					RelativePath="..\..\..\src\juce_library_code\JucePluginCharacteristics.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\juce_library_code\app_config.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\juce_library_code\juce_header.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\juce_library_code\juce_library_code_2.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\juce_library_code\juce_library_code_4.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\juce_library_code\juce_library_code_3.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\juce_library_code\juce_library_code_1.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="resources"
 				Filter=""
 				>
@@ -242,28 +209,41 @@
 					>
 				</File>
 			</Filter>
-			<File
-				RelativePath="..\..\..\src\meter_bar.h"
+			<Filter
+				Name="juce_library_code"
+				Filter=""
 				>
-			</File>
+				<File
+					RelativePath="..\..\..\src\juce_library_code\JucePluginCharacteristics.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\juce_library_code\juce_header.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\juce_library_code\app_config.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\juce_library_code\juce_library_code_2.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\juce_library_code\juce_library_code_4.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\juce_library_code\juce_library_code_1.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\juce_library_code\juce_library_code_3.cpp"
+					>
+				</File>
+			</Filter>
 			<File
-				RelativePath="..\..\..\src\window_validation.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\prohibiting_bounds_constrainer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\channel_slider.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\average_level_filtered.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\meter_segment.h"
+				RelativePath="..\..\..\src\audio_file_player.h"
 				>
 			</File>
 			<File
@@ -271,11 +251,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\overflow_meter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\audio_ring_buffer.h"
+				RelativePath="..\..\..\src\plugin_editor.h"
 				>
 			</File>
 			<File
@@ -283,19 +259,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\kmeter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\phase_correlation_meter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\window_about.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\audio_file_player.h"
+				RelativePath="..\..\..\src\prohibiting_bounds_constrainer.h"
 				>
 			</File>
 			<File
@@ -307,15 +271,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\meter_ballistics.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\dynamic_range_label.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\plugin_editor.h"
+				RelativePath="..\..\..\src\kmeter.h"
 				>
 			</File>
 			<File
@@ -323,27 +279,51 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\stereo_meter.cpp"
+				RelativePath="..\..\..\src\meter_ballistics.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\meter_segment.cpp"
+				RelativePath="..\..\..\src\window_validation.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\plugin_processor.cpp"
+				RelativePath="..\..\..\src\channel_slider.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\plugin_parameters.cpp"
+				RelativePath="..\..\..\src\audio_ring_buffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\averager.cpp"
+				RelativePath="..\..\..\src\meter_segment.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\dynamic_range_label.cpp"
+				RelativePath="..\..\..\src\average_level_filtered.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\meter_bar.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\phase_correlation_meter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\overflow_meter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\window_about.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\channel_slider.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\audio_file_player.cpp"
 				>
 			</File>
 			<File
@@ -351,31 +331,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\average_level_filtered.cpp"
+				RelativePath="..\..\..\src\plugin_editor.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\window_validation.cpp"
+				RelativePath="..\..\..\src\meter_segment.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\meter_bar.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\peak_label.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\kmeter.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\audio_ring_buffer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\phase_correlation_meter.cpp"
+				RelativePath="..\..\..\src\stereo_meter.cpp"
 				>
 			</File>
 			<File
@@ -387,19 +351,47 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\plugin_editor.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\audio_file_player.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\overflow_meter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\channel_slider.cpp"
+				RelativePath="..\..\..\src\average_level_filtered.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\kmeter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\meter_bar.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\window_validation.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\averager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\plugin_parameters.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\peak_label.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\audio_ring_buffer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\phase_correlation_meter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\plugin_processor.cpp"
 				>
 			</File>
 		</Filter>

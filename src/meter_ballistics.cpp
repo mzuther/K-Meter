@@ -77,39 +77,6 @@ MeterBallistics::MeterBallistics(int nChannels, int nSampleRate, bool bPeakMeter
     fMaximumPeakLevels = new float[nNumberOfChannels];
     nNumberOfOverflows = new int[nNumberOfChannels];
 
-    // all dynamic range histograms span a time of three seconds when
-    // combined; set maximum counts per single histogram accordingly
-    nHistogramMaximumCounts = 3 * nSampleRate * nNumberOfChannels / (KMETER_BUFFER_SIZE * NUMBER_OF_HISTOGRAMS);
-
-    // we will only ever use the top 20 % (1/5) of the combined
-    // histograms to calculate the dynamic range value
-    nHistogramTopTwentyCounts = nHistogramMaximumCounts * NUMBER_OF_HISTOGRAMS / (5 * nNumberOfChannels);
-
-    // allocate the histograms (average and peak levels) needed for
-    // calculating the dynamic range value
-    fRmsLevelHistogram = new unsigned short** [nNumberOfChannels];
-    fPeakLevelHistogram = new unsigned short** [nNumberOfChannels];
-    bHistogramIsValid = new bool*[nNumberOfChannels];
-
-    // loop through all channels
-    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
-    {
-        // allocate the histograms (average and peak levels) needed for
-        // calculating the dynamic range value
-        fRmsLevelHistogram[nChannel] = new unsigned short*[NUMBER_OF_HISTOGRAMS];
-        fPeakLevelHistogram[nChannel] = new unsigned short*[NUMBER_OF_HISTOGRAMS];
-        bHistogramIsValid[nChannel] = new bool[NUMBER_OF_HISTOGRAMS];
-
-        // allocate histogram bins for calculation of the dynamic range
-        // value; levels are separated into bins of 0.01 dB each and run
-        // from -100.0 dBFS to 0.0 dBFS; to minimise overhead, histogram
-        // indices are calculated as (-100 * level)
-        for (int nHistogram = 0; nHistogram < NUMBER_OF_HISTOGRAMS; nHistogram++)
-        {
-            fRmsLevelHistogram[nChannel][nHistogram] = new unsigned short[HISTOGRAM_BINS];
-            fPeakLevelHistogram[nChannel][nHistogram] = new unsigned short[HISTOGRAM_BINS];
-        }
-    }
 
     // select "infinite peak hold" or "falling peaks" mode
     setPeakMeterInfiniteHold(bPeakMeterInfiniteHold);
@@ -150,43 +117,11 @@ MeterBallistics::~MeterBallistics()
 
     delete [] nNumberOfOverflows;
     nNumberOfOverflows = NULL;
-
-    // delete memory allocated for histogram channels and bins
-    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
-    {
-        for (int nHistogram = 0; nHistogram < NUMBER_OF_HISTOGRAMS; nHistogram++)
-        {
-            delete [] fRmsLevelHistogram[nChannel][nHistogram];
-            fRmsLevelHistogram[nChannel][nHistogram] = NULL;
-
-            delete [] fPeakLevelHistogram[nChannel][nHistogram];
-            fPeakLevelHistogram[nChannel][nHistogram] = NULL;
-        }
-
-        delete [] fRmsLevelHistogram[nChannel];
-        fRmsLevelHistogram[nChannel] = NULL;
-
-        delete [] fPeakLevelHistogram[nChannel];
-        fPeakLevelHistogram[nChannel] = NULL;
-
-        delete [] bHistogramIsValid[nChannel];
-        bHistogramIsValid[nChannel] = NULL;
-    }
-
-    // delete memory allocated for histograms
-    delete [] fRmsLevelHistogram;
-    fRmsLevelHistogram = NULL;
-
-    delete [] fPeakLevelHistogram;
-    fPeakLevelHistogram = NULL;
-
-    delete [] bHistogramIsValid;
-    bHistogramIsValid = NULL;
 }
 
 
 void MeterBallistics::reset()
-/*  Reset all meter readings and dynamic range histograms.
+/*  Reset all meter readings
 
     return value: none
 */
@@ -196,9 +131,6 @@ void MeterBallistics::reset()
 
     // default stereo meter value is "0" (centred)
     fStereoMeterValue = 0.0f;
-
-    // default dynamic range value is "-1" (invalid)
-    nDynamicRangeValue = -1;
 
     // loop through all audio channels
     for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
@@ -217,78 +149,6 @@ void MeterBallistics::reset()
         // reset number of registered overflows
         nNumberOfOverflows[nChannel] = 0;
     }
-
-    // reset all dynamic range histograms
-    resetDynamicRangeHistogram(true);
-}
-
-
-void MeterBallistics::resetDynamicRangeHistogram(bool bResetAllHistograms)
-/*  Reset dynamic range histogram(s) and select the one that is filled
-    next.
-
-    bResetAllHistograms (Boolean): specifies whether to reset all
-    histograms and select the first one (true) or to select the next
-    one and reset it accordingly (false).
-
-    return value: none
-*/
-{
-    // reset all histograms
-    if (bResetAllHistograms)
-    {
-        // select the first histogram for use
-        nCurrentHistogram = 0;
-
-        // loop through all channels and histograms
-        for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
-        {
-            for (int nHistogram = 0; nHistogram < NUMBER_OF_HISTOGRAMS; nHistogram++)
-            {
-                // loop through histogram bins
-                for (int nBin = 0; nBin < HISTOGRAM_BINS; nBin++)
-                {
-                    // reset selected histogram bin (average and peak
-                    // level)
-                    fRmsLevelHistogram[nChannel][nHistogram][nBin] = 0;
-                    fPeakLevelHistogram[nChannel][nHistogram][nBin] = 0;
-                }
-
-                // to avoid nonsense values, the dynamic range value
-                // is only calculated when the peak level histogram
-                // contains levels of at least -40 dBFS
-                bHistogramIsValid[nChannel][nHistogram] = false;
-            }
-        }
-    }
-    // reset only the next histogram
-    else
-    {
-        // select the next histogram for use
-        nCurrentHistogram = (nCurrentHistogram + 1) % NUMBER_OF_HISTOGRAMS;
-
-        // loop through channels and bins of current histogram
-        for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
-        {
-            for (int nBin = 0; nBin < HISTOGRAM_BINS; nBin++)
-            {
-                // reset selected histogram bin (average and peak level)
-                fRmsLevelHistogram[nChannel][nCurrentHistogram][nBin] = 0;
-                fPeakLevelHistogram[nChannel][nCurrentHistogram][nBin] = 0;
-            }
-
-            // to avoid nonsense values, the dynamic range value is only
-            // calculated when the peak level histogram contains levels of
-            // at least -40 dBFS
-            bHistogramIsValid[nChannel][nCurrentHistogram] = false;
-        }
-    }
-
-    // reset item counter of currently selected histogram(s) which is
-    // needed so we know when a histogram is ready for processing
-    // (both histograms will be filled at the same time with the same
-    // amount of items)
-    nHistogramCurrentCounts = 0;
 }
 
 
@@ -455,216 +315,6 @@ int MeterBallistics::getNumberOfOverflows(int nChannel)
 }
 
 
-int MeterBallistics::getDynamicRangeValue()
-/*  Get the dynamic range value.
-
-    return value (integer): returns dynamic range value
-*/
-{
-    return nDynamicRangeValue;
-}
-
-
-void MeterBallistics::calculateDynamicRangeValue()
-/*  Calculate the dynamic range value and select the next histogram.
-
-    return value: void
-*/
-{
-    // loop through all channels
-    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
-    {
-        // loop through all histograms
-        for (int nHistogram = 0; nHistogram < NUMBER_OF_HISTOGRAMS; nHistogram++)
-        {
-            // to avoid nonsense values, the dynamic range value is only
-            // calculated when all peak level histograms contain levels of
-            // at least -40 dBFS
-            if (!bHistogramIsValid[nChannel][nHistogram])
-            {
-                // select and reset next dynamic range histogram(s), ...
-                resetDynamicRangeHistogram(false);
-
-                // ..., set dynamic range to "-1" (invalid) ...
-                nDynamicRangeValue = -1;
-
-                // ... and leave
-                return;
-            }
-        }
-    }
-
-    // the overall dynamic range value is calculated from the dynamic
-    // range values of the channels; initialise a helper variable for
-    // holding a sum of these dynamic range values
-    float fDynamicRangeValueRunningSum = 0.0f;
-
-    // loop through all channels
-    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
-    {
-        // histogram bin containing the highest recorded peak level
-        int nHighestPeakBin = 0;
-
-        // histogram bin containing the next-to-highest peak level
-        int nHighestPeakBin_2 = 0;
-
-        // this variable will break nested loops if set to true
-        bool bBreakLoop = false;
-
-        // to find the highest recorded peak level, loop through all
-        // histogram bins in the order of decreasing level
-        for (nHighestPeakBin = 0; nHighestPeakBin < HISTOGRAM_BINS; nHighestPeakBin++)
-        {
-            // loop through all histograms
-            for (int nHistogram = 0; nHistogram < NUMBER_OF_HISTOGRAMS; nHistogram++)
-            {
-                // if histogram bin contains one ore more entries, we
-                // have found the highest recorded peak level
-                if (fPeakLevelHistogram[nChannel][nHistogram][nHighestPeakBin] > 0)
-                {
-                    // break underlying loop
-                    bBreakLoop = true;
-
-                    // break current loop
-                    break;
-                }
-            }
-
-            // break this loop if requested
-            if (bBreakLoop)
-            {
-                break;
-            }
-        }
-
-        // if there is not even a single filled histogram bin, we have
-        // encountered a bug!
-        if (nHighestPeakBin >= HISTOGRAM_BINS)
-        {
-            jassert(nHighestPeakBin < HISTOGRAM_BINS);
-            return;
-        }
-        // otherwise, find the next-to-highest recorded peak level
-        else
-        {
-            // do not break nested loops yet
-            bBreakLoop = false;
-
-            // loop through all histogram bins in the order of decreasing
-            // level, starting with the highest recorded peak level
-            for (nHighestPeakBin_2 = nHighestPeakBin + 1; nHighestPeakBin_2 < HISTOGRAM_BINS; nHighestPeakBin_2++)
-            {
-                // loop through all histograms
-                for (int nHistogram = 0; nHistogram < NUMBER_OF_HISTOGRAMS; nHistogram++)
-                {
-                    // if histogram bin contains one ore more entries,
-                    // we have found the next-to-highest recorded peak
-                    // level
-                    if (fPeakLevelHistogram[nChannel][nHistogram][nHighestPeakBin_2] > 0)
-                    {
-                        // break underlying loop
-                        bBreakLoop = true;
-
-                        // break current loop
-                        break;
-                    }
-                }
-
-                // break this loop if requested
-                if (bBreakLoop)
-                {
-                    break;
-                }
-            }
-
-            // safeguard for the unlikely case that there is only a
-            // single filled histogram bin
-            if (nHighestPeakBin_2 >= HISTOGRAM_BINS)
-            {
-                nHighestPeakBin_2 = nHighestPeakBin;
-            }
-        }
-
-        // convert histogram bin to next-to-highest peak level; bins
-        // are calculated as (-100 * level); we need the *negated*
-        // value to calculate the dynamic range value, so we'll use
-        // 100.0f instead of -100.0f!
-        float fHighestPeakLevel_2 = nHighestPeakBin_2 / 100.0f;
-
-        // initialise sum of squared average levels
-        float fSumOfSquaredAverageLevels = 0.0f;
-
-        // initialise total number of processed counts
-        int nProcessedCounts = 0;
-
-        // loop through all histogram bins in the order of decreasing
-        // level
-        for (int nBin = 0; nBin < HISTOGRAM_BINS; nBin++)
-        {
-            // this variable will contain the overall number of counts in
-            // a single bin (found in all average level histograms)
-            int nNumberOfCounts = 0;
-
-            // loop through all histograms
-            for (int nHistogram = 0; nHistogram < NUMBER_OF_HISTOGRAMS; nHistogram++)
-            {
-                // add the current histogram's counts to overall number of
-                // counts
-                nNumberOfCounts += fRmsLevelHistogram[nChannel][nHistogram][nBin];
-            }
-
-            // process bin only if it contains counts
-            if (nNumberOfCounts > 0)
-            {
-                // the number of histogram counts exceeds the needed
-                // number of counts
-                if ((nProcessedCounts + nNumberOfCounts) > nHistogramTopTwentyCounts)
-                {
-                    // process exactly the needed number of histogram
-                    // counts
-                    nNumberOfCounts = nHistogramTopTwentyCounts - nProcessedCounts;
-                }
-
-                // convert histogram bin to average level and square the
-                // result; bins are calculated as (-100 * level)
-                float fAverageSquared = nBin * nBin / 10000.0f;
-
-                // update the sum of squared average levels
-                fSumOfSquaredAverageLevels += (nNumberOfCounts * fAverageSquared);
-
-                // add number of counts to the total number of processed
-                // counts
-                nProcessedCounts += nNumberOfCounts;
-            }
-
-            // we have processed the needed number of histogram counts, so
-            // break the loop
-            if (nProcessedCounts >= nHistogramTopTwentyCounts)
-            {
-                break;
-            }
-        }
-
-        // calculate the dynamic range value; the original algorithm
-        // for the dynamic range value takes the logarithm of a level
-        // that has already been converted to decibels; this doesn't
-        // make sense at all, so I have removed the "weird" part
-        float fDynamicRangeValue = sqrt(fSumOfSquaredAverageLevels / nProcessedCounts) - fHighestPeakLevel_2;
-
-        // add channel's dynamic range value to the running sum of
-        // dynamic range values
-        fDynamicRangeValueRunningSum += fDynamicRangeValue;
-    }
-
-    // calculate the average dynamic range value and store the rounded
-    // result
-    nDynamicRangeValue = (int)(fDynamicRangeValueRunningSum / nNumberOfChannels + 0.5f);
-
-    // select and reset next dynamic range histogram(s)
-    resetDynamicRangeHistogram(false);
-}
-
-
 float MeterBallistics::getStereoMeterValue()
 /*  Get stereo meter value (two input channels only!).
 
@@ -776,57 +426,6 @@ void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak
 
     // convert current RMS level from linear scale to decibels
     fRms = level2decibel(fRms);
-
-    // convert RMS level to histogram bin; to minimise overhead, bins
-    // are calculated as (-100 * level)
-    int nRmsBin = (int)(-100.0f * fRms);
-
-    // limit average level histogram bins to array indices
-    if (nRmsBin < 0)
-    {
-        nRmsBin = 0;
-    }
-    else if (nRmsBin >= HISTOGRAM_BINS)
-    {
-        nRmsBin = HISTOGRAM_BINS - 1;
-    }
-
-    // increment counts of selected bin (average level)
-    fRmsLevelHistogram[nChannel][nCurrentHistogram][nRmsBin]++;
-
-    // convert peak level to histogram bin
-    int nPeakBin = (int)(-100.0f * fPeak);
-
-    // limit peak level histogram bins to array indices
-    if (nPeakBin < 0)
-    {
-        nPeakBin = 0;
-    }
-    else if (nPeakBin >= HISTOGRAM_BINS)
-    {
-        nPeakBin = HISTOGRAM_BINS - 1;
-    }
-
-    // increment counts of selected bin (peak level)
-    fPeakLevelHistogram[nChannel][nCurrentHistogram][nPeakBin]++;
-
-    // "activate" current histograms if the current peak level is at
-    // least -40 dBFS (and they are not already "active")
-    if (!bHistogramIsValid[nChannel][nCurrentHistogram] && (fPeak >= -40.0f))
-    {
-        bHistogramIsValid[nChannel][nCurrentHistogram] = true;
-    }
-
-    // increment item counter of currently selected histograms
-    nHistogramCurrentCounts++;
-
-    // if we have collected enough statistical data, calculate dynamic
-    // range value; "nHistogramMaximumCounts" has been set up so it
-    // makes sure that all channels have been updated
-    if (nHistogramCurrentCounts >= nHistogramMaximumCounts)
-    {
-        calculateDynamicRangeValue();
-    }
 
     // if current peak meter level exceeds overall maximum peak level,
     // store it as new overall maximum peak level

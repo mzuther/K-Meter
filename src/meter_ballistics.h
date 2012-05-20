@@ -54,8 +54,6 @@ public:
     float getMaximumPeakLevel(int nChannel);
     int getNumberOfOverflows(int nChannel);
 
-    int getDynamicRangeValue();
-
     float getStereoMeterValue();
     void setStereoMeterValue(float fTimePassed, float fStereoMeterValueNew);
 
@@ -69,9 +67,6 @@ public:
 
 private:
     JUCE_LEAK_DETECTOR(MeterBallistics);
-
-    static const int NUMBER_OF_HISTOGRAMS = 3;
-    static const int HISTOGRAM_BINS = 10000;
 
     int nNumberOfChannels;
 
@@ -89,22 +84,8 @@ private:
     float* fPeakMeterPeakLastChanged;
     float* fAverageMeterPeakLastChanged;
 
-    unsigned short** * fRmsLevelHistogram;
-    unsigned short** * fPeakLevelHistogram;
-    bool** bHistogramIsValid;
-
-    int nDynamicRangeValue;
-    int nCurrentHistogram;
-
-    int nHistogramMaximumCounts;
-    int nHistogramTopTwentyCounts;
-    int nHistogramCurrentCounts;
-
     float fStereoMeterValue;
     float fPhaseCorrelation;
-
-    void calculateDynamicRangeValue();
-    void resetDynamicRangeHistogram(bool bResetAllHistograms);
 
     float PeakMeterBallistics(float fTimePassed, float fPeakLevelCurrent, float fPeakLevelOld);
     float PeakMeterPeakBallistics(float fTimePassed, float* fLastChanged, float fPeakLevelCurrent, float fPeakLevelOld);

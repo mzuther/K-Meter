@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stand-alone (Stereo)", "Stand-alone (Stereo).vcproj", "{36365151-7F57-5107-8302-B38DFEFC4504}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stand-alone (Stereo)", "Stand-alone (Stereo).vcproj", "{A6B7430B-1200-AF4F-9F56-AFFB52498EC0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stand-alone (Surround)", "Stand-alone (Surround).vcproj", "{4B3A1AE7-3AE3-1FC8-951C-53DD5A2BDB77}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stand-alone (Surround)", "Stand-alone (Surround).vcproj", "{F277848E-64C4-72F4-79CC-B9B09F4D4E74}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Stereo)", "VST Plug-in (Stereo).vcproj", "{A66B2EF8-0F1A-4E76-5892-58E73D21D266}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Stereo)", "VST Plug-in (Stereo).vcproj", "{B4A6BBFE-17C2-CF88-AB88-C04B16623D8B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Surround)", "VST Plug-in (Surround).vcproj", "{38C612B2-1DE0-2373-9B36-BB4E3DE4D623}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Surround)", "VST Plug-in (Surround).vcproj", "{DA8AD992-8AA2-7FE5-B0EB-EEE102CE06A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,22 +15,22 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{36365151-7F57-5107-8302-B38DFEFC4504}.Debug|Win32.ActiveCfg = Debug|Win32
-		{36365151-7F57-5107-8302-B38DFEFC4504}.Debug|Win32.Build.0 = Debug|Win32
-		{36365151-7F57-5107-8302-B38DFEFC4504}.Release|Win32.ActiveCfg = Release|Win32
-		{36365151-7F57-5107-8302-B38DFEFC4504}.Release|Win32.Build.0 = Release|Win32
-		{4B3A1AE7-3AE3-1FC8-951C-53DD5A2BDB77}.Debug|Win32.ActiveCfg = Debug|Win32
-		{4B3A1AE7-3AE3-1FC8-951C-53DD5A2BDB77}.Debug|Win32.Build.0 = Debug|Win32
-		{4B3A1AE7-3AE3-1FC8-951C-53DD5A2BDB77}.Release|Win32.ActiveCfg = Release|Win32
-		{4B3A1AE7-3AE3-1FC8-951C-53DD5A2BDB77}.Release|Win32.Build.0 = Release|Win32
-		{A66B2EF8-0F1A-4E76-5892-58E73D21D266}.Debug|Win32.ActiveCfg = Debug|Win32
-		{A66B2EF8-0F1A-4E76-5892-58E73D21D266}.Debug|Win32.Build.0 = Debug|Win32
-		{A66B2EF8-0F1A-4E76-5892-58E73D21D266}.Release|Win32.ActiveCfg = Release|Win32
-		{A66B2EF8-0F1A-4E76-5892-58E73D21D266}.Release|Win32.Build.0 = Release|Win32
-		{38C612B2-1DE0-2373-9B36-BB4E3DE4D623}.Debug|Win32.ActiveCfg = Debug|Win32
-		{38C612B2-1DE0-2373-9B36-BB4E3DE4D623}.Debug|Win32.Build.0 = Debug|Win32
-		{38C612B2-1DE0-2373-9B36-BB4E3DE4D623}.Release|Win32.ActiveCfg = Release|Win32
-		{38C612B2-1DE0-2373-9B36-BB4E3DE4D623}.Release|Win32.Build.0 = Release|Win32
+		{A6B7430B-1200-AF4F-9F56-AFFB52498EC0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A6B7430B-1200-AF4F-9F56-AFFB52498EC0}.Debug|Win32.Build.0 = Debug|Win32
+		{A6B7430B-1200-AF4F-9F56-AFFB52498EC0}.Release|Win32.ActiveCfg = Release|Win32
+		{A6B7430B-1200-AF4F-9F56-AFFB52498EC0}.Release|Win32.Build.0 = Release|Win32
+		{F277848E-64C4-72F4-79CC-B9B09F4D4E74}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F277848E-64C4-72F4-79CC-B9B09F4D4E74}.Debug|Win32.Build.0 = Debug|Win32
+		{F277848E-64C4-72F4-79CC-B9B09F4D4E74}.Release|Win32.ActiveCfg = Release|Win32
+		{F277848E-64C4-72F4-79CC-B9B09F4D4E74}.Release|Win32.Build.0 = Release|Win32
+		{B4A6BBFE-17C2-CF88-AB88-C04B16623D8B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B4A6BBFE-17C2-CF88-AB88-C04B16623D8B}.Debug|Win32.Build.0 = Debug|Win32
+		{B4A6BBFE-17C2-CF88-AB88-C04B16623D8B}.Release|Win32.ActiveCfg = Release|Win32
+		{B4A6BBFE-17C2-CF88-AB88-C04B16623D8B}.Release|Win32.Build.0 = Release|Win32
+		{DA8AD992-8AA2-7FE5-B0EB-EEE102CE06A2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DA8AD992-8AA2-7FE5-B0EB-EEE102CE06A2}.Debug|Win32.Build.0 = Debug|Win32
+		{DA8AD992-8AA2-7FE5-B0EB-EEE102CE06A2}.Release|Win32.ActiveCfg = Release|Win32
+		{DA8AD992-8AA2-7FE5-B0EB-EEE102CE06A2}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
