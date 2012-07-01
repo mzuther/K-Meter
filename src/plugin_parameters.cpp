@@ -204,27 +204,27 @@ const String KmeterPluginParameters::getParameterName(int nIndex)
     switch (nIndex)
     {
     case selCrestFactor:
-        return "Crest factor";
+        return "Metering Mode";
         break;
 
     case selAverageAlgorithm:
-        return "Average Algorithm";
+        return "Averaging Algorithm";
         break;
 
     case selExpanded:
-        return "Expand";
+        return "Expand Meter";
         break;
 
     case selPeak:
-        return "Peak";
+        return "Peak Meter";
         break;
 
     case selInfiniteHold:
-        return "Hold";
+        return "Peak Hold";
         break;
 
     case selMono:
-        return "Mono";
+        return "Mono Input";
         break;
 
     case selValidationFileName:
@@ -289,7 +289,7 @@ const String KmeterPluginParameters::getParameterText(int nIndex)
     {
         if (nParam[nIndex] == selAlgorithmItuBs1770)
         {
-            return "ITU-R";
+            return "ITU-R BS.1770-2";
         }
         else
         {
@@ -322,7 +322,7 @@ const String KmeterPluginParameters::getParameterText(int nIndex)
     }
     else
     {
-        return getParameterAsBool(nIndex) ? "on" : "off";
+        return getParameterAsBool(nIndex) ? "On" : "Off";
     }
 }
 
