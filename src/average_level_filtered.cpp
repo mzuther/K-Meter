@@ -307,13 +307,13 @@ void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
     double pf_omega_q = pf_omega / pf_q;
     double pf_div = (pf_omega_2 + pf_omega_q + 1.0);
 
-    pIIRCoefficients_1[0][0] = (pf_vl * pf_omega_2 + pf_vb * pf_omega_q + pf_vh) / pf_div;
-    pIIRCoefficients_1[0][1] = 2.0f * (pf_vl * pf_omega_2 - pf_vh) / pf_div;
-    pIIRCoefficients_1[0][2] = (pf_vl * pf_omega_2 - pf_vb * pf_omega_q + pf_vh) / pf_div;
+    pIIRCoefficients_1[0][0] = float((pf_vl * pf_omega_2 + pf_vb * pf_omega_q + pf_vh) / pf_div);
+    pIIRCoefficients_1[0][1] = float(2.0 * (pf_vl * pf_omega_2 - pf_vh) / pf_div);
+    pIIRCoefficients_1[0][2] = float((pf_vl * pf_omega_2 - pf_vb * pf_omega_q + pf_vh) / pf_div);
 
     pIIRCoefficients_1[1][0] = -1.0f;
-    pIIRCoefficients_1[1][1] = -2.0f * (pf_omega_2 - 1.0f) / pf_div;
-    pIIRCoefficients_1[1][2] = -(pf_omega_2 - pf_omega_q + 1.0f) / pf_div;
+    pIIRCoefficients_1[1][1] = float(-2.0 * (pf_omega_2 - 1.0) / pf_div);
+    pIIRCoefficients_1[1][2] = float(-(pf_omega_2 - pf_omega_q + 1.0) / pf_div);
 
     // initialise RLB weighting curve (ITU-R BS.1770-1)
     double rlb_vh = 1.0;
@@ -328,12 +328,12 @@ void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
     double rlb_div_2 = (rlb_omega_2 + rlb_omega_q + 1.0);
 
     pIIRCoefficients_2[0][0] = 1.0f;
-    pIIRCoefficients_2[0][1] = 2.0f * (rlb_vl * rlb_omega_2 - rlb_vh) / rlb_div_1;
-    pIIRCoefficients_2[0][2] = (rlb_vl * rlb_omega_2 - rlb_vb * rlb_omega_q + rlb_vh) / rlb_div_1;
+    pIIRCoefficients_2[0][1] = float(2.0 * (rlb_vl * rlb_omega_2 - rlb_vh) / rlb_div_1);
+    pIIRCoefficients_2[0][2] = float((rlb_vl * rlb_omega_2 - rlb_vb * rlb_omega_q + rlb_vh) / rlb_div_1);
 
     pIIRCoefficients_2[1][0] = -1.0f;
-    pIIRCoefficients_2[1][1] = -2.0f * (rlb_omega_2 - 1) / rlb_div_2;
-    pIIRCoefficients_2[1][2] = -(rlb_omega_2 - rlb_omega_q + 1) / rlb_div_2;
+    pIIRCoefficients_2[1][1] = float(-2.0 * (rlb_omega_2 - 1.0) / rlb_div_2);
+    pIIRCoefficients_2[1][2] = float(-(rlb_omega_2 - rlb_omega_q + 1.0) / rlb_div_2);
 
     calculateFilterKernel_Rms();
 }

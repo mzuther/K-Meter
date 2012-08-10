@@ -121,7 +121,7 @@ AudioFilePlayer::~AudioFilePlayer()
 
 void AudioFilePlayer::setCrestFactor(int crest_factor)
 {
-    fCrestFactor = crest_factor;
+    fCrestFactor = float(crest_factor);
     fMeterMinimumDecibel = MeterBallistics::getMeterMinimumDecibel() + fCrestFactor;
 
     if (crest_factor == 20)
