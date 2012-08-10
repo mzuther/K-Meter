@@ -522,7 +522,7 @@ float AverageLevelFiltered::getLevel(const int channel)
             for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
             {
                 float fAverageLevelChannel = 0.0f;
-                float* fSampleData = pSampleBuffer->getSampleData(channel);
+                float* fSampleData = pSampleBuffer->getSampleData(nChannel);
 
                 // calculate mean square of the filtered input signal
                 for (int n = 0; n < nBufferSize; n++)
