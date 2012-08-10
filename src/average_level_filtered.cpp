@@ -534,14 +534,19 @@ float AverageLevelFiltered::getLevel(const int channel)
 
                 // apply weighting factor and sum channels
                 //
-                // L, C, R     => 1.00 (ignore factor)
-                // LS, RS      => 1.41
-                // LFE, others => 0.00 (skip)
+                // L, R, C  --> 1.00 (ignore factor)
+                // LFE      --> 0.00 (skip channel)
+                // LS, RS   --> 1.41
+                // other    --> 0.00 (skip channel)
                 if (nChannel < 3)
                 {
                     fAverageLevel += fAverageLevelChannel;
                 }
-                else if (nChannel < 5)
+                else if (nChannel == 4)
+                {
+                    fAverageLevel += 1.41f * fAverageLevelChannel;
+                }
+                else if (nChannel == 5)
                 {
                     fAverageLevel += 1.41f * fAverageLevelChannel;
                 }
