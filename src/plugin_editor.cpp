@@ -368,6 +368,12 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         break;
     }
 
+    reloadMeters();
+}
+
+
+void KmeterAudioProcessorEditor::reloadMeters()
+{
     if (bReloadMeters)
     {
         bReloadMeters = false;
@@ -379,7 +385,37 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
             kmeter = NULL;
         }
 
-        kmeter = new Kmeter(T("K-Meter"), 10, 10, nCrestFactor, nInputChannels, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
+        if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
+        {
+            String strUnit;
+
+            if (ButtonNormal->getToggleState())
+            {
+                strUnit = String("LKFS");
+            }
+            else
+            {
+                strUnit = String("LK");
+            }
+
+            kmeter = new Kmeter(T("K-Meter"), 10, 10, nCrestFactor, 1, strUnit, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
+        }
+        else
+        {
+            String strUnit;
+
+            if (ButtonNormal->getToggleState())
+            {
+                strUnit = String("dBFS");
+            }
+            else
+            {
+                strUnit = String("dB");
+            }
+
+            kmeter = new Kmeter(T("K-Meter"), 10, 10, nCrestFactor, nInputChannels, strUnit, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
+        }
+
         addAndMakeVisible(kmeter);
     }
 }
@@ -487,6 +523,8 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
     {
         pMeterBallistics->reset();
     }
+
+    reloadMeters();
 }
 
 void KmeterAudioProcessorEditor::resized()

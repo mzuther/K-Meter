@@ -59,9 +59,8 @@ private:
     void calculateFilterKernel_Rms();
     void calculateFilterKernel_ItuBs1770();
 
-    void FilterSamples(const int channel);
     void FilterSamples_Rms(const int channel);
-    void FilterSamples_ItuBs1770(const int channel);
+    void FilterSamples_ItuBs1770();
 
     AudioSampleBuffer* pSampleBuffer;
     AudioSampleBuffer* pOverlapAddSamples;
@@ -87,19 +86,20 @@ private:
     AudioSampleBuffer* pPreviousSamplesOutput_2;
 
     KmeterAudioProcessor* pProcessor;
-    int nChannels;
+    int nNumberOfChannels;
     int nAverageAlgorithm;
     int nSampleRate;
     int nBufferSize;
     int nFftSize;
     int nHalfFftSize;
 
+    float fAverageLevelItuBs1770;
     float fPeakToAverageCorrection;
 
 #ifdef _WIN32
     void* libraryHandleFFTW;
 
-    void *(* fftwf_malloc)(size_t);
+    void* (* fftwf_malloc)(size_t);
     void (* fftwf_free)(void*);
 
     fftwf_plan(*fftwf_plan_dft_r2c_1d)(int, float*, fftwf_complex*, unsigned);

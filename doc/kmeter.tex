@@ -74,7 +74,7 @@ loudness.  There are three K-System scales:
 \end{compactitem}
 
 Using the K-System is easy.  Just calibrate your monitor system so
-that pink noise (\SI{-23.01}{\dBFS}\,RMS, \SI{20}{\hertz} to
+that pink noise (\SI{-20}{\dBFS}\,RMS, \SI{20}{\hertz} to
 \SI{20}{\kilo\hertz}; \ref{chap:validation} will tell you where to
 find a suitable audio file) on one channel yields \SI{83}{\dBSPL} on a
 loudness meter placed at your listening position and set to
@@ -112,8 +112,7 @@ may well result in lower resource usage later.
 
 If you move the pre-compiled binaries to another directory, please
 make sure to also move the file \path{libfftw3f-3.dll} to this
-directory.  Otherwise, you will not be able to execute the binaries
-anymore.
+directory.  Otherwise, you will not be able to use K-Meter.
 
 \chapter{Controls}
 \label{chap:controls}
@@ -147,10 +146,11 @@ The average level meters can either read unweighted levels
 your selection.
 
 According to Bob Katz, the unweighted \textbf{RMS} method has been
-designed for stereophonic metering, while the loudness-weighted
-\textbf{ITU-R} method should be used for channel-summed loudness
-metering.  To reference a meter, state both K-System meter scale and
-averaging method, separated by a slash, such as ``K-20/ITU''.
+designed for stereophonic metering and calibration, while the
+loudness-weighted \textbf{ITU-R} method should be used for
+channel-summed loudness metering.  To reference a meter, state both
+K-System meter scale and averaging method, separated by a slash, such
+as ``K-20/ITU''.
 
 \emph{\underline{Note:} K-Meter fully implements Annex 1 of the now
   superseded ITU-R BS.1770-1 standard ('K' frequency weighting, mean
@@ -316,13 +316,17 @@ You can reset all meters by clicking on the ``Reset'' button.
 
 \section{Average meter}
 
-The average meter is an RMS meter with an averaging period of
-\num{1024} samples.  It exhibits a flat frequency response between
-\SI{20}{\hertz} and \SI{20}{\kilo\hertz} (\SI{\pm 0.01}{\dB}) and is
-band-limited using a windowed-sinc low-pass filter with a cutoff
-frequency of \SI{21.0}{\kilo\hertz}.  On level changes, it takes
-\SI{600}{\milli\second} for the meter to reach \SI{99}{\percent} of
-the final reading.
+The average meter uses an averaging period of \num{1024} samples.  In
+\textbf{RMS} mode, this meter exhibits a flat frequency response
+between \SI{20}{\hertz} and \SI{20}{\kilo\hertz} (\SI{\pm 0.01}{\dB}),
+whereas the \textbf{ITU-R} mode implements 'K' frequency weighting as
+specified in \href{http://www.itu.int/rec/R-REC-BS.1770}{ITU-R
+  BS.1770-1}.
+
+In any case, the average meter is band-limited using a windowed-sinc
+low-pass filter with a cutoff frequency of \SI{21.0}{\kilo\hertz}.  On
+level changes, it takes \SI{600}{\milli\second} for the meter to reach
+\SI{99}{\percent} of the final reading.
 
 \section{Peak meter}
 
@@ -397,8 +401,8 @@ one stereo channel that you might have overheard due to impaired
 hearing, wrong placement of your monitors or similar problems.
 
 But please don't get the false notion that the needle should stay in
-the middle all time in order to achieve a good mix!  Again: do not mix
-by your eyes \dots
+the middle all time in order to achieve a good mix.  Quite the
+contrary!  As I said, you should not mix by your eyes \dots
 
 \chapter{Validation}
 \label{chap:validation}
@@ -430,12 +434,12 @@ start playback of the selected audio file.  All audio input will be
 discarded during playback and for an additional ten seconds.  To stop
 playback early, simply click on the \textbf{validate} button again.
 
-In case you want to calibrate your monitor system, simply select the
-file \path{pink_noise.flac} (uncorrelated band-limited pink noise,
-\SI{-23.01}{\dBFS}\,RMS, \SI{20}{\hertz} to \SI{20}{\kilo\hertz}) and
-click on the \textbf{validate} button.  You may want to make sure that
-all intermediate software and hardware mixers are set to the correct
-output levels.
+In case you want to calibrate your monitor system, head over to
+\href{http://www.digido.com/media/downloads.html}{Bob Katz's download
+  section}, get the file labelled \textbf{\SI{-20}{\dBFS} RMS pink
+  noise stereo \num{44.1}} and click on the \textbf{validate} button.
+Please ensure that all intermediate software and hardware mixers are
+set to the correct levels.
 
 \section{Validation status}
 
@@ -603,7 +607,7 @@ like!
 Here is my email address (please remove ``\texttt{-nospam}''):
 
 \begin{center}
-  \texttt{Martin Zuther <code-nospam@mzuther.de>}
+  \texttt{"Martin Zuther" <code-nospam@mzuther.de>}
 \end{center}
 
 Thanks for using free software.  I hope you'll enjoy it!
@@ -734,7 +738,7 @@ Extract the archive into the directory \path{libraries/fftw3}, change
 into this directory and run:
 
 \begin{verbatim}
-  ./configure --enable-float
+  ./configure --enable-float --with-pic
   make
   mkdir -p bin/i386/
   mv .libs/* bin/i386/

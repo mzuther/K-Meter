@@ -468,7 +468,7 @@ float MeterBallistics::level2decibel(float fLevel)
         // calculate decibels from audio level (a factor of 20.0 is
         // needed to calculate *level* ratios, whereas 10.0 is needed
         // for *power* ratios!)
-        float fDecibels = 20.0f * log10(fLevel);
+        float fDecibels = 20.0f * log10f(fLevel);
 
         // to make meter ballistics look nice for low levels, do not
         // return levels below "fMeterMinimumDecibel"

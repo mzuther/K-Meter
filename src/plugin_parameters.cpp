@@ -289,7 +289,7 @@ const String KmeterPluginParameters::getParameterText(int nIndex)
     {
         if (nParam[nIndex] == selAlgorithmItuBs1770)
         {
-            return "ITU-R BS.1770-2";
+            return "ITU-R BS.1770-1";
         }
         else
         {

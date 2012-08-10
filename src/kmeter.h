@@ -42,7 +42,7 @@ public:
     static const int KMETER_STEREO_WIDTH = 110;
     static const int KMETER_STEREO_WIDTH_2 = KMETER_STEREO_WIDTH / 2;
 
-    Kmeter(const String& componentName, int PosX, int PosY, int nCrestFactor, int nNumChannels, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight);
+    Kmeter(const String& componentName, int PosX, int PosY, int nCrestFactor, int nNumChannels, const String& unitName, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight);
     ~Kmeter();
 
     void setLevels(MeterBallistics* pMeterBallistics);
@@ -53,12 +53,16 @@ public:
 private:
     JUCE_LEAK_DETECTOR(Kmeter);
 
+    void paintMonoChannel(Graphics& g);
+    void paintStereoChannel(Graphics& g, int nStereoChannel);
+
     int nPosX;
     int nPosY;
     int nMainSegmentHeight;
     int nMeterPositionTop;
     bool isExpanded;
     bool displayPeakMeter;
+    String strUnit;
 
     int nMeterCrestFactor;
     int nInputChannels;
@@ -68,7 +72,8 @@ private:
     OverflowMeter** OverflowMeters;
     PeakLabel** MaximumPeakLabels;
 
-    void drawMarkers(Graphics& g, String& strMarker, int x, int y, int width, int height);
+    void drawMarkersMono(Graphics& g, String& strMarker, int x, int y, int width, int height);
+    void drawMarkersStereo(Graphics& g, String& strMarker, int x, int y, int width, int height);
 };
 
 

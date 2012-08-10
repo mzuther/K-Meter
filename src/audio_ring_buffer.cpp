@@ -44,7 +44,7 @@ AudioRingBuffer::AudioRingBuffer(const String& buffer_name, const unsigned int c
     // memory leaks
     pAudioData = (float*) malloc(uChannels * (uTotalLength + 2) * sizeof(float));
 
-    for (unsigned int i = 0; i < (uChannels *(uTotalLength + 2)); i++)
+    for (unsigned int i = 0; i < (uChannels * (uTotalLength + 2)); i++)
     {
         pAudioData[i] = RING_BUFFER_MEM_TEST;
     }

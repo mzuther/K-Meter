@@ -25,13 +25,14 @@
 
 #include "kmeter.h"
 
-Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor, int nNumChannels, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight)
+Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor, int nNumChannels, const String& unitName, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight)
 {
     setName(componentName);
     nInputChannels = nNumChannels;
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
     isExpanded = bExpanded;
     displayPeakMeter = bDisplayPeakMeter;
+    strUnit = unitName;
 
     if (nInputChannels <= 2)
     {
@@ -66,38 +67,63 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
     int nPositionX = 0;
     LevelMeters = new MeterBar*[nInputChannels];
 
-    for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
+    if (nInputChannels == 1)
     {
-        nPositionX = 8 + nChannel * KMETER_STEREO_WIDTH_2;
+        nPositionX = KMETER_STEREO_WIDTH_2 - 12;
 
-        if (nChannel % 2)
+        LevelMeters[0] = new MeterBar("Level Meter #0", nPositionX - 2, nMeterPositionTop + 48, 24, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
+        addAndMakeVisible(LevelMeters[0]);
+    }
+    else
+    {
+        for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
         {
-            nPositionX += 15;
-        }
+            nPositionX = 8 + nChannel * KMETER_STEREO_WIDTH_2;
 
-        LevelMeters[nChannel] = new MeterBar(String("Level Meter #") + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
-        addAndMakeVisible(LevelMeters[nChannel]);
+            if (nChannel % 2)
+            {
+                nPositionX += 15;
+            }
+
+            LevelMeters[nChannel] = new MeterBar(String("Level Meter #") + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
+            addAndMakeVisible(LevelMeters[nChannel]);
+        }
     }
 
     OverflowMeters = new OverflowMeter*[nInputChannels];
     MaximumPeakLabels = new PeakLabel*[nInputChannels];
 
-    for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
+    if (nInputChannels == 1)
     {
-        nPositionX = 4 + nChannel * KMETER_STEREO_WIDTH_2;
+        nPositionX = KMETER_STEREO_WIDTH_2 - 18;
 
-        if (nChannel % 2)
+        OverflowMeters[0] = new OverflowMeter("Overflows #0");
+        OverflowMeters[0]->setBounds(nPositionX, nMeterPositionTop + 4, 32, 16);
+        addAndMakeVisible(OverflowMeters[0]);
+
+        MaximumPeakLabels[0] = new PeakLabel("Maximum Peak #0", nCrestFactor);
+        MaximumPeakLabels[0]->setBounds(nPositionX, nMeterPositionTop + 22, 32, 16);
+        addAndMakeVisible(MaximumPeakLabels[0]);
+    }
+    else
+    {
+        for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
         {
-            nPositionX += 11;
+            nPositionX = 4 + nChannel * KMETER_STEREO_WIDTH_2;
+
+            if (nChannel % 2)
+            {
+                nPositionX += 11;
+            }
+
+            OverflowMeters[nChannel] = new OverflowMeter(String("Overflows #") + String(nChannel));
+            OverflowMeters[nChannel]->setBounds(nPositionX, nMeterPositionTop + 4, 32, 16);
+            addAndMakeVisible(OverflowMeters[nChannel]);
+
+            MaximumPeakLabels[nChannel] = new PeakLabel(String("Maximum Peak #") + String(nChannel), nCrestFactor);
+            MaximumPeakLabels[nChannel]->setBounds(nPositionX, nMeterPositionTop + 22, 32, 16);
+            addAndMakeVisible(MaximumPeakLabels[nChannel]);
         }
-
-        OverflowMeters[nChannel] = new OverflowMeter(String("Overflows #") + String(nChannel));
-        OverflowMeters[nChannel]->setBounds(nPositionX, nMeterPositionTop + 3, 32, 16);
-        addAndMakeVisible(OverflowMeters[nChannel]);
-
-        MaximumPeakLabels[nChannel] = new PeakLabel(String("Maximum Peak #") + String(nChannel), nCrestFactor);
-        MaximumPeakLabels[nChannel]->setBounds(nPositionX, nMeterPositionTop + 23, 32, 16);
-        addAndMakeVisible(MaximumPeakLabels[nChannel]);
     }
 }
 
@@ -136,201 +162,398 @@ void Kmeter::visibilityChanged()
 
 void Kmeter::paint(Graphics& g)
 {
-    for (int nChannel = 0; nChannel < nStereoInputChannels; nChannel++)
+    if (nInputChannels == 1)
     {
-        int x = 5 + nChannel * KMETER_STEREO_WIDTH;
-        int y = nMeterPositionTop + 43;
-        int width = 24;
-        int height = 11;
-        String strMarker;
-
-        if (nInputChannels > 2)
+        paintMonoChannel(g);
+    }
+    else
+    {
+        for (int nStereoChannel = 0; nStereoChannel < nStereoInputChannels; nStereoChannel++)
         {
-            g.setColour(Colours::white);
-            g.setFont(13.0f);
-
-            g.drawFittedText(String("Channels ") + String(2 * nChannel + 1) + T("+") + String(2 * nChannel + 2), x - 4, 0, KMETER_STEREO_WIDTH - 5, 17, Justification::centred, 1, 1.0f);
-
-            g.setColour(Colours::grey.withAlpha(0.3f));
-            g.fillRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
-
-            g.setColour(Colours::darkgrey);
-            g.drawRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
-
-            g.setColour(Colours::darkgrey.darker(0.8f));
-            g.drawRect(x - 3, 1, KMETER_STEREO_WIDTH - 6, 17);
-
-            g.setColour(Colours::darkgrey.darker(0.4f));
-            g.drawRect(x - 3, 1, KMETER_STEREO_WIDTH - 7, 16);
-        }
-
-        g.setColour(Colours::grey.withAlpha(0.1f));
-        g.fillRect(x - 4, nMeterPositionTop, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
-
-        g.setColour(Colours::darkgrey);
-        g.drawRect(x - 4, nMeterPositionTop, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
-
-        g.setColour(Colours::darkgrey.darker(0.8f));
-        g.drawRect(x - 3, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
-
-        g.setColour(Colours::darkgrey.darker(0.4f));
-        g.drawRect(x - 3, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 7, getHeight() - 22);
-
-        g.setColour(Colours::white);
-        g.setFont(12.0f);
-
-        g.drawFittedText(T("Over"), x + 31, nMeterPositionTop + 3, 36, 16, Justification::centred, 1, 1.0f);
-        g.drawFittedText(T("Peak"), x + 31, nMeterPositionTop + 23, 36, 16, Justification::centred, 1, 1.0f);
-
-        g.setFont(11.0f);
-
-        if (isExpanded)
-        {
-            y -= 10 * nMainSegmentHeight;
-            int nStart = 0;
-
-            if (nMeterCrestFactor < 8)
-            {
-                nStart = 0;
-            }
-            else
-            {
-                nStart = 8;    // zoom into important region
-            }
-
-            for (int n = 0; n >= -13; n -= 1)
-            {
-                if ((nStart + n) > 0)
-                {
-                    strMarker = T("+") + String(nStart + n);
-                }
-                else
-                {
-                    strMarker = String(nStart + n);
-                }
-
-                y += 10 * nMainSegmentHeight;
-                drawMarkers(g, strMarker, x, y, width, height);
-            }
-        }
-        else if (nMeterCrestFactor == 0)
-        {
-            y -= 8 * nMainSegmentHeight;
-
-            for (int n = 0; n >= -40; n -= 4)
-            {
-                if (n > 0)
-                {
-                    strMarker = T("+") + String(n);
-                }
-                else
-                {
-                    strMarker = String(n);
-                }
-
-                y += 8 * nMainSegmentHeight;
-                drawMarkers(g, strMarker, x, y, width, height);
-            }
-
-            for (int n = -50; n >= -80; n -= 10)
-            {
-                strMarker = String(n);
-
-                y += 10 * nMainSegmentHeight;
-                drawMarkers(g, strMarker, x, y, width, height);
-            }
-        }
-        else if (nMeterCrestFactor == 12)
-        {
-            y -= 8 * nMainSegmentHeight;
-
-            for (int n = 12; n >= -28; n -= 4)
-            {
-                if (n > 0)
-                {
-                    strMarker = T("+") + String(n);
-                }
-                else
-                {
-                    strMarker = String(n);
-                }
-
-                y += 8 * nMainSegmentHeight;
-                drawMarkers(g, strMarker, x, y, width, height);
-            }
-
-            y -= 6 * nMainSegmentHeight;
-
-            for (int n = -30; n >= -60; n -= 10)
-            {
-                strMarker = String(n);
-
-                y += 10 * nMainSegmentHeight;
-                drawMarkers(g, strMarker, x, y, width, height);
-            }
-        }
-        else if (nMeterCrestFactor == 14)
-        {
-            strMarker = String(T("+14"));
-            drawMarkers(g, strMarker, x, y, width, height);
-            y -= 4 * nMainSegmentHeight;
-
-            for (int n = 12; n >= -28; n -= 4)
-            {
-                if (n > 0)
-                {
-                    strMarker = T("+") + String(n);
-                }
-                else
-                {
-                    strMarker = String(n);
-                }
-
-                y += 8 * nMainSegmentHeight;
-                drawMarkers(g, strMarker, x, y, width, height);
-            }
-
-            y -= 6 * nMainSegmentHeight;
-
-            for (int n = -30; n >= -60; n -= 10)
-            {
-                strMarker = String(n);
-
-                y += 10 * nMainSegmentHeight;
-                drawMarkers(g, strMarker, x, y, width, height);
-            }
-        }
-        else
-        {
-            y -= 8 * nMainSegmentHeight;
-
-            for (int n = 20; n >= -24; n -= 4)
-            {
-                if (n > 0)
-                {
-                    strMarker = T("+") + String(n);
-                }
-                else
-                {
-                    strMarker = String(n);
-                }
-
-                y += 8 * nMainSegmentHeight;
-                drawMarkers(g, strMarker, x, y, width, height);
-            }
-
-            y -= 4 * nMainSegmentHeight;
-
-            for (int n = -30; n >= -60; n -= 10)
-            {
-                strMarker = String(n);
-
-                y += 10 * nMainSegmentHeight;
-                drawMarkers(g, strMarker, x, y, width, height);
-            }
+            paintStereoChannel(g, nStereoChannel);
         }
     }
 }
+
+
+void Kmeter::paintMonoChannel(Graphics& g)
+{
+    int x = 5;
+    int y = nMeterPositionTop + 43;
+    int width = 24;
+    int height = 11;
+    String strMarker;
+
+    g.setColour(Colours::grey.withAlpha(0.1f));
+    g.fillRect(x - 4, nMeterPositionTop, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+
+    g.setColour(Colours::darkgrey);
+    g.drawRect(x - 4, nMeterPositionTop, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+
+    g.setColour(Colours::darkgrey.darker(0.8f));
+    g.drawRect(x - 3, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+
+    g.setColour(Colours::darkgrey.darker(0.4f));
+    g.drawRect(x - 3, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 7, getHeight() - 22);
+
+    g.setColour(Colours::white);
+    g.setFont(12.0f);
+
+    g.drawFittedText(T("Over"), x - 10, nMeterPositionTop + 4, 36, 16, Justification::right, 1, 1.0f);
+    g.drawFittedText(T("Over"), x + 70, nMeterPositionTop + 4, 36, 16, Justification::left, 1, 1.0f);
+
+    g.drawFittedText(T("Peak"), x - 10, nMeterPositionTop + 22, 36, 16, Justification::right, 1, 1.0f);
+    g.drawFittedText(T("Peak"), x + 70, nMeterPositionTop + 22, 36, 16, Justification::left, 1, 1.0f);
+
+    g.drawFittedText(strUnit, x - 5, nMeterPositionTop + 571, 36, 16, Justification::centred, 1, 1.0f);
+    g.drawFittedText(strUnit, x + 65, nMeterPositionTop + 571, 36, 16, Justification::centred, 1, 1.0f);
+
+    g.setFont(11.0f);
+
+    if (isExpanded)
+    {
+        y -= 10 * nMainSegmentHeight;
+        int nStart = 0;
+
+        if (nMeterCrestFactor < 8)
+        {
+            nStart = 0;
+        }
+        else
+        {
+            nStart = 8;    // zoom into important region
+        }
+
+        for (int n = 0; n >= -13; n -= 1)
+        {
+            if ((nStart + n) > 0)
+            {
+                strMarker = T("+") + String(nStart + n);
+            }
+            else
+            {
+                strMarker = String(nStart + n);
+            }
+
+            y += 10 * nMainSegmentHeight;
+            drawMarkersMono(g, strMarker, x, y, width, height);
+        }
+    }
+    else if (nMeterCrestFactor == 0)
+    {
+        y -= 8 * nMainSegmentHeight;
+
+        for (int n = 0; n >= -40; n -= 4)
+        {
+            if (n > 0)
+            {
+                strMarker = T("+") + String(n);
+            }
+            else
+            {
+                strMarker = String(n);
+            }
+
+            y += 8 * nMainSegmentHeight;
+            drawMarkersMono(g, strMarker, x, y, width, height);
+        }
+
+        for (int n = -50; n >= -80; n -= 10)
+        {
+            strMarker = String(n);
+
+            y += 10 * nMainSegmentHeight;
+            drawMarkersMono(g, strMarker, x, y, width, height);
+        }
+    }
+    else if (nMeterCrestFactor == 12)
+    {
+        y -= 8 * nMainSegmentHeight;
+
+        for (int n = 12; n >= -28; n -= 4)
+        {
+            if (n > 0)
+            {
+                strMarker = T("+") + String(n);
+            }
+            else
+            {
+                strMarker = String(n);
+            }
+
+            y += 8 * nMainSegmentHeight;
+            drawMarkersMono(g, strMarker, x, y, width, height);
+        }
+
+        y -= 6 * nMainSegmentHeight;
+
+        for (int n = -30; n >= -60; n -= 10)
+        {
+            strMarker = String(n);
+
+            y += 10 * nMainSegmentHeight;
+            drawMarkersMono(g, strMarker, x, y, width, height);
+        }
+    }
+    else if (nMeterCrestFactor == 14)
+    {
+        strMarker = String(T("+14"));
+        drawMarkersMono(g, strMarker, x, y, width, height);
+        y -= 4 * nMainSegmentHeight;
+
+        for (int n = 12; n >= -28; n -= 4)
+        {
+            if (n > 0)
+            {
+                strMarker = T("+") + String(n);
+            }
+            else
+            {
+                strMarker = String(n);
+            }
+
+            y += 8 * nMainSegmentHeight;
+            drawMarkersMono(g, strMarker, x, y, width, height);
+        }
+
+        y -= 6 * nMainSegmentHeight;
+
+        for (int n = -30; n >= -60; n -= 10)
+        {
+            strMarker = String(n);
+
+            y += 10 * nMainSegmentHeight;
+            drawMarkersMono(g, strMarker, x, y, width, height);
+        }
+    }
+    else
+    {
+        y -= 8 * nMainSegmentHeight;
+
+        for (int n = 20; n >= -24; n -= 4)
+        {
+            if (n > 0)
+            {
+                strMarker = T("+") + String(n);
+            }
+            else
+            {
+                strMarker = String(n);
+            }
+
+            y += 8 * nMainSegmentHeight;
+            drawMarkersMono(g, strMarker, x, y, width, height);
+        }
+
+        y -= 4 * nMainSegmentHeight;
+
+        for (int n = -30; n >= -60; n -= 10)
+        {
+            strMarker = String(n);
+
+            y += 10 * nMainSegmentHeight;
+            drawMarkersMono(g, strMarker, x, y, width, height);
+        }
+    }
+}
+
+
+void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
+{
+    int x = 5 + nStereoChannel * KMETER_STEREO_WIDTH;
+    int y = nMeterPositionTop + 43;
+    int width = 24;
+    int height = 11;
+    String strMarker;
+
+    if (nInputChannels > 2)
+    {
+        g.setColour(Colours::white);
+        g.setFont(13.0f);
+
+        g.drawFittedText(String("Channels ") + String(2 * nStereoChannel + 1) + T("+") + String(2 * nStereoChannel + 2), x - 4, 0, KMETER_STEREO_WIDTH - 5, 17, Justification::centred, 1, 1.0f);
+
+        g.setColour(Colours::grey.withAlpha(0.3f));
+        g.fillRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
+
+        g.setColour(Colours::darkgrey);
+        g.drawRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
+
+        g.setColour(Colours::darkgrey.darker(0.8f));
+        g.drawRect(x - 3, 1, KMETER_STEREO_WIDTH - 6, 17);
+
+        g.setColour(Colours::darkgrey.darker(0.4f));
+        g.drawRect(x - 3, 1, KMETER_STEREO_WIDTH - 7, 16);
+    }
+
+    g.setColour(Colours::grey.withAlpha(0.1f));
+    g.fillRect(x - 4, nMeterPositionTop, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+
+    g.setColour(Colours::darkgrey);
+    g.drawRect(x - 4, nMeterPositionTop, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+
+    g.setColour(Colours::darkgrey.darker(0.8f));
+    g.drawRect(x - 3, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+
+    g.setColour(Colours::darkgrey.darker(0.4f));
+    g.drawRect(x - 3, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 7, getHeight() - 22);
+
+    g.setColour(Colours::white);
+    g.setFont(12.0f);
+
+    g.drawFittedText(T("Over"), x + 30, nMeterPositionTop + 4, 36, 16, Justification::centred, 1, 1.0f);
+    g.drawFittedText(T("Peak"), x + 30, nMeterPositionTop + 22, 36, 16, Justification::centred, 1, 1.0f);
+    g.drawFittedText(strUnit, x + 30, nMeterPositionTop + 571, 36, 16, Justification::centred, 1, 1.0f);
+
+    g.setFont(11.0f);
+
+    if (isExpanded)
+    {
+        y -= 10 * nMainSegmentHeight;
+        int nStart = 0;
+
+        if (nMeterCrestFactor < 8)
+        {
+            nStart = 0;
+        }
+        else
+        {
+            nStart = 8;    // zoom into important region
+        }
+
+        for (int n = 0; n >= -13; n -= 1)
+        {
+            if ((nStart + n) > 0)
+            {
+                strMarker = T("+") + String(nStart + n);
+            }
+            else
+            {
+                strMarker = String(nStart + n);
+            }
+
+            y += 10 * nMainSegmentHeight;
+            drawMarkersStereo(g, strMarker, x, y, width, height);
+        }
+    }
+    else if (nMeterCrestFactor == 0)
+    {
+        y -= 8 * nMainSegmentHeight;
+
+        for (int n = 0; n >= -40; n -= 4)
+        {
+            if (n > 0)
+            {
+                strMarker = T("+") + String(n);
+            }
+            else
+            {
+                strMarker = String(n);
+            }
+
+            y += 8 * nMainSegmentHeight;
+            drawMarkersStereo(g, strMarker, x, y, width, height);
+        }
+
+        for (int n = -50; n >= -80; n -= 10)
+        {
+            strMarker = String(n);
+
+            y += 10 * nMainSegmentHeight;
+            drawMarkersStereo(g, strMarker, x, y, width, height);
+        }
+    }
+    else if (nMeterCrestFactor == 12)
+    {
+        y -= 8 * nMainSegmentHeight;
+
+        for (int n = 12; n >= -28; n -= 4)
+        {
+            if (n > 0)
+            {
+                strMarker = T("+") + String(n);
+            }
+            else
+            {
+                strMarker = String(n);
+            }
+
+            y += 8 * nMainSegmentHeight;
+            drawMarkersStereo(g, strMarker, x, y, width, height);
+        }
+
+        y -= 6 * nMainSegmentHeight;
+
+        for (int n = -30; n >= -60; n -= 10)
+        {
+            strMarker = String(n);
+
+            y += 10 * nMainSegmentHeight;
+            drawMarkersStereo(g, strMarker, x, y, width, height);
+        }
+    }
+    else if (nMeterCrestFactor == 14)
+    {
+        strMarker = String(T("+14"));
+        drawMarkersStereo(g, strMarker, x, y, width, height);
+        y -= 4 * nMainSegmentHeight;
+
+        for (int n = 12; n >= -28; n -= 4)
+        {
+            if (n > 0)
+            {
+                strMarker = T("+") + String(n);
+            }
+            else
+            {
+                strMarker = String(n);
+            }
+
+            y += 8 * nMainSegmentHeight;
+            drawMarkersStereo(g, strMarker, x, y, width, height);
+        }
+
+        y -= 6 * nMainSegmentHeight;
+
+        for (int n = -30; n >= -60; n -= 10)
+        {
+            strMarker = String(n);
+
+            y += 10 * nMainSegmentHeight;
+            drawMarkersStereo(g, strMarker, x, y, width, height);
+        }
+    }
+    else
+    {
+        y -= 8 * nMainSegmentHeight;
+
+        for (int n = 20; n >= -24; n -= 4)
+        {
+            if (n > 0)
+            {
+                strMarker = T("+") + String(n);
+            }
+            else
+            {
+                strMarker = String(n);
+            }
+
+            y += 8 * nMainSegmentHeight;
+            drawMarkersStereo(g, strMarker, x, y, width, height);
+        }
+
+        y -= 4 * nMainSegmentHeight;
+
+        for (int n = -30; n >= -60; n -= 10)
+        {
+            strMarker = String(n);
+
+            y += 10 * nMainSegmentHeight;
+            drawMarkersStereo(g, strMarker, x, y, width, height);
+        }
+    }
+}
+
 
 void Kmeter::resized()
 {
@@ -348,7 +571,39 @@ void Kmeter::setLevels(MeterBallistics* pMeterBallistics)
     }
 }
 
-void Kmeter::drawMarkers(Graphics& g, String& strMarker, int x, int y, int width, int height)
+void Kmeter::drawMarkersMono(Graphics& g, String& strMarker, int x, int y, int width, int height)
+{
+    g.setColour(Colours::white);
+    g.drawFittedText(strMarker, x, y, width, height, Justification::centred, 1, 1.0f);
+    g.drawFittedText(strMarker, x + 72, y, width, height, Justification::centred, 1, 1.0f);
+
+    g.setColour(Colours::grey);
+
+    int nMarkerY = y + 5;
+    int nStart = 0;
+    int nEnd = 0;
+    int nWidth = 0;
+
+    nWidth = 9;
+    nStart = x + 25;
+    nEnd = nStart + nWidth;
+
+    for (int nMarkerX = nStart; nMarkerX < nEnd; nMarkerX++)
+    {
+        g.setPixel(nMarkerX, nMarkerY);
+    }
+
+    nStart = x + 70;
+    nEnd = nStart - nWidth;
+
+    for (int nMarkerX = nStart; nMarkerX > nEnd; nMarkerX--)
+    {
+        g.setPixel(nMarkerX, nMarkerY);
+    }
+}
+
+
+void Kmeter::drawMarkersStereo(Graphics& g, String& strMarker, int x, int y, int width, int height)
 {
     g.setColour(Colours::white);
     g.drawFittedText(strMarker, x + 36, y, width, height, Justification::centred, 1, 1.0f);

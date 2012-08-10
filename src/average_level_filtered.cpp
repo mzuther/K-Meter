@@ -44,16 +44,17 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor* processor, cons
 #endif
 
     pProcessor = processor;
-    nChannels = channels;
+    nNumberOfChannels = channels;
     nSampleRate = sample_rate;
     nBufferSize = buffer_size;
     fPeakToAverageCorrection = 0.0f;
+    fAverageLevelItuBs1770 = 0.0f;
 
     nFftSize = nBufferSize * 2;
     nHalfFftSize = nFftSize / 2 + 1;
 
-    pSampleBuffer = new AudioSampleBuffer(nChannels, nBufferSize);
-    pOverlapAddSamples = new AudioSampleBuffer(nChannels, nBufferSize);
+    pSampleBuffer = new AudioSampleBuffer(nNumberOfChannels, nBufferSize);
+    pOverlapAddSamples = new AudioSampleBuffer(nNumberOfChannels, nBufferSize);
 
     // IIR coefficients: 0 represents input, 1 represents output
     pIIRCoefficients_1 = new float*[2];
@@ -65,11 +66,11 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor* processor, cons
     pIIRCoefficients_2[1] = new float[KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS];
 
     // previous samples
-    pPreviousSamplesInput_1 = new AudioSampleBuffer(nChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
-    pPreviousSamplesOutput_1 = new AudioSampleBuffer(nChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
+    pPreviousSamplesInput_1 = new AudioSampleBuffer(nNumberOfChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
+    pPreviousSamplesOutput_1 = new AudioSampleBuffer(nNumberOfChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
 
-    pPreviousSamplesInput_2 = new AudioSampleBuffer(nChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
-    pPreviousSamplesOutput_2 = new AudioSampleBuffer(nChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
+    pPreviousSamplesInput_2 = new AudioSampleBuffer(nNumberOfChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
+    pPreviousSamplesOutput_2 = new AudioSampleBuffer(nNumberOfChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
 
     pPreviousSamplesOutputTemp = new AudioSampleBuffer(1, nBufferSize);
 
@@ -224,10 +225,9 @@ void AverageLevelFiltered::calculateFilterKernel()
     {
         calculateFilterKernel_ItuBs1770();
 
-        // this reverses the difference between peak and average meter
-        // readings for a 1 kHz sine wave with a peak level of 0 dB FS
-        // (-3.01 LKFS; taken from the ITU-R BS.1770-2 specification)
-        fPeakToAverageCorrection = +3.01f;
+        // ITU-R BS.1770-1 provides its own peak-to-average
+        // correction, so we don't need to apply any!
+        fPeakToAverageCorrection = 0.0f;
     }
     else
     {
@@ -296,7 +296,7 @@ void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
     // please see here for Raiden's original forum thread:
     // http://www.hydrogenaudio.org/forums/index.php?showtopic=86116
 
-    // initialise pre-filter (ITU-R BS.1770-2)
+    // initialise pre-filter (ITU-R BS.1770-1)
     double pf_vh = 1.584864701130855;
     double pf_vb = sqrt(pf_vh);
     double pf_vl = 1.0;
@@ -315,7 +315,7 @@ void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
     pIIRCoefficients_1[1][1] = -2.0f * (pf_omega_2 - 1.0f) / pf_div;
     pIIRCoefficients_1[1][2] = -(pf_omega_2 - pf_omega_q + 1.0f) / pf_div;
 
-    // initialise RLB weighting curve (ITU-R BS.1770-2)
+    // initialise RLB weighting curve (ITU-R BS.1770-1)
     double rlb_vh = 1.0;
     double rlb_vb = 0.0;
     double rlb_vl = 0.0;
@@ -339,23 +339,10 @@ void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
 }
 
 
-void AverageLevelFiltered::FilterSamples(const int channel)
-{
-    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
-    {
-        FilterSamples_ItuBs1770(channel);
-    }
-    else
-    {
-        FilterSamples_Rms(channel);
-    }
-}
-
-
 void AverageLevelFiltered::FilterSamples_Rms(const int channel)
 {
     jassert(channel >= 0);
-    jassert(channel < nChannels);
+    jassert(channel < nNumberOfChannels);
 
     // copy audio data to temporary buffer as the sample buffer is not
     // optimised for MME
@@ -403,178 +390,187 @@ void AverageLevelFiltered::FilterSamples_Rms(const int channel)
 }
 
 
-void AverageLevelFiltered::FilterSamples_ItuBs1770(const int channel)
+void AverageLevelFiltered::FilterSamples_ItuBs1770()
 {
-    jassert(channel >= 0);
-    jassert(channel < nChannels);
-
-    // pre-filter
-    pPreviousSamplesOutputTemp->clear();
-    float* pSamplesInput = pSampleBuffer->getSampleData(channel);
-    float* pSamplesOutput = pPreviousSamplesOutputTemp->getSampleData(0);
-
-    float* pSamplesInputOld_1 = pPreviousSamplesInput_1->getSampleData(channel);
-    float* pSamplesOutputOld_1 = pPreviousSamplesOutput_1->getSampleData(channel);
-
-    for (int nSample = 0; nSample < nBufferSize; nSample++)
+    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
     {
-        if (nSample < 2)
+        // pre-filter
+        pPreviousSamplesOutputTemp->clear();
+        float* pSamplesInput = pSampleBuffer->getSampleData(nChannel);
+        float* pSamplesOutput = pPreviousSamplesOutputTemp->getSampleData(0);
+
+        float* pSamplesInputOld_1 = pPreviousSamplesInput_1->getSampleData(nChannel);
+        float* pSamplesOutputOld_1 = pPreviousSamplesOutput_1->getSampleData(nChannel);
+
+        for (int nSample = 0; nSample < nBufferSize; nSample++)
         {
-            if (nSample == 0)
+            if (nSample < 2)
             {
-                pSamplesOutput[nSample] =
-                    pIIRCoefficients_1[0][0] * pSamplesInput[nSample] +
-                    pIIRCoefficients_1[0][1] * pSamplesInputOld_1[1] +
-                    pIIRCoefficients_1[0][2] * pSamplesInputOld_1[0] +
-                    pIIRCoefficients_1[1][1] * pSamplesOutputOld_1[1] +
-                    pIIRCoefficients_1[1][2] * pSamplesOutputOld_1[0];
+                if (nSample == 0)
+                {
+                    pSamplesOutput[nSample] =
+                        pIIRCoefficients_1[0][0] * pSamplesInput[nSample] +
+                        pIIRCoefficients_1[0][1] * pSamplesInputOld_1[1] +
+                        pIIRCoefficients_1[0][2] * pSamplesInputOld_1[0] +
+                        pIIRCoefficients_1[1][1] * pSamplesOutputOld_1[1] +
+                        pIIRCoefficients_1[1][2] * pSamplesOutputOld_1[0];
+                }
+                else
+                {
+                    pSamplesOutput[nSample] =
+                        pIIRCoefficients_1[0][0] * pSamplesInput[nSample] +
+                        pIIRCoefficients_1[0][1] * pSamplesInput[nSample - 1] +
+                        pIIRCoefficients_1[0][2] * pSamplesInputOld_1[1] +
+                        pIIRCoefficients_1[1][1] * pSamplesOutput[nSample - 1] +
+                        pIIRCoefficients_1[1][2] * pSamplesOutputOld_1[1];
+                }
+
+                // avoid underflows (1e-20f corresponds to -400 dBFS)
+                if (fabs(pSamplesOutput[nSample]) < 1e-20f)
+                {
+                    pSamplesOutput[nSample] = 0.0f;
+                }
             }
             else
             {
                 pSamplesOutput[nSample] =
                     pIIRCoefficients_1[0][0] * pSamplesInput[nSample] +
                     pIIRCoefficients_1[0][1] * pSamplesInput[nSample - 1] +
-                    pIIRCoefficients_1[0][2] * pSamplesInputOld_1[1] +
+                    pIIRCoefficients_1[0][2] * pSamplesInput[nSample - 2] +
                     pIIRCoefficients_1[1][1] * pSamplesOutput[nSample - 1] +
-                    pIIRCoefficients_1[1][2] * pSamplesOutputOld_1[1];
-            }
-
-            // avoid underflows (1e-20f corresponds to -400 dBFS)
-            if (fabs(pSamplesOutput[nSample]) < 1e-20f)
-            {
-                pSamplesOutput[nSample] = 0.0f;
+                    pIIRCoefficients_1[1][2] * pSamplesOutput[nSample - 2];
             }
         }
-        else
+
+        pPreviousSamplesInput_1->copyFrom(nChannel, 0, *pSampleBuffer, nChannel, nBufferSize - 2, 2);
+        pPreviousSamplesOutput_1->copyFrom(nChannel, 0, *pPreviousSamplesOutputTemp, 0, nBufferSize - 2, 2);
+
+        pSampleBuffer->copyFrom(nChannel, 0, *pPreviousSamplesOutputTemp, 0, 0, nBufferSize);
+
+        // RLB weighting filter
+        pPreviousSamplesOutputTemp->clear();
+
+        float* pSamplesInputOld_2 = pPreviousSamplesInput_2->getSampleData(nChannel);
+        float* pSamplesOutputOld_2 = pPreviousSamplesOutput_2->getSampleData(nChannel);
+
+        for (int nSample = 0; nSample < nBufferSize; nSample++)
         {
-            pSamplesOutput[nSample] =
-                pIIRCoefficients_1[0][0] * pSamplesInput[nSample] +
-                pIIRCoefficients_1[0][1] * pSamplesInput[nSample - 1] +
-                pIIRCoefficients_1[0][2] * pSamplesInput[nSample - 2] +
-                pIIRCoefficients_1[1][1] * pSamplesOutput[nSample - 1] +
-                pIIRCoefficients_1[1][2] * pSamplesOutput[nSample - 2];
-        }
-    }
-
-    pPreviousSamplesInput_1->copyFrom(channel, 0, *pSampleBuffer, channel, nBufferSize - 2, 2);
-    pPreviousSamplesOutput_1->copyFrom(channel, 0, *pPreviousSamplesOutputTemp, 0, nBufferSize - 2, 2);
-
-    pSampleBuffer->copyFrom(channel, 0, *pPreviousSamplesOutputTemp, 0, 0, nBufferSize);
-
-    // RLB weighting filter
-    pPreviousSamplesOutputTemp->clear();
-
-    float* pSamplesInputOld_2 = pPreviousSamplesInput_2->getSampleData(channel);
-    float* pSamplesOutputOld_2 = pPreviousSamplesOutput_2->getSampleData(channel);
-
-    for (int nSample = 0; nSample < nBufferSize; nSample++)
-    {
-        if (nSample < 2)
-        {
-            if (nSample == 0)
+            if (nSample < 2)
             {
-                pSamplesOutput[nSample] =
-                    pIIRCoefficients_2[0][0] * pSamplesInput[nSample] +
-                    pIIRCoefficients_2[0][1] * pSamplesInputOld_2[1] +
-                    pIIRCoefficients_2[0][2] * pSamplesInputOld_2[0] +
-                    pIIRCoefficients_2[1][1] * pSamplesOutputOld_2[1] +
-                    pIIRCoefficients_2[1][2] * pSamplesOutputOld_2[0];
+                if (nSample == 0)
+                {
+                    pSamplesOutput[nSample] =
+                        pIIRCoefficients_2[0][0] * pSamplesInput[nSample] +
+                        pIIRCoefficients_2[0][1] * pSamplesInputOld_2[1] +
+                        pIIRCoefficients_2[0][2] * pSamplesInputOld_2[0] +
+                        pIIRCoefficients_2[1][1] * pSamplesOutputOld_2[1] +
+                        pIIRCoefficients_2[1][2] * pSamplesOutputOld_2[0];
+                }
+                else
+                {
+                    pSamplesOutput[nSample] =
+                        pIIRCoefficients_2[0][0] * pSamplesInput[nSample] +
+                        pIIRCoefficients_2[0][1] * pSamplesInput[nSample - 1] +
+                        pIIRCoefficients_2[0][2] * pSamplesInputOld_2[1] +
+                        pIIRCoefficients_2[1][1] * pSamplesOutput[nSample - 1] +
+                        pIIRCoefficients_2[1][2] * pSamplesOutputOld_2[1];
+                }
+
+                // avoid underflows (1e-20f corresponds to -400 dBFS)
+                if (fabs(pSamplesOutput[nSample]) < 1e-20f)
+                {
+                    pSamplesOutput[nSample] = 0.0f;
+                }
             }
             else
             {
                 pSamplesOutput[nSample] =
                     pIIRCoefficients_2[0][0] * pSamplesInput[nSample] +
                     pIIRCoefficients_2[0][1] * pSamplesInput[nSample - 1] +
-                    pIIRCoefficients_2[0][2] * pSamplesInputOld_2[1] +
+                    pIIRCoefficients_2[0][2] * pSamplesInput[nSample - 2] +
                     pIIRCoefficients_2[1][1] * pSamplesOutput[nSample - 1] +
-                    pIIRCoefficients_2[1][2] * pSamplesOutputOld_2[1];
+                    pIIRCoefficients_2[1][2] * pSamplesOutput[nSample - 2];
             }
+        }
 
-            // avoid underflows (1e-20f corresponds to -400 dBFS)
-            if (fabs(pSamplesOutput[nSample]) < 1e-20f)
-            {
-                pSamplesOutput[nSample] = 0.0f;
-            }
-        }
-        else
-        {
-            pSamplesOutput[nSample] =
-                pIIRCoefficients_2[0][0] * pSamplesInput[nSample] +
-                pIIRCoefficients_2[0][1] * pSamplesInput[nSample - 1] +
-                pIIRCoefficients_2[0][2] * pSamplesInput[nSample - 2] +
-                pIIRCoefficients_2[1][1] * pSamplesOutput[nSample - 1] +
-                pIIRCoefficients_2[1][2] * pSamplesOutput[nSample - 2];
-        }
+        pPreviousSamplesInput_2->copyFrom(nChannel, 0, *pSampleBuffer, nChannel, nBufferSize - 2, 2);
+        pPreviousSamplesOutput_2->copyFrom(nChannel, 0, *pPreviousSamplesOutputTemp, 0, nBufferSize - 2, 2);
+
+        pSampleBuffer->copyFrom(nChannel, 0, *pPreviousSamplesOutputTemp, 0, 0, nBufferSize);
+
+        FilterSamples_Rms(nChannel);
     }
-
-    pPreviousSamplesInput_2->copyFrom(channel, 0, *pSampleBuffer, channel, nBufferSize - 2, 2);
-    pPreviousSamplesOutput_2->copyFrom(channel, 0, *pPreviousSamplesOutputTemp, 0, nBufferSize - 2, 2);
-
-    pSampleBuffer->copyFrom(channel, 0, *pPreviousSamplesOutputTemp, 0, 0, nBufferSize);
-
-    FilterSamples_Rms(channel);
 }
 
 
 float AverageLevelFiltered::getLevel(const int channel)
 {
     jassert(channel >= 0);
-    jassert(channel < nChannels);
-
-    // filter audio data (overwrites contents of sample buffer)
-    FilterSamples(channel);
+    jassert(channel < nNumberOfChannels);
 
     if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
         float fAverageLevel = 0.0f;
-        float* fSampleData = pSampleBuffer->getSampleData(channel);
+        float fLoudness = 0.0f;
 
-        // calculate mean square of the filtered input signal
-        for (int n = 0; n < nBufferSize; n++)
+        if (channel == 0)
         {
-            fAverageLevel += (fSampleData[n] * fSampleData[n]);
-        }
+            // filter audio data (all channels; overwrites contents of
+            // sample buffer)
+            FilterSamples_ItuBs1770();
 
-        fAverageLevel /= float(nBufferSize);
+            for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+            {
+                float fAverageLevelChannel = 0.0f;
+                float* fSampleData = pSampleBuffer->getSampleData(channel);
 
-        // apply weighting factor to channels (as we process each
-        // channel on its own, we do not apply any weighting!)
-        //
-        // L, C, R => 1.00
-        // LS, LR  => 1.41
-        // LFE     => 0.00
-        float fWeightingFactor = 1.0f;
-        fAverageLevel *= fWeightingFactor;
+                // calculate mean square of the filtered input signal
+                for (int n = 0; n < nBufferSize; n++)
+                {
+                    fAverageLevelChannel += (fSampleData[n] * fSampleData[n]);
+                }
 
-        float fMeterMinimumDecibel = MeterBallistics::getMeterMinimumDecibel() - fPeakToAverageCorrection;
+                fAverageLevelChannel /= float(nBufferSize);
 
-        if (fAverageLevel == 0.0f)
-        {
-            fAverageLevel = fMeterMinimumDecibel;
-        }
-        else
-        {
-            // apply the formula from ITU-R BS.1770-2; here's my guess
-            // to what the factors mean:
+                // apply weighting factor and sum channels
+                //
+                // L, C, R     => 1.00 (ignore factor)
+                // LS, RS      => 1.41
+                // LFE, others => 0.00 (skip)
+                if (nChannel < 3)
+                {
+                    fAverageLevel += fAverageLevelChannel;
+                }
+                else if (nChannel < 5)
+                {
+                    fAverageLevel += 1.41f * fAverageLevelChannel;
+                }
+            }
+
+            // calculate loudness by applying the formula from ITU-R
+            // BS.1770-1; here's my guess to what the factors mean:
             //
             // -0.691 => 'K' filter frequency response at 1 kHz
             // 10.000 => factor for conversion to decibels (20.0) and
             //           square root for conversion from mean square
             //           to RMS (log10(sqrt(x)) = 0.5 * log10(x))
-            fAverageLevel = -0.691f + 10.0f * log10(fAverageLevel);
+            fLoudness = -0.691f + 10.0f * log10f(fAverageLevel);
 
-            if (fAverageLevel < fMeterMinimumDecibel)
+            float fMeterMinimumDecibel = MeterBallistics::getMeterMinimumDecibel();
+
+            if (fLoudness < fMeterMinimumDecibel)
             {
-                fAverageLevel = fMeterMinimumDecibel;
+                fLoudness = fMeterMinimumDecibel;
             }
         }
 
-        // apply peak-to-average correction so that sine waves give
-        // the same read-out on peak and average meters
-        return fAverageLevel + fPeakToAverageCorrection;
+        return fLoudness;
     }
     else
     {
+        // filter audio data (overwrites contents of sample buffer)
+        FilterSamples_Rms(channel);
+
         float fAverageLevel = MeterBallistics::level2decibel(pSampleBuffer->getRMSLevel(channel, 0, nBufferSize));
 
         // apply peak-to-average correction so that sine waves give
@@ -608,7 +604,7 @@ void AverageLevelFiltered::copyToBuffer(AudioRingBuffer& destination, const unsi
 void AverageLevelFiltered::copyToBuffer(AudioSampleBuffer& destination, const int channel, const int destStartSample, const int numSamples)
 {
     jassert(channel >= 0);
-    jassert(channel < nChannels);
+    jassert(channel < nNumberOfChannels);
     jassert((destStartSample + numSamples) <= destination.getNumSamples());
 
     memcpy(destination.getSampleData(channel, destStartSample), pSampleBuffer->getSampleData(channel), numSamples * sizeof(float));
