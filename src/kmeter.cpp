@@ -127,6 +127,7 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
     }
 }
 
+
 Kmeter::~Kmeter()
 {
     for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
@@ -153,12 +154,14 @@ Kmeter::~Kmeter()
     deleteAllChildren();
 }
 
+
 void Kmeter::visibilityChanged()
 {
     int height = 134 * nMainSegmentHeight + 74;
     int width = nStereoInputChannels * KMETER_STEREO_WIDTH + 2;
     setBounds(nPosX, nPosY, width, height);
 }
+
 
 void Kmeter::paint(Graphics& g)
 {
@@ -371,7 +374,28 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
         g.setColour(Colours::white);
         g.setFont(13.0f);
 
-        g.drawFittedText("Channels " + String(2 * nStereoChannel + 1) + "+" + String(2 * nStereoChannel + 2), x - 4, 0, KMETER_STEREO_WIDTH - 5, 17, Justification::centred, 1, 1.0f);
+        String strChannelLabel;
+
+        switch (nStereoChannel)
+        {
+        case 0:
+            strChannelLabel = "L | R";
+            break;
+
+        case 1:
+            strChannelLabel = " C  | LFE";
+            break;
+
+        case 2:
+            strChannelLabel = "Ls | Rs";
+            break;
+
+        default:
+            strChannelLabel = "---";
+            break;
+        }
+
+        g.drawFittedText(strChannelLabel, x - 4, 0, KMETER_STEREO_WIDTH - 5, 17, Justification::centred, 1, 1.0f);
 
         g.setColour(Colours::grey.withAlpha(0.3f));
         g.fillRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
@@ -558,6 +582,7 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
 void Kmeter::resized()
 {
 }
+
 
 void Kmeter::setLevels(MeterBallistics* pMeterBallistics)
 {

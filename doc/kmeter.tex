@@ -170,7 +170,7 @@ Click on this button to toggle between infinite peak hold and
 ``falling peaks''.  This setting applies to both average and peak
 meters.
 
-\section{Show peak meter}
+\section{Show peak level meter}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_peak_meter_on.png}
@@ -178,9 +178,9 @@ meters.
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_peak_meter_off.png}
 \end{wrapfigure}
 
-Click on this button to toggle display of the peak meters.  The
-original K-System meter specification demands peak meters, but Bob
-Katz has asked me to hide them by default:
+Click on this button to toggle display of the peak level meters.  The
+original K-System meter specification demands peak level meters, but
+Bob Katz has asked me to hide them by default:
 
 \begin{quotation}
   \emph{``Too many people will try to normalize the peak to full scale
@@ -198,9 +198,9 @@ Katz has asked me to hide them by default:
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_expand_meter_off.png}
 \end{wrapfigure}
 
-This button magnifies both average and peak meters to \SI{0.1}{\dB}
-steps.  If switched on, the \SI{0}{\dB} mark is placed near the
-centre.
+This button magnifies both average and peak level meters to
+\SI{0.1}{\dB} steps.  If switched on, the \SI{0}{\dB} mark is placed
+near the centre.
 
 \emph{\underline{Hint:} by selecting different meter scales, you can
   easily magnify the whole range between \SI{-25}{\dBFS} and
@@ -304,9 +304,9 @@ exception of the top \SI{2}{\dB} (segments of \SI{0.5}{\dB}) and the
 bottom end (segments of \SI{10}{\dB}).  Magnified level meters are
 divided into segments of \SI{0.1}{\dB}.
 
-\emph{\underline{Note:} In ITU-R mode, the average meter is graded in
-  \emph{\si{\LK}} which stands for \emph{Loudness, K weighted} and is
-  by all means equivalent to \si{\dB}.}
+\emph{\underline{Note:} In ITU-R mode, the average level meter is
+  graded in \emph{\si{\LK}} which stands for \emph{Loudness, K
+    weighted} and is by all means equivalent to \si{\dB}.}
 
 Recent maximum levels are displayed by white rectangles around the
 corresponding meter segments.  Unless ``Infinite peak hold'' is
@@ -322,25 +322,36 @@ outputs.
 
 You can reset all meters by clicking on the ``Reset'' button.
 
-\section{Average meter}
+\section{Average level meter}
 
-The average meter uses an averaging period of \num{1024} samples.  In
-\textbf{RMS} mode, this meter exhibits a flat frequency response
-between \SI{20}{\hertz} and \SI{20}{\kilo\hertz} (\SI{\pm 0.01}{\dB}),
-whereas the \textbf{ITU-R} mode implements 'K' frequency weighting as
-specified in \href{http://www.itu.int/rec/R-REC-BS.1770}{ITU-R
-  BS.1770-1}.
+The average level meter uses an averaging period of \num{1024}
+samples.  In \textbf{RMS} mode, this meter exhibits a flat frequency
+response between \SI{20}{\hertz} and \SI{20}{\kilo\hertz} (\SI{\pm
+  0.01}{\dB}), whereas \textbf{ITU-R} mode implements 'K' frequency
+weighting and also sums all channels as specified in
+\href{http://www.itu.int/rec/R-REC-BS.1770}{ITU-R BS.1770-1}.
 
-In any case, the average meter is band-limited using a windowed-sinc
+In any case, the average level meter is band-limited using a windowed-sinc
 low-pass filter with a cutoff frequency of \SI{21.0}{\kilo\hertz}.  On
 level changes, it takes \SI{600}{\milli\second} for the meter to reach
 \SI{99}{\percent} of the final reading.
 
-\section{Peak meter}
+\emph{\underline{Note:} Unfortunately, the specifications of ITU-R
+  BS.1770-1 clash with those for K-System meters.  I have discussed
+  this in depth with Bob Katz and we decided that it makes more sense
+  to adhere to ITU-R BS.1770-1 in these cases.}
 
-The peak meter displays the unfiltered peak level and thus possesses a
-completely flat frequency response.  It has a rise time of one sample
-and a fall time of \SI{8.67}{\dB\per\second}.
+\emph{Thus, in ITU-R mode sine waves do \emph{not} read the same on
+  average and peak level meters and pink noise (\SI{-20}{\dBFS}\,RMS,
+  \SI{20}{\hertz} to \SI{20}{\kilo\hertz}) does \emph{not} read
+  \SI{0}{\dB} on the K-20 average level meter.  So for calibration,
+  please switch K-Meter to RMS mode.}
+
+\section{Peak level meter}
+
+The peak level meter displays the unfiltered peak level and thus
+possesses a completely flat frequency response.  It has a rise time of
+one sample and a fall time of \SI{8.67}{\dB\per\second}.
 
 \section{Overload counter}
 
@@ -368,9 +379,13 @@ warning than have my audio files clip.
   \includegraphics[scale=\screenshotscale,clip]{include/images/maximum_peak_clipped.png}
 \end{wrapfigure}
 
-This meter displays the maximum peak level encountered so far.  In
-case the level exceeds \SI{0.0}{\dBFS} (this can occur in hosts that
-do not clip levels to \SI{0.0}{\dBFS}), the meter will turn red.
+This meter displays the maximum peak level encountered so far in
+\si{\dB}.  In case the level exceeds \SI{0.0}{\dBFS} (this can occur
+in hosts that do not clip levels to \SI{0.0}{\dBFS}), the meter will
+turn red.
+
+\emph{Please note that this display does not register inter-sample
+  peaks.}
 
 \section{Phase correlation meter}
 
@@ -442,9 +457,9 @@ playback early, simply click on the \textbf{validate} button again.
 In case you want to calibrate your monitor system, head over to
 \href{http://www.digido.com/media/downloads.html}{Bob Katz's download
   section}, get the file labelled \textbf{\SI{-20}{\dBFS} RMS pink
-  noise stereo \num{44.1}} and click on the \textbf{validate} button.
-Please ensure that all intermediate software and hardware mixers are
-set to the correct levels.
+  noise stereo \num{44.1}}, set K-meter to \textbf{RMS} mode and click
+on the \textbf{validate} button.  Please ensure that all intermediate
+software and hardware mixers are set to the correct levels.
 
 \section{Validation status}
 
