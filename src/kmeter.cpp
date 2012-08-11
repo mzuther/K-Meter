@@ -205,8 +205,8 @@ void Kmeter::paintMonoChannel(Graphics& g)
     g.drawFittedText("Peak", x - 10, nMeterPositionTop + 22, 36, 16, Justification::right, 1, 1.0f);
     g.drawFittedText("Peak", x + 70, nMeterPositionTop + 22, 36, 16, Justification::left, 1, 1.0f);
 
-    g.drawFittedText(strUnit, x - 5, nMeterPositionTop + 571, 36, 16, Justification::centred, 1, 1.0f);
-    g.drawFittedText(strUnit, x + 65, nMeterPositionTop + 571, 36, 16, Justification::centred, 1, 1.0f);
+    g.drawFittedText(strUnit, x - 4, nMeterPositionTop + 571, 36, 16, Justification::centred, 1, 1.0f);
+    g.drawFittedText(strUnit, x + 64, nMeterPositionTop + 571, 36, 16, Justification::centred, 1, 1.0f);
 
     g.setFont(11.0f);
 

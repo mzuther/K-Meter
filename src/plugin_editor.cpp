@@ -391,9 +391,9 @@ void KmeterAudioProcessorEditor::reloadMeters()
         {
             String strUnit;
 
-            if (ButtonNormal->getToggleState())
+            if (ButtonDisplayPeakMeter->getToggleState())
             {
-                strUnit = String("LKFS");
+                strUnit = String("LK|dB");
             }
             else
             {
@@ -406,9 +406,9 @@ void KmeterAudioProcessorEditor::reloadMeters()
         {
             String strUnit;
 
-            if (ButtonNormal->getToggleState())
+            if (ButtonDisplayPeakMeter->getToggleState())
             {
-                strUnit = String("dBFS");
+                strUnit = String("dB|dB");
             }
             else
             {

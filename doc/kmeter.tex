@@ -221,6 +221,16 @@ down-mixed to mono and the meters will be linked.
 In case you insert the plug-in into a mono channel strip,
 \textbf{mono} mode will be selected and cannot be toggled.
 
+\section{Reset button}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_reset.png}
+\end{wrapfigure}
+
+Click on this button to reset all meters, peaks and counters.  You can
+also get rid of graphical artifacts, because all meters will be
+redrawn as well.
+
 \section{Validation button}
 \label{sec:validation_button}
 
@@ -242,16 +252,6 @@ output coming.  On other systems, have a look at your VST host's log
 files (I have successfully used Ableton Live for this).  If that
 doesn't work, you might have to start either the K-Meter standalone or
 your VST host from a debugger.
-
-\section{Reset button}
-
-\begin{wrapfigure}{r}{0.14\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_reset.png}
-\end{wrapfigure}
-
-Click on this button to reset all meters, peaks and counters.  You can
-also get rid of graphical artifacts, because all meters will be
-redrawn as well.
 
 \newpage %% layout
 
@@ -303,6 +303,10 @@ Each level meter is divided into segments of \SI{1}{\dB}, with the
 exception of the top \SI{2}{\dB} (segments of \SI{0.5}{\dB}) and the
 bottom end (segments of \SI{10}{\dB}).  Magnified level meters are
 divided into segments of \SI{0.1}{\dB}.
+
+\emph{\underline{Note:} In ITU-R mode, the average meter is graded in
+  \emph{\si{\LK}} which stands for \emph{Loudness, K weighted} and is
+  by all means equivalent to \si{\dB}.}
 
 Recent maximum levels are displayed by white rectangles around the
 corresponding meter segments.  Unless ``Infinite peak hold'' is
