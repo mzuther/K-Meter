@@ -332,12 +332,14 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 
     case KmeterPluginParameters::selAverageAlgorithm:
 
-        // do nothing till you hear from me... :)
-        //
         // the "RMS" and "ITU-R" buttons will be updated from the code
         // that actually switches the level averaging alghorithm, thus
         // making sure that the correct button is lit in any given
         // situation
+        //
+        // we just need to make make sure that this code is actually
+        // executed...
+        pProcessor->changeParameter(nIndex, nValue);
 
         break;
 
