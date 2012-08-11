@@ -67,20 +67,20 @@ AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBal
         // pause for ten seconds after playback
         nNumberOfSamples += 10 * sample_rate;
 
-        outputMessage(String("Audio file: \"") + audioFile.getFullPathName() + T("\""));
-        outputMessage(String(formatReader->numChannels) + T(" channel(s), ") + String(formatReader->sampleRate) + T(" Hz, ") + String(formatReader->bitsPerSample) + T(" bit"));
+        outputMessage("Audio file: \"" + audioFile.getFullPathName() + "\"");
+        outputMessage(String(formatReader->numChannels) + " channel(s), " + String(formatReader->sampleRate) + " Hz, " + String(formatReader->bitsPerSample) + " bit");
 
         fSampleRate = (float) formatReader->sampleRate;
 
         if (formatReader->sampleRate != sample_rate)
         {
             outputMessage(String::empty);
-            outputMessage(String("WARNING: sample rate mismatch (host: ") + String(sample_rate) + T(" Hz)!"));
+            outputMessage("WARNING: sample rate mismatch (host: " + String(sample_rate) + " Hz)!");
             outputMessage(String::empty);
         }
 
         outputMessage(String::empty);
-        outputMessage(T("Starting validation ..."));
+        outputMessage("Starting validation ...");
         outputMessage(String::empty);
     }
     else
@@ -96,7 +96,7 @@ AudioFilePlayer::~AudioFilePlayer()
 {
     if (isPlaying())
     {
-        outputMessage(T("Stopping validation ..."));
+        outputMessage("Stopping validation ...");
     }
 
     delete audioFileSource;
@@ -166,7 +166,7 @@ bool AudioFilePlayer::isPlaying()
         }
         else
         {
-            outputMessage(T("Stopping validation ..."));
+            outputMessage("Stopping validation ...");
 
             bIsPlaying = false;
             bReports = false;
@@ -192,16 +192,16 @@ void AudioFilePlayer::fillBufferChunk(AudioSampleBuffer* buffer)
                 for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
                 {
                     float fAverageMeterLevel = fCrestFactor + pMeterBallistics->getAverageMeterLevel(nChannel);
-                    String strPrefix = strCrestFactor + T(" average (ch. ") + String(nChannel) + T("):  ");
-                    String strSuffix = T(" dB");
+                    String strPrefix = strCrestFactor + " average (ch. " + String(nChannel) + "):  ";
+                    String strSuffix = " dB";
                     outputValue(fAverageMeterLevel, pAverager_AverageMeterLevels[nChannel], strPrefix, strSuffix);
                 }
             }
             else
             {
                 float fAverageMeterLevel = fCrestFactor + pMeterBallistics->getAverageMeterLevel(nReportChannel);
-                String strPrefix = strCrestFactor + T(" average (ch. ") + String(nReportChannel) + T("):  ");
-                String strSuffix = T(" dB");
+                String strPrefix = strCrestFactor + " average (ch. " + String(nReportChannel) + "):  ";
+                String strSuffix = " dB";
                 outputValue(fAverageMeterLevel, pAverager_AverageMeterLevels[nReportChannel], strPrefix, strSuffix);
             }
         }
@@ -213,16 +213,16 @@ void AudioFilePlayer::fillBufferChunk(AudioSampleBuffer* buffer)
                 for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
                 {
                     float fPeakMeterLevel = fCrestFactor + pMeterBallistics->getPeakMeterLevel(nChannel);
-                    String strPrefix = strCrestFactor + T(" peak (ch. ") + String(nChannel) + T("):     ");
-                    String strSuffix = T(" dB");
+                    String strPrefix = strCrestFactor + " peak (ch. " + String(nChannel) + "):     ";
+                    String strSuffix = " dB";
                     outputValue(fPeakMeterLevel, pAverager_PeakMeterLevels[nChannel], strPrefix, strSuffix);
                 }
             }
             else
             {
                 float fPeakMeterLevel = fCrestFactor + pMeterBallistics->getPeakMeterLevel(nReportChannel);
-                String strPrefix = strCrestFactor + T(" peak (ch. ") + String(nReportChannel) + T("):     ");
-                String strSuffix = T(" dB");
+                String strPrefix = strCrestFactor + " peak (ch. " + String(nReportChannel) + "):     ";
+                String strSuffix = " dB";
                 outputValue(fPeakMeterLevel, pAverager_PeakMeterLevels[nReportChannel], strPrefix, strSuffix);
             }
         }
@@ -234,16 +234,16 @@ void AudioFilePlayer::fillBufferChunk(AudioSampleBuffer* buffer)
                 for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
                 {
                     float fMaximumPeakLevel = fCrestFactor + pMeterBallistics->getMaximumPeakLevel(nChannel);
-                    String strPrefix = strCrestFactor + T(" maximum (ch. ") + String(nChannel) + T("):  ");
-                    String strSuffix = T(" dB");
+                    String strPrefix = strCrestFactor + " maximum (ch. " + String(nChannel) + "):  ";
+                    String strSuffix = " dB";
                     outputValue(fMaximumPeakLevel, NULL, strPrefix, strSuffix);
                 }
             }
             else
             {
                 float fMaximumPeakLevel = fCrestFactor + pMeterBallistics->getMaximumPeakLevel(nReportChannel);
-                String strPrefix = strCrestFactor + T(" maximum (ch. ") + String(nReportChannel) + T("):  ");
-                String strSuffix = T(" dB");
+                String strPrefix = strCrestFactor + " maximum (ch. " + String(nReportChannel) + "):  ";
+                String strSuffix = " dB";
                 outputValue(fMaximumPeakLevel, NULL, strPrefix, strSuffix);
             }
         }
@@ -251,16 +251,16 @@ void AudioFilePlayer::fillBufferChunk(AudioSampleBuffer* buffer)
         if (bReportStereoMeterValue)
         {
             float fStereoMeterValue = pMeterBallistics->getStereoMeterValue();
-            String strPrefix = T("Stereo meter value:    ");
-            String strSuffix = T("");
+            String strPrefix = "Stereo meter value:    ";
+            String strSuffix = "";
             outputValue(fStereoMeterValue, NULL, strPrefix, strSuffix);
         }
 
         if (bReportPhaseCorrelation)
         {
             float fPhaseCorrelation = pMeterBallistics->getPhaseCorrelation();
-            String strPrefix = T("Phase correlation:     ");
-            String strSuffix = T("");
+            String strPrefix = "Phase correlation:     ";
+            String strSuffix = "";
             outputValue(fPhaseCorrelation, NULL, strPrefix, strSuffix);
         }
 
@@ -289,7 +289,7 @@ void AudioFilePlayer::outputValue(const float fValue, Averager* pAverager, const
     }
     else
     {
-        strValue = T("+") + String(fValue, 2) + strSuffix;
+        strValue = "+" + String(fValue, 2) + strSuffix;
     }
 
     String strSimpleMovingAverage;
@@ -304,11 +304,11 @@ void AudioFilePlayer::outputValue(const float fValue, Averager* pAverager, const
 
             if (fSimpleMovingAverage < 0.0f)
             {
-                strSimpleMovingAverage = T("   SMA(") + String(nSamplesMovingAverage) + T("): ") + String(fSimpleMovingAverage, 2) + strSuffix;
+                strSimpleMovingAverage = "   SMA(" + String(nSamplesMovingAverage) + "): " + String(fSimpleMovingAverage, 2) + strSuffix;
             }
             else
             {
-                strSimpleMovingAverage = T("   SMA(") + String(nSamplesMovingAverage) + T("): +") + String(fSimpleMovingAverage, 2) + strSuffix;
+                strSimpleMovingAverage = "   SMA(" + String(nSamplesMovingAverage) + "): +" + String(fSimpleMovingAverage, 2) + strSuffix;
             }
         }
     }
@@ -330,11 +330,11 @@ void AudioFilePlayer::outputMessage(const String& strMessage)
     int nTime = int(fTime);
     int nMilliSeconds = int(1000.0f * (fTime - nTime) + 0.5f);
 
-    String strMinutes = String(nTime / 60).paddedLeft(T('0'), 2);
-    String strSeconds = String(nTime % 60).paddedLeft(T('0'), 2);
-    String strMilliSeconds = String(nMilliSeconds).paddedLeft(T('0'), 3);
+    String strMinutes = String(nTime / 60).paddedLeft('0', 2);
+    String strSeconds = String(nTime % 60).paddedLeft('0', 2);
+    String strMilliSeconds = String(nMilliSeconds).paddedLeft('0', 3);
 
-    Logger::outputDebugString(String("[Validation - ") + strMinutes + T(":") + strSeconds + T(".") + strMilliSeconds + String("] ") + strMessage);
+    Logger::outputDebugString("[Validation - " + strMinutes + ":" + strSeconds + "." + strMilliSeconds + "] " + strMessage);
 }
 
 

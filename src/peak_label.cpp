@@ -25,7 +25,7 @@
 
 #include "peak_label.h"
 
-PeakLabel::PeakLabel(const String& componentName, int nCrestFactor) : Label(componentName, T(""))
+PeakLabel::PeakLabel(const String& componentName, int nCrestFactor) : Label(componentName, "")
 {
     nMeterCrestFactor = nCrestFactor;
 
@@ -70,7 +70,7 @@ void PeakLabel::updateLevel(float newLevel)
     }
     else
     {
-        setText(String("+") + String(fCorrectedLevel, 1), false);
+        setText("+" + String(fCorrectedLevel, 1), false);
     }
 
     if (fMaximumLevel < 0.0f)

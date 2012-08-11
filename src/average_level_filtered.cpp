@@ -30,7 +30,7 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor* processor, cons
     jassert(channels > 0);
 
 #ifdef _WIN32
-    File libraryFFTW = File::getSpecialLocation(File::currentExecutableFile).getSiblingFile(T("libfftw3f-3.dll"));
+    File libraryFFTW = File::getSpecialLocation(File::currentExecutableFile).getSiblingFile("libfftw3f-3.dll");
     libraryHandleFFTW = PlatformUtilities::loadDynamicLibrary(libraryFFTW.getFullPathName());
 
     fftwf_malloc = (void * (*)(size_t)) PlatformUtilities::getProcedureEntryPoint(libraryHandleFFTW, "fftwf_malloc");

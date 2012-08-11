@@ -85,7 +85,7 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
                 nPositionX += 15;
             }
 
-            LevelMeters[nChannel] = new MeterBar(String("Level Meter #") + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
+            LevelMeters[nChannel] = new MeterBar("Level Meter #" + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
             addAndMakeVisible(LevelMeters[nChannel]);
         }
     }
@@ -116,11 +116,11 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
                 nPositionX += 11;
             }
 
-            OverflowMeters[nChannel] = new OverflowMeter(String("Overflows #") + String(nChannel));
+            OverflowMeters[nChannel] = new OverflowMeter("Overflows #" + String(nChannel));
             OverflowMeters[nChannel]->setBounds(nPositionX, nMeterPositionTop + 4, 32, 16);
             addAndMakeVisible(OverflowMeters[nChannel]);
 
-            MaximumPeakLabels[nChannel] = new PeakLabel(String("Maximum Peak #") + String(nChannel), nCrestFactor);
+            MaximumPeakLabels[nChannel] = new PeakLabel("Maximum Peak #" + String(nChannel), nCrestFactor);
             MaximumPeakLabels[nChannel]->setBounds(nPositionX, nMeterPositionTop + 22, 32, 16);
             addAndMakeVisible(MaximumPeakLabels[nChannel]);
         }
@@ -199,11 +199,11 @@ void Kmeter::paintMonoChannel(Graphics& g)
     g.setColour(Colours::white);
     g.setFont(12.0f);
 
-    g.drawFittedText(T("Over"), x - 10, nMeterPositionTop + 4, 36, 16, Justification::right, 1, 1.0f);
-    g.drawFittedText(T("Over"), x + 70, nMeterPositionTop + 4, 36, 16, Justification::left, 1, 1.0f);
+    g.drawFittedText("Over", x - 10, nMeterPositionTop + 4, 36, 16, Justification::right, 1, 1.0f);
+    g.drawFittedText("Over", x + 70, nMeterPositionTop + 4, 36, 16, Justification::left, 1, 1.0f);
 
-    g.drawFittedText(T("Peak"), x - 10, nMeterPositionTop + 22, 36, 16, Justification::right, 1, 1.0f);
-    g.drawFittedText(T("Peak"), x + 70, nMeterPositionTop + 22, 36, 16, Justification::left, 1, 1.0f);
+    g.drawFittedText("Peak", x - 10, nMeterPositionTop + 22, 36, 16, Justification::right, 1, 1.0f);
+    g.drawFittedText("Peak", x + 70, nMeterPositionTop + 22, 36, 16, Justification::left, 1, 1.0f);
 
     g.drawFittedText(strUnit, x - 5, nMeterPositionTop + 571, 36, 16, Justification::centred, 1, 1.0f);
     g.drawFittedText(strUnit, x + 65, nMeterPositionTop + 571, 36, 16, Justification::centred, 1, 1.0f);
@@ -228,7 +228,7 @@ void Kmeter::paintMonoChannel(Graphics& g)
         {
             if ((nStart + n) > 0)
             {
-                strMarker = T("+") + String(nStart + n);
+                strMarker = "+" + String(nStart + n);
             }
             else
             {
@@ -247,7 +247,7 @@ void Kmeter::paintMonoChannel(Graphics& g)
         {
             if (n > 0)
             {
-                strMarker = T("+") + String(n);
+                strMarker = "+" + String(n);
             }
             else
             {
@@ -274,7 +274,7 @@ void Kmeter::paintMonoChannel(Graphics& g)
         {
             if (n > 0)
             {
-                strMarker = T("+") + String(n);
+                strMarker = "+" + String(n);
             }
             else
             {
@@ -297,7 +297,7 @@ void Kmeter::paintMonoChannel(Graphics& g)
     }
     else if (nMeterCrestFactor == 14)
     {
-        strMarker = String(T("+14"));
+        strMarker = "+14";
         drawMarkersMono(g, strMarker, x, y, width, height);
         y -= 4 * nMainSegmentHeight;
 
@@ -305,7 +305,7 @@ void Kmeter::paintMonoChannel(Graphics& g)
         {
             if (n > 0)
             {
-                strMarker = T("+") + String(n);
+                strMarker = "+" + String(n);
             }
             else
             {
@@ -334,7 +334,7 @@ void Kmeter::paintMonoChannel(Graphics& g)
         {
             if (n > 0)
             {
-                strMarker = T("+") + String(n);
+                strMarker = "+" + String(n);
             }
             else
             {
@@ -371,7 +371,7 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
         g.setColour(Colours::white);
         g.setFont(13.0f);
 
-        g.drawFittedText(String("Channels ") + String(2 * nStereoChannel + 1) + T("+") + String(2 * nStereoChannel + 2), x - 4, 0, KMETER_STEREO_WIDTH - 5, 17, Justification::centred, 1, 1.0f);
+        g.drawFittedText("Channels " + String(2 * nStereoChannel + 1) + "+" + String(2 * nStereoChannel + 2), x - 4, 0, KMETER_STEREO_WIDTH - 5, 17, Justification::centred, 1, 1.0f);
 
         g.setColour(Colours::grey.withAlpha(0.3f));
         g.fillRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
@@ -401,8 +401,8 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
     g.setColour(Colours::white);
     g.setFont(12.0f);
 
-    g.drawFittedText(T("Over"), x + 30, nMeterPositionTop + 4, 36, 16, Justification::centred, 1, 1.0f);
-    g.drawFittedText(T("Peak"), x + 30, nMeterPositionTop + 22, 36, 16, Justification::centred, 1, 1.0f);
+    g.drawFittedText("Over", x + 30, nMeterPositionTop + 4, 36, 16, Justification::centred, 1, 1.0f);
+    g.drawFittedText("Peak", x + 30, nMeterPositionTop + 22, 36, 16, Justification::centred, 1, 1.0f);
     g.drawFittedText(strUnit, x + 30, nMeterPositionTop + 571, 36, 16, Justification::centred, 1, 1.0f);
 
     g.setFont(11.0f);
@@ -425,7 +425,7 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
         {
             if ((nStart + n) > 0)
             {
-                strMarker = T("+") + String(nStart + n);
+                strMarker = "+" + String(nStart + n);
             }
             else
             {
@@ -444,7 +444,7 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
         {
             if (n > 0)
             {
-                strMarker = T("+") + String(n);
+                strMarker = "+" + String(n);
             }
             else
             {
@@ -471,7 +471,7 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
         {
             if (n > 0)
             {
-                strMarker = T("+") + String(n);
+                strMarker = "+" + String(n);
             }
             else
             {
@@ -494,7 +494,7 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
     }
     else if (nMeterCrestFactor == 14)
     {
-        strMarker = String(T("+14"));
+        strMarker = "+14";
         drawMarkersStereo(g, strMarker, x, y, width, height);
         y -= 4 * nMainSegmentHeight;
 
@@ -502,7 +502,7 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
         {
             if (n > 0)
             {
-                strMarker = T("+") + String(n);
+                strMarker = "+" + String(n);
             }
             else
             {
@@ -531,7 +531,7 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
         {
             if (n > 0)
             {
-                strMarker = T("+") + String(n);
+                strMarker = "+" + String(n);
             }
             else
             {

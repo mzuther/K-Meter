@@ -61,9 +61,9 @@ void PhaseCorrelationMeter::paint(Graphics& g)
     g.setColour(Colours::white);
 
     g.setFont(11.0f);
-    g.drawFittedText(T("-1"), 1, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
-    g.drawFittedText(T("0"), middle_of_meter - height_of_meter / 2, 0, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
-    g.drawFittedText(T("+1"), width - height - 4, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
+    g.drawFittedText("-1", 1, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
+    g.drawFittedText("0", middle_of_meter - height_of_meter / 2, 0, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
+    g.drawFittedText("+1", width - height - 4, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
 
     g.setColour(Colours::red);
 

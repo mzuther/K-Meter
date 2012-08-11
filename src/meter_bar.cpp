@@ -164,7 +164,7 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
 
         nThreshold -= nRange;
         nKmeterLevel -= nRange;
-        MeterArray[n] = new MeterSegment(String("MeterSegment #") + String(n) + T(" (") + componentName + T(")"), nThreshold * 0.1f, nRange * 0.1f, displayPeakMeter, nColor);
+        MeterArray[n] = new MeterSegment("MeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, nRange * 0.1f, displayPeakMeter, nColor);
 
         addAndMakeVisible(MeterArray[n]);
     }

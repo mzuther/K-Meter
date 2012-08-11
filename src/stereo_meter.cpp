@@ -79,8 +79,8 @@ void StereoMeter::paint(Graphics& g)
     g.setPixel(middle_of_meter + 1, height_of_meter + 1);
 
     g.setFont(11.0f);
-    g.drawFittedText(T("L"), 0, 1, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
-    g.drawFittedText(T("R"), width - height + 1, 1, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
+    g.drawFittedText("L", 0, 1, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
+    g.drawFittedText("R", width - height + 1, 1, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
 
     g.setColour(Colours::red);
 

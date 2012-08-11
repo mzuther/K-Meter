@@ -241,13 +241,13 @@ bool KmeterAudioProcessor::isParameterMarked(int nIndex)
 
 const String KmeterAudioProcessor::getInputChannelName(int channelIndex) const
 {
-    return String("Input ") + String(channelIndex + 1);
+    return "Input " + String(channelIndex + 1);
 }
 
 
 const String KmeterAudioProcessor::getOutputChannelName(int channelIndex) const
 {
-    return String("Output ") + String(channelIndex + 1);
+    return "Output " + String(channelIndex + 1);
 }
 
 
@@ -327,7 +327,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 
     if ((sampleRate < 44100) || (sampleRate > 192000))
     {
-        Logger::outputDebugString(String("[K-Meter] WARNING: sample rate of ") + String(sampleRate) + T(" Hz not supported"));
+        Logger::outputDebugString("[K-Meter] WARNING: sample rate of " + String(sampleRate) + " Hz not supported");
         bSampleRateIsValid = false;
         return;
     }
@@ -339,7 +339,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     nNumInputChannels = getNumInputChannels();
     isStereo = (nNumInputChannels == 2);
 
-    DBG(String("[K-Meter] number of input channels: ") + String(nNumInputChannels));
+    DBG("[K-Meter] number of input channels: " + String(nNumInputChannels));
 
     pMeterBallistics = new MeterBallistics(nNumInputChannels, (int) sampleRate, false, false);
 
@@ -365,10 +365,10 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     nSamplesInBuffer = 0;
     unsigned int uRingBufferSize = (samplesPerBlock > KMETER_BUFFER_SIZE) ? samplesPerBlock : KMETER_BUFFER_SIZE;
 
-    pRingBufferInput = new AudioRingBuffer(T("Input ring buffer"), nNumInputChannels, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
+    pRingBufferInput = new AudioRingBuffer("Input ring buffer", nNumInputChannels, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
     pRingBufferInput->setCallbackClass(this);
 
-    pRingBufferOutput = new AudioRingBuffer(T("Output ring buffer"), nNumInputChannels, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
+    pRingBufferOutput = new AudioRingBuffer("Output ring buffer", nNumInputChannels, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
 }
 
 

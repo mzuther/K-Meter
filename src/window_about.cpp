@@ -27,7 +27,7 @@
 
 
 WindowAbout::WindowAbout(int nWidth, int nHeight)
-    : ResizableWindow(T("About K-Meter"), false)
+    : ResizableWindow("About K-Meter", false)
     // create new window child of width "nWidth" and height "nHeight"
 {
     // set dimensions to those passed to the function ...
@@ -41,12 +41,12 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
 
     // empty windows are boring, so let's prepare a space for some
     // window components
-    contentComponent = new Component(T("Window Area"));
+    contentComponent = new Component("Window Area");
     setContentOwned(contentComponent, false);
 
     // create a word-wrapping read-only text editor component with
     // multiple lines for displaying information about the plug-in
-    TextEditorAbout = new TextEditor(T("About Text"));
+    TextEditorAbout = new TextEditor("About Text");
     TextEditorAbout->setMultiLine(true, true);
     TextEditorAbout->setReadOnly(true);
 
@@ -63,19 +63,19 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     // display plug-in name and version number
     TextEditorAbout->setFont(fontHeadline);
     TextEditorAbout->insertTextAtCaret(
-        String("K-Meter ") + JucePlugin_VersionString + T("\n")
+        String("K-Meter ") + JucePlugin_VersionString + "\n"
     );
 
     // display plug-in description
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
-        String(JucePlugin_Desc) + T(".\n\n")
+        String(JucePlugin_Desc) + ".\n\n"
     );
 
     // display the contributors
     TextEditorAbout->setFont(fontHeadline);
     TextEditorAbout->insertTextAtCaret(
-        T("Contributors\n")
+        "Contributors\n"
     );
 
     TextEditorAbout->setFont(fontRegular);
@@ -89,18 +89,18 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     // display copyright notice
     TextEditorAbout->setFont(fontHeadline);
     TextEditorAbout->insertTextAtCaret(
-        T("Copyright\n")
+        "Copyright\n"
     );
 
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
-        T("(c) 2010-2012 Contributors\n\n")
+        "(c) 2010-2012 Contributors\n\n"
     );
 
     // display used libraries
     TextEditorAbout->setFont(fontHeadline);
     TextEditorAbout->insertTextAtCaret(
-        T("Libraries\n")
+        "Libraries\n"
     );
 
     TextEditorAbout->setFont(fontRegular);
@@ -126,12 +126,12 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     // display trademarks (but only when necessary)
     TextEditorAbout->setFont(fontHeadline);
     TextEditorAbout->insertTextAtCaret(
-        T("Trademarks\n")
+        "Trademarks\n"
     );
 
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
-        T("VST PlugIn Technology by Steinberg\n\n")
+        "VST PlugIn Technology by Steinberg\n\n"
     );
 
 #endif
@@ -141,12 +141,12 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     // display trademarks (but only when necessary)
     TextEditorAbout->setFont(fontHeadline);
     TextEditorAbout->insertTextAtCaret(
-        T("Trademarks\n")
+        "Trademarks\n"
     );
 
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
-        T("ASIO Technology by Steinberg Media Technologies GmbH\n\n")
+        "ASIO Technology by Steinberg Media Technologies GmbH\n\n"
     );
 
 #endif
@@ -154,7 +154,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     // display license summary
     TextEditorAbout->setFont(fontHeadline);
     TextEditorAbout->insertTextAtCaret(
-        T("License\n")
+        "License\n"
     );
 
     TextEditorAbout->setFont(fontRegular);
@@ -186,7 +186,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
 
     // create and position an "about" button that appears as if it
     // were pressed down and which closes the window when clicked
-    ButtonAbout = new TextButton(T("About"));
+    ButtonAbout = new TextButton("About");
     ButtonAbout->setBounds(nWidth - 73, nHeight - 34, 60, 20);
     ButtonAbout->setColour(TextButton::buttonColourId, Colours::yellow);
     ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::grey);
@@ -197,7 +197,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
 
     // create and position the image button which opens the license
     // text in a web browser
-    ButtonGpl = new ImageButton(T("GPL Link"));
+    ButtonGpl = new ImageButton("GPL Link");
     ButtonGpl->setBounds(4, nHeight - 41, 64, 32);
     ButtonGpl->setImages(true, false, true,
                          ImageCache::getFromMemory(
@@ -249,7 +249,7 @@ void WindowAbout::buttonClicked(Button* button)
     else if (button == ButtonGpl)
     {
         // open license text in default web browser
-        URL(T("http://www.gnu.org/licenses/gpl-3.0.html")).launchInDefaultBrowser();
+        URL("http://www.gnu.org/licenses/gpl-3.0.html").launchInDefaultBrowser();
     }
 }
 
