@@ -62,6 +62,8 @@ private:
     void FilterSamples_Rms(const int channel);
     void FilterSamples_ItuBs1770();
 
+    void setPeakToAverageCorrection(float peak_to_average_correction);
+
     AudioSampleBuffer* pSampleBuffer;
     AudioSampleBuffer* pOverlapAddSamples;
 

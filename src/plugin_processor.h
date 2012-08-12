@@ -102,6 +102,7 @@ public:
     void processBufferChunk(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
     int getAverageAlgorithm();
+    void setAverageAlgorithm(const int average_algorithm);
     void setAverageAlgorithmFinal(const int average_algorithm);
 
     //==========================================================================

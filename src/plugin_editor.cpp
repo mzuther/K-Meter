@@ -339,7 +339,7 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         //
         // we just need to make make sure that this code is actually
         // executed...
-        pProcessor->changeParameter(nIndex, nValue);
+        pProcessor->setAverageAlgorithm(nValue);
 
         break;
 

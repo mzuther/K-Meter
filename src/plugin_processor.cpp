@@ -130,7 +130,7 @@ void KmeterAudioProcessor::setParameter(int index, float newValue)
 
     if (index == KmeterPluginParameters::selAverageAlgorithm)
     {
-        pAverageLevelFiltered->setAlgorithm(getParameterAsInt(index));
+        setAverageAlgorithm(getParameterAsInt(index));
     }
 }
 
@@ -216,7 +216,7 @@ void KmeterAudioProcessor::changeParameter(int index, int nValue)
 
     if (index == KmeterPluginParameters::selAverageAlgorithm)
     {
-        pAverageLevelFiltered->setAlgorithm(nValue);
+        setAverageAlgorithm(nValue);
     }
 }
 
@@ -358,7 +358,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
         nOverflows[nChannel] = 0;
     }
 
-    pAverageLevelFiltered = new AverageLevelFiltered(this, nNumInputChannels, KMETER_BUFFER_SIZE, (int) sampleRate, getParameterAsInt(KmeterPluginParameters::selAverageAlgorithm));
+    pAverageLevelFiltered = new AverageLevelFiltered(this, nNumInputChannels, KMETER_BUFFER_SIZE, (int) sampleRate, nAverageAlgorithm);
 
     // make sure that ring buffer can hold at least KMETER_BUFFER_SIZE
     // samples and is large enough to receive a full block of audio
@@ -697,6 +697,15 @@ int KmeterAudioProcessor::getAverageAlgorithm()
 }
 
 
+void KmeterAudioProcessor::setAverageAlgorithm(const int average_algorithm)
+{
+    if (average_algorithm != nAverageAlgorithm)
+    {
+        pAverageLevelFiltered->setAlgorithm(average_algorithm);
+    }
+}
+
+
 void KmeterAudioProcessor::setAverageAlgorithmFinal(const int average_algorithm)
 {
     nAverageAlgorithm = average_algorithm;
@@ -723,10 +732,12 @@ AudioProcessorEditor* KmeterAudioProcessor::createEditor()
     }
 }
 
+
 bool KmeterAudioProcessor::hasEditor() const
 {
     return true;
 }
+
 
 //==============================================================================
 

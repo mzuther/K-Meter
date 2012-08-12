@@ -105,6 +105,7 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor* processor, cons
     planAudioSamples_DFT = fftwf_plan_dft_r2c_1d(nFftSize, arrAudioSamples_TD, arrAudioSamples_FD, FFTW_MEASURE);
     planAudioSamples_IDFT = fftwf_plan_dft_c2r_1d(nFftSize, arrAudioSamples_FD, arrAudioSamples_TD, FFTW_MEASURE);
 
+    nAverageAlgorithm = -1;
     setAlgorithm(average_algorithm);
 }
 
@@ -225,20 +226,35 @@ void AverageLevelFiltered::calculateFilterKernel()
     {
         calculateFilterKernel_ItuBs1770();
 
-        // ITU-R BS.1770-1 provides its own peak-to-average
+        // ITU-R BS.1770-1 provides its own peak-to-average gain
         // correction, so we don't need to apply any!
-        fPeakToAverageCorrection = 0.0f;
+        setPeakToAverageCorrection(0.0f);
     }
     else
     {
         calculateFilterKernel_Rms();
 
-        // this is simply the difference between peak and average
-        // meter readings during validation, measured using a file
-        // from Bob Katz containing 15 seconds of uncorrelated pink
-        // noise with a level of -20 dB FS RMS
-        fPeakToAverageCorrection = +2.9881f;
+        // RMS peak-to-average gain correction; this is simply the
+        // difference between peak and average meter readings during
+        // validation, measured using a file from Bob Katz containing
+        // 15 seconds of uncorrelated pink noise with a level of -20
+        // dB FS RMS
+        setPeakToAverageCorrection(+2.9881f);
     }
+}
+
+
+void AverageLevelFiltered::setPeakToAverageCorrection(float peak_to_average_correction)
+/*  Set peak-to-average gain correction.
+
+    peak_to_average_correction: gain to add to average levels so that
+	sine waves read the same on peak and average meters
+*/
+{
+    fPeakToAverageCorrection = peak_to_average_correction;
+
+    // make sure the change is reflected in "fMeterMinimumDecibel"
+    MeterBallistics::setPeakToAverageCorrection(fPeakToAverageCorrection);
 }
 
 
@@ -578,8 +594,8 @@ float AverageLevelFiltered::getLevel(const int channel)
 
         float fAverageLevel = MeterBallistics::level2decibel(pSampleBuffer->getRMSLevel(channel, 0, nBufferSize));
 
-        // apply peak-to-average correction so that sine waves give
-        // the same read-out on peak and average meters
+        // apply peak-to-average gain correction so that sine waves
+        // read the same on peak and average meters
         return fAverageLevel + fPeakToAverageCorrection;
     }
 }
