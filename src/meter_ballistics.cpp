@@ -501,9 +501,10 @@ void MeterBallistics::setPeakToAverageCorrection(float peak_to_average_correctio
     float fMaximumCrestFactor = 20.0f;
 
     // logarithmic levels have no minimum level, so let's define one
-    // (70 dB meter range + maximum crest factor + peak-to-average
-    // gain correction) and store it for later use
-    fMeterMinimumDecibel = -(70.0f + fMaximumCrestFactor + fPeakToAverageCorrection);
+    // (70 dB meter range + 0.01 to make sure that the minimum level
+    // is below the meter's threshold + maximum crest factor +
+    // peak-to-average gain correction) and store it for later use
+    fMeterMinimumDecibel = -(70.01f + fMaximumCrestFactor + fPeakToAverageCorrection);
 }
 
 
