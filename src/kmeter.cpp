@@ -25,22 +25,23 @@
 
 #include "kmeter.h"
 
-Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor, int nNumChannels, const String& unitName, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight)
+Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor, int nNumChannels, const String& unitName, bool bIsSurround, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight)
 {
     setName(componentName);
     nInputChannels = nNumChannels;
+    isSurround = bIsSurround;
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
     isExpanded = bExpanded;
     displayPeakMeter = bDisplayPeakMeter;
     strUnit = unitName;
 
-    if (nInputChannels <= 2)
+    if (isSurround)
     {
-        nMeterPositionTop = 0;
+        nMeterPositionTop = 20;
     }
     else
     {
-        nMeterPositionTop = 20;
+        nMeterPositionTop = 0;
     }
 
     nPosX = posX;
@@ -186,6 +187,26 @@ void Kmeter::paintMonoChannel(Graphics& g)
     int width = 24;
     int height = 11;
     String strMarker;
+
+    if (isSurround)
+    {
+        g.setColour(Colours::white);
+        g.setFont(13.0f);
+
+        g.drawFittedText("Channel sum", x - 4, 0, KMETER_STEREO_WIDTH - 5, 17, Justification::centred, 1, 1.0f);
+
+        g.setColour(Colours::grey.withAlpha(0.3f));
+        g.fillRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
+
+        g.setColour(Colours::darkgrey);
+        g.drawRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
+
+        g.setColour(Colours::darkgrey.darker(0.8f));
+        g.drawRect(x - 3, 1, KMETER_STEREO_WIDTH - 6, 17);
+
+        g.setColour(Colours::darkgrey.darker(0.4f));
+        g.drawRect(x - 3, 1, KMETER_STEREO_WIDTH - 7, 16);
+    }
 
     g.setColour(Colours::grey.withAlpha(0.1f));
     g.fillRect(x - 4, nMeterPositionTop, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
@@ -369,7 +390,7 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
     int height = 11;
     String strMarker;
 
-    if (nInputChannels > 2)
+    if (isSurround)
     {
         g.setColour(Colours::white);
         g.setFont(13.0f);

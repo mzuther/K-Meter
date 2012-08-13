@@ -59,6 +59,7 @@ private:
     JUCE_LEAK_DETECTOR(KmeterAudioProcessorEditor);
 
     void reloadMeters();
+    void resizeEditor();
     void updateAverageAlgorithm(bool reload_meters);
 
     bool bReloadMeters;
@@ -90,6 +91,8 @@ private:
     TextButton* ButtonMono;
     TextButton* ButtonValidation;
     TextButton* ButtonAbout;
+
+    Label* LabelDebug;
 };
 
 
