@@ -253,6 +253,10 @@ files (I have successfully used Ableton Live for this).  If that
 doesn't work, you might have to start either the K-Meter standalone or
 your VST host from a debugger.
 
+As a side note, \textbf{SMA(50)} designates the simple moving average
+of 50 values, a neat way to emphasise trends and eliminate short-term
+fluctuations.
+
 \newpage %% layout
 
 \section{About button}
@@ -431,9 +435,12 @@ contrary!  As I said, you should not mix by your eyes \dots
 I have gone to great lengths to ensure that all meters read correctly.
 You want to validate for yourself?  Just download and extract the
 source code.  The directory \path{validation} contains instructions
-and FLAC-compressed wave files.  A word of warning: these audio files
-may \textbf{damage your ears} and speakers, so please watch your
-monitor levels!
+and FLAC-compressed wave files.  To validate \textbf{ITU-R} mode,
+please download \href{http://www.itu.int/pub/R-REP-BS.2217}{ITU-R
+  BS.2217} and follow the instructions (at the time being, the gate
+tests should be ignored).  A word of warning: these audio files may
+\textbf{damage your ears} and speakers, so please watch your monitor
+levels!
 
 \begin{wrapfigure}{r}{0.395\linewidth}
   \includegraphics[scale=\screenshotscale,clip]{include/images/dialog_validation.png}
@@ -469,59 +476,47 @@ software and hardware mixers are set to the correct levels.
 
     average level meter (RMS) &
     readings &
-    valid \\
+    passed \\
 
     &
     frequency response &
-    valid \\
+    passed \\
 
     &
     meter ballistics &
-    valid \\
+    passed \\
 
     &
     5.1 surround sound &
     --- \\
 
     average level meter (ITU-R) &
-    readings &
-    --- \\
-
-    &
-    frequency response &
-    valid \\
-
-    &
-    meter ballistics &
-    --- \\
-
-    &
-    5.1 surround sound &
-    valid \\
+    ITU-R BS.2217 &
+    passed \\
 
     peak level meter &
     readings &
-    valid \\
+    passed \\
 
     &
     meter ballistics &
-    valid \\
+    passed \\
 
     overload counter &
     readings &
-    valid \\
+    passed \\
 
     maximum peak display &
     readings &
-    valid \\
+    passed \\
 
     phase correlation meter &
     readings &
-    valid \\
+    passed \\
 
     stereo meter &
     readings &
-    valid \\
+    passed \\
 
   \end{tabular}
 \end{minipage}

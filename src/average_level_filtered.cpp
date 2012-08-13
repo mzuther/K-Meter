@@ -527,7 +527,8 @@ float AverageLevelFiltered::getLevel(const int channel)
     if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
         float fAverageLevel = 0.0f;
-        float fLoudness = 0.0f;
+        float fMeterMinimumDecibel = MeterBallistics::getMeterMinimumDecibel();
+        float fLoudness = fMeterMinimumDecibel;
 
         if (channel == 0)
         {
@@ -576,8 +577,6 @@ float AverageLevelFiltered::getLevel(const int channel)
             //           square root for conversion from mean square
             //           to RMS (log10(sqrt(x)) = 0.5 * log10(x))
             fLoudness = -0.691f + 10.0f * log10f(fAverageLevel);
-
-            float fMeterMinimumDecibel = MeterBallistics::getMeterMinimumDecibel();
 
             if (fLoudness < fMeterMinimumDecibel)
             {
