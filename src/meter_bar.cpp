@@ -31,6 +31,10 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
     isExpanded = bExpanded;
     displayPeakMeter = bDisplayPeakMeter;
 
+    // this component does not have any transparent areas (increases
+    // performance on redrawing)
+    setOpaque(true);
+
     // to prevent the inherent round-off errors of float subtraction,
     // crest factor and limits are stored as integers representing
     // 0.1 dB steps

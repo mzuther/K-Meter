@@ -36,8 +36,13 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
 
     // set dimensions to those passed to the function ...
     setBounds(0, 0, nWidth, nHeight);
+
     // ... and keep the new window on top
     setAlwaysOnTop(true);
+
+    // this window does not have any transparent areas (increases
+    // performance on redrawing)
+    setOpaque(true);
 
     // prohibit movement of the new window
     pConstrainer = new ProhibitingBoundsConstrainer();

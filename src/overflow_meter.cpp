@@ -29,6 +29,10 @@ OverflowMeter::OverflowMeter(const String& componentName) : Label(componentName,
 {
     nOverflows = 0;
 
+    // this component does not have any transparent areas (increases
+    // performance on redrawing)
+    setOpaque(true);
+
     setFont(12.0f);
     setJustificationType(Justification::centredRight);
     setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));

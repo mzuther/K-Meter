@@ -29,6 +29,10 @@ PeakLabel::PeakLabel(const String& componentName, int nCrestFactor) : Label(comp
 {
     nMeterCrestFactor = nCrestFactor;
 
+    // this component does not have any transparent areas (increases
+    // performance on redrawing)
+    setOpaque(true);
+
     resetLevel();
 
     setFont(12.0f);

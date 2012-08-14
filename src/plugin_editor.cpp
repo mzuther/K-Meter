@@ -29,6 +29,10 @@
 KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* ownerFilter, int nNumChannels)
     : AudioProcessorEditor(ownerFilter)
 {
+    // the editor window does not have any transparent areas
+    // (increases performance on redrawing)
+    setOpaque(true);
+
     bIsValidating = false;
     bReloadMeters = false;
 
@@ -154,10 +158,10 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
     if (nInputChannels <= 2)
     {
-        stereoMeter = new StereoMeter("Stereo Meter", 10, nHeight - 44, 105, 15);
+        stereoMeter = new StereoMeter("Stereo Meter", 10, nHeight - 41, 106, 13);
         addAndMakeVisible(stereoMeter);
 
-        phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, nHeight - 24, 105, 13);
+        phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, nHeight - 24, 106, 13);
         addAndMakeVisible(phaseCorrelationMeter);
     }
     else
@@ -203,20 +207,20 @@ void KmeterAudioProcessorEditor::resizeEditor()
 {
     if (nInputChannels <= 2)
     {
-        nHeight = 649;
-        nRightColumnStart = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 20;
+        nHeight = 648;
+        nRightColumnStart = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 24;
     }
     else
     {
         if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
         {
             nHeight = 630;
-            nRightColumnStart = Kmeter::KMETER_STEREO_WIDTH + 20;
+            nRightColumnStart = Kmeter::KMETER_STEREO_WIDTH + 24;
         }
         else
         {
             nHeight = 630;
-            nRightColumnStart = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 20;
+            nRightColumnStart = nStereoInputChannels * (Kmeter::KMETER_STEREO_WIDTH + 6) + 18;
         }
     }
 

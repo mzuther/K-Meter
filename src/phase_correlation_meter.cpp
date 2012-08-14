@@ -29,6 +29,10 @@ PhaseCorrelationMeter::PhaseCorrelationMeter(const String& componentName, int Po
 {
     setName(componentName);
 
+    // this component does not have any transparent areas (increases
+    // performance on redrawing)
+    setOpaque(true);
+
     fValue = 0.0f;
     nNeedlePosition = -1;
 
@@ -98,7 +102,7 @@ void PhaseCorrelationMeter::setValue(float newValue)
         return;
     }
 
-    repaint();
+    repaint(getLocalBounds());
 }
 
 

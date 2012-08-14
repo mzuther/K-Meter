@@ -28,6 +28,10 @@
 Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor, int nNumChannels, const String& unitName, bool bIsSurround, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight)
 {
     setName(componentName);
+
+    // this component blends in with the background
+    setOpaque(false);
+
     nInputChannels = nNumChannels;
     isSurround = bIsSurround;
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
@@ -70,7 +74,7 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
 
     if (nInputChannels == 1)
     {
-        nPositionX = KMETER_STEREO_WIDTH_2 - 12;
+        nPositionX = KMETER_STEREO_WIDTH_2 - 10;
 
         LevelMeters[0] = new MeterBar("Level Meter #0", nPositionX - 2, nMeterPositionTop + 48, 24, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
         addAndMakeVisible(LevelMeters[0]);
@@ -79,11 +83,11 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
     {
         for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
         {
-            nPositionX = 8 + nChannel * KMETER_STEREO_WIDTH_2;
+            nPositionX = 9 + nChannel * (KMETER_STEREO_WIDTH_2 + 3);
 
             if (nChannel % 2)
             {
-                nPositionX += 15;
+                nPositionX += 12;
             }
 
             LevelMeters[nChannel] = new MeterBar("Level Meter #" + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
@@ -96,7 +100,7 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
 
     if (nInputChannels == 1)
     {
-        nPositionX = KMETER_STEREO_WIDTH_2 - 18;
+        nPositionX = KMETER_STEREO_WIDTH_2 - 16;
 
         OverflowMeters[0] = new OverflowMeter("Overflows #0");
         OverflowMeters[0]->setBounds(nPositionX, nMeterPositionTop + 4, 32, 16);
@@ -110,11 +114,11 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
     {
         for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
         {
-            nPositionX = 4 + nChannel * KMETER_STEREO_WIDTH_2;
+            nPositionX = 5 + nChannel * (KMETER_STEREO_WIDTH_2 + 3);
 
             if (nChannel % 2)
             {
-                nPositionX += 11;
+                nPositionX += 8;
             }
 
             OverflowMeters[nChannel] = new OverflowMeter("Overflows #" + String(nChannel));
@@ -158,8 +162,14 @@ Kmeter::~Kmeter()
 
 void Kmeter::visibilityChanged()
 {
-    int height = 134 * nMainSegmentHeight + 74;
-    int width = nStereoInputChannels * KMETER_STEREO_WIDTH + 2;
+    int height = 134 * nMainSegmentHeight + 54;
+
+    if (isSurround)
+    {
+        height += 20;
+    }
+
+    int width = nStereoInputChannels * (KMETER_STEREO_WIDTH + 6) - 6;
     setBounds(nPosX, nPosY, width, height);
 }
 
@@ -193,32 +203,39 @@ void Kmeter::paintMonoChannel(Graphics& g)
         g.setColour(Colours::white);
         g.setFont(13.0f);
 
-        g.drawFittedText("Channel sum", x - 4, 0, KMETER_STEREO_WIDTH - 5, 17, Justification::centred, 1, 1.0f);
+        g.drawFittedText("Channel sum", x - 5, 0, KMETER_STEREO_WIDTH, 17, Justification::centred, 1, 1.0f);
 
         g.setColour(Colours::grey.withAlpha(0.3f));
-        g.fillRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
+        g.fillRect(x - 5, 0, KMETER_STEREO_WIDTH, 18);
 
         g.setColour(Colours::darkgrey);
-        g.drawRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
+        g.drawRect(x - 5, 0, KMETER_STEREO_WIDTH - 1, 17);
 
-        g.setColour(Colours::darkgrey.darker(0.8f));
-        g.drawRect(x - 3, 1, KMETER_STEREO_WIDTH - 6, 17);
+        g.setColour(Colours::darkgrey.darker(0.7f));
+        g.drawRect(x - 4, 1, KMETER_STEREO_WIDTH - 1, 17);
 
         g.setColour(Colours::darkgrey.darker(0.4f));
-        g.drawRect(x - 3, 1, KMETER_STEREO_WIDTH - 7, 16);
+        g.drawRect(x - 4, 1, KMETER_STEREO_WIDTH - 2, 16);
+    }
+
+    int nHeight = getHeight();
+
+    if (!isSurround)
+    {
+        nHeight += 20;
     }
 
     g.setColour(Colours::grey.withAlpha(0.1f));
-    g.fillRect(x - 4, nMeterPositionTop, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+    g.fillRect(x - 5, nMeterPositionTop, KMETER_STEREO_WIDTH, nHeight - 19);
 
     g.setColour(Colours::darkgrey);
-    g.drawRect(x - 4, nMeterPositionTop, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+    g.drawRect(x - 5, nMeterPositionTop, KMETER_STEREO_WIDTH - 1, nHeight - 21);
 
-    g.setColour(Colours::darkgrey.darker(0.8f));
-    g.drawRect(x - 3, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+    g.setColour(Colours::darkgrey.darker(0.7f));
+    g.drawRect(x - 4, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 1, nHeight - 21);
 
     g.setColour(Colours::darkgrey.darker(0.4f));
-    g.drawRect(x - 3, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 7, getHeight() - 22);
+    g.drawRect(x - 4, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 2, nHeight - 22);
 
     g.setColour(Colours::white);
     g.setFont(12.0f);
@@ -384,7 +401,7 @@ void Kmeter::paintMonoChannel(Graphics& g)
 
 void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
 {
-    int x = 5 + nStereoChannel * KMETER_STEREO_WIDTH;
+    int x = 5 + nStereoChannel * (KMETER_STEREO_WIDTH + 6);
     int y = nMeterPositionTop + 43;
     int width = 24;
     int height = 11;
@@ -419,29 +436,36 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
         g.drawFittedText(strChannelLabel, x - 4, 0, KMETER_STEREO_WIDTH - 5, 17, Justification::centred, 1, 1.0f);
 
         g.setColour(Colours::grey.withAlpha(0.3f));
-        g.fillRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
+        g.fillRect(x - 5, 0, KMETER_STEREO_WIDTH, 18);
 
         g.setColour(Colours::darkgrey);
-        g.drawRect(x - 4, 0, KMETER_STEREO_WIDTH - 6, 17);
+        g.drawRect(x - 5, 0, KMETER_STEREO_WIDTH - 1, 17);
 
-        g.setColour(Colours::darkgrey.darker(0.8f));
-        g.drawRect(x - 3, 1, KMETER_STEREO_WIDTH - 6, 17);
+        g.setColour(Colours::darkgrey.darker(0.7f));
+        g.drawRect(x - 4, 1, KMETER_STEREO_WIDTH - 1, 17);
 
         g.setColour(Colours::darkgrey.darker(0.4f));
-        g.drawRect(x - 3, 1, KMETER_STEREO_WIDTH - 7, 16);
+        g.drawRect(x - 4, 1, KMETER_STEREO_WIDTH - 2, 16);
+    }
+
+    int nHeight = getHeight();
+
+    if (!isSurround)
+    {
+        nHeight += 20;
     }
 
     g.setColour(Colours::grey.withAlpha(0.1f));
-    g.fillRect(x - 4, nMeterPositionTop, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+    g.fillRect(x - 5, nMeterPositionTop, KMETER_STEREO_WIDTH, nHeight - 19);
 
     g.setColour(Colours::darkgrey);
-    g.drawRect(x - 4, nMeterPositionTop, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+    g.drawRect(x - 5, nMeterPositionTop, KMETER_STEREO_WIDTH - 1, nHeight - 21);
 
-    g.setColour(Colours::darkgrey.darker(0.8f));
-    g.drawRect(x - 3, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 6, getHeight() - 21);
+    g.setColour(Colours::darkgrey.darker(0.7f));
+    g.drawRect(x - 4, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 1, nHeight - 21);
 
     g.setColour(Colours::darkgrey.darker(0.4f));
-    g.drawRect(x - 3, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 7, getHeight() - 22);
+    g.drawRect(x - 4, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 2, nHeight - 22);
 
     g.setColour(Colours::white);
     g.setFont(12.0f);

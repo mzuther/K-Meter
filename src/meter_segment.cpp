@@ -169,7 +169,7 @@ void MeterSegment::setLevels(float fPeakLevel, float fAverageLevel, float fPeakL
     // changed
     if ((fBrightness != fBrightnessOld) || (nPeakMarker != nPeakMarkerOld))
     {
-        repaint();
+        repaint(getLocalBounds());
     }
 }
 
