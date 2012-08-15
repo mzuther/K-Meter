@@ -33,7 +33,8 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor* processor, cons
     File libraryFFTW = File::getSpecialLocation(File::currentExecutableFile).getSiblingFile("libfftw3f-3.dll");
     libraryHandleFFTW = PlatformUtilities::loadDynamicLibrary(libraryFFTW.getFullPathName());
 
-    fftwf_malloc = (void * (*)(size_t)) PlatformUtilities::getProcedureEntryPoint(libraryHandleFFTW, "fftwf_malloc");
+    fftwf_alloc_real = (float * (*)(size_t)) PlatformUtilities::getProcedureEntryPoint(libraryHandleFFTW, "fftwf_alloc_real");
+    fftwf_alloc_complex = (fftwf_complex * (*)(size_t)) PlatformUtilities::getProcedureEntryPoint(libraryHandleFFTW, "fftwf_alloc_complex");
     fftwf_free = (void (*)(void*)) PlatformUtilities::getProcedureEntryPoint(libraryHandleFFTW, "fftwf_free");
 
     fftwf_plan_dft_r2c_1d = (fftwf_plan(*)(int, float*, fftwf_complex*, unsigned)) PlatformUtilities::getProcedureEntryPoint(libraryHandleFFTW, "fftwf_plan_dft_r2c_1d");
@@ -94,13 +95,13 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor* processor, cons
     pSampleBuffer->clear();
     pOverlapAddSamples->clear();
 
-    arrFilterKernel_TD = (float*) fftwf_malloc(sizeof(float) * nFftSize);
-    arrFilterKernel_FD = (fftwf_complex*) fftwf_malloc(sizeof(fftwf_complex) * nHalfFftSize);
+    arrFilterKernel_TD = fftwf_alloc_real(nFftSize);
+    arrFilterKernel_FD = fftwf_alloc_complex(nHalfFftSize);
 
     planFilterKernel_DFT = fftwf_plan_dft_r2c_1d(nFftSize, arrFilterKernel_TD, arrFilterKernel_FD, FFTW_MEASURE);
 
-    arrAudioSamples_TD = (float*) fftwf_malloc(sizeof(float) * nFftSize);
-    arrAudioSamples_FD = (fftwf_complex*) fftwf_malloc(sizeof(fftwf_complex) * nHalfFftSize);
+    arrAudioSamples_TD = fftwf_alloc_real(nFftSize);
+    arrAudioSamples_FD = fftwf_alloc_complex(nHalfFftSize);
 
     planAudioSamples_DFT = fftwf_plan_dft_r2c_1d(nFftSize, arrAudioSamples_TD, arrAudioSamples_FD, FFTW_MEASURE);
     planAudioSamples_IDFT = fftwf_plan_dft_c2r_1d(nFftSize, arrAudioSamples_FD, arrAudioSamples_TD, FFTW_MEASURE);
@@ -158,7 +159,8 @@ AverageLevelFiltered::~AverageLevelFiltered()
     fftwf_free(arrAudioSamples_FD);
 
 #ifdef _WIN32
-    fftwf_malloc = NULL;
+    fftwf_alloc_real = NULL;
+    fftwf_alloc_complex = NULL;
     fftwf_free = NULL;
 
     fftwf_plan_dft_r2c_1d = NULL;

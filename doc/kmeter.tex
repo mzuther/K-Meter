@@ -648,7 +648,7 @@ Thanks for using free software.  I hope you'll enjoy it!
 To build K-Meter yourself, I recommend setting up a \texttt{chroot}
 environment.  This is fast and easy to do on Debian-based systems and
 might save you a \textbf{lot} of trouble.  At the time of writing, I'm
-using Debian 6.0 (Squeeze), but the procedure should be similar on
+using Linux Mint 13 (Maya), but the procedure should be similar on
 your distribution of choice.  If you aim at generic \num{64}-bit
 compilation, simply change \texttt{i386} to \texttt{amd64}.
 
@@ -699,9 +699,9 @@ are optional, but might come in handy:
 
 \begin{verbatim}
   apt-get update
-  apt-get install bash-completion libasound2-dev \
+  apt-get -y install bash-completion libasound2-dev \
     libjack-jackd2-dev mesa-common-dev xorg-dev
-  apt-get install less vim
+  apt-get -y install less vim
   apt-get clean
 \end{verbatim}
 
@@ -750,7 +750,7 @@ platform, you should run \emph{premake} using the scripts
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 3.2.2 \\
+  Version:     \> 3.3.2 \\
   License:     \> GPL v2 \\
   Homepage:    \> \href{http://www.fftw.org/}{www.fftw.org}
 \end{tabbing}
@@ -832,7 +832,7 @@ Simply extract the archive into the directory
   \hspace*{6em}\=\=\kill
 
   Importance:  \> optional \\
-  Version:     \> 1.24 \\
+  Version:     \> 2.01 \\
   License:     \> LGPL v3 \\
   Homepage:    \> \href{http://astyle.sourceforge.net/}{astyle.sourceforge.net}
 \end{tabbing}
