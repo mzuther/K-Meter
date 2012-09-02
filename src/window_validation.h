@@ -60,6 +60,7 @@ private:
 
     Label* LabelDumpSelectedChannel;
     ChannelSlider* SliderDumpSelectedChannel;
+    ToggleButton* ButtonDumpCSV;
     ToggleButton* ButtonDumpAverageMeterLevel;
     ToggleButton* ButtonDumpPeakMeterLevel;
     ToggleButton* ButtonDumpMaximumPeakLevel;

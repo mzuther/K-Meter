@@ -30,12 +30,14 @@ AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBal
 {
     nReportChannel = -1;
     bReports = false;
+    bReportCSV = false;
     bReportAverageMeterLevel = false;
     bReportPeakMeterLevel = false;
     bReportMaximumPeakLevel = false;
     bReportStereoMeterValue = false;
     bReportPhaseCorrelation = false;
 
+    bHeaderIsWritten = false;
     setCrestFactor(crest_factor);
 
     pMeterBallistics = meter_ballistics;
@@ -143,8 +145,10 @@ void AudioFilePlayer::setCrestFactor(int crest_factor)
 }
 
 
-void AudioFilePlayer::setReporters(int nChannel, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation)
+void AudioFilePlayer::setReporters(int nChannel, bool ReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation)
 {
+    bReportCSV = ReportCSV;
+
     nReportChannel = nChannel;
     bReportAverageMeterLevel = bAverageMeterLevel;
     bReportPeakMeterLevel = bPeakMeterLevel;
@@ -185,86 +189,14 @@ void AudioFilePlayer::fillBufferChunk(AudioSampleBuffer* buffer)
     // report old meter readings
     if (bReports)
     {
-        if (bReportAverageMeterLevel)
+        if (bReportCSV)
         {
-            if (nReportChannel < 0)
-            {
-                for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
-                {
-                    float fAverageMeterLevel = fCrestFactor + pMeterBallistics->getAverageMeterLevel(nChannel);
-                    String strPrefix = strCrestFactor + " average (ch. " + String(nChannel) + "):  ";
-                    String strSuffix = " dB";
-                    outputValue(fAverageMeterLevel, pAverager_AverageMeterLevels[nChannel], strPrefix, strSuffix);
-                }
-            }
-            else
-            {
-                float fAverageMeterLevel = fCrestFactor + pMeterBallistics->getAverageMeterLevel(nReportChannel);
-                String strPrefix = strCrestFactor + " average (ch. " + String(nReportChannel) + "):  ";
-                String strSuffix = " dB";
-                outputValue(fAverageMeterLevel, pAverager_AverageMeterLevels[nReportChannel], strPrefix, strSuffix);
-            }
+            outputReportCSVLine();
         }
-
-        if (bReportPeakMeterLevel)
+        else
         {
-            if (nReportChannel < 0)
-            {
-                for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
-                {
-                    float fPeakMeterLevel = fCrestFactor + pMeterBallistics->getPeakMeterLevel(nChannel);
-                    String strPrefix = strCrestFactor + " peak (ch. " + String(nChannel) + "):     ";
-                    String strSuffix = " dB";
-                    outputValue(fPeakMeterLevel, pAverager_PeakMeterLevels[nChannel], strPrefix, strSuffix);
-                }
-            }
-            else
-            {
-                float fPeakMeterLevel = fCrestFactor + pMeterBallistics->getPeakMeterLevel(nReportChannel);
-                String strPrefix = strCrestFactor + " peak (ch. " + String(nReportChannel) + "):     ";
-                String strSuffix = " dB";
-                outputValue(fPeakMeterLevel, pAverager_PeakMeterLevels[nReportChannel], strPrefix, strSuffix);
-            }
+            outputReportPlain();
         }
-
-        if (bReportMaximumPeakLevel)
-        {
-            if (nReportChannel < 0)
-            {
-                for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
-                {
-                    float fMaximumPeakLevel = fCrestFactor + pMeterBallistics->getMaximumPeakLevel(nChannel);
-                    String strPrefix = strCrestFactor + " maximum (ch. " + String(nChannel) + "):  ";
-                    String strSuffix = " dB";
-                    outputValue(fMaximumPeakLevel, NULL, strPrefix, strSuffix);
-                }
-            }
-            else
-            {
-                float fMaximumPeakLevel = fCrestFactor + pMeterBallistics->getMaximumPeakLevel(nReportChannel);
-                String strPrefix = strCrestFactor + " maximum (ch. " + String(nReportChannel) + "):  ";
-                String strSuffix = " dB";
-                outputValue(fMaximumPeakLevel, NULL, strPrefix, strSuffix);
-            }
-        }
-
-        if (bReportStereoMeterValue)
-        {
-            float fStereoMeterValue = pMeterBallistics->getStereoMeterValue();
-            String strPrefix = "Stereo meter value:    ";
-            String strSuffix = "";
-            outputValue(fStereoMeterValue, NULL, strPrefix, strSuffix);
-        }
-
-        if (bReportPhaseCorrelation)
-        {
-            float fPhaseCorrelation = pMeterBallistics->getPhaseCorrelation();
-            String strPrefix = "Phase correlation:     ";
-            String strSuffix = "";
-            outputValue(fPhaseCorrelation, NULL, strPrefix, strSuffix);
-        }
-
-        outputMessage(String::empty);
     }
 
     if (isPlaying())
@@ -276,6 +208,269 @@ void AudioFilePlayer::fillBufferChunk(AudioSampleBuffer* buffer)
 
         audioFileSource->getNextAudioBlock(channelInfo);
     }
+}
+
+
+void AudioFilePlayer::outputReportPlain(void)
+{
+    if (bReportAverageMeterLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+            {
+                float fAverageMeterLevel = fCrestFactor + pMeterBallistics->getAverageMeterLevel(nChannel);
+                String strPrefix = strCrestFactor + " average (ch. " + String(nChannel + 1) + "):  ";
+                String strSuffix = " dB";
+                outputValue(fAverageMeterLevel, pAverager_AverageMeterLevels[nChannel], strPrefix, strSuffix);
+            }
+        }
+        else
+        {
+            float fAverageMeterLevel = fCrestFactor + pMeterBallistics->getAverageMeterLevel(nReportChannel);
+            String strPrefix = strCrestFactor + " average (ch. " + String(nReportChannel + 1) + "):  ";
+            String strSuffix = " dB";
+            outputValue(fAverageMeterLevel, pAverager_AverageMeterLevels[nReportChannel], strPrefix, strSuffix);
+        }
+    }
+
+    if (bReportPeakMeterLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+            {
+                float fPeakMeterLevel = fCrestFactor + pMeterBallistics->getPeakMeterLevel(nChannel);
+                String strPrefix = strCrestFactor + " peak (ch. " + String(nChannel + 1) + "):     ";
+                String strSuffix = " dB";
+                outputValue(fPeakMeterLevel, pAverager_PeakMeterLevels[nChannel], strPrefix, strSuffix);
+            }
+        }
+        else
+        {
+            float fPeakMeterLevel = fCrestFactor + pMeterBallistics->getPeakMeterLevel(nReportChannel);
+            String strPrefix = strCrestFactor + " peak (ch. " + String(nReportChannel + 1) + "):     ";
+            String strSuffix = " dB";
+            outputValue(fPeakMeterLevel, pAverager_PeakMeterLevels[nReportChannel], strPrefix, strSuffix);
+        }
+    }
+
+    if (bReportMaximumPeakLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+            {
+                float fMaximumPeakLevel = fCrestFactor + pMeterBallistics->getMaximumPeakLevel(nChannel);
+                String strPrefix = strCrestFactor + " maximum (ch. " + String(nChannel + 1) + "):  ";
+                String strSuffix = " dB";
+                outputValue(fMaximumPeakLevel, NULL, strPrefix, strSuffix);
+            }
+        }
+        else
+        {
+            float fMaximumPeakLevel = fCrestFactor + pMeterBallistics->getMaximumPeakLevel(nReportChannel);
+            String strPrefix = strCrestFactor + " maximum (ch. " + String(nReportChannel + 1) + "):  ";
+            String strSuffix = " dB";
+            outputValue(fMaximumPeakLevel, NULL, strPrefix, strSuffix);
+        }
+    }
+
+    if (bReportStereoMeterValue)
+    {
+        float fStereoMeterValue = pMeterBallistics->getStereoMeterValue();
+        String strPrefix = "Stereo meter value:    ";
+        String strSuffix = "";
+        outputValue(fStereoMeterValue, NULL, strPrefix, strSuffix);
+    }
+
+    if (bReportPhaseCorrelation)
+    {
+        float fPhaseCorrelation = pMeterBallistics->getPhaseCorrelation();
+        String strPrefix = "Phase correlation:     ";
+        String strSuffix = "";
+        outputValue(fPhaseCorrelation, NULL, strPrefix, strSuffix);
+    }
+
+    outputMessage(String::empty);
+}
+
+
+void AudioFilePlayer::outputReportCSVHeader(void)
+{
+    bHeaderIsWritten = true;
+    String strOutput = "\"timecode\"\t";
+
+    if (bReportAverageMeterLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+            {
+                strOutput += "\"avg_" + String(nChannel + 1) + "\"\t";
+            }
+        }
+        else
+        {
+            strOutput += "\"avg_" + String(nReportChannel + 1) + "\"\t";
+        }
+    }
+
+    if (bReportPeakMeterLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+            {
+                strOutput += "\"peak_" + String(nChannel + 1) + "\"\t";
+            }
+        }
+        else
+        {
+            strOutput += "\"peak_" + String(nReportChannel + 1) + "\"\t";
+        }
+    }
+
+    if (bReportMaximumPeakLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+            {
+                strOutput += "\"max_" + String(nChannel + 1) + "\"\t";
+            }
+        }
+        else
+        {
+            strOutput += "\"max_" + String(nReportChannel + 1) + "\"\t";
+        }
+    }
+
+    if (bReportStereoMeterValue)
+    {
+        strOutput += "\"stereo\"\t";
+    }
+
+    if (bReportPhaseCorrelation)
+    {
+        strOutput += "\"corr\"\t";
+    }
+
+    Logger::outputDebugString(strOutput);
+}
+
+
+void AudioFilePlayer::outputReportCSVLine(void)
+{
+    String strOutput;
+
+    if (!bHeaderIsWritten)
+    {
+        outputReportCSVHeader();
+    }
+
+    if (bReportAverageMeterLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+            {
+                float fAverageMeterLevel = fCrestFactor + pMeterBallistics->getAverageMeterLevel(nChannel);
+                strOutput += formatValue(fAverageMeterLevel);
+            }
+        }
+        else
+        {
+            float fAverageMeterLevel = fCrestFactor + pMeterBallistics->getAverageMeterLevel(nReportChannel);
+            strOutput += formatValue(fAverageMeterLevel);
+        }
+    }
+
+    if (bReportPeakMeterLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+            {
+                float fPeakMeterLevel = fCrestFactor + pMeterBallistics->getPeakMeterLevel(nChannel);
+                strOutput += formatValue(fPeakMeterLevel);
+            }
+        }
+        else
+        {
+            float fPeakMeterLevel = fCrestFactor + pMeterBallistics->getPeakMeterLevel(nReportChannel);
+            strOutput += formatValue(fPeakMeterLevel);
+        }
+    }
+
+    if (bReportMaximumPeakLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+            {
+                float fMaximumPeakLevel = fCrestFactor + pMeterBallistics->getMaximumPeakLevel(nChannel);
+                strOutput += formatValue(fMaximumPeakLevel);
+            }
+        }
+        else
+        {
+            float fMaximumPeakLevel = fCrestFactor + pMeterBallistics->getMaximumPeakLevel(nReportChannel);
+            strOutput += formatValue(fMaximumPeakLevel);
+        }
+    }
+
+    if (bReportStereoMeterValue)
+    {
+        float fStereoMeterValue = pMeterBallistics->getStereoMeterValue();
+        strOutput += formatValue(fStereoMeterValue);
+    }
+
+    if (bReportPhaseCorrelation)
+    {
+        float fPhaseCorrelation = pMeterBallistics->getPhaseCorrelation();
+        strOutput += formatValue(fPhaseCorrelation);
+    }
+
+    Logger::outputDebugString("\"" + formatTime() + "\"\t" + strOutput);
+}
+
+
+String AudioFilePlayer::formatTime(void)
+{
+    float fTime = audioFileSource->getNextReadPosition() / fSampleRate;
+
+    // check for NaN
+    if (fTime != fTime)
+    {
+        fTime = 0.0f;
+    }
+
+    int nTime = int(fTime);
+    int nMilliSeconds = int(1000.0f * (fTime - nTime) + 0.5f);
+
+    String strMinutes = String(nTime / 60).paddedLeft('0', 2);
+    String strSeconds = String(nTime % 60).paddedLeft('0', 2);
+    String strMilliSeconds = String(nMilliSeconds).paddedLeft('0', 3);
+
+    return strMinutes + ":" + strSeconds + "." + strMilliSeconds;
+}
+
+
+String AudioFilePlayer::formatValue(const float fValue)
+{
+    String strValue;
+
+    if (fValue < 0.0f)
+    {
+        strValue = String(fValue, 2);
+    }
+    else
+    {
+        strValue = "+" + String(fValue, 2);
+    }
+
+    return (strValue + "\t");
 }
 
 
@@ -319,22 +514,8 @@ void AudioFilePlayer::outputValue(const float fValue, Averager* pAverager, const
 
 void AudioFilePlayer::outputMessage(const String& strMessage)
 {
-    float fTime = audioFileSource->getNextReadPosition() / fSampleRate;
 
-    // check for NaN
-    if (fTime != fTime)
-    {
-        fTime = 0.0f;
-    }
-
-    int nTime = int(fTime);
-    int nMilliSeconds = int(1000.0f * (fTime - nTime) + 0.5f);
-
-    String strMinutes = String(nTime / 60).paddedLeft('0', 2);
-    String strSeconds = String(nTime % 60).paddedLeft('0', 2);
-    String strMilliSeconds = String(nMilliSeconds).paddedLeft('0', 3);
-
-    Logger::outputDebugString("[Validation - " + strMinutes + ":" + strSeconds + "." + strMilliSeconds + "] " + strMessage);
+    Logger::outputDebugString("[Validation - " + formatTime() + "] " + strMessage);
 }
 
 

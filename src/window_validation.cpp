@@ -54,7 +54,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     setContentOwned(contentComponent, false);
 
     LabelFileSelection = new Label("Label FileSelection", fileValidation.getFileName());
-    LabelFileSelection->setBounds(nWidth - 188, nHeight - 244, 138, 20);
+    LabelFileSelection->setBounds(nWidth - 188, nHeight - 269, 138, 20);
     LabelFileSelection->setMinimumHorizontalScale(1.0f);
     LabelFileSelection->setColour(Label::textColourId, Colours::white);
     LabelFileSelection->setColour(Label::backgroundColourId, Colours::grey.darker(0.6f));
@@ -64,13 +64,13 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     contentComponent->addAndMakeVisible(LabelFileSelection);
 
     ButtonFileSelection = new TextButton("...");
-    ButtonFileSelection->setBounds(nWidth - 45, nHeight - 244, 30, 20);
+    ButtonFileSelection->setBounds(nWidth - 45, nHeight - 269, 30, 20);
 
     ButtonFileSelection->addListener(this);
     contentComponent->addAndMakeVisible(ButtonFileSelection);
 
     LabelSampleRateValue = new Label("Label SampleRate", "Host SR: ");
-    LabelSampleRateValue->setBounds(nWidth - 192, nHeight - 219, 75, 20);
+    LabelSampleRateValue->setBounds(nWidth - 192, nHeight - 244, 75, 20);
     LabelSampleRateValue->setColour(Label::textColourId, Colours::white);
     contentComponent->addAndMakeVisible(LabelSampleRateValue);
 
@@ -80,7 +80,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     String strSampleRate = strSampleRateThousands + " " + strSampleRateOnes + " Hz";
 
     LabelSampleRateValue = new Label("Label SampleRateValue", strSampleRate);
-    LabelSampleRateValue->setBounds(nWidth - 126, nHeight - 219, 82, 20);
+    LabelSampleRateValue->setBounds(nWidth - 126, nHeight - 244, 82, 20);
     LabelSampleRateValue->setMinimumHorizontalScale(1.0f);
     LabelSampleRateValue->setColour(Label::textColourId, Colours::white);
     LabelSampleRateValue->setColour(Label::backgroundColourId, Colours::grey.darker(0.6f));
@@ -90,15 +90,21 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     contentComponent->addAndMakeVisible(LabelSampleRateValue);
 
     LabelDumpSelectedChannel = new Label("Selected channel", "Channel: ");
-    LabelDumpSelectedChannel->setBounds(nWidth - 192, nHeight - 194, 75, 20);
+    LabelDumpSelectedChannel->setBounds(nWidth - 192, nHeight - 219, 75, 20);
     LabelDumpSelectedChannel->setColour(Label::textColourId, Colours::white);
     contentComponent->addAndMakeVisible(LabelDumpSelectedChannel);
 
     SliderDumpSelectedChannel = new ChannelSlider("Selected channel", pProcessor->getNumChannels() - 1);
-    SliderDumpSelectedChannel->setBounds(nWidth - 126, nHeight - 194, 70, 20);
+    SliderDumpSelectedChannel->setBounds(nWidth - 126, nHeight - 219, 70, 20);
     SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxTextColourId, Colours::white);
     SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxBackgroundColourId, Colours::grey.darker(0.6f));
     SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxOutlineColourId, Colours::black);
+
+    ButtonDumpCSV = new ToggleButton("CSV format");
+    ButtonDumpCSV->setBounds(nWidth - 192, nHeight - 194, 180, 20);
+    ButtonDumpCSV->setColour(ToggleButton::textColourId, Colours::white);
+    ButtonDumpCSV->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationCSVFormat), false);
+    contentComponent->addAndMakeVisible(ButtonDumpCSV);
 
     SliderDumpSelectedChannel->setValue(pProcessor->getParameterAsInt(KmeterPluginParameters::selValidationSelectedChannel), false, false);
     contentComponent->addAndMakeVisible(SliderDumpSelectedChannel);
@@ -182,11 +188,11 @@ void WindowValidation::paint(Graphics& g)
 
     g.setColour(Colours::white);
     g.setOpacity(0.15f);
-    g.drawRect(nWidth - 189, nHeight - 245, 182, 214);
+    g.drawRect(nWidth - 189, nHeight - 269, 182, 239);
 
     g.setColour(Colours::white);
     g.setOpacity(0.05f);
-    g.fillRect(nWidth - 188, nHeight - 244, 180, 212);
+    g.fillRect(nWidth - 188, nHeight - 269, 180, 237);
 }
 
 
@@ -198,6 +204,9 @@ void WindowValidation::buttonClicked(Button* button)
         int nSelectedChannel = (int) SliderDumpSelectedChannel->getValue();
         float fSelectedChannel = (nSelectedChannel + 1.0f) / 100.0f;
         pProcessor->setParameter(KmeterPluginParameters::selValidationSelectedChannel, fSelectedChannel);
+
+        bool bReportCSV = ButtonDumpCSV->getToggleState();
+        pProcessor->setParameter(KmeterPluginParameters::selValidationCSVFormat, bReportCSV ? 1.0f : 0.0f);
 
         bool bAverageMeterLevel = ButtonDumpAverageMeterLevel->getToggleState();
         pProcessor->setParameter(KmeterPluginParameters::selValidationAverageMeterLevel, bAverageMeterLevel ? 1.0f : 0.0f);
@@ -215,7 +224,7 @@ void WindowValidation::buttonClicked(Button* button)
         pProcessor->setParameter(KmeterPluginParameters::selValidationPhaseCorrelation, bPhaseCorrelation ? 1.0f : 0.0f);
 
         // validation file has already been initialised
-        pProcessor->startValidation(fileValidation, nSelectedChannel, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bStereoMeterValue, bPhaseCorrelation);
+        pProcessor->startValidation(fileValidation, nSelectedChannel, bReportCSV, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bStereoMeterValue, bPhaseCorrelation);
 
         // close window by making it invisible
         setVisible(false);

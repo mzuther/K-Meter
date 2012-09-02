@@ -47,6 +47,8 @@ KmeterPluginParameters::KmeterPluginParameters()
     nParam[selValidationStereoMeterValue] = 1;
     nParam[selValidationPhaseCorrelation] = 1;
 
+    nParam[selValidationCSVFormat] = 0;
+
     strValidationFile = String::empty;
 
     bParamChanged = new bool[nNumParameters];
@@ -255,6 +257,10 @@ const String KmeterPluginParameters::getParameterName(int nIndex)
         return "Validation: phase correlation";
         break;
 
+    case selValidationCSVFormat:
+        return "Validation: CSV output format";
+        break;
+
     default:
         return "invalid";
         break;
@@ -443,6 +449,7 @@ XmlElement KmeterPluginParameters::storeAsXml()
     xml.setAttribute("ValidationMaximumPeakLevel", getParameterAsInt(selValidationMaximumPeakLevel));
     xml.setAttribute("ValidationStereoMeterValue", getParameterAsInt(selValidationStereoMeterValue));
     xml.setAttribute("ValidationPhaseCorrelation", getParameterAsInt(selValidationPhaseCorrelation));
+    xml.setAttribute("ValidationCSVFormat", getParameterAsInt(selValidationCSVFormat));
 
     return xml;
 }
@@ -488,6 +495,7 @@ void KmeterPluginParameters::loadFromXml(XmlElement* xml)
         setParameterFromInt(selValidationMaximumPeakLevel, xml->getIntAttribute("ValidationMaximumPeakLevel", getParameterAsInt(selValidationMaximumPeakLevel)));
         setParameterFromInt(selValidationStereoMeterValue, xml->getIntAttribute("ValidationStereoMeterValue", getParameterAsInt(selValidationStereoMeterValue)));
         setParameterFromInt(selValidationPhaseCorrelation, xml->getIntAttribute("ValidationPhaseCorrelation", getParameterAsInt(selValidationPhaseCorrelation)));
+        setParameterFromInt(selValidationCSVFormat, xml->getIntAttribute("ValidationCSVFormat", getParameterAsInt(selValidationCSVFormat)));
     }
 }
 

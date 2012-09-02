@@ -84,6 +84,7 @@ public:
         selValidationMaximumPeakLevel,
         selValidationStereoMeterValue,
         selValidationPhaseCorrelation,
+        selValidationCSVFormat,
 
         nNumParameters,
 
