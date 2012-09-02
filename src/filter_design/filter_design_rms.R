@@ -475,44 +475,37 @@ screen(3)
 
 xlim <- c(1, samples)
 ylim <- c(-1, 1)
-
 plot_impulse_response(samples, filter_kernel, "Filter kernel", xlim=xlim, ylim=ylim)
 
-
 screen(4)
+
 xlim <- c(0, sample_rate / 2)
 ylim <- c(0, 1)
-
 plot_frequency_response(frequency, frequency_response, "Frequency response (linear)", xlim=xlim, ylim=ylim, log_x=FALSE, log_y=FALSE)
 
-
 screen(5)
+
 xlim <- c(10, sample_rate / 2)
 ylim <- c(-120, 0)
-
 plot_frequency_response(frequency, frequency_response, "Frequency response (logarithmic)", xlim=xlim, ylim=ylim, log_x=TRUE, log_y=TRUE)
 
-
 screen(6)
+
 xlim <- c(1, samples)
 ylim <- c(-1, 1)
-
 plot_step_response(samples, step_response, "Step response", xlim=xlim, ylim=ylim)
 
-
 screen(7)
+
 xlim <- c(10, sample_rate / 2)
 ylim <- c(-2, 2)
-
 plot_phase_response(frequency, phase_response, "Phase response (linear)", xlim=xlim, ylim=ylim, log_x=FALSE)
 
-
 screen(8)
+
 xlim <- c(10, sample_rate / 2)
 ylim <- c(-2, 2)
-
 plot_phase_response(frequency, phase_response, "Phase response (logarithmic)", xlim=xlim, ylim=ylim, log_x=TRUE)
-
 
 close.screen(all=TRUE)
 dev.off()
