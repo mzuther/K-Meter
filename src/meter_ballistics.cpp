@@ -30,12 +30,14 @@ float MeterBallistics::fMeterMinimumDecibel;
 float MeterBallistics::fPeakToAverageCorrection;
 
 
-MeterBallistics::MeterBallistics(int nChannels, int nSampleRate, bool bPeakMeterInfiniteHold, bool bAverageMeterInfiniteHold)
+MeterBallistics::MeterBallistics(int nChannels, int AverageAlgorithm, bool bPeakMeterInfiniteHold, bool bAverageMeterInfiniteHold)
 /*  Constructor.
 
     nChannels (integer): number of audio input channels
 
-    nSampleRate (integer): current sample rate (in Hz)
+    AverageAlgorithm (integer): algorithm for calculating average
+    meter levels; must be one of the "selAlgorithm..."  values defined
+    in "plugin_parameters.h"
 
     bPeakMeterInfiniteHold (Boolean): selects "infinite peak hold"
     (true) or "falling peaks" mode (false) for peak meter
@@ -53,6 +55,9 @@ MeterBallistics::MeterBallistics(int nChannels, int nSampleRate, bool bPeakMeter
 
     // store the number of audio input channels
     nNumberOfChannels = nChannels;
+
+    // store algorithm for average meter levels
+    setAverageAlgorithm(AverageAlgorithm);
 
     // allocate variables for peak meter's level and peak mark (all
     // audio input channels)
@@ -149,6 +154,20 @@ void MeterBallistics::reset()
 }
 
 
+void MeterBallistics::setAverageAlgorithm(int AverageAlgorithm)
+/*  Set algorithm for calculating average meter levels.
+
+    AverageAlgorithm (integer): algorithm for calculating average
+    meter levels; must be one of the "selAlgorithm..."  values defined
+    in "plugin_parameters.h"
+
+    return value: none
+*/
+{
+    nAverageAlgorithm = AverageAlgorithm;
+}
+
+
 void MeterBallistics::setPeakMeterInfiniteHold(bool bInfiniteHold)
 /*  Set peak meter to "infinite peak hold" or "falling peaks" mode.
 
@@ -228,7 +247,34 @@ float MeterBallistics::getPeakMeterLevel(int nChannel)
     jassert(nChannel >= 0);
     jassert(nChannel < nNumberOfChannels);
 
-    return fPeakMeterLevels[nChannel];
+    // we only display a single meter in ITU-R BS.1770-1 mode, so
+    // we'll have to evaluate the maximum level first
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        // initialise maximum level
+        float fPeakMeterLevel = fMeterMinimumDecibel;
+
+        // only return maximum level for the first channel
+        if (nChannel == 0)
+        {
+            // loop through all audio channels to find maximum level
+            for (int channel = 0; channel < nNumberOfChannels; channel++)
+            {
+                if (fPeakMeterLevels[channel] > fPeakMeterLevel)
+                {
+                    fPeakMeterLevel = fPeakMeterLevels[channel];
+                }
+            }
+        }
+
+        // return maximum level
+        return fPeakMeterLevel;
+    }
+    // otherwise, simply return the requested channel's maximum level
+    else
+    {
+        return fPeakMeterLevels[nChannel];
+    }
 }
 
 
@@ -244,7 +290,36 @@ float MeterBallistics::getPeakMeterPeakLevel(int nChannel)
     jassert(nChannel >= 0);
     jassert(nChannel < nNumberOfChannels);
 
-    return fPeakMeterPeakLevels[nChannel];
+    // we only display a single meter in ITU-R BS.1770-1 mode, so
+    // we'll have to evaluate the maximum peak level first
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        // initialise maximum peak level
+        float fPeakMeterPeakLevel = fMeterMinimumDecibel;
+
+        // only return maximum peak level for the first channel
+        if (nChannel == 0)
+        {
+            // loop through all audio channels to find maximum peak
+            // level
+            for (int channel = 0; channel < nNumberOfChannels; channel++)
+            {
+                if (fPeakMeterPeakLevels[channel] > fPeakMeterPeakLevel)
+                {
+                    fPeakMeterPeakLevel = fPeakMeterPeakLevels[channel];
+                }
+            }
+        }
+
+        // return maximum peak level
+        return fPeakMeterPeakLevel;
+    }
+    // otherwise, simply return the requested channel's maximum peak
+    // level
+    else
+    {
+        return fPeakMeterPeakLevels[nChannel];
+    }
 }
 
 
@@ -260,7 +335,24 @@ float MeterBallistics::getAverageMeterLevel(int nChannel)
     jassert(nChannel >= 0);
     jassert(nChannel < nNumberOfChannels);
 
-    return fAverageMeterLevels[nChannel];
+    // we only display a single meter in ITU-R BS.1770-1 mode, so
+    // we'll only return an average level for the first channel
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        if (nChannel == 0)
+        {
+            return fAverageMeterLevels[nChannel];
+        }
+        else
+        {
+            return fMeterMinimumDecibel;
+        }
+    }
+    // otherwise, simply return the requested channel's average level
+    else
+    {
+        return fAverageMeterLevels[nChannel];
+    }
 }
 
 
@@ -276,7 +368,25 @@ float MeterBallistics::getAverageMeterPeakLevel(int nChannel)
     jassert(nChannel >= 0);
     jassert(nChannel < nNumberOfChannels);
 
-    return fAverageMeterPeakLevels[nChannel];
+    // we only display a single meter in ITU-R BS.1770-1 mode, so
+    // we'll only return an average peak level for the first channel
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        if (nChannel == 0)
+        {
+            return fAverageMeterPeakLevels[nChannel];
+        }
+        else
+        {
+            return fMeterMinimumDecibel;
+        }
+    }
+    // otherwise, simply return the requested channel's average peak
+    // level
+    else
+    {
+        return fAverageMeterPeakLevels[nChannel];
+    }
 }
 
 
@@ -292,7 +402,34 @@ float MeterBallistics::getMaximumPeakLevel(int nChannel)
     jassert(nChannel >= 0);
     jassert(nChannel < nNumberOfChannels);
 
-    return fMaximumPeakLevels[nChannel];
+    // we only display a single meter in ITU-R BS.1770-1 mode, so
+    // we'll have to evaluate the maximum level first
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        // initialise maximum peak level
+        float fMaximumPeakLevel = fMeterMinimumDecibel;
+
+        // only return maximum level for the first channel
+        if (nChannel == 0)
+        {
+            // loop through all audio channels to find maximum level
+            for (int channel = 0; channel < nNumberOfChannels; channel++)
+            {
+                if (fMaximumPeakLevels[channel] > fMaximumPeakLevel)
+                {
+                    fMaximumPeakLevel = fMaximumPeakLevels[channel];
+                }
+            }
+        }
+
+        // return maximum level
+        return fMaximumPeakLevel;
+    }
+    // otherwise, simply return the requested channel's maximum level
+    else
+    {
+        return fMaximumPeakLevels[nChannel];
+    }
 }
 
 
@@ -308,7 +445,34 @@ int MeterBallistics::getNumberOfOverflows(int nChannel)
     jassert(nChannel >= 0);
     jassert(nChannel < nNumberOfChannels);
 
-    return nNumberOfOverflows[nChannel];
+    // we only display a single meter in ITU-R BS.1770-1 mode, so
+    // we'll have to add the number of overflows that occurred in each
+    // channel
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        // initialise sum of overflows
+        int nSumOfOverflows = 0;
+
+        // only return sum of overflows for the first channel
+        if (nChannel == 0)
+        {
+            // loop through all audio channels to add the number of
+            // overflows
+            for (int channel = 0; channel < nNumberOfChannels; channel++)
+            {
+                nSumOfOverflows += nNumberOfOverflows[channel];
+            }
+        }
+
+        // return sum of overflows
+        return nSumOfOverflows;
+    }
+    // otherwise, simply return the requested channel's number of
+    // overflows
+    else
+    {
+        return nNumberOfOverflows[nChannel];
+    }
 }
 
 

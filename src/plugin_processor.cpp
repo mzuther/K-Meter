@@ -341,7 +341,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 
     DBG("[K-Meter] number of input channels: " + String(nNumInputChannels));
 
-    pMeterBallistics = new MeterBallistics(nNumInputChannels, (int) sampleRate, false, false);
+    pMeterBallistics = new MeterBallistics(nNumInputChannels, nAverageAlgorithm, false, false);
 
     fPeakLevels = new float[nNumInputChannels];
     fRmsLevels = new float[nNumInputChannels];
@@ -709,6 +709,7 @@ void KmeterAudioProcessor::setAverageAlgorithm(const int average_algorithm)
 void KmeterAudioProcessor::setAverageAlgorithmFinal(const int average_algorithm)
 {
     nAverageAlgorithm = average_algorithm;
+    pMeterBallistics->setAverageAlgorithm(nAverageAlgorithm);
 
     //  the level averaging alghorithm has been changed, so update the
     // "RMS" and "ITU-R" buttons to make sure that the correct button

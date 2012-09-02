@@ -36,9 +36,10 @@
 class MeterBallistics
 {
 public:
-    MeterBallistics(int nChannels, int nSampleRate, bool bPeakMeterInfiniteHold, bool bAverageMeterInfiniteHold);
+    MeterBallistics(int nChannels, int AverageAlgorithm, bool bPeakMeterInfiniteHold, bool bAverageMeterInfiniteHold);
     ~MeterBallistics();
 
+    void setAverageAlgorithm(int AverageAlgorithm);
     void setPeakMeterInfiniteHold(bool bInfiniteHold);
     void setAverageMeterInfiniteHold(bool bInfiniteHold);
     void reset();
@@ -69,6 +70,7 @@ private:
     JUCE_LEAK_DETECTOR(MeterBallistics);
 
     int nNumberOfChannels;
+    int nAverageAlgorithm;
 
     static float fMeterMinimumDecibel;
     static float fPeakToAverageCorrection;
