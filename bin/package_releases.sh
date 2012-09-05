@@ -31,9 +31,18 @@ KMETER_EXECUTABLE_DIR="final"
 KMETER_RELEASE_DIR="releases"
 KMETER_DOCUMENTATION_DIR="../doc"
 
+function copy_new_executable
+{
+	if [ -f "$1" ]; then
+		echo "  Finalising file $1..."
+		cp "$1" "$KMETER_EXECUTABLE_DIR"/
+	fi
+}
+
 function move_new_executable
 {
 	if [ -f "$1" ]; then
+		echo "  Finalising file $1..."
 		mv "$1" "$KMETER_EXECUTABLE_DIR"/
 	fi
 }
@@ -134,6 +143,50 @@ fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
 compress_new_archive "$KMETER_RELEASE_DIR/linux32/$KMETER_ARCHIVE_DIR.tar.bz2" "$KMETER_ARCHIVE_DIR" "bzip2"
 
 
+# ----- GNU/Linux Standalone (64 bit) -----
+
+echo "  === GNU/Linux Standalone v$KMETER_VERSION (64 bit) ==="
+echo
+
+move_new_executable "kmeter_stereo_x64"
+move_new_executable "kmeter_surround_x64"
+
+delete_old_archive "$KMETER_RELEASE_DIR/linux64/kmeter-standalone.tar.bz2"
+
+KMETER_ARCHIVE_DIR="kmeter-standalone_$KMETER_VERSION"
+
+create_new_archive "$KMETER_ARCHIVE_DIR"
+
+fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_stereo_x64" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_surround_x64" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
+
+compress_new_archive "$KMETER_RELEASE_DIR/linux64/$KMETER_ARCHIVE_DIR.tar.bz2" "$KMETER_ARCHIVE_DIR" "bzip2"
+
+
+# ----- GNU/Linux VST (64 bit) -----
+
+echo "  === GNU/Linux VST v$KMETER_VERSION (64 bit) ==="
+echo
+
+move_new_executable "kmeter_stereo_x64.so"
+move_new_executable "kmeter_surround_x64.so"
+
+delete_old_archive "$KMETER_RELEASE_DIR/linux64/kmeter-vst.tar.bz2"
+
+KMETER_ARCHIVE_DIR="kmeter-vst_$KMETER_VERSION"
+
+create_new_archive "$KMETER_ARCHIVE_DIR"
+
+fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_stereo_x64.so" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_surround_x64.so" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
+
+compress_new_archive "$KMETER_RELEASE_DIR/linux64/$KMETER_ARCHIVE_DIR.tar.bz2" "$KMETER_ARCHIVE_DIR" "bzip2"
+
+
 # ----- Windows Standalone (32 bit) -----
 
 echo "  === Windows Standalone v$KMETER_VERSION (32 bit) ==="
@@ -141,6 +194,7 @@ echo
 
 move_new_executable "K-Meter (Stereo).exe"
 move_new_executable "K-Meter (Surround).exe"
+copy_new_executable "libfftw3f-3.dll"
 
 delete_old_archive "$KMETER_RELEASE_DIR/w32/kmeter-standalone.zip"
 
@@ -167,6 +221,7 @@ echo
 
 move_new_executable "K-Meter (Stereo).dll"
 move_new_executable "K-Meter (Surround).dll"
+copy_new_executable "libfftw3f-3.dll"
 
 delete_old_archive "$KMETER_RELEASE_DIR/w32/kmeter-vst.zip"
 

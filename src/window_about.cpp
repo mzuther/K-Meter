@@ -88,7 +88,8 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
         L"Martin Zuther\n"
         L"Bob Katz\n"
         L"bram@smartelectronix\n"
-        L"Raiden\n\n"
+        L"Raiden\n"
+        L"and the K-Meter users...\n\n"
     );
 
     // display copyright notice

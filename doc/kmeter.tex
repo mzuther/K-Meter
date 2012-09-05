@@ -335,10 +335,11 @@ response between \SI{20}{\hertz} and \SI{20}{\kilo\hertz} (\SI{\pm
 weighting and also sums all channels as specified in
 \href{http://www.itu.int/rec/R-REC-BS.1770}{ITU-R BS.1770-1}.
 
-In any case, the average level meter is band-limited using a windowed-sinc
-low-pass filter with a cutoff frequency of \SI{21.0}{\kilo\hertz}.  On
-level changes, it takes \SI{600}{\milli\second} for the meter to reach
-\SI{99}{\percent} of the final reading.
+In all modes, the average level meter is band-limited using a
+windowed-sinc low-pass filter with a cutoff frequency of
+\SI{21.0}{\kilo\hertz}.  On level changes, it takes
+\SI{600}{\milli\second} for the meter to reach \SI{99}{\percent} of
+the final reading.
 
 \emph{\underline{Note:} Unfortunately, the specifications of ITU-R
   BS.1770-1 clash with those for K-System meters.  I have discussed
@@ -346,10 +347,10 @@ level changes, it takes \SI{600}{\milli\second} for the meter to reach
   to adhere to ITU-R BS.1770-1 in these cases.}
 
 \emph{Thus, in ITU-R mode sine waves do \emph{not} read the same on
-  average and peak level meters and pink noise (\SI{-20}{\dBFS}\,RMS,
-  \SI{20}{\hertz} to \SI{20}{\kilo\hertz}) does \emph{not} read
-  \SI{0}{\dB} on the K-20 average level meter.  So for calibration,
-  please switch K-Meter to RMS mode.}
+  average and peak level meters.  Moreover, pink noise
+  (\SI{-20}{\dBFS}\,RMS, \SI{20}{\hertz} to \SI{20}{\kilo\hertz}) does
+  \emph{not} read \SI{0}{\dB} on the K-20 average level meter.  So for
+  calibration, please switch K-Meter to RMS mode.}
 
 \section{Peak level meter}
 
@@ -633,9 +634,9 @@ checking this document for technical errors.  I'd further like to
 thank \textbf{bram@smartelectronix} for his code to calculate
 logarithmic rise and fall times, and \textbf{Raiden} for working out
 the ITU-R BS.1770-1 filter specifications.  I must also thank the
-\textbf{users of K-Meter} for sending kind words, suggestions and bug
-reports.  Finally, I want to thank the \textbf{open source community}
-for making all of this possible.
+\textbf{users of K-Meter} for sending kind words and bug reports,
+offering suggestions and testing things.  Finally, I want to thank the
+\textbf{open source community} for making all of this possible.
 
 Although coding K-Meter has been a lot of fun, it has also been a lot
 of work.  So if you like K-Meter, why not send me a short email and
@@ -670,7 +671,7 @@ compilation, simply change \texttt{i386} to \texttt{amd64}.
 
 To install the necessary packages and install the \texttt{chroot} base
 system, execute the following statements (please change
-\url{http://ftp.de.debian.org/debian/} to a
+\path{http://ftp.de.debian.org/debian/} to a
 \href{http://www.debian.org/mirror/list}{mirror} close to you):
 
 \begin{verbatim}
