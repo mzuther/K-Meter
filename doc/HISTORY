@@ -1,13 +1,16 @@
 Git HEAD
 ========
 
+v1.30 (2012-09-06)
+==================
+
 * ITU-R BS.1770-1 loudness weighting
 
 * combined peak and average level meter
 
-* updated framework to JUCE v1.53
+* code cleanup and lotf of small bug fixes
 
-* code cleanup
+* updated framework to JUCE v1.53
 
 * updated documentation
 

@@ -123,7 +123,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     TextEditorAbout->insertTextAtCaret(
         L"I want to thank Bob Katz, all "
         L"contributors and beta testers, "
-        L"the open source community – and "
+        L"the open source community - and "
         L"the users of K-Meter for using "
         L"free software!\n\n"
     );
