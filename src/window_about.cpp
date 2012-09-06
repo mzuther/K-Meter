@@ -77,6 +77,17 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
         String(JucePlugin_Desc) + ".\n\n"
     );
 
+    // display copyright notice
+    TextEditorAbout->setFont(fontHeadline);
+    TextEditorAbout->insertTextAtCaret(
+        "Copyright\n"
+    );
+
+    TextEditorAbout->setFont(fontRegular);
+    TextEditorAbout->insertTextAtCaret(
+        "(c) 2010-2012 Martin Zuther\n\n"
+    );
+
     // display the contributors
     TextEditorAbout->setFont(fontHeadline);
     TextEditorAbout->insertTextAtCaret(
@@ -88,19 +99,33 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
         L"Martin Zuther\n"
         L"Bob Katz\n"
         L"bram@smartelectronix\n"
-        L"Raiden\n"
-        L"and the K-Meter users...\n\n"
+        L"Raiden\n\n"
     );
 
-    // display copyright notice
+    // display the beta testers
     TextEditorAbout->setFont(fontHeadline);
     TextEditorAbout->insertTextAtCaret(
-        "Copyright\n"
+        "Beta testing\n"
     );
 
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
-        "(c) 2010-2012 Contributors\n\n"
+        L"Rickard (Interfearing Sounds)\n\n"
+    );
+
+    // display thanks
+    TextEditorAbout->setFont(fontHeadline);
+    TextEditorAbout->insertTextAtCaret(
+        "Thanks\n"
+    );
+
+    TextEditorAbout->setFont(fontRegular);
+    TextEditorAbout->insertTextAtCaret(
+        L"I want to thank Bob Katz, all "
+        L"contributors and beta testers, "
+        L"the open source community – and "
+        L"the users of K-Meter for using "
+        L"free software!\n\n"
     );
 
     // display used libraries
