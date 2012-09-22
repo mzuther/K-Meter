@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGINEDITOR_H_E5792227__
-#define __PLUGINEDITOR_H_E5792227__
+#ifndef __PLUGINEDITOR_KMETER_H__
+#define __PLUGINEDITOR_KMETER_H__
 
 #include "juce_library_code/juce_header.h"
 #include "juce_library_code/JucePluginCharacteristics.h"
@@ -96,7 +96,7 @@ private:
 };
 
 
-#endif  // __PLUGINEDITOR_H_E5792227__
+#endif  // __PLUGINEDITOR_KMETER_H__
 
 
 // Local Variables:

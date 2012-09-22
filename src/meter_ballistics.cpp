@@ -615,7 +615,7 @@ float MeterBallistics::level2decibel(float fLevel)
 
     fLevel (float): audio level
 
-    return value (float): return given level in decibels (dB) when
+    return value (float): returns given level in decibels (dB) when
     above "fMeterMinimumDecibel", otherwise "fMeterMinimumDecibel"
 */
 {
@@ -642,6 +642,22 @@ float MeterBallistics::level2decibel(float fLevel)
             return fDecibels;
         }
     }
+}
+
+
+float MeterBallistics::decibel2level(float fDecibels)
+/*  Convert level from decibels (dB) to linear scale.
+
+    fLevel (float): audio level in decibels (dB)
+
+    return value (float): given level in linear scale
+*/
+{
+    // calculate audio level from decibels (a divisor of 20.0 is
+    // needed to calculate *level* ratios, whereas 10.0 is needed for
+    // *power* ratios!)
+    float fLevel = powf(10.0f, fDecibels / 20.0f);
+    return fLevel;
 }
 
 

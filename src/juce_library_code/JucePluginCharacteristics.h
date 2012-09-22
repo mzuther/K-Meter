@@ -27,8 +27,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGINCHARACTERISTICS_A4D510D9__
-#define __PLUGINCHARACTERISTICS_A4D510D9__
+#ifndef __PLUGINCHARACTERISTICS_KMETER__
+#define __PLUGINCHARACTERISTICS_KMETER__
 
 #define JucePlugin_Build_VST    1
 #define JucePlugin_Build_AU     0
@@ -81,4 +81,4 @@
 #define JucePlugin_RTASManufacturerCode JucePlugin_ManufacturerCode
 #define JucePlugin_RTASProductId        JucePlugin_PluginCode
 
-#endif   // __PLUGINCHARACTERISTICS_A4D510D9__
+#endif   // __PLUGINCHARACTERISTICS_KMETER__

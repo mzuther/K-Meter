@@ -64,6 +64,7 @@ public:
     void updateChannel(int nChannel, float fTimePassed, float fPeak, float fRms, float fAverageFiltered, int nOverflows);
 
     static float level2decibel(float fLevel);
+    static float decibel2level(float fDecibels);
     static float getMeterMinimumDecibel();
     static void setPeakToAverageCorrection(float peak_to_average_correction);
 private:

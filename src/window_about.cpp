@@ -142,6 +142,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
         L"FFTW\n"
 #ifdef LINUX
         L"FreeType\n"
+        L"JACK\n"
 #endif
         L"JUCE\n"
 #ifdef LINUX

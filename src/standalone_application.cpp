@@ -36,7 +36,11 @@ StandaloneApplication::~StandaloneApplication()
 void StandaloneApplication::initialise(const String& commandLineParameters)
 {
     PropertiesFile::Options options;
-    options.applicationName     = "kmeter";
+#ifdef KMETER_SURROUND
+    options.applicationName     = "kmeter_surround";
+#else
+    options.applicationName     = "kmeter_stereo";
+#endif
     options.folderName          = ".config";
     options.filenameSuffix      = "ini";
 

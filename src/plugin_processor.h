@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGINPROCESSOR_H_5573940C__
-#define __PLUGINPROCESSOR_H_5573940C__
+#ifndef __KMETER_PLUGINPROCESSOR_H__
+#define __KMETER_PLUGINPROCESSOR_H__
 
 #define KMETER_BUFFER_SIZE 1024
 #define DEBUG_FILTER 0
@@ -150,7 +150,7 @@ private:
     int countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay);
 };
 
-#endif  // __PLUGINPROCESSOR_H_5573940C__
+#endif  // __KMETER_PLUGINPROCESSOR_H__
 
 
 // Local Variables:
