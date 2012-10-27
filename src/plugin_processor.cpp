@@ -423,10 +423,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
         int nNumSamples = buffer.getNumSamples();
         int nNumChannels = getNumInputChannels();
 
-        // In case we have more outputs than inputs, we'll clear any
-        // output channels that didn't contain input data, because these
-        // aren't guaranteed to be empty -- they may contain garbage.
-
+        // make sure we'll clear all output channels
         if (getNumOutputChannels() > nNumChannels)
         {
             nNumChannels = getNumOutputChannels();
@@ -446,13 +443,23 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
         return;
     }
 
+    int nNumSamples = buffer.getNumSamples();
+
+    // In case we have more outputs than inputs, we'll clear any
+    // output channels that didn't contain input data, because these
+    // aren't guaranteed to be empty -- they may contain garbage.
+
+    for (int i = nNumInputChannels; i < getNumOutputChannels(); i++)
+    {
+        buffer.clear(i, 0, nNumSamples);
+    }
+
     if (audioFilePlayer)
     {
         audioFilePlayer->fillBufferChunk(&buffer);
     }
 
     bool bMono = getParameterAsBool(KmeterPluginParameters::selMono);
-    int nNumSamples = buffer.getNumSamples();
 
     // convert stereo input to mono if "Mono" button has been pressed
     if (isStereo && bMono)
@@ -473,15 +480,6 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
     nSamplesInBuffer %= KMETER_BUFFER_SIZE;
 
     pRingBufferOutput->copyToBuffer(buffer, 0, nNumSamples, KMETER_BUFFER_SIZE - nSamplesInBuffer);
-
-    // In case we have more outputs than inputs, we'll clear any
-    // output channels that didn't contain input data, because these
-    // aren't guaranteed to be empty -- they may contain garbage.
-
-    for (int i = nNumInputChannels; i < getNumOutputChannels(); i++)
-    {
-        buffer.clear(i, 0, nNumSamples);
-    }
 }
 
 

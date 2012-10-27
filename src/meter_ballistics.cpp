@@ -715,7 +715,17 @@ float MeterBallistics::PeakMeterBallistics(float fTimePassed, float fPeakLevelCu
         float fReleaseCoef = 26.0f * fTimePassed / 3.0f;
 
         // apply fall time and return new peak meter reading
-        return fPeakLevelOld - fReleaseCoef;
+        fPeakLevelOld -= fReleaseCoef;
+
+        // make sure that meter doesn't fall below current level
+        if (fPeakLevelCurrent > fPeakLevelOld)
+        {
+            return fPeakLevelCurrent;
+        }
+        else
+        {
+            return fPeakLevelOld;
+        }
     }
 }
 
@@ -788,6 +798,12 @@ float MeterBallistics::PeakMeterPeakBallistics(float fTimePassed, float* fLastCh
 
             // apply fall time
             fOutput = fPeakOld - fReleaseCoef;
+
+            // make sure that meter doesn't fall below current level
+            if (fPeakCurrent > fOutput)
+            {
+                fOutput = fPeakCurrent;
+            }
         }
     }
 

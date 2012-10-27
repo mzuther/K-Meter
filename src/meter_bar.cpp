@@ -43,8 +43,8 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
         nMeterCrestFactor = 0;
 
         nLimitTopBars = -20;
-        nLimitRedBars = -40;
-        nLimitAmberBars = -120;
+        nLimitRedBars = -80;
+        nLimitAmberBars = -160;
         nLimitGreenBars_1 = -400;
         nLimitGreenBars_2 = nLimitGreenBars_1;
     }
