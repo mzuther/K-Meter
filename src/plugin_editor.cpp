@@ -46,6 +46,14 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     pProcessor = ownerFilter;
     pProcessor->addActionListener(this);
 
+    ButtonK23 = new TextButton("K-23");
+    ButtonK23->setRadioGroupId(1);
+    ButtonK23->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonK23->setColour(TextButton::buttonOnColourId, Colours::green);
+
+    ButtonK23->addListener(this);
+    addAndMakeVisible(ButtonK23);
+
     ButtonK20 = new TextButton("K-20");
     ButtonK20->setRadioGroupId(1);
     ButtonK20->setColour(TextButton::buttonColourId, Colours::grey);
@@ -226,17 +234,22 @@ void KmeterAudioProcessorEditor::resizeEditor()
 
     setSize(nRightColumnStart + 70, nHeight);
 
-    ButtonK20->setBounds(nRightColumnStart, 10, 60, 20);
-    ButtonK14->setBounds(nRightColumnStart, 35, 60, 20);
-    ButtonK12->setBounds(nRightColumnStart, 60, 60, 20);
-    ButtonNormal->setBounds(nRightColumnStart, 85, 60, 20);
-    ButtonItuBs1770->setBounds(nRightColumnStart, 125, 60, 20);
-    ButtonRms->setBounds(nRightColumnStart, 150, 60, 20);
-    ButtonInfiniteHold->setBounds(nRightColumnStart, 190, 60, 20);
-    ButtonDisplayPeakMeter->setBounds(nRightColumnStart, 215, 60, 20);
-    ButtonExpanded->setBounds(nRightColumnStart, 240, 60, 20);
-    ButtonMono->setBounds(nRightColumnStart, 280, 60, 20);
-    ButtonReset->setBounds(nRightColumnStart, 305, 60, 20);
+    ButtonK23->setBounds(nRightColumnStart, 10, 60, 20);
+    ButtonK20->setBounds(nRightColumnStart, 35, 60, 20);
+    ButtonK14->setBounds(nRightColumnStart, 60, 60, 20);
+    ButtonK12->setBounds(nRightColumnStart, 85, 60, 20);
+    ButtonNormal->setBounds(nRightColumnStart, 110, 60, 20);
+
+    ButtonItuBs1770->setBounds(nRightColumnStart, 150, 60, 20);
+    ButtonRms->setBounds(nRightColumnStart, 175, 60, 20);
+
+    ButtonInfiniteHold->setBounds(nRightColumnStart, 215, 60, 20);
+    ButtonDisplayPeakMeter->setBounds(nRightColumnStart, 240, 60, 20);
+    ButtonExpanded->setBounds(nRightColumnStart, 265, 60, 20);
+
+    ButtonMono->setBounds(nRightColumnStart, 305, 60, 20);
+    ButtonReset->setBounds(nRightColumnStart, 330, 60, 20);
+
     ButtonValidation->setBounds(nRightColumnStart, nHeight - 56, 60, 20);
     ButtonAbout->setBounds(nRightColumnStart, nHeight - 31, 60, 20);
 
@@ -349,12 +362,19 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 
             ButtonK14->setToggleState(true, false);
         }
-        else
+        else if (nValue == 20)
         {
-            nCrestFactor = 20;
+            nCrestFactor = nValue;
             bReloadMeters = true;
 
             ButtonK20->setToggleState(true, false);
+        }
+        else // K-23
+        {
+            nCrestFactor = 23;
+            bReloadMeters = true;
+
+            ButtonK23->setToggleState(true, false);
         }
 
         break;
@@ -481,6 +501,10 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     else if (button == ButtonK20)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, 20);
+    }
+    else if (button == ButtonK23)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, 23);
     }
     else if (button == ButtonInfiniteHold)
     {

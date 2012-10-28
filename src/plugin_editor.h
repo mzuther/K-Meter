@@ -79,6 +79,7 @@ private:
     TextButton* ButtonK12;
     TextButton* ButtonK14;
     TextButton* ButtonK20;
+    TextButton* ButtonK23;
 
     TextButton* ButtonItuBs1770;
     TextButton* ButtonRms;

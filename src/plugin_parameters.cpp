@@ -33,7 +33,9 @@ KmeterPluginParameters::KmeterPluginParameters()
 {
     nParam = new int[nNumParameters];
 
+    // K-20 is the default scale
     nParam[selCrestFactor] = 20;
+
     nParam[selAverageAlgorithm] = selAlgorithmItuBs1770;
     nParam[selExpanded] = 0;
     nParam[selPeak] = 0;
@@ -127,7 +129,7 @@ void KmeterPluginParameters::setParameterFromInt(int nIndex, int nValue)
     {
         if (nIndex == selCrestFactor)
         {
-            if ((nValue == 0) || (nValue == 12) || (nValue == 14))
+            if ((nValue == 0) || (nValue == 12) || (nValue == 14) || (nValue == 23))
             {
                 nParam[nIndex] = nValue;
             }
@@ -286,9 +288,13 @@ const String KmeterPluginParameters::getParameterText(int nIndex)
         {
             return "K-14";
         }
-        else
+        else if (nParam[nIndex] == 20)
         {
             return "K-20";
+        }
+        else // K-23
+        {
+            return "K-23";
         }
     }
     else if (nIndex == selAverageAlgorithm)
@@ -351,9 +357,13 @@ float KmeterPluginParameters::translateParameterToFloat(int nIndex, int nValue)
         {
             return (selK14 / float(nNumCrestFactors - 1));
         }
-        else
+        else if (nValue == 20)
         {
             return (selK20 / float(nNumCrestFactors - 1));
+        }
+        else // K-23
+        {
+            return (selK23 / float(nNumCrestFactors - 1));
         }
     }
     else if (nIndex == selAverageAlgorithm)
@@ -394,9 +404,13 @@ int KmeterPluginParameters::translateParameterToInt(int nIndex, float fValue)
         {
             return 14;
         }
-        else
+        else if (fValue < (selK23 / float(nNumCrestFactors)))
         {
             return 20;
+        }
+        else // K-23
+        {
+            return 23;
         }
     }
     else if (nIndex == selAverageAlgorithm)
@@ -429,6 +443,7 @@ XmlElement KmeterPluginParameters::storeAsXml()
 
     if (nCrestFactor == 0)
     {
+        // K-20 is the default scale
         xml.setAttribute("CrestFactor", 20);
     }
     else
@@ -473,6 +488,7 @@ void KmeterPluginParameters::loadFromXml(XmlElement* xml)
 
         if (nCrestFactor == 0)
         {
+            // K-20 is the default scale
             setParameterFromInt(selCrestFactor, 20);
         }
         else

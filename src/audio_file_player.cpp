@@ -126,7 +126,11 @@ void AudioFilePlayer::setCrestFactor(int crest_factor)
     fCrestFactor = float(crest_factor);
     fMeterMinimumDecibel = MeterBallistics::getMeterMinimumDecibel() + fCrestFactor;
 
-    if (crest_factor == 20)
+    if (crest_factor == 23)
+    {
+        strCrestFactor = "K-23";
+    }
+    else if (crest_factor == 20)
     {
         strCrestFactor = "K-20";
     }

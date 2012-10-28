@@ -42,7 +42,7 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
     {
         nMeterCrestFactor = 0;
 
-        nLimitTopBars = -20;
+        nLimitTopBars = nMeterCrestFactor - 20;
         nLimitRedBars = -80;
         nLimitAmberBars = -160;
         nLimitGreenBars_1 = -400;
@@ -52,7 +52,7 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
     {
         nMeterCrestFactor = +120;
 
-        nLimitTopBars = +100;
+        nLimitTopBars = nMeterCrestFactor - 20;
         nLimitRedBars = +40;
         nLimitAmberBars = 0;
         nLimitGreenBars_1 = -300;
@@ -62,17 +62,27 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
     {
         nMeterCrestFactor = +140;
 
-        nLimitTopBars = +120;
+        nLimitTopBars = nMeterCrestFactor - 20;
         nLimitRedBars = +40;
         nLimitAmberBars = 0;
         nLimitGreenBars_1 = -300;
         nLimitGreenBars_2 = nLimitGreenBars_1;
     }
-    else
+    else if (nCrestFactor == 20)
     {
         nMeterCrestFactor = +200;
 
-        nLimitTopBars = +180;
+        nLimitTopBars = nMeterCrestFactor - 20;
+        nLimitRedBars = +40;
+        nLimitAmberBars = 0;
+        nLimitGreenBars_1 = -240;
+        nLimitGreenBars_2 = -300;
+    }
+    else // K-23
+    {
+        nMeterCrestFactor = +230;
+
+        nLimitTopBars = nMeterCrestFactor - 20;
         nLimitRedBars = +40;
         nLimitAmberBars = 0;
         nLimitGreenBars_1 = -240;
@@ -97,9 +107,13 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
         {
             nNumberOfBars = 50;
         }
-        else
+        else if (nCrestFactor == 20)
         {
             nNumberOfBars = 51;
+        }
+        else // K-23
+        {
+            nNumberOfBars = 54;
         }
     }
 
@@ -251,24 +265,47 @@ void MeterBar::visibilityChanged()
         {
             if (nMeterCrestFactor == 0)
             {
-                segment_height = 14 * nMainSegmentHeight;
+                segment_height = 10 * nMainSegmentHeight;
             }
             else if (nMeterCrestFactor == +120)
             {
-                segment_height = 20 * nMainSegmentHeight;
+                segment_height = 14 * nMainSegmentHeight;
             }
             else if (nMeterCrestFactor == +140)
             {
-                segment_height = 16 * nMainSegmentHeight;
+                segment_height = 13 * nMainSegmentHeight;
             }
-            else
+            else if (nMeterCrestFactor == +200)
+            {
+                segment_height = 10 * nMainSegmentHeight;
+            }
+            else // K-23
             {
                 segment_height = 10 * nMainSegmentHeight;
             }
         }
         else
         {
-            segment_height = 10 * nMainSegmentHeight;
+            if (nMeterCrestFactor == 0)
+            {
+                segment_height = 11 * nMainSegmentHeight;
+            }
+            else if (nMeterCrestFactor == +120)
+            {
+                segment_height = 12 * nMainSegmentHeight;
+            }
+            else if (nMeterCrestFactor == +140)
+            {
+                segment_height = 11 * nMainSegmentHeight;
+            }
+            else if (nMeterCrestFactor == +200)
+            {
+                segment_height = 10 * nMainSegmentHeight;
+            }
+            else // K-23
+            {
+                segment_height = 8 * nMainSegmentHeight;
+            }
         }
 
         MeterArray[n]->setBounds(x, y, width, segment_height + 1);
