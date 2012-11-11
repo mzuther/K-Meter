@@ -25,6 +25,7 @@
 
 #include "peak_label.h"
 
+
 PeakLabel::PeakLabel(const String& componentName, int nCrestFactor) : Label(componentName, "")
 {
     nMeterCrestFactor = nCrestFactor;
@@ -42,9 +43,11 @@ PeakLabel::PeakLabel(const String& componentName, int nCrestFactor) : Label(comp
     setColour(Label::outlineColourId, Colours::grey.darker(0.2f));
 }
 
+
 PeakLabel::~PeakLabel()
 {
 }
+
 
 void PeakLabel::resetLevel()
 {
@@ -57,6 +60,7 @@ void PeakLabel::resetLevel()
     // ensure peak label update on next call of updateLevel()
     fMaximumLevel -= 0.1f;
 }
+
 
 void PeakLabel::updateLevel(float newLevel)
 {
@@ -77,7 +81,7 @@ void PeakLabel::updateLevel(float newLevel)
         setText("+" + String(fCorrectedLevel, 1), false);
     }
 
-    if (fMaximumLevel < 0.0f)
+    if (fMaximumLevel < -0.20f)
     {
         setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
     }

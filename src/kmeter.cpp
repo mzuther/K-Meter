@@ -80,7 +80,7 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
     {
         nPositionX = KMETER_STEREO_WIDTH_2 - 10;
 
-        LevelMeters[0] = new MeterBar("Level Meter #0", nPositionX - 2, nMeterPositionTop + 48, 24, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
+        LevelMeters[0] = new MeterBar("Level Meter #0", nPositionX - 2, nMeterPositionTop + 66, 24, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
         addAndMakeVisible(LevelMeters[0]);
     }
     else
@@ -94,13 +94,14 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
                 nPositionX += 12;
             }
 
-            LevelMeters[nChannel] = new MeterBar("Level Meter #" + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
+            LevelMeters[nChannel] = new MeterBar("Level Meter #" + String(nChannel), nPositionX, nMeterPositionTop + 66, 20, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
             addAndMakeVisible(LevelMeters[nChannel]);
         }
     }
 
     OverflowMeters = new OverflowMeter*[nInputChannels];
     MaximumPeakLabels = new PeakLabel*[nInputChannels];
+    MaximumTruePeakLabels = new PeakLabel*[nInputChannels];
 
     if (nInputChannels == 1)
     {
@@ -110,8 +111,12 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
         OverflowMeters[0]->setBounds(nPositionX, nMeterPositionTop + 4, 32, 16);
         addAndMakeVisible(OverflowMeters[0]);
 
+        MaximumTruePeakLabels[0] = new PeakLabel("Maximum True Peak #0", nCrestFactor);
+        MaximumTruePeakLabels[0]->setBounds(nPositionX, nMeterPositionTop + 23, 32, 16);
+        addAndMakeVisible(MaximumTruePeakLabels[0]);
+
         MaximumPeakLabels[0] = new PeakLabel("Maximum Peak #0", nCrestFactor);
-        MaximumPeakLabels[0]->setBounds(nPositionX, nMeterPositionTop + 22, 32, 16);
+        MaximumPeakLabels[0]->setBounds(nPositionX, nMeterPositionTop + 42, 32, 16);
         addAndMakeVisible(MaximumPeakLabels[0]);
     }
     else
@@ -129,8 +134,12 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
             OverflowMeters[nChannel]->setBounds(nPositionX, nMeterPositionTop + 4, 32, 16);
             addAndMakeVisible(OverflowMeters[nChannel]);
 
+            MaximumTruePeakLabels[nChannel] = new PeakLabel("Maximum True Peak #" + String(nChannel), nCrestFactor);
+            MaximumTruePeakLabels[nChannel]->setBounds(nPositionX, nMeterPositionTop + 23, 32, 16);
+            addAndMakeVisible(MaximumTruePeakLabels[nChannel]);
+
             MaximumPeakLabels[nChannel] = new PeakLabel("Maximum Peak #" + String(nChannel), nCrestFactor);
-            MaximumPeakLabels[nChannel]->setBounds(nPositionX, nMeterPositionTop + 22, 32, 16);
+            MaximumPeakLabels[nChannel]->setBounds(nPositionX, nMeterPositionTop + 42, 32, 16);
             addAndMakeVisible(MaximumPeakLabels[nChannel]);
         }
     }
@@ -149,6 +158,9 @@ Kmeter::~Kmeter()
 
         delete MaximumPeakLabels[nChannel];
         MaximumPeakLabels[nChannel] = NULL;
+
+        delete MaximumTruePeakLabels[nChannel];
+        MaximumTruePeakLabels[nChannel] = NULL;
     }
 
     delete [] LevelMeters;
@@ -160,13 +172,16 @@ Kmeter::~Kmeter()
     delete [] MaximumPeakLabels;
     MaximumPeakLabels = NULL;
 
+    delete [] MaximumTruePeakLabels;
+    MaximumTruePeakLabels = NULL;
+
     deleteAllChildren();
 }
 
 
 void Kmeter::visibilityChanged()
 {
-    int height = 134 * nMainSegmentHeight + 54;
+    int height = 134 * nMainSegmentHeight + 72;
 
     if (isSurround)
     {
@@ -197,7 +212,7 @@ void Kmeter::paint(Graphics& g)
 void Kmeter::paintMonoChannel(Graphics& g)
 {
     int x = 5;
-    int y = nMeterPositionTop + 43;
+    int y = nMeterPositionTop + 61;
     int width = 24;
     int height = 11;
     String strMarker;
@@ -247,11 +262,14 @@ void Kmeter::paintMonoChannel(Graphics& g)
     g.drawFittedText("Over", x - 10, nMeterPositionTop + 4, 36, 16, Justification::right, 1, 1.0f);
     g.drawFittedText("Over", x + 70, nMeterPositionTop + 4, 36, 16, Justification::left, 1, 1.0f);
 
-    g.drawFittedText("Peak", x - 10, nMeterPositionTop + 22, 36, 16, Justification::right, 1, 1.0f);
-    g.drawFittedText("Peak", x + 70, nMeterPositionTop + 22, 36, 16, Justification::left, 1, 1.0f);
+    g.drawFittedText("True", x - 10, nMeterPositionTop + 23, 36, 16, Justification::right, 1, 1.0f);
+    g.drawFittedText("True", x + 70, nMeterPositionTop + 23, 36, 16, Justification::left, 1, 1.0f);
 
-    g.drawFittedText(strUnit, x - 4, nMeterPositionTop + 571, 36, 16, Justification::centred, 1, 1.0f);
-    g.drawFittedText(strUnit, x + 64, nMeterPositionTop + 571, 36, 16, Justification::centred, 1, 1.0f);
+    g.drawFittedText("Peak", x - 10, nMeterPositionTop + 42, 36, 16, Justification::right, 1, 1.0f);
+    g.drawFittedText("Peak", x + 70, nMeterPositionTop + 42, 36, 16, Justification::left, 1, 1.0f);
+
+    g.drawFittedText(strUnit, x - 4, nMeterPositionTop + 589, 36, 16, Justification::centred, 1, 1.0f);
+    g.drawFittedText(strUnit, x + 64, nMeterPositionTop + 589, 36, 16, Justification::centred, 1, 1.0f);
 
     g.setFont(11.0f);
 
@@ -442,7 +460,7 @@ void Kmeter::paintMonoChannel(Graphics& g)
 void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
 {
     int x = 5 + nStereoChannel * (KMETER_STEREO_WIDTH + 6);
-    int y = nMeterPositionTop + 43;
+    int y = nMeterPositionTop + 61;
     int width = 24;
     int height = 11;
     String strMarker;
@@ -511,8 +529,9 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
     g.setFont(12.0f);
 
     g.drawFittedText("Over", x + 30, nMeterPositionTop + 4, 36, 16, Justification::centred, 1, 1.0f);
-    g.drawFittedText("Peak", x + 30, nMeterPositionTop + 22, 36, 16, Justification::centred, 1, 1.0f);
-    g.drawFittedText(strUnit, x + 30, nMeterPositionTop + 571, 36, 16, Justification::centred, 1, 1.0f);
+    g.drawFittedText("True", x + 30, nMeterPositionTop + 23, 36, 16, Justification::centred, 1, 1.0f);
+    g.drawFittedText("Peak", x + 30, nMeterPositionTop + 42, 36, 16, Justification::centred, 1, 1.0f);
+    g.drawFittedText(strUnit, x + 30, nMeterPositionTop + 589, 36, 16, Justification::centred, 1, 1.0f);
 
     g.setFont(11.0f);
 
@@ -712,6 +731,8 @@ void Kmeter::setLevels(MeterBallistics* pMeterBallistics)
         LevelMeters[nChannel]->setLevels(pMeterBallistics->getPeakMeterLevel(nChannel), pMeterBallistics->getAverageMeterLevel(nChannel), pMeterBallistics->getPeakMeterPeakLevel(nChannel), pMeterBallistics->getAverageMeterPeakLevel(nChannel));
 
         MaximumPeakLabels[nChannel]->updateLevel(pMeterBallistics->getMaximumPeakLevel(nChannel));
+
+        MaximumTruePeakLabels[nChannel]->updateLevel(pMeterBallistics->getMaximumTruePeakLevel(nChannel));
 
         OverflowMeters[nChannel]->setOverflows(pMeterBallistics->getNumberOfOverflows(nChannel));
     }
