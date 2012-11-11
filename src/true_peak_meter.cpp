@@ -61,6 +61,9 @@ TruePeakMeter::TruePeakMeter(const int channels, const int buffer_size)
     pSampleBufferOriginal->clear();
     pSampleBufferOversampled->clear();
 
+    fTruePeakLevels = new float[nNumberOfChannels];
+    nNumberOfOverflows = new int[nNumberOfChannels];
+
     arrFilterKernel_TD = fftwf_alloc_real(nFftSize);
     arrFilterKernel_FD = fftwf_alloc_complex(nHalfFftSize);
 
@@ -83,6 +86,12 @@ TruePeakMeter::~TruePeakMeter()
 
     delete pSampleBufferOversampled;
     pSampleBufferOversampled = NULL;
+
+    delete [] fTruePeakLevels;
+    fTruePeakLevels = NULL;
+
+    delete [] nNumberOfOverflows;
+    nNumberOfOverflows = NULL;
 
     fftwf_destroy_plan(planFilterKernel_DFT);
     fftwf_free(arrFilterKernel_TD);
@@ -112,6 +121,13 @@ TruePeakMeter::~TruePeakMeter()
 
 void TruePeakMeter::calculateFilterKernel()
 {
+    // reset levels and overflows
+    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+    {
+        fTruePeakLevels[nChannel] = 0.0f;
+        nNumberOfOverflows[nChannel] = 0;
+    }
+
     // interpolation filter; removes all frequencies above *original*
     // Nyquist frequency from resampled audio (the approximated filter
     // bandwidth is 21.5 Hz for a buffer size of 1024 samples and a
@@ -202,6 +218,44 @@ void TruePeakMeter::FilterSamples(const int channel)
 
     // copy data from temporary buffer back to sample buffer
     pSampleBufferOversampled->copyFrom(channel, 0, arrAudioSamples_TD, nBufferSizeOversampled);
+
+    // evaluate true peak level
+    fTruePeakLevels[channel] = pSampleBufferOversampled->getMagnitude(channel, 0, nBufferSizeOversampled);
+
+    // finally, count number of overflows
+    countOverflows(channel);
+}
+
+
+void TruePeakMeter::countOverflows(const int channel)
+{
+    jassert(channel >= 0);
+    jassert(channel < nNumberOfChannels);
+
+    // initialise number of overflows in this channel
+    int nOverflows = 0;
+
+    // get pointer to sample values
+    float* pSampleValues = pSampleBufferOversampled->getSampleData(channel);
+
+    // loop through samples of buffer
+    for (int nSample = 0; nSample < nBufferSizeOversampled; nSample++)
+    {
+        // get current sample value
+        float fSampleValue = pSampleValues[nSample];
+
+        // 8x oversampling means a maximum under-read of 0.169 dB at
+        // half the sampling rate, so we'll treat absolute levels of
+        // -0.169 dBFS and above as overflows; this corresponds to a
+        // linear level of 0.9807.
+        if ((fSampleValue < -0.9807f) || (fSampleValue > 0.9807f))
+        {
+            nOverflows++;
+        }
+    }
+
+    // set number of overflows in this channel
+    nNumberOfOverflows[channel] = nOverflows;
 }
 
 
@@ -210,12 +264,16 @@ float TruePeakMeter::getLevel(const int channel)
     jassert(channel >= 0);
     jassert(channel < nNumberOfChannels);
 
-    // filter audio data (overwrites contents of sample buffer)
-    FilterSamples(channel);
+    return fTruePeakLevels[channel];
+}
 
-    float fTruePeakLevel = pSampleBufferOversampled->getMagnitude(channel, 0, nBufferSizeOversampled);
 
-    return fTruePeakLevel;
+int TruePeakMeter::getNumberOfOverflows(const int channel)
+{
+    jassert(channel >= 0);
+    jassert(channel < nNumberOfChannels);
+
+    return nNumberOfOverflows[channel];
 }
 
 
@@ -236,6 +294,12 @@ void TruePeakMeter::copyFromBuffer(AudioRingBuffer& ringBuffer, const unsigned i
         {
             pSampleBufferOversampled->copyFrom(nChannel, nSampleOversampled, *pSampleBufferOriginal, nChannel, nSample, 1);
         }
+    }
+
+    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+    {
+        // filter audio data (overwrites contents of sample buffer)
+        FilterSamples(nChannel);
     }
 }
 

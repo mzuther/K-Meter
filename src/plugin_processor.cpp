@@ -537,8 +537,9 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const u
             // pre-delay)
             fTruePeakLevels[nChannel] = pTruePeakMeter->getLevel(nChannel);
 
-            // determine overflows for uChunkSize samples (use pre-delay)
-            nOverflows[nChannel] = countOverflows(pRingBufferInput, nChannel, uChunkSize, uPreDelay);
+            // determine overflows for uChunkSize samples (uses
+            // pre-delay)
+            nOverflows[nChannel] = pTruePeakMeter->getNumberOfOverflows(nChannel);
         }
 
         // apply meter ballistics and store values so that the editor
@@ -672,33 +673,6 @@ bool KmeterAudioProcessor::isValidating()
             return false;
         }
     }
-}
-
-
-int KmeterAudioProcessor::countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay)
-{
-    // initialise number of overflows in this buffer
-    int nOverflows = 0;
-
-    // loop through samples of buffer
-    for (unsigned int uSample = 0; uSample < length; uSample++)
-    {
-        // get current sample value
-        float fSampleValue = ring_buffer->getSample(channel, uSample, pre_delay);
-
-        // in the 16-bit domain, full scale corresponds to an absolute
-        // integer value of 32'767 or 32'768, so we'll treat absolute
-        // levels of 32'767 and above as overflows; this corresponds
-        // to a floating-point level of 32'767 / 32'768 = 0.9999694
-        // (approx. -0.001 dBFS).
-        if ((fSampleValue < -0.9999f) || (fSampleValue > 0.9999f))
-        {
-            nOverflows++;
-        }
-    }
-
-    // return number of overflows in this buffer
-    return nOverflows;
 }
 
 

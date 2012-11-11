@@ -5,6 +5,8 @@ Git HEAD
 
 * added true peak meter according to ITU-R BS.1770-3
 
+* overflow meter now counts "true peak" overflows
+
 
 v1.30 (2012-09-06)
 ==================

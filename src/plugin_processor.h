@@ -149,8 +149,6 @@ private:
     float* fTruePeakLevels;
 
     int* nOverflows;
-
-    int countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay);
 };
 
 #endif  // __KMETER_PLUGINPROCESSOR_H__

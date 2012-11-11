@@ -43,6 +43,7 @@ public:
     ~TruePeakMeter();
 
     float getLevel(const int channel);
+    int getNumberOfOverflows(const int channel);
     void copyFromBuffer(AudioRingBuffer& ringBuffer, const unsigned int pre_delay);
 
 private:
@@ -50,9 +51,13 @@ private:
 
     void calculateFilterKernel();
     void FilterSamples(const int channel);
+    void countOverflows(const int channel);
 
     AudioSampleBuffer* pSampleBufferOriginal;
     AudioSampleBuffer* pSampleBufferOversampled;
+
+    float* fTruePeakLevels;
+    int* nNumberOfOverflows;
 
     float* arrFilterKernel_TD;
     fftwf_complex* arrFilterKernel_FD;

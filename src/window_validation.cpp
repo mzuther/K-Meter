@@ -121,17 +121,17 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     ButtonDumpPeakMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPeakMeterLevel), false);
     contentComponent->addAndMakeVisible(ButtonDumpPeakMeterLevel);
 
-    ButtonDumpMaximumPeakLevel = new ToggleButton("Maximum peak level");
-    ButtonDumpMaximumPeakLevel->setBounds(nWidth - 192, nHeight - 169, 180, 20);
-    ButtonDumpMaximumPeakLevel->setColour(ToggleButton::textColourId, Colours::white);
-    ButtonDumpMaximumPeakLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationMaximumPeakLevel), false);
-    contentComponent->addAndMakeVisible(ButtonDumpMaximumPeakLevel);
-
     ButtonDumpTruePeakMeterLevel = new ToggleButton("True peak meter level");
-    ButtonDumpTruePeakMeterLevel->setBounds(nWidth - 192, nHeight - 149, 180, 20);
+    ButtonDumpTruePeakMeterLevel->setBounds(nWidth - 192, nHeight - 169, 180, 20);
     ButtonDumpTruePeakMeterLevel->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpTruePeakMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationTruePeakMeterLevel), false);
     contentComponent->addAndMakeVisible(ButtonDumpTruePeakMeterLevel);
+
+    ButtonDumpMaximumPeakLevel = new ToggleButton("Maximum peak level");
+    ButtonDumpMaximumPeakLevel->setBounds(nWidth - 192, nHeight - 149, 180, 20);
+    ButtonDumpMaximumPeakLevel->setColour(ToggleButton::textColourId, Colours::white);
+    ButtonDumpMaximumPeakLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationMaximumPeakLevel), false);
+    contentComponent->addAndMakeVisible(ButtonDumpMaximumPeakLevel);
 
     ButtonDumpMaximumTruePeakLevel = new ToggleButton("Max. true peak level");
     ButtonDumpMaximumTruePeakLevel->setBounds(nWidth - 192, nHeight - 129, 180, 20);
