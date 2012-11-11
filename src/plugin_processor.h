@@ -39,6 +39,7 @@ class MeterBallistics;
 #include "average_level_filtered.h"
 #include "meter_ballistics.h"
 #include "plugin_parameters.h"
+#include "true_peak_meter.h"
 
 //============================================================================
 class KmeterAudioProcessor  : public AudioProcessor, public ActionBroadcaster
@@ -58,7 +59,7 @@ public:
 
     void processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages);
 
-    void startValidation(File fileAudio, int nSelectedChannel, bool bReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
+    void startValidation(File fileAudio, int nSelectedChannel, bool bReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bTruePeakMeterLevel, bool bMaximumTruePeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
     void stopValidation();
     bool isValidating();
 
@@ -129,6 +130,7 @@ private:
     AudioRingBuffer* pRingBufferOutput;
 
     AverageLevelFiltered* pAverageLevelFiltered;
+    TruePeakMeter* pTruePeakMeter;
     MeterBallistics* pMeterBallistics;
 
     KmeterPluginParameters* pPluginParameters;
@@ -144,6 +146,7 @@ private:
     float* fPeakLevels;
     float* fRmsLevels;
     float* fAverageLevelsFiltered;
+    float* fTruePeakLevels;
 
     int* nOverflows;
 

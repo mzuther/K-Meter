@@ -23,49 +23,36 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __AVERAGE_LEVEL_FILTERED_H__
-#define __AVERAGE_LEVEL_FILTERED_H__
+#ifndef __TRUE_PEAK_METER_H__
+#define __TRUE_PEAK_METER_H__
 
-class AverageLevelFiltered;
+class TruePeakMeter;
 
 #include "juce_library_code/juce_header.h"
 #include "audio_ring_buffer.h"
 #include "meter_ballistics.h"
-#include "plugin_processor.h"
 #include "fftw3/api/fftw3.h"
 
 //==============================================================================
 /**
 */
-class AverageLevelFiltered
+class TruePeakMeter
 {
 public:
-    static const int KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS = 3;
-
-    AverageLevelFiltered(KmeterAudioProcessor* processor, const int channels, const int buffer_size, const int sample_rate, const int average_algorithm);
-    ~AverageLevelFiltered();
+    TruePeakMeter(const int channels, const int buffer_size);
+    ~TruePeakMeter();
 
     float getLevel(const int channel);
-    int getAlgorithm();
-    void setAlgorithm(const int average_algorithm);
-    void copyFromBuffer(AudioRingBuffer& ringBuffer, const unsigned int pre_delay, const int sample_rate);
-    void copyToBuffer(AudioRingBuffer& destination, const unsigned int sourceStartSample, const unsigned int numSamples);
-    void copyToBuffer(AudioSampleBuffer& destination, const int channel, const int destStartSample, const int numSamples);
+    void copyFromBuffer(AudioRingBuffer& ringBuffer, const unsigned int pre_delay);
 
 private:
-    JUCE_LEAK_DETECTOR(AverageLevelFiltered);
+    JUCE_LEAK_DETECTOR(TruePeakMeter);
 
     void calculateFilterKernel();
-    void calculateFilterKernel_Rms();
-    void calculateFilterKernel_ItuBs1770();
+    void FilterSamples(const int channel);
 
-    void FilterSamples_Rms(const int channel);
-    void FilterSamples_ItuBs1770();
-
-    void setPeakToAverageCorrection(float peak_to_average_correction);
-
-    AudioSampleBuffer* pSampleBuffer;
-    AudioSampleBuffer* pOverlapAddSamples;
+    AudioSampleBuffer* pSampleBufferOriginal;
+    AudioSampleBuffer* pSampleBufferOversampled;
 
     float* arrFilterKernel_TD;
     fftwf_complex* arrFilterKernel_FD;
@@ -76,27 +63,13 @@ private:
     fftwf_plan planAudioSamples_DFT;
     fftwf_plan planAudioSamples_IDFT;
 
-    float** pIIRCoefficients_1;
-    float** pIIRCoefficients_2;
-
-    AudioSampleBuffer* pPreviousSamplesOutputTemp;
-
-    AudioSampleBuffer* pPreviousSamplesInput_1;
-    AudioSampleBuffer* pPreviousSamplesOutput_1;
-
-    AudioSampleBuffer* pPreviousSamplesInput_2;
-    AudioSampleBuffer* pPreviousSamplesOutput_2;
-
-    KmeterAudioProcessor* pProcessor;
     int nNumberOfChannels;
-    int nAverageAlgorithm;
-    int nSampleRate;
-    int nBufferSize;
+    int nOversamplingRate;
+
+    int nBufferSizeOriginal;
+    int nBufferSizeOversampled;
     int nFftSize;
     int nHalfFftSize;
-
-    float fAverageLevelItuBs1770;
-    float fPeakToAverageCorrection;
 
 #ifdef _WIN32
     void* libraryHandleFFTW;
@@ -114,7 +87,7 @@ private:
 };
 
 
-#endif  // __AVERAGE_LEVEL_FILTERED_H__
+#endif  // __TRUE_PEAK_METER_H__
 
 
 // Local Variables:

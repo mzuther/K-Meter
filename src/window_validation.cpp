@@ -54,7 +54,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     setContentOwned(contentComponent, false);
 
     LabelFileSelection = new Label("Label FileSelection", fileValidation.getFileName());
-    LabelFileSelection->setBounds(nWidth - 188, nHeight - 269, 138, 20);
+    LabelFileSelection->setBounds(nWidth - 188, nHeight - 309, 138, 20);
     LabelFileSelection->setMinimumHorizontalScale(1.0f);
     LabelFileSelection->setColour(Label::textColourId, Colours::white);
     LabelFileSelection->setColour(Label::backgroundColourId, Colours::grey.darker(0.6f));
@@ -64,13 +64,13 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     contentComponent->addAndMakeVisible(LabelFileSelection);
 
     ButtonFileSelection = new TextButton("...");
-    ButtonFileSelection->setBounds(nWidth - 45, nHeight - 269, 30, 20);
+    ButtonFileSelection->setBounds(nWidth - 45, nHeight - 309, 30, 20);
 
     ButtonFileSelection->addListener(this);
     contentComponent->addAndMakeVisible(ButtonFileSelection);
 
     LabelSampleRateValue = new Label("Label SampleRate", "Host SR: ");
-    LabelSampleRateValue->setBounds(nWidth - 192, nHeight - 244, 75, 20);
+    LabelSampleRateValue->setBounds(nWidth - 192, nHeight - 284, 75, 20);
     LabelSampleRateValue->setColour(Label::textColourId, Colours::white);
     contentComponent->addAndMakeVisible(LabelSampleRateValue);
 
@@ -80,7 +80,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     String strSampleRate = strSampleRateThousands + " " + strSampleRateOnes + " Hz";
 
     LabelSampleRateValue = new Label("Label SampleRateValue", strSampleRate);
-    LabelSampleRateValue->setBounds(nWidth - 126, nHeight - 244, 82, 20);
+    LabelSampleRateValue->setBounds(nWidth - 126, nHeight - 284, 82, 20);
     LabelSampleRateValue->setMinimumHorizontalScale(1.0f);
     LabelSampleRateValue->setColour(Label::textColourId, Colours::white);
     LabelSampleRateValue->setColour(Label::backgroundColourId, Colours::grey.darker(0.6f));
@@ -90,18 +90,18 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     contentComponent->addAndMakeVisible(LabelSampleRateValue);
 
     LabelDumpSelectedChannel = new Label("Selected channel", "Channel: ");
-    LabelDumpSelectedChannel->setBounds(nWidth - 192, nHeight - 219, 75, 20);
+    LabelDumpSelectedChannel->setBounds(nWidth - 192, nHeight - 259, 75, 20);
     LabelDumpSelectedChannel->setColour(Label::textColourId, Colours::white);
     contentComponent->addAndMakeVisible(LabelDumpSelectedChannel);
 
     SliderDumpSelectedChannel = new ChannelSlider("Selected channel", pProcessor->getNumChannels() - 1);
-    SliderDumpSelectedChannel->setBounds(nWidth - 126, nHeight - 219, 70, 20);
+    SliderDumpSelectedChannel->setBounds(nWidth - 126, nHeight - 259, 70, 20);
     SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxTextColourId, Colours::white);
     SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxBackgroundColourId, Colours::grey.darker(0.6f));
     SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxOutlineColourId, Colours::black);
 
     ButtonDumpCSV = new ToggleButton("CSV format");
-    ButtonDumpCSV->setBounds(nWidth - 192, nHeight - 194, 180, 20);
+    ButtonDumpCSV->setBounds(nWidth - 192, nHeight - 234, 180, 20);
     ButtonDumpCSV->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpCSV->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationCSVFormat), false);
     contentComponent->addAndMakeVisible(ButtonDumpCSV);
@@ -110,22 +110,34 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     contentComponent->addAndMakeVisible(SliderDumpSelectedChannel);
 
     ButtonDumpAverageMeterLevel = new ToggleButton("Average meter level");
-    ButtonDumpAverageMeterLevel->setBounds(nWidth - 192, nHeight - 169, 180, 20);
+    ButtonDumpAverageMeterLevel->setBounds(nWidth - 192, nHeight - 209, 180, 20);
     ButtonDumpAverageMeterLevel->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpAverageMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationAverageMeterLevel), false);
     contentComponent->addAndMakeVisible(ButtonDumpAverageMeterLevel);
 
     ButtonDumpPeakMeterLevel = new ToggleButton("Peak meter level");
-    ButtonDumpPeakMeterLevel->setBounds(nWidth - 192, nHeight - 149, 180, 20);
+    ButtonDumpPeakMeterLevel->setBounds(nWidth - 192, nHeight - 189, 180, 20);
     ButtonDumpPeakMeterLevel->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpPeakMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPeakMeterLevel), false);
     contentComponent->addAndMakeVisible(ButtonDumpPeakMeterLevel);
 
     ButtonDumpMaximumPeakLevel = new ToggleButton("Maximum peak level");
-    ButtonDumpMaximumPeakLevel->setBounds(nWidth - 192, nHeight - 129, 180, 20);
+    ButtonDumpMaximumPeakLevel->setBounds(nWidth - 192, nHeight - 169, 180, 20);
     ButtonDumpMaximumPeakLevel->setColour(ToggleButton::textColourId, Colours::white);
     ButtonDumpMaximumPeakLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationMaximumPeakLevel), false);
     contentComponent->addAndMakeVisible(ButtonDumpMaximumPeakLevel);
+
+    ButtonDumpTruePeakMeterLevel = new ToggleButton("True peak meter level");
+    ButtonDumpTruePeakMeterLevel->setBounds(nWidth - 192, nHeight - 149, 180, 20);
+    ButtonDumpTruePeakMeterLevel->setColour(ToggleButton::textColourId, Colours::white);
+    ButtonDumpTruePeakMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationTruePeakMeterLevel), false);
+    contentComponent->addAndMakeVisible(ButtonDumpTruePeakMeterLevel);
+
+    ButtonDumpMaximumTruePeakLevel = new ToggleButton("Max. true peak level");
+    ButtonDumpMaximumTruePeakLevel->setBounds(nWidth - 192, nHeight - 129, 180, 20);
+    ButtonDumpMaximumTruePeakLevel->setColour(ToggleButton::textColourId, Colours::white);
+    ButtonDumpMaximumTruePeakLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationMaximumTruePeakLevel), false);
+    contentComponent->addAndMakeVisible(ButtonDumpMaximumTruePeakLevel);
 
     ButtonDumpStereoMeterValue = new ToggleButton("Stereo meter value");
     ButtonDumpStereoMeterValue->setBounds(nWidth - 192, nHeight - 109, 180, 20);
@@ -188,11 +200,11 @@ void WindowValidation::paint(Graphics& g)
 
     g.setColour(Colours::white);
     g.setOpacity(0.15f);
-    g.drawRect(nWidth - 189, nHeight - 269, 182, 239);
+    g.drawRect(nWidth - 189, nHeight - 310, 182, 279);
 
     g.setColour(Colours::white);
     g.setOpacity(0.05f);
-    g.fillRect(nWidth - 188, nHeight - 269, 180, 237);
+    g.fillRect(nWidth - 188, nHeight - 309, 180, 277);
 }
 
 
@@ -217,6 +229,12 @@ void WindowValidation::buttonClicked(Button* button)
         bool bMaximumPeakLevel = ButtonDumpMaximumPeakLevel->getToggleState();
         pProcessor->setParameter(KmeterPluginParameters::selValidationMaximumPeakLevel, bMaximumPeakLevel ? 1.0f : 0.0f);
 
+        bool bTruePeakMeterLevel = ButtonDumpTruePeakMeterLevel->getToggleState();
+        pProcessor->setParameter(KmeterPluginParameters::selValidationTruePeakMeterLevel, bTruePeakMeterLevel ? 1.0f : 0.0f);
+
+        bool bMaximumTruePeakLevel = ButtonDumpMaximumTruePeakLevel->getToggleState();
+        pProcessor->setParameter(KmeterPluginParameters::selValidationMaximumTruePeakLevel, bMaximumTruePeakLevel ? 1.0f : 0.0f);
+
         bool bStereoMeterValue = ButtonDumpStereoMeterValue->getToggleState();
         pProcessor->setParameter(KmeterPluginParameters::selValidationStereoMeterValue, bStereoMeterValue ? 1.0f : 0.0f);
 
@@ -224,7 +242,7 @@ void WindowValidation::buttonClicked(Button* button)
         pProcessor->setParameter(KmeterPluginParameters::selValidationPhaseCorrelation, bPhaseCorrelation ? 1.0f : 0.0f);
 
         // validation file has already been initialised
-        pProcessor->startValidation(fileValidation, nSelectedChannel, bReportCSV, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bStereoMeterValue, bPhaseCorrelation);
+        pProcessor->startValidation(fileValidation, nSelectedChannel, bReportCSV, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bTruePeakMeterLevel, bMaximumTruePeakLevel, bStereoMeterValue, bPhaseCorrelation);
 
         // close window by making it invisible
         setVisible(false);

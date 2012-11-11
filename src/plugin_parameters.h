@@ -82,6 +82,8 @@ public:
         selValidationAverageMeterLevel,
         selValidationPeakMeterLevel,
         selValidationMaximumPeakLevel,
+        selValidationTruePeakMeterLevel,
+        selValidationMaximumTruePeakLevel,
         selValidationStereoMeterValue,
         selValidationPhaseCorrelation,
         selValidationCSVFormat,

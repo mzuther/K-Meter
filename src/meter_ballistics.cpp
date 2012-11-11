@@ -64,6 +64,11 @@ MeterBallistics::MeterBallistics(int nChannels, int AverageAlgorithm, bool bPeak
     fPeakMeterLevels = new float[nNumberOfChannels];
     fPeakMeterPeakLevels = new float[nNumberOfChannels];
 
+    // allocate variables for true peak meter's level and peak mark
+    // (all audio input channels)
+    fTruePeakMeterLevels = new float[nNumberOfChannels];
+    fTruePeakMeterPeakLevels = new float[nNumberOfChannels];
+
     // allocate variables for average meter's level and peak mark (all
     // audio input channels)
     fAverageMeterLevels = new float[nNumberOfChannels];
@@ -72,11 +77,13 @@ MeterBallistics::MeterBallistics(int nChannels, int AverageAlgorithm, bool bPeak
     // allocate variables for the time since the peak mark was last
     // changed (all audio input channels)
     fPeakMeterPeakLastChanged = new float[nNumberOfChannels];
+    fTruePeakMeterPeakLastChanged = new float[nNumberOfChannels];
     fAverageMeterPeakLastChanged = new float[nNumberOfChannels];
 
-    // allocate variables for overall maximum peak level and number of
-    // registered overflows (all audio input channels)
+    // allocate variables for overall maximum peak levels and number
+    // of registered overflows (all audio input channels)
     fMaximumPeakLevels = new float[nNumberOfChannels];
+    fMaximumTruePeakLevels = new float[nNumberOfChannels];
     nNumberOfOverflows = new int[nNumberOfChannels];
 
 
@@ -102,6 +109,12 @@ MeterBallistics::~MeterBallistics()
     delete [] fPeakMeterPeakLevels;
     fPeakMeterPeakLevels = NULL;
 
+    delete [] fTruePeakMeterLevels;
+    fTruePeakMeterLevels = NULL;
+
+    delete [] fTruePeakMeterPeakLevels;
+    fTruePeakMeterPeakLevels = NULL;
+
     delete [] fAverageMeterLevels;
     fAverageMeterLevels = NULL;
 
@@ -111,11 +124,17 @@ MeterBallistics::~MeterBallistics()
     delete [] fPeakMeterPeakLastChanged;
     fPeakMeterPeakLastChanged = NULL;
 
+    delete [] fTruePeakMeterPeakLastChanged;
+    fTruePeakMeterPeakLastChanged = NULL;
+
     delete [] fAverageMeterPeakLastChanged;
     fAverageMeterPeakLastChanged = NULL;
 
     delete [] fMaximumPeakLevels;
     fMaximumPeakLevels = NULL;
+
+    delete [] fMaximumTruePeakLevels;
+    fMaximumTruePeakLevels = NULL;
 
     delete [] nNumberOfOverflows;
     nNumberOfOverflows = NULL;
@@ -141,12 +160,18 @@ void MeterBallistics::reset()
         fPeakMeterLevels[nChannel] = fMeterMinimumDecibel;
         fPeakMeterPeakLevels[nChannel] = fMeterMinimumDecibel;
 
+        // set true peak meter's level and peak mark to meter's
+        // minimum
+        fTruePeakMeterLevels[nChannel] = fMeterMinimumDecibel;
+        fTruePeakMeterPeakLevels[nChannel] = fMeterMinimumDecibel;
+
         // set average meter's level and peak mark to meter's minimum
         fAverageMeterLevels[nChannel] = fMeterMinimumDecibel;
         fAverageMeterPeakLevels[nChannel] = fMeterMinimumDecibel;
 
-        // set overall maximum peak level to meter's minimum
+        // set overall maximum peak levels to meter's minimum
         fMaximumPeakLevels[nChannel] = fMeterMinimumDecibel;
+        fMaximumTruePeakLevels[nChannel] = fMeterMinimumDecibel;
 
         // reset number of registered overflows
         nNumberOfOverflows[nChannel] = 0;
@@ -185,12 +210,14 @@ void MeterBallistics::setPeakMeterInfiniteHold(bool bInfiniteHold)
         if (bInfiniteHold)
         {
             fPeakMeterPeakLastChanged[nChannel] = -1.0f;
+            fTruePeakMeterPeakLastChanged[nChannel] = -1.0f;
         }
         // select "falling peaks" mode by resetting time since peak
         // mark was last changed
         else
         {
             fPeakMeterPeakLastChanged[nChannel] = 0.0f;
+            fTruePeakMeterPeakLastChanged[nChannel] = 0.0f;
         }
     }
 }
@@ -270,7 +297,7 @@ float MeterBallistics::getPeakMeterLevel(int nChannel)
         // return maximum level
         return fPeakMeterLevel;
     }
-    // otherwise, simply return the requested channel's maximum level
+    // otherwise, simply return the requested channel's level
     else
     {
         return fPeakMeterLevels[nChannel];
@@ -314,11 +341,99 @@ float MeterBallistics::getPeakMeterPeakLevel(int nChannel)
         // return maximum peak level
         return fPeakMeterPeakLevel;
     }
-    // otherwise, simply return the requested channel's maximum peak
+    // otherwise, simply return the requested channel's peak
     // level
     else
     {
         return fPeakMeterPeakLevels[nChannel];
+    }
+}
+
+
+float MeterBallistics::getTruePeakMeterLevel(int nChannel)
+/*  Get current level of an audio channel's true peak level meter.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns the current level in decibel of the
+    given audio channel's true peak level meter
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nNumberOfChannels);
+
+    // we only display a single meter in ITU-R BS.1770-1 mode, so
+    // we'll have to evaluate the maximum level first
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        // initialise maximum level
+        float fTruePeakMeterLevel = fMeterMinimumDecibel;
+
+        // only return maximum level for the first channel
+        if (nChannel == 0)
+        {
+            // loop through all audio channels to find maximum level
+            for (int channel = 0; channel < nNumberOfChannels; channel++)
+            {
+                if (fTruePeakMeterLevels[channel] > fTruePeakMeterLevel)
+                {
+                    fTruePeakMeterLevel = fTruePeakMeterLevels[channel];
+                }
+            }
+        }
+
+        // return maximum level
+        return fTruePeakMeterLevel;
+    }
+    // otherwise, simply return the requested channel's level
+    else
+    {
+        return fTruePeakMeterLevels[nChannel];
+    }
+}
+
+
+float MeterBallistics::getTruePeakMeterPeakLevel(int nChannel)
+/*  Get peak level of an audio channel's true peak level meter.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns the (changing) peak level in decibel
+    of the given audio channel's true peak level meter
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nNumberOfChannels);
+
+    // we only display a single meter in ITU-R BS.1770-1 mode, so
+    // we'll have to evaluate the maximum true peak level first
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        // initialise maximum peak level
+        float fTruePeakMeterPeakLevel = fMeterMinimumDecibel;
+
+        // only return maximum peak level for the first channel
+        if (nChannel == 0)
+        {
+            // loop through all audio channels to find maximum peak
+            // level
+            for (int channel = 0; channel < nNumberOfChannels; channel++)
+            {
+                if (fTruePeakMeterPeakLevels[channel] > fTruePeakMeterPeakLevel)
+                {
+                    fTruePeakMeterPeakLevel = fTruePeakMeterPeakLevels[channel];
+                }
+            }
+        }
+
+        // return maximum peak level
+        return fTruePeakMeterPeakLevel;
+    }
+    // otherwise, simply return the requested channel's maximum peak
+    // level
+    else
+    {
+        return fTruePeakMeterPeakLevels[nChannel];
     }
 }
 
@@ -429,6 +544,49 @@ float MeterBallistics::getMaximumPeakLevel(int nChannel)
     else
     {
         return fMaximumPeakLevels[nChannel];
+    }
+}
+
+
+float MeterBallistics::getMaximumTruePeakLevel(int nChannel)
+/*  Get overall maximum true peak level of an audio channel.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns the overall maximum true peak level
+    in decibel that has been registered on the given audio channel
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nNumberOfChannels);
+
+    // we only display a single meter in ITU-R BS.1770-1 mode, so
+    // we'll have to evaluate the maximum level first
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        // initialise maximum true peak level
+        float fMaximumTruePeakLevel = fMeterMinimumDecibel;
+
+        // only return maximum level for the first channel
+        if (nChannel == 0)
+        {
+            // loop through all audio channels to find maximum level
+            for (int channel = 0; channel < nNumberOfChannels; channel++)
+            {
+                if (fMaximumTruePeakLevels[channel] > fMaximumTruePeakLevel)
+                {
+                    fMaximumTruePeakLevel = fMaximumTruePeakLevels[channel];
+                }
+            }
+        }
+
+        // return maximum level
+        return fMaximumTruePeakLevel;
+    }
+    // otherwise, simply return the requested channel's maximum level
+    else
+    {
+        return fMaximumTruePeakLevels[nChannel];
     }
 }
 
@@ -559,7 +717,7 @@ void MeterBallistics::setPhaseCorrelation(float fTimePassed, float fPhaseCorrela
 }
 
 
-void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak, float fRms, float fAverageFiltered, int nOverflows)
+void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak, float fTruePeak, float fRms, float fAverageFiltered, int nOverflows)
 /*  Update audio levels, overflows and apply meter ballistics.
 
     nChannel (integer): audio input channel to update
@@ -568,6 +726,8 @@ void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak
     fractional seconds)
 
     fPeak (float): current peak meter level (linear scale)
+
+    fTruePeak (float): current true peak level (linear scale)
 
     fRms (float): current RMS level (linear scale)
 
@@ -585,6 +745,10 @@ void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak
     // convert current peak meter level from linear scale to decibels
     fPeak = level2decibel(fPeak);
 
+    // convert current true peak meter level from linear scale to
+    // decibels
+    fTruePeak = level2decibel(fTruePeak);
+
     // convert current RMS level from linear scale to decibels
     fRms = level2decibel(fRms);
 
@@ -595,10 +759,22 @@ void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak
         fMaximumPeakLevels[nChannel] = fPeak;
     }
 
+    // if current true peak meter level exceeds overall maximum true
+    // peak level, store it as new overall maximum true peak level
+    if (fTruePeak > fMaximumTruePeakLevels[nChannel])
+    {
+        fMaximumTruePeakLevels[nChannel] = fTruePeak;
+    }
+
     // apply peak meter's ballistics and store resulting level and
     // peak mark
     fPeakMeterLevels[nChannel] = PeakMeterBallistics(fTimePassed, fPeak, fPeakMeterLevels[nChannel]);
     fPeakMeterPeakLevels[nChannel] = PeakMeterPeakBallistics(fTimePassed, &fPeakMeterPeakLastChanged[nChannel], fPeak, fPeakMeterPeakLevels[nChannel]);
+
+    // apply true peak meter's ballistics and store resulting level
+    // and peak mark
+    fTruePeakMeterLevels[nChannel] = TruePeakMeterBallistics(fTimePassed, fTruePeak, fTruePeakMeterLevels[nChannel]);
+    fTruePeakMeterPeakLevels[nChannel] = TruePeakMeterPeakBallistics(fTimePassed, &fTruePeakMeterPeakLastChanged[nChannel], fTruePeak, fTruePeakMeterPeakLevels[nChannel]);
 
     // apply average meter's ballistics and store resulting level and
     // peak mark
@@ -809,6 +985,44 @@ float MeterBallistics::PeakMeterPeakBallistics(float fTimePassed, float* fLastCh
 
     // finally, return new peak level mark
     return fOutput;
+}
+
+
+float MeterBallistics::TruePeakMeterBallistics(float fTimePassed, float fTruePeakLevelCurrent, float fTruePeakLevelOld)
+/*  Calculate ballistics for true peak meter levels.
+
+    fTimePassed (float): time that has passed since last update (in
+    fractional seconds)
+
+    fTruePeakLevelCurrent (float): current true peak meter level in
+    decibel
+
+    fTruePeakLevelOld (float): old true peak meter reading in decibel
+
+    return value (float): new true peak meter reading in decibel
+*/
+{
+    return PeakMeterBallistics(fTimePassed, fTruePeakLevelCurrent, fTruePeakLevelOld);
+}
+
+
+float MeterBallistics::TruePeakMeterPeakBallistics(float fTimePassed, float* fLastChanged, float fTruePeakCurrent, float fTruePeakOld)
+/*  Calculate ballistics for true peak meter peak marks.
+
+    fTimePassed (float): time that has passed since last update (in
+    fractional seconds)
+
+    fLastChanged (float pointer): time since peak mark was last
+    changed in fractional seconds
+
+    fTruePeakCurrent (float): current true peak level mark in decibel
+
+    fTruePeakOld (float): old true peak level mark in decibel
+
+    return value (float): new true peak level mark in decibel
+*/
+{
+    return PeakMeterPeakBallistics(fTimePassed, fLastChanged, fTruePeakCurrent, fTruePeakOld);
 }
 
 

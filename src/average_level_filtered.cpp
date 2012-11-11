@@ -281,7 +281,7 @@ void AverageLevelFiltered::calculateFilterKernel_Rms()
         }
     }
 
-    // normalise filter kernel
+    // normalise filter kernel for unity gain at DC
     float nSumKernel = 0.0;
 
     for (int i = 0; i < nSamples; i++)
@@ -392,9 +392,11 @@ void AverageLevelFiltered::FilterSamples_Rms(const int channel)
     fftwf_execute(planAudioSamples_IDFT);
 
     // normalise synthesised audio data
+    float fNorm = float(nFftSize);
+
     for (int i = 0; i < nFftSize; i++)
     {
-        arrAudioSamples_TD[i] = arrAudioSamples_TD[i] / float(nFftSize);
+        arrAudioSamples_TD[i] = arrAudioSamples_TD[i] / fNorm;
     }
 
     // copy data from temporary buffer back to sample buffer
@@ -602,7 +604,7 @@ float AverageLevelFiltered::getLevel(const int channel)
 }
 
 
-void AverageLevelFiltered::copyFromBuffer(AudioRingBuffer& ringBuffer, const int pre_delay, const int sample_rate)
+void AverageLevelFiltered::copyFromBuffer(AudioRingBuffer& ringBuffer, const unsigned int pre_delay, const int sample_rate)
 {
     // recalculate filter kernel when sample rate changes
     if (nSampleRate != sample_rate)

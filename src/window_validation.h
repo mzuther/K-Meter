@@ -64,6 +64,8 @@ private:
     ToggleButton* ButtonDumpAverageMeterLevel;
     ToggleButton* ButtonDumpPeakMeterLevel;
     ToggleButton* ButtonDumpMaximumPeakLevel;
+    ToggleButton* ButtonDumpTruePeakMeterLevel;
+    ToggleButton* ButtonDumpMaximumTruePeakLevel;
     ToggleButton* ButtonDumpStereoMeterValue;
     ToggleButton* ButtonDumpPhaseCorrelation;
 };
