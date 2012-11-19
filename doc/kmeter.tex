@@ -666,7 +666,8 @@ environment.  This is fast and easy to do on Debian-based systems and
 might save you a \textbf{lot} of trouble.  At the time of writing, I'm
 using Linux Mint 13 (Maya), but the procedure should be similar on
 your distribution of choice.  If you aim at generic \num{64}-bit
-compilation, simply change \texttt{i386} to \texttt{amd64}.
+compilation, simply change \texttt{i386} to \texttt{amd64} and
+\texttt{x32} to \texttt{x64}.
 
 To install the necessary packages and install the \texttt{chroot} base
 system, execute the following statements (please change
@@ -756,7 +757,7 @@ below), you are ready to build K-Meter.
 
 Place the binary somewhere in your \path{PATH}.  Depending on your
 platform, you should run \emph{premake} using the scripts
-\path{build/run_premake.sh} or \path{build/run_premake.bat}.
+\path{Builds/run_premake.sh} or \path{Builds/run_premake.bat}.
 
 \newpage %% layout
 
@@ -779,8 +780,20 @@ into this directory and run:
 \begin{verbatim}
   ./configure --enable-float --with-pic
   make
-  mkdir -p bin/i386/
-  mv .libs/* bin/i386/
+  mkdir -p bin/linux/i386/
+  mv .libs/* bin/linux/i386/
+\end{verbatim}
+
+\subsubsection{Installation on Mac OS X}
+
+Extract the archive into the directory \path{libraries/fftw3}, change
+into this directory and run:
+
+\begin{verbatim}
+  ./configure --enable-float --with-pic
+  make
+  mkdir -p bin/mac/x32/
+  mv .libs/* bin/mac/x32/
 \end{verbatim}
 
 \subsubsection{Installation on Microsoft Windows}
@@ -801,7 +814,7 @@ I have already placed \path{libfftw3f-3.dll} in the directories
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 1.53 \\
+  Version:     \> 2.0 \\
   License:     \> GPL v2 \\
   Homepage:    \> \href{http://www.rawmaterialsoftware.com/juce.php}{www.rawmaterialsoftware.com/juce.php}
 \end{tabbing}
@@ -861,7 +874,7 @@ with coding K-Meter.
 
 Place the binary somewhere in your \path{PATH}.  Depending on your
 platform, you should run \emph{astyle} using the scripts
-\path{src/format_code.sh} or \path{src/format_code.bat}.
+\path{Source/format_code.sh} or \path{Source/format_code.bat}.
 
 \section{Building on GNU/Linux}
 
@@ -892,7 +905,7 @@ After preparing the dependencies, change into the directory
   ./run_premake.bat
 \end{verbatim}
 
-Then change into the directory \path{build/windows/vs20xx}, open the
+Then change into the directory \path{Builds/windows/vs20xx}, open the
 project file with the corresponding version of Visual C++ and build
 the project.
 

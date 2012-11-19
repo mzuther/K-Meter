@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="LEmwq6" name="K-Meter" projectType="audioplug" version="1.31.0"
+              bundleIdentifier="de.mzuther.KMeter" buildVST="1" buildRTAS="0"
+              buildAU="1" pluginName="K-Meter" pluginDesc="Implementation of a K-System meter according to Bob Katz' specifications"
+              pluginManufacturer="mzuther" pluginManufacturerCode="mz" pluginCode="kmet"
+              pluginChannelConfigs="{1, 1}, {2, 2}" pluginIsSynth="0" pluginWantsMidiIn="0"
+              pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1" pluginTailLength="0"
+              pluginEditorRequiresKeys="0" pluginAUExportPrefix="KMeterAU"
+              pluginAUViewClass="KMeterAU_V1" pluginRTASCategory="ePlugInCategory_None"
+              jucerVersion="3.0.0" companyName="mzuther">
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX" objCExtraSuffix="uKstId" juceFolder="libraries/juce/modules"
+               vstFolder="libraries/vstsdk2.4">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="K-Meter"
+                       osxSDK="default" osxCompatibility="default" osxArchitecture="default"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="K-Meter"
+                       osxSDK="default" osxCompatibility="default" osxArchitecture="default"/>
+      </CONFIGURATIONS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MAINGROUP id="icjBJ4" name="K-Meter">
+    <GROUP id="{95C9EAB6-B78C-80DA-1D02-53CBEF0E6BCE}" name="Source">
+      <GROUP id="{B84CCD7B-2A5F-D22D-9E0A-AC69F077C790}" name="resources">
+        <FILE id="DGm2Us" name="resources.cpp" compile="1" resource="0" file="Source/resources/resources.cpp"/>
+        <FILE id="D78ZzF" name="resources.h" compile="0" resource="0" file="Source/resources/resources.h"/>
+      </GROUP>
+      <FILE id="Oczcda" name="audio_file_player.cpp" compile="1" resource="0"
+            file="Source/audio_file_player.cpp"/>
+      <FILE id="vfuWlY" name="audio_file_player.h" compile="0" resource="0"
+            file="Source/audio_file_player.h"/>
+      <FILE id="U7bz16" name="audio_ring_buffer.cpp" compile="1" resource="0"
+            file="Source/audio_ring_buffer.cpp"/>
+      <FILE id="rk33jV" name="audio_ring_buffer.h" compile="0" resource="0"
+            file="Source/audio_ring_buffer.h"/>
+      <FILE id="KLTfym" name="average_level_filtered.cpp" compile="1" resource="0"
+            file="Source/average_level_filtered.cpp"/>
+      <FILE id="O4iw7H" name="average_level_filtered.h" compile="0" resource="0"
+            file="Source/average_level_filtered.h"/>
+      <FILE id="Av4pas" name="averager.cpp" compile="1" resource="0" file="Source/averager.cpp"/>
+      <FILE id="oXw9ht" name="averager.h" compile="0" resource="0" file="Source/averager.h"/>
+      <FILE id="bMHPuV" name="channel_slider.cpp" compile="1" resource="0"
+            file="Source/channel_slider.cpp"/>
+      <FILE id="OcAPkJ" name="channel_slider.h" compile="0" resource="0"
+            file="Source/channel_slider.h"/>
+      <FILE id="atlqhp" name="kmeter.cpp" compile="1" resource="0" file="Source/kmeter.cpp"/>
+      <FILE id="aFMZgu" name="kmeter.h" compile="0" resource="0" file="Source/kmeter.h"/>
+      <FILE id="pMM1UR" name="main.cpp" compile="1" resource="0" file="Source/main.cpp"/>
+      <FILE id="FfGgEO" name="meter_ballistics.cpp" compile="1" resource="0"
+            file="Source/meter_ballistics.cpp"/>
+      <FILE id="H4UyY9" name="meter_ballistics.h" compile="0" resource="0"
+            file="Source/meter_ballistics.h"/>
+      <FILE id="vdZFRV" name="meter_bar.cpp" compile="1" resource="0" file="Source/meter_bar.cpp"/>
+      <FILE id="YCi34V" name="meter_bar.h" compile="0" resource="0" file="Source/meter_bar.h"/>
+      <FILE id="uWFVj5" name="meter_segment.cpp" compile="1" resource="0"
+            file="Source/meter_segment.cpp"/>
+      <FILE id="beSQNs" name="meter_segment.h" compile="0" resource="0" file="Source/meter_segment.h"/>
+      <FILE id="RPLldo" name="overflow_meter.cpp" compile="1" resource="0"
+            file="Source/overflow_meter.cpp"/>
+      <FILE id="aZNOfj" name="overflow_meter.h" compile="0" resource="0"
+            file="Source/overflow_meter.h"/>
+      <FILE id="XBkTvP" name="peak_label.cpp" compile="1" resource="0" file="Source/peak_label.cpp"/>
+      <FILE id="Mwx5d4" name="peak_label.h" compile="0" resource="0" file="Source/peak_label.h"/>
+      <FILE id="jVyxiv" name="phase_correlation_meter.cpp" compile="1" resource="0"
+            file="Source/phase_correlation_meter.cpp"/>
+      <FILE id="hGA74g" name="phase_correlation_meter.h" compile="0" resource="0"
+            file="Source/phase_correlation_meter.h"/>
+      <FILE id="nnzFh8" name="plugin_editor.cpp" compile="1" resource="0"
+            file="Source/plugin_editor.cpp"/>
+      <FILE id="CzZj67" name="plugin_editor.h" compile="0" resource="0" file="Source/plugin_editor.h"/>
+      <FILE id="j9NG07" name="plugin_parameters.cpp" compile="1" resource="0"
+            file="Source/plugin_parameters.cpp"/>
+      <FILE id="Qrlzca" name="plugin_parameters.h" compile="0" resource="0"
+            file="Source/plugin_parameters.h"/>
+      <FILE id="aH0ZGm" name="plugin_processor.cpp" compile="1" resource="0"
+            file="Source/plugin_processor.cpp"/>
+      <FILE id="azZ92D" name="plugin_processor.h" compile="0" resource="0"
+            file="Source/plugin_processor.h"/>
+      <FILE id="o5Wx5k" name="prohibiting_bounds_constrainer.h" compile="0"
+            resource="0" file="Source/prohibiting_bounds_constrainer.h"/>
+      <FILE id="fyD8f5" name="standalone_application.cpp" compile="1" resource="0"
+            file="Source/standalone_application.cpp"/>
+      <FILE id="uHZqYH" name="standalone_application.h" compile="0" resource="0"
+            file="Source/standalone_application.h"/>
+      <FILE id="ilqjYl" name="stereo_meter.cpp" compile="1" resource="0"
+            file="Source/stereo_meter.cpp"/>
+      <FILE id="rG913U" name="stereo_meter.h" compile="0" resource="0" file="Source/stereo_meter.h"/>
+      <FILE id="OCP0ch" name="true_peak_meter.cpp" compile="1" resource="0"
+            file="Source/true_peak_meter.cpp"/>
+      <FILE id="vQ80wO" name="true_peak_meter.h" compile="0" resource="0"
+            file="Source/true_peak_meter.h"/>
+      <FILE id="MD4T8y" name="window_about.cpp" compile="1" resource="0"
+            file="Source/window_about.cpp"/>
+      <FILE id="FFhQ1L" name="window_about.h" compile="0" resource="0" file="Source/window_about.h"/>
+      <FILE id="kgP9T2" name="window_validation.cpp" compile="1" resource="0"
+            file="Source/window_validation.cpp"/>
+      <FILE id="YbK36X" name="window_validation.h" compile="0" resource="0"
+            file="Source/window_validation.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_audio" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
+</JUCERPROJECT>

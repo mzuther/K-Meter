@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Filter Include="Source">
+			<UniqueIdentifier>{215F816C-1DA7-8805-9001-FD8C718C33BB}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="Source\resources">
+			<UniqueIdentifier>{1D1548DF-62BD-1F0A-3AC9-54084681730E}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries">
+			<UniqueIdentifier>{897BD787-01F0-64CB-BA11-4A572ADC14A1}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce">
+			<UniqueIdentifier>{A248226D-3760-17FE-A9DC-908D3FE9E1F3}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules">
+			<UniqueIdentifier>{2675DFCB-E4AE-985C-7A73-0A00C31EDF52}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules\juce_audio_basics">
+			<UniqueIdentifier>{01A07210-0ACF-F609-DB6C-B37239CA3089}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules\juce_audio_devices">
+			<UniqueIdentifier>{513F3E29-C04B-112F-6E61-12F4B2C8AF6B}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules\juce_audio_formats">
+			<UniqueIdentifier>{6DA69E5A-AC10-5AEA-3CF5-CA9DDD12F862}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules\juce_audio_processors">
+			<UniqueIdentifier>{A586D6B4-C549-99BA-3CB6-1C310FF81898}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules\juce_audio_utils">
+			<UniqueIdentifier>{D6D1638B-A59D-AAF5-9CDC-A1EE4FE11ECE}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules\juce_core">
+			<UniqueIdentifier>{D3CD3175-4612-0655-38CF-2384309911BA}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules\juce_cryptography">
+			<UniqueIdentifier>{EFE74B80-CA7E-7CDA-0A8E-F73F38467783}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules\juce_data_structures">
+			<UniqueIdentifier>{8FBFEE33-A4E0-E236-0DD9-19952FDC0B78}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules\juce_events">
+			<UniqueIdentifier>{04602BD4-FA6C-A4EF-536C-E6D749F6D235}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules\juce_graphics">
+			<UniqueIdentifier>{729EF260-233B-F625-9BBA-C17C5AECB8CD}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules\juce_gui_basics">
+			<UniqueIdentifier>{89DCC002-2B83-A27E-F417-EE2A60988731}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules\juce_gui_extra">
+			<UniqueIdentifier>{68263075-9C90-531A-FB62-B03287AB3284}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="libraries\juce\modules\juce_video">
+			<UniqueIdentifier>{9B430CA8-F6FC-035B-77C8-B66730092630}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\..\Source\meter_bar.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\window_validation.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\channel_slider.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\average_level_filtered.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\meter_segment.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\stereo_meter.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\overflow_meter.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\audio_ring_buffer.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\true_peak_meter.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\peak_label.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\kmeter.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\phase_correlation_meter.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\window_about.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\audio_file_player.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\plugin_parameters.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\plugin_processor.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\meter_ballistics.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\plugin_editor.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\standalone_application.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\averager.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\resources\resources.h">
+			<Filter>Source\resources</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\..\Source\stereo_meter.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\meter_segment.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\plugin_processor.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\averager.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\true_peak_meter.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\main.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\average_level_filtered.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\window_validation.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\meter_bar.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\peak_label.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\kmeter.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\audio_ring_buffer.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\standalone_application.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\phase_correlation_meter.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\window_about.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\meter_ballistics.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\plugin_editor.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\audio_file_player.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\overflow_meter.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\channel_slider.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\resources\resources.cpp">
+			<Filter>Source\resources</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\modules\juce_audio_basics\juce_audio_basics.cpp">
+			<Filter>libraries\juce\modules\juce_audio_basics</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\modules\juce_audio_devices\juce_audio_devices.cpp">
+			<Filter>libraries\juce\modules\juce_audio_devices</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\modules\juce_audio_formats\juce_audio_formats.cpp">
+			<Filter>libraries\juce\modules\juce_audio_formats</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\modules\juce_audio_processors\juce_audio_processors.cpp">
+			<Filter>libraries\juce\modules\juce_audio_processors</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\modules\juce_audio_utils\juce_audio_utils.cpp">
+			<Filter>libraries\juce\modules\juce_audio_utils</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\modules\juce_core\juce_core.cpp">
+			<Filter>libraries\juce\modules\juce_core</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\modules\juce_cryptography\juce_cryptography.cpp">
+			<Filter>libraries\juce\modules\juce_cryptography</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\modules\juce_data_structures\juce_data_structures.cpp">
+			<Filter>libraries\juce\modules\juce_data_structures</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\modules\juce_events\juce_events.cpp">
+			<Filter>libraries\juce\modules\juce_events</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\modules\juce_graphics\juce_graphics.cpp">
+			<Filter>libraries\juce\modules\juce_graphics</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\modules\juce_gui_basics\juce_gui_basics.cpp">
+			<Filter>libraries\juce\modules\juce_gui_basics</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\modules\juce_gui_extra\juce_gui_extra.cpp">
+			<Filter>libraries\juce\modules\juce_gui_extra</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\libraries\juce\modules\juce_video\juce_video.cpp">
+			<Filter>libraries\juce\modules\juce_video</Filter>
+		</ClCompile>
+	</ItemGroup>
+</Project>
