@@ -27,8 +27,10 @@ if not _ACTION then
 	-- prevent "attempt to ... (a nil value)" errors
 elseif _ACTION == "gmake" then
 	print ("=== Generating project files (GNU g++, " .. os.get():upper() .. ") ===")
+elseif string.startswith(_ACTION, "codeblocks") then
+	print "=== Generating project files (Code::Blocks, Windows) ==="
 elseif string.startswith(_ACTION, "vs") then
-	print "=== Generating project files (Visual C++, WINDOWS) ==="
+	print "=== Generating project files (Visual C++, Windows) ==="
 elseif string.startswith(_ACTION, "xcode") then
 	print "=== Generating project files (Xcode, Mac OS X) ==="
 else
