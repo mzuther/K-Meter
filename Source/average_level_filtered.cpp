@@ -255,9 +255,6 @@ void AverageLevelFiltered::setPeakToAverageCorrection(float peak_to_average_corr
 */
 {
     fPeakToAverageCorrection = peak_to_average_correction;
-
-    // make sure the change is reflected in "fMeterMinimumDecibel"
-    MeterBallistics::setPeakToAverageCorrection(fPeakToAverageCorrection);
 }
 
 
