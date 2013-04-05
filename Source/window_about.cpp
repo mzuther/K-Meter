@@ -68,7 +68,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     // display plug-in name and version number
     TextEditorAbout->setFont(fontHeadline);
     TextEditorAbout->insertTextAtCaret(
-        String("K-Meter ") + JucePlugin_VersionString + "\n"
+        String(ProjectInfo::projectName) + " " + JucePlugin_VersionString + "\n"
     );
 
     // display plug-in description
@@ -204,7 +204,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
         L"You should have received a copy of the GNU General Public License "
         L"along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\n"
 
-        L"Thank you for using free software!\n\n"
+        L"Thank you for using free software!\n"
     );
 
     // in case the text has become too long to fit into the text

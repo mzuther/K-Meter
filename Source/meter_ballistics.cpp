@@ -852,9 +852,9 @@ void MeterBallistics::setPeakToAverageCorrection(float peak_to_average_correctio
 {
     fPeakToAverageCorrection = peak_to_average_correction;
 
-    // the K-23 meter has the highest maximum crest factor (23 dB) of
+    // the K-20 meter has the highest maximum crest factor (20 dB) of
     // all K-System meters
-    float fMaximumCrestFactor = 23.0f;
+    float fMaximumCrestFactor = 20.0f;
 
     // logarithmic levels have no minimum level, so let's define one
     // (70 dB meter range + 0.01 to make sure that the minimum level

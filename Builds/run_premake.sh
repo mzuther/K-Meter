@@ -33,7 +33,4 @@ premake4 --file=visual_studio.lua --os=windows vs2010
 echo
 premake4 --cc=gcc --os=linux gmake
 
-# echo
-# premake4 --cc=gcc --os=windows gmake
-
 echo

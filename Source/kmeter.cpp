@@ -64,13 +64,9 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
     {
         nMeterCrestFactor = 14;
     }
-    else if (nCrestFactor == 20)
+    else // K-20
     {
         nMeterCrestFactor = 20;
-    }
-    else // K-23
-    {
-        nMeterCrestFactor = 23;
     }
 
     int nPositionX = 0;
@@ -389,7 +385,7 @@ void Kmeter::paintMonoChannel(Graphics& g)
             drawMarkersMono(g, strMarker, x, y, width, height);
         }
     }
-    else if (nMeterCrestFactor == 20)
+    else // K-20
     {
         y -= 8 * nMainSegmentHeight;
 
@@ -415,42 +411,6 @@ void Kmeter::paintMonoChannel(Graphics& g)
             strMarker = String(n);
 
             y += 10 * nMainSegmentHeight;
-            drawMarkersMono(g, strMarker, x, y, width, height);
-        }
-    }
-    else // K-23
-    {
-        y -= 8 * nMainSegmentHeight;
-
-        for (int n = 23; n >= -24; n -= 4)
-        {
-            if (n > 0)
-            {
-                strMarker = "+" + String(n);
-            }
-            else
-            {
-                strMarker = String(n);
-            }
-
-            y += 8 * nMainSegmentHeight;
-            drawMarkersMono(g, strMarker, x, y, width, height);
-
-            // next label after "+23" should be "+20"
-            if (n == 23)
-            {
-                n++;
-                y -= 2 * nMainSegmentHeight;
-            }
-        }
-
-        y -= 2 * nMainSegmentHeight;
-
-        for (int n = -30; n >= -60; n -= 10)
-        {
-            strMarker = String(n);
-
-            y += 8 * nMainSegmentHeight;
             drawMarkersMono(g, strMarker, x, y, width, height);
         }
     }
@@ -651,7 +611,7 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
             drawMarkersStereo(g, strMarker, x, y, width, height);
         }
     }
-    else if (nMeterCrestFactor == 20)
+    else // K-20
     {
         y -= 8 * nMainSegmentHeight;
 
@@ -677,42 +637,6 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
             strMarker = String(n);
 
             y += 10 * nMainSegmentHeight;
-            drawMarkersStereo(g, strMarker, x, y, width, height);
-        }
-    }
-    else // K-23
-    {
-        y -= 8 * nMainSegmentHeight;
-
-        for (int n = 23; n >= -24; n -= 4)
-        {
-            if (n > 0)
-            {
-                strMarker = "+" + String(n);
-            }
-            else
-            {
-                strMarker = String(n);
-            }
-
-            y += 8 * nMainSegmentHeight;
-            drawMarkersStereo(g, strMarker, x, y, width, height);
-
-            // next label after "+23" should be "+20"
-            if (n == 23)
-            {
-                n++;
-                y -= 2 * nMainSegmentHeight;
-            }
-        }
-
-        y -= 2 * nMainSegmentHeight;
-
-        for (int n = -30; n >= -60; n -= 10)
-        {
-            strMarker = String(n);
-
-            y += 8 * nMainSegmentHeight;
             drawMarkersStereo(g, strMarker, x, y, width, height);
         }
     }

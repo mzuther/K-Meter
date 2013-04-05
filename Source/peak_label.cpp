@@ -51,7 +51,7 @@ PeakLabel::~PeakLabel()
 
 void PeakLabel::resetLevel()
 {
-    float fMaximumCrestFactor = 23.0f; // i.e. K-23
+    float fMaximumCrestFactor = 20.0f; // i.e. K-20
     float fMeterMinimumDecibel = -(fMaximumCrestFactor + 70.0f);
 
     // reset level

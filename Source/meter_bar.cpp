@@ -68,19 +68,9 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
         nLimitGreenBars_1 = -300;
         nLimitGreenBars_2 = nLimitGreenBars_1;
     }
-    else if (nCrestFactor == 20)
+    else // K-20
     {
         nMeterCrestFactor = +200;
-
-        nLimitTopBars = nMeterCrestFactor - 20;
-        nLimitRedBars = +40;
-        nLimitAmberBars = 0;
-        nLimitGreenBars_1 = -240;
-        nLimitGreenBars_2 = -300;
-    }
-    else // K-23
-    {
-        nMeterCrestFactor = +230;
 
         nLimitTopBars = nMeterCrestFactor - 20;
         nLimitRedBars = +40;
@@ -107,13 +97,9 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
         {
             nNumberOfBars = 50;
         }
-        else if (nCrestFactor == 20)
+        else // K-20
         {
             nNumberOfBars = 51;
-        }
-        else // K-23
-        {
-            nNumberOfBars = 54;
         }
     }
 
@@ -275,11 +261,7 @@ void MeterBar::visibilityChanged()
             {
                 segment_height = 13 * nMainSegmentHeight;
             }
-            else if (nMeterCrestFactor == +200)
-            {
-                segment_height = 10 * nMainSegmentHeight;
-            }
-            else // K-23
+            else // K-20
             {
                 segment_height = 10 * nMainSegmentHeight;
             }
@@ -298,13 +280,9 @@ void MeterBar::visibilityChanged()
             {
                 segment_height = 11 * nMainSegmentHeight;
             }
-            else if (nMeterCrestFactor == +200)
+            else // K-20
             {
                 segment_height = 10 * nMainSegmentHeight;
-            }
-            else // K-23
-            {
-                segment_height = 8 * nMainSegmentHeight;
             }
         }
 

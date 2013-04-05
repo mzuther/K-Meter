@@ -131,7 +131,7 @@ void KmeterPluginParameters::setParameterFromInt(int nIndex, int nValue)
     {
         if (nIndex == selCrestFactor)
         {
-            if ((nValue == 0) || (nValue == 12) || (nValue == 14) || (nValue == 23))
+            if ((nValue == 0) || (nValue == 12) || (nValue == 14))
             {
                 nParam[nIndex] = nValue;
             }
@@ -298,13 +298,9 @@ const String KmeterPluginParameters::getParameterText(int nIndex)
         {
             return "K-14";
         }
-        else if (nParam[nIndex] == 20)
+        else // K-20
         {
             return "K-20";
-        }
-        else // K-23
-        {
-            return "K-23";
         }
     }
     else if (nIndex == selAverageAlgorithm)
@@ -367,13 +363,9 @@ float KmeterPluginParameters::translateParameterToFloat(int nIndex, int nValue)
         {
             return (selK14 / float(nNumCrestFactors - 1));
         }
-        else if (nValue == 20)
+        else // K-20
         {
             return (selK20 / float(nNumCrestFactors - 1));
-        }
-        else // K-23
-        {
-            return (selK23 / float(nNumCrestFactors - 1));
         }
     }
     else if (nIndex == selAverageAlgorithm)
@@ -414,13 +406,9 @@ int KmeterPluginParameters::translateParameterToInt(int nIndex, float fValue)
         {
             return 14;
         }
-        else if (fValue < (selK23 / float(nNumCrestFactors)))
+        else // K-20
         {
             return 20;
-        }
-        else // K-23
-        {
-            return 23;
         }
     }
     else if (nIndex == selAverageAlgorithm)

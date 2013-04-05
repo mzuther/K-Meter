@@ -114,7 +114,6 @@ solution "kmeter"
 		defines {
 			"KMETER_STAND_ALONE=1",
 			"KMETER_STEREO=1",
-			"JUCETICE_USE_AMALGAMA=1",
 			"JUCE_USE_VSTSDK_2_4=0"
 		}
 
@@ -159,7 +158,6 @@ solution "kmeter"
 		defines {
 			"KMETER_STAND_ALONE=1",
 			"KMETER_SURROUND=1",
-			"JUCETICE_USE_AMALGAMA=1",
 			"JUCE_USE_VSTSDK_2_4=0"
 		}
 
@@ -204,7 +202,6 @@ solution "kmeter"
 		defines {
 			"KMETER_VST_PLUGIN=1",
 			"KMETER_STEREO=1",
-			"JUCETICE_USE_AMALGAMA=1",
 			"JUCE_USE_VSTSDK_2_4=1"
 		}
 
@@ -261,7 +258,6 @@ solution "kmeter"
 		defines {
 			"KMETER_VST_PLUGIN=1",
 			"KMETER_SURROUND=1",
-			"JUCETICE_USE_AMALGAMA=1",
 			"JUCE_USE_VSTSDK_2_4=1"
 		}
 
