@@ -125,13 +125,27 @@ directory.  Otherwise, you will not be able to use K-Meter.
 
 You can select the different K-System meter scales (\textbf{K-20},
 \textbf{K-14} and \textbf{K-12}) by clicking on these radio buttons.
+In the rare case that you want to use the meter in a mixer's channel
+strip, click the \textbf{Normal} button which will place \SI{0}{\dBFS}
+on top of the meter's scale.
 
-In the rare case you want to use the meter in a mixer's channel strip,
-click the \textbf{Normal} button which will place \SI{0}{\dBFS} on
-top.  Please note, however, that the \textbf{Normal} state will be
-neither saved, nor recalled in your DAW and the standalone version.
-This is by design -- the K-System meter has been explicitly designed
-to \textbf{not} have \SI{0}{\dBFS} on top!
+\begin{wrapfigure}{r}{0pt}
+  \includegraphics[scale=0.49,clip]{include/images/kmeter_normal_scale.png}
+\end{wrapfigure}
+
+With its \emph{two} green areas, the \textbf{Normal} meter also looks
+a little different.  It has been designed for gain staging during
+recording: average levels should stay in the lower green area (centred
+to \textbf{\SI{-20}{\dBFS}}), while peak levels should not exceed the
+upper yellow bar (\textbf{\SI{-9}{\dBFS}}).  For more information,
+have a look at my plug-in
+\href{http://code.mzuther.de/}{\textbf{traKmeter}} which may also be
+better suited for proper gain staging.
+
+\emph{Please note that the \textbf{Normal} state will be neither
+  saved, nor recalled in your DAW and the standalone version.  This is
+  by design -- the K-System meter has been explicitly designed to
+  \textbf{not} have \SI{0}{\dBFS} on top!}
 
 \section{Averaging method}
 
@@ -206,6 +220,8 @@ near the centre.
   easily magnify the whole range between \SI{-25}{\dBFS} and
   \SI{0}{\dBFS}.}
 
+\newpage %% layout
+
 \section{Mono mode}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
@@ -256,8 +272,6 @@ your VST host from a debugger.
 As a side note, \textbf{SMA(50)} designates the simple moving average
 of 50 values, a neat way to emphasise trends and eliminate short-term
 fluctuations.
-
-\newpage %% layout
 
 \section{About button}
 
@@ -854,6 +868,27 @@ Just extract the archive into the directory
 
 Simply extract the archive into the directory
 \path{libraries/asiosdk2.2}.
+
+\subsection{Python}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Importance:  \> optional \\
+  Version:     \> 3.2 (or higher) \\
+  License:     \> Python Software Foundation License \\
+  Homepage:    \> \href{http://www.python.org/}{www.python.org}
+\end{tabbing}
+
+You'll only need Python if you want to build \num{64}-bit versions of
+K-Meter using Visual Studio Express.
+
+\subsubsection{Installation (Windows)}
+
+You can download an installer from the website.  Please also install
+the \href{http://msdn.microsoft.com/windows/bb980924.aspx}{Windows
+  SDK} and change \path{run_premake.bat} to reflect the SDK's version
+number.
 
 \subsection{Artistic Style}
 

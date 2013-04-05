@@ -43,8 +43,8 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
         nMeterCrestFactor = 0;
 
         nLimitTopBars = nMeterCrestFactor - 20;
-        nLimitRedBars = -80;
-        nLimitAmberBars = -160;
+        nLimitRedBars = -90;
+        nLimitAmberBars = -180;
         nLimitGreenBars_1 = -400;
         nLimitGreenBars_2 = nLimitGreenBars_1;
     }
@@ -153,17 +153,47 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
             }
         }
 
-        if (nKmeterLevel > nLimitRedBars)
+        if (nCrestFactor == 0)
         {
-            nColor = 0;
-        }
-        else if (nKmeterLevel > nLimitAmberBars)
-        {
-            nColor = 1;
+            if (nKmeterLevel <= -280)
+            {
+                nColor = 0;
+            }
+            else if (nKmeterLevel <= -220)
+            {
+                nColor = 1;
+            }
+            else if ((nKmeterLevel > -160) && (nKmeterLevel <= -100))
+            {
+                nColor = 2;
+            }
+            else if (nKmeterLevel > nLimitRedBars)
+            {
+                nColor = 0;
+            }
+            else if (nKmeterLevel > nLimitAmberBars)
+            {
+                nColor = 1;
+            }
+            else
+            {
+                nColor = 2;
+            }
         }
         else
         {
-            nColor = 2;
+            if (nKmeterLevel > nLimitRedBars)
+            {
+                nColor = 0;
+            }
+            else if (nKmeterLevel > nLimitAmberBars)
+            {
+                nColor = 1;
+            }
+            else
+            {
+                nColor = 2;
+            }
         }
 
         nThreshold -= nRange;
