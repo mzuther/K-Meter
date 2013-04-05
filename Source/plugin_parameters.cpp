@@ -436,6 +436,7 @@ int KmeterPluginParameters::translateParameterToInt(int nIndex, float fValue)
 XmlElement KmeterPluginParameters::storeAsXml()
 {
     XmlElement xml("KMETER_SETTINGS");
+    xml.setAttribute("version", JucePlugin_VersionString);
 
     int nCrestFactor = getParameterAsInt(selCrestFactor);
 
