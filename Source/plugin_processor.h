@@ -98,6 +98,9 @@ public:
     bool acceptsMidi() const;
     bool producesMidi() const;
 
+    bool silenceInProducesSilenceOut() const;
+    double getTailLengthSeconds() const;
+
     MeterBallistics* getLevels();
     void processBufferChunk(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
@@ -149,6 +152,10 @@ private:
 
     int* nOverflows;
 };
+
+AudioProcessor* JUCE_CALLTYPE createPluginFilter();
+AudioProcessor* JUCE_CALLTYPE createPluginFilterOfType(AudioProcessor::WrapperType);
+
 
 #endif  // __KMETER_PLUGINPROCESSOR_H__
 

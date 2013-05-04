@@ -106,7 +106,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor
     ButtonDumpCSV->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationCSVFormat), false);
     contentComponent->addAndMakeVisible(ButtonDumpCSV);
 
-    SliderDumpSelectedChannel->setValue(pProcessor->getParameterAsInt(KmeterPluginParameters::selValidationSelectedChannel), false, false);
+    SliderDumpSelectedChannel->setValue(pProcessor->getParameterAsInt(KmeterPluginParameters::selValidationSelectedChannel), dontSendNotification);
     contentComponent->addAndMakeVisible(SliderDumpSelectedChannel);
 
     ButtonDumpAverageMeterLevel = new ToggleButton("Average meter level");
@@ -265,7 +265,7 @@ void WindowValidation::buttonClicked(Button* button)
             File selectedFile = browser.getSelectedFile(0);
             pProcessor->setParameterValidationFile(selectedFile);
             fileValidation = pProcessor->getParameterValidationFile();
-            LabelFileSelection->setText(fileValidation.getFileName(), false);
+            LabelFileSelection->setText(fileValidation.getFileName(), dontSendNotification);
         }
     }
 }

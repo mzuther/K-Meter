@@ -51,7 +51,7 @@ void OverflowMeter::setOverflows(int Overflows)
 
     if (nOverflows != nOverflowsOld)
     {
-        setText(String(nOverflows), false);
+        setText(String(nOverflows), dontSendNotification);
 
         if (nOverflowsOld == 0)
         {
