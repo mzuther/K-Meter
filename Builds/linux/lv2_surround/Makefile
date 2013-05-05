@@ -22,7 +22,7 @@ endif
 ifeq ($(config),debug32)
   OBJDIR     = ../../../bin/intermediate_linux/lv2_surround_debug/x32
   TARGETDIR  = ../../../bin/kmeter_lv2
-  TARGET     = $(TARGETDIR)/kmeter_surround_debug.so
+  TARGET     = $(TARGETDIR)/kmeter_surround_lv2_debug.so
   DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DKMETER_LV2_PLUGIN=1 -DKMETER_SURROUND=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_DIRECTSOUND=0
   INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
@@ -44,7 +44,7 @@ endif
 ifeq ($(config),release32)
   OBJDIR     = ../../../bin/intermediate_linux/lv2_surround_release/x32
   TARGETDIR  = ../../../bin/kmeter_lv2
-  TARGET     = $(TARGETDIR)/kmeter_surround.so
+  TARGET     = $(TARGETDIR)/kmeter_surround_lv2.so
   DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DKMETER_LV2_PLUGIN=1 -DKMETER_SURROUND=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_DIRECTSOUND=0
   INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
@@ -66,7 +66,7 @@ endif
 ifeq ($(config),debug64)
   OBJDIR     = ../../../bin/intermediate_linux/lv2_surround_debug/x64
   TARGETDIR  = ../../../bin/kmeter_lv2
-  TARGET     = $(TARGETDIR)/kmeter_surround_debug_x64.so
+  TARGET     = $(TARGETDIR)/kmeter_surround_lv2_debug_x64.so
   DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DKMETER_LV2_PLUGIN=1 -DKMETER_SURROUND=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_DIRECTSOUND=0
   INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
@@ -88,7 +88,7 @@ endif
 ifeq ($(config),release64)
   OBJDIR     = ../../../bin/intermediate_linux/lv2_surround_release/x64
   TARGETDIR  = ../../../bin/kmeter_lv2
-  TARGET     = $(TARGETDIR)/kmeter_surround_x64.so
+  TARGET     = $(TARGETDIR)/kmeter_surround_lv2_x64.so
   DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DKMETER_LV2_PLUGIN=1 -DKMETER_SURROUND=1 -DJUCE_USE_VSTSDK_2_4=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_DIRECTSOUND=0
   INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)

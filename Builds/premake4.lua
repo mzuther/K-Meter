@@ -199,7 +199,7 @@ solution "kmeter"
 		kind "SharedLib"
 		location (os.get() .. "/lv2_stereo")
 		targetdir "../bin/kmeter_lv2/"
-		targetname "kmeter_stereo"
+		targetname "kmeter_stereo_lv2"
 		targetprefix ""
 
 		defines {
@@ -252,7 +252,7 @@ solution "kmeter"
 		kind "SharedLib"
 		location (os.get() .. "/lv2_surround")
 		targetdir "../bin/kmeter_lv2/"
-		targetname "kmeter_surround"
+		targetname "kmeter_surround_lv2"
 		targetprefix ""
 
 		defines {
