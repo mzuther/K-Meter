@@ -3,7 +3,7 @@ K-Meter
 
 Implementation of a K-System meter according to Bob Katz' specifications
 
-Copyright (c) 2010-2012 [Martin Zuther][1]
+Copyright (c) 2010-2013 [Martin Zuther][1]
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
