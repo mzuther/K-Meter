@@ -27,13 +27,13 @@
 #ifdef KMETER_STAND_ALONE
 
 #include "standalone_application.h"
-
 START_JUCE_APPLICATION(StandaloneApplication)
 
 #endif
 
+
 // build VST plugin
-#ifdef KMETER_VST_PLUGIN
+#if defined (KMETER_VST_PLUGIN) || defined (KMETER_LV2_PLUGIN)
 
 // do nothing till you hear from me...
 

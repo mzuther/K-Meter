@@ -93,7 +93,6 @@ public:
         selK12,
         selK14,
         selK20,
-        selK23,
 
         nNumCrestFactors,
 

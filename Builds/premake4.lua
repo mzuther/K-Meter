@@ -195,6 +195,112 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
+	project (os.get() .. "_lv2_stereo")
+		kind "SharedLib"
+		location (os.get() .. "/lv2_stereo")
+		targetdir "../bin/kmeter_lv2/"
+		targetname "kmeter_stereo"
+		targetprefix ""
+
+		defines {
+			"KMETER_LV2_PLUGIN=1",
+			"KMETER_STEREO=1",
+			"JUCE_USE_VSTSDK_2_4=0"
+		}
+
+		files {
+			  "../libraries/juce/modules/juce_audio_plugin_client/LV2/juce_LV2_Wrapper.cpp"
+		}
+
+		excludes {
+			"../Source/standalone_application.h",
+			"../Source/standalone_application.cpp"
+		}
+
+		configuration {"linux"}
+			defines {
+				"LINUX=1",
+				"JUCE_USE_XSHM=1",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0",
+				"JUCE_ASIO=0",
+				"JUCE_DIRECTSOUND=0"
+			}
+
+			includedirs {
+				"/usr/include",
+				"/usr/include/freetype2"
+			}
+
+			links {
+				"freetype",
+				"pthread",
+				"rt",
+				"X11",
+				"Xext"
+			}
+
+		configuration "Debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_stereo_debug")
+
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_stereo_release")
+
+--------------------------------------------------------------------------------
+
+	project (os.get() .. "_lv2_surround")
+		kind "SharedLib"
+		location (os.get() .. "/lv2_surround")
+		targetdir "../bin/kmeter_lv2/"
+		targetname "kmeter_surround"
+		targetprefix ""
+
+		defines {
+			"KMETER_LV2_PLUGIN=1",
+			"KMETER_SURROUND=1",
+			"JUCE_USE_VSTSDK_2_4=0"
+		}
+
+		files {
+			  "../libraries/juce/modules/juce_audio_plugin_client/LV2/juce_LV2_Wrapper.cpp"
+		}
+
+		excludes {
+			"../Source/standalone_application.h",
+			"../Source/standalone_application.cpp"
+		}
+
+		configuration {"linux"}
+			defines {
+				"LINUX=1",
+				"JUCE_USE_XSHM=1",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0",
+				"JUCE_ASIO=0",
+				"JUCE_DIRECTSOUND=0"
+			}
+
+			includedirs {
+				"/usr/include",
+				"/usr/include/freetype2"
+			}
+
+			links {
+				"freetype",
+				"pthread",
+				"rt",
+				"X11",
+				"Xext"
+			}
+
+		configuration "Debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_surround_debug")
+
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_surround_release")
+
+--------------------------------------------------------------------------------
+
 	project (os.get() .. "_vst_stereo")
 		kind "SharedLib"
 		location (os.get() .. "/vst_stereo")

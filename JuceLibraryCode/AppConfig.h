@@ -45,30 +45,47 @@
 ---------------------------------------------------------------------------- */
 
 #ifdef KMETER_SURROUND
-#ifdef DEBUG
-#define JucePlugin_Name                 "K-Meter (Surround, Debug)"
+  #ifdef DEBUG
+    #define JucePlugin_Name                 "K-Meter (Surround, Debug)"
+  #else
+    #define JucePlugin_Name                 "K-Meter (Surround)"
+  #endif
 #else
-#define JucePlugin_Name                 "K-Meter (Surround)"
-#endif
-#else
-#ifdef DEBUG
-#define JucePlugin_Name                 "K-Meter (Stereo, Debug)"
-#else
-#define JucePlugin_Name                 "K-Meter (Stereo)"
-#endif
+  #ifdef DEBUG
+    #define JucePlugin_Name                 "K-Meter (Stereo, Debug)"
+  #else
+    #define JucePlugin_Name                 "K-Meter (Stereo)"
+  #endif
 #endif
 
 #ifdef KMETER_SURROUND
-#define JucePlugin_MaxNumInputChannels  6
-#define JucePlugin_MaxNumOutputChannels 6
-#define JucePlugin_PreferredChannelConfigurations   {6, 6}
+  #define JucePlugin_MaxNumInputChannels   6
+  #define JucePlugin_MaxNumOutputChannels  6
+  #define JucePlugin_PreferredChannelConfigurations   {6, 6}
 #else
-#define JucePlugin_MaxNumInputChannels  2
-#define JucePlugin_MaxNumOutputChannels 2
-#define JucePlugin_PreferredChannelConfigurations   {1, 1}, {2, 2}
+  #define JucePlugin_MaxNumInputChannels   2
+  #define JucePlugin_MaxNumOutputChannels  2
+  #define JucePlugin_PreferredChannelConfigurations   {1, 1}, {2, 2}
 #endif
 
 #define JUCE_USE_FLAC  1
+
+#ifdef KMETER_SURROUND
+  #ifdef DEBUG
+    #define JucePlugin_LV2URI "http://code.mzuther.de/kmeter/surround/debug"
+  #else
+    #define JucePlugin_LV2URI "http://code.mzuther.de/kmeter/surround"
+  #endif
+#else
+  #ifdef DEBUG
+    #define JucePlugin_LV2URI "http://code.mzuther.de/kmeter/stereo/debug"
+  #else
+    #define JucePlugin_LV2URI "http://code.mzuther.de/kmeter/stereo"
+  #endif
+#endif
+
+#define JucePlugin_LV2Category "AnalyserPlugin"
+
 // [END_USER_CODE_SECTION]
 
 //==============================================================================
@@ -238,6 +255,9 @@
 
 #ifndef  JucePlugin_Build_VST
  #define JucePlugin_Build_VST              1
+#endif
+#ifndef  JucePlugin_Build_LV2
+ #define JucePlugin_Build_LV2              1
 #endif
 #ifndef  JucePlugin_Build_AU
  #define JucePlugin_Build_AU               0
