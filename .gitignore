@@ -11,6 +11,7 @@ mz_*
 .Rhistory
 
 bin/*
+!bin/kmeter_lv2/
 !bin/final/
 !bin/releases/
 

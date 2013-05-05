@@ -45,30 +45,47 @@
 ---------------------------------------------------------------------------- */
 
 #ifdef KMETER_SURROUND
-#ifdef DEBUG
-#define JucePlugin_Name                 "K-Meter (Surround, Debug)"
+  #ifdef DEBUG
+    #define JucePlugin_Name                 "K-Meter (Surround, Debug)"
+  #else
+    #define JucePlugin_Name                 "K-Meter (Surround)"
+  #endif
 #else
-#define JucePlugin_Name                 "K-Meter (Surround)"
-#endif
-#else
-#ifdef DEBUG
-#define JucePlugin_Name                 "K-Meter (Stereo, Debug)"
-#else
-#define JucePlugin_Name                 "K-Meter (Stereo)"
-#endif
+  #ifdef DEBUG
+    #define JucePlugin_Name                 "K-Meter (Stereo, Debug)"
+  #else
+    #define JucePlugin_Name                 "K-Meter (Stereo)"
+  #endif
 #endif
 
 #ifdef KMETER_SURROUND
-#define JucePlugin_MaxNumInputChannels  6
-#define JucePlugin_MaxNumOutputChannels 6
-#define JucePlugin_PreferredChannelConfigurations   {6, 6}
+  #define JucePlugin_MaxNumInputChannels   6
+  #define JucePlugin_MaxNumOutputChannels  6
+  #define JucePlugin_PreferredChannelConfigurations   {6, 6}
 #else
-#define JucePlugin_MaxNumInputChannels  2
-#define JucePlugin_MaxNumOutputChannels 2
-#define JucePlugin_PreferredChannelConfigurations   {1, 1}, {2, 2}
+  #define JucePlugin_MaxNumInputChannels   2
+  #define JucePlugin_MaxNumOutputChannels  2
+  #define JucePlugin_PreferredChannelConfigurations   {1, 1}, {2, 2}
 #endif
 
 #define JUCE_USE_FLAC  1
+
+#ifdef KMETER_SURROUND
+  #ifdef DEBUG
+    #define JucePlugin_LV2URI "http://code.mzuther.de/kmeter/surround/debug"
+  #else
+    #define JucePlugin_LV2URI "http://code.mzuther.de/kmeter/surround"
+  #endif
+#else
+  #ifdef DEBUG
+    #define JucePlugin_LV2URI "http://code.mzuther.de/kmeter/stereo/debug"
+  #else
+    #define JucePlugin_LV2URI "http://code.mzuther.de/kmeter/stereo"
+  #endif
+#endif
+
+#define JucePlugin_LV2Category "AnalyserPlugin"
+
 // [END_USER_CODE_SECTION]
 
 //==============================================================================
@@ -136,6 +153,10 @@
 
 #ifndef    JUCE_USE_MP3AUDIOFORMAT
  //#define JUCE_USE_MP3AUDIOFORMAT
+#endif
+
+#ifndef    JUCE_USE_LAME_AUDIO_FORMAT
+ //#define JUCE_USE_LAME_AUDIO_FORMAT
 #endif
 
 #ifndef    JUCE_USE_WINDOWS_MEDIA_FORMAT
@@ -235,11 +256,17 @@
 #ifndef  JucePlugin_Build_VST
  #define JucePlugin_Build_VST              1
 #endif
+#ifndef  JucePlugin_Build_LV2
+ #define JucePlugin_Build_LV2              1
+#endif
 #ifndef  JucePlugin_Build_AU
  #define JucePlugin_Build_AU               0
 #endif
 #ifndef  JucePlugin_Build_RTAS
  #define JucePlugin_Build_RTAS             0
+#endif
+#ifndef  JucePlugin_Build_AAX
+ #define JucePlugin_Build_AAX              0
 #endif
 #ifndef  JucePlugin_Name
  #define JucePlugin_Name                   "K-Meter"
@@ -277,17 +304,17 @@
 #ifndef  JucePlugin_SilenceInProducesSilenceOut
  #define JucePlugin_SilenceInProducesSilenceOut  1
 #endif
-#ifndef  JucePlugin_TailLengthSeconds
- #define JucePlugin_TailLengthSeconds      0
-#endif
 #ifndef  JucePlugin_EditorRequiresKeyboardFocus
  #define JucePlugin_EditorRequiresKeyboardFocus  0
 #endif
+#ifndef  JucePlugin_Version
+ #define JucePlugin_Version                1.30.2
+#endif
 #ifndef  JucePlugin_VersionCode
- #define JucePlugin_VersionCode            0x11f00
+ #define JucePlugin_VersionCode            0x11e02
 #endif
 #ifndef  JucePlugin_VersionString
- #define JucePlugin_VersionString          "1.31.0"
+ #define JucePlugin_VersionString          "1.30.2"
 #endif
 #ifndef  JucePlugin_VSTUniqueID
  #define JucePlugin_VSTUniqueID            JucePlugin_PluginCode
@@ -313,9 +340,6 @@
 #ifndef  JucePlugin_CFBundleIdentifier
  #define JucePlugin_CFBundleIdentifier     de.mzuther.KMeter
 #endif
-#ifndef  JucePlugin_AUCocoaViewClassName
- #define JucePlugin_AUCocoaViewClassName   KMeterAU_V1
-#endif
 #ifndef  JucePlugin_RTASCategory
  #define JucePlugin_RTASCategory           ePlugInCategory_None
 #endif
@@ -324,6 +348,30 @@
 #endif
 #ifndef  JucePlugin_RTASProductId
  #define JucePlugin_RTASProductId          JucePlugin_PluginCode
+#endif
+#ifndef  JucePlugin_RTASDisableBypass
+ #define JucePlugin_RTASDisableBypass      0
+#endif
+#ifndef  JucePlugin_RTASDisableMultiMono
+ #define JucePlugin_RTASDisableMultiMono   0
+#endif
+#ifndef  JucePlugin_AAXIdentifier
+ #define JucePlugin_AAXIdentifier          de.mzuther.KMeter
+#endif
+#ifndef  JucePlugin_AAXManufacturerCode
+ #define JucePlugin_AAXManufacturerCode    JucePlugin_ManufacturerCode
+#endif
+#ifndef  JucePlugin_AAXProductId
+ #define JucePlugin_AAXProductId           JucePlugin_PluginCode
+#endif
+#ifndef  JucePlugin_AAXPluginId
+ #define JucePlugin_AAXPluginId            JucePlugin_PluginCode
+#endif
+#ifndef  JucePlugin_AAXCategory
+ #define JucePlugin_AAXCategory            AAX_ePlugInCategory_Dynamics
+#endif
+#ifndef  JucePlugin_AAXDisableBypass
+ #define JucePlugin_AAXDisableBypass       0
 #endif
 
 #endif  // __JUCE_APPCONFIG_LEMWQ6__

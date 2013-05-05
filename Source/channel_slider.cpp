@@ -32,7 +32,7 @@ ChannelSlider::ChannelSlider(const String& componentName, int nNumChannels) : Sl
     setTextBoxStyle(Slider::TextBoxLeft, true, 30, 20);
     setIncDecButtonsMode(Slider::incDecButtonsNotDraggable);
 
-    setValue(-1, false, false);
+    setValue(-1, dontSendNotification);
 }
 
 

@@ -99,6 +99,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
         L"Martin Zuther\n"
         L"Bob Katz\n"
         L"bram@smartelectronix\n"
+        L"Filipe Lopes\n"
         L"Raiden\n\n"
     );
 
@@ -145,6 +146,9 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
         L"JACK\n"
 #endif
         L"JUCE\n"
+#if (KMETER_LV2_PLUGIN != 0)
+        L"LV2\n"
+#endif
 #ifdef LINUX
         L"POSIX Threads\n"
         L"Xlib\n"

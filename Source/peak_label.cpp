@@ -74,11 +74,11 @@ void PeakLabel::updateLevel(float newLevel)
 
     if (fCorrectedLevel < 0.0f)
     {
-        setText(String(fCorrectedLevel, 1), false);
+        setText(String(fCorrectedLevel, 1), dontSendNotification);
     }
     else
     {
-        setText("+" + String(fCorrectedLevel, 1), false);
+        setText("+" + String(fCorrectedLevel, 1), dontSendNotification);
     }
 
     if (fMaximumLevel < -0.20f)

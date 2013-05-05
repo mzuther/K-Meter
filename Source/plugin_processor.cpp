@@ -285,6 +285,18 @@ bool KmeterAudioProcessor::producesMidi() const
 }
 
 
+bool KmeterAudioProcessor::silenceInProducesSilenceOut() const
+{
+    return true;
+}
+
+
+double KmeterAudioProcessor::getTailLengthSeconds() const
+{
+    return 0.0;
+}
+
+
 int KmeterAudioProcessor::getNumChannels()
 {
     return nNumInputChannels;
@@ -747,8 +759,14 @@ void KmeterAudioProcessor::setStateInformation(const void* data, int sizeInBytes
 
 //==============================================================================
 
-// This creates new instances of the plug-in..
+// This creates new instances of the plug-in.
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
+{
+    return new KmeterAudioProcessor();
+}
+
+
+AudioProcessor* JUCE_CALLTYPE createPluginFilterOfType(AudioProcessor::WrapperType)
 {
     return new KmeterAudioProcessor();
 }
