@@ -24,6 +24,8 @@
           <http://code.mzuther.de/kmeter/surround#ParentUI> ;
 
     doap:name "K-Meter (Surround)" ;
+    doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+    doap:shortdesc "Implementation of a K-System meter according to Bob Katz' specifications." ;
 
     doap:creator [
         foaf:name "Martin Zuther";
