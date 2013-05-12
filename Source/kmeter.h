@@ -72,7 +72,6 @@ private:
     MeterBar** LevelMeters;
     OverflowMeter** OverflowMeters;
     PeakLabel** MaximumPeakLabels;
-    PeakLabel** MaximumTruePeakLabels;
 
     void drawMarkersMono(Graphics& g, String& strMarker, int x, int y, int width, int height);
     void drawMarkersStereo(Graphics& g, String& strMarker, int x, int y, int width, int height);

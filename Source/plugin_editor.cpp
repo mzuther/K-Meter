@@ -207,19 +207,19 @@ void KmeterAudioProcessorEditor::resizeEditor()
 {
     if (nInputChannels <= 2)
     {
-        nHeight = 666;
+        nHeight = 648;
         nRightColumnStart = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 24;
     }
     else
     {
         if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
         {
-            nHeight = 648;
+            nHeight = 630;
             nRightColumnStart = Kmeter::KMETER_STEREO_WIDTH + 24;
         }
         else
         {
-            nHeight = 648;
+            nHeight = 630;
             nRightColumnStart = nStereoInputChannels * (Kmeter::KMETER_STEREO_WIDTH + 6) + 18;
         }
     }

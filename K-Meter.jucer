@@ -89,10 +89,6 @@
       <FILE id="ilqjYl" name="stereo_meter.cpp" compile="1" resource="0"
             file="Source/stereo_meter.cpp"/>
       <FILE id="rG913U" name="stereo_meter.h" compile="0" resource="0" file="Source/stereo_meter.h"/>
-      <FILE id="OCP0ch" name="true_peak_meter.cpp" compile="1" resource="0"
-            file="Source/true_peak_meter.cpp"/>
-      <FILE id="vQ80wO" name="true_peak_meter.h" compile="0" resource="0"
-            file="Source/true_peak_meter.h"/>
       <FILE id="MD4T8y" name="window_about.cpp" compile="1" resource="0"
             file="Source/window_about.cpp"/>
       <FILE id="FFhQ1L" name="window_about.h" compile="0" resource="0" file="Source/window_about.h"/>

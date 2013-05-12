@@ -1,11 +1,9 @@
 Git HEAD
 ========
 
-* added "K-23" scale
+* LV2 plug-in (GNU/Linux)
 
-* added true peak meter according to ITU-R BS.1770-3
-
-* overflow meter now counts "true peak" overflows
+* updated framework to JUCE v2.40
 
 
 v1.30 (2012-09-06)

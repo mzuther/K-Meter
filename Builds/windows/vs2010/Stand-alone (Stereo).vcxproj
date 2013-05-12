@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{E1EA85D3-7B72-053B-1887-5AA8A3992204}</ProjectGuid>
+		<ProjectGuid>{AEB0D472-E4B4-0651-07A0-73EC2287E4D0}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -214,7 +214,6 @@
 		<ClInclude Include="..\..\..\Source\stereo_meter.h" />
 		<ClInclude Include="..\..\..\Source\overflow_meter.h" />
 		<ClInclude Include="..\..\..\Source\audio_ring_buffer.h" />
-		<ClInclude Include="..\..\..\Source\true_peak_meter.h" />
 		<ClInclude Include="..\..\..\Source\peak_label.h" />
 		<ClInclude Include="..\..\..\Source\kmeter.h" />
 		<ClInclude Include="..\..\..\Source\phase_correlation_meter.h" />
@@ -238,8 +237,6 @@
 		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\averager.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\true_peak_meter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\main.cpp">
 		</ClCompile>

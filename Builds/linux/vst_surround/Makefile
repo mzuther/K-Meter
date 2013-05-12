@@ -113,7 +113,6 @@ OBJECTS := \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/averager.o \
-	$(OBJDIR)/true_peak_meter.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/average_level_filtered.o \
 	$(OBJDIR)/window_validation.o \
@@ -216,9 +215,6 @@ $(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/averager.o: ../../../Source/averager.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/true_peak_meter.o: ../../../Source/true_peak_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/main.o: ../../../Source/main.cpp

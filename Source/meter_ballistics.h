@@ -49,14 +49,10 @@ public:
     float getPeakMeterLevel(int nChannel);
     float getPeakMeterPeakLevel(int nChannel);
 
-    float getTruePeakMeterLevel(int nChannel);
-    float getTruePeakMeterPeakLevel(int nChannel);
-
     float getAverageMeterLevel(int nChannel);
     float getAverageMeterPeakLevel(int nChannel);
 
     float getMaximumPeakLevel(int nChannel);
-    float getMaximumTruePeakLevel(int nChannel);
     int getNumberOfOverflows(int nChannel);
 
     float getStereoMeterValue();
@@ -65,7 +61,7 @@ public:
     float getPhaseCorrelation();
     void setPhaseCorrelation(float fTimePassed, float fPhaseCorrelationNew);
 
-    void updateChannel(int nChannel, float fTimePassed, float fPeak, float fTruePeak, float fRms, float fAverageFiltered, int nOverflows);
+    void updateChannel(int nChannel, float fTimePassed, float fPeak, float fRms, float fAverageFiltered, int nOverflows);
 
     static float level2decibel(float fLevel);
     static float decibel2level(float fDecibels);
@@ -82,18 +78,13 @@ private:
     float* fPeakMeterLevels;
     float* fPeakMeterPeakLevels;
 
-    float* fTruePeakMeterLevels;
-    float* fTruePeakMeterPeakLevels;
-
     float* fAverageMeterLevels;
     float* fAverageMeterPeakLevels;
 
     float* fMaximumPeakLevels;
-    float* fMaximumTruePeakLevels;
     int* nNumberOfOverflows;
 
     float* fPeakMeterPeakLastChanged;
-    float* fTruePeakMeterPeakLastChanged;
     float* fAverageMeterPeakLastChanged;
 
     float fStereoMeterValue;
@@ -101,9 +92,6 @@ private:
 
     float PeakMeterBallistics(float fTimePassed, float fPeakLevelCurrent, float fPeakLevelOld);
     float PeakMeterPeakBallistics(float fTimePassed, float* fLastChanged, float fPeakLevelCurrent, float fPeakLevelOld);
-
-    float TruePeakMeterBallistics(float fTimePassed, float fTruePeakLevelCurrent, float fTruePeakLevelOld);
-    float TruePeakMeterPeakBallistics(float fTimePassed, float* fLastChanged, float fTruePeakCurrent, float fTruePeakOld);
 
     void AverageMeterBallistics(int nChannel, float fTimePassed, float fAverageLevelCurrent);
     float AverageMeterPeakBallistics(float fTimePassed, float* fLastChanged, float fAverageLevelCurrent, float fAverageLevelOld);
