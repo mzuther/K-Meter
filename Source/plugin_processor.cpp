@@ -451,7 +451,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 
     if (nNumInputChannels < 1)
     {
-        DBG("[K-Meter] nNumInputChannels < 1");
+        Logger::outputDebugString("[K-Meter] nNumInputChannels < 1");
         return;
     }
 
