@@ -135,6 +135,21 @@ void KmeterAudioProcessor::setParameter(int index, float newValue)
 }
 
 
+void KmeterAudioProcessor::updateParameters(bool bIncludeHiddenParameters)
+{
+    int nNumParameters = pPluginParameters->getNumParameters(bIncludeHiddenParameters);
+
+    for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
+    {
+        if (pPluginParameters->isParameterMarked(nIndex))
+        {
+            float fValue = pPluginParameters->getParameterAsFloat(nIndex);
+            changeParameter(nIndex, fValue);
+        }
+    }
+}
+
+
 bool KmeterAudioProcessor::getParameterAsBool(int nIndex)
 {
     // This method will be called by the host, probably on the audio
@@ -370,7 +385,10 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
         nOverflows[nChannel] = 0;
     }
 
-    pAverageLevelFiltered = new AverageLevelFiltered(this, nNumInputChannels, KMETER_BUFFER_SIZE, (int) sampleRate, nAverageAlgorithm);
+    if (nNumInputChannels > 0)
+    {
+        pAverageLevelFiltered = new AverageLevelFiltered(this, nNumInputChannels, KMETER_BUFFER_SIZE, (int) sampleRate, nAverageAlgorithm);
+    }
 
     // make sure that ring buffer can hold at least KMETER_BUFFER_SIZE
     // samples and is large enough to receive a full block of audio
@@ -762,6 +780,7 @@ void KmeterAudioProcessor::setStateInformation(const void* data, int sizeInBytes
 {
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     pPluginParameters->loadFromXml(xml);
+    updateParameters(false);
 }
 
 //==============================================================================

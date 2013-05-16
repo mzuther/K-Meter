@@ -72,6 +72,7 @@ public:
     bool getParameterAsBool(int nIndex);
 
     void setParameter(int index, float newValue);
+    void updateParameters(bool bIncludeHiddenParameters);
 
     File getParameterValidationFile();
     void setParameterValidationFile(File& fileValidation);
