@@ -143,8 +143,8 @@ void KmeterAudioProcessor::updateParameters(bool bIncludeHiddenParameters)
     {
         if (pPluginParameters->isParameterMarked(nIndex))
         {
-            float fValue = pPluginParameters->getParameterAsFloat(nIndex);
-            changeParameter(nIndex, fValue);
+            int nValue = pPluginParameters->getParameterAsInt(nIndex);
+            changeParameter(nIndex, nValue);
         }
     }
 }
@@ -367,6 +367,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     isStereo = (nNumInputChannels == 2);
 
     DBG("[K-Meter] number of input channels: " + String(nNumInputChannels));
+    jassert(nNumInputChannels > 0);
 
     pMeterBallistics = new MeterBallistics(nNumInputChannels, nAverageAlgorithm, false, false);
 
