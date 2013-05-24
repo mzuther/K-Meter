@@ -86,6 +86,14 @@
 
 #define JucePlugin_LV2Category "AnalyserPlugin"
 
+#ifndef JucePlugin_Build_LV2
+  #ifdef KMETER_LV2_PLUGIN
+    #define JucePlugin_Build_LV2  1
+  #else
+    #define JucePlugin_Build_LV2  0
+  #endif
+#endif
+
 // [END_USER_CODE_SECTION]
 
 //==============================================================================
@@ -255,9 +263,6 @@
 
 #ifndef  JucePlugin_Build_VST
  #define JucePlugin_Build_VST              1
-#endif
-#ifndef  JucePlugin_Build_LV2
- #define JucePlugin_Build_LV2              1
 #endif
 #ifndef  JucePlugin_Build_AU
  #define JucePlugin_Build_AU               0

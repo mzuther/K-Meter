@@ -209,6 +209,7 @@ solution "kmeter"
 		}
 
 		files {
+			  "../libraries/juce/modules/juce_audio_plugin_client/utility/juce_PluginUtilities.cpp",
 			  "../libraries/juce/modules/juce_audio_plugin_client/LV2/juce_LV2_Wrapper.cpp"
 		}
 
@@ -262,6 +263,7 @@ solution "kmeter"
 		}
 
 		files {
+			  "../libraries/juce/modules/juce_audio_plugin_client/utility/juce_PluginUtilities.cpp",
 			  "../libraries/juce/modules/juce_audio_plugin_client/LV2/juce_LV2_Wrapper.cpp"
 		}
 
@@ -318,6 +320,7 @@ solution "kmeter"
 		}
 
 		files {
+			  "../libraries/juce/modules/juce_audio_plugin_client/utility/juce_PluginUtilities.cpp",
 			  "../libraries/juce/modules/juce_audio_plugin_client/VST/juce_VST_Wrapper.cpp"
 		}
 
@@ -374,6 +377,7 @@ solution "kmeter"
 		}
 
 		files {
+			  "../libraries/juce/modules/juce_audio_plugin_client/utility/juce_PluginUtilities.cpp",
 			  "../libraries/juce/modules/juce_audio_plugin_client/VST/juce_VST_Wrapper.cpp"
 		}
 

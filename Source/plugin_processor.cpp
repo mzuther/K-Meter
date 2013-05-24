@@ -205,10 +205,12 @@ void KmeterAudioProcessor::changeParameter(int index, int nValue)
 {
     if (index == KmeterPluginParameters::selMono)
     {
+        // automatically enable "Mono" button for mono channels
         if (nNumInputChannels < 2)
         {
             nValue = true;
         }
+        // automatically disable "Mono" button for multi-channel audio
         else if (nNumInputChannels > 2)
         {
             nValue = false;
@@ -364,10 +366,15 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     }
 
     nNumInputChannels = getNumInputChannels();
-    isStereo = (nNumInputChannels == 2);
 
+    if (nNumInputChannels < 1)
+    {
+        nNumInputChannels = JucePlugin_MaxNumInputChannels;
+        DBG("[K-Meter] no input channels detected, correcting this");
+    }
+
+    isStereo = (nNumInputChannels == 2);
     DBG("[K-Meter] number of input channels: " + String(nNumInputChannels));
-    jassert(nNumInputChannels > 0);
 
     pMeterBallistics = new MeterBallistics(nNumInputChannels, nAverageAlgorithm, false, false);
 
@@ -386,10 +393,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
         nOverflows[nChannel] = 0;
     }
 
-    if (nNumInputChannels > 0)
-    {
-        pAverageLevelFiltered = new AverageLevelFiltered(this, nNumInputChannels, KMETER_BUFFER_SIZE, (int) sampleRate, nAverageAlgorithm);
-    }
+    pAverageLevelFiltered = new AverageLevelFiltered(this, nNumInputChannels, KMETER_BUFFER_SIZE, (int) sampleRate, nAverageAlgorithm);
 
     // make sure that ring buffer can hold at least KMETER_BUFFER_SIZE
     // samples and is large enough to receive a full block of audio
@@ -788,12 +792,6 @@ void KmeterAudioProcessor::setStateInformation(const void* data, int sizeInBytes
 
 // This creates new instances of the plug-in.
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
-{
-    return new KmeterAudioProcessor();
-}
-
-
-AudioProcessor* JUCE_CALLTYPE createPluginFilterOfType(AudioProcessor::WrapperType)
 {
     return new KmeterAudioProcessor();
 }

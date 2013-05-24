@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{ACAB0388-90B6-1A3E-AA2D-696AE01A3B18}</ProjectGuid>
+		<ProjectGuid>{BC147D68-D09A-76C4-6256-AC01C623639C}</ProjectGuid>
 		<RootNamespace>Stand-alone (Surround)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>

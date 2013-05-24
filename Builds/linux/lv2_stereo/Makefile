@@ -141,6 +141,7 @@ OBJECTS := \
 	$(OBJDIR)/juce_gui_basics.o \
 	$(OBJDIR)/juce_gui_extra.o \
 	$(OBJDIR)/juce_video.o \
+	$(OBJDIR)/juce_PluginUtilities.o \
 	$(OBJDIR)/juce_LV2_Wrapper.o \
 
 RESOURCES := \
@@ -299,6 +300,9 @@ $(OBJDIR)/juce_gui_extra.o: ../../../libraries/juce/modules/juce_gui_extra/juce_
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_video.o: ../../../libraries/juce/modules/juce_video/juce_video.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/juce_PluginUtilities.o: ../../../libraries/juce/modules/juce_audio_plugin_client/utility/juce_PluginUtilities.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_LV2_Wrapper.o: ../../../libraries/juce/modules/juce_audio_plugin_client/LV2/juce_LV2_Wrapper.cpp

@@ -153,8 +153,6 @@ private:
 };
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter();
-AudioProcessor* JUCE_CALLTYPE createPluginFilterOfType(AudioProcessor::WrapperType);
-
 
 #endif  // __KMETER_PLUGINPROCESSOR_H__
 

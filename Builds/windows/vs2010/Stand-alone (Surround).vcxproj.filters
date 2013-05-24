@@ -2,58 +2,58 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="Source">
-			<UniqueIdentifier>{C9A7340B-1C70-1473-0C40-FED5A7665E1C}</UniqueIdentifier>
+			<UniqueIdentifier>{44CE7637-CB9B-1FF2-5B65-C1DCC347DC51}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\resources">
-			<UniqueIdentifier>{9077A489-19A3-BFA8-997E-CFB3076DFA10}</UniqueIdentifier>
+			<UniqueIdentifier>{F75AAFF8-8839-65FB-FD43-ED964BA83E4A}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries">
-			<UniqueIdentifier>{23A1937D-9DB0-0A6A-EE58-70B888C05625}</UniqueIdentifier>
+			<UniqueIdentifier>{D541FF37-83E0-6D93-BE84-D35A7C08E464}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce">
-			<UniqueIdentifier>{1A80B308-BDC4-3F90-B36A-2BA34F84490B}</UniqueIdentifier>
+			<UniqueIdentifier>{3DDF976C-28C4-63D6-EC1D-8F586CA63894}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules">
-			<UniqueIdentifier>{23E79470-EEA6-853C-89FF-092EC8E9EAB4}</UniqueIdentifier>
+			<UniqueIdentifier>{1D2D75A0-D9BA-146A-DC1B-17B230232D57}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_basics">
-			<UniqueIdentifier>{32308135-EAA5-19A6-C0FE-43C1915798EF}</UniqueIdentifier>
+			<UniqueIdentifier>{903DF001-19CF-5FDB-954A-9A8EB1149DBC}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_devices">
-			<UniqueIdentifier>{7B7CE7DF-3E08-6043-C5DE-36F0E75A3EB5}</UniqueIdentifier>
+			<UniqueIdentifier>{070A17B7-3CEE-36CA-C03F-12A13D431AB2}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_formats">
-			<UniqueIdentifier>{A05C6604-4A36-FD92-E38A-652CA0B8DBA0}</UniqueIdentifier>
+			<UniqueIdentifier>{23E9FB56-FF5F-681E-DF0D-095CBA214782}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_processors">
-			<UniqueIdentifier>{AB9E3F47-A340-1B88-4C40-71F664E20F78}</UniqueIdentifier>
+			<UniqueIdentifier>{A0EF40ED-E8AA-0479-05D6-FEF1B177E2C5}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_utils">
-			<UniqueIdentifier>{A6C66F3C-9494-03E3-EB21-3D4C146B42EF}</UniqueIdentifier>
+			<UniqueIdentifier>{92DACFFC-C465-32C7-8FFB-E9B37C4FF882}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_core">
-			<UniqueIdentifier>{1883C1F7-A835-A830-1E57-1C0B53C6DB3E}</UniqueIdentifier>
+			<UniqueIdentifier>{B609D802-B07B-CCE9-B061-6F2FC1E23FCC}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_cryptography">
-			<UniqueIdentifier>{167EE9F5-ED68-4E11-D0A2-A900E7359481}</UniqueIdentifier>
+			<UniqueIdentifier>{F17A86C4-CC0F-F60B-9137-596F1FB00CD3}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_data_structures">
-			<UniqueIdentifier>{8BCC5E48-72D6-AFB5-63D7-DF32C72ADB46}</UniqueIdentifier>
+			<UniqueIdentifier>{A897F581-3B7C-339D-AFB3-D823F4970F7C}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_events">
-			<UniqueIdentifier>{31D2AE83-5674-A409-6F82-9FCC8CC9A3DA}</UniqueIdentifier>
+			<UniqueIdentifier>{FDDC753A-04A7-3231-9536-130D4C4409E2}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_graphics">
-			<UniqueIdentifier>{E12AD82E-A564-E287-C2DC-35FAA1D065AF}</UniqueIdentifier>
+			<UniqueIdentifier>{7A051029-F558-8636-7241-F27625407B15}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_gui_basics">
-			<UniqueIdentifier>{945A0B8B-4E76-93C0-2DF3-31DB090F6BBD}</UniqueIdentifier>
+			<UniqueIdentifier>{EE6581D3-0918-D7DA-AC1D-2F03C01DEB15}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_gui_extra">
-			<UniqueIdentifier>{DB6B5BDC-F0DD-BDBC-BDD4-F434E2141281}</UniqueIdentifier>
+			<UniqueIdentifier>{532D9314-1C0A-AF9B-F46A-AC8F37EBC9EC}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_video">
-			<UniqueIdentifier>{B0909705-0ED5-5BBB-FA04-542E8E6ACD36}</UniqueIdentifier>
+			<UniqueIdentifier>{D5022B5E-6A0A-E89D-97C1-C5B5F1959F4A}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
