@@ -111,8 +111,9 @@ may well result in lower resource usage later.
 \section{Windows}
 
 If you move the pre-compiled binaries to another directory, please
-make sure to also move the file \path{libfftw3f-3.dll} to this
-directory.  Otherwise, you will not be able to use K-Meter.
+make sure to also move the file \path{libfftw3f-3.dll} (or
+\path{libfftw3f-3_x64.dll}) to this directory.  Otherwise, you will
+not be able to use K-Meter.
 
 \chapter{Controls}
 \label{chap:controls}
@@ -169,8 +170,8 @@ as ``K-20/ITU''.
 \emph{\underline{Note:} K-Meter fully implements Annex 1 of the now
   superseded ITU-R BS.1770-1 standard ('K' frequency weighting, mean
   square calculation and channel-weighted summation), whereas the
-  gated loudness measurement specified in ITU-R BS.1770-2 is not yet
-  supported.}
+  gated loudness measurement specified in ITU-R BS.1770-2 is not (and
+  will not be) supported.}
 
 \section{Infinite peak hold}
 
@@ -399,8 +400,7 @@ warning than have my audio files clip.
 \end{wrapfigure}
 
 This meter displays the maximum peak level encountered so far in
-\si{\dB}.  In case the level exceeds \SI{0.0}{\dBFS} (this can occur
-in hosts that do not clip levels to \SI{0.0}{\dBFS}), the meter will
+\si{\dB}.  In case the level exceeds \SI{-0.2}{\dBFS}, the meter will
 turn red.
 
 \emph{Please note that this display does not register inter-sample
@@ -452,10 +452,10 @@ You want to validate for yourself?  Just download and extract the
 source code.  The directory \path{validation} contains instructions
 and FLAC-compressed wave files.  To validate \textbf{ITU-R} mode,
 please download \href{http://www.itu.int/pub/R-REP-BS.2217}{ITU-R
-  BS.2217} and follow the instructions (at the time being, the tests
-for loudness gating should be ignored).  A word of warning: these
-audio files may \textbf{damage your ears} and speakers, so please
-watch your monitor levels!
+  BS.2217-1} and follow the instructions (ignore the tests for
+loudness gating).  A word of warning: these audio files may
+\textbf{damage your ears} and speakers, so please watch your monitor
+levels!
 
 \begin{wrapfigure}{r}{0.395\linewidth}
   \includegraphics[scale=\screenshotscale,clip]{include/images/dialog_validation.png}
@@ -475,12 +475,11 @@ start playback of the selected audio file.  All audio input will be
 discarded during playback and for an additional ten seconds.  To stop
 playback early, simply click on the \textbf{validate} button again.
 
-In case you want to calibrate your monitor system, head over to
-\href{http://www.digido.com/media/downloads.html}{Bob Katz's download
-  section}, get the file labelled \textbf{\SI{-20}{\dBFS} RMS pink
-  noise stereo \num{44.1}}, set K-meter to \textbf{RMS} mode and click
-on the \textbf{validate} button.  Please ensure that all intermediate
-software and hardware mixers are set to the correct levels.
+In case you want to calibrate your monitor system, locate the file
+\path{pink_noise_bandlimited.flac} in the directory \path{validation},
+set K-meter to \textbf{RMS} mode and click on the \textbf{validate}
+button.  Please ensure that all intermediate software and hardware
+mixers are set to the correct levels.
 
 \section{Validation status}
 
@@ -514,7 +513,7 @@ software and hardware mixers are set to the correct levels.
     --- \\
 
     &
-    ITU-R BS.2217 &
+    ITU-R BS.2217-1 &
     --- &
     \Checkmark{} \\
 
@@ -817,10 +816,10 @@ Extract the source code archive into the directory
 binaries into the directory \path{libraries/fftw3/bin}.
 
 Please note that in order to run K-Meter on Windows, the library
-\path{libfftw3f-3.dll} \textbf{must} be located in the same directory
-as the standalone or plug-in.  To make things a little easier for you,
-I have already placed \path{libfftw3f-3.dll} in the directories
-\path{bin} and \path{bin/final}.
+\path{libfftw3f-3.dll} (or \path{libfftw3f-3_x64.dll}) \textbf{must}
+be located in the same directory as the standalone or plug-in.  To
+make things a little easier for you, I have already placed these files
+in the directories \path{bin} and \path{bin/final}.
 
 \subsection{JUCE library}
 
