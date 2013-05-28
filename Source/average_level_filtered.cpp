@@ -29,9 +29,15 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor* processor, cons
 {
     jassert(channels > 0);
 
-#ifdef _WIN32
+#if (defined (_WIN32) || defined (_WIN64))
     File fileCurrentExecutable = File::getSpecialLocation(File::currentExecutableFile);
+
+  #ifdef _WIN64
+    File fileDynamicLibraryFFTW = fileCurrentExecutable.getSiblingFile("libfftw3f-3_x64.dll");
+  #else
     File fileDynamicLibraryFFTW = fileCurrentExecutable.getSiblingFile("libfftw3f-3.dll");
+  #endif
+
     String strDynamicLibraryFFTW = fileDynamicLibraryFFTW.getFullPathName();
 
     pDynamicLibraryFFTW = new DynamicLibrary();
@@ -163,7 +169,7 @@ AverageLevelFiltered::~AverageLevelFiltered()
     fftwf_free(arrAudioSamples_TD);
     fftwf_free(arrAudioSamples_FD);
 
-#ifdef _WIN32
+#if (defined (_WIN32) || defined (_WIN64))
     fftwf_alloc_real = NULL;
     fftwf_alloc_complex = NULL;
     fftwf_free = NULL;

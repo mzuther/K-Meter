@@ -98,7 +98,7 @@ private:
     float fAverageLevelItuBs1770;
     float fPeakToAverageCorrection;
 
-#ifdef _WIN32
+#if (defined (_WIN32) || defined (_WIN64))
     DynamicLibrary* pDynamicLibraryFFTW;
 
     float* (*fftwf_alloc_real)(size_t);
