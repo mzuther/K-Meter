@@ -198,7 +198,6 @@ solution "kmeter"
 	project (os.get() .. "_lv2_stereo")
 		kind "SharedLib"
 		location (os.get() .. "/lv2_stereo")
-		targetdir "../bin/kmeter_lv2/"
 		targetname "kmeter_stereo_lv2"
 		targetprefix ""
 
@@ -241,6 +240,12 @@ solution "kmeter"
 				"Xext"
 			}
 
+		configuration { "x32" }
+			targetdir "../bin/kmeter_lv2/"
+
+		configuration { "x64" }
+			targetdir "../bin/kmeter_lv2_x64/"
+
 		configuration "Debug"
 			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_stereo_debug")
 
@@ -252,7 +257,6 @@ solution "kmeter"
 	project (os.get() .. "_lv2_surround")
 		kind "SharedLib"
 		location (os.get() .. "/lv2_surround")
-		targetdir "../bin/kmeter_lv2/"
 		targetname "kmeter_surround_lv2"
 		targetprefix ""
 
@@ -295,6 +299,12 @@ solution "kmeter"
 				"Xext"
 			}
 
+		configuration { "x32" }
+			targetdir "../bin/kmeter_lv2/"
+
+		configuration { "x64" }
+			targetdir "../bin/kmeter_lv2_x64/"
+
 		configuration "Debug"
 			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_surround_debug")
 
@@ -306,7 +316,7 @@ solution "kmeter"
 	project (os.get() .. "_vst_stereo")
 		kind "SharedLib"
 		location (os.get() .. "/vst_stereo")
-		targetname "kmeter_stereo"
+		targetname "kmeter_stereo_vst"
 		targetprefix ""
 
 		defines {
@@ -363,7 +373,7 @@ solution "kmeter"
 	project (os.get() .. "_vst_surround")
 		kind "SharedLib"
 		location (os.get() .. "/vst_surround")
-		targetname "kmeter_surround"
+		targetname "kmeter_surround_vst"
 		targetprefix ""
 
 		defines {

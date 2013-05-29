@@ -1,0 +1,289 @@
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix epp:  <http://lv2plug.in/ns/dev/extportinfo#> .
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix pg:   <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix ue:   <http://lv2plug.in/ns/extensions/units#> .
+@prefix ui:   <http://lv2plug.in/ns/extensions/ui#> .
+@prefix unit: <http://lv2plug.in/ns/extensions/units#> .
+
+<http://code.mzuther.de/kmeter/surround>
+    a lv2:AnalyserPlugin, lv2:Plugin ;
+    lv2:requiredFeature <http://lv2plug.in/ns/ext/buf-size#boundedBlockLength> ,
+                        <http://lv2plug.in/ns/ext/urid#map> ;
+    lv2:extensionData <http://lv2plug.in/ns/ext/options#interface> ,
+                      <http://lv2plug.in/ns/ext/state#interface> ,
+                      <http://kxstudio.sf.net/ns/lv2ext/programs#Interface> ;
+
+    ui:ui <http://code.mzuther.de/kmeter/surround#ExternalUI> ,
+          <http://code.mzuther.de/kmeter/surround#ParentUI> ;
+
+    doap:name "K-Meter (Surround)" ;
+    doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+    doap:shortdesc "Implementation of a K-System meter according to Bob Katz' specifications." ;
+
+    doap:creator [
+        foaf:name "Martin Zuther";
+        foaf:homepage <http://www.mzuther.de/>;
+        ];
+
+    doap:developer [
+        foaf:name "Martin Zuther";
+        foaf:homepage <http://www.mzuther.de/>;
+        ];
+    
+    doap:maintainer [
+        foaf:name "Martin Zuther" ;
+        foaf:homepage <http://www.mzuther.de/>;
+    ];
+
+    lv2:port [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 0 ;
+        lv2:symbol "lv2_freewheel" ;
+        lv2:name "Freewheel" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:designation <http://lv2plug.in/ns/lv2core#freeWheeling> ;
+        lv2:portProperty lv2:toggled ;
+        lv2:portProperty epp:hasStrictBounds;
+    ] ,
+    [
+        a lv2:OutputPort, lv2:ControlPort ;
+        lv2:index 1 ;
+        lv2:symbol "lv2_latency" ;
+        lv2:name "Latency" ;
+        lv2:designation <http://lv2plug.in/ns/lv2core#latency> ;
+    ] ;
+
+    lv2:port [
+        a lv2:InputPort, lv2:AudioPort ;
+        lv2:index 2 ;
+        lv2:symbol "audio_in_l" ;
+        lv2:name "Audio Input (L)" ;
+        pg:membership [
+            pg:group pg:InputGroup ;
+            pg:group pg:DiscreteGroup ;
+            pg:role pg:left ;
+        ];
+    ] ,
+    [
+        a lv2:InputPort, lv2:AudioPort ;
+        lv2:index 3 ;
+        lv2:symbol "audio_in_r" ;
+        lv2:name "Audio Input (R)" ;
+        pg:membership [
+            pg:group pg:InputGroup ;
+            pg:group pg:DiscreteGroup ;
+            pg:role pg:right ;
+        ];
+    ] ,
+    [
+        a lv2:InputPort, lv2:AudioPort ;
+        lv2:index 4 ;
+        lv2:symbol "audio_in_c" ;
+        lv2:name "Audio Input (C)" ;
+        pg:membership [
+            pg:group pg:InputGroup ;
+            pg:group pg:DiscreteGroup ;
+            pg:role pg:center ;
+        ];
+    ] ,
+    [
+        a lv2:InputPort, lv2:AudioPort ;
+        lv2:index 5 ;
+        lv2:symbol "audio_in_lfe" ;
+        lv2:name "Audio Input (LFE)" ;
+        pg:membership [
+            pg:group pg:InputGroup ;
+            pg:group pg:DiscreteGroup ;
+            pg:role pg:lowFrequencyEffects ;
+        ];
+    ] ,
+    [
+        a lv2:InputPort, lv2:AudioPort ;
+        lv2:index 6 ;
+        lv2:symbol "audio_in_ls" ;
+        lv2:name "Audio Input (Ls)" ;
+        pg:membership [
+            pg:group pg:InputGroup ;
+            pg:group pg:DiscreteGroup ;
+            pg:role pg:rearLeft ;
+        ];
+    ] ,
+    [
+        a lv2:InputPort, lv2:AudioPort ;
+        lv2:index 7 ;
+        lv2:symbol "audio_in_rs" ;
+        lv2:name "Audio Input (Rs)" ;
+        pg:membership [
+            pg:group pg:InputGroup ;
+            pg:group pg:DiscreteGroup ;
+            pg:role pg:rearRight ;
+        ];
+    ] ;
+
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 8 ;
+        lv2:symbol "audio_out_l" ;
+        lv2:name "Audio Output (L)" ;
+        pg:membership [
+            pg:group pg:OutputGroup ;
+            pg:group pg:DiscreteGroup ;
+            pg:role pg:left ;
+        ];
+    ] ,
+    [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 9 ;
+        lv2:symbol "audio_out_r" ;
+        lv2:name "Audio Output (R)" ;
+        pg:membership [
+            pg:group pg:OutputGroup ;
+            pg:group pg:DiscreteGroup ;
+            pg:role pg:right ;
+        ];
+    ] ,
+    [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 10 ;
+        lv2:symbol "audio_out_c" ;
+        lv2:name "Audio Output (C)" ;
+        pg:membership [
+            pg:group pg:OutputGroup ;
+            pg:group pg:DiscreteGroup ;
+            pg:role pg:center ;
+        ];
+    ] ,
+    [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 11 ;
+        lv2:symbol "audio_out_lfe" ;
+        lv2:name "Audio Output (LFE)" ;
+        pg:membership [
+            pg:group pg:OutputGroup ;
+            pg:group pg:DiscreteGroup ;
+            pg:role pg:lowFrequencyEffects ;
+        ];
+    ] ,
+    [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 12 ;
+        lv2:symbol "audio_out_ls" ;
+        lv2:name "Audio Output (Ls)" ;
+        pg:membership [
+            pg:group pg:OutputGroup ;
+            pg:group pg:DiscreteGroup ;
+            pg:role pg:rearLeft ;
+        ];
+    ] ,
+    [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 13 ;
+        lv2:symbol "audio_out_rs" ;
+        lv2:name "Audio Output (Rs)" ;
+        pg:membership [
+            pg:group pg:OutputGroup ;
+            pg:group pg:DiscreteGroup ;
+            pg:role pg:rearRight ;
+        ];
+    ] ;
+
+    lv2:port [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 14 ;
+        lv2:symbol "metering_mode" ;
+        lv2:name "Metering Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.00 ;
+            rdfs:label "Normal" ;
+        ] ,
+        [
+            rdf:value 0.33 ;
+            rdfs:label "K-12" ;
+        ] ,
+        [
+            rdf:value 0.67 ;
+            rdfs:label "K-14" ;
+        ] ,
+        [
+            rdf:value 1.00 ;
+            rdfs:label "K-20" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 15 ;
+        lv2:symbol "averaging_algorithm" ;
+        lv2:name "Averaging Algorithm" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "RMS" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "ITU-R BS.1770-1" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 16 ;
+        lv2:symbol "expand_meter" ;
+        lv2:name "Expand Meter" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:toggled ;
+        lv2:portProperty epp:hasStrictBounds;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 17 ;
+        lv2:symbol "peak_meter" ;
+        lv2:name "Peak Meter" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:toggled ;
+        lv2:portProperty epp:hasStrictBounds;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 18 ;
+        lv2:symbol "peak_hold" ;
+        lv2:name "Peak Hold" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:toggled ;
+        lv2:portProperty epp:hasStrictBounds;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 19 ;
+        lv2:symbol "mono_input" ;
+        lv2:name "Mono Input" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:toggled ;
+        lv2:portProperty epp:hasStrictBounds;
+    ] .
+

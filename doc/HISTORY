@@ -1,9 +1,19 @@
 Git HEAD
 ========
 
+
+v1.31 (2013-05-29)
+==================
+
 * LV2 plug-in (GNU/Linux)
 
+* experimental 64-bit versions for Windows
+
+* code cleanup and a few small bug fixes
+
 * updated framework to JUCE v2.40
+
+* validation: full re-calibration and new audio file
 
 
 v1.30 (2012-09-06)
@@ -13,7 +23,7 @@ v1.30 (2012-09-06)
 
 * combined peak and average level meter
 
-* code cleanup and lotf of small bug fixes
+* code cleanup and lots of small bug fixes
 
 * updated framework to JUCE v1.53
 
