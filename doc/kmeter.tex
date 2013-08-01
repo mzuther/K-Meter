@@ -97,11 +97,11 @@ Science''.
 \chapter{Installation}
 \label{chap:installation}
 
-In order to use the pre-compiled binaries, simply extract the K-Meter
-files from the downloaded archive.  For the VST plug-in, you'll then
-have to move the extracted files to your plug-in folder
-(\path{~/.vst}, \path{C:\Program Files\Steinberg\VstPlugins\} or the
-like).
+In order to use the pre-compiled binaries, simply extract the
+\textbf{traKmeter} files from the downloaded archive.  For the
+plug-ins, you'll then have to move the extracted files to your
+respective plug-in folder (\path{~/.lv2}, \path{~/.vst},
+\path{C:\Program Files\Steinberg\VstPlugins\} or the like).
 
 Loading K-Meter may take a few seconds: it checks your computer's
 capabilities on start-up so that FFT calculations will run at maximum
@@ -469,6 +469,7 @@ and the audio file match, otherwise the results will not be correct.
 
 Now, select which \textbf{variables} (if any) should be dumped.  You
 may also restrict dumped data to a specific audio \textbf{channel}.
+Check \textbf{CSV} if you want to feed the output to a parser.
 
 Finally, click on the \textbf{validate} button to reset all meters and
 start playback of the selected audio file.  All audio input will be
@@ -477,7 +478,7 @@ playback early, simply click on the \textbf{validate} button again.
 
 In case you want to calibrate your monitor system, locate the file
 \path{pink_noise_bandlimited.flac} in the directory \path{validation},
-set K-meter to \textbf{RMS} mode and click on the \textbf{validate}
+set K-Meter to \textbf{RMS} mode and click on the \textbf{validate}
 button.  Please ensure that all intermediate software and hardware
 mixers are set to the correct levels.
 
@@ -630,8 +631,7 @@ Frequency and phase response have been determined at a sample rate of
 \label{chap:help_needed}
 
 As K-Meter was coded using cross-platform code, it should be easy to
-compile versions for Windows (\num{64} bit) and Mac OS X.  I just
-don’t have the adequate systems and compilers.
+compile a versions for Mac OS X.  I just don’t have a Mac \dots
 
 In case you want to help, please see the next chapter for an email
 address.  You’ll need sufficient experience in coding, compiling and
@@ -653,8 +653,9 @@ words, suggestions and bug reports.  Finally, I want to thank the
 Although coding K-Meter has been a lot of fun, it has also been a lot
 of work.  So if you like K-Meter, why not send me a short email and
 tell me so?  Write a few words about yourself, send suggestions for
-future updates or volunteer to create a nice theme -- do whatever you
-like!
+future updates or volunteer to create a nice theme.  I also really
+enjoy listening to music that you may have produced using my
+software\dots
 
 Here is my email address (please remove ``\texttt{-nospam}''):
 
