@@ -32,11 +32,11 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor* processor, cons
 #if (defined (_WIN32) || defined (_WIN64))
     File fileCurrentExecutable = File::getSpecialLocation(File::currentExecutableFile);
 
-  #ifdef _WIN64
+#ifdef _WIN64
     File fileDynamicLibraryFFTW = fileCurrentExecutable.getSiblingFile("libfftw3f-3_x64.dll");
-  #else
+#else
     File fileDynamicLibraryFFTW = fileCurrentExecutable.getSiblingFile("libfftw3f-3.dll");
-  #endif
+#endif
 
     String strDynamicLibraryFFTW = fileDynamicLibraryFFTW.getFullPathName();
 

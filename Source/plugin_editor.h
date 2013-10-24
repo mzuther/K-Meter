@@ -57,17 +57,25 @@ public:
 private:
     JUCE_LEAK_DETECTOR(KmeterAudioProcessorEditor);
 
+    void setBoundsButtonColumn(Component* component, int x, int y, int width, int height);
+
     void reloadMeters();
     void resizeEditor();
     void updateAverageAlgorithm(bool reload_meters);
 
     bool bReloadMeters;
     bool bIsValidating;
+
+    bool bRotateMeters;
+    float fTinyScale;
+
     int nCrestFactor;
     int nInputChannels;
     int nStereoInputChannels;
-    int nRightColumnStart;
+    int nButtonColumnLeft;
+    int nButtonColumnTop;
     int nHeight;
+    int nWidth;
 
     KmeterAudioProcessor* pProcessor;
     Kmeter* kmeter;

@@ -25,6 +25,7 @@
 
 #include "plugin_editor.h"
 
+
 //==============================================================================
 KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* ownerFilter, int nNumChannels)
     : AudioProcessorEditor(ownerFilter)
@@ -33,8 +34,11 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     // (increases performance on redrawing)
     setOpaque(true);
 
-    bIsValidating = false;
     bReloadMeters = false;
+    bIsValidating = false;
+
+    bRotateMeters = false;
+    fTinyScale = 1.0f;
 
     nInputChannels = nNumChannels;
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
@@ -156,13 +160,37 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     // This is where our plug-in editor's size is set.
     resizeEditor();
 
+    AffineTransform transformation = AffineTransform();
+
     if (nInputChannels <= 2)
     {
-        stereoMeter = new StereoMeter("Stereo Meter", 10, nHeight - 41, 106, 13);
-        addAndMakeVisible(stereoMeter);
+        if (bRotateMeters)
+        {
+            stereoMeter = new StereoMeter("Stereo Meter", 10, nWidth - 41, 106, 13);
+            addAndMakeVisible(stereoMeter);
 
-        phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, nHeight - 24, 106, 13);
-        addAndMakeVisible(phaseCorrelationMeter);
+            phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, nWidth - 24, 106, 13);
+            addAndMakeVisible(phaseCorrelationMeter);
+
+            transformation = transformation.rotated(M_PI / 2.0f, 10.0f, 10.0f);
+            transformation = transformation.translated(nWidth - 20.0f, 0.0f);
+        }
+        else
+        {
+            stereoMeter = new StereoMeter("Stereo Meter", 10, nHeight - 41, 106, 13);
+            addAndMakeVisible(stereoMeter);
+
+            phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, nHeight - 24, 106, 13);
+            addAndMakeVisible(phaseCorrelationMeter);
+        }
+
+        if (fTinyScale < 1.0f)
+        {
+            transformation = transformation.scaled(fTinyScale, fTinyScale, 10.0f, 10.0f);
+        }
+
+        stereoMeter->setTransform(transformation);
+        phaseCorrelationMeter->setTransform(transformation);
     }
     else
     {
@@ -203,50 +231,109 @@ KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 }
 
 
+void KmeterAudioProcessorEditor::setBoundsButtonColumn(Component* component, int x, int y, int width, int height)
+{
+    component->setBounds(nButtonColumnLeft + x, nButtonColumnTop + y, width, height);
+}
+
+
 void KmeterAudioProcessorEditor::resizeEditor()
 {
-    if (nInputChannels <= 2)
+    if (bRotateMeters)
     {
-        nHeight = 648;
-        nRightColumnStart = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 24;
+        if (nInputChannels <= 2)
+        {
+            nWidth = 648;
+            nButtonColumnTop = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 24;
+        }
+        else
+        {
+            nWidth = 630;
+
+            if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
+            {
+                nButtonColumnTop = Kmeter::KMETER_STEREO_WIDTH + 24;
+            }
+            else
+            {
+                nButtonColumnTop = nStereoInputChannels * (Kmeter::KMETER_STEREO_WIDTH + 6) + 18;
+            }
+        }
+
+        nButtonColumnLeft = 10;
+        nHeight = nButtonColumnTop + 56;
+        setSize(nWidth, nHeight);
+
+        setBoundsButtonColumn(ButtonK20, 0, 0, 60, 20);
+        setBoundsButtonColumn(ButtonK14, 66, 0, 60, 20);
+        setBoundsButtonColumn(ButtonK12, 132, 0, 60, 20);
+        setBoundsButtonColumn(ButtonNormal, 198, 0, 60, 20);
+
+        setBoundsButtonColumn(ButtonItuBs1770, 0, 25, 60, 20);
+        setBoundsButtonColumn(ButtonRms, 66, 25, 60, 20);
+
+        setBoundsButtonColumn(ButtonInfiniteHold, 280, 0, 60, 20);
+        setBoundsButtonColumn(ButtonDisplayPeakMeter, 346, 0, 60, 20);
+        setBoundsButtonColumn(ButtonExpanded, 412, 0, 60, 20);
+
+        setBoundsButtonColumn(ButtonMono, 280, 25, 60, 20);
+        setBoundsButtonColumn(ButtonReset, 346, 25, 60, 20);
+
+        setBoundsButtonColumn(ButtonValidation, nWidth - 80, 0, 60, 20);
+        setBoundsButtonColumn(ButtonAbout, nWidth - 80, 25, 60, 20);
+
+        if (LabelDebug)
+        {
+            setBoundsButtonColumn(LabelDebug, 198, 25, 60, 16);
+        }
     }
     else
     {
-        if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
+        if (nInputChannels <= 2)
         {
-            nHeight = 630;
-            nRightColumnStart = Kmeter::KMETER_STEREO_WIDTH + 24;
+            nHeight = 648;
+            nButtonColumnLeft = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 24;
         }
         else
         {
             nHeight = 630;
-            nRightColumnStart = nStereoInputChannels * (Kmeter::KMETER_STEREO_WIDTH + 6) + 18;
+
+            if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
+            {
+                nButtonColumnLeft = Kmeter::KMETER_STEREO_WIDTH + 24;
+            }
+            else
+            {
+                nButtonColumnLeft = nStereoInputChannels * (Kmeter::KMETER_STEREO_WIDTH + 6) + 18;
+            }
         }
-    }
 
-    setSize(nRightColumnStart + 70, nHeight);
+        nButtonColumnTop = 10;
+        nWidth = nButtonColumnLeft + 70;
+        setSize(nWidth, nHeight);
 
-    ButtonK20->setBounds(nRightColumnStart, 10, 60, 20);
-    ButtonK14->setBounds(nRightColumnStart, 35, 60, 20);
-    ButtonK12->setBounds(nRightColumnStart, 60, 60, 20);
-    ButtonNormal->setBounds(nRightColumnStart, 85, 60, 20);
+        setBoundsButtonColumn(ButtonK20, 0, 0, 60, 20);
+        setBoundsButtonColumn(ButtonK14, 0, 25, 60, 20);
+        setBoundsButtonColumn(ButtonK12, 0, 50, 60, 20);
+        setBoundsButtonColumn(ButtonNormal, 0, 75, 60, 20);
 
-    ButtonItuBs1770->setBounds(nRightColumnStart, 125, 60, 20);
-    ButtonRms->setBounds(nRightColumnStart, 150, 60, 20);
+        setBoundsButtonColumn(ButtonItuBs1770, 0, 115, 60, 20);
+        setBoundsButtonColumn(ButtonRms, 0, 140, 60, 20);
 
-    ButtonInfiniteHold->setBounds(nRightColumnStart, 190, 60, 20);
-    ButtonDisplayPeakMeter->setBounds(nRightColumnStart, 215, 60, 20);
-    ButtonExpanded->setBounds(nRightColumnStart, 240, 60, 20);
+        setBoundsButtonColumn(ButtonInfiniteHold, 0, 180, 60, 20);
+        setBoundsButtonColumn(ButtonDisplayPeakMeter, 0, 205, 60, 20);
+        setBoundsButtonColumn(ButtonExpanded, 0, 230, 60, 20);
 
-    ButtonMono->setBounds(nRightColumnStart, 280, 60, 20);
-    ButtonReset->setBounds(nRightColumnStart, 305, 60, 20);
+        setBoundsButtonColumn(ButtonMono, 0, 270, 60, 20);
+        setBoundsButtonColumn(ButtonReset, 0, 295, 60, 20);
 
-    ButtonValidation->setBounds(nRightColumnStart, nHeight - 56, 60, 20);
-    ButtonAbout->setBounds(nRightColumnStart, nHeight - 31, 60, 20);
+        setBoundsButtonColumn(ButtonValidation, 0, nHeight - 66, 60, 20);
+        setBoundsButtonColumn(ButtonAbout, 0, nHeight - 41, 60, 20);
 
-    if (LabelDebug)
-    {
-        LabelDebug->setBounds(nRightColumnStart, nHeight - 92, 60, 16);
+        if (LabelDebug)
+        {
+            setBoundsButtonColumn(LabelDebug, 0, nHeight - 102, 60, 16);
+        }
     }
 }
 
@@ -458,6 +545,21 @@ void KmeterAudioProcessorEditor::reloadMeters()
         }
 
         addAndMakeVisible(kmeter);
+
+        AffineTransform transformation = AffineTransform();
+
+        if (bRotateMeters)
+        {
+            transformation = transformation.rotated(M_PI / 2.0f, 10.0f, 10.0f);
+            transformation = transformation.translated(nWidth - 20.0f, 0.0f);
+        }
+
+        if (fTinyScale < 1.0f)
+        {
+            transformation = transformation.scaled(fTinyScale, fTinyScale, 10.0f, 10.0f);
+        }
+
+        kmeter->setTransform(transformation);
     }
 }
 
@@ -532,7 +634,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     }
     else if (button == ButtonValidation)
     {
-        WindowValidation* windowValidation = new WindowValidation(getWidth(), getHeight(), pProcessor);
+        WindowValidation* windowValidation = new WindowValidation(getWidth(), getHeight(), bRotateMeters, pProcessor);
         addAndMakeVisible(windowValidation);
 
         windowValidation->runModalLoop();
