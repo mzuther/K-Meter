@@ -35,10 +35,8 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     setOpaque(true);
 
     bReloadMeters = false;
-    bIsValidating = false;
-
     bRotateMeters = false;
-    fTinyScale = 1.0f;
+    bIsValidating = false;
 
     nInputChannels = nNumChannels;
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
@@ -160,37 +158,24 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     // This is where our plug-in editor's size is set.
     resizeEditor();
 
-    AffineTransform transformation = AffineTransform();
-
     if (nInputChannels <= 2)
     {
         if (bRotateMeters)
         {
-            stereoMeter = new StereoMeter("Stereo Meter", 10, nWidth - 41, 106, 13);
+            stereoMeter = new StereoMeter("Stereo Meter", 28, 10, 13, 106, bRotateMeters);
             addAndMakeVisible(stereoMeter);
 
-            phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, nWidth - 24, 106, 13);
+            phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, 10, 13, 106, bRotateMeters);
             addAndMakeVisible(phaseCorrelationMeter);
-
-            transformation = transformation.rotated(M_PI / 2.0f, 10.0f, 10.0f);
-            transformation = transformation.translated(nWidth - 20.0f, 0.0f);
         }
         else
         {
-            stereoMeter = new StereoMeter("Stereo Meter", 10, nHeight - 41, 106, 13);
+            stereoMeter = new StereoMeter("Stereo Meter", 10, nHeight - 41, 106, 13, bRotateMeters);
             addAndMakeVisible(stereoMeter);
 
-            phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, nHeight - 24, 106, 13);
+            phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, nHeight - 24, 106, 13, bRotateMeters);
             addAndMakeVisible(phaseCorrelationMeter);
         }
-
-        if (fTinyScale < 1.0f)
-        {
-            transformation = transformation.scaled(fTinyScale, fTinyScale, 10.0f, 10.0f);
-        }
-
-        stereoMeter->setTransform(transformation);
-        phaseCorrelationMeter->setTransform(transformation);
     }
     else
     {
@@ -552,14 +537,9 @@ void KmeterAudioProcessorEditor::reloadMeters()
         {
             transformation = transformation.rotated(M_PI / 2.0f, 10.0f, 10.0f);
             transformation = transformation.translated(nWidth - 20.0f, 0.0f);
-        }
 
-        if (fTinyScale < 1.0f)
-        {
-            transformation = transformation.scaled(fTinyScale, fTinyScale, 10.0f, 10.0f);
+            kmeter->setTransform(transformation);
         }
-
-        kmeter->setTransform(transformation);
     }
 }
 

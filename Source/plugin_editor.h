@@ -64,10 +64,8 @@ private:
     void updateAverageAlgorithm(bool reload_meters);
 
     bool bReloadMeters;
-    bool bIsValidating;
-
     bool bRotateMeters;
-    float fTinyScale;
+    bool bIsValidating;
 
     int nCrestFactor;
     int nInputChannels;

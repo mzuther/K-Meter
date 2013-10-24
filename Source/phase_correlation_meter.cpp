@@ -25,7 +25,7 @@
 
 #include "phase_correlation_meter.h"
 
-PhaseCorrelationMeter::PhaseCorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height)
+PhaseCorrelationMeter::PhaseCorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height, bool rotate_meter)
 {
     setName(componentName);
 
@@ -33,6 +33,7 @@ PhaseCorrelationMeter::PhaseCorrelationMeter(const String& componentName, int Po
     // performance on redrawing)
     setOpaque(true);
 
+    bRotateMeter = rotate_meter;
     fValue = 0.0f;
     nNeedlePosition = -1;
 
@@ -50,38 +51,78 @@ void PhaseCorrelationMeter::paint(Graphics& g)
 {
     int width = getWidth();
     int height = getHeight();
-    int middle_of_meter = width / 2;
-    int height_of_meter = height;
 
-    ColourGradient colGrad(Colours::red.darker(1.0f), 0.0f, 0.0f, Colours::green.darker(1.0f), (float) width, 0.0f, false);
-    colGrad.addColour(0.2f, Colours::red.darker(1.0f));
-    colGrad.addColour(0.6f, Colours::yellow.darker(1.0f));
-    g.setGradientFill(colGrad);
-    g.fillRect(1, 1, width - 2, height - 2);
-
-    g.setColour(Colours::darkgrey.darker(0.3f));
-    g.drawRect(0, 0, width, height, 1);
-
-    g.setColour(Colours::white);
-
-    g.setFont(11.0f);
-    g.drawFittedText("-1", 1, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
-    g.drawFittedText("0", middle_of_meter - height_of_meter / 2, 0, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
-    g.drawFittedText("+1", width - height - 4, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
-
-    g.setColour(Colours::red);
-
-    for (int y = 1; y < (height_of_meter - 1); y++)
+    if (bRotateMeter)
     {
-        g.setPixel(nNeedlePosition, y);
+        int middle_of_meter = height / 2;
+        int width_of_meter = width;
+
+        ColourGradient colGrad(Colours::red.darker(1.0f), 0.0f, 0.0f, Colours::green.darker(1.0f), 0.0f, (float) height, false);
+        colGrad.addColour(0.2f, Colours::red.darker(1.0f));
+        colGrad.addColour(0.6f, Colours::yellow.darker(1.0f));
+        g.setGradientFill(colGrad);
+        g.fillRect(1, 1, width - 2, height - 2);
+
+        g.setColour(Colours::darkgrey.darker(0.3f));
+        g.drawRect(0, 0, width, height, 1);
+
+        g.setColour(Colours::white);
+
+        g.setFont(11.0f);
+        g.drawFittedText("-1", -1, 0, width_of_meter + 2, width_of_meter, Justification::centred, 1, 1.0f);
+        g.drawFittedText("0", 0, middle_of_meter - width_of_meter / 2, width_of_meter, width_of_meter, Justification::centred, 1, 1.0f);
+        g.drawFittedText("+1", -1, height - width, width_of_meter + 2, width_of_meter, Justification::centred, 1, 1.0f);
+
+        g.setColour(Colours::red);
+
+        for (int x = 1; x < (width_of_meter - 1); x++)
+        {
+            g.setPixel(x, nNeedlePosition);
+        }
+
+        g.setColour(Colours::red.withAlpha(0.6f));
+
+        for (int x = 1; x < (width_of_meter - 1); x++)
+        {
+            g.setPixel(x, nNeedlePosition - 1);
+            g.setPixel(x, nNeedlePosition + 1);
+        }
     }
-
-    g.setColour(Colours::red.withAlpha(0.6f));
-
-    for (int y = 1; y < (height_of_meter - 1); y++)
+    else
     {
-        g.setPixel(nNeedlePosition - 1, y);
-        g.setPixel(nNeedlePosition + 1, y);
+        int middle_of_meter = width / 2;
+        int height_of_meter = height;
+
+        ColourGradient colGrad(Colours::red.darker(1.0f), 0.0f, 0.0f, Colours::green.darker(1.0f), (float) width, 0.0f, false);
+        colGrad.addColour(0.2f, Colours::red.darker(1.0f));
+        colGrad.addColour(0.6f, Colours::yellow.darker(1.0f));
+        g.setGradientFill(colGrad);
+        g.fillRect(1, 1, width - 2, height - 2);
+
+        g.setColour(Colours::darkgrey.darker(0.3f));
+        g.drawRect(0, 0, width, height, 1);
+
+        g.setColour(Colours::white);
+
+        g.setFont(11.0f);
+        g.drawFittedText("-1", 1, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
+        g.drawFittedText("0", middle_of_meter - height_of_meter / 2, 0, height_of_meter, height_of_meter, Justification::centred, 1, 1.0f);
+        g.drawFittedText("+1", width - height - 4, 0, height_of_meter + 2, height_of_meter, Justification::centred, 1, 1.0f);
+
+        g.setColour(Colours::red);
+
+        for (int y = 1; y < (height_of_meter - 1); y++)
+        {
+            g.setPixel(nNeedlePosition, y);
+        }
+
+        g.setColour(Colours::red.withAlpha(0.6f));
+
+        for (int y = 1; y < (height_of_meter - 1); y++)
+        {
+            g.setPixel(nNeedlePosition - 1, y);
+            g.setPixel(nNeedlePosition + 1, y);
+        }
     }
 }
 
@@ -95,7 +136,15 @@ void PhaseCorrelationMeter::setValue(float newValue)
     fValue = newValue;
 
     int nNeedlePositionOld = nNeedlePosition;
-    nNeedlePosition = int ((1.0f + fValue) / 2.0f * (getWidth() - 4) + 2);
+
+    if (bRotateMeter)
+    {
+        nNeedlePosition = int ((1.0f + fValue) / 2.0f * (getHeight() - 4) + 2);
+    }
+    else
+    {
+        nNeedlePosition = int ((1.0f + fValue) / 2.0f * (getWidth() - 4) + 2);
+    }
 
     if (nNeedlePosition == nNeedlePositionOld)
     {

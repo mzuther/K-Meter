@@ -35,7 +35,7 @@
 class StereoMeter : public Component
 {
 public:
-    StereoMeter(const String& componentName, int PosX, int PosY, int Width, int Height);
+    StereoMeter(const String& componentName, int PosX, int PosY, int Width, int Height, bool rotate_meter);
     ~StereoMeter();
 
     void setValue(float newValue);
@@ -52,6 +52,8 @@ private:
     int nPosY;
     int nWidth;
     int nHeight;
+
+    bool bRotateMeter;
 };
 
 

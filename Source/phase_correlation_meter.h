@@ -35,7 +35,7 @@
 class PhaseCorrelationMeter : public Component
 {
 public:
-    PhaseCorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height);
+    PhaseCorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height, bool rotate_meter);
     ~PhaseCorrelationMeter();
 
     void setValue(float newValue);
@@ -52,6 +52,8 @@ private:
     int nPosY;
     int nWidth;
     int nHeight;
+
+    bool bRotateMeter;
 };
 
 
