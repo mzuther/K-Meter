@@ -25,7 +25,7 @@
 
 #include "stereo_meter.h"
 
-StereoMeter::StereoMeter(const String& componentName, int PosX, int PosY, int Width, int Height, bool rotate_meter)
+StereoMeter::StereoMeter(const String& componentName, int PosX, int PosY, int Width, int Height)
 {
     setName(componentName);
 
@@ -41,7 +41,7 @@ StereoMeter::StereoMeter(const String& componentName, int PosX, int PosY, int Wi
     nWidth = Width;
     nHeight = Height;
 
-    bRotateMeter = rotate_meter;
+    bVerticalMeter = (nHeight > nWidth);
 }
 
 StereoMeter::~StereoMeter()
@@ -53,7 +53,7 @@ void StereoMeter::paint(Graphics& g)
     int width = getWidth();
     int height = getHeight();
 
-    if (bRotateMeter)
+    if (bVerticalMeter)
     {
         int middle_of_meter = height / 2;
 
@@ -170,7 +170,7 @@ void StereoMeter::setValue(float newValue)
 
     int nNeedlePositionOld = nNeedlePosition;
 
-    if (bRotateMeter)
+    if (bVerticalMeter)
     {
         nNeedlePosition = int ((1.0f + fValue) / 2.0f * (getHeight() - 4) + 2);
     }

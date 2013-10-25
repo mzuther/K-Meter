@@ -162,18 +162,18 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     {
         if (bRotateMeters)
         {
-            stereoMeter = new StereoMeter("Stereo Meter", 28, 10, 13, 106, bRotateMeters);
+            stereoMeter = new StereoMeter("Stereo Meter", 28, 10, 13, 106);
             addAndMakeVisible(stereoMeter);
 
-            phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, 10, 13, 106, bRotateMeters);
+            phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, 10, 13, 106);
             addAndMakeVisible(phaseCorrelationMeter);
         }
         else
         {
-            stereoMeter = new StereoMeter("Stereo Meter", 10, nHeight - 41, 106, 13, bRotateMeters);
+            stereoMeter = new StereoMeter("Stereo Meter", 10, nHeight - 41, 106, 13);
             addAndMakeVisible(stereoMeter);
 
-            phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, nHeight - 24, 106, 13, bRotateMeters);
+            phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, nHeight - 24, 106, 13);
             addAndMakeVisible(phaseCorrelationMeter);
         }
     }

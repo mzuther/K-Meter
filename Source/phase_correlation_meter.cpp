@@ -25,7 +25,7 @@
 
 #include "phase_correlation_meter.h"
 
-PhaseCorrelationMeter::PhaseCorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height, bool rotate_meter)
+PhaseCorrelationMeter::PhaseCorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height)
 {
     setName(componentName);
 
@@ -33,7 +33,6 @@ PhaseCorrelationMeter::PhaseCorrelationMeter(const String& componentName, int Po
     // performance on redrawing)
     setOpaque(true);
 
-    bRotateMeter = rotate_meter;
     fValue = 0.0f;
     nNeedlePosition = -1;
 
@@ -41,6 +40,8 @@ PhaseCorrelationMeter::PhaseCorrelationMeter(const String& componentName, int Po
     nPosY = PosY;
     nWidth = Width;
     nHeight = Height;
+
+    bVerticalMeter = (nHeight > nWidth);
 }
 
 PhaseCorrelationMeter::~PhaseCorrelationMeter()
@@ -52,7 +53,7 @@ void PhaseCorrelationMeter::paint(Graphics& g)
     int width = getWidth();
     int height = getHeight();
 
-    if (bRotateMeter)
+    if (bVerticalMeter)
     {
         int middle_of_meter = height / 2;
         int width_of_meter = width;
@@ -137,7 +138,7 @@ void PhaseCorrelationMeter::setValue(float newValue)
 
     int nNeedlePositionOld = nNeedlePosition;
 
-    if (bRotateMeter)
+    if (bVerticalMeter)
     {
         nNeedlePosition = int ((1.0f + fValue) / 2.0f * (getHeight() - 4) + 2);
     }
