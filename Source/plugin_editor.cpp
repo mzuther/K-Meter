@@ -409,28 +409,28 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
             nCrestFactor = nValue;
             bReloadMeters = true;
 
-            ButtonNormal->setToggleState(true, false);
+            ButtonNormal->setToggleState(true, dontSendNotification);
         }
         else if (nValue == 12)
         {
             nCrestFactor = nValue;
             bReloadMeters = true;
 
-            ButtonK12->setToggleState(true, false);
+            ButtonK12->setToggleState(true, dontSendNotification);
         }
         else if (nValue == 14)
         {
             nCrestFactor = nValue;
             bReloadMeters = true;
 
-            ButtonK14->setToggleState(true, false);
+            ButtonK14->setToggleState(true, dontSendNotification);
         }
         else // K-20
         {
             nCrestFactor = nValue;
             bReloadMeters = true;
 
-            ButtonK20->setToggleState(true, false);
+            ButtonK20->setToggleState(true, dontSendNotification);
         }
 
         break;
@@ -455,12 +455,12 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 
     case KmeterPluginParameters::selExpanded:
         bReloadMeters = true;
-        ButtonExpanded->setToggleState(nValue != 0, false);
+        ButtonExpanded->setToggleState(nValue != 0, dontSendNotification);
         break;
 
     case KmeterPluginParameters::selPeak:
         bReloadMeters = true;
-        ButtonDisplayPeakMeter->setToggleState(nValue != 0, false);
+        ButtonDisplayPeakMeter->setToggleState(nValue != 0, dontSendNotification);
         break;
 
     case KmeterPluginParameters::selInfiniteHold:
@@ -472,11 +472,11 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
             pMeterBallistics->setAverageMeterInfiniteHold(nValue != 0);
         }
 
-        ButtonInfiniteHold->setToggleState(nValue != 0, false);
+        ButtonInfiniteHold->setToggleState(nValue != 0, dontSendNotification);
         break;
 
     case KmeterPluginParameters::selMono:
-        ButtonMono->setToggleState(nValue != 0, false);
+        ButtonMono->setToggleState(nValue != 0, dontSendNotification);
         break;
     }
 
@@ -634,13 +634,13 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
 {
     if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
-        ButtonItuBs1770->setToggleState(true, false);
-        ButtonRms->setToggleState(false, false);
+        ButtonItuBs1770->setToggleState(true, dontSendNotification);
+        ButtonRms->setToggleState(false, dontSendNotification);
     }
     else
     {
-        ButtonItuBs1770->setToggleState(false, false);
-        ButtonRms->setToggleState(true, false);
+        ButtonItuBs1770->setToggleState(false, dontSendNotification);
+        ButtonRms->setToggleState(true, dontSendNotification);
     }
 
     bReloadMeters = reload_meters;

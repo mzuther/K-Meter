@@ -263,6 +263,11 @@ AIFF or FLAC) through K-Meter and dump internal data.  During
 validation, the button will light up and clicking it will stop
 validation early.
 
+\emph{Unfortunately, the underlying JUCE library does not seem to
+  support multi-channel audio files.  You may load such audio files
+  into your DAW of choice and insert \textbf{K-meter} as a plug-in
+  instance.}
+
 On Linux, dumped data will be written to \path{stderr}, so just start
 the K-Meter standalone or your VST host from the shell and watch the
 output coming.  On other systems, have a look at your VST host's log
@@ -775,6 +780,56 @@ platform, you should run \emph{premake} using the scripts
 
 \newpage %% layout
 
+\subsection{JUCE library}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Importance:  \> required \\
+  Version:     \> 2.1.6 \\
+  License:     \> GPL v2 (among others) \\
+  Homepage:    \> \href{http://www.juce.com/}{www.juce.com}
+\end{tabbing}
+
+\subsubsection{Installation}
+
+Extract the archive into the directory \path{libraries/juce}.
+
+If you want to build the LV2 plug-in, please extract the archive
+\path{distrho_lv2-xxxxxxxxxx.tar.gz} into the same directory.
+
+\subsection{Virtual Studio Technology SDK}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Importance:  \> optional \\
+  Version:     \> 2.4 \\
+  License:     \> proprietary \\
+  Homepage:    \> \href{http://ygrabit.steinberg.de/}{ygrabit.steinberg.de}
+\end{tabbing}
+
+\subsubsection{Installation}
+
+Just extract the archive into the directory
+\path{libraries/vstsdk2.4}.
+
+\subsection{Audio Streaming Input Output SDK}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Importance:  \> optional \\
+  Version:     \> 2.2 \\
+  License:     \> proprietary \\
+  Homepage:    \> \href{http://ygrabit.steinberg.de/}{ygrabit.steinberg.de}
+\end{tabbing}
+
+\subsubsection{Installation}
+
+Simply extract the archive into the directory
+\path{libraries/asiosdk2.2}.
+
 \subsection{Fastest Fourier Transform in the West}
 
 \begin{tabbing}
@@ -821,53 +876,6 @@ Please note that in order to run K-Meter on Windows, the library
 be located in the same directory as the standalone or plug-in.  To
 make things a little easier for you, I have already placed these files
 in the directories \path{bin} and \path{bin/final}.
-
-\subsection{JUCE library}
-
-\begin{tabbing}
-  \hspace*{6em}\=\=\kill
-
-  Importance:  \> required \\
-  Version:     \> 2.0.40 \\
-  License:     \> GPL v2 \\
-  Homepage:    \> \href{http://www.rawmaterialsoftware.com/juce.php}{www.rawmaterialsoftware.com/juce.php}
-\end{tabbing}
-
-\subsubsection{Installation}
-
-Extract the archive into the directory \path{libraries/juce}.
-
-\subsection{Virtual Studio Technology SDK}
-
-\begin{tabbing}
-  \hspace*{6em}\=\=\kill
-
-  Importance:  \> optional \\
-  Version:     \> 2.4 \\
-  License:     \> proprietary \\
-  Homepage:    \> \href{http://ygrabit.steinberg.de/}{ygrabit.steinberg.de}
-\end{tabbing}
-
-\subsubsection{Installation}
-
-Just extract the archive into the directory
-\path{libraries/vstsdk2.4}.
-
-\subsection{Audio Streaming Input Output SDK}
-
-\begin{tabbing}
-  \hspace*{6em}\=\=\kill
-
-  Importance:  \> optional \\
-  Version:     \> 2.2 \\
-  License:     \> proprietary \\
-  Homepage:    \> \href{http://ygrabit.steinberg.de/}{ygrabit.steinberg.de}
-\end{tabbing}
-
-\subsubsection{Installation}
-
-Simply extract the archive into the directory
-\path{libraries/asiosdk2.2}.
 
 \subsection{Python}
 

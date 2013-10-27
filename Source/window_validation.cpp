@@ -97,7 +97,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, bool horizontal_layo
 
     ButtonDumpCSV = new ToggleButton("CSV format");
     ButtonDumpCSV->setColour(ToggleButton::textColourId, Colours::white);
-    ButtonDumpCSV->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationCSVFormat), false);
+    ButtonDumpCSV->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationCSVFormat), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpCSV);
 
     SliderDumpSelectedChannel->setValue(pProcessor->getParameterAsInt(KmeterPluginParameters::selValidationSelectedChannel), dontSendNotification);
@@ -105,27 +105,27 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, bool horizontal_layo
 
     ButtonDumpAverageMeterLevel = new ToggleButton("Average meter level");
     ButtonDumpAverageMeterLevel->setColour(ToggleButton::textColourId, Colours::white);
-    ButtonDumpAverageMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationAverageMeterLevel), false);
+    ButtonDumpAverageMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationAverageMeterLevel), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpAverageMeterLevel);
 
     ButtonDumpPeakMeterLevel = new ToggleButton("Peak meter level");
     ButtonDumpPeakMeterLevel->setColour(ToggleButton::textColourId, Colours::white);
-    ButtonDumpPeakMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPeakMeterLevel), false);
+    ButtonDumpPeakMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPeakMeterLevel), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpPeakMeterLevel);
 
     ButtonDumpMaximumPeakLevel = new ToggleButton("Maximum peak level");
     ButtonDumpMaximumPeakLevel->setColour(ToggleButton::textColourId, Colours::white);
-    ButtonDumpMaximumPeakLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationMaximumPeakLevel), false);
+    ButtonDumpMaximumPeakLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationMaximumPeakLevel), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpMaximumPeakLevel);
 
     ButtonDumpStereoMeterValue = new ToggleButton("Stereo meter value");
     ButtonDumpStereoMeterValue->setColour(ToggleButton::textColourId, Colours::white);
-    ButtonDumpStereoMeterValue->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationStereoMeterValue), false);
+    ButtonDumpStereoMeterValue->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationStereoMeterValue), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpStereoMeterValue);
 
     ButtonDumpPhaseCorrelation = new ToggleButton("Phase correlation");
     ButtonDumpPhaseCorrelation->setColour(ToggleButton::textColourId, Colours::white);
-    ButtonDumpPhaseCorrelation->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPhaseCorrelation), false);
+    ButtonDumpPhaseCorrelation->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPhaseCorrelation), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpPhaseCorrelation);
 
     // create and position a "validation" button which closes the
