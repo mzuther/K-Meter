@@ -26,11 +26,11 @@
 #include "window_validation.h"
 
 
-WindowValidation::WindowValidation(int nWidth, int nHeight, bool rotate_meters, KmeterAudioProcessor* processor)
+WindowValidation::WindowValidation(int nWidth, int nHeight, bool horizontal_layout, KmeterAudioProcessor* processor)
     : ResizableWindow("Validation K-Meter", false)
     // create new window child of width "nWidth" and height "nHeight"
 {
-    bRotateMeters = rotate_meters;
+    bHorizontalLayout = horizontal_layout;
 
     pProcessor = processor;
     pProcessor->stopValidation();
@@ -151,7 +151,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, bool rotate_meters, 
     ButtonCancel->addListener(this);
     contentComponent->addAndMakeVisible(ButtonCancel);
 
-    if (bRotateMeters)
+    if (bHorizontalLayout)
     {
         ButtonFileSelection->setBounds(nWidth - 209, nHeight - 170, 30, 20);
         LabelFileSelection->setBounds(nWidth - 358, nHeight - 170, 144, 20);
@@ -216,7 +216,7 @@ void WindowValidation::paint(Graphics& g)
     g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.4f), 0, 0, Colours::darkgrey.darker(1.0f), 0, (float) nHeight, false));
     g.fillAll();
 
-    if (bRotateMeters)
+    if (bHorizontalLayout)
     {
         g.setColour(Colours::white);
         g.setOpacity(0.15f);

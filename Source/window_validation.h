@@ -35,7 +35,7 @@
 class WindowValidation : public ResizableWindow, ButtonListener
 {
 public:
-    WindowValidation(int nWidth, int nHeight, bool rotate_meters, KmeterAudioProcessor* processor);
+    WindowValidation(int nWidth, int nHeight, bool horizontal_layout, KmeterAudioProcessor* processor);
     ~WindowValidation();
 
     void paint(Graphics& g);
@@ -44,7 +44,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(WindowValidation);
 
-    bool bRotateMeters;
+    bool bHorizontalLayout;
     KmeterAudioProcessor* pProcessor;
     File fileValidation;
 

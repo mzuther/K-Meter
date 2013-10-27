@@ -25,7 +25,7 @@
 
 #include "kmeter.h"
 
-Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor, int nNumChannels, const String& unitName, bool bIsSurround, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight)
+Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor, int nNumChannels, const String& unitName, bool bIsSurround, bool bExpanded, bool bHorizontal, bool bDisplayPeakMeter, int nSegmentHeight)
 {
     setName(componentName);
 
@@ -35,6 +35,7 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
     nInputChannels = nNumChannels;
     isSurround = bIsSurround;
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
+    bHorizontalMeter = bHorizontal;
     isExpanded = bExpanded;
     displayPeakMeter = bDisplayPeakMeter;
     strUnit = unitName;
@@ -76,7 +77,17 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
     {
         nPositionX = KMETER_STEREO_WIDTH_2 - 10;
 
-        LevelMeters[0] = new MeterBar("Level Meter #0", nPositionX - 2, nMeterPositionTop + 48, 24, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
+        if (bHorizontalMeter)
+        {
+            nPositionX -= 2;
+
+            LevelMeters[0] = new MeterBar("Level Meter #0", nMeterPositionTop + 5, nPositionX, 24, nMeterCrestFactor, isExpanded, bHorizontalMeter, displayPeakMeter, nMainSegmentHeight);
+        }
+        else
+        {
+            LevelMeters[0] = new MeterBar("Level Meter #0", nPositionX - 2, nMeterPositionTop + 48, 24, nMeterCrestFactor, isExpanded, bHorizontalMeter, displayPeakMeter, nMainSegmentHeight);
+        }
+
         addAndMakeVisible(LevelMeters[0]);
     }
     else
@@ -90,7 +101,15 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
                 nPositionX += 12;
             }
 
-            LevelMeters[nChannel] = new MeterBar("Level Meter #" + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nMeterCrestFactor, bExpanded, displayPeakMeter, nMainSegmentHeight);
+            if (bHorizontalMeter)
+            {
+                LevelMeters[nChannel] = new MeterBar("Level Meter #" + String(nChannel), nMeterPositionTop + 5, nPositionX, 20, nMeterCrestFactor, isExpanded, bHorizontalMeter, displayPeakMeter, nMainSegmentHeight);
+            }
+            else
+            {
+                LevelMeters[nChannel] = new MeterBar("Level Meter #" + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nMeterCrestFactor, isExpanded, bHorizontalMeter, displayPeakMeter, nMainSegmentHeight);
+            }
+
             addAndMakeVisible(LevelMeters[nChannel]);
         }
     }
@@ -170,7 +189,15 @@ void Kmeter::visibilityChanged()
     }
 
     int width = nStereoInputChannels * (KMETER_STEREO_WIDTH + 6) - 6;
-    setBounds(nPosX, nPosY, width, height);
+
+    if (bHorizontalMeter)
+    {
+        setBounds(nPosX, nPosY, height, width);
+    }
+    else
+    {
+        setBounds(nPosX, nPosY, width, height);
+    }
 }
 
 
@@ -218,24 +245,48 @@ void Kmeter::paintMonoChannel(Graphics& g)
         g.drawRect(x - 4, 1, KMETER_STEREO_WIDTH - 2, 16);
     }
 
-    int nHeight = getHeight();
-
-    if (!isSurround)
+    if (bHorizontalMeter)
     {
-        nHeight += 20;
+        int nWidth = getWidth();
+
+        if (!isSurround)
+        {
+            nWidth += 20;
+        }
+
+        g.setColour(Colours::grey.withAlpha(0.1f));
+        g.fillRect(x - 5, nMeterPositionTop, nWidth - 19, KMETER_STEREO_WIDTH);
+
+        g.setColour(Colours::darkgrey);
+        g.drawRect(x - 5, nMeterPositionTop, nWidth - 21, KMETER_STEREO_WIDTH - 1);
+
+        g.setColour(Colours::darkgrey.darker(0.7f));
+        g.drawRect(x - 4, nMeterPositionTop + 1, nWidth - 21, KMETER_STEREO_WIDTH - 1);
+
+        g.setColour(Colours::darkgrey.darker(0.4f));
+        g.drawRect(x - 4, nMeterPositionTop + 1, nWidth - 22, KMETER_STEREO_WIDTH - 2);
     }
+    else
+    {
+        int nHeight = getHeight();
 
-    g.setColour(Colours::grey.withAlpha(0.1f));
-    g.fillRect(x - 5, nMeterPositionTop, KMETER_STEREO_WIDTH, nHeight - 19);
+        if (!isSurround)
+        {
+            nHeight += 20;
+        }
 
-    g.setColour(Colours::darkgrey);
-    g.drawRect(x - 5, nMeterPositionTop, KMETER_STEREO_WIDTH - 1, nHeight - 21);
+        g.setColour(Colours::grey.withAlpha(0.1f));
+        g.fillRect(x - 5, nMeterPositionTop, KMETER_STEREO_WIDTH, nHeight - 19);
 
-    g.setColour(Colours::darkgrey.darker(0.7f));
-    g.drawRect(x - 4, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 1, nHeight - 21);
+        g.setColour(Colours::darkgrey);
+        g.drawRect(x - 5, nMeterPositionTop, KMETER_STEREO_WIDTH - 1, nHeight - 21);
 
-    g.setColour(Colours::darkgrey.darker(0.4f));
-    g.drawRect(x - 4, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 2, nHeight - 22);
+        g.setColour(Colours::darkgrey.darker(0.7f));
+        g.drawRect(x - 4, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 1, nHeight - 21);
+
+        g.setColour(Colours::darkgrey.darker(0.4f));
+        g.drawRect(x - 4, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 2, nHeight - 22);
+    }
 
     g.setColour(Colours::white);
     g.setFont(12.0f);
@@ -448,24 +499,48 @@ void Kmeter::paintStereoChannel(Graphics& g, int nStereoChannel)
         g.drawRect(x - 4, 1, KMETER_STEREO_WIDTH - 2, 16);
     }
 
-    int nHeight = getHeight();
-
-    if (!isSurround)
+    if (bHorizontalMeter)
     {
-        nHeight += 20;
+        int nWidth = getWidth();
+
+        if (!isSurround)
+        {
+            nWidth += 20;
+        }
+
+        g.setColour(Colours::grey.withAlpha(0.1f));
+        g.fillRect(x - 5, nMeterPositionTop, nWidth - 19, KMETER_STEREO_WIDTH);
+
+        g.setColour(Colours::darkgrey);
+        g.drawRect(x - 5, nMeterPositionTop, nWidth - 21, KMETER_STEREO_WIDTH - 1);
+
+        g.setColour(Colours::darkgrey.darker(0.7f));
+        g.drawRect(x - 4, nMeterPositionTop + 1, nWidth - 21, KMETER_STEREO_WIDTH - 1);
+
+        g.setColour(Colours::darkgrey.darker(0.4f));
+        g.drawRect(x - 4, nMeterPositionTop + 1, nWidth - 22, KMETER_STEREO_WIDTH - 2);
     }
+    else
+    {
+        int nHeight = getHeight();
 
-    g.setColour(Colours::grey.withAlpha(0.1f));
-    g.fillRect(x - 5, nMeterPositionTop, KMETER_STEREO_WIDTH, nHeight - 19);
+        if (!isSurround)
+        {
+            nHeight += 20;
+        }
 
-    g.setColour(Colours::darkgrey);
-    g.drawRect(x - 5, nMeterPositionTop, KMETER_STEREO_WIDTH - 1, nHeight - 21);
+        g.setColour(Colours::grey.withAlpha(0.1f));
+        g.fillRect(x - 5, nMeterPositionTop, KMETER_STEREO_WIDTH, nHeight - 19);
 
-    g.setColour(Colours::darkgrey.darker(0.7f));
-    g.drawRect(x - 4, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 1, nHeight - 21);
+        g.setColour(Colours::darkgrey);
+        g.drawRect(x - 5, nMeterPositionTop, KMETER_STEREO_WIDTH - 1, nHeight - 21);
 
-    g.setColour(Colours::darkgrey.darker(0.4f));
-    g.drawRect(x - 4, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 2, nHeight - 22);
+        g.setColour(Colours::darkgrey.darker(0.7f));
+        g.drawRect(x - 4, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 1, nHeight - 21);
+
+        g.setColour(Colours::darkgrey.darker(0.4f));
+        g.drawRect(x - 4, nMeterPositionTop + 1, KMETER_STEREO_WIDTH - 2, nHeight - 22);
+    }
 
     g.setColour(Colours::white);
     g.setFont(12.0f);
@@ -641,65 +716,146 @@ void Kmeter::setLevels(MeterBallistics* pMeterBallistics)
     }
 }
 
+
 void Kmeter::drawMarkersMono(Graphics& g, String& strMarker, int x, int y, int width, int height)
 {
-    g.setColour(Colours::white);
-    g.drawFittedText(strMarker, x, y, width, height, Justification::centred, 1, 1.0f);
-    g.drawFittedText(strMarker, x + 72, y, width, height, Justification::centred, 1, 1.0f);
-
-    g.setColour(Colours::grey);
-
-    int nMarkerY = y + 5;
-    int nStart = 0;
-    int nEnd = 0;
-    int nWidth = 0;
-
-    nWidth = 9;
-    nStart = x + 25;
-    nEnd = nStart + nWidth;
-
-    for (int nMarkerX = nStart; nMarkerX < nEnd; nMarkerX++)
+    if (bHorizontalMeter)
     {
-        g.setPixel(nMarkerX, nMarkerY);
+        int temp = x;
+        x = y;
+        y = temp;
+
+        int nHeight = LevelMeters[0]->getWidth() - x + 35;
+
+        g.setColour(Colours::white);
+
+        // make sure numbers don't overlap
+        if ((nMeterCrestFactor == 14) && (strMarker == "+12"))
+        {
+            g.drawFittedText(strMarker, nHeight - 6, y, width, height, Justification::centred, 1, 1.0f);
+            g.drawFittedText(strMarker, nHeight - 6, y + 84, width, height, Justification::centred, 1, 1.0f);
+        }
+        else
+        {
+            g.drawFittedText(strMarker, nHeight, y, width, height, Justification::centred, 1, 1.0f);
+            g.drawFittedText(strMarker, nHeight, y + 84, width, height, Justification::centred, 1, 1.0f);
+        }
+
+        g.setColour(Colours::grey);
+
+        int nMarkerX = nHeight + 12;
+        int nWidth = 16;
+        int nStart = y + 17;
+        int nEnd = nStart + nWidth;
+
+        for (int nMarkerY = nStart; nMarkerY < nEnd; nMarkerY++)
+        {
+            g.setPixel(nMarkerX, nMarkerY);
+        }
+
+        nStart = y + 78;
+        nEnd = nStart - nWidth;
+
+        for (int nMarkerY = nStart; nMarkerY > nEnd; nMarkerY--)
+        {
+            g.setPixel(nMarkerX, nMarkerY);
+        }
     }
-
-    nStart = x + 70;
-    nEnd = nStart - nWidth;
-
-    for (int nMarkerX = nStart; nMarkerX > nEnd; nMarkerX--)
+    else
     {
-        g.setPixel(nMarkerX, nMarkerY);
+        g.setColour(Colours::white);
+        g.drawFittedText(strMarker, x, y, width, height, Justification::centred, 1, 1.0f);
+        g.drawFittedText(strMarker, x + 72, y, width, height, Justification::centred, 1, 1.0f);
+
+        g.setColour(Colours::grey);
+
+        int nMarkerY = y + 5;
+        int nWidth = 9;
+        int nStart = x + 25;
+        int nEnd = nStart + nWidth;
+
+        for (int nMarkerX = nStart; nMarkerX < nEnd; nMarkerX++)
+        {
+            g.setPixel(nMarkerX, nMarkerY);
+        }
+
+        nStart = x + 70;
+        nEnd = nStart - nWidth;
+
+        for (int nMarkerX = nStart; nMarkerX > nEnd; nMarkerX--)
+        {
+            g.setPixel(nMarkerX, nMarkerY);
+        }
     }
 }
 
 
 void Kmeter::drawMarkersStereo(Graphics& g, String& strMarker, int x, int y, int width, int height)
 {
-    g.setColour(Colours::white);
-    g.drawFittedText(strMarker, x + 36, y, width, height, Justification::centred, 1, 1.0f);
-
-    g.setColour(Colours::grey);
-
-    int nMarkerY = y + 5;
-    int nStart = 0;
-    int nEnd = 0;
-    int nWidth = 0;
-
-    nWidth = 9;
-    nStart = x + 25;
-    nEnd = nStart + nWidth;
-
-    for (int nMarkerX = nStart; nMarkerX < nEnd; nMarkerX++)
+    if (bHorizontalMeter)
     {
-        g.setPixel(nMarkerX, nMarkerY);
+        int temp = x;
+        x = y;
+        y = temp;
+
+        int nHeight = LevelMeters[0]->getWidth() - x + 35;
+
+        g.setColour(Colours::white);
+
+        // make sure numbers don't overlap
+        if ((nMeterCrestFactor == 14) && (strMarker == "+12"))
+        {
+            g.drawFittedText(strMarker, nHeight - 6, y + 42, width, height, Justification::centred, 1, 1.0f);
+        }
+        else
+        {
+            g.drawFittedText(strMarker, nHeight, y + 42, width, height, Justification::centred, 1, 1.0f);
+        }
+
+        g.setColour(Colours::grey);
+
+        int nMarkerX = nHeight + 12;
+        int nWidth = 12;
+        int nStart = y + 25;
+        int nEnd = nStart + nWidth;
+
+        for (int nMarkerY = nStart; nMarkerY < nEnd; nMarkerY++)
+        {
+            g.setPixel(nMarkerX, nMarkerY);
+        }
+
+        nStart = y + 70;
+        nEnd = nStart - nWidth;
+
+        for (int nMarkerY = nStart; nMarkerY > nEnd; nMarkerY--)
+        {
+            g.setPixel(nMarkerX, nMarkerY);
+        }
     }
-
-    nStart = x + 70;
-    nEnd = nStart - nWidth;
-
-    for (int nMarkerX = nStart; nMarkerX > nEnd; nMarkerX--)
+    else
     {
-        g.setPixel(nMarkerX, nMarkerY);
+        g.setColour(Colours::white);
+        g.drawFittedText(strMarker, x + 36, y, width, height, Justification::centred, 1, 1.0f);
+
+        g.setColour(Colours::grey);
+
+        int nMarkerY = y + 5;
+        int nWidth = 9;
+        int nStart = x + 25;
+        int nEnd = nStart + nWidth;
+
+        for (int nMarkerX = nStart; nMarkerX < nEnd; nMarkerX++)
+        {
+            g.setPixel(nMarkerX, nMarkerY);
+        }
+
+        nStart = x + 70;
+        nEnd = nStart - nWidth;
+
+        for (int nMarkerX = nStart; nMarkerX > nEnd; nMarkerX--)
+        {
+            g.setPixel(nMarkerX, nMarkerY);
+        }
     }
 }
 

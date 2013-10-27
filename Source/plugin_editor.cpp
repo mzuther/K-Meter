@@ -35,7 +35,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     setOpaque(true);
 
     bReloadMeters = false;
-    bRotateMeters = false;
+    bHorizontalLayout = false;
     bIsValidating = false;
 
     nInputChannels = nNumChannels;
@@ -160,7 +160,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
     if (nInputChannels <= 2)
     {
-        if (bRotateMeters)
+        if (bHorizontalLayout)
         {
             stereoMeter = new StereoMeter("Stereo Meter", 28, 10, 13, 106);
             addAndMakeVisible(stereoMeter);
@@ -224,7 +224,7 @@ void KmeterAudioProcessorEditor::setBoundsButtonColumn(Component* component, int
 
 void KmeterAudioProcessorEditor::resizeEditor()
 {
-    if (bRotateMeters)
+    if (bHorizontalLayout)
     {
         if (nInputChannels <= 2)
         {
@@ -257,12 +257,12 @@ void KmeterAudioProcessorEditor::resizeEditor()
         setBoundsButtonColumn(ButtonItuBs1770, 0, 25, 60, 20);
         setBoundsButtonColumn(ButtonRms, 66, 25, 60, 20);
 
-        setBoundsButtonColumn(ButtonInfiniteHold, 280, 0, 60, 20);
-        setBoundsButtonColumn(ButtonDisplayPeakMeter, 346, 0, 60, 20);
-        setBoundsButtonColumn(ButtonExpanded, 412, 0, 60, 20);
+        setBoundsButtonColumn(ButtonInfiniteHold, 300, 0, 60, 20);
+        setBoundsButtonColumn(ButtonDisplayPeakMeter, 366, 0, 60, 20);
+        setBoundsButtonColumn(ButtonExpanded, 432, 0, 60, 20);
 
-        setBoundsButtonColumn(ButtonMono, 280, 25, 60, 20);
-        setBoundsButtonColumn(ButtonReset, 346, 25, 60, 20);
+        setBoundsButtonColumn(ButtonMono, 300, 25, 60, 20);
+        setBoundsButtonColumn(ButtonReset, 366, 25, 60, 20);
 
         setBoundsButtonColumn(ButtonValidation, nWidth - 80, 0, 60, 20);
         setBoundsButtonColumn(ButtonAbout, nWidth - 80, 25, 60, 20);
@@ -511,7 +511,14 @@ void KmeterAudioProcessorEditor::reloadMeters()
                 strUnit = String("LK");
             }
 
-            kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
+            if (bHorizontalLayout)
+            {
+                kmeter = new Kmeter("K-Meter", 48, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), bHorizontalLayout, ButtonDisplayPeakMeter->getToggleState(), 4);
+            }
+            else
+            {
+                kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), bHorizontalLayout, ButtonDisplayPeakMeter->getToggleState(), 4);
+            }
         }
         else
         {
@@ -526,20 +533,17 @@ void KmeterAudioProcessorEditor::reloadMeters()
                 strUnit = String("dB");
             }
 
-            kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), ButtonDisplayPeakMeter->getToggleState(), 4);
+            if (bHorizontalLayout)
+            {
+                kmeter = new Kmeter("K-Meter", 48, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), bHorizontalLayout, ButtonDisplayPeakMeter->getToggleState(), 4);
+            }
+            else
+            {
+                kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), bHorizontalLayout, ButtonDisplayPeakMeter->getToggleState(), 4);
+            }
         }
 
         addAndMakeVisible(kmeter);
-
-        AffineTransform transformation = AffineTransform();
-
-        if (bRotateMeters)
-        {
-            transformation = transformation.rotated(M_PI / 2.0f, 10.0f, 10.0f);
-            transformation = transformation.translated(nWidth - 20.0f, 0.0f);
-
-            kmeter->setTransform(transformation);
-        }
     }
 }
 
@@ -614,7 +618,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     }
     else if (button == ButtonValidation)
     {
-        WindowValidation* windowValidation = new WindowValidation(getWidth(), getHeight(), bRotateMeters, pProcessor);
+        WindowValidation* windowValidation = new WindowValidation(getWidth(), getHeight(), bHorizontalLayout, pProcessor);
         addAndMakeVisible(windowValidation);
 
         windowValidation->runModalLoop();

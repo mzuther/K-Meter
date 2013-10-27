@@ -64,7 +64,7 @@ private:
     void updateAverageAlgorithm(bool reload_meters);
 
     bool bReloadMeters;
-    bool bRotateMeters;
+    bool bHorizontalLayout;
     bool bIsValidating;
 
     int nCrestFactor;

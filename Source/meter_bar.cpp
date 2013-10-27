@@ -25,10 +25,11 @@
 
 #include "meter_bar.h"
 
-MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, int nCrestFactor, bool bExpanded, bool bDisplayPeakMeter, int nSegmentHeight)
+MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, int nCrestFactor, bool bExpanded, bool bHorizontal, bool bDisplayPeakMeter, int nSegmentHeight)
 {
     setName(componentName);
     isExpanded = bExpanded;
+    bHorizontalMeter = bHorizontal;
     displayPeakMeter = bDisplayPeakMeter;
 
     // this component does not have any transparent areas (increases
@@ -223,9 +224,20 @@ void MeterBar::visibilityChanged()
 {
     int x = 0;
     int y = 0;
-    int width = nWidth;
-    int height = 134 * nMainSegmentHeight + 1;
+    int width = 0;
+    int height = 0;
     int segment_height = nMainSegmentHeight;
+
+    if (bHorizontalMeter)
+    {
+        width = 134 * nMainSegmentHeight + 1;
+        height = nWidth;
+    }
+    else
+    {
+        width = nWidth;
+        height = 134 * nMainSegmentHeight + 1;
+    }
 
     int nKmeterLevel = nMeterCrestFactor; // bar K-Meter level (in 0.1 dB)
     int nRange = 0; // bar level range (in 0.1 dB)
@@ -257,9 +269,6 @@ void MeterBar::visibilityChanged()
                 nRange = 100;
             }
         }
-
-        width = nWidth;
-        x = 0;
 
         if (isExpanded)
         {
@@ -316,12 +325,21 @@ void MeterBar::visibilityChanged()
             }
         }
 
-        MeterArray[n]->setBounds(x, y, width, segment_height + 1);
-        y += segment_height;
+        if (bHorizontalMeter)
+        {
+            MeterArray[n]->setBounds(width - x - (segment_height + 1), y, segment_height + 1, height);
+            x += segment_height;
+        }
+        else
+        {
+            MeterArray[n]->setBounds(x, y, width, segment_height + 1);
+            y += segment_height;
+        }
 
         nKmeterLevel -= nRange;
     }
 }
+
 
 void MeterBar::paint(Graphics& g)
 {
