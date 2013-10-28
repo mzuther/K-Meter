@@ -35,12 +35,12 @@
 class PhaseCorrelationMeter : public Component
 {
 public:
-    PhaseCorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height);
+    PhaseCorrelationMeter(const String& componentName);
     ~PhaseCorrelationMeter();
 
     void setValue(float newValue);
     void paint(Graphics& g);
-    void visibilityChanged();
+    void resized();
 
 private:
     JUCE_LEAK_DETECTOR(PhaseCorrelationMeter);

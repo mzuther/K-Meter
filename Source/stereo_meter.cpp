@@ -25,7 +25,7 @@
 
 #include "stereo_meter.h"
 
-StereoMeter::StereoMeter(const String& componentName, int PosX, int PosY, int Width, int Height)
+StereoMeter::StereoMeter(const String& componentName)
 {
     setName(componentName);
 
@@ -36,17 +36,19 @@ StereoMeter::StereoMeter(const String& componentName, int PosX, int PosY, int Wi
     fValue = 0.0f;
     nNeedlePosition = -1;
 
-    nPosX = PosX;
-    nPosY = PosY;
-    nWidth = Width;
-    nHeight = Height;
+    nPosX = -1;
+    nPosY = -1;
+    nWidth = 1;
+    nHeight = 1;
 
-    bVerticalMeter = (nHeight > nWidth);
+    bVerticalMeter = false;
 }
+
 
 StereoMeter::~StereoMeter()
 {
 }
+
 
 void StereoMeter::paint(Graphics& g)
 {
@@ -159,10 +161,19 @@ void StereoMeter::paint(Graphics& g)
     }
 }
 
-void StereoMeter::visibilityChanged()
+
+void StereoMeter::resized()
 {
-    setBounds(nPosX, nPosY, nWidth, nHeight);
+    Rectangle<int> rect = getBounds();
+
+    nPosX = rect.getX();
+    nPosY = rect.getY();
+    nWidth = rect.getWidth();
+    nHeight = rect.getHeight();
+
+    bVerticalMeter = (nHeight > nWidth);
 }
+
 
 void StereoMeter::setValue(float newValue)
 {

@@ -25,7 +25,7 @@
 
 #include "phase_correlation_meter.h"
 
-PhaseCorrelationMeter::PhaseCorrelationMeter(const String& componentName, int PosX, int PosY, int Width, int Height)
+PhaseCorrelationMeter::PhaseCorrelationMeter(const String& componentName)
 {
     setName(componentName);
 
@@ -36,17 +36,19 @@ PhaseCorrelationMeter::PhaseCorrelationMeter(const String& componentName, int Po
     fValue = 0.0f;
     nNeedlePosition = -1;
 
-    nPosX = PosX;
-    nPosY = PosY;
-    nWidth = Width;
-    nHeight = Height;
+    nPosX = -1;
+    nPosY = -1;
+    nWidth = 1;
+    nHeight = 1;
 
-    bVerticalMeter = (nHeight > nWidth);
+    bVerticalMeter = false;
 }
+
 
 PhaseCorrelationMeter::~PhaseCorrelationMeter()
 {
 }
+
 
 void PhaseCorrelationMeter::paint(Graphics& g)
 {
@@ -127,10 +129,19 @@ void PhaseCorrelationMeter::paint(Graphics& g)
     }
 }
 
-void PhaseCorrelationMeter::visibilityChanged()
+
+void PhaseCorrelationMeter::resized()
 {
-    setBounds(nPosX, nPosY, nWidth, nHeight);
+    Rectangle<int> rect = getBounds();
+
+    nPosX = rect.getX();
+    nPosY = rect.getY();
+    nWidth = rect.getWidth();
+    nHeight = rect.getHeight();
+
+    bVerticalMeter = (nHeight > nWidth);
 }
+
 
 void PhaseCorrelationMeter::setValue(float newValue)
 {

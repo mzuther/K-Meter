@@ -70,6 +70,7 @@ public:
         selCrestFactor = 0,
         selAverageAlgorithm,
         selExpanded,
+        selOrientation,
         selPeak,
         selInfiniteHold,
         selMono,
@@ -96,6 +97,9 @@ public:
 
         selAlgorithmRms = 0,
         selAlgorithmItuBs1770,
+
+        selOrientationHorizontal = 0,
+        selOrientationVertical,
 
         nNumAlgorithms,
     };

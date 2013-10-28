@@ -35,12 +35,12 @@
 class StereoMeter : public Component
 {
 public:
-    StereoMeter(const String& componentName, int PosX, int PosY, int Width, int Height);
+    StereoMeter(const String& componentName);
     ~StereoMeter();
 
     void setValue(float newValue);
     void paint(Graphics& g);
-    void visibilityChanged();
+    void resized();
 
 private:
     JUCE_LEAK_DETECTOR(StereoMeter);

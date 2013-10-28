@@ -66,6 +66,7 @@ private:
     bool bReloadMeters;
     bool bHorizontalLayout;
     bool bIsValidating;
+    bool bInitialising;
 
     int nCrestFactor;
     int nInputChannels;
@@ -89,6 +90,7 @@ private:
     TextButton* ButtonRms;
 
     TextButton* ButtonExpanded;
+    TextButton* ButtonHorizontal;
     TextButton* ButtonDisplayPeakMeter;
     TextButton* ButtonInfiniteHold;
     TextButton* ButtonReset;

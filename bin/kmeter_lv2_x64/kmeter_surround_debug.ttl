@@ -256,6 +256,25 @@
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 17 ;
+        lv2:symbol "orientation" ;
+        lv2:name "Orientation" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Horizontal" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Vertical" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 18 ;
         lv2:symbol "peak_meter" ;
         lv2:name "Peak Meter" ;
         lv2:default 0.0 ;
@@ -266,7 +285,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 18 ;
+        lv2:index 19 ;
         lv2:symbol "peak_hold" ;
         lv2:name "Peak Hold" ;
         lv2:default 0.0 ;
@@ -277,7 +296,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 19 ;
+        lv2:index 20 ;
         lv2:symbol "mono_input" ;
         lv2:name "Mono Input" ;
         lv2:default 0.0 ;

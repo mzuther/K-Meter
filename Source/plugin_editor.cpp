@@ -34,7 +34,9 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     // (increases performance on redrawing)
     setOpaque(true);
 
-    bReloadMeters = false;
+    // prevent meter reload during initialisation
+    bInitialising = true;
+
     bHorizontalLayout = false;
     bIsValidating = false;
 
@@ -117,6 +119,13 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonExpanded->addListener(this);
     addAndMakeVisible(ButtonExpanded);
 
+    ButtonHorizontal = new TextButton("Horizontal");
+    ButtonHorizontal->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonHorizontal->setColour(TextButton::buttonOnColourId, Colours::yellow);
+
+    ButtonHorizontal->addListener(this);
+    addAndMakeVisible(ButtonHorizontal);
+
     ButtonMono = new TextButton("Mono");
     ButtonMono->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonMono->setColour(TextButton::buttonOnColourId, Colours::red);
@@ -155,27 +164,13 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonAbout->addListener(this);
     addAndMakeVisible(ButtonAbout);
 
-    // This is where our plug-in editor's size is set.
-    resizeEditor();
-
     if (nInputChannels <= 2)
     {
-        if (bHorizontalLayout)
-        {
-            stereoMeter = new StereoMeter("Stereo Meter", 28, 10, 13, 106);
-            addAndMakeVisible(stereoMeter);
+        stereoMeter = new StereoMeter("Stereo Meter");
+        addAndMakeVisible(stereoMeter);
 
-            phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, 10, 13, 106);
-            addAndMakeVisible(phaseCorrelationMeter);
-        }
-        else
-        {
-            stereoMeter = new StereoMeter("Stereo Meter", 10, nHeight - 41, 106, 13);
-            addAndMakeVisible(stereoMeter);
-
-            phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter", 10, nHeight - 24, 106, 13);
-            addAndMakeVisible(phaseCorrelationMeter);
-        }
+        phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter");
+        addAndMakeVisible(phaseCorrelationMeter);
     }
     else
     {
@@ -196,6 +191,9 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     nIndex = KmeterPluginParameters::selExpanded;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
+    nIndex = KmeterPluginParameters::selOrientation;
+    changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
+
     nIndex = KmeterPluginParameters::selPeak;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
@@ -204,6 +202,14 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
     nIndex = KmeterPluginParameters::selMono;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
+
+    // force meter reload after initialisation ...
+    bInitialising = false;
+    bReloadMeters = true;
+    reloadMeters();
+
+    // ... and set our plug-in editor's size.
+    resizeEditor();
 }
 
 
@@ -249,6 +255,9 @@ void KmeterAudioProcessorEditor::resizeEditor()
         nHeight = nButtonColumnTop + 56;
         setSize(nWidth, nHeight);
 
+        stereoMeter->setBounds(28, 10, 13, 106);
+        phaseCorrelationMeter->setBounds(10, 10, 13, 106);
+
         setBoundsButtonColumn(ButtonK20, 0, 0, 60, 20);
         setBoundsButtonColumn(ButtonK14, 66, 0, 60, 20);
         setBoundsButtonColumn(ButtonK12, 132, 0, 60, 20);
@@ -263,6 +272,7 @@ void KmeterAudioProcessorEditor::resizeEditor()
 
         setBoundsButtonColumn(ButtonMono, 300, 25, 60, 20);
         setBoundsButtonColumn(ButtonReset, 366, 25, 60, 20);
+        setBoundsButtonColumn(ButtonHorizontal, 432, 25, 60, 20);
 
         setBoundsButtonColumn(ButtonValidation, nWidth - 80, 0, 60, 20);
         setBoundsButtonColumn(ButtonAbout, nWidth - 80, 25, 60, 20);
@@ -297,6 +307,9 @@ void KmeterAudioProcessorEditor::resizeEditor()
         nWidth = nButtonColumnLeft + 70;
         setSize(nWidth, nHeight);
 
+        stereoMeter->setBounds(10, nHeight - 41, 106, 13);
+        phaseCorrelationMeter->setBounds(10, nHeight - 24, 106, 13);
+
         setBoundsButtonColumn(ButtonK20, 0, 0, 60, 20);
         setBoundsButtonColumn(ButtonK14, 0, 25, 60, 20);
         setBoundsButtonColumn(ButtonK12, 0, 50, 60, 20);
@@ -308,9 +321,10 @@ void KmeterAudioProcessorEditor::resizeEditor()
         setBoundsButtonColumn(ButtonInfiniteHold, 0, 180, 60, 20);
         setBoundsButtonColumn(ButtonDisplayPeakMeter, 0, 205, 60, 20);
         setBoundsButtonColumn(ButtonExpanded, 0, 230, 60, 20);
+        setBoundsButtonColumn(ButtonHorizontal, 0, 255, 60, 20);
 
-        setBoundsButtonColumn(ButtonMono, 0, 270, 60, 20);
-        setBoundsButtonColumn(ButtonReset, 0, 295, 60, 20);
+        setBoundsButtonColumn(ButtonMono, 0, 295, 60, 20);
+        setBoundsButtonColumn(ButtonReset, 0, 320, 60, 20);
 
         setBoundsButtonColumn(ButtonValidation, 0, nHeight - 66, 60, 20);
         setBoundsButtonColumn(ButtonAbout, 0, nHeight - 41, 60, 20);
@@ -343,7 +357,10 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String& message)
 
         if (pMeterBallistics)
         {
-            kmeter->setLevels(pMeterBallistics);
+            if (kmeter)
+            {
+                kmeter->setLevels(pMeterBallistics);
+            }
 
             if (stereoMeter)
             {
@@ -458,6 +475,15 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         ButtonExpanded->setToggleState(nValue != 0, dontSendNotification);
         break;
 
+    case KmeterPluginParameters::selOrientation:
+        bReloadMeters = true;
+
+        bHorizontalLayout = (nValue == KmeterPluginParameters::selOrientationHorizontal);
+        ButtonHorizontal->setToggleState(bHorizontalLayout, dontSendNotification);
+
+        resizeEditor();
+        break;
+
     case KmeterPluginParameters::selPeak:
         bReloadMeters = true;
         ButtonDisplayPeakMeter->setToggleState(nValue != 0, dontSendNotification);
@@ -480,7 +506,11 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         break;
     }
 
-    reloadMeters();
+    // prevent meter reload during initialisation
+    if (!bInitialising)
+    {
+        reloadMeters();
+    }
 }
 
 
@@ -513,11 +543,11 @@ void KmeterAudioProcessorEditor::reloadMeters()
 
             if (bHorizontalLayout)
             {
-                kmeter = new Kmeter("K-Meter", 48, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), bHorizontalLayout, ButtonDisplayPeakMeter->getToggleState(), 4);
+                kmeter = new Kmeter("K-Meter", 48, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), true, ButtonDisplayPeakMeter->getToggleState(), 4);
             }
             else
             {
-                kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), bHorizontalLayout, ButtonDisplayPeakMeter->getToggleState(), 4);
+                kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), false, ButtonDisplayPeakMeter->getToggleState(), 4);
             }
         }
         else
@@ -535,11 +565,11 @@ void KmeterAudioProcessorEditor::reloadMeters()
 
             if (bHorizontalLayout)
             {
-                kmeter = new Kmeter("K-Meter", 48, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), bHorizontalLayout, ButtonDisplayPeakMeter->getToggleState(), 4);
+                kmeter = new Kmeter("K-Meter", 48, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), true, ButtonDisplayPeakMeter->getToggleState(), 4);
             }
             else
             {
-                kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), bHorizontalLayout, ButtonDisplayPeakMeter->getToggleState(), 4);
+                kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), false, ButtonDisplayPeakMeter->getToggleState(), 4);
             }
         }
 
@@ -587,6 +617,10 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     else if (button == ButtonExpanded)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selExpanded, !button->getToggleState());
+    }
+    else if (button == ButtonHorizontal)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selOrientation, button->getToggleState());
     }
     else if (button == ButtonDisplayPeakMeter)
     {
