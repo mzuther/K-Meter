@@ -58,8 +58,11 @@ private:
 
     bool bHorizontalMeter;
 
+    int nWidth;
+    int nHeight;
     int nPosX;
     int nPosY;
+
     int nMainSegmentHeight;
     int nMeterPositionTop;
     bool isExpanded;
@@ -76,7 +79,12 @@ private:
     PeakLabel** MaximumPeakLabels;
 
     void drawMarkersMono(Graphics& g, String& strMarker, int x, int y, int width, int height);
+    void drawMarkersMonoVertical(Graphics& g, String& strMarker, int x, int y, int width, int height);
+    void drawMarkersMonoHorizontal(Graphics& g, String& strMarker, int x, int y, int width, int height);
+
     void drawMarkersStereo(Graphics& g, String& strMarker, int x, int y, int width, int height);
+    void drawMarkersStereoVertical(Graphics& g, String& strMarker, int x, int y, int width, int height);
+    void drawMarkersStereoHorizontal(Graphics& g, String& strMarker, int x, int y, int width, int height);
 };
 
 

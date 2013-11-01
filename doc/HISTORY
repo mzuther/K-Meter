@@ -1,6 +1,10 @@
 Git HEAD
 ========
 
+* vertical meter
+
+* optimised plug-in editor inialisation (less redraws)
+
 
 v1.31 (2013-05-29)
 ==================

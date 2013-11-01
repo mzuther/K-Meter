@@ -234,12 +234,12 @@ void KmeterAudioProcessorEditor::resizeEditor()
     {
         if (nInputChannels <= 2)
         {
-            nWidth = 648;
+            nWidth = 680;
             nButtonColumnTop = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 24;
         }
         else
         {
-            nWidth = 630;
+            nWidth = 662;
 
             if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
             {
@@ -255,8 +255,11 @@ void KmeterAudioProcessorEditor::resizeEditor()
         nHeight = nButtonColumnTop + 56;
         setSize(nWidth, nHeight);
 
-        stereoMeter->setBounds(28, 10, 13, 106);
-        phaseCorrelationMeter->setBounds(10, 10, 13, 106);
+        if (nInputChannels <= 2)
+        {
+            stereoMeter->setBounds(28, 10, 13, 106);
+            phaseCorrelationMeter->setBounds(10, 10, 13, 106);
+        }
 
         setBoundsButtonColumn(ButtonK20, 0, 0, 60, 20);
         setBoundsButtonColumn(ButtonK14, 66, 0, 60, 20);
@@ -307,8 +310,11 @@ void KmeterAudioProcessorEditor::resizeEditor()
         nWidth = nButtonColumnLeft + 70;
         setSize(nWidth, nHeight);
 
-        stereoMeter->setBounds(10, nHeight - 41, 106, 13);
-        phaseCorrelationMeter->setBounds(10, nHeight - 24, 106, 13);
+        if (nInputChannels <= 2)
+        {
+            stereoMeter->setBounds(10, nHeight - 41, 106, 13);
+            phaseCorrelationMeter->setBounds(10, nHeight - 24, 106, 13);
+        }
 
         setBoundsButtonColumn(ButtonK20, 0, 0, 60, 20);
         setBoundsButtonColumn(ButtonK14, 0, 25, 60, 20);
