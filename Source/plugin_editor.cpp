@@ -44,6 +44,8 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
     nCrestFactor = 0;
 
+    pSkin = new Skin(nInputChannels, nCrestFactor, -1, bHorizontalLayout);
+
     // The plug-in editor's size as well as the location of buttons
     // and labels will be set later on in this constructor.
 
@@ -218,13 +220,10 @@ KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
     pProcessor->removeActionListener(this);
     pProcessor->removeActionListenerParameters(this);
 
+    delete pSkin;
+    pSkin = NULL;
+
     deleteAllChildren();
-}
-
-
-void KmeterAudioProcessorEditor::setBoundsButtonColumn(Component* component, int x, int y, int width, int height)
-{
-    component->setBounds(nButtonColumnLeft + x, nButtonColumnTop + y, width, height);
 }
 
 
@@ -260,30 +259,6 @@ void KmeterAudioProcessorEditor::resizeEditor()
             stereoMeter->setBounds(28, 10, 13, 106);
             phaseCorrelationMeter->setBounds(10, 10, 13, 106);
         }
-
-        setBoundsButtonColumn(ButtonK20, 0, 0, 60, 20);
-        setBoundsButtonColumn(ButtonK14, 66, 0, 60, 20);
-        setBoundsButtonColumn(ButtonK12, 132, 0, 60, 20);
-        setBoundsButtonColumn(ButtonNormal, 198, 0, 60, 20);
-
-        setBoundsButtonColumn(ButtonItuBs1770, 0, 25, 60, 20);
-        setBoundsButtonColumn(ButtonRms, 66, 25, 60, 20);
-
-        setBoundsButtonColumn(ButtonInfiniteHold, 300, 0, 60, 20);
-        setBoundsButtonColumn(ButtonDisplayPeakMeter, 366, 0, 60, 20);
-        setBoundsButtonColumn(ButtonExpanded, 432, 0, 60, 20);
-
-        setBoundsButtonColumn(ButtonMono, 300, 25, 60, 20);
-        setBoundsButtonColumn(ButtonReset, 366, 25, 60, 20);
-        setBoundsButtonColumn(ButtonHorizontal, 432, 25, 60, 20);
-
-        setBoundsButtonColumn(ButtonValidation, nWidth - 80, 0, 60, 20);
-        setBoundsButtonColumn(ButtonAbout, nWidth - 80, 25, 60, 20);
-
-        if (LabelDebug)
-        {
-            setBoundsButtonColumn(LabelDebug, 198, 25, 60, 16);
-        }
     }
     else
     {
@@ -315,30 +290,30 @@ void KmeterAudioProcessorEditor::resizeEditor()
             stereoMeter->setBounds(10, nHeight - 41, 106, 13);
             phaseCorrelationMeter->setBounds(10, nHeight - 24, 106, 13);
         }
+    }
 
-        setBoundsButtonColumn(ButtonK20, 0, 0, 60, 20);
-        setBoundsButtonColumn(ButtonK14, 0, 25, 60, 20);
-        setBoundsButtonColumn(ButtonK12, 0, 50, 60, 20);
-        setBoundsButtonColumn(ButtonNormal, 0, 75, 60, 20);
+    pSkin->placeButton(Skin::ButtonK20, ButtonK20);
+    pSkin->placeButton(Skin::ButtonK14, ButtonK14);
+    pSkin->placeButton(Skin::ButtonK12, ButtonK12);
+    pSkin->placeButton(Skin::ButtonNormal, ButtonNormal);
 
-        setBoundsButtonColumn(ButtonItuBs1770, 0, 115, 60, 20);
-        setBoundsButtonColumn(ButtonRms, 0, 140, 60, 20);
+    pSkin->placeButton(Skin::ButtonItuBs1770, ButtonItuBs1770);
+    pSkin->placeButton(Skin::ButtonRms, ButtonRms);
 
-        setBoundsButtonColumn(ButtonInfiniteHold, 0, 180, 60, 20);
-        setBoundsButtonColumn(ButtonDisplayPeakMeter, 0, 205, 60, 20);
-        setBoundsButtonColumn(ButtonExpanded, 0, 230, 60, 20);
-        setBoundsButtonColumn(ButtonHorizontal, 0, 255, 60, 20);
+    pSkin->placeButton(Skin::ButtonInfiniteHold, ButtonInfiniteHold);
+    pSkin->placeButton(Skin::ButtonDisplayPeakMeter, ButtonDisplayPeakMeter);
+    pSkin->placeButton(Skin::ButtonExpanded, ButtonExpanded);
 
-        setBoundsButtonColumn(ButtonMono, 0, 295, 60, 20);
-        setBoundsButtonColumn(ButtonReset, 0, 320, 60, 20);
+    pSkin->placeButton(Skin::ButtonMono, ButtonMono);
+    pSkin->placeButton(Skin::ButtonReset, ButtonReset);
+    pSkin->placeButton(Skin::ButtonHorizontal, ButtonHorizontal);
 
-        setBoundsButtonColumn(ButtonValidation, 0, nHeight - 66, 60, 20);
-        setBoundsButtonColumn(ButtonAbout, 0, nHeight - 41, 60, 20);
+    pSkin->placeButton(Skin::ButtonValidation, ButtonValidation);
+    pSkin->placeButton(Skin::ButtonAbout, ButtonAbout);
 
-        if (LabelDebug)
-        {
-            setBoundsButtonColumn(LabelDebug, 0, nHeight - 102, 60, 16);
-        }
+    if (LabelDebug)
+    {
+        pSkin->placeButton(Skin::LabelDebug, LabelDebug);
     }
 }
 
@@ -432,6 +407,7 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
             nCrestFactor = nValue;
             bReloadMeters = true;
 
+            pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bHorizontalLayout);
             ButtonNormal->setToggleState(true, dontSendNotification);
         }
         else if (nValue == 12)
@@ -439,6 +415,7 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
             nCrestFactor = nValue;
             bReloadMeters = true;
 
+            pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bHorizontalLayout);
             ButtonK12->setToggleState(true, dontSendNotification);
         }
         else if (nValue == 14)
@@ -446,13 +423,15 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
             nCrestFactor = nValue;
             bReloadMeters = true;
 
+            pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bHorizontalLayout);
             ButtonK14->setToggleState(true, dontSendNotification);
         }
         else // K-20
         {
-            nCrestFactor = nValue;
+            nCrestFactor = 20;
             bReloadMeters = true;
 
+            pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bHorizontalLayout);
             ButtonK20->setToggleState(true, dontSendNotification);
         }
 
@@ -469,7 +448,7 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         // executed...
         pProcessor->setAverageAlgorithm(nValue);
 
-        if (nStereoInputChannels > 2)
+        if (nInputChannels > 2)
         {
             resizeEditor();
         }
@@ -487,6 +466,7 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         bHorizontalLayout = (nValue == KmeterPluginParameters::selOrientationHorizontal);
         ButtonHorizontal->setToggleState(bHorizontalLayout, dontSendNotification);
 
+        pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bHorizontalLayout);
         resizeEditor();
         break;
 
@@ -691,6 +671,7 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
         pMeterBallistics->reset();
     }
 
+    pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bHorizontalLayout);
     reloadMeters();
 }
 

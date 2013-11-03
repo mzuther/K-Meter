@@ -108,25 +108,26 @@ ifeq ($(config),release64)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/stereo_meter.o \
-	$(OBJDIR)/meter_segment.o \
-	$(OBJDIR)/plugin_processor.o \
-	$(OBJDIR)/plugin_parameters.o \
-	$(OBJDIR)/averager.o \
+	$(OBJDIR)/channel_slider.o \
+	$(OBJDIR)/skin.o \
+	$(OBJDIR)/audio_file_player.o \
 	$(OBJDIR)/main.o \
-	$(OBJDIR)/average_level_filtered.o \
-	$(OBJDIR)/window_validation.o \
-	$(OBJDIR)/meter_bar.o \
-	$(OBJDIR)/peak_label.o \
-	$(OBJDIR)/kmeter.o \
-	$(OBJDIR)/audio_ring_buffer.o \
-	$(OBJDIR)/phase_correlation_meter.o \
+	$(OBJDIR)/plugin_editor.o \
+	$(OBJDIR)/meter_segment.o \
+	$(OBJDIR)/stereo_meter.o \
 	$(OBJDIR)/window_about.o \
 	$(OBJDIR)/meter_ballistics.o \
-	$(OBJDIR)/plugin_editor.o \
-	$(OBJDIR)/audio_file_player.o \
 	$(OBJDIR)/overflow_meter.o \
-	$(OBJDIR)/channel_slider.o \
+	$(OBJDIR)/average_level_filtered.o \
+	$(OBJDIR)/kmeter.o \
+	$(OBJDIR)/meter_bar.o \
+	$(OBJDIR)/window_validation.o \
+	$(OBJDIR)/averager.o \
+	$(OBJDIR)/plugin_parameters.o \
+	$(OBJDIR)/peak_label.o \
+	$(OBJDIR)/audio_ring_buffer.o \
+	$(OBJDIR)/phase_correlation_meter.o \
+	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/resources.o \
 	$(OBJDIR)/juce_audio_basics.o \
 	$(OBJDIR)/juce_audio_devices.o \
@@ -203,43 +204,25 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 endif
 
-$(OBJDIR)/stereo_meter.o: ../../../Source/stereo_meter.cpp
+$(OBJDIR)/channel_slider.o: ../../../Source/channel_slider.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/meter_segment.o: ../../../Source/meter_segment.cpp
+$(OBJDIR)/skin.o: ../../../Source/skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_processor.o: ../../../Source/plugin_processor.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/averager.o: ../../../Source/averager.cpp
+$(OBJDIR)/audio_file_player.o: ../../../Source/audio_file_player.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/main.o: ../../../Source/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/average_level_filtered.o: ../../../Source/average_level_filtered.cpp
+$(OBJDIR)/plugin_editor.o: ../../../Source/plugin_editor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/window_validation.o: ../../../Source/window_validation.cpp
+$(OBJDIR)/meter_segment.o: ../../../Source/meter_segment.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/meter_bar.o: ../../../Source/meter_bar.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/peak_label.o: ../../../Source/peak_label.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/kmeter.o: ../../../Source/kmeter.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/audio_ring_buffer.o: ../../../Source/audio_ring_buffer.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/phase_correlation_meter.o: ../../../Source/phase_correlation_meter.cpp
+$(OBJDIR)/stereo_meter.o: ../../../Source/stereo_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/window_about.o: ../../../Source/window_about.cpp
@@ -248,16 +231,37 @@ $(OBJDIR)/window_about.o: ../../../Source/window_about.cpp
 $(OBJDIR)/meter_ballistics.o: ../../../Source/meter_ballistics.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_editor.o: ../../../Source/plugin_editor.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/audio_file_player.o: ../../../Source/audio_file_player.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/overflow_meter.o: ../../../Source/overflow_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/channel_slider.o: ../../../Source/channel_slider.cpp
+$(OBJDIR)/average_level_filtered.o: ../../../Source/average_level_filtered.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/kmeter.o: ../../../Source/kmeter.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/meter_bar.o: ../../../Source/meter_bar.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/window_validation.o: ../../../Source/window_validation.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/averager.o: ../../../Source/averager.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/peak_label.o: ../../../Source/peak_label.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/audio_ring_buffer.o: ../../../Source/audio_ring_buffer.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/phase_correlation_meter.o: ../../../Source/phase_correlation_meter.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_processor.o: ../../../Source/plugin_processor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/resources.o: ../../../Source/resources/resources.cpp

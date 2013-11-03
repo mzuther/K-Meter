@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{4A7C600B-6256-F34A-9C28-65AEC36E9353}</ProjectGuid>
+		<ProjectGuid>{460607AC-C7BC-9DE3-AA96-D75BCEDC26D7}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Surround)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -213,65 +213,68 @@
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemGroup>
-		<ClInclude Include="..\..\..\Source\meter_bar.h" />
-		<ClInclude Include="..\..\..\Source\window_validation.h" />
-		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h" />
-		<ClInclude Include="..\..\..\Source\channel_slider.h" />
-		<ClInclude Include="..\..\..\Source\average_level_filtered.h" />
-		<ClInclude Include="..\..\..\Source\meter_segment.h" />
-		<ClInclude Include="..\..\..\Source\stereo_meter.h" />
-		<ClInclude Include="..\..\..\Source\overflow_meter.h" />
-		<ClInclude Include="..\..\..\Source\audio_ring_buffer.h" />
-		<ClInclude Include="..\..\..\Source\peak_label.h" />
-		<ClInclude Include="..\..\..\Source\kmeter.h" />
-		<ClInclude Include="..\..\..\Source\phase_correlation_meter.h" />
-		<ClInclude Include="..\..\..\Source\window_about.h" />
+		<ClInclude Include="..\..\..\Source\skin.h" />
 		<ClInclude Include="..\..\..\Source\audio_file_player.h" />
+		<ClInclude Include="..\..\..\Source\stereo_meter.h" />
+		<ClInclude Include="..\..\..\Source\plugin_editor.h" />
+		<ClInclude Include="..\..\..\Source\peak_label.h" />
+		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\Source\plugin_processor.h" />
-		<ClInclude Include="..\..\..\Source\meter_ballistics.h" />
-		<ClInclude Include="..\..\..\Source\plugin_editor.h" />
+		<ClInclude Include="..\..\..\Source\kmeter.h" />
 		<ClInclude Include="..\..\..\Source\averager.h" />
+		<ClInclude Include="..\..\..\Source\meter_ballistics.h" />
+		<ClInclude Include="..\..\..\Source\window_validation.h" />
+		<ClInclude Include="..\..\..\Source\channel_slider.h" />
+		<ClInclude Include="..\..\..\Source\audio_ring_buffer.h" />
+		<ClInclude Include="..\..\..\Source\meter_segment.h" />
+		<ClInclude Include="..\..\..\Source\average_level_filtered.h" />
+		<ClInclude Include="..\..\..\Source\meter_bar.h" />
+		<ClInclude Include="..\..\..\Source\phase_correlation_meter.h" />
+		<ClInclude Include="..\..\..\Source\overflow_meter.h" />
+		<ClInclude Include="..\..\..\Source\window_about.h" />
 		<ClInclude Include="..\..\..\Source\resources\resources.h" />
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="..\..\..\Source\stereo_meter.cpp">
+		<ClCompile Include="..\..\..\Source\channel_slider.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\meter_segment.cpp">
+		<ClCompile Include="..\..\..\Source\skin.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\plugin_processor.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\averager.cpp">
+		<ClCompile Include="..\..\..\Source\audio_file_player.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\main.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\average_level_filtered.cpp">
+		<ClCompile Include="..\..\..\Source\plugin_editor.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\window_validation.cpp">
+		<ClCompile Include="..\..\..\Source\meter_segment.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\meter_bar.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\peak_label.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\kmeter.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\audio_ring_buffer.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\phase_correlation_meter.cpp">
+		<ClCompile Include="..\..\..\Source\stereo_meter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\window_about.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\meter_ballistics.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\plugin_editor.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\audio_file_player.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\overflow_meter.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\channel_slider.cpp">
+		<ClCompile Include="..\..\..\Source\average_level_filtered.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\kmeter.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\meter_bar.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\window_validation.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\averager.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\peak_label.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\audio_ring_buffer.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\phase_correlation_meter.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\plugin_processor.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\resources\resources.cpp">
 		</ClCompile>

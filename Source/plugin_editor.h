@@ -29,6 +29,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "plugin_processor.h"
 #include "kmeter.h"
+#include "skin.h"
 #include "stereo_meter.h"
 #include "phase_correlation_meter.h"
 #include "window_about.h"
@@ -57,8 +58,6 @@ public:
 private:
     JUCE_LEAK_DETECTOR(KmeterAudioProcessorEditor);
 
-    void setBoundsButtonColumn(Component* component, int x, int y, int width, int height);
-
     void reloadMeters();
     void resizeEditor();
     void updateAverageAlgorithm(bool reload_meters);
@@ -75,6 +74,8 @@ private:
     int nButtonColumnTop;
     int nHeight;
     int nWidth;
+
+    Skin* pSkin;
 
     KmeterAudioProcessor* pProcessor;
     Kmeter* kmeter;
