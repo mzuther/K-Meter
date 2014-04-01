@@ -187,7 +187,7 @@ unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer& source, const unsign
 
         for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
         {
-            memcpy(pAudioData + uCurrentPosition + uChannelOffset[uChannel], source.getSampleData(uChannel, sourceStartSample + uSamplesFinished), sizeof(float) * uSamplesToCopy);
+            memcpy(pAudioData + uCurrentPosition + uChannelOffset[uChannel], source.getReadPointer(uChannel, sourceStartSample + uSamplesFinished), sizeof(float) * uSamplesToCopy);
         }
 
         uSamplesInBuffer += uSamplesToCopy;
@@ -243,9 +243,10 @@ void AudioRingBuffer::copyToBuffer(AudioSampleBuffer& destination, const unsigne
 
     int nStartPosition = uCurrentPosition - numSamples - pre_delay;
 
+    // make sure "nStartPosition" is positive
     while (nStartPosition < 0)
     {
-        nStartPosition += uTotalLength;    // make sure "nStartPosition" is positive
+        nStartPosition += uTotalLength;
     }
 
     nStartPosition %= uTotalLength;
@@ -261,7 +262,7 @@ void AudioRingBuffer::copyToBuffer(AudioSampleBuffer& destination, const unsigne
 
         for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
         {
-            memcpy(destination.getSampleData(uChannel, destStartSample + uSamplesFinished), pAudioData + nStartPosition + uChannelOffset[uChannel], sizeof(float) * uSamplesToCopy);
+            memcpy(destination.getWritePointer(uChannel, destStartSample + uSamplesFinished), pAudioData + nStartPosition + uChannelOffset[uChannel], sizeof(float) * uSamplesToCopy);
         }
 
         nStartPosition += uSamplesToCopy;

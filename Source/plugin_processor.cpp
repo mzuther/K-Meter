@@ -499,8 +499,8 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
     // convert stereo input to mono if "Mono" button has been pressed
     if (isStereo && bMono)
     {
-        float* output_left = buffer.getSampleData(0);
-        float* output_right = buffer.getSampleData(1);
+        float* output_left = buffer.getWritePointer(0);
+        float* output_right = buffer.getWritePointer(1);
 
         for (int i = 0; i < nNumSamples; i++)
         {

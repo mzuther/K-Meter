@@ -269,6 +269,8 @@ void AverageLevelFiltered::setPeakToAverageCorrection(float peak_to_average_corr
 }
 
 
+// calculate filter kernel for windowed-sinc low-pass filter (cutoff
+// at 21.0 kHz)
 void AverageLevelFiltered::calculateFilterKernel_Rms()
 {
     float nCutoffFrequency = 21000.0f;
@@ -366,6 +368,7 @@ void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
 }
 
 
+// apply windowed-sinc low-pass filter (cutoff at 21.0 kHz) to samples
 void AverageLevelFiltered::FilterSamples_Rms(const int channel)
 {
     jassert(channel >= 0);
@@ -373,7 +376,7 @@ void AverageLevelFiltered::FilterSamples_Rms(const int channel)
 
     // copy audio data to temporary buffer as the sample buffer is not
     // optimised for MME
-    memcpy(arrAudioSamples_TD, pSampleBuffer->getSampleData(channel), nBufferSize * sizeof(float));
+    memcpy(arrAudioSamples_TD, pSampleBuffer->getReadPointer(channel), nBufferSize * sizeof(float));
 
     // pad audio data with zeros
     for (int nSample = nBufferSize; nSample < nFftSize; nSample++)
@@ -425,11 +428,13 @@ void AverageLevelFiltered::FilterSamples_ItuBs1770()
     {
         // pre-filter
         pPreviousSamplesOutputTemp->clear();
-        float* pSamplesInput = pSampleBuffer->getSampleData(nChannel);
-        float* pSamplesOutput = pPreviousSamplesOutputTemp->getSampleData(0);
+        const float* pSamplesInput = pSampleBuffer->getReadPointer(nChannel);
 
-        float* pSamplesInputOld_1 = pPreviousSamplesInput_1->getSampleData(nChannel);
-        float* pSamplesOutputOld_1 = pPreviousSamplesOutput_1->getSampleData(nChannel);
+        // temporary buffer with only one channel
+        float* pSamplesOutput = pPreviousSamplesOutputTemp->getWritePointer(0);
+
+        const float* pSamplesInputOld_1 = pPreviousSamplesInput_1->getReadPointer(nChannel);
+        const float* pSamplesOutputOld_1 = pPreviousSamplesOutput_1->getReadPointer(nChannel);
 
         for (int nSample = 0; nSample < nBufferSize; nSample++)
         {
@@ -479,8 +484,12 @@ void AverageLevelFiltered::FilterSamples_ItuBs1770()
         // RLB weighting filter
         pPreviousSamplesOutputTemp->clear();
 
-        float* pSamplesInputOld_2 = pPreviousSamplesInput_2->getSampleData(nChannel);
-        float* pSamplesOutputOld_2 = pPreviousSamplesOutput_2->getSampleData(nChannel);
+        // clearing the buffer invalidates the pointers to its sample
+        // data, so we need to update the pointers
+        pSamplesOutput = pPreviousSamplesOutputTemp->getWritePointer(0);
+
+        const float* pSamplesInputOld_2 = pPreviousSamplesInput_2->getReadPointer(nChannel);
+        const float* pSamplesOutputOld_2 = pPreviousSamplesOutput_2->getReadPointer(nChannel);
 
         for (int nSample = 0; nSample < nBufferSize; nSample++)
         {
@@ -552,7 +561,7 @@ float AverageLevelFiltered::getLevel(const int channel)
             for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
             {
                 float fAverageLevelChannel = 0.0f;
-                float* fSampleData = pSampleBuffer->getSampleData(nChannel);
+                const float* fSampleData = pSampleBuffer->getReadPointer(nChannel);
 
                 // calculate mean square of the filtered input signal
                 for (int n = 0; n < nBufferSize; n++)
@@ -640,7 +649,7 @@ void AverageLevelFiltered::copyToBuffer(AudioSampleBuffer& destination, const in
     jassert(channel < nNumberOfChannels);
     jassert((destStartSample + numSamples) <= destination.getNumSamples());
 
-    memcpy(destination.getSampleData(channel, destStartSample), pSampleBuffer->getSampleData(channel), numSamples * sizeof(float));
+    memcpy(destination.getWritePointer(channel, destStartSample), pSampleBuffer->getReadPointer(channel), numSamples * sizeof(float));
 }
 
 

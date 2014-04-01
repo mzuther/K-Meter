@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="LEmwq6" name="K-Meter" projectType="audioplug" version="1.31.1"
+<JUCERPROJECT id="LEmwq6" name="K-Meter" projectType="audioplug" version="1.31.2"
               bundleIdentifier="de.mzuther.KMeter" buildVST="1" buildRTAS="0"
               buildAU="0" pluginName="K-Meter" pluginDesc="Implementation of a K-System meter according to Bob Katz' specifications"
               pluginManufacturer="mzuther" pluginManufacturerCode="mz" pluginCode="kmet"
@@ -9,7 +9,8 @@
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="KMeterAU"
               pluginAUViewClass="KMeterAU_V1" pluginRTASCategory="ePlugInCategory_None"
               jucerVersion="3.1.0" companyName="mzuther" aaxIdentifier="de.mzuther.KMeter"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" includeBinaryInAppConfig="1">
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" includeBinaryInAppConfig="1"
+              buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com">
   <EXPORTFORMATS>
     <LINUX_MAKE targetFolder="Builds/Linux">
       <CONFIGURATIONS>
