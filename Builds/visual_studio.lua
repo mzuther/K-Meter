@@ -156,6 +156,7 @@ solution "kmeter"
 				"JUCE_ALSA=0",
 				"JUCE_JACK=0",
 				"JUCE_ASIO=1",
+				"JUCE_WASAPI=1",
 				"JUCE_DIRECTSOUND=1"
 			}
 
@@ -188,6 +189,7 @@ solution "kmeter"
 				"JUCE_ALSA=0",
 				"JUCE_JACK=0",
 				"JUCE_ASIO=1",
+				"JUCE_WASAPI=1",
 				"JUCE_DIRECTSOUND=1"
 			}
 
@@ -230,6 +232,7 @@ solution "kmeter"
 				"JUCE_ALSA=0",
 				"JUCE_JACK=0",
 				"JUCE_ASIO=0",
+				"JUCE_WASAPI=0",
 				"JUCE_DIRECTSOUND=0"
 			}
 
@@ -272,6 +275,7 @@ solution "kmeter"
 				"JUCE_ALSA=0",
 				"JUCE_JACK=0",
 				"JUCE_ASIO=0",
+				"JUCE_WASAPI=0",
 				"JUCE_DIRECTSOUND=0"
 			}
 
