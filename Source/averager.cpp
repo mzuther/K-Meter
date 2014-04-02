@@ -48,7 +48,7 @@ Averager::Averager(int number_of_samples, float initial_value)
 Averager::~Averager()
 {
     delete [] pSamples;
-    pSamples = NULL;
+    pSamples = nullptr;
 }
 
 void Averager::addSample(float newSample)

@@ -87,7 +87,7 @@ AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBal
     }
     else
     {
-        audioFileSource = NULL;
+        audioFileSource = nullptr;
         bIsPlaying = false;
         bReports = false;
     }
@@ -102,22 +102,22 @@ AudioFilePlayer::~AudioFilePlayer()
     }
 
     delete audioFileSource;
-    audioFileSource = NULL;
+    audioFileSource = nullptr;
 
     for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
     {
         delete pAverager_AverageMeterLevels[nChannel];
-        pAverager_AverageMeterLevels[nChannel] = NULL;
+        pAverager_AverageMeterLevels[nChannel] = nullptr;
 
         delete pAverager_PeakMeterLevels[nChannel];
-        pAverager_PeakMeterLevels[nChannel] = NULL;
+        pAverager_PeakMeterLevels[nChannel] = nullptr;
     }
 
     delete [] pAverager_AverageMeterLevels;
-    pAverager_AverageMeterLevels = NULL;
+    pAverager_AverageMeterLevels = nullptr;
 
     delete [] pAverager_PeakMeterLevels;
-    pAverager_PeakMeterLevels = NULL;
+    pAverager_PeakMeterLevels = nullptr;
 }
 
 
@@ -265,7 +265,7 @@ void AudioFilePlayer::outputReportPlain(void)
                 float fMaximumPeakLevel = fCrestFactor + pMeterBallistics->getMaximumPeakLevel(nChannel);
                 String strPrefix = strCrestFactor + " maximum (ch. " + String(nChannel + 1) + "):    ";
                 String strSuffix = " dB";
-                outputValue(fMaximumPeakLevel, NULL, strPrefix, strSuffix);
+                outputValue(fMaximumPeakLevel, nullptr, strPrefix, strSuffix);
             }
         }
         else
@@ -273,7 +273,7 @@ void AudioFilePlayer::outputReportPlain(void)
             float fMaximumPeakLevel = fCrestFactor + pMeterBallistics->getMaximumPeakLevel(nReportChannel);
             String strPrefix = strCrestFactor + " maximum (ch. " + String(nReportChannel + 1) + "):    ";
             String strSuffix = " dB";
-            outputValue(fMaximumPeakLevel, NULL, strPrefix, strSuffix);
+            outputValue(fMaximumPeakLevel, nullptr, strPrefix, strSuffix);
         }
     }
 
@@ -282,7 +282,7 @@ void AudioFilePlayer::outputReportPlain(void)
         float fStereoMeterValue = pMeterBallistics->getStereoMeterValue();
         String strPrefix = "Stereo meter value:      ";
         String strSuffix = "";
-        outputValue(fStereoMeterValue, NULL, strPrefix, strSuffix);
+        outputValue(fStereoMeterValue, nullptr, strPrefix, strSuffix);
     }
 
     if (bReportPhaseCorrelation)
@@ -290,7 +290,7 @@ void AudioFilePlayer::outputReportPlain(void)
         float fPhaseCorrelation = pMeterBallistics->getPhaseCorrelation();
         String strPrefix = "Phase correlation:       ";
         String strSuffix = "";
-        outputValue(fPhaseCorrelation, NULL, strPrefix, strSuffix);
+        outputValue(fPhaseCorrelation, nullptr, strPrefix, strSuffix);
     }
 
     outputMessage(String::empty);

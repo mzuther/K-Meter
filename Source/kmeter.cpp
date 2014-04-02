@@ -144,23 +144,23 @@ Kmeter::~Kmeter()
     for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
     {
         delete LevelMeters[nChannel];
-        LevelMeters[nChannel] = NULL;
+        LevelMeters[nChannel] = nullptr;
 
         delete OverflowMeters[nChannel];
-        OverflowMeters[nChannel] = NULL;
+        OverflowMeters[nChannel] = nullptr;
 
         delete MaximumPeakLabels[nChannel];
-        MaximumPeakLabels[nChannel] = NULL;
+        MaximumPeakLabels[nChannel] = nullptr;
     }
 
     delete [] LevelMeters;
-    LevelMeters = NULL;
+    LevelMeters = nullptr;
 
     delete [] OverflowMeters;
-    OverflowMeters = NULL;
+    OverflowMeters = nullptr;
 
     delete [] MaximumPeakLabels;
-    MaximumPeakLabels = NULL;
+    MaximumPeakLabels = nullptr;
 
     deleteAllChildren();
 }
@@ -222,6 +222,8 @@ void Kmeter::visibilityChanged()
         {
             nHeight += 32;
         }
+
+        nHeight += 20;
 
         setBounds(nPosX, nPosY, nWidth, nHeight);
 

@@ -38,17 +38,17 @@ KmeterAudioProcessor::KmeterAudioProcessor()
     }
 
     bSampleRateIsValid = false;
-    audioFilePlayer = NULL;
+    audioFilePlayer = nullptr;
 
-    pRingBufferInput = NULL;
-    pRingBufferOutput = NULL;
+    pRingBufferInput = nullptr;
+    pRingBufferOutput = nullptr;
 
     nNumInputChannels = 0;
-    pMeterBallistics = NULL;
+    pMeterBallistics = nullptr;
 
     setLatencySamples(KMETER_BUFFER_SIZE);
 
-    pAverageLevelFiltered = NULL;
+    pAverageLevelFiltered = nullptr;
     pPluginParameters = new KmeterPluginParameters();
 
     // depends on "KmeterPluginParameters"!
@@ -56,11 +56,11 @@ KmeterAudioProcessor::KmeterAudioProcessor()
 
     fProcessedSeconds = 0.0f;
 
-    fPeakLevels = NULL;
-    fRmsLevels = NULL;
-    fAverageLevelsFiltered = NULL;
+    fPeakLevels = nullptr;
+    fRmsLevels = nullptr;
+    fAverageLevelsFiltered = nullptr;
 
-    nOverflows = NULL;
+    nOverflows = nullptr;
 }
 
 
@@ -73,10 +73,10 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
     releaseResources();
 
     delete pPluginParameters;
-    pPluginParameters = NULL;
+    pPluginParameters = nullptr;
 
     delete audioFilePlayer;
-    audioFilePlayer = NULL;
+    audioFilePlayer = nullptr;
 }
 
 
@@ -420,31 +420,31 @@ void KmeterAudioProcessor::releaseResources()
     }
 
     delete pAverageLevelFiltered;
-    pAverageLevelFiltered = NULL;
+    pAverageLevelFiltered = nullptr;
 
     delete pMeterBallistics;
-    pMeterBallistics = NULL;
+    pMeterBallistics = nullptr;
 
     delete pRingBufferOutput;
-    pRingBufferOutput = NULL;
+    pRingBufferOutput = nullptr;
 
     delete pRingBufferInput;
-    pRingBufferInput = NULL;
+    pRingBufferInput = nullptr;
 
     delete [] fPeakLevels;
-    fPeakLevels = NULL;
+    fPeakLevels = nullptr;
 
     delete [] fRmsLevels;
-    fRmsLevels = NULL;
+    fRmsLevels = nullptr;
 
     delete [] fAverageLevelsFiltered;
-    fAverageLevelsFiltered = NULL;
+    fAverageLevelsFiltered = nullptr;
 
     delete [] nOverflows;
-    nOverflows = NULL;
+    nOverflows = nullptr;
 
     delete audioFilePlayer;
-    audioFilePlayer = NULL;
+    audioFilePlayer = nullptr;
 }
 
 
@@ -663,7 +663,7 @@ void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel,
 void KmeterAudioProcessor::stopValidation()
 {
     delete audioFilePlayer;
-    audioFilePlayer = NULL;
+    audioFilePlayer = nullptr;
 
     // refresh editor; "V-" --> validation stopped
     sendActionMessage("V-");
@@ -672,7 +672,7 @@ void KmeterAudioProcessor::stopValidation()
 
 bool KmeterAudioProcessor::isValidating()
 {
-    if (audioFilePlayer == NULL)
+    if (audioFilePlayer == nullptr)
     {
         return false;
     }

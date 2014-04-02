@@ -99,28 +99,28 @@ MeterBallistics::~MeterBallistics()
 {
     // delete all allocated variables
     delete [] fPeakMeterLevels;
-    fPeakMeterLevels = NULL;
+    fPeakMeterLevels = nullptr;
 
     delete [] fPeakMeterPeakLevels;
-    fPeakMeterPeakLevels = NULL;
+    fPeakMeterPeakLevels = nullptr;
 
     delete [] fAverageMeterLevels;
-    fAverageMeterLevels = NULL;
+    fAverageMeterLevels = nullptr;
 
     delete [] fAverageMeterPeakLevels;
-    fAverageMeterPeakLevels = NULL;
+    fAverageMeterPeakLevels = nullptr;
 
     delete [] fPeakMeterPeakLastChanged;
-    fPeakMeterPeakLastChanged = NULL;
+    fPeakMeterPeakLastChanged = nullptr;
 
     delete [] fAverageMeterPeakLastChanged;
-    fAverageMeterPeakLastChanged = NULL;
+    fAverageMeterPeakLastChanged = nullptr;
 
     delete [] fMaximumPeakLevels;
-    fMaximumPeakLevels = NULL;
+    fMaximumPeakLevels = nullptr;
 
     delete [] nNumberOfOverflows;
-    nNumberOfOverflows = NULL;
+    nNumberOfOverflows = nullptr;
 }
 
 

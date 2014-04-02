@@ -100,7 +100,7 @@ void Skin::updateSkin(int number_of_channels, int crest_factor, int average_algo
 
 void Skin::placeButton(int nButtonID, Component* pButton)
 {
-    jassert(pButton != NULL);
+    jassert(pButton != nullptr);
 
     if (bHorizontalLayout)
     {

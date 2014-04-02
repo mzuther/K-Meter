@@ -148,7 +148,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     LabelDebug->setJustificationType(Justification::centred);
     addAndMakeVisible(LabelDebug);
 #else
-    LabelDebug = NULL;
+    LabelDebug = nullptr;
 #endif
 
     ButtonValidation = new TextButton("Validate");
@@ -176,13 +176,13 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     }
     else
     {
-        stereoMeter = NULL;
-        phaseCorrelationMeter = NULL;
+        stereoMeter = nullptr;
+        phaseCorrelationMeter = nullptr;
     }
 
     pProcessor->addActionListenerParameters(this);
 
-    kmeter = NULL;
+    kmeter = nullptr;
 
     int nIndex = KmeterPluginParameters::selCrestFactor;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
@@ -221,7 +221,7 @@ KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
     pProcessor->removeActionListenerParameters(this);
 
     delete pSkin;
-    pSkin = NULL;
+    pSkin = nullptr;
 
     deleteAllChildren();
 }
@@ -396,7 +396,7 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex)
 
 void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 {
-    MeterBallistics* pMeterBallistics = NULL;
+    MeterBallistics* pMeterBallistics = nullptr;
 
     switch (nIndex)
     {
@@ -511,7 +511,7 @@ void KmeterAudioProcessorEditor::reloadMeters()
         {
             removeChildComponent(kmeter);
             delete kmeter;
-            kmeter = NULL;
+            kmeter = nullptr;
         }
 
         if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
@@ -529,7 +529,14 @@ void KmeterAudioProcessorEditor::reloadMeters()
 
             if (bHorizontalLayout)
             {
-                kmeter = new Kmeter("K-Meter", 48, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), true, ButtonDisplayPeakMeter->getToggleState(), 4);
+                if (nInputChannels <= 2)
+                {
+                    kmeter = new Kmeter("K-Meter", 48, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), true, ButtonDisplayPeakMeter->getToggleState(), 4);
+                }
+                else
+                {
+                    kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), true, ButtonDisplayPeakMeter->getToggleState(), 4);
+                }
             }
             else
             {
@@ -551,7 +558,14 @@ void KmeterAudioProcessorEditor::reloadMeters()
 
             if (bHorizontalLayout)
             {
-                kmeter = new Kmeter("K-Meter", 48, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), true, ButtonDisplayPeakMeter->getToggleState(), 4);
+                if (nInputChannels <= 2)
+                {
+                    kmeter = new Kmeter("K-Meter", 48, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), true, ButtonDisplayPeakMeter->getToggleState(), 4);
+                }
+                else
+                {
+                    kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), true, ButtonDisplayPeakMeter->getToggleState(), 4);
+                }
             }
             else
             {
@@ -634,7 +648,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 
         removeChildComponent(windowAbout);
         delete windowAbout;
-        windowAbout = NULL;
+        windowAbout = nullptr;
     }
     else if (button == ButtonValidation)
     {
@@ -645,7 +659,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
 
         removeChildComponent(windowValidation);
         delete windowValidation;
-        windowValidation = NULL;
+        windowValidation = nullptr;
     }
 }
 
@@ -672,7 +686,12 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
     }
 
     pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bHorizontalLayout);
-    reloadMeters();
+
+    if (!bInitialising)
+    {
+        resizeEditor();
+        reloadMeters();
+    }
 }
 
 void KmeterAudioProcessorEditor::resized()

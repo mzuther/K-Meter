@@ -42,7 +42,7 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor* processor, cons
 
     pDynamicLibraryFFTW = new DynamicLibrary();
     pDynamicLibraryFFTW->open(strDynamicLibraryFFTW);
-    jassert(pDynamicLibraryFFTW->getNativeHandle() != NULL);
+    jassert(pDynamicLibraryFFTW->getNativeHandle() != nullptr);
 
     fftwf_alloc_real = (float * (*)(size_t)) pDynamicLibraryFFTW->getFunction("fftwf_alloc_real");
     fftwf_alloc_complex = (fftwf_complex * (*)(size_t)) pDynamicLibraryFFTW->getFunction("fftwf_alloc_complex");
@@ -125,40 +125,40 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor* processor, cons
 AverageLevelFiltered::~AverageLevelFiltered()
 {
     delete pSampleBuffer;
-    pSampleBuffer = NULL;
+    pSampleBuffer = nullptr;
 
     delete pOverlapAddSamples;
-    pOverlapAddSamples = NULL;
+    pOverlapAddSamples = nullptr;
 
     for (int nSource = 0; nSource <= 1; nSource++)
     {
         delete [] pIIRCoefficients_1[nSource];
-        pIIRCoefficients_1[nSource] = NULL;
+        pIIRCoefficients_1[nSource] = nullptr;
 
         delete [] pIIRCoefficients_2[nSource];
-        pIIRCoefficients_2[nSource] = NULL;
+        pIIRCoefficients_2[nSource] = nullptr;
     }
 
     delete [] pIIRCoefficients_1;
-    pIIRCoefficients_1 = NULL;
+    pIIRCoefficients_1 = nullptr;
 
     delete [] pIIRCoefficients_2;
-    pIIRCoefficients_2 = NULL;
+    pIIRCoefficients_2 = nullptr;
 
     delete pPreviousSamplesInput_1;
-    pPreviousSamplesInput_1 = NULL;
+    pPreviousSamplesInput_1 = nullptr;
 
     delete pPreviousSamplesOutput_1;
-    pPreviousSamplesOutput_1 = NULL;
+    pPreviousSamplesOutput_1 = nullptr;
 
     delete pPreviousSamplesInput_2;
-    pPreviousSamplesInput_2 = NULL;
+    pPreviousSamplesInput_2 = nullptr;
 
     delete pPreviousSamplesOutput_2;
-    pPreviousSamplesOutput_2 = NULL;
+    pPreviousSamplesOutput_2 = nullptr;
 
     delete pPreviousSamplesOutputTemp;
-    pPreviousSamplesOutputTemp = NULL;
+    pPreviousSamplesOutputTemp = nullptr;
 
     fftwf_destroy_plan(planFilterKernel_DFT);
     fftwf_free(arrFilterKernel_TD);
@@ -170,19 +170,19 @@ AverageLevelFiltered::~AverageLevelFiltered()
     fftwf_free(arrAudioSamples_FD);
 
 #if (defined (_WIN32) || defined (_WIN64))
-    fftwf_alloc_real = NULL;
-    fftwf_alloc_complex = NULL;
-    fftwf_free = NULL;
+    fftwf_alloc_real = nullptr;
+    fftwf_alloc_complex = nullptr;
+    fftwf_free = nullptr;
 
-    fftwf_plan_dft_r2c_1d = NULL;
-    fftwf_plan_dft_c2r_1d = NULL;
-    fftwf_destroy_plan = NULL;
+    fftwf_plan_dft_r2c_1d = nullptr;
+    fftwf_plan_dft_c2r_1d = nullptr;
+    fftwf_destroy_plan = nullptr;
 
-    fftwf_execute = NULL;
+    fftwf_execute = nullptr;
 
     pDynamicLibraryFFTW->close();
     delete pDynamicLibraryFFTW;
-    pDynamicLibraryFFTW = NULL;
+    pDynamicLibraryFFTW = nullptr;
 #endif
 }
 
