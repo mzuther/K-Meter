@@ -12,6 +12,7 @@
 bin/*
 !bin/kmeter_lv2/
 !bin/kmeter_lv2_x64/
+!bin/kmeter-skins/
 !bin/final/
 !bin/releases/
 

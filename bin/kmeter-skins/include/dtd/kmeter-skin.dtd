@@ -1,0 +1,332 @@
+<!ENTITY % main_components
+          "button_k20,
+           button_k14,
+           button_k12,
+           button_normal,
+           button_itu,
+           button_rms,
+           button_hold,
+           button_peaks,
+           button_expand,
+           button_skin,
+           button_mono,
+           button_reset,
+           button_validate,
+           button_about,
+           label_debug
+">
+
+<!ENTITY % stereo_components
+          "meter_phase_correlation,
+           meter_stereo
+">
+
+<!ENTITY % main_components_optional
+          "button_k20?,
+           button_k14?,
+           button_k12?,
+           button_normal?,
+           button_itu?,
+           button_rms?,
+           button_hold?,
+           button_peaks?,
+           button_expand?,
+           button_skin?,
+           button_mono?,
+           button_reset?,
+           button_validate?,
+           button_about?,
+           label_debug?
+">
+
+<!ENTITY % stereo_components_optional
+          "meter_phase_correlation?,
+           meter_stereo?
+">
+
+<!ENTITY % kmeter_components_itu
+          "meter_kmeter
+">
+
+<!ENTITY % kmeter_components_rms_stereo
+          "meter_kmeter_left,
+           meter_kmeter_right
+">
+
+<!ENTITY % kmeter_components_rms_surround
+          "%kmeter_components_rms_stereo;,
+           meter_kmeter_center,
+           meter_kmeter_lfe,
+           meter_kmeter_ls,
+           meter_kmeter_rs
+">
+
+<!ENTITY % itu_components
+          "label_over,
+           label_peak
+">
+
+<!ENTITY % rms_components_stereo
+          "label_over_left,
+           label_over_right,
+           label_peak_left,
+           label_peak_right
+">
+
+<!ENTITY % rms_components_surround
+          "label_over_left,
+           label_over_right,
+           label_over_center,
+           label_over_lfe,
+           label_over_ls,
+           label_over_rs,
+           label_peak_left,
+           label_peak_right,
+           label_peak_center,
+           label_peak_lfe,
+           label_peak_ls,
+           label_peak_rs
+">
+
+<!ENTITY % itu_components_optional
+          "label_over?,
+           label_peak?
+">
+
+<!ENTITY % rms_components_stereo_optional
+          "label_over_left?,
+           label_over_right?,
+           label_peak_left?,
+           label_peak_right?
+">
+
+<!ENTITY % rms_components_surround_optional
+          "label_over_left?,
+           label_over_right?,
+           label_over_center?,
+           label_over_lfe?,
+           label_over_ls?,
+           label_over_rs?,
+           label_peak_left?,
+           label_peak_right?,
+           label_peak_center?,
+           label_peak_lfe?,
+           label_peak_ls?,
+           label_peak_rs?
+">
+
+<!ENTITY % attrs_image_size
+          "width CDATA #REQUIRED
+           height CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_image_position
+          "x CDATA #REQUIRED
+           y CDATA #REQUIRED
+           %attrs_image_size;
+">
+
+<!ENTITY % attrs_image_spacing
+          "spacing_left CDATA #REQUIRED
+           spacing_top CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_background
+          "%attrs_image_size;
+           image_no_peaks CDATA #REQUIRED
+           image_peaks CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_button
+          "%attrs_image_position;
+           image_on CDATA #REQUIRED
+           image_off CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_label_simple
+          "%attrs_image_position;
+           image CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_label_active
+          "%attrs_image_position;
+           %attrs_image_spacing;
+           image_on CDATA #REQUIRED
+           image_off CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_meter
+          "%attrs_image_position;
+           image CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_meter_with_needle
+          "%attrs_image_position;
+           %attrs_image_spacing;
+           image CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_meter_needle
+          "%attrs_image_size;
+           image CDATA #REQUIRED
+">
+
+
+<!ELEMENT kmeter-skin (default,
+                       stereo_itu?, stereo_itu_k20, stereo_itu_k14, stereo_itu_k12, stereo_itu_normal,
+                       stereo_rms?, stereo_rms_k20, stereo_rms_k14, stereo_rms_k12, stereo_rms_normal,
+                       surround_itu?, surround_itu_k20, surround_itu_k14, surround_itu_k12, surround_itu_normal,
+                       surround_rms?, surround_rms_k20, surround_rms_k14, surround_rms_k12, surround_rms_normal)>
+    <!ATTLIST kmeter-skin
+              name CDATA #REQUIRED
+              orientation (vertical | horizontal) #REQUIRED
+              path CDATA #REQUIRED
+              version CDATA "1.0"
+    >
+
+    <!ELEMENT default (%main_components;)>
+
+    <!ELEMENT stereo_itu (%main_components_optional;, %stereo_components;, %itu_components;)>
+    <!ELEMENT stereo_rms (%main_components_optional;, %stereo_components;, %rms_components_stereo;)>
+    <!ELEMENT surround_itu (%main_components_optional;, %itu_components;)>
+    <!ELEMENT surround_rms (%main_components_optional;, %rms_components_surround;)>
+
+    <!ELEMENT stereo_itu_k20 (background, %kmeter_components_itu;, %main_components_optional;, %stereo_components_optional;, %itu_components_optional;)>
+    <!ELEMENT stereo_itu_k14 (background, %kmeter_components_itu;, %main_components_optional;, %stereo_components_optional;, %itu_components_optional;)>
+    <!ELEMENT stereo_itu_k12 (background, %kmeter_components_itu;, %main_components_optional;, %stereo_components_optional;, %itu_components_optional;)>
+    <!ELEMENT stereo_itu_normal (background, %kmeter_components_itu;, %main_components_optional;, %stereo_components_optional;, %itu_components_optional;)>
+
+    <!ELEMENT stereo_rms_k20 (background, %kmeter_components_rms_stereo;, %main_components_optional;, %stereo_components_optional;, %rms_components_stereo_optional;)>
+    <!ELEMENT stereo_rms_k14 (background, %kmeter_components_rms_stereo;, %main_components_optional;, %stereo_components_optional;, %rms_components_stereo_optional;)>
+    <!ELEMENT stereo_rms_k12 (background, %kmeter_components_rms_stereo;, %main_components_optional;, %stereo_components_optional;, %rms_components_stereo_optional;)>
+    <!ELEMENT stereo_rms_normal (background, %kmeter_components_rms_stereo;, %main_components_optional;, %stereo_components_optional;, %rms_components_stereo_optional;)>
+
+    <!ELEMENT surround_itu_k20 (background, %kmeter_components_itu;, %main_components_optional;, %itu_components_optional;)>
+    <!ELEMENT surround_itu_k14 (background, %kmeter_components_itu;, %main_components_optional;, %itu_components_optional;)>
+    <!ELEMENT surround_itu_k12 (background, %kmeter_components_itu;, %main_components_optional;, %itu_components_optional;)>
+    <!ELEMENT surround_itu_normal (background, %kmeter_components_itu;, %main_components_optional;, %itu_components_optional;)>
+
+    <!ELEMENT surround_rms_k20 (background, %kmeter_components_rms_surround;, %main_components_optional;, %rms_components_surround_optional;)>
+    <!ELEMENT surround_rms_k14 (background, %kmeter_components_rms_surround;, %main_components_optional;, %rms_components_surround_optional;)>
+    <!ELEMENT surround_rms_k12 (background, %kmeter_components_rms_surround;, %main_components_optional;, %rms_components_surround_optional;)>
+    <!ELEMENT surround_rms_normal (background, %kmeter_components_rms_surround;, %main_components_optional;, %rms_components_surround_optional;)>
+
+        <!ELEMENT background (#PCDATA)>
+            <!ATTLIST background %attrs_background;>
+
+        <!ELEMENT button_k20 (#PCDATA)>
+            <!ATTLIST button_k20 %attrs_button;>
+
+        <!ELEMENT button_k14 (#PCDATA)>
+            <!ATTLIST button_k14 %attrs_button;>
+
+        <!ELEMENT button_k12 (#PCDATA)>
+            <!ATTLIST button_k12 %attrs_button;>
+
+        <!ELEMENT button_normal (#PCDATA)>
+            <!ATTLIST button_normal %attrs_button;>
+
+        <!ELEMENT button_itu (#PCDATA)>
+            <!ATTLIST button_itu %attrs_button;>
+
+        <!ELEMENT button_rms (#PCDATA)>
+            <!ATTLIST button_rms %attrs_button;>
+
+        <!ELEMENT button_hold (#PCDATA)>
+            <!ATTLIST button_hold %attrs_button;>
+
+        <!ELEMENT button_peaks (#PCDATA)>
+            <!ATTLIST button_peaks %attrs_button;>
+
+        <!ELEMENT button_expand (#PCDATA)>
+            <!ATTLIST button_expand %attrs_button;>
+
+        <!ELEMENT button_skin (#PCDATA)>
+            <!ATTLIST button_skin %attrs_button;>
+
+        <!ELEMENT button_mono (#PCDATA)>
+            <!ATTLIST button_mono %attrs_button;>
+
+        <!ELEMENT button_reset (#PCDATA)>
+            <!ATTLIST button_reset %attrs_button;>
+
+        <!ELEMENT button_validate (#PCDATA)>
+            <!ATTLIST button_validate %attrs_button;>
+
+        <!ELEMENT button_about (#PCDATA)>
+            <!ATTLIST button_about %attrs_button;>
+
+        <!ELEMENT label_debug (#PCDATA)>
+            <!ATTLIST label_debug %attrs_label_simple;>
+
+        <!ELEMENT label_over (#PCDATA)>
+            <!ATTLIST label_over %attrs_label_active;>
+
+        <!ELEMENT label_over_left (#PCDATA)>
+            <!ATTLIST label_over_left %attrs_label_active;>
+
+        <!ELEMENT label_over_right (#PCDATA)>
+            <!ATTLIST label_over_right %attrs_label_active;>
+
+        <!ELEMENT label_over_center (#PCDATA)>
+            <!ATTLIST label_over_center %attrs_label_active;>
+
+        <!ELEMENT label_over_lfe (#PCDATA)>
+            <!ATTLIST label_over_lfe %attrs_label_active;>
+
+        <!ELEMENT label_over_ls (#PCDATA)>
+            <!ATTLIST label_over_ls %attrs_label_active;>
+
+        <!ELEMENT label_over_rs (#PCDATA)>
+            <!ATTLIST label_over_rs %attrs_label_active;>
+
+        <!ELEMENT label_peak (#PCDATA)>
+            <!ATTLIST label_peak %attrs_label_active;>
+
+        <!ELEMENT label_peak_left (#PCDATA)>
+            <!ATTLIST label_peak_left %attrs_label_active;>
+
+        <!ELEMENT label_peak_right (#PCDATA)>
+            <!ATTLIST label_peak_right %attrs_label_active;>
+
+        <!ELEMENT label_peak_center (#PCDATA)>
+            <!ATTLIST label_peak_center %attrs_label_active;>
+
+        <!ELEMENT label_peak_lfe (#PCDATA)>
+            <!ATTLIST label_peak_lfe %attrs_label_active;>
+
+        <!ELEMENT label_peak_ls (#PCDATA)>
+            <!ATTLIST label_peak_ls %attrs_label_active;>
+
+        <!ELEMENT label_peak_rs (#PCDATA)>
+            <!ATTLIST label_peak_rs %attrs_label_active;>
+
+        <!ELEMENT meter_kmeter (#PCDATA)>
+            <!ATTLIST meter_kmeter %attrs_meter;>
+
+        <!ELEMENT meter_kmeter_left (#PCDATA)>
+            <!ATTLIST meter_kmeter_left %attrs_meter;>
+
+        <!ELEMENT meter_kmeter_right (#PCDATA)>
+            <!ATTLIST meter_kmeter_right %attrs_meter;>
+
+        <!ELEMENT meter_kmeter_center (#PCDATA)>
+            <!ATTLIST meter_kmeter_center %attrs_meter;>
+
+        <!ELEMENT meter_kmeter_lfe (#PCDATA)>
+            <!ATTLIST meter_kmeter_lfe %attrs_meter;>
+
+        <!ELEMENT meter_kmeter_ls (#PCDATA)>
+            <!ATTLIST meter_kmeter_ls %attrs_meter;>
+
+        <!ELEMENT meter_kmeter_rs (#PCDATA)>
+            <!ATTLIST meter_kmeter_rs %attrs_meter;>
+
+        <!ELEMENT meter_phase_correlation (needle)>
+            <!ATTLIST meter_phase_correlation %attrs_meter_with_needle;>
+
+        <!ELEMENT meter_stereo (needle)>
+            <!ATTLIST meter_stereo %attrs_meter_with_needle;>
+
+            <!ELEMENT needle (#PCDATA)>
+                <!ATTLIST needle %attrs_meter_needle;>
