@@ -38,7 +38,6 @@ KmeterPluginParameters::KmeterPluginParameters()
 
     nParam[selAverageAlgorithm] = selAlgorithmItuBs1770;
     nParam[selExpanded] = 0;
-    nParam[selOrientation] = selOrientationVertical;
     nParam[selPeak] = 0;
     nParam[selInfiniteHold] = 0;
     nParam[selMono] = 0;
@@ -220,10 +219,6 @@ const String KmeterPluginParameters::getParameterName(int nIndex)
         return "Expand Meter";
         break;
 
-    case selOrientation:
-        return "Orientation";
-        break;
-
     case selPeak:
         return "Peak Meter";
         break;
@@ -309,17 +304,6 @@ const String KmeterPluginParameters::getParameterText(int nIndex)
             return "RMS";
         }
     }
-    else if (nIndex == selOrientation)
-    {
-        if (nParam[nIndex] == selOrientationHorizontal)
-        {
-            return "Horizontal";
-        }
-        else
-        {
-            return "Vertical";
-        }
-    }
     else if (nIndex == selValidationFileName)
     {
         File fileValidation = File(strValidationFile);
@@ -378,10 +362,6 @@ float KmeterPluginParameters::translateParameterToFloat(int nIndex, int nValue)
     {
         return (float) nValue;
     }
-    else if (nIndex == selOrientation)
-    {
-        return (float) nValue;
-    }
     else if (nIndex == selValidationSelectedChannel)
     {
         // 0.00f: dump all channels
@@ -426,11 +406,6 @@ int KmeterPluginParameters::translateParameterToInt(int nIndex, float fValue)
         int nRoundedValue = int(fValue + 0.5f);
         return nRoundedValue;
     }
-    else if (nIndex == selOrientation)
-    {
-        int nRoundedValue = int(fValue + 0.5f);
-        return nRoundedValue;
-    }
     else if (nIndex == selValidationSelectedChannel)
     {
         // 0.00f: dump all channels
@@ -467,7 +442,6 @@ XmlElement KmeterPluginParameters::storeAsXml()
 
     xml.setAttribute("AverageAlgorithm", getParameterAsInt(selAverageAlgorithm));
     xml.setAttribute("Expanded", getParameterAsInt(selExpanded));
-    xml.setAttribute("Orientation", getParameterAsInt(selOrientation));
     xml.setAttribute("Peak", getParameterAsInt(selPeak));
     xml.setAttribute("Hold", getParameterAsInt(selInfiniteHold));
     xml.setAttribute("Mono", getParameterAsInt(selMono));
@@ -513,7 +487,6 @@ void KmeterPluginParameters::loadFromXml(XmlElement* xml)
 
         setParameterFromInt(selAverageAlgorithm, xml->getIntAttribute("AverageAlgorithm", getParameterAsInt(selAverageAlgorithm)));
         setParameterFromInt(selExpanded, xml->getIntAttribute("Expanded", getParameterAsInt(selExpanded)));
-        setParameterFromInt(selOrientation, xml->getIntAttribute("Orientation", getParameterAsInt(selOrientation)));
         setParameterFromInt(selPeak, xml->getIntAttribute("Peak", getParameterAsInt(selPeak)));
         setParameterFromInt(selInfiniteHold, xml->getIntAttribute("Hold", getParameterAsInt(selInfiniteHold)));
         setParameterFromInt(selMono, xml->getIntAttribute("Mono", getParameterAsInt(selMono)));

@@ -26,18 +26,61 @@
 #include "skin.h"
 
 
-Skin::Skin(int number_of_channels, int crest_factor, int average_algorithm, bool horizontal_layout)
+Skin::Skin(int number_of_channels, int crest_factor, int average_algorithm)
 {
-    updateSkin(number_of_channels, crest_factor, average_algorithm, horizontal_layout);
+    xml = nullptr;
+
+    updateSkin(number_of_channels, crest_factor, average_algorithm);
+    loadFromXml("./kmeter-skins/default.xml");
 }
 
 
 Skin::~Skin()
 {
+    if (xml != nullptr)
+    {
+        delete xml;
+        xml = nullptr;
+    }
 }
 
 
-void Skin::updateSkin(int number_of_channels, int crest_factor, int average_algorithm, bool horizontal_layout)
+bool Skin::loadFromXml(String strFileName)
+{
+    // may not work on Mac OS
+    File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
+    File fileSkin = fileApplicationDirectory.getChildFile(strFileName);
+
+    if (xml != nullptr)
+    {
+        delete xml;
+        xml = nullptr;
+    }
+
+    xml = XmlDocument::parse(fileSkin);
+
+    if (xml == nullptr)
+    {
+        DBG(String("[K-Meter] skin file \"") + fileSkin.getFullPathName() + "\" not found");
+        return false;
+    }
+    else if ((!xml->hasTagName("kmeter-skin")) || (xml->getChildByName("default") == nullptr))
+    {
+        DBG("[K-Meter] skin file not valid");
+        return false;
+    }
+    else
+    {
+        xmlSkinGroup = xml->getChildByName(strSkinGroup);
+        xmlSkinFallback_1 = xml->getChildByName(strSkinFallback_1);
+        xmlSkinFallback_2 = xml->getChildByName("default");
+
+        return true;
+    }
+}
+
+
+void Skin::updateSkin(int number_of_channels, int crest_factor, int average_algorithm)
 {
     jassert(number_of_channels > 0);
 
@@ -45,199 +88,95 @@ void Skin::updateSkin(int number_of_channels, int crest_factor, int average_algo
     nStereoInputChannels = (nNumberOfChannels + 1) / 2;
     nCrestFactor = crest_factor;
     nAverageAlgorithm = average_algorithm;
-    bHorizontalLayout = horizontal_layout;
 
-    if (bHorizontalLayout)
+    if (nNumberOfChannels <= 2)
     {
-        if (nNumberOfChannels <= 2)
-        {
-            nWidth = 680;
-            nButtonColumnTop = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 24;
-        }
-        else
-        {
-            nWidth = 662;
-
-            if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
-            {
-                nButtonColumnTop = Kmeter::KMETER_STEREO_WIDTH + 24;
-            }
-            else
-            {
-                nButtonColumnTop = nStereoInputChannels * (Kmeter::KMETER_STEREO_WIDTH + 6) + 18;
-            }
-        }
-
-        nButtonColumnLeft = 10;
-        nHeight = nButtonColumnTop + 56;
+        strSkinFallback_1 = "stereo";
     }
     else
     {
-        if (nNumberOfChannels <= 2)
-        {
-            nHeight = 648;
-            nButtonColumnLeft = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 24;
-        }
-        else
-        {
-            nHeight = 630;
+        strSkinFallback_1 = "surround";
+    }
 
-            if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
-            {
-                nButtonColumnLeft = Kmeter::KMETER_STEREO_WIDTH + 24;
-            }
-            else
-            {
-                nButtonColumnLeft = nStereoInputChannels * (Kmeter::KMETER_STEREO_WIDTH + 6) + 18;
-            }
-        }
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        strSkinFallback_1 += "_itu";
+    }
+    else
+    {
+        strSkinFallback_1 += "_rms";
+    }
 
-        nButtonColumnTop = 10;
-        nWidth = nButtonColumnLeft + 70;
+    switch (nCrestFactor)
+    {
+    case 20:
+        strSkinGroup = strSkinFallback_1 + "_k20";
+        break;
+
+    case 14:
+        strSkinGroup = strSkinFallback_1 + "_k14";
+        break;
+
+    case 12:
+        strSkinGroup = strSkinFallback_1 + "_k12";
+        break;
+
+    default:
+        strSkinGroup = strSkinFallback_1 + "_normal";
+        break;
+    }
+
+    if (xml != nullptr)
+    {
+        xmlSkinGroup = xml->getChildByName(strSkinGroup);
+        xmlSkinFallback_1 = xml->getChildByName(strSkinFallback_1);
+        xmlSkinFallback_2 = xml->getChildByName("default");
     }
 }
 
 
-void Skin::placeButton(int nButtonID, Component* pButton)
+XmlElement* Skin::getComponentFromXml(String strXmlTag)
 {
-    jassert(pButton != nullptr);
+    XmlElement* xmlComponent;
 
-    if (bHorizontalLayout)
+    if ((xmlSkinGroup != nullptr) && (xmlSkinGroup->getChildByName(strXmlTag) != nullptr))
     {
-        switch (nButtonID)
-        {
-        case ButtonK20:
-            setBoundsButtonColumn(pButton, 0, 0, 60, 20);
-            break;
-
-        case ButtonK14:
-            setBoundsButtonColumn(pButton, 66, 0, 60, 20);
-            break;
-
-        case ButtonK12:
-            setBoundsButtonColumn(pButton, 132, 0, 60, 20);
-            break;
-
-        case ButtonNormal:
-            setBoundsButtonColumn(pButton, 198, 0, 60, 20);
-            break;
-
-        case ButtonItuBs1770:
-            setBoundsButtonColumn(pButton, 0, 25, 60, 20);
-            break;
-
-        case ButtonRms:
-            setBoundsButtonColumn(pButton, 66, 25, 60, 20);
-            break;
-
-        case ButtonInfiniteHold:
-            setBoundsButtonColumn(pButton, 300, 0, 60, 20);
-            break;
-
-        case ButtonDisplayPeakMeter:
-            setBoundsButtonColumn(pButton, 366, 0, 60, 20);
-            break;
-
-        case ButtonExpanded:
-            setBoundsButtonColumn(pButton, 432, 0, 60, 20);
-            break;
-
-        case ButtonMono:
-            setBoundsButtonColumn(pButton, 300, 25, 60, 20);
-            break;
-
-        case ButtonReset:
-            setBoundsButtonColumn(pButton, 366, 25, 60, 20);
-            break;
-
-        case ButtonHorizontal:
-            setBoundsButtonColumn(pButton, 432, 25, 60, 20);
-            break;
-
-        case ButtonValidation:
-            setBoundsButtonColumn(pButton, nWidth - 80, 0, 60, 20);
-            break;
-
-        case ButtonAbout:
-            setBoundsButtonColumn(pButton, nWidth - 80, 25, 60, 20);
-            break;
-
-        case LabelDebug:
-            setBoundsButtonColumn(pButton, 198, 25, 60, 16);
-            break;
-        }
+        xmlComponent = xmlSkinGroup->getChildByName(strXmlTag);
+    }
+    else if ((xmlSkinFallback_1 != nullptr) && (xmlSkinFallback_1->getChildByName(strXmlTag) != nullptr))
+    {
+        xmlComponent = xmlSkinFallback_1->getChildByName(strXmlTag);
     }
     else
     {
-        switch (nButtonID)
-        {
-        case ButtonK20:
-            setBoundsButtonColumn(pButton, 0, 0, 60, 20);
-            break;
-
-        case ButtonK14:
-            setBoundsButtonColumn(pButton, 0, 25, 60, 20);
-            break;
-
-        case ButtonK12:
-            setBoundsButtonColumn(pButton, 0, 50, 60, 20);
-            break;
-
-        case ButtonNormal:
-            setBoundsButtonColumn(pButton, 0, 75, 60, 20);
-            break;
-
-        case ButtonItuBs1770:
-            setBoundsButtonColumn(pButton, 0, 115, 60, 20);
-            break;
-
-        case ButtonRms:
-            setBoundsButtonColumn(pButton, 0, 140, 60, 20);
-            break;
-
-        case ButtonInfiniteHold:
-            setBoundsButtonColumn(pButton, 0, 180, 60, 20);
-            break;
-
-        case ButtonDisplayPeakMeter:
-            setBoundsButtonColumn(pButton, 0, 205, 60, 20);
-            break;
-
-        case ButtonExpanded:
-            setBoundsButtonColumn(pButton, 0, 230, 60, 20);
-            break;
-
-        case ButtonHorizontal:
-            setBoundsButtonColumn(pButton, 0, 255, 60, 20);
-            break;
-
-        case ButtonMono:
-            setBoundsButtonColumn(pButton, 0, 295, 60, 20);
-            break;
-
-        case ButtonReset:
-            setBoundsButtonColumn(pButton, 0, 320, 60, 20);
-            break;
-
-        case ButtonValidation:
-            setBoundsButtonColumn(pButton, 0, nHeight - 66, 60, 20);
-            break;
-
-        case ButtonAbout:
-            setBoundsButtonColumn(pButton, 0, nHeight - 41, 60, 20);
-            break;
-
-        case LabelDebug:
-            setBoundsButtonColumn(pButton, 0, nHeight - 102, 60, 16);
-            break;
-        }
+        xmlComponent = xmlSkinFallback_2->getChildByName(strXmlTag);
     }
+
+    if (xmlComponent == nullptr)
+    {
+        DBG(String("[K-Meter] skin element \"") + strXmlTag + "\" not found");
+        jassert(false);
+    }
+
+    return xmlComponent;
 }
 
 
-void Skin::setBoundsButtonColumn(Component* component, int x, int y, int width, int height)
+void Skin::placeComponent(Component* component, String strXmlTag)
 {
-    component->setBounds(nButtonColumnLeft + x, nButtonColumnTop + y, width, height);
+    jassert(component != nullptr);
+
+    XmlElement* xmlComponent = getComponentFromXml(strXmlTag);
+
+    if (xmlComponent != nullptr)
+    {
+        int x = xmlComponent->getIntAttribute("x", -1);
+        int y = xmlComponent->getIntAttribute("y", -1);
+        int width = xmlComponent->getIntAttribute("width", -1);
+        int height = xmlComponent->getIntAttribute("height", -1);
+
+        component->setBounds(x, y, width, height);
+    }
 }
 
 

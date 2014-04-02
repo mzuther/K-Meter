@@ -63,15 +63,12 @@ private:
     void updateAverageAlgorithm(bool reload_meters);
 
     bool bReloadMeters;
-    bool bHorizontalLayout;
     bool bIsValidating;
     bool bInitialising;
 
     int nCrestFactor;
     int nInputChannels;
     int nStereoInputChannels;
-    int nButtonColumnLeft;
-    int nButtonColumnTop;
     int nHeight;
     int nWidth;
 
@@ -91,7 +88,7 @@ private:
     TextButton* ButtonRms;
 
     TextButton* ButtonExpanded;
-    TextButton* ButtonHorizontal;
+    TextButton* ButtonSkin;
     TextButton* ButtonDisplayPeakMeter;
     TextButton* ButtonInfiniteHold;
     TextButton* ButtonReset;

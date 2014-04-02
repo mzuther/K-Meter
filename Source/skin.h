@@ -36,50 +36,33 @@ class Skin;
 class Skin
 {
 public:
-    enum Parameters  // public namespace!
-    {
-        ButtonNormal = 0,
-        ButtonK12,
-        ButtonK14,
-        ButtonK20,
-
-        ButtonItuBs1770,
-        ButtonRms,
-
-        ButtonExpanded,
-        ButtonHorizontal,
-        ButtonDisplayPeakMeter,
-        ButtonInfiniteHold,
-        ButtonReset,
-
-        ButtonMono,
-        ButtonValidation,
-        ButtonAbout,
-
-        LabelDebug,
-    };
-
-    Skin(int number_of_channels, int crest_factor, int average_algorithm, bool horizontal_layout);
+    Skin(int number_of_channels, int crest_factor, int average_algorithm);
     ~Skin();
 
-    void updateSkin(int number_of_channels, int crest_factor, int average_algorithm, bool horizontal_layout);
-    void placeButton(int nButtonID, Component* pButton);
+    bool loadFromXml(String strFileName);
+    void updateSkin(int number_of_channels, int crest_factor, int average_algorithm);
+    void placeComponent(Component* component, String strXmlTag);
 
 private:
     JUCE_LEAK_DETECTOR(Skin);
 
-    void setBoundsButtonColumn(Component* component, int x, int y, int width, int height);
+    XmlElement* getComponentFromXml(String strXmlTag);
+
+    XmlElement* xml;
+    XmlElement* xmlSkinGroup;
+    XmlElement* xmlSkinFallback_1;
+    XmlElement* xmlSkinFallback_2;
+
+    String strSkinGroup;
+    String strSkinFallback_1;
 
     int nNumberOfChannels;
     int nStereoInputChannels;
     int nCrestFactor;
     int nAverageAlgorithm;
-    bool bHorizontalLayout;
 
     int nWidth;
     int nHeight;
-    int nButtonColumnLeft;
-    int nButtonColumnTop;
 };
 
 #endif   // __SKIN__

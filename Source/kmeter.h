@@ -42,7 +42,7 @@ public:
     static const int KMETER_STEREO_WIDTH = 106;
     static const int KMETER_STEREO_WIDTH_2 = KMETER_STEREO_WIDTH / 2;
 
-    Kmeter(const String& componentName, int PosX, int PosY, int nCrestFactor, int nNumChannels, const String& unitName, bool bIsSurround, bool bExpanded, bool bHorizontal, bool bDisplayPeakMeter, int nSegmentHeight);
+    Kmeter(const String& componentName, int PosX, int PosY, int nCrestFactor, int nNumChannels, const String& unitName, bool bIsSurround, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight);
     ~Kmeter();
 
     void setLevels(MeterBallistics* pMeterBallistics);
@@ -55,8 +55,6 @@ private:
 
     void paintMonoChannel(Graphics& g);
     void paintStereoChannel(Graphics& g, int nStereoChannel);
-
-    bool bHorizontalMeter;
 
     int nWidth;
     int nHeight;
@@ -79,12 +77,7 @@ private:
     PeakLabel** MaximumPeakLabels;
 
     void drawMarkersMono(Graphics& g, String& strMarker, int x, int y, int width, int height);
-    void drawMarkersMonoVertical(Graphics& g, String& strMarker, int x, int y, int width, int height);
-    void drawMarkersMonoHorizontal(Graphics& g, String& strMarker, int x, int y, int width, int height);
-
     void drawMarkersStereo(Graphics& g, String& strMarker, int x, int y, int width, int height);
-    void drawMarkersStereoVertical(Graphics& g, String& strMarker, int x, int y, int width, int height);
-    void drawMarkersStereoHorizontal(Graphics& g, String& strMarker, int x, int y, int width, int height);
 };
 
 

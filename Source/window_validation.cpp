@@ -26,12 +26,10 @@
 #include "window_validation.h"
 
 
-WindowValidation::WindowValidation(int nWidth, int nHeight, bool horizontal_layout, KmeterAudioProcessor* processor)
+WindowValidation::WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor* processor)
     : ResizableWindow("Validation K-Meter", false)
     // create new window child of width "nWidth" and height "nHeight"
 {
-    bHorizontalLayout = horizontal_layout;
-
     pProcessor = processor;
     pProcessor->stopValidation();
     fileValidation = pProcessor->getParameterValidationFile();
@@ -151,48 +149,24 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, bool horizontal_layo
     ButtonCancel->addListener(this);
     contentComponent->addAndMakeVisible(ButtonCancel);
 
-    if (bHorizontalLayout)
-    {
-        ButtonFileSelection->setBounds(nWidth - 209, nHeight - 170, 30, 20);
-        LabelFileSelection->setBounds(nWidth - 358, nHeight - 170, 144, 20);
+    ButtonFileSelection->setBounds(nWidth - 45, nHeight - 269, 30, 20);
+    LabelFileSelection->setBounds(nWidth - 188, nHeight - 269, 138, 20);
 
-        LabelSampleRate->setBounds(nWidth - 362, nHeight - 144, 75, 20);
-        LabelSampleRateValue->setBounds(nWidth - 296, nHeight - 144, 82, 20);
+    LabelSampleRate->setBounds(nWidth - 192, nHeight - 244, 75, 20);
+    LabelSampleRateValue->setBounds(nWidth - 126, nHeight - 244, 82, 20);
 
-        LabelDumpSelectedChannel->setBounds(nWidth - 362, nHeight - 118, 75, 20);
-        SliderDumpSelectedChannel->setBounds(nWidth - 296, nHeight - 118, 70, 20);
-        ButtonDumpCSV->setBounds(nWidth - 362, nHeight - 94, 180, 20);
+    LabelDumpSelectedChannel->setBounds(nWidth - 192, nHeight - 219, 75, 20);
+    SliderDumpSelectedChannel->setBounds(nWidth - 126, nHeight - 219, 70, 20);
 
-        ButtonDumpPeakMeterLevel->setBounds(nWidth - 165, nHeight - 174, 180, 20);
-        ButtonDumpAverageMeterLevel->setBounds(nWidth - 165, nHeight - 154, 180, 20);
-        ButtonDumpMaximumPeakLevel->setBounds(nWidth - 165, nHeight - 134, 180, 20);
-        ButtonDumpStereoMeterValue->setBounds(nWidth - 165, nHeight - 114, 180, 20);
-        ButtonDumpPhaseCorrelation->setBounds(nWidth - 165, nHeight - 94, 180, 20);
+    ButtonDumpPeakMeterLevel->setBounds(nWidth - 192, nHeight - 189, 180, 20);
+    ButtonDumpAverageMeterLevel->setBounds(nWidth - 192, nHeight - 169, 180, 20);
+    ButtonDumpMaximumPeakLevel->setBounds(nWidth - 192, nHeight - 149, 180, 20);
+    ButtonDumpStereoMeterValue->setBounds(nWidth - 192, nHeight - 129, 180, 20);
+    ButtonDumpPhaseCorrelation->setBounds(nWidth - 192, nHeight - 109, 180, 20);
+    ButtonDumpCSV->setBounds(nWidth - 192, nHeight - 89, 180, 20);
 
-        ButtonValidation->setBounds(nWidth - 73, nHeight - 59, 60, 20);
-        ButtonCancel->setBounds(nWidth - 138, nHeight - 59, 60, 20);
-    }
-    else
-    {
-        ButtonFileSelection->setBounds(nWidth - 45, nHeight - 269, 30, 20);
-        LabelFileSelection->setBounds(nWidth - 188, nHeight - 269, 138, 20);
-
-        LabelSampleRate->setBounds(nWidth - 192, nHeight - 244, 75, 20);
-        LabelSampleRateValue->setBounds(nWidth - 126, nHeight - 244, 82, 20);
-
-        LabelDumpSelectedChannel->setBounds(nWidth - 192, nHeight - 219, 75, 20);
-        SliderDumpSelectedChannel->setBounds(nWidth - 126, nHeight - 219, 70, 20);
-
-        ButtonDumpPeakMeterLevel->setBounds(nWidth - 192, nHeight - 189, 180, 20);
-        ButtonDumpAverageMeterLevel->setBounds(nWidth - 192, nHeight - 169, 180, 20);
-        ButtonDumpMaximumPeakLevel->setBounds(nWidth - 192, nHeight - 149, 180, 20);
-        ButtonDumpStereoMeterValue->setBounds(nWidth - 192, nHeight - 129, 180, 20);
-        ButtonDumpPhaseCorrelation->setBounds(nWidth - 192, nHeight - 109, 180, 20);
-        ButtonDumpCSV->setBounds(nWidth - 192, nHeight - 89, 180, 20);
-
-        ButtonValidation->setBounds(nWidth - 73, nHeight - 59, 60, 20);
-        ButtonCancel->setBounds(nWidth - 138, nHeight - 59, 60, 20);
-    }
+    ButtonValidation->setBounds(nWidth - 73, nHeight - 59, 60, 20);
+    ButtonCancel->setBounds(nWidth - 138, nHeight - 59, 60, 20);
 }
 
 
@@ -216,26 +190,13 @@ void WindowValidation::paint(Graphics& g)
     g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.4f), 0, 0, Colours::darkgrey.darker(1.0f), 0, (float) nHeight, false));
     g.fillAll();
 
-    if (bHorizontalLayout)
-    {
-        g.setColour(Colours::white);
-        g.setOpacity(0.15f);
-        g.drawRect(nWidth - 362, nHeight - 174, 358, 146);
+    g.setColour(Colours::white);
+    g.setOpacity(0.15f);
+    g.drawRect(nWidth - 193, nHeight - 273, 188, 244);
 
-        g.setColour(Colours::white);
-        g.setOpacity(0.05f);
-        g.fillRect(nWidth - 362, nHeight - 173, 356, 144);
-    }
-    else
-    {
-        g.setColour(Colours::white);
-        g.setOpacity(0.15f);
-        g.drawRect(nWidth - 193, nHeight - 273, 188, 244);
-
-        g.setColour(Colours::white);
-        g.setOpacity(0.05f);
-        g.fillRect(nWidth - 192, nHeight - 272, 186, 242);
-    }
+    g.setColour(Colours::white);
+    g.setOpacity(0.05f);
+    g.fillRect(nWidth - 192, nHeight - 272, 186, 242);
 }
 
 
