@@ -23,7 +23,7 @@
     ui:ui <http://code.mzuther.de/kmeter/surround/debug#ExternalUI> ,
           <http://code.mzuther.de/kmeter/surround/debug#ParentUI> ;
 
-    doap:name "K-Meter (Surround)" ;
+    doap:name "K-Meter (Surround, Debug)" ;
     doap:license <http://usefulinc.com/doap/licenses/gpl> ;
     doap:shortdesc "Implementation of a K-System meter according to Bob Katz' specifications." ;
 
