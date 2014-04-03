@@ -79,23 +79,23 @@ private:
     StereoMeter* stereoMeter;
     PhaseCorrelationMeter* phaseCorrelationMeter;
 
-    TextButton* ButtonNormal;
-    TextButton* ButtonK12;
-    TextButton* ButtonK14;
-    TextButton* ButtonK20;
+    ImageButton* ButtonNormal;
+    ImageButton* ButtonK12;
+    ImageButton* ButtonK14;
+    ImageButton* ButtonK20;
 
-    TextButton* ButtonItuBs1770;
-    TextButton* ButtonRms;
+    ImageButton* ButtonItuBs1770;
+    ImageButton* ButtonRms;
 
-    TextButton* ButtonExpanded;
-    TextButton* ButtonSkin;
-    TextButton* ButtonDisplayPeakMeter;
-    TextButton* ButtonInfiniteHold;
-    TextButton* ButtonReset;
+    ImageButton* ButtonExpanded;
+    ImageButton* ButtonSkin;
+    ImageButton* ButtonDisplayPeakMeter;
+    ImageButton* ButtonInfiniteHold;
+    ImageButton* ButtonReset;
 
-    TextButton* ButtonMono;
-    TextButton* ButtonValidation;
-    TextButton* ButtonAbout;
+    ImageButton* ButtonMono;
+    ImageButton* ButtonValidation;
+    ImageButton* ButtonAbout;
 
     Label* LabelDebug;
 };

@@ -28,6 +28,7 @@
 
 Skin::Skin(int number_of_channels, int crest_factor, int average_algorithm)
 {
+    fileResourcePath = nullptr;
     xml = nullptr;
 
     updateSkin(number_of_channels, crest_factor, average_algorithm);
@@ -37,6 +38,12 @@ Skin::Skin(int number_of_channels, int crest_factor, int average_algorithm)
 
 Skin::~Skin()
 {
+    if (fileResourcePath != nullptr)
+    {
+        delete fileResourcePath;
+        fileResourcePath = nullptr;
+    }
+
     if (xml != nullptr)
     {
         delete xml;
@@ -50,6 +57,12 @@ bool Skin::loadFromXml(String strFileName)
     // may not work on Mac OS
     File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
     File fileSkin = fileApplicationDirectory.getChildFile(strFileName);
+
+    if (fileResourcePath != nullptr)
+    {
+        delete fileResourcePath;
+        fileResourcePath = nullptr;
+    }
 
     if (xml != nullptr)
     {
@@ -74,6 +87,15 @@ bool Skin::loadFromXml(String strFileName)
         xmlSkinGroup = xml->getChildByName(strSkinGroup);
         xmlSkinFallback_1 = xml->getChildByName(strSkinFallback_1);
         xmlSkinFallback_2 = xml->getChildByName("default");
+
+        String strResourcePath = xml->getStringAttribute("path");
+        fileResourcePath = new File(fileSkin.getSiblingFile(strResourcePath));
+
+        if (!fileResourcePath->isDirectory())
+        {
+            DBG(String("[K-Meter] skin directory \"") + fileResourcePath->getFullPathName() + "\" not found");
+            return false;
+        }
 
         return true;
     }
@@ -159,6 +181,54 @@ XmlElement* Skin::getComponentFromXml(String strXmlTag)
     }
 
     return xmlComponent;
+}
+
+
+void Skin::placeAndSkinButton(ImageButton* button, String strXmlTag)
+{
+    jassert(button != nullptr);
+
+    XmlElement* xmlButton = getComponentFromXml(strXmlTag);
+
+    if (xmlButton != nullptr)
+    {
+        int x = xmlButton->getIntAttribute("x", -1);
+        int y = xmlButton->getIntAttribute("y", -1);
+
+        String strImageOn = xmlButton->getStringAttribute("image_on");
+        File fileImageOn = fileResourcePath->getChildFile(strImageOn);
+        Image imageOn;
+
+        if (!fileImageOn.existsAsFile())
+        {
+            DBG(String("[K-Meter] skin image \"") + fileImageOn.getFullPathName() + "\" not found");
+            imageOn = Image();
+        }
+        else
+        {
+            imageOn = ImageFileFormat::loadFrom(fileImageOn);
+        }
+
+        String strImageOff = xmlButton->getStringAttribute("image_off");
+        File fileImageOff = fileResourcePath->getChildFile(strImageOff);
+        Image imageOff;
+
+        if (!fileImageOff.existsAsFile())
+        {
+            DBG(String("[K-Meter] skin image \"") + fileImageOff.getFullPathName() + "\" not found");
+            imageOff = Image();
+        }
+        else
+        {
+            imageOff = ImageFileFormat::loadFrom(fileImageOff);
+        }
+
+        button->setTopLeftPosition(x, y);
+        button->setImages(true, true, true,
+                          imageOff, 1.0f, Colour(),
+                          imageOff, 1.0f, Colour(),
+                          imageOn, 1.0f, Colour());
+    }
 }
 
 

@@ -42,6 +42,7 @@ public:
     bool loadFromXml(String strFileName);
     void updateSkin(int number_of_channels, int crest_factor, int average_algorithm);
     void placeComponent(Component* component, String strXmlTag);
+    void placeAndSkinButton(ImageButton* button, String strXmlTag);
 
 private:
     JUCE_LEAK_DETECTOR(Skin);
@@ -52,6 +53,8 @@ private:
     XmlElement* xmlSkinGroup;
     XmlElement* xmlSkinFallback_1;
     XmlElement* xmlSkinFallback_2;
+
+    File* fileResourcePath;
 
     String strSkinGroup;
     String strSkinFallback_1;

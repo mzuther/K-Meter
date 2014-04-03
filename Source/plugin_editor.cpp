@@ -51,93 +51,57 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     pProcessor = ownerFilter;
     pProcessor->addActionListener(this);
 
-    ButtonK20 = new TextButton("K-20");
+    ButtonK20 = new ImageButton("K-20");
     ButtonK20->setRadioGroupId(1);
-    ButtonK20->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonK20->setColour(TextButton::buttonOnColourId, Colours::green);
-
     ButtonK20->addListener(this);
     addAndMakeVisible(ButtonK20);
 
-    ButtonK14 = new TextButton("K-14");
+    ButtonK14 = new ImageButton("K-14");
     ButtonK14->setRadioGroupId(1);
-    ButtonK14->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonK14->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
     ButtonK14->addListener(this);
     addAndMakeVisible(ButtonK14);
 
-    ButtonK12 = new TextButton("K-12");
+    ButtonK12 = new ImageButton("K-12");
     ButtonK12->setRadioGroupId(1);
-    ButtonK12->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonK12->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
     ButtonK12->addListener(this);
     addAndMakeVisible(ButtonK12);
 
-    ButtonNormal = new TextButton("Normal");
+    ButtonNormal = new ImageButton("Normal");
     ButtonNormal->setRadioGroupId(1);
-    ButtonNormal->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonNormal->setColour(TextButton::buttonOnColourId, Colours::red);
-
     ButtonNormal->addListener(this);
     addAndMakeVisible(ButtonNormal);
 
-    ButtonItuBs1770 = new TextButton("ITU-R");
-    ButtonItuBs1770->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonItuBs1770->setColour(TextButton::buttonOnColourId, Colours::green);
-
+    ButtonItuBs1770 = new ImageButton("ITU-R");
     ButtonItuBs1770->addListener(this);
     addAndMakeVisible(ButtonItuBs1770);
 
-    ButtonRms = new TextButton("RMS");
-    ButtonRms->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonRms->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
+    ButtonRms = new ImageButton("RMS");
     ButtonRms->addListener(this);
     addAndMakeVisible(ButtonRms);
 
     updateAverageAlgorithm(false);
 
-    ButtonInfiniteHold = new TextButton("Hold");
-    ButtonInfiniteHold->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonInfiniteHold->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
+    ButtonInfiniteHold = new ImageButton("Hold");
     ButtonInfiniteHold->addListener(this);
     addAndMakeVisible(ButtonInfiniteHold);
 
-    ButtonDisplayPeakMeter = new TextButton("Peaks");
-    ButtonDisplayPeakMeter->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDisplayPeakMeter->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
+    ButtonDisplayPeakMeter = new ImageButton("Peaks");
     ButtonDisplayPeakMeter->addListener(this);
     addAndMakeVisible(ButtonDisplayPeakMeter);
 
-    ButtonExpanded = new TextButton("Expand");
-    ButtonExpanded->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonExpanded->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
+    ButtonExpanded = new ImageButton("Expand");
     ButtonExpanded->addListener(this);
     addAndMakeVisible(ButtonExpanded);
 
-    ButtonSkin = new TextButton("Skin");
-    ButtonSkin->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonSkin->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
+    ButtonSkin = new ImageButton("Skin");
     ButtonSkin->addListener(this);
     addAndMakeVisible(ButtonSkin);
 
-    ButtonMono = new TextButton("Mono");
-    ButtonMono->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonMono->setColour(TextButton::buttonOnColourId, Colours::red);
-
+    ButtonMono = new ImageButton("Mono");
     ButtonMono->addListener(this);
     addAndMakeVisible(ButtonMono);
 
-    ButtonReset = new TextButton("Reset");
-    ButtonReset->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonReset->setColour(TextButton::buttonOnColourId, Colours::red);
-
+    ButtonReset = new ImageButton("Reset");
     ButtonReset->addListener(this);
     addAndMakeVisible(ButtonReset);
 
@@ -150,18 +114,11 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     LabelDebug = nullptr;
 #endif
 
-    ButtonValidation = new TextButton("Validate");
-    ButtonValidation->setColour(TextButton::textColourOnId, Colours::white);
-    ButtonValidation->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonValidation->setColour(TextButton::buttonOnColourId, Colours::blue);
-
+    ButtonValidation = new ImageButton("Validate");
     ButtonValidation->addListener(this);
     addAndMakeVisible(ButtonValidation);
 
-    ButtonAbout = new TextButton("About");
-    ButtonAbout->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
+    ButtonAbout = new ImageButton("About");
     ButtonAbout->addListener(this);
     addAndMakeVisible(ButtonAbout);
 
@@ -252,24 +209,24 @@ void KmeterAudioProcessorEditor::resizeEditor()
         phaseCorrelationMeter->setBounds(10, nHeight - 24, 106, 13);
     }
 
-    pSkin->placeComponent(ButtonK20, "button_k20");
-    pSkin->placeComponent(ButtonK14, "button_k14");
-    pSkin->placeComponent(ButtonK12, "button_k12");
-    pSkin->placeComponent(ButtonNormal, "button_normal");
+    pSkin->placeAndSkinButton(ButtonK20, "button_k20");
+    pSkin->placeAndSkinButton(ButtonK14, "button_k14");
+    pSkin->placeAndSkinButton(ButtonK12, "button_k12");
+    pSkin->placeAndSkinButton(ButtonNormal, "button_normal");
 
-    pSkin->placeComponent(ButtonItuBs1770, "button_itu");
-    pSkin->placeComponent(ButtonRms, "button_rms");
+    pSkin->placeAndSkinButton(ButtonItuBs1770, "button_itu");
+    pSkin->placeAndSkinButton(ButtonRms, "button_rms");
 
-    pSkin->placeComponent(ButtonInfiniteHold, "button_hold");
-    pSkin->placeComponent(ButtonDisplayPeakMeter, "button_peaks");
-    pSkin->placeComponent(ButtonExpanded, "button_expand");
+    pSkin->placeAndSkinButton(ButtonInfiniteHold, "button_hold");
+    pSkin->placeAndSkinButton(ButtonDisplayPeakMeter, "button_peaks");
+    pSkin->placeAndSkinButton(ButtonExpanded, "button_expand");
 
-    pSkin->placeComponent(ButtonMono, "button_mono");
-    pSkin->placeComponent(ButtonReset, "button_reset");
-    pSkin->placeComponent(ButtonSkin, "button_skin");
+    pSkin->placeAndSkinButton(ButtonMono, "button_mono");
+    pSkin->placeAndSkinButton(ButtonReset, "button_reset");
+    pSkin->placeAndSkinButton(ButtonSkin, "button_skin");
 
-    pSkin->placeComponent(ButtonValidation, "button_validate");
-    pSkin->placeComponent(ButtonAbout, "button_about");
+    pSkin->placeAndSkinButton(ButtonValidation, "button_validate");
+    pSkin->placeAndSkinButton(ButtonAbout, "button_about");
 
     if (LabelDebug)
     {
