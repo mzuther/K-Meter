@@ -97,7 +97,7 @@ private:
     ImageButton* ButtonValidation;
     ImageButton* ButtonAbout;
 
-    Label* LabelDebug;
+    ImageComponent* LabelDebug;
 };
 
 

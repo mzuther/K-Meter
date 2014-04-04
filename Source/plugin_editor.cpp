@@ -43,7 +43,8 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
     nCrestFactor = 0;
 
-    pSkin = new Skin(nInputChannels, nCrestFactor, -1);
+    String strSkinFileName = "./kmeter-skins/default.xml";
+    pSkin = new Skin(strSkinFileName, nInputChannels, nCrestFactor, -1);
 
     // The plug-in editor's size as well as the location of buttons
     // and labels will be set later on in this constructor.
@@ -105,14 +106,8 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonReset->addListener(this);
     addAndMakeVisible(ButtonReset);
 
-#ifdef DEBUG
-    LabelDebug = new Label("Debug Notification", "DEBUG");
-    LabelDebug->setColour(Label::textColourId, Colours::red);
-    LabelDebug->setJustificationType(Justification::centred);
+    LabelDebug = new ImageComponent("Debug Notification");
     addAndMakeVisible(LabelDebug);
-#else
-    LabelDebug = nullptr;
-#endif
 
     ButtonValidation = new ImageButton("Validate");
     ButtonValidation->addListener(this);
@@ -228,10 +223,13 @@ void KmeterAudioProcessorEditor::resizeEditor()
     pSkin->placeAndSkinButton(ButtonValidation, "button_validate");
     pSkin->placeAndSkinButton(ButtonAbout, "button_about");
 
-    if (LabelDebug)
-    {
-        pSkin->placeComponent(LabelDebug, "label_debug");
-    }
+#ifdef DEBUG
+    pSkin->placeAndSkinLabel(LabelDebug, "label_debug");
+#else
+    pSkin->placeComponent(LabelDebug, "label_debug");
+    LabelDebug->setImage(Image());
+    LabelDebug->setBounds(-1, -1, 1, 1);
+#endif
 }
 
 

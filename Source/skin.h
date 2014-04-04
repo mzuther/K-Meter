@@ -36,13 +36,14 @@ class Skin;
 class Skin
 {
 public:
-    Skin(int number_of_channels, int crest_factor, int average_algorithm);
+    Skin(String strSkinFileName, int number_of_channels, int crest_factor, int average_algorithm);
     ~Skin();
 
-    bool loadFromXml(String strFileName);
+    bool loadFromXml(String strSkinFileName);
     void updateSkin(int number_of_channels, int crest_factor, int average_algorithm);
     void placeComponent(Component* component, String strXmlTag);
     void placeAndSkinButton(ImageButton* button, String strXmlTag);
+    void placeAndSkinLabel(ImageComponent* label, String strXmlTag);
 
 private:
     JUCE_LEAK_DETECTOR(Skin);

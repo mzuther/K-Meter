@@ -26,13 +26,13 @@
 #include "skin.h"
 
 
-Skin::Skin(int number_of_channels, int crest_factor, int average_algorithm)
+Skin::Skin(String strSkinFileName, int number_of_channels, int crest_factor, int average_algorithm)
 {
     fileResourcePath = nullptr;
     xml = nullptr;
 
     updateSkin(number_of_channels, crest_factor, average_algorithm);
-    loadFromXml("./kmeter-skins/default.xml");
+    loadFromXml(strSkinFileName);
 }
 
 
@@ -52,11 +52,11 @@ Skin::~Skin()
 }
 
 
-bool Skin::loadFromXml(String strFileName)
+bool Skin::loadFromXml(String strSkinFileName)
 {
     // may not work on Mac OS
     File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
-    File fileSkin = fileApplicationDirectory.getChildFile(strFileName);
+    File fileSkin = fileApplicationDirectory.getChildFile(strSkinFileName);
 
     if (fileResourcePath != nullptr)
     {
@@ -72,14 +72,22 @@ bool Skin::loadFromXml(String strFileName)
 
     xml = XmlDocument::parse(fileSkin);
 
+    xmlSkinGroup = nullptr;
+    xmlSkinFallback_1 = nullptr;
+    xmlSkinFallback_2 = nullptr;
+
     if (xml == nullptr)
     {
-        DBG(String("[K-Meter] skin file \"") + fileSkin.getFullPathName() + "\" not found");
+        Logger::outputDebugString(String("[Skin] file \"") + fileSkin.getFullPathName() + "\" not found");
         return false;
     }
     else if ((!xml->hasTagName("kmeter-skin")) || (xml->getChildByName("default") == nullptr))
     {
-        DBG("[K-Meter] skin file not valid");
+        Logger::outputDebugString("[Skin] XML file not valid");
+
+        delete xml;
+        xml = nullptr;
+
         return false;
     }
     else
@@ -93,7 +101,14 @@ bool Skin::loadFromXml(String strFileName)
 
         if (!fileResourcePath->isDirectory())
         {
-            DBG(String("[K-Meter] skin directory \"") + fileResourcePath->getFullPathName() + "\" not found");
+            Logger::outputDebugString(String("[Skin] directory \"") + fileResourcePath->getFullPathName() + "\" not found");
+
+            delete fileResourcePath;
+            fileResourcePath = nullptr;
+
+            delete xml;
+            xml = nullptr;
+
             return false;
         }
 
@@ -154,6 +169,12 @@ void Skin::updateSkin(int number_of_channels, int crest_factor, int average_algo
         xmlSkinFallback_1 = xml->getChildByName(strSkinFallback_1);
         xmlSkinFallback_2 = xml->getChildByName("default");
     }
+    else
+    {
+        xmlSkinGroup = nullptr;
+        xmlSkinFallback_1 = nullptr;
+        xmlSkinFallback_2 = nullptr;
+    }
 }
 
 
@@ -161,7 +182,12 @@ XmlElement* Skin::getComponentFromXml(String strXmlTag)
 {
     XmlElement* xmlComponent;
 
-    if ((xmlSkinGroup != nullptr) && (xmlSkinGroup->getChildByName(strXmlTag) != nullptr))
+    // suppress unnecessary warnings and save some time
+    if (xml == nullptr)
+    {
+        xmlComponent = nullptr;
+    }
+    else if ((xmlSkinGroup != nullptr) && (xmlSkinGroup->getChildByName(strXmlTag) != nullptr))
     {
         xmlComponent = xmlSkinGroup->getChildByName(strXmlTag);
     }
@@ -169,15 +195,14 @@ XmlElement* Skin::getComponentFromXml(String strXmlTag)
     {
         xmlComponent = xmlSkinFallback_1->getChildByName(strXmlTag);
     }
-    else
+    else if ((xmlSkinFallback_2 != nullptr) && (xmlSkinFallback_2->getChildByName(strXmlTag) != nullptr))
     {
         xmlComponent = xmlSkinFallback_2->getChildByName(strXmlTag);
     }
-
-    if (xmlComponent == nullptr)
+    else
     {
-        DBG(String("[K-Meter] skin element \"") + strXmlTag + "\" not found");
-        jassert(false);
+        Logger::outputDebugString(String("[Skin] XML element \"") + strXmlTag + "\" not found");
+        xmlComponent = nullptr;
     }
 
     return xmlComponent;
@@ -201,7 +226,7 @@ void Skin::placeAndSkinButton(ImageButton* button, String strXmlTag)
 
         if (!fileImageOn.existsAsFile())
         {
-            DBG(String("[K-Meter] skin image \"") + fileImageOn.getFullPathName() + "\" not found");
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageOn.getFullPathName() + "\" not found");
             imageOn = Image();
         }
         else
@@ -215,7 +240,7 @@ void Skin::placeAndSkinButton(ImageButton* button, String strXmlTag)
 
         if (!fileImageOff.existsAsFile())
         {
-            DBG(String("[K-Meter] skin image \"") + fileImageOff.getFullPathName() + "\" not found");
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageOff.getFullPathName() + "\" not found");
             imageOff = Image();
         }
         else
@@ -223,11 +248,44 @@ void Skin::placeAndSkinButton(ImageButton* button, String strXmlTag)
             imageOff = ImageFileFormat::loadFrom(fileImageOff);
         }
 
-        button->setTopLeftPosition(x, y);
         button->setImages(true, true, true,
                           imageOff, 1.0f, Colour(),
                           imageOff, 1.0f, Colour(),
                           imageOn, 1.0f, Colour());
+        button->setTopLeftPosition(x, y);
+    }
+}
+
+
+void Skin::placeAndSkinLabel(ImageComponent* label, String strXmlTag)
+{
+    jassert(label != nullptr);
+
+    XmlElement* xmlLabel = getComponentFromXml(strXmlTag);
+
+    if (xmlLabel != nullptr)
+    {
+        int x = xmlLabel->getIntAttribute("x", -1);
+        int y = xmlLabel->getIntAttribute("y", -1);
+        int width = xmlLabel->getIntAttribute("width", -1);
+        int height = xmlLabel->getIntAttribute("height", -1);
+
+        String strImage = xmlLabel->getStringAttribute("image");
+        File fileImage = fileResourcePath->getChildFile(strImage);
+        Image imageLabel;
+
+        if (!fileImage.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImage.getFullPathName() + "\" not found");
+            imageLabel = Image();
+        }
+        else
+        {
+            imageLabel = ImageFileFormat::loadFrom(fileImage);
+        }
+
+        label->setImage(imageLabel);
+        label->setBounds(x, y, width, height);
     }
 }
 
