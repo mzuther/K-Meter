@@ -86,22 +86,22 @@
 					<tbody>
 						<tr>
 							<th>
-								K-20 (<xsl:value-of select="$meter_mode_label" />)<br />
+								K-20 (Standard)<br />
 								<span>no peaks</span>
 							</th>
 
 							<th>
-								K-14 (<xsl:value-of select="$meter_mode_label" />)<br />
+								K-14 (Standard)<br />
 								<span>peaks</span>
 							</th>
 
 							<th>
-								K-12 (<xsl:value-of select="$meter_mode_label" />)<br />
+								K-12 (Standard)<br />
 								<span>no peaks</span>
 							</th>
 
 							<th>
-								Normal (<xsl:value-of select="$meter_mode_label" />)<br />
+								Normal (Standard)<br />
 								<span>no peaks</span>
 							</th>
 						</tr>
@@ -115,6 +115,7 @@
 									<xsl:with-param name="configuration" select="$configuration" />
 									<xsl:with-param name="meter-mode" select="$meter-mode" />
 									<xsl:with-param name="crest-factor" select="'k20'" />
+									<xsl:with-param name="expand" select="'off'" />
 								</xsl:call-template>
 							</td>
 
@@ -126,6 +127,7 @@
 									<xsl:with-param name="configuration" select="$configuration" />
 									<xsl:with-param name="meter-mode" select="$meter-mode" />
 									<xsl:with-param name="crest-factor" select="'k14'" />
+									<xsl:with-param name="expand" select="'off'" />
 								</xsl:call-template>
 							</td>
 
@@ -137,6 +139,7 @@
 									<xsl:with-param name="configuration" select="$configuration" />
 									<xsl:with-param name="meter-mode" select="$meter-mode" />
 									<xsl:with-param name="crest-factor" select="'k12'" />
+									<xsl:with-param name="expand" select="'off'" />
 								</xsl:call-template>
 							</td>
 
@@ -148,6 +151,79 @@
 									<xsl:with-param name="configuration" select="$configuration" />
 									<xsl:with-param name="meter-mode" select="$meter-mode" />
 									<xsl:with-param name="crest-factor" select="'normal'" />
+									<xsl:with-param name="expand" select="'off'" />
+								</xsl:call-template>
+							</td>
+						</tr>
+
+						<tr>
+							<th>
+								K-20 (Expanded)<br />
+								<span>no peaks</span>
+							</th>
+
+							<th>
+								K-14 (Expanded)<br />
+								<span>peaks</span>
+							</th>
+
+							<th>
+								K-12 (Expanded)<br />
+								<span>no peaks</span>
+							</th>
+
+							<th>
+								Normal (Expanded)<br />
+								<span>no peaks</span>
+							</th>
+						</tr>
+
+						<tr>
+							<td>
+								<xsl:call-template name="draw_single_meter">
+									<xsl:with-param name="node" select="root($fallback_2)/*/*[local-name() = string-join(($configuration, $meter-mode, 'k20'), '_')]" />
+									<xsl:with-param name="fallback_1" select="$fallback_1" />
+									<xsl:with-param name="fallback_2" select="$fallback_2" />
+									<xsl:with-param name="configuration" select="$configuration" />
+									<xsl:with-param name="meter-mode" select="$meter-mode" />
+									<xsl:with-param name="crest-factor" select="'k20'" />
+									<xsl:with-param name="expand" select="'on'" />
+								</xsl:call-template>
+							</td>
+
+							<td>
+								<xsl:call-template name="draw_single_meter">
+									<xsl:with-param name="node" select="root($fallback_2)/*/*[local-name() = string-join(($configuration, $meter-mode, 'k14'), '_')]" />
+									<xsl:with-param name="fallback_1" select="$fallback_1" />
+									<xsl:with-param name="fallback_2" select="$fallback_2" />
+									<xsl:with-param name="configuration" select="$configuration" />
+									<xsl:with-param name="meter-mode" select="$meter-mode" />
+									<xsl:with-param name="crest-factor" select="'k14'" />
+									<xsl:with-param name="expand" select="'on'" />
+								</xsl:call-template>
+							</td>
+
+							<td>
+								<xsl:call-template name="draw_single_meter">
+									<xsl:with-param name="node" select="root($fallback_2)/*/*[local-name() = string-join(($configuration, $meter-mode, 'k12'), '_')]" />
+									<xsl:with-param name="fallback_1" select="$fallback_1" />
+									<xsl:with-param name="fallback_2" select="$fallback_2" />
+									<xsl:with-param name="configuration" select="$configuration" />
+									<xsl:with-param name="meter-mode" select="$meter-mode" />
+									<xsl:with-param name="crest-factor" select="'k12'" />
+									<xsl:with-param name="expand" select="'on'" />
+								</xsl:call-template>
+							</td>
+
+							<td>
+								<xsl:call-template name="draw_single_meter">
+									<xsl:with-param name="node" select="root($fallback_2)/*/*[local-name() = string-join(($configuration, $meter-mode, 'normal'), '_')]" />
+									<xsl:with-param name="fallback_1" select="$fallback_1" />
+									<xsl:with-param name="fallback_2" select="$fallback_2" />
+									<xsl:with-param name="configuration" select="$configuration" />
+									<xsl:with-param name="meter-mode" select="$meter-mode" />
+									<xsl:with-param name="crest-factor" select="'normal'" />
+									<xsl:with-param name="expand" select="'on'" />
 								</xsl:call-template>
 							</td>
 						</tr>
@@ -160,7 +236,7 @@
 					<tbody>
 						<tr>
 							<th>
-								K-20 (<xsl:value-of select="$meter_mode_label" />)<br />
+								K-20 (Standard)<br />
 								<span>no peaks</span>
 							</th>
 
@@ -172,13 +248,14 @@
 									<xsl:with-param name="configuration" select="$configuration" />
 									<xsl:with-param name="meter-mode" select="$meter-mode" />
 									<xsl:with-param name="crest-factor" select="'k20'" />
+									<xsl:with-param name="expand" select="'off'" />
 								</xsl:call-template>
 							</td>
 						</tr>
 
 						<tr>
 							<th>
-								K-14 (<xsl:value-of select="$meter_mode_label" />)<br />
+								K-14 (Standard)<br />
 								<span>peaks</span>
 							</th>
 
@@ -190,13 +267,14 @@
 									<xsl:with-param name="configuration" select="$configuration" />
 									<xsl:with-param name="meter-mode" select="$meter-mode" />
 									<xsl:with-param name="crest-factor" select="'k14'" />
+									<xsl:with-param name="expand" select="'off'" />
 								</xsl:call-template>
 							</td>
 						</tr>
 
 						<tr>
 							<th>
-								K-12 (<xsl:value-of select="$meter_mode_label" />)<br />
+								K-12 (Standard)<br />
 								<span>no peaks</span>
 							</th>
 
@@ -208,12 +286,13 @@
 									<xsl:with-param name="configuration" select="$configuration" />
 									<xsl:with-param name="meter-mode" select="$meter-mode" />
 									<xsl:with-param name="crest-factor" select="'k12'" />
+									<xsl:with-param name="expand" select="'off'" />
 								</xsl:call-template>
 							</td>
 
 							<tr>
 								<th>
-									Normal (<xsl:value-of select="$meter_mode_label" />)<br />
+									Normal (Standard)<br />
 									<span>no peaks</span>
 								</th>
 
@@ -225,6 +304,83 @@
 										<xsl:with-param name="configuration" select="$configuration" />
 										<xsl:with-param name="meter-mode" select="$meter-mode" />
 										<xsl:with-param name="crest-factor" select="'normal'" />
+									<xsl:with-param name="expand" select="'off'" />
+									</xsl:call-template>
+								</td>
+							</tr>
+						</tr>
+
+						<tr>
+							<th>
+								K-20 (Expanded)<br />
+								<span>no peaks</span>
+							</th>
+
+							<td>
+								<xsl:call-template name="draw_single_meter">
+									<xsl:with-param name="node" select="root($fallback_2)/*/*[local-name() = string-join(($configuration, $meter-mode, 'k20'), '_')]" />
+									<xsl:with-param name="fallback_1" select="$fallback_1" />
+									<xsl:with-param name="fallback_2" select="$fallback_2" />
+									<xsl:with-param name="configuration" select="$configuration" />
+									<xsl:with-param name="meter-mode" select="$meter-mode" />
+									<xsl:with-param name="crest-factor" select="'k20'" />
+									<xsl:with-param name="expand" select="'on'" />
+								</xsl:call-template>
+							</td>
+						</tr>
+
+						<tr>
+							<th>
+								K-14 (Expanded)<br />
+								<span>peaks</span>
+							</th>
+
+							<td>
+								<xsl:call-template name="draw_single_meter">
+									<xsl:with-param name="node" select="root($fallback_2)/*/*[local-name() = string-join(($configuration, $meter-mode, 'k14'), '_')]" />
+									<xsl:with-param name="fallback_1" select="$fallback_1" />
+									<xsl:with-param name="fallback_2" select="$fallback_2" />
+									<xsl:with-param name="configuration" select="$configuration" />
+									<xsl:with-param name="meter-mode" select="$meter-mode" />
+									<xsl:with-param name="crest-factor" select="'k14'" />
+									<xsl:with-param name="expand" select="'on'" />
+								</xsl:call-template>
+							</td>
+						</tr>
+
+						<tr>
+							<th>
+								K-12 (Expanded)<br />
+								<span>no peaks</span>
+							</th>
+
+							<td>
+								<xsl:call-template name="draw_single_meter">
+									<xsl:with-param name="node" select="root($fallback_2)/*/*[local-name() = string-join(($configuration, $meter-mode, 'k12'), '_')]" />
+									<xsl:with-param name="fallback_1" select="$fallback_1" />
+									<xsl:with-param name="fallback_2" select="$fallback_2" />
+									<xsl:with-param name="configuration" select="$configuration" />
+									<xsl:with-param name="meter-mode" select="$meter-mode" />
+									<xsl:with-param name="crest-factor" select="'k12'" />
+									<xsl:with-param name="expand" select="'on'" />
+								</xsl:call-template>
+							</td>
+
+							<tr>
+								<th>
+									Normal (Expanded)<br />
+									<span>no peaks</span>
+								</th>
+
+								<td>
+									<xsl:call-template name="draw_single_meter">
+										<xsl:with-param name="node" select="root($fallback_2)/*/*[local-name() = string-join(($configuration, $meter-mode, 'normal'), '_')]" />
+										<xsl:with-param name="fallback_1" select="$fallback_1" />
+										<xsl:with-param name="fallback_2" select="$fallback_2" />
+										<xsl:with-param name="configuration" select="$configuration" />
+										<xsl:with-param name="meter-mode" select="$meter-mode" />
+										<xsl:with-param name="crest-factor" select="'normal'" />
+									<xsl:with-param name="expand" select="'on'" />
 									</xsl:call-template>
 								</td>
 							</tr>
@@ -243,18 +399,35 @@
 		<xsl:param name="configuration" />
 		<xsl:param name="meter-mode" />
 		<xsl:param name="crest-factor" />
+		<xsl:param name="expand" />
 
 		<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="{$node/background/@width}" height="{$node/background/@height}">
 			<rect x="0" y="0" width="{$node/background/@width}" height="{$node/background/@height}" style="fill:silver;" />
 
 			<image x="0" y="0" width="{$node/background/@width}" height="{$node/background/@height}">
 				<xsl:choose>
-					<xsl:when test="$crest-factor = 'k14'">
-						<xsl:attribute name="xlink:href"><xsl:value-of select="concat(root($node)/*/@path, '/', $node/background/@image_peaks)" /></xsl:attribute>
+					<xsl:when test="$expand = 'on'">
+						<xsl:choose>
+							<xsl:when test="$crest-factor = 'k14'">
+								<xsl:attribute name="xlink:href"><xsl:value-of select="concat(root($node)/*/@path, '/', $node/background/@image_expanded_peaks)" /></xsl:attribute>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:attribute name="xlink:href"><xsl:value-of select="concat(root($node)/*/@path, '/', $node/background/@image_expanded_no_peaks)" /></xsl:attribute>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:when>
 
 					<xsl:otherwise>
-						<xsl:attribute name="xlink:href"><xsl:value-of select="concat(root($node)/*/@path, '/', $node/background/@image_no_peaks)" /></xsl:attribute>
+						<xsl:choose>
+							<xsl:when test="$crest-factor = 'k14'">
+								<xsl:attribute name="xlink:href"><xsl:value-of select="concat(root($node)/*/@path, '/', $node/background/@image_peaks)" /></xsl:attribute>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:attribute name="xlink:href"><xsl:value-of select="concat(root($node)/*/@path, '/', $node/background/@image_no_peaks)" /></xsl:attribute>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:otherwise>
 				</xsl:choose>
 			</image>
@@ -273,6 +446,10 @@
 							<xsl:when test="ends-with($button, $meter-mode)">on</xsl:when>
 
 							<xsl:when test="ends-with($button, $crest-factor)">on</xsl:when>
+
+							<xsl:when test="contains($button, 'expand')">
+								<xsl:value-of select="$expand" />
+							</xsl:when>
 
 							<xsl:when test="$crest-factor = 'k20'">
 								<xsl:choose>
@@ -296,8 +473,6 @@
 
 							<xsl:when test="$crest-factor = 'k12'">
 								<xsl:choose>
-									<xsl:when test="contains($button, 'expand')">on</xsl:when>
-
 									<xsl:when test="contains($button, 'validate')">on</xsl:when>
 
 									<xsl:otherwise>off</xsl:otherwise>
@@ -347,6 +522,7 @@
 					<xsl:with-param name="node" select="$node/*[local-name() = $meter]" />
 					<xsl:with-param name="fallback_1" select="$fallback_1/*[local-name() = $meter]" />
 					<xsl:with-param name="fallback_2" select="$fallback_2/*[local-name() = $meter]" />
+					<xsl:with-param name="expand" select="$expand" />
 				</xsl:call-template>
 			</xsl:for-each>
 
@@ -458,11 +634,20 @@
 		<xsl:param name="node" />
 		<xsl:param name="fallback_1" />
 		<xsl:param name="fallback_2" />
+		<xsl:param name="expand" />
 
 		<xsl:choose>
 			<xsl:when test="exists($node)">
 				<image x="{$node/@x}" y="{$node/@y}" width="{$node/@width}" height="{$node/@height}">
-					<xsl:attribute name="xlink:href"><xsl:value-of select="concat(root($node)/*/@path, '/', ($node/@image))" /></xsl:attribute>
+					<xsl:choose>
+						<xsl:when test="$expand = 'on'">
+							<xsl:attribute name="xlink:href"><xsl:value-of select="concat(root($node)/*/@path, '/', ($node/@image_expanded))" /></xsl:attribute>
+						</xsl:when>
+
+						<xsl:otherwise>
+							<xsl:attribute name="xlink:href"><xsl:value-of select="concat(root($node)/*/@path, '/', ($node/@image))" /></xsl:attribute>
+						</xsl:otherwise>
+					</xsl:choose>
 				</image>
 
 				<xsl:if test="exists($node/needle)">

@@ -206,6 +206,8 @@
 			height="648"
 			image_no_peaks="backgrounds/background_stereo_itu_k20_no-peaks.png"
 			image_peaks="backgrounds/background_stereo_itu_k20_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_stereo_itu_k20_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_stereo_itu_k20_expanded_peaks.png"
 		/>
 
 		<meter_kmeter
@@ -214,6 +216,7 @@
 			width="24"
 			height="537"
 			image="meters/meter_kmeter_itu_k20.png"
+			image_expanded="meters/meter_kmeter_itu_k20_expanded.png"
 		/>
 	</stereo_itu_k20>
 
@@ -223,6 +226,8 @@
 			height="648"
 			image_no_peaks="backgrounds/background_stereo_itu_k14_no-peaks.png"
 			image_peaks="backgrounds/background_stereo_itu_k14_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_stereo_itu_k14_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_stereo_itu_k14_expanded_peaks.png"
 		/>
 
 		<meter_kmeter
@@ -231,6 +236,7 @@
 			width="24"
 			height="537"
 			image="meters/meter_kmeter_itu_k14.png"
+			image_expanded="meters/meter_kmeter_itu_k14_expanded.png"
 		/>
 	</stereo_itu_k14>
 
@@ -240,6 +246,8 @@
 			height="648"
 			image_no_peaks="backgrounds/background_stereo_itu_k12_no-peaks.png"
 			image_peaks="backgrounds/background_stereo_itu_k12_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_stereo_itu_k12_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_stereo_itu_k12_expanded_peaks.png"
 		/>
 
 		<meter_kmeter
@@ -248,6 +256,7 @@
 			width="24"
 			height="537"
 			image="meters/meter_kmeter_itu_k12.png"
+			image_expanded="meters/meter_kmeter_itu_k12_expanded.png"
 		/>
 	</stereo_itu_k12>
 
@@ -257,6 +266,8 @@
 			height="648"
 			image_no_peaks="backgrounds/background_stereo_itu_normal_no-peaks.png"
 			image_peaks="backgrounds/background_stereo_itu_normal_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_stereo_itu_normal_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_stereo_itu_normal_expanded_peaks.png"
 		/>
 
 		<meter_kmeter
@@ -265,6 +276,7 @@
 			width="24"
 			height="537"
 			image="meters/meter_kmeter_itu_normal.png"
+			image_expanded="meters/meter_kmeter_itu_normal_expanded.png"
 		/>
 	</stereo_itu_normal>
 
@@ -352,6 +364,8 @@
 			height="648"
 			image_no_peaks="backgrounds/background_stereo_rms_k20_no-peaks.png"
 			image_peaks="backgrounds/background_stereo_rms_k20_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_stereo_rms_k20_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_stereo_rms_k20_expanded_peaks.png"
 		/>
 
 		<meter_kmeter_left
@@ -360,6 +374,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
 		/>
 
 		<meter_kmeter_right
@@ -368,6 +383,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
 		/>
 	</stereo_rms_k20>
 
@@ -377,6 +393,8 @@
 			height="648"
 			image_no_peaks="backgrounds/background_stereo_rms_k14_no-peaks.png"
 			image_peaks="backgrounds/background_stereo_rms_k14_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_stereo_rms_k14_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_stereo_rms_k14_expanded_peaks.png"
 		/>
 
 		<meter_kmeter_left
@@ -385,6 +403,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
 		/>
 
 		<meter_kmeter_right
@@ -393,6 +412,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
 		/>
 	</stereo_rms_k14>
 
@@ -402,6 +422,8 @@
 			height="648"
 			image_no_peaks="backgrounds/background_stereo_rms_k12_no-peaks.png"
 			image_peaks="backgrounds/background_stereo_rms_k12_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_stereo_rms_k12_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_stereo_rms_k12_expanded_peaks.png"
 		/>
 
 		<meter_kmeter_left
@@ -410,6 +432,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
 		/>
 
 		<meter_kmeter_right
@@ -418,6 +441,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
 		/>
 	</stereo_rms_k12>
 
@@ -427,6 +451,8 @@
 			height="648"
 			image_no_peaks="backgrounds/background_stereo_rms_normal_no-peaks.png"
 			image_peaks="backgrounds/background_stereo_rms_normal_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_stereo_rms_normal_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_stereo_rms_normal_expanded_peaks.png"
 		/>
 
 		<meter_kmeter_left
@@ -435,6 +461,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
 		/>
 
 		<meter_kmeter_right
@@ -443,6 +470,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
 		/>
 	</stereo_rms_normal>
 
@@ -502,6 +530,8 @@
 			height="630"
 			image_no_peaks="backgrounds/background_surround_itu_k20_no-peaks.png"
 			image_peaks="backgrounds/background_surround_itu_k20_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_surround_itu_k20_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_surround_itu_k20_expanded_peaks.png"
 		/>
 
 		<meter_kmeter
@@ -510,6 +540,7 @@
 			width="24"
 			height="537"
 			image="meters/meter_kmeter_itu_k20.png"
+			image_expanded="meters/meter_kmeter_itu_k20_expanded.png"
 		/>
 	</surround_itu_k20>
 
@@ -519,6 +550,8 @@
 			height="630"
 			image_no_peaks="backgrounds/background_surround_itu_k14_no-peaks.png"
 			image_peaks="backgrounds/background_surround_itu_k14_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_surround_itu_k14_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_surround_itu_k14_expanded_peaks.png"
 		/>
 
 		<meter_kmeter
@@ -527,6 +560,7 @@
 			width="24"
 			height="537"
 			image="meters/meter_kmeter_itu_k14.png"
+			image_expanded="meters/meter_kmeter_itu_k14_expanded.png"
 		/>
 	</surround_itu_k14>
 
@@ -536,6 +570,8 @@
 			height="630"
 			image_no_peaks="backgrounds/background_surround_itu_k12_no-peaks.png"
 			image_peaks="backgrounds/background_surround_itu_k12_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_surround_itu_k12_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_surround_itu_k12_expanded_peaks.png"
 		/>
 
 		<meter_kmeter
@@ -544,6 +580,7 @@
 			width="24"
 			height="537"
 			image="meters/meter_kmeter_itu_k12.png"
+			image_expanded="meters/meter_kmeter_itu_k12_expanded.png"
 		/>
 	</surround_itu_k12>
 
@@ -553,6 +590,8 @@
 			height="630"
 			image_no_peaks="backgrounds/background_surround_itu_normal_no-peaks.png"
 			image_peaks="backgrounds/background_surround_itu_normal_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_surround_itu_normal_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_surround_itu_normal_expanded_peaks.png"
 		/>
 
 		<meter_kmeter
@@ -561,6 +600,7 @@
 			width="24"
 			height="537"
 			image="meters/meter_kmeter_itu_normal.png"
+			image_expanded="meters/meter_kmeter_itu_normal_expanded.png"
 		/>
 	</surround_itu_normal>
 
@@ -838,6 +878,8 @@
 			height="630"
 			image_no_peaks="backgrounds/background_surround_rms_k20_no-peaks.png"
 			image_peaks="backgrounds/background_surround_rms_k20_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_surround_rms_k20_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_surround_rms_k20_expanded_peaks.png"
 		/>
 
 		<meter_kmeter_left
@@ -846,6 +888,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
 		/>
 
 		<meter_kmeter_right
@@ -854,6 +897,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
 		/>
 
 		<meter_kmeter_center
@@ -862,6 +906,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
 		/>
 
 		<meter_kmeter_lfe
@@ -870,6 +915,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
 		/>
 
 		<meter_kmeter_ls
@@ -878,6 +924,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
 		/>
 
 		<meter_kmeter_rs
@@ -886,6 +933,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
 		/>
 	</surround_rms_k20>
 
@@ -895,6 +943,8 @@
 			height="630"
 			image_no_peaks="backgrounds/background_surround_rms_k14_no-peaks.png"
 			image_peaks="backgrounds/background_surround_rms_k14_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_surround_rms_k14_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_surround_rms_k14_expanded_peaks.png"
 		/>
 
 		<meter_kmeter_left
@@ -903,6 +953,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
 		/>
 
 		<meter_kmeter_right
@@ -911,6 +962,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
 		/>
 
 		<meter_kmeter_center
@@ -919,6 +971,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
 		/>
 
 		<meter_kmeter_lfe
@@ -927,6 +980,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
 		/>
 
 		<meter_kmeter_ls
@@ -935,6 +989,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
 		/>
 
 		<meter_kmeter_rs
@@ -943,6 +998,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
 		/>
 	</surround_rms_k14>
 
@@ -952,6 +1008,8 @@
 			height="630"
 			image_no_peaks="backgrounds/background_surround_rms_k12_no-peaks.png"
 			image_peaks="backgrounds/background_surround_rms_k12_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_surround_rms_k12_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_surround_rms_k12_expanded_peaks.png"
 		/>
 
 		<meter_kmeter_left
@@ -960,6 +1018,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
 		/>
 
 		<meter_kmeter_right
@@ -968,6 +1027,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
 		/>
 
 		<meter_kmeter_center
@@ -976,6 +1036,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
 		/>
 
 		<meter_kmeter_lfe
@@ -984,6 +1045,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
 		/>
 
 		<meter_kmeter_ls
@@ -992,6 +1054,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
 		/>
 
 		<meter_kmeter_rs
@@ -1000,6 +1063,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
 		/>
 	</surround_rms_k12>
 
@@ -1009,6 +1073,8 @@
 			height="630"
 			image_no_peaks="backgrounds/background_surround_rms_normal_no-peaks.png"
 			image_peaks="backgrounds/background_surround_rms_normal_peaks.png"
+			image_expanded_no_peaks="backgrounds/background_surround_rms_normal_expanded_no-peaks.png"
+			image_expanded_peaks="backgrounds/background_surround_rms_normal_expanded_peaks.png"
 		/>
 
 		<meter_kmeter_left
@@ -1017,6 +1083,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
 		/>
 
 		<meter_kmeter_right
@@ -1025,6 +1092,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
 		/>
 
 		<meter_kmeter_center
@@ -1033,6 +1101,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
 		/>
 
 		<meter_kmeter_lfe
@@ -1041,6 +1110,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
 		/>
 
 		<meter_kmeter_ls
@@ -1049,6 +1119,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
 		/>
 
 		<meter_kmeter_rs
@@ -1057,6 +1128,7 @@
 			width="20"
 			height="537"
 			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
 		/>
 	</surround_rms_normal>
 </kmeter-skin>
