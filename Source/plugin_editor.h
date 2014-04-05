@@ -65,12 +65,12 @@ private:
     bool bReloadMeters;
     bool bIsValidating;
     bool bInitialising;
+    bool bExpanded;
+    bool bDisplayPeakMeter;
 
     int nCrestFactor;
     int nInputChannels;
     int nStereoInputChannels;
-    int nHeight;
-    int nWidth;
 
     Skin* pSkin;
 
@@ -98,6 +98,7 @@ private:
     ImageButton* ButtonAbout;
 
     ImageComponent* LabelDebug;
+    ImageComponent* BackgroundImage;
 };
 
 

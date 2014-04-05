@@ -36,14 +36,15 @@ class Skin;
 class Skin
 {
 public:
-    Skin(String strSkinFileName, int number_of_channels, int crest_factor, int average_algorithm);
+    Skin(String strSkinFileName, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
     ~Skin();
 
     bool loadFromXml(String strSkinFileName);
-    void updateSkin(int number_of_channels, int crest_factor, int average_algorithm);
+    void updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
     void placeComponent(Component* component, String strXmlTag);
     void placeAndSkinButton(ImageButton* button, String strXmlTag);
     void placeAndSkinLabel(ImageComponent* label, String strXmlTag);
+    void setBackgroundImage(ImageComponent* background, AudioProcessorEditor* editor);
 
 private:
     JUCE_LEAK_DETECTOR(Skin);
@@ -57,16 +58,11 @@ private:
 
     File* fileResourcePath;
 
+    String strBackgroundSelector;
     String strSkinGroup;
     String strSkinFallback_1;
 
     int nNumberOfChannels;
-    int nStereoInputChannels;
-    int nCrestFactor;
-    int nAverageAlgorithm;
-
-    int nWidth;
-    int nHeight;
 };
 
 #endif   // __SKIN__

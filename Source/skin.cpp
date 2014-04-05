@@ -26,12 +26,12 @@
 #include "skin.h"
 
 
-Skin::Skin(String strSkinFileName, int number_of_channels, int crest_factor, int average_algorithm)
+Skin::Skin(String strSkinFileName, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter)
 {
     fileResourcePath = nullptr;
     xml = nullptr;
 
-    updateSkin(number_of_channels, crest_factor, average_algorithm);
+    updateSkin(nNumChannels, nCrestFactor, nAverageAlgorithm, bExpanded, bDisplayPeakMeter);
     loadFromXml(strSkinFileName);
 }
 
@@ -117,14 +117,28 @@ bool Skin::loadFromXml(String strSkinFileName)
 }
 
 
-void Skin::updateSkin(int number_of_channels, int crest_factor, int average_algorithm)
+void Skin::updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter)
 {
-    jassert(number_of_channels > 0);
+    jassert(nNumChannels > 0);
+    nNumberOfChannels = nNumChannels;
 
-    nNumberOfChannels = number_of_channels;
-    nStereoInputChannels = (nNumberOfChannels + 1) / 2;
-    nCrestFactor = crest_factor;
-    nAverageAlgorithm = average_algorithm;
+    if (bExpanded)
+    {
+        strBackgroundSelector = "image_expanded";
+    }
+    else
+    {
+        strBackgroundSelector = "image";
+    }
+
+    if (bDisplayPeakMeter)
+    {
+        strBackgroundSelector += "_peaks";
+    }
+    else
+    {
+        strBackgroundSelector += "_no_peaks";
+    }
 
     if (nNumberOfChannels <= 2)
     {
@@ -304,6 +318,46 @@ void Skin::placeComponent(Component* component, String strXmlTag)
         int height = xmlComponent->getIntAttribute("height", -1);
 
         component->setBounds(x, y, width, height);
+    }
+}
+
+
+void Skin::setBackgroundImage(ImageComponent* background, AudioProcessorEditor* editor)
+{
+    if (xmlSkinGroup != nullptr)
+    {
+        Image imageBackground;
+        XmlElement* xmlBackground = xmlSkinGroup->getChildByName("background");
+
+        if (xmlBackground == nullptr)
+        {
+            Logger::outputDebugString(String("[Skin] XML element \"") + strSkinGroup + "\" specifies no background image");
+            imageBackground = Image();
+        }
+        else
+        {
+            String strImage = xmlBackground->getStringAttribute(strBackgroundSelector);
+            File fileImage = fileResourcePath->getChildFile(strImage);
+
+            if (!fileImage.existsAsFile())
+            {
+                Logger::outputDebugString(String("[Skin] image file \"") + fileImage.getFullPathName() + "\" not found");
+                imageBackground = Image();
+            }
+            else
+            {
+                imageBackground = ImageFileFormat::loadFrom(fileImage);
+            }
+        }
+
+        int nWidth = imageBackground.getWidth();
+        int nHeight = imageBackground.getHeight();
+
+        background->setImage(imageBackground);
+        background->setBounds(0, 0, nWidth, nHeight);
+        background->toBack();
+
+        editor->setSize(nWidth, nHeight);
     }
 }
 

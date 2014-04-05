@@ -43,8 +43,11 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
     nCrestFactor = 0;
 
+    bExpanded = false;
+    bDisplayPeakMeter = false;
+
     String strSkinFileName = "./kmeter-skins/default.xml";
-    pSkin = new Skin(strSkinFileName, nInputChannels, nCrestFactor, -1);
+    pSkin = new Skin(strSkinFileName, nInputChannels, nCrestFactor, -1, bExpanded, bDisplayPeakMeter);
 
     // The plug-in editor's size as well as the location of buttons
     // and labels will be set later on in this constructor.
@@ -117,6 +120,11 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     ButtonAbout->addListener(this);
     addAndMakeVisible(ButtonAbout);
 
+    BackgroundImage = new ImageComponent("Background Image");
+    // prevent unnecessary redrawing of plugin editor
+    BackgroundImage->setOpaque(true);
+    addAndMakeVisible(BackgroundImage);
+
     if (nInputChannels <= 2)
     {
         stereoMeter = new StereoMeter("Stereo Meter");
@@ -156,10 +164,9 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     // force meter reload after initialisation ...
     bInitialising = false;
     bReloadMeters = true;
-    reloadMeters();
 
-    // ... and set our plug-in editor's size.
-    resizeEditor();
+    // will also resize plug-in editor
+    reloadMeters();
 }
 
 
@@ -177,29 +184,21 @@ KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 
 void KmeterAudioProcessorEditor::resizeEditor()
 {
-    if (nInputChannels <= 2)
+    // prevent skin application during meter initialisation
+    if (bInitialising)
     {
-        nHeight = 648;
-        nWidth = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 94;
-    }
-    else
-    {
-        nHeight = 630;
-
-        if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
-        {
-            nWidth = Kmeter::KMETER_STEREO_WIDTH + 94;
-        }
-        else
-        {
-            nWidth = nStereoInputChannels * (Kmeter::KMETER_STEREO_WIDTH + 6) + 88;
-        }
+        return;
     }
 
-    setSize(nWidth, nHeight);
+    // update skin
+    pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
+
+    // will also resize plug-in editor
+    pSkin->setBackgroundImage(BackgroundImage, this);
 
     if (nInputChannels <= 2)
     {
+        int nHeight = getHeight();
         stereoMeter->setBounds(10, nHeight - 41, 106, 13);
         phaseCorrelationMeter->setBounds(10, nHeight - 24, 106, 13);
     }
@@ -320,33 +319,33 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         if (nValue == 0)
         {
             nCrestFactor = nValue;
+            // will also resize plug-in editor
             bReloadMeters = true;
 
-            pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm());
             ButtonNormal->setToggleState(true, dontSendNotification);
         }
         else if (nValue == 12)
         {
             nCrestFactor = nValue;
+            // will also resize plug-in editor
             bReloadMeters = true;
 
-            pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm());
             ButtonK12->setToggleState(true, dontSendNotification);
         }
         else if (nValue == 14)
         {
             nCrestFactor = nValue;
+            // will also resize plug-in editor
             bReloadMeters = true;
 
-            pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm());
             ButtonK14->setToggleState(true, dontSendNotification);
         }
         else // K-20
         {
             nCrestFactor = 20;
+            // will also resize plug-in editor
             bReloadMeters = true;
 
-            pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm());
             ButtonK20->setToggleState(true, dontSendNotification);
         }
 
@@ -363,30 +362,27 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         // executed...
         pProcessor->setAverageAlgorithm(nValue);
 
-        if (nInputChannels > 2)
-        {
-            resizeEditor();
-        }
-
         break;
 
     case KmeterPluginParameters::selExpanded:
+        bExpanded = (nValue != 0);
+        // will also resize plug-in editor
         bReloadMeters = true;
-        ButtonExpanded->setToggleState(nValue != 0, dontSendNotification);
+        ButtonExpanded->setToggleState(bExpanded, dontSendNotification);
         break;
 
         // case KmeterPluginParameters::selSkin:
+        //     // will also resize plug-in editor
         //     bReloadMeters = true;
 
         //     ButtonSkin->setToggleState(false, dontSendNotification);
-
-        //     pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm());
-        //     resizeEditor();
         //     break;
 
     case KmeterPluginParameters::selPeak:
+        bDisplayPeakMeter = (nValue != 0);
+        // will also resize plug-in editor
         bReloadMeters = true;
-        ButtonDisplayPeakMeter->setToggleState(nValue != 0, dontSendNotification);
+        ButtonDisplayPeakMeter->setToggleState(bDisplayPeakMeter, dontSendNotification);
         break;
 
     case KmeterPluginParameters::selInfiniteHold:
@@ -409,6 +405,7 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
     // prevent meter reload during initialisation
     if (!bInitialising)
     {
+        // will also resize plug-in editor
         reloadMeters();
     }
 }
@@ -430,44 +427,23 @@ void KmeterAudioProcessorEditor::reloadMeters()
 
         if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
         {
-            String strUnit;
-
-            if (ButtonDisplayPeakMeter->getToggleState())
-            {
-                strUnit = String("LK|dB");
-            }
-            else
-            {
-                strUnit = String("LK");
-            }
-
-            kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), false, ButtonDisplayPeakMeter->getToggleState(), 4);
+            kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, 1, isSurround, ButtonExpanded->getToggleState(), false, ButtonDisplayPeakMeter->getToggleState(), 4);
         }
         else
         {
-            String strUnit;
-
-            if (ButtonDisplayPeakMeter->getToggleState())
-            {
-                strUnit = String("dB|dB");
-            }
-            else
-            {
-                strUnit = String("dB");
-            }
-
-            kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), false, ButtonDisplayPeakMeter->getToggleState(), 4);
+            kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, nInputChannels, isSurround, ButtonExpanded->getToggleState(), false, ButtonDisplayPeakMeter->getToggleState(), 4);
         }
 
         addAndMakeVisible(kmeter);
+
+        resizeEditor();
     }
 }
 
 //==============================================================================
 void KmeterAudioProcessorEditor::paint(Graphics& g)
 {
-    g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.8f), 0, 0, Colours::darkgrey.darker(1.4f), 0, (float) getHeight(), false));
-    g.fillAll();
+    g.fillAll(Colours::black);
 }
 
 void KmeterAudioProcessorEditor::buttonClicked(Button* button)
@@ -571,11 +547,9 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
         pMeterBallistics->reset();
     }
 
-    pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm());
-
     if (!bInitialising)
     {
-        resizeEditor();
+        // will also resize plug-in editor
         reloadMeters();
     }
 }
