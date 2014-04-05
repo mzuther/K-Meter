@@ -59,7 +59,7 @@ private:
     JUCE_LEAK_DETECTOR(KmeterAudioProcessorEditor);
 
     void reloadMeters();
-    void resizeEditor();
+    void applySkin();
     void updateAverageAlgorithm(bool reload_meters);
 
     bool bReloadMeters;

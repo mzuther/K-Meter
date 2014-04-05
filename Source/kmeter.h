@@ -31,6 +31,7 @@
 #include "overflow_meter.h"
 #include "peak_label.h"
 #include "plugin_processor.h"
+#include "skin.h"
 
 
 //==============================================================================
@@ -42,27 +43,21 @@ public:
     static const int KMETER_STEREO_WIDTH = 106;
     static const int KMETER_STEREO_WIDTH_2 = KMETER_STEREO_WIDTH / 2;
 
-    Kmeter(const String& componentName, int PosX, int PosY, int nCrestFactor, int nNumChannels, bool bIsSurround, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight);
+    Kmeter(const String& componentName, int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight);
     ~Kmeter();
 
     void setLevels(MeterBallistics* pMeterBallistics);
+    void applySkin(Skin* pSkin);
     void resized();
-    void visibilityChanged();
 
 private:
     JUCE_LEAK_DETECTOR(Kmeter);
 
-    int nPosX;
-    int nPosY;
-
-    int nInputChannels;
-    int nMainSegmentHeight;
-    int nMeterPositionTop;
-    bool isSurround;
-
     MeterBar** LevelMeters;
     OverflowMeter** OverflowMeters;
     PeakLabel** MaximumPeakLabels;
+
+    int nInputChannels;
 };
 
 

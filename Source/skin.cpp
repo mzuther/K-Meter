@@ -355,7 +355,6 @@ void Skin::setBackgroundImage(ImageComponent* background, AudioProcessorEditor* 
 
         background->setImage(imageBackground);
         background->setBounds(0, 0, nWidth, nHeight);
-        background->toBack();
 
         editor->setSize(nWidth, nHeight);
     }

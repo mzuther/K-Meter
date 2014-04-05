@@ -25,7 +25,7 @@
 
 #include "kmeter.h"
 
-Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor, int nNumChannels, bool bIsSurround, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight)
+Kmeter::Kmeter(const String& componentName, int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight)
 {
     setName(componentName);
 
@@ -33,47 +33,13 @@ Kmeter::Kmeter(const String& componentName, int posX, int posY, int nCrestFactor
     setOpaque(false);
 
     nInputChannels = nNumChannels;
-    isSurround = bIsSurround;
-
-    if (isSurround)
-    {
-        nMeterPositionTop = 20;
-    }
-    else
-    {
-        nMeterPositionTop = 0;
-    }
-
-    nPosX = posX;
-    nPosY = posY;
-    nMainSegmentHeight = nSegmentHeight;
-
-    int nPositionX = 0;
     LevelMeters = new MeterBar*[nInputChannels];
 
-    if (nInputChannels == 1)
+    for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
     {
-        nPositionX = KMETER_STEREO_WIDTH_2 - 10;
+        LevelMeters[nChannel] = new MeterBar("Level Meter #" + String(nChannel), nCrestFactor, bExpanded, bHorizontalMeter, bDisplayPeakMeter, nSegmentHeight);
 
-        LevelMeters[0] = new MeterBar("Level Meter #0", nPositionX - 2, nMeterPositionTop + 48, 24, nCrestFactor, bExpanded, bHorizontalMeter, bDisplayPeakMeter, nMainSegmentHeight);
-
-        addAndMakeVisible(LevelMeters[0]);
-    }
-    else
-    {
-        for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
-        {
-            nPositionX = 9 + nChannel * (KMETER_STEREO_WIDTH_2 + 3);
-
-            if (nChannel % 2)
-            {
-                nPositionX += 12;
-            }
-
-            LevelMeters[nChannel] = new MeterBar("Level Meter #" + String(nChannel), nPositionX, nMeterPositionTop + 48, 20, nCrestFactor, bExpanded, bHorizontalMeter, bDisplayPeakMeter, nMainSegmentHeight);
-
-            addAndMakeVisible(LevelMeters[nChannel]);
-        }
+        addAndMakeVisible(LevelMeters[nChannel]);
     }
 
     OverflowMeters = new OverflowMeter*[nInputChannels];
@@ -128,40 +94,60 @@ Kmeter::~Kmeter()
 }
 
 
-void Kmeter::visibilityChanged()
+void Kmeter::applySkin(Skin* pSkin)
 {
-    int nStereoInputChannels = (nInputChannels + (nInputChannels % 2)) / 2;
-    int nWidth = nStereoInputChannels * (KMETER_STEREO_WIDTH + 6) - 6;
-    int nHeight = 134 * nMainSegmentHeight + 74;
-
-    if (isSurround)
-    {
-        nHeight += 20;
-    }
-
-    setBounds(nPosX, nPosY, nWidth, nHeight);
-
     if (nInputChannels == 1)
     {
-        int nPositionX = KMETER_STEREO_WIDTH_2 - 16;
+        pSkin->placeComponent(LevelMeters[0], "meter_kmeter");
+        pSkin->placeComponent(OverflowMeters[0], "label_over");
+        pSkin->placeComponent(MaximumPeakLabels[0], "label_peak");
+    }
+    else if (nInputChannels == 2)
+    {
+        pSkin->placeComponent(LevelMeters[0], "meter_kmeter_left");
+        pSkin->placeComponent(OverflowMeters[0], "label_over_left");
+        pSkin->placeComponent(MaximumPeakLabels[0], "label_peak_left");
 
-        OverflowMeters[0]->setBounds(nPositionX, nMeterPositionTop + 4, 32, 16);
-        MaximumPeakLabels[0]->setBounds(nPositionX, nMeterPositionTop + 22, 32, 16);
+        pSkin->placeComponent(LevelMeters[1], "meter_kmeter_right");
+        pSkin->placeComponent(OverflowMeters[1], "label_over_right");
+        pSkin->placeComponent(MaximumPeakLabels[1], "label_peak_right");
+    }
+    else if (nInputChannels == 6)
+    {
+        pSkin->placeComponent(LevelMeters[0], "meter_kmeter_left");
+        pSkin->placeComponent(OverflowMeters[0], "label_over_left");
+        pSkin->placeComponent(MaximumPeakLabels[0], "label_peak_left");
+
+        pSkin->placeComponent(LevelMeters[1], "meter_kmeter_right");
+        pSkin->placeComponent(OverflowMeters[1], "label_over_right");
+        pSkin->placeComponent(MaximumPeakLabels[1], "label_peak_right");
+
+        pSkin->placeComponent(LevelMeters[2], "meter_kmeter_center");
+        pSkin->placeComponent(OverflowMeters[2], "label_over_center");
+        pSkin->placeComponent(MaximumPeakLabels[2], "label_peak_center");
+
+        pSkin->placeComponent(LevelMeters[3], "meter_kmeter_lfe");
+        pSkin->placeComponent(OverflowMeters[3], "label_over_lfe");
+        pSkin->placeComponent(MaximumPeakLabels[3], "label_peak_lfe");
+
+        pSkin->placeComponent(LevelMeters[4], "meter_kmeter_ls");
+        pSkin->placeComponent(OverflowMeters[4], "label_over_ls");
+        pSkin->placeComponent(MaximumPeakLabels[4], "label_peak_ls");
+
+        pSkin->placeComponent(LevelMeters[5], "meter_kmeter_rs");
+        pSkin->placeComponent(OverflowMeters[5], "label_over_rs");
+        pSkin->placeComponent(MaximumPeakLabels[5], "label_peak_rs");
     }
     else
     {
-        for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
-        {
-            int nPositionX = 5 + nChannel * (KMETER_STEREO_WIDTH_2 + 3);
+        DBG("[K-Meter] channel configuration (" + String(nInputChannels) + " channels) not supported");
+    }
 
-            if (nChannel % 2)
-            {
-                nPositionX += 8;
-            }
+    Component* parent = getParentComponent();
 
-            OverflowMeters[nChannel]->setBounds(nPositionX, nMeterPositionTop + 4, 32, 16);
-            MaximumPeakLabels[nChannel]->setBounds(nPositionX, nMeterPositionTop + 22, 32, 16);
-        }
+    if (parent != nullptr)
+    {
+        setBounds(0, 0, parent->getWidth(), parent->getHeight());
     }
 }
 
