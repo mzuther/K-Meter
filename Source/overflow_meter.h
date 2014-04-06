@@ -27,12 +27,14 @@
 #define __OVERFLOW_METER_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "state_label.h"
+
 
 
 //==============================================================================
 /**
 */
-class OverflowMeter : public Label
+class OverflowMeter : public StateLabel
 {
 public:
     OverflowMeter(const String& componentName);

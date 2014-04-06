@@ -131,6 +131,10 @@
            spacing_top CDATA #REQUIRED
 ">
 
+<!ENTITY % attrs_font
+          "font_size CDATA #REQUIRED
+">
+
 <!ENTITY % attrs_background
           "%attrs_image_size;
            image_no_peaks CDATA #REQUIRED
@@ -145,14 +149,15 @@
            image_off CDATA #REQUIRED
 ">
 
-<!ENTITY % attrs_label_simple
+<!ENTITY % attrs_label
           "%attrs_image_position;
            image CDATA #REQUIRED
 ">
 
-<!ENTITY % attrs_label_active
+<!ENTITY % attrs_state_label
           "%attrs_image_position;
            %attrs_image_spacing;
+		   %attrs_font;
            image_on CDATA #REQUIRED
            image_off CDATA #REQUIRED
 ">
@@ -260,49 +265,49 @@
             <!ATTLIST button_about %attrs_button;>
 
         <!ELEMENT label_debug (#PCDATA)>
-            <!ATTLIST label_debug %attrs_label_simple;>
+            <!ATTLIST label_debug %attrs_label;>
 
         <!ELEMENT label_over (#PCDATA)>
-            <!ATTLIST label_over %attrs_label_active;>
+            <!ATTLIST label_over %attrs_state_label;>
 
         <!ELEMENT label_over_left (#PCDATA)>
-            <!ATTLIST label_over_left %attrs_label_active;>
+            <!ATTLIST label_over_left %attrs_state_label;>
 
         <!ELEMENT label_over_right (#PCDATA)>
-            <!ATTLIST label_over_right %attrs_label_active;>
+            <!ATTLIST label_over_right %attrs_state_label;>
 
         <!ELEMENT label_over_center (#PCDATA)>
-            <!ATTLIST label_over_center %attrs_label_active;>
+            <!ATTLIST label_over_center %attrs_state_label;>
 
         <!ELEMENT label_over_lfe (#PCDATA)>
-            <!ATTLIST label_over_lfe %attrs_label_active;>
+            <!ATTLIST label_over_lfe %attrs_state_label;>
 
         <!ELEMENT label_over_ls (#PCDATA)>
-            <!ATTLIST label_over_ls %attrs_label_active;>
+            <!ATTLIST label_over_ls %attrs_state_label;>
 
         <!ELEMENT label_over_rs (#PCDATA)>
-            <!ATTLIST label_over_rs %attrs_label_active;>
+            <!ATTLIST label_over_rs %attrs_state_label;>
 
         <!ELEMENT label_peak (#PCDATA)>
-            <!ATTLIST label_peak %attrs_label_active;>
+            <!ATTLIST label_peak %attrs_state_label;>
 
         <!ELEMENT label_peak_left (#PCDATA)>
-            <!ATTLIST label_peak_left %attrs_label_active;>
+            <!ATTLIST label_peak_left %attrs_state_label;>
 
         <!ELEMENT label_peak_right (#PCDATA)>
-            <!ATTLIST label_peak_right %attrs_label_active;>
+            <!ATTLIST label_peak_right %attrs_state_label;>
 
         <!ELEMENT label_peak_center (#PCDATA)>
-            <!ATTLIST label_peak_center %attrs_label_active;>
+            <!ATTLIST label_peak_center %attrs_state_label;>
 
         <!ELEMENT label_peak_lfe (#PCDATA)>
-            <!ATTLIST label_peak_lfe %attrs_label_active;>
+            <!ATTLIST label_peak_lfe %attrs_state_label;>
 
         <!ELEMENT label_peak_ls (#PCDATA)>
-            <!ATTLIST label_peak_ls %attrs_label_active;>
+            <!ATTLIST label_peak_ls %attrs_state_label;>
 
         <!ELEMENT label_peak_rs (#PCDATA)>
-            <!ATTLIST label_peak_rs %attrs_label_active;>
+            <!ATTLIST label_peak_rs %attrs_state_label;>
 
         <!ELEMENT meter_kmeter (#PCDATA)>
             <!ATTLIST meter_kmeter %attrs_meter;>

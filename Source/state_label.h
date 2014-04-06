@@ -23,42 +23,44 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "overflow_meter.h"
+#ifndef __STATE_LABEL_H__
+#define __STATE_LABEL_H__
+
+#include "../JuceLibraryCode/JuceHeader.h"
 
 
-OverflowMeter::OverflowMeter(const String& componentName) : StateLabel(componentName)
+//==============================================================================
+/**
+*/
+class StateLabel : public Component
 {
-    nOverflows = 0;
+public:
+    StateLabel(const String& componentName);
+    ~StateLabel();
 
-    pLabel->setText(String(nOverflows), dontSendNotification);
-    pLabel->setColour(Label::textColourId, Colours::white);
-}
+    void resized();
+    void setState(bool isActivatedNew);
+    void updateState();
+
+    void setImages(Image& imageOff, Image& imageOn, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize);
+
+protected:
+    Label* pLabel;
+    ImageComponent* pBackgroundImage;
+
+private:
+    JUCE_LEAK_DETECTOR(StateLabel);
+
+    int nSpacingLeft;
+    int nSpacingTop;
+    bool isActivated;
+
+    Image BackgroundOff;
+    Image BackgroundOn;
+};
 
 
-OverflowMeter::~OverflowMeter()
-{
-}
-
-
-void OverflowMeter::setOverflows(int Overflows)
-{
-    int nOverflowsOld = nOverflows;
-    nOverflows = Overflows;
-
-    if (nOverflows != nOverflowsOld)
-    {
-        pLabel->setText(String(nOverflows), dontSendNotification);
-
-        if (nOverflows == 0)
-        {
-            setState(false);
-        }
-        else
-        {
-            setState(true);
-        }
-    }
-}
+#endif  // __STATE_LABEL_H__
 
 
 // Local Variables:

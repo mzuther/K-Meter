@@ -99,44 +99,44 @@ void Kmeter::applySkin(Skin* pSkin)
     if (nInputChannels == 1)
     {
         pSkin->placeComponent(LevelMeters[0], "meter_kmeter");
-        pSkin->placeComponent(OverflowMeters[0], "label_over");
-        pSkin->placeComponent(MaximumPeakLabels[0], "label_peak");
+        pSkin->placeAndSkinStateLabel(OverflowMeters[0], "label_over");
+        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[0], "label_peak");
     }
     else if (nInputChannels == 2)
     {
         pSkin->placeComponent(LevelMeters[0], "meter_kmeter_left");
-        pSkin->placeComponent(OverflowMeters[0], "label_over_left");
-        pSkin->placeComponent(MaximumPeakLabels[0], "label_peak_left");
+        pSkin->placeAndSkinStateLabel(OverflowMeters[0], "label_over_left");
+        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[0], "label_peak_left");
 
         pSkin->placeComponent(LevelMeters[1], "meter_kmeter_right");
-        pSkin->placeComponent(OverflowMeters[1], "label_over_right");
-        pSkin->placeComponent(MaximumPeakLabels[1], "label_peak_right");
+        pSkin->placeAndSkinStateLabel(OverflowMeters[1], "label_over_right");
+        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[1], "label_peak_right");
     }
     else if (nInputChannels == 6)
     {
         pSkin->placeComponent(LevelMeters[0], "meter_kmeter_left");
-        pSkin->placeComponent(OverflowMeters[0], "label_over_left");
-        pSkin->placeComponent(MaximumPeakLabels[0], "label_peak_left");
+        pSkin->placeAndSkinStateLabel(OverflowMeters[0], "label_over_left");
+        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[0], "label_peak_left");
 
         pSkin->placeComponent(LevelMeters[1], "meter_kmeter_right");
-        pSkin->placeComponent(OverflowMeters[1], "label_over_right");
-        pSkin->placeComponent(MaximumPeakLabels[1], "label_peak_right");
+        pSkin->placeAndSkinStateLabel(OverflowMeters[1], "label_over_right");
+        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[1], "label_peak_right");
 
         pSkin->placeComponent(LevelMeters[2], "meter_kmeter_center");
-        pSkin->placeComponent(OverflowMeters[2], "label_over_center");
-        pSkin->placeComponent(MaximumPeakLabels[2], "label_peak_center");
+        pSkin->placeAndSkinStateLabel(OverflowMeters[2], "label_over_center");
+        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[2], "label_peak_center");
 
         pSkin->placeComponent(LevelMeters[3], "meter_kmeter_lfe");
-        pSkin->placeComponent(OverflowMeters[3], "label_over_lfe");
-        pSkin->placeComponent(MaximumPeakLabels[3], "label_peak_lfe");
+        pSkin->placeAndSkinStateLabel(OverflowMeters[3], "label_over_lfe");
+        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[3], "label_peak_lfe");
 
         pSkin->placeComponent(LevelMeters[4], "meter_kmeter_ls");
-        pSkin->placeComponent(OverflowMeters[4], "label_over_ls");
-        pSkin->placeComponent(MaximumPeakLabels[4], "label_peak_ls");
+        pSkin->placeAndSkinStateLabel(OverflowMeters[4], "label_over_ls");
+        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[4], "label_peak_ls");
 
         pSkin->placeComponent(LevelMeters[5], "meter_kmeter_rs");
-        pSkin->placeComponent(OverflowMeters[5], "label_over_rs");
-        pSkin->placeComponent(MaximumPeakLabels[5], "label_peak_rs");
+        pSkin->placeAndSkinStateLabel(OverflowMeters[5], "label_over_rs");
+        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[5], "label_peak_rs");
     }
     else
     {

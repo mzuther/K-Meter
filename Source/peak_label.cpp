@@ -26,21 +26,12 @@
 #include "peak_label.h"
 
 
-PeakLabel::PeakLabel(const String& componentName, int nCrestFactor) : Label(componentName, "")
+PeakLabel::PeakLabel(const String& componentName, int nCrestFactor) : StateLabel(componentName)
 {
     nMeterCrestFactor = nCrestFactor;
-
-    // this component does not have any transparent areas (increases
-    // performance on redrawing)
-    setOpaque(true);
-
     resetLevel();
 
-    setFont(12.0f);
-    setJustificationType(Justification::centredRight);
-    setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
-    setColour(Label::textColourId, Colours::white);
-    setColour(Label::outlineColourId, Colours::grey.darker(0.2f));
+    pLabel->setColour(Label::textColourId, Colours::white);
 }
 
 
@@ -74,20 +65,20 @@ void PeakLabel::updateLevel(float newLevel)
 
     if (fCorrectedLevel < 0.0f)
     {
-        setText(String(fCorrectedLevel, 1), dontSendNotification);
+        pLabel->setText(String(fCorrectedLevel, 1), dontSendNotification);
     }
     else
     {
-        setText("+" + String(fCorrectedLevel, 1), dontSendNotification);
+        pLabel->setText("+" + String(fCorrectedLevel, 1), dontSendNotification);
     }
 
     if (fMaximumLevel < -0.20f)
     {
-        setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
+        setState(false);
     }
     else
     {
-        setColour(Label::backgroundColourId, Colours::red.darker(0.2f));
+        setState(true);
     }
 }
 

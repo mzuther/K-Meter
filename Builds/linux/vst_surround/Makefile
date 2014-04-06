@@ -111,6 +111,7 @@ OBJECTS := \
 	$(OBJDIR)/stereo_meter.o \
 	$(OBJDIR)/meter_segment.o \
 	$(OBJDIR)/plugin_processor.o \
+	$(OBJDIR)/state_label.o \
 	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/skin.o \
 	$(OBJDIR)/averager.o \
@@ -211,6 +212,9 @@ $(OBJDIR)/meter_segment.o: ../../../Source/meter_segment.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_processor.o: ../../../Source/plugin_processor.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/state_label.o: ../../../Source/state_label.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp

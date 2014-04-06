@@ -31,6 +31,7 @@ class Skin;
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "kmeter.h"
 #include "plugin_parameters.h"
+#include "state_label.h"
 
 
 class Skin
@@ -44,6 +45,7 @@ public:
     void placeComponent(Component* component, String strXmlTag);
     void placeAndSkinButton(ImageButton* button, String strXmlTag);
     void placeAndSkinLabel(ImageComponent* label, String strXmlTag);
+    void placeAndSkinStateLabel(StateLabel* label, String strXmlTag);
     void setBackgroundImage(ImageComponent* background, AudioProcessorEditor* editor);
 
 private:

@@ -304,6 +304,57 @@ void Skin::placeAndSkinLabel(ImageComponent* label, String strXmlTag)
 }
 
 
+void Skin::placeAndSkinStateLabel(StateLabel* label, String strXmlTag)
+{
+    jassert(label != nullptr);
+
+    XmlElement* xmlLabel = getComponentFromXml(strXmlTag);
+
+    if (xmlLabel != nullptr)
+    {
+        int x = xmlLabel->getIntAttribute("x", -1);
+        int y = xmlLabel->getIntAttribute("y", -1);
+        int width = xmlLabel->getIntAttribute("width", -1);
+        int height = xmlLabel->getIntAttribute("height", -1);
+
+        int spacing_left = xmlLabel->getIntAttribute("spacing_left", 0);
+        int spacing_top = xmlLabel->getIntAttribute("spacing_top", 0);
+        int font_size = xmlLabel->getIntAttribute("font_size", 12);
+
+        String strImageOn = xmlLabel->getStringAttribute("image_on");
+        File fileImageOn = fileResourcePath->getChildFile(strImageOn);
+        Image imageOn;
+
+        if (!fileImageOn.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageOn.getFullPathName() + "\" not found");
+            imageOn = Image();
+        }
+        else
+        {
+            imageOn = ImageFileFormat::loadFrom(fileImageOn);
+        }
+
+        String strImageOff = xmlLabel->getStringAttribute("image_off");
+        File fileImageOff = fileResourcePath->getChildFile(strImageOff);
+        Image imageOff;
+
+        if (!fileImageOff.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageOff.getFullPathName() + "\" not found");
+            imageOff = Image();
+        }
+        else
+        {
+            imageOff = ImageFileFormat::loadFrom(fileImageOff);
+        }
+
+        label->setImages(imageOff, imageOn, spacing_left, spacing_top, font_size);
+        label->setBounds(x, y, width, height);
+    }
+}
+
+
 void Skin::placeComponent(Component* component, String strXmlTag)
 {
     jassert(component != nullptr);

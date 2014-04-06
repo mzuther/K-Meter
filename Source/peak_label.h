@@ -27,12 +27,13 @@
 #define __PEAK_LABEL_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "state_label.h"
 
 
 //==============================================================================
 /**
 */
-class PeakLabel : public Label
+class PeakLabel : public StateLabel
 {
 public:
     PeakLabel(const String& componentName, int nCrestFactor);
