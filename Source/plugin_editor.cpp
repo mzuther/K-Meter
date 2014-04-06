@@ -256,8 +256,8 @@ void KmeterAudioProcessorEditor::resizeEditor()
 
         if (nInputChannels <= 2)
         {
-            stereoMeter->setBounds(28, 10, 13, 106);
-            phaseCorrelationMeter->setBounds(10, 10, 13, 106);
+            stereoMeter->setBounds(28, 10, 13, 107);
+            phaseCorrelationMeter->setBounds(10, 10, 13, 107);
         }
     }
     else
@@ -287,8 +287,8 @@ void KmeterAudioProcessorEditor::resizeEditor()
 
         if (nInputChannels <= 2)
         {
-            stereoMeter->setBounds(10, nHeight - 41, 106, 13);
-            phaseCorrelationMeter->setBounds(10, nHeight - 24, 106, 13);
+            stereoMeter->setBounds(10, nHeight - 41, 107, 13);
+            phaseCorrelationMeter->setBounds(10, nHeight - 24, 107, 13);
         }
     }
 

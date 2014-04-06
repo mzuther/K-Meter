@@ -151,11 +151,11 @@ void PhaseCorrelationMeter::setValue(float newValue)
 
     if (bVerticalMeter)
     {
-        nNeedlePosition = int ((1.0f + fValue) / 2.0f * (getHeight() - 4) + 2);
+        nNeedlePosition = int ((1.0f + fValue) / 2.0f * (getHeight() - 5) + 2.5f);
     }
     else
     {
-        nNeedlePosition = int ((1.0f + fValue) / 2.0f * (getWidth() - 4) + 2);
+        nNeedlePosition = int ((1.0f + fValue) / 2.0f * (getWidth() - 5) + 2.5f);
     }
 
     if (nNeedlePosition == nNeedlePositionOld)
