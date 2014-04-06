@@ -127,12 +127,12 @@
 ">
 
 <!ENTITY % attrs_image_spacing
-          "spacing_left CDATA #REQUIRED
-           spacing_top CDATA #REQUIRED
+          "spacing_left CDATA #IMPLIED
+           spacing_top CDATA #IMPLIED
 ">
 
 <!ENTITY % attrs_font
-          "font_size CDATA #REQUIRED
+          "font_size CDATA #IMPLIED
 ">
 
 <!ENTITY % attrs_background

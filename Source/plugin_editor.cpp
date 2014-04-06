@@ -127,10 +127,10 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
 
     if (nInputChannels <= 2)
     {
-        stereoMeter = new StereoMeter("Stereo Meter");
+        stereoMeter = new HorizontalMeter("Stereo Meter");
         addAndMakeVisible(stereoMeter);
 
-        phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter");
+        phaseCorrelationMeter = new HorizontalMeter("Correlation Meter");
         addAndMakeVisible(phaseCorrelationMeter);
     }
     else
@@ -196,13 +196,6 @@ void KmeterAudioProcessorEditor::applySkin()
     // will also resize plug-in editor
     pSkin->setBackgroundImage(BackgroundImage, this);
 
-    if (nInputChannels <= 2)
-    {
-        int nHeight = getHeight();
-        stereoMeter->setBounds(10, nHeight - 41, 106, 13);
-        phaseCorrelationMeter->setBounds(10, nHeight - 24, 106, 13);
-    }
-
     pSkin->placeAndSkinButton(ButtonK20, "button_k20");
     pSkin->placeAndSkinButton(ButtonK14, "button_k14");
     pSkin->placeAndSkinButton(ButtonK12, "button_k12");
@@ -234,6 +227,16 @@ void KmeterAudioProcessorEditor::applySkin()
     {
         kmeter->applySkin(pSkin);
     }
+
+    if (stereoMeter != nullptr)
+    {
+        pSkin->placeAndSkinHorizontalMeter(stereoMeter, "meter_stereo");
+    }
+
+    if (phaseCorrelationMeter != nullptr)
+    {
+        pSkin->placeAndSkinHorizontalMeter(phaseCorrelationMeter, "meter_phase_correlation");
+    }
 }
 
 
@@ -264,12 +267,14 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String& message)
 
             if (stereoMeter != nullptr)
             {
-                stereoMeter->setValue(pMeterBallistics->getStereoMeterValue());
+                float fStereo = pMeterBallistics->getStereoMeterValue();
+                stereoMeter->setValue(fStereo / 2.0f + 0.5f);
             }
 
             if (phaseCorrelationMeter != nullptr)
             {
-                phaseCorrelationMeter->setValue(pMeterBallistics->getPhaseCorrelation());
+                float fPhase = pMeterBallistics->getPhaseCorrelation();
+                phaseCorrelationMeter->setValue(fPhase / 2.0f + 0.5f);
             }
         }
 

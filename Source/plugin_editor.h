@@ -30,8 +30,7 @@
 #include "plugin_processor.h"
 #include "kmeter.h"
 #include "skin.h"
-#include "stereo_meter.h"
-#include "phase_correlation_meter.h"
+#include "horizontal_meter.h"
 #include "window_about.h"
 #include "window_validation.h"
 
@@ -76,8 +75,8 @@ private:
 
     KmeterAudioProcessor* pProcessor;
     Kmeter* kmeter;
-    StereoMeter* stereoMeter;
-    PhaseCorrelationMeter* phaseCorrelationMeter;
+    HorizontalMeter* stereoMeter;
+    HorizontalMeter* phaseCorrelationMeter;
 
     ImageButton* ButtonNormal;
     ImageButton* ButtonK12;

@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __STEREO_METER_H__
-#define __STEREO_METER_H__
+#ifndef __HORIZONTAL_METER_H__
+#define __HORIZONTAL_METER_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -32,32 +32,35 @@
 //==============================================================================
 /**
 */
-class StereoMeter : public Component
+class HorizontalMeter : public Component
 {
 public:
-    StereoMeter(const String& componentName);
-    ~StereoMeter();
+    HorizontalMeter(const String& componentName);
+    ~HorizontalMeter();
 
+    void setImages(Image& imageBackgroundNew, Image& imageNeedleNew, int nSpacingLeftNew, int nSpacingTopNew);
     void setValue(float newValue);
     void paint(Graphics& g);
     void resized();
 
 private:
-    JUCE_LEAK_DETECTOR(StereoMeter);
+    JUCE_LEAK_DETECTOR(HorizontalMeter);
 
-    float fValue;
     int nNeedlePosition;
+    int nNeedleTravelPath;
+    bool bVerticalMeter;
 
-    int nPosX;
-    int nPosY;
     int nWidth;
     int nHeight;
+    int nSpacingLeft;
+    int nSpacingTop;
 
-    bool bVerticalMeter;
+    Image imageBackground;
+    Image imageNeedle;
 };
 
 
-#endif  // __STEREO_METER_H__
+#endif  // __HORIZONTAL_METER_H__
 
 
 // Local Variables:

@@ -33,8 +33,8 @@ StateLabel::StateLabel(const String& componentName)
     nSpacingTop = 0;
     isActivated = false;
 
-    BackgroundOff = Image();
-    BackgroundOn = Image();
+    imageOff = Image();
+    imageOn = Image();
 
     pLabel = new Label("Label", "");
     pLabel->setBorderSize(0, 0);
@@ -76,25 +76,25 @@ void StateLabel::updateState()
 {
     if (isActivated)
     {
-        pBackgroundImage->setImage(BackgroundOn);
+        pBackgroundImage->setImage(imageOn);
     }
     else
     {
-        pBackgroundImage->setImage(BackgroundOff);
+        pBackgroundImage->setImage(imageOff);
     }
 }
 
 
-void StateLabel::setImages(Image& imageOff, Image& imageOn, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize)
+void StateLabel::setImages(Image& imageOffNew, Image& imageOnNew, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize)
 {
     nSpacingLeft = nSpacingLeftNew;
     nSpacingTop = nSpacingTopNew;
     pLabel->setFont(nFontSize);
 
-    BackgroundOff = Image(imageOff);
-    BackgroundOn = Image(imageOn);
+    imageOff = Image(imageOffNew);
+    imageOn = Image(imageOnNew);
 
-    jassert(BackgroundOff.getBounds() == BackgroundOn.getBounds());
+    jassert(imageOff.getBounds() == imageOn.getBounds());
 
     updateState();
 }

@@ -271,6 +271,58 @@ void Skin::placeAndSkinButton(ImageButton* button, String strXmlTag)
 }
 
 
+void Skin::placeAndSkinHorizontalMeter(HorizontalMeter* meter, String strXmlTag)
+{
+    jassert(meter != nullptr);
+
+    XmlElement* xmlMeter = getComponentFromXml(strXmlTag);
+
+    if (xmlMeter != nullptr)
+    {
+        int x = xmlMeter->getIntAttribute("x", -1);
+        int y = xmlMeter->getIntAttribute("y", -1);
+        int width = xmlMeter->getIntAttribute("width", -1);
+        int height = xmlMeter->getIntAttribute("height", -1);
+
+        int spacing_left = xmlMeter->getIntAttribute("spacing_left", 0);
+        int spacing_top = xmlMeter->getIntAttribute("spacing_top", 0);
+
+        String strImageBackground = xmlMeter->getStringAttribute("image");
+        File fileImageBackground = fileResourcePath->getChildFile(strImageBackground);
+        Image imageBackground;
+
+        if (!fileImageBackground.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageBackground.getFullPathName() + "\" not found");
+            imageBackground = Image();
+        }
+        else
+        {
+            imageBackground = ImageFileFormat::loadFrom(fileImageBackground);
+        }
+
+        XmlElement* xmlNeedle = xmlMeter->getChildByName("needle");
+
+        String strImageNeedle = xmlNeedle->getStringAttribute("image");
+        File fileImageNeedle = fileResourcePath->getChildFile(strImageNeedle);
+        Image imageNeedle;
+
+        if (!fileImageNeedle.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageNeedle.getFullPathName() + "\" not found");
+            imageNeedle = Image();
+        }
+        else
+        {
+            imageNeedle = ImageFileFormat::loadFrom(fileImageNeedle);
+        }
+
+        meter->setImages(imageBackground, imageNeedle, spacing_left, spacing_top);
+        meter->setBounds(x, y, width, height);
+    }
+}
+
+
 void Skin::placeAndSkinLabel(ImageComponent* label, String strXmlTag)
 {
     jassert(label != nullptr);

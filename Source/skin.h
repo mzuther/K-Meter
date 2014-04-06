@@ -30,6 +30,7 @@ class Skin;
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "kmeter.h"
+#include "horizontal_meter.h"
 #include "plugin_parameters.h"
 #include "state_label.h"
 
@@ -44,6 +45,7 @@ public:
     void updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
     void placeComponent(Component* component, String strXmlTag);
     void placeAndSkinButton(ImageButton* button, String strXmlTag);
+    void placeAndSkinHorizontalMeter(HorizontalMeter* meter, String strXmlTag);
     void placeAndSkinLabel(ImageComponent* label, String strXmlTag);
     void placeAndSkinStateLabel(StateLabel* label, String strXmlTag);
     void setBackgroundImage(ImageComponent* background, AudioProcessorEditor* editor);

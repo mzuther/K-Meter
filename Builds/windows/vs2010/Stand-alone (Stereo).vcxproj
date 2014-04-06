@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{44DFFC56-C8F1-C7AE-A42A-AA7D4BF342F5}</ProjectGuid>
+		<ProjectGuid>{F17B2850-FF10-E491-E1C4-E6B18E6E7A23}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -211,13 +211,12 @@
 		<ClInclude Include="..\..\..\Source\channel_slider.h" />
 		<ClInclude Include="..\..\..\Source\average_level_filtered.h" />
 		<ClInclude Include="..\..\..\Source\meter_segment.h" />
-		<ClInclude Include="..\..\..\Source\stereo_meter.h" />
 		<ClInclude Include="..\..\..\Source\overflow_meter.h" />
 		<ClInclude Include="..\..\..\Source\audio_ring_buffer.h" />
 		<ClInclude Include="..\..\..\Source\peak_label.h" />
 		<ClInclude Include="..\..\..\Source\kmeter.h" />
-		<ClInclude Include="..\..\..\Source\phase_correlation_meter.h" />
 		<ClInclude Include="..\..\..\Source\state_label.h" />
+		<ClInclude Include="..\..\..\Source\horizontal_meter.h" />
 		<ClInclude Include="..\..\..\Source\window_about.h" />
 		<ClInclude Include="..\..\..\Source\audio_file_player.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
@@ -230,8 +229,6 @@
 		<ClInclude Include="..\..\..\Source\resources\resources.h" />
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="..\..\..\Source\stereo_meter.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\meter_segment.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_processor.cpp">
@@ -246,6 +243,8 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\main.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\Source\horizontal_meter.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\Source\average_level_filtered.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\window_validation.cpp">
@@ -259,8 +258,6 @@
 		<ClCompile Include="..\..\..\Source\audio_ring_buffer.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\standalone_application.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\phase_correlation_meter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\window_about.cpp">
 		</ClCompile>

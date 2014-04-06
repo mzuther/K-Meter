@@ -148,7 +148,7 @@
 		<meter_phase_correlation
 			x="10"
 			y="624"
-			width="106"
+			width="107"
 			height="13"
 			spacing_left="1"
 			spacing_top="1"
@@ -164,7 +164,7 @@
 		<meter_stereo
 			x="10"
 			y="607"
-			width="106"
+			width="107"
 			height="13"
 			spacing_left="1"
 			spacing_top="1"
@@ -286,7 +286,7 @@
 		<meter_phase_correlation
 			x="10"
 			y="624"
-			width="106"
+			width="107"
 			height="13"
 			spacing_left="1"
 			spacing_top="1"
@@ -302,7 +302,7 @@
 		<meter_stereo
 			x="10"
 			y="607"
-			width="106"
+			width="107"
 			height="13"
 			spacing_left="1"
 			spacing_top="1"

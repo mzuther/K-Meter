@@ -42,7 +42,7 @@ public:
     void setState(bool isActivatedNew);
     void updateState();
 
-    void setImages(Image& imageOff, Image& imageOn, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize);
+    void setImages(Image& imageOffNew, Image& imageOnNew, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize);
 
 protected:
     Label* pLabel;
@@ -55,8 +55,8 @@ private:
     int nSpacingTop;
     bool isActivated;
 
-    Image BackgroundOff;
-    Image BackgroundOn;
+    Image imageOff;
+    Image imageOn;
 };
 
 
