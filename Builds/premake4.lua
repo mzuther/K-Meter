@@ -131,6 +131,7 @@ solution "kmeter"
 			}
 
 			links {
+				"dl",
 				"freetype",
 				"pthread",
 				"rt",
@@ -176,6 +177,7 @@ solution "kmeter"
 			}
 
 			links {
+				"dl",
 				"freetype",
 				"pthread",
 				"rt",
@@ -236,6 +238,7 @@ solution "kmeter"
 			}
 
 			links {
+				"dl",
 				"freetype",
 				"pthread",
 				"rt",
@@ -296,6 +299,7 @@ solution "kmeter"
 			}
 
 			links {
+				"dl",
 				"freetype",
 				"pthread",
 				"rt",
@@ -360,6 +364,7 @@ solution "kmeter"
 			}
 
 			links {
+				"dl",
 				"freetype",
 				"pthread",
 				"rt",
@@ -418,6 +423,7 @@ solution "kmeter"
 			}
 
 			links {
+				"dl",
 				"freetype",
 				"pthread",
 				"rt",
