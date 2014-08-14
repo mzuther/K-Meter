@@ -52,6 +52,7 @@ private:
 
     float fHue;
     float fBrightness;
+    float fBrightnessOutline;
 
     float fLowerThreshold;
     float fUpperThreshold;

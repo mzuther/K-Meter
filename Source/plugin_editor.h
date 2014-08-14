@@ -72,6 +72,7 @@ private:
     int nStereoInputChannels;
 
     Skin* pSkin;
+    String strSkinFileName;
 
     KmeterAudioProcessor* pProcessor;
     Kmeter* kmeter;

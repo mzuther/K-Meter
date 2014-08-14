@@ -432,6 +432,36 @@
 				</xsl:choose>
 			</image>
 
+			<xsl:for-each select="$node/meter_label">
+				<image x="{@x}" y="{@y}" width="{@width}" height="{@height}">
+					<xsl:choose>
+						<xsl:when test="$expand = 'on'">
+							<xsl:choose>
+								<xsl:when test="$crest-factor = 'k14'">
+									<xsl:attribute name="xlink:href"><xsl:value-of select="concat(root($node)/*/@path, '/', @image_expanded_peaks)" /></xsl:attribute>
+								</xsl:when>
+								
+								<xsl:otherwise>
+									<xsl:attribute name="xlink:href"><xsl:value-of select="concat(root($node)/*/@path, '/', @image_expanded_no_peaks)" /></xsl:attribute>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+						
+						<xsl:otherwise>
+							<xsl:choose>
+								<xsl:when test="$crest-factor = 'k14'">
+									<xsl:attribute name="xlink:href"><xsl:value-of select="concat(root($node)/*/@path, '/', @image_peaks)" /></xsl:attribute>
+								</xsl:when>
+								
+								<xsl:otherwise>
+									<xsl:attribute name="xlink:href"><xsl:value-of select="concat(root($node)/*/@path, '/', @image_no_peaks)" /></xsl:attribute>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:otherwise>
+					</xsl:choose>
+				</image>
+			</xsl:for-each>
+
 			<xsl:for-each select="tokenize('button_k20 | button_k14 | button_k12 | button_normal | button_itu | button_rms | button_hold | button_peaks | button_expand | button_skin | button_mono | button_reset | button_validate | button_about', '\s*\|\s*')">
 				<xsl:variable name="button">
 					<xsl:value-of select="string(.)" />

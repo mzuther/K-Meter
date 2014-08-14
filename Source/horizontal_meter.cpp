@@ -71,6 +71,12 @@ void HorizontalMeter::paint(Graphics& g)
 
 void HorizontalMeter::resized()
 {
+    initialize();
+}
+
+
+void HorizontalMeter::initialize()
+{
     nWidth = getWidth();
     nHeight = getHeight();
 
@@ -96,12 +102,10 @@ void HorizontalMeter::setValue(float newValue)
     nNeedlePosition = int (newValue * nNeedleTravelPath + 0.5f);
     nNeedlePosition += bVerticalMeter ? nSpacingTop : nSpacingLeft;
 
-    if (nNeedlePosition == nNeedlePositionOld)
+    if (nNeedlePosition != nNeedlePositionOld)
     {
-        return;
+        repaint(getLocalBounds());
     }
-
-    repaint(getLocalBounds());
 }
 
 
@@ -112,6 +116,8 @@ void HorizontalMeter::setImages(Image& imageBackgroundNew, Image& imageNeedleNew
 
     imageBackground = Image(imageBackgroundNew);
     imageNeedle = Image(imageNeedleNew);
+
+    initialize();
 }
 
 

@@ -44,6 +44,11 @@
            meter_stereo?
 ">
 
+<!ENTITY % kmeter_background
+          "background,
+           meter_label*
+">
+
 <!ENTITY % kmeter_components_itu
           "meter_kmeter
 ">
@@ -143,6 +148,14 @@
            image_expanded_peaks CDATA #REQUIRED
 ">
 
+<!ENTITY % attrs_meter_label
+          "%attrs_image_position;
+           image_no_peaks CDATA #REQUIRED
+           image_peaks CDATA #REQUIRED
+           image_expanded_no_peaks CDATA #REQUIRED
+           image_expanded_peaks CDATA #REQUIRED
+">
+
 <!ENTITY % attrs_button
           "%attrs_image_position;
            image_on CDATA #REQUIRED
@@ -157,7 +170,7 @@
 <!ENTITY % attrs_state_label
           "%attrs_image_position;
            %attrs_image_spacing;
-		   %attrs_font;
+           %attrs_font;
            image_on CDATA #REQUIRED
            image_off CDATA #REQUIRED
 ">
@@ -199,28 +212,31 @@
     <!ELEMENT surround_itu (%main_components_optional;, %itu_components;)>
     <!ELEMENT surround_rms (%main_components_optional;, %rms_components_surround;)>
 
-    <!ELEMENT stereo_itu_k20 (background, %kmeter_components_itu;, %main_components_optional;, %stereo_components_optional;, %itu_components_optional;)>
-    <!ELEMENT stereo_itu_k14 (background, %kmeter_components_itu;, %main_components_optional;, %stereo_components_optional;, %itu_components_optional;)>
-    <!ELEMENT stereo_itu_k12 (background, %kmeter_components_itu;, %main_components_optional;, %stereo_components_optional;, %itu_components_optional;)>
-    <!ELEMENT stereo_itu_normal (background, %kmeter_components_itu;, %main_components_optional;, %stereo_components_optional;, %itu_components_optional;)>
+    <!ELEMENT stereo_itu_k20 (%kmeter_background;, %kmeter_components_itu;, %main_components_optional;, %stereo_components_optional;, %itu_components_optional;)>
+    <!ELEMENT stereo_itu_k14 (%kmeter_background;, %kmeter_components_itu;, %main_components_optional;, %stereo_components_optional;, %itu_components_optional;)>
+    <!ELEMENT stereo_itu_k12 (%kmeter_background;, %kmeter_components_itu;, %main_components_optional;, %stereo_components_optional;, %itu_components_optional;)>
+    <!ELEMENT stereo_itu_normal (%kmeter_background;, %kmeter_components_itu;, %main_components_optional;, %stereo_components_optional;, %itu_components_optional;)>
 
-    <!ELEMENT stereo_rms_k20 (background, %kmeter_components_rms_stereo;, %main_components_optional;, %stereo_components_optional;, %rms_components_stereo_optional;)>
-    <!ELEMENT stereo_rms_k14 (background, %kmeter_components_rms_stereo;, %main_components_optional;, %stereo_components_optional;, %rms_components_stereo_optional;)>
-    <!ELEMENT stereo_rms_k12 (background, %kmeter_components_rms_stereo;, %main_components_optional;, %stereo_components_optional;, %rms_components_stereo_optional;)>
-    <!ELEMENT stereo_rms_normal (background, %kmeter_components_rms_stereo;, %main_components_optional;, %stereo_components_optional;, %rms_components_stereo_optional;)>
+    <!ELEMENT stereo_rms_k20 (%kmeter_background;, %kmeter_components_rms_stereo;, %main_components_optional;, %stereo_components_optional;, %rms_components_stereo_optional;)>
+    <!ELEMENT stereo_rms_k14 (%kmeter_background;, %kmeter_components_rms_stereo;, %main_components_optional;, %stereo_components_optional;, %rms_components_stereo_optional;)>
+    <!ELEMENT stereo_rms_k12 (%kmeter_background;, %kmeter_components_rms_stereo;, %main_components_optional;, %stereo_components_optional;, %rms_components_stereo_optional;)>
+    <!ELEMENT stereo_rms_normal (%kmeter_background;, %kmeter_components_rms_stereo;, %main_components_optional;, %stereo_components_optional;, %rms_components_stereo_optional;)>
 
-    <!ELEMENT surround_itu_k20 (background, %kmeter_components_itu;, %main_components_optional;, %itu_components_optional;)>
-    <!ELEMENT surround_itu_k14 (background, %kmeter_components_itu;, %main_components_optional;, %itu_components_optional;)>
-    <!ELEMENT surround_itu_k12 (background, %kmeter_components_itu;, %main_components_optional;, %itu_components_optional;)>
-    <!ELEMENT surround_itu_normal (background, %kmeter_components_itu;, %main_components_optional;, %itu_components_optional;)>
+    <!ELEMENT surround_itu_k20 (%kmeter_background;, %kmeter_components_itu;, %main_components_optional;, %itu_components_optional;)>
+    <!ELEMENT surround_itu_k14 (%kmeter_background;, %kmeter_components_itu;, %main_components_optional;, %itu_components_optional;)>
+    <!ELEMENT surround_itu_k12 (%kmeter_background;, %kmeter_components_itu;, %main_components_optional;, %itu_components_optional;)>
+    <!ELEMENT surround_itu_normal (%kmeter_background;, %kmeter_components_itu;, %main_components_optional;, %itu_components_optional;)>
 
-    <!ELEMENT surround_rms_k20 (background, %kmeter_components_rms_surround;, %main_components_optional;, %rms_components_surround_optional;)>
-    <!ELEMENT surround_rms_k14 (background, %kmeter_components_rms_surround;, %main_components_optional;, %rms_components_surround_optional;)>
-    <!ELEMENT surround_rms_k12 (background, %kmeter_components_rms_surround;, %main_components_optional;, %rms_components_surround_optional;)>
-    <!ELEMENT surround_rms_normal (background, %kmeter_components_rms_surround;, %main_components_optional;, %rms_components_surround_optional;)>
+    <!ELEMENT surround_rms_k20 (%kmeter_background;, %kmeter_components_rms_surround;, %main_components_optional;, %rms_components_surround_optional;)>
+    <!ELEMENT surround_rms_k14 (%kmeter_background;, %kmeter_components_rms_surround;, %main_components_optional;, %rms_components_surround_optional;)>
+    <!ELEMENT surround_rms_k12 (%kmeter_background;, %kmeter_components_rms_surround;, %main_components_optional;, %rms_components_surround_optional;)>
+    <!ELEMENT surround_rms_normal (%kmeter_background;, %kmeter_components_rms_surround;, %main_components_optional;, %rms_components_surround_optional;)>
 
         <!ELEMENT background (#PCDATA)>
             <!ATTLIST background %attrs_background;>
+
+        <!ELEMENT meter_label (#PCDATA)>
+            <!ATTLIST meter_label %attrs_meter_label;>
 
         <!ELEMENT button_k20 (#PCDATA)>
             <!ATTLIST button_k20 %attrs_button;>

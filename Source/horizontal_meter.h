@@ -41,6 +41,7 @@ public:
     void setImages(Image& imageBackgroundNew, Image& imageNeedleNew, int nSpacingLeftNew, int nSpacingTopNew);
     void setValue(float newValue);
     void paint(Graphics& g);
+    void initialize();
     void resized();
 
 private:

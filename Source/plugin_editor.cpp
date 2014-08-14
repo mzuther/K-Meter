@@ -46,8 +46,8 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     bExpanded = false;
     bDisplayPeakMeter = false;
 
-    String strSkinFileName = "./kmeter-skins/default.xml";
-    pSkin = new Skin(strSkinFileName, nInputChannels, nCrestFactor, -1, bExpanded, bDisplayPeakMeter);
+    strSkinFileName = "default.xml";
+    pSkin = new Skin("./kmeter-skins/" + strSkinFileName, nInputChannels, nCrestFactor, -1, bExpanded, bDisplayPeakMeter);
 
     // The plug-in editor's size as well as the location of buttons
     // and labels will be set later on in this constructor.
@@ -281,7 +281,7 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String& message)
         if (bIsValidating && !pProcessor->isValidating())
         {
             bIsValidating = false;
-            ButtonValidation->setColour(TextButton::buttonColourId, Colours::grey);
+            ButtonValidation->setToggleState(false, dontSendNotification);
         }
     }
     // "AC" --> algorithm changed
@@ -293,7 +293,7 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String& message)
     else if ((!message.compare("V+")) && pProcessor->isValidating())
     {
         bIsValidating = true;
-        ButtonValidation->setColour(TextButton::buttonColourId, Colours::red);
+        ButtonValidation->setToggleState(true, dontSendNotification);
     }
     // "V-" --> validation stopped
     else if (!message.compare("V-"))
@@ -494,10 +494,22 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selExpanded, !button->getToggleState());
     }
-    // else if (button == ButtonSkin)
-    // {
-    //     pProcessor->changeParameter(KmeterPluginParameters::selSkin, button->getToggleState());
-    // }
+    else if (button == ButtonSkin)
+    {
+        strSkinFileName = "default.xml";
+
+        if (pSkin != nullptr)
+        {
+            delete pSkin;
+            pSkin = nullptr;
+        }
+
+        pSkin = new Skin("./kmeter-skins/" + strSkinFileName, nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
+
+        // will also apply skin to plug-in editor
+        bReloadMeters = true;
+        reloadMeters();
+    }
     else if (button == ButtonDisplayPeakMeter)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selPeak, !button->getToggleState());

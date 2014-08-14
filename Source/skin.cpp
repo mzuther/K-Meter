@@ -264,8 +264,9 @@ void Skin::placeAndSkinButton(ImageButton* button, String strXmlTag)
 
         button->setImages(true, true, true,
                           imageOff, 1.0f, Colour(),
-                          imageOff, 1.0f, Colour(),
-                          imageOn, 1.0f, Colour());
+                          imageOn, 0.5f, Colour(),
+                          imageOn, 1.0f, Colour(),
+                          0.3f);
         button->setTopLeftPosition(x, y);
     }
 }
@@ -430,6 +431,7 @@ void Skin::setBackgroundImage(ImageComponent* background, AudioProcessorEditor* 
     if (xmlSkinGroup != nullptr)
     {
         Image imageBackground;
+
         XmlElement* xmlBackground = xmlSkinGroup->getChildByName("background");
 
         if (xmlBackground == nullptr)
@@ -453,13 +455,36 @@ void Skin::setBackgroundImage(ImageComponent* background, AudioProcessorEditor* 
             }
         }
 
-        int nWidth = imageBackground.getWidth();
-        int nHeight = imageBackground.getHeight();
+        XmlElement* xmlMeterLabel = nullptr;
+
+        forEachXmlChildElementWithTagName(*xmlSkinGroup, xmlMeterLabel, "meter_label")
+        {
+            String strImage = xmlMeterLabel->getStringAttribute(strBackgroundSelector);
+            File fileImage = fileResourcePath->getChildFile(strImage);
+
+            if (!fileImage.existsAsFile())
+            {
+                Logger::outputDebugString(String("[Skin] image file \"") + fileImage.getFullPathName() + "\" not found");
+            }
+            else
+            {
+                Image imageMeterLabel = ImageFileFormat::loadFrom(fileImage);
+
+                int x = xmlMeterLabel->getIntAttribute("x", -1);
+                int y = xmlMeterLabel->getIntAttribute("y", -1);
+
+                Graphics g(imageBackground);
+                g.drawImageAt(imageMeterLabel, x, y, false);
+            }
+        }
+
+        int nBackgroundWidth = imageBackground.getWidth();
+        int nBackgroundHeight = imageBackground.getHeight();
 
         background->setImage(imageBackground);
-        background->setBounds(0, 0, nWidth, nHeight);
+        background->setBounds(0, 0, nBackgroundWidth, nBackgroundHeight);
 
-        editor->setSize(nWidth, nHeight);
+        editor->setSize(nBackgroundWidth, nBackgroundHeight);
     }
 }
 
