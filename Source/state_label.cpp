@@ -37,7 +37,7 @@ StateLabel::StateLabel(const String& componentName)
     imageOn = Image();
 
     pLabel = new Label("Label", "");
-    pLabel->setBorderSize(0, 0);
+    pLabel->setBorderSize(BorderSize<int>(0, 0, 0, 0));
     pLabel->setJustificationType(Justification::topRight);
     addAndMakeVisible(pLabel);
 

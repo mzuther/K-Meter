@@ -457,6 +457,9 @@ void Skin::setBackgroundImage(ImageComponent* background, AudioProcessorEditor* 
 
         XmlElement* xmlMeterLabel = nullptr;
 
+        // get rid of the "unused variable" warning
+        (void) xmlMeterLabel;
+
         forEachXmlChildElementWithTagName(*xmlSkinGroup, xmlMeterLabel, "meter_label")
         {
             String strImage = xmlMeterLabel->getStringAttribute(strBackgroundSelector);
