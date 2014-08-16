@@ -200,7 +200,7 @@ void AverageLevelFiltered::setAlgorithm(const int average_algorithm)
         return;
     }
 
-    DBG(String("[K-Meter] averaging algorithm: ") + (average_algorithm == KmeterPluginParameters::selAlgorithmItuBs1770 ? "ITU-R BS.1770-2" : "RMS"));
+    DBG(String("[K-Meter] averaging algorithm: ") + (average_algorithm == KmeterPluginParameters::selAlgorithmItuBs1770 ? "ITU-R BS.1770-1" : "RMS"));
 
     if ((average_algorithm >= 0) && (average_algorithm < KmeterPluginParameters::nNumAlgorithms))
     {
