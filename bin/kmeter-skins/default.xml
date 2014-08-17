@@ -206,10 +206,10 @@
 		<background
 			width="200"
 			height="650"
-			image_no_peaks="backgrounds/background_stereo_itu_no_peaks.png"
-			image_peaks="backgrounds/background_stereo_itu_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_stereo_itu_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_stereo_itu_peaks.png"
+			image_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/itu/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_stereo_peaks.png"
 		/>
 
 		<meter_label
@@ -217,10 +217,10 @@
 			y="53"
 			width="102"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_itu_k20.png"
-			image_peaks="backgrounds/meter_label_itu_k20.png"
-			image_expanded_no_peaks="backgrounds/meter_label_itu_k20_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_itu_k20_expanded.png"
+			image_no_peaks="backgrounds/itu/graduation_k20.png"
+			image_peaks="backgrounds/itu/graduation_k20.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_k20_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_k20_expanded.png"
 		/>
 
 		<meter_kmeter
@@ -237,10 +237,10 @@
 		<background
 			width="200"
 			height="650"
-			image_no_peaks="backgrounds/background_stereo_itu_no_peaks.png"
-			image_peaks="backgrounds/background_stereo_itu_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_stereo_itu_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_stereo_itu_peaks.png"
+			image_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/itu/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_stereo_peaks.png"
 		/>
 
 		<meter_label
@@ -248,10 +248,10 @@
 			y="53"
 			width="102"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_itu_k14.png"
-			image_peaks="backgrounds/meter_label_itu_k14.png"
-			image_expanded_no_peaks="backgrounds/meter_label_itu_k14_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_itu_k14_expanded.png"
+			image_no_peaks="backgrounds/itu/graduation_k14.png"
+			image_peaks="backgrounds/itu/graduation_k14.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_k14_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_k14_expanded.png"
 		/>
 
 		<meter_kmeter
@@ -268,10 +268,10 @@
 		<background
 			width="200"
 			height="650"
-			image_no_peaks="backgrounds/background_stereo_itu_no_peaks.png"
-			image_peaks="backgrounds/background_stereo_itu_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_stereo_itu_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_stereo_itu_peaks.png"
+			image_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/itu/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_stereo_peaks.png"
 		/>
 
 		<meter_label
@@ -279,10 +279,10 @@
 			y="53"
 			width="102"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_itu_k12.png"
-			image_peaks="backgrounds/meter_label_itu_k12.png"
-			image_expanded_no_peaks="backgrounds/meter_label_itu_k12_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_itu_k12_expanded.png"
+			image_no_peaks="backgrounds/itu/graduation_k12.png"
+			image_peaks="backgrounds/itu/graduation_k12.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_k12_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_k12_expanded.png"
 		/>
 
 		<meter_kmeter
@@ -299,10 +299,10 @@
 		<background
 			width="200"
 			height="650"
-			image_no_peaks="backgrounds/background_stereo_itu_no_peaks.png"
-			image_peaks="backgrounds/background_stereo_itu_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_stereo_itu_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_stereo_itu_peaks.png"
+			image_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/itu/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_stereo_peaks.png"
 		/>
 
 		<meter_label
@@ -310,10 +310,10 @@
 			y="53"
 			width="102"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_itu_normal.png"
-			image_peaks="backgrounds/meter_label_itu_normal.png"
-			image_expanded_no_peaks="backgrounds/meter_label_itu_normal_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_itu_normal_expanded.png"
+			image_no_peaks="backgrounds/itu/graduation_normal.png"
+			image_peaks="backgrounds/itu/graduation_normal.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_normal_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_normal_expanded.png"
 		/>
 
 		<meter_kmeter
@@ -412,10 +412,10 @@
 		<background
 			width="200"
 			height="650"
-			image_no_peaks="backgrounds/background_stereo_rms_no_peaks.png"
-			image_peaks="backgrounds/background_stereo_rms_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_stereo_rms_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_stereo_rms_peaks.png"
+			image_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/rms/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_stereo_peaks.png"
 		/>
 
 		<meter_label
@@ -423,10 +423,10 @@
 			y="53"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_k20.png"
-			image_peaks="backgrounds/meter_label_rms_k20.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_k20_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_k20_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_k20.png"
+			image_peaks="backgrounds/rms/graduation_k20.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k20_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k20_expanded.png"
 		/>
 
 		<meter_kmeter_left
@@ -452,10 +452,10 @@
 		<background
 			width="200"
 			height="650"
-			image_no_peaks="backgrounds/background_stereo_rms_no_peaks.png"
-			image_peaks="backgrounds/background_stereo_rms_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_stereo_rms_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_stereo_rms_peaks.png"
+			image_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/rms/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_stereo_peaks.png"
 		/>
 
 		<meter_label
@@ -463,10 +463,10 @@
 			y="53"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_k14.png"
-			image_peaks="backgrounds/meter_label_rms_k14.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_k14_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_k14_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_k14.png"
+			image_peaks="backgrounds/rms/graduation_k14.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k14_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k14_expanded.png"
 		/>
 
 		<meter_kmeter_left
@@ -492,10 +492,10 @@
 		<background
 			width="200"
 			height="650"
-			image_no_peaks="backgrounds/background_stereo_rms_no_peaks.png"
-			image_peaks="backgrounds/background_stereo_rms_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_stereo_rms_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_stereo_rms_peaks.png"
+			image_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/rms/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_stereo_peaks.png"
 		/>
 
 		<meter_label
@@ -503,10 +503,10 @@
 			y="53"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_k12.png"
-			image_peaks="backgrounds/meter_label_rms_k12.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_k12_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_k12_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_k12.png"
+			image_peaks="backgrounds/rms/graduation_k12.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k12_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k12_expanded.png"
 		/>
 
 		<meter_kmeter_left
@@ -532,10 +532,10 @@
 		<background
 			width="200"
 			height="650"
-			image_no_peaks="backgrounds/background_stereo_rms_no_peaks.png"
-			image_peaks="backgrounds/background_stereo_rms_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_stereo_rms_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_stereo_rms_peaks.png"
+			image_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/rms/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_stereo_peaks.png"
 		/>
 
 		<meter_label
@@ -543,10 +543,10 @@
 			y="53"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_normal.png"
-			image_peaks="backgrounds/meter_label_rms_normal.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_normal_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_normal_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_normal.png"
+			image_peaks="backgrounds/rms/graduation_normal.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_normal_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_normal_expanded.png"
 		/>
 
 		<meter_kmeter_left
@@ -624,10 +624,10 @@
 		<background
 			width="200"
 			height="632"
-			image_no_peaks="backgrounds/background_surround_itu_no_peaks.png"
-			image_peaks="backgrounds/background_surround_itu_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_surround_itu_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_surround_itu_peaks.png"
+			image_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_peaks="backgrounds/itu/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_surround_peaks.png"
 		/>
 
 		<meter_label
@@ -635,10 +635,10 @@
 			y="75"
 			width="102"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_itu_k20.png"
-			image_peaks="backgrounds/meter_label_itu_k20.png"
-			image_expanded_no_peaks="backgrounds/meter_label_itu_k20_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_itu_k20_expanded.png"
+			image_no_peaks="backgrounds/itu/graduation_k20.png"
+			image_peaks="backgrounds/itu/graduation_k20.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_k20_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_k20_expanded.png"
 		/>
 
 		<meter_kmeter
@@ -655,10 +655,10 @@
 		<background
 			width="200"
 			height="632"
-			image_no_peaks="backgrounds/background_surround_itu_no_peaks.png"
-			image_peaks="backgrounds/background_surround_itu_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_surround_itu_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_surround_itu_peaks.png"
+			image_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_peaks="backgrounds/itu/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_surround_peaks.png"
 		/>
 
 		<meter_label
@@ -666,10 +666,10 @@
 			y="75"
 			width="102"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_itu_k14.png"
-			image_peaks="backgrounds/meter_label_itu_k14.png"
-			image_expanded_no_peaks="backgrounds/meter_label_itu_k14_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_itu_k14_expanded.png"
+			image_no_peaks="backgrounds/itu/graduation_k14.png"
+			image_peaks="backgrounds/itu/graduation_k14.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_k14_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_k14_expanded.png"
 		/>
 
 		<meter_kmeter
@@ -686,10 +686,10 @@
 		<background
 			width="200"
 			height="632"
-			image_no_peaks="backgrounds/background_surround_itu_no_peaks.png"
-			image_peaks="backgrounds/background_surround_itu_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_surround_itu_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_surround_itu_peaks.png"
+			image_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_peaks="backgrounds/itu/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_surround_peaks.png"
 		/>
 
 		<meter_label
@@ -697,10 +697,10 @@
 			y="75"
 			width="102"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_itu_k12.png"
-			image_peaks="backgrounds/meter_label_itu_k12.png"
-			image_expanded_no_peaks="backgrounds/meter_label_itu_k12_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_itu_k12_expanded.png"
+			image_no_peaks="backgrounds/itu/graduation_k12.png"
+			image_peaks="backgrounds/itu/graduation_k12.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_k12_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_k12_expanded.png"
 		/>
 
 		<meter_kmeter
@@ -717,10 +717,10 @@
 		<background
 			width="200"
 			height="632"
-			image_no_peaks="backgrounds/background_surround_itu_no_peaks.png"
-			image_peaks="backgrounds/background_surround_itu_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_surround_itu_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_surround_itu_peaks.png"
+			image_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_peaks="backgrounds/itu/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_surround_peaks.png"
 		/>
 
 		<meter_label
@@ -728,10 +728,10 @@
 			y="75"
 			width="102"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_itu_normal.png"
-			image_peaks="backgrounds/meter_label_itu_normal.png"
-			image_expanded_no_peaks="backgrounds/meter_label_itu_normal_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_itu_normal_expanded.png"
+			image_no_peaks="backgrounds/itu/graduation_normal.png"
+			image_peaks="backgrounds/itu/graduation_normal.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_normal_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_normal_expanded.png"
 		/>
 
 		<meter_kmeter
@@ -1028,10 +1028,10 @@
 		<background
 			width="424"
 			height="632"
-			image_no_peaks="backgrounds/background_surround_rms_no_peaks.png"
-			image_peaks="backgrounds/background_surround_rms_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_surround_rms_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_surround_rms_peaks.png"
+			image_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_peaks="backgrounds/rms/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_surround_peaks.png"
 		/>
 
 		<meter_label
@@ -1039,10 +1039,10 @@
 			y="75"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_k20.png"
-			image_peaks="backgrounds/meter_label_rms_k20.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_k20_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_k20_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_k20.png"
+			image_peaks="backgrounds/rms/graduation_k20.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k20_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k20_expanded.png"
 		/>
 
 		<meter_label
@@ -1050,10 +1050,10 @@
 			y="75"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_k20.png"
-			image_peaks="backgrounds/meter_label_rms_k20.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_k20_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_k20_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_k20.png"
+			image_peaks="backgrounds/rms/graduation_k20.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k20_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k20_expanded.png"
 		/>
 
 		<meter_label
@@ -1061,10 +1061,10 @@
 			y="75"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_k20.png"
-			image_peaks="backgrounds/meter_label_rms_k20.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_k20_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_k20_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_k20.png"
+			image_peaks="backgrounds/rms/graduation_k20.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k20_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k20_expanded.png"
 		/>
 
 		<meter_kmeter_left
@@ -1126,10 +1126,10 @@
 		<background
 			width="424"
 			height="632"
-			image_no_peaks="backgrounds/background_surround_rms_no_peaks.png"
-			image_peaks="backgrounds/background_surround_rms_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_surround_rms_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_surround_rms_peaks.png"
+			image_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_peaks="backgrounds/rms/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_surround_peaks.png"
 		/>
 
 		<meter_label
@@ -1137,10 +1137,10 @@
 			y="75"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_k14.png"
-			image_peaks="backgrounds/meter_label_rms_k14.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_k14_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_k14_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_k14.png"
+			image_peaks="backgrounds/rms/graduation_k14.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k14_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k14_expanded.png"
 		/>
 
 		<meter_label
@@ -1148,10 +1148,10 @@
 			y="75"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_k14.png"
-			image_peaks="backgrounds/meter_label_rms_k14.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_k14_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_k14_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_k14.png"
+			image_peaks="backgrounds/rms/graduation_k14.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k14_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k14_expanded.png"
 		/>
 
 		<meter_label
@@ -1159,10 +1159,10 @@
 			y="75"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_k14.png"
-			image_peaks="backgrounds/meter_label_rms_k14.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_k14_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_k14_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_k14.png"
+			image_peaks="backgrounds/rms/graduation_k14.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k14_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k14_expanded.png"
 		/>
 
 		<meter_kmeter_left
@@ -1224,10 +1224,10 @@
 		<background
 			width="424"
 			height="632"
-			image_no_peaks="backgrounds/background_surround_rms_no_peaks.png"
-			image_peaks="backgrounds/background_surround_rms_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_surround_rms_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_surround_rms_peaks.png"
+			image_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_peaks="backgrounds/rms/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_surround_peaks.png"
 		/>
 
 		<meter_label
@@ -1235,10 +1235,10 @@
 			y="75"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_k12.png"
-			image_peaks="backgrounds/meter_label_rms_k12.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_k12_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_k12_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_k12.png"
+			image_peaks="backgrounds/rms/graduation_k12.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k12_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k12_expanded.png"
 		/>
 
 		<meter_label
@@ -1246,10 +1246,10 @@
 			y="75"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_k12.png"
-			image_peaks="backgrounds/meter_label_rms_k12.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_k12_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_k12_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_k12.png"
+			image_peaks="backgrounds/rms/graduation_k12.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k12_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k12_expanded.png"
 		/>
 
 		<meter_label
@@ -1257,10 +1257,10 @@
 			y="75"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_k12.png"
-			image_peaks="backgrounds/meter_label_rms_k12.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_k12_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_k12_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_k12.png"
+			image_peaks="backgrounds/rms/graduation_k12.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k12_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k12_expanded.png"
 		/>
 
 		<meter_kmeter_left
@@ -1322,10 +1322,10 @@
 		<background
 			width="424"
 			height="632"
-			image_no_peaks="backgrounds/background_surround_rms_no_peaks.png"
-			image_peaks="backgrounds/background_surround_rms_peaks.png"
-			image_expanded_no_peaks="backgrounds/background_surround_rms_no_peaks.png"
-			image_expanded_peaks="backgrounds/background_surround_rms_peaks.png"
+			image_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_peaks="backgrounds/rms/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_surround_peaks.png"
 		/>
 
 		<meter_label
@@ -1333,10 +1333,10 @@
 			y="75"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_normal.png"
-			image_peaks="backgrounds/meter_label_rms_normal.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_normal_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_normal_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_normal.png"
+			image_peaks="backgrounds/rms/graduation_normal.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_normal_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_normal_expanded.png"
 		/>
 
 		<meter_label
@@ -1344,10 +1344,10 @@
 			y="75"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_normal.png"
-			image_peaks="backgrounds/meter_label_rms_normal.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_normal_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_normal_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_normal.png"
+			image_peaks="backgrounds/rms/graduation_normal.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_normal_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_normal_expanded.png"
 		/>
 
 		<meter_label
@@ -1355,10 +1355,10 @@
 			y="75"
 			width="46"
 			height="532"
-			image_no_peaks="backgrounds/meter_label_rms_normal.png"
-			image_peaks="backgrounds/meter_label_rms_normal.png"
-			image_expanded_no_peaks="backgrounds/meter_label_rms_normal_expanded.png"
-			image_expanded_peaks="backgrounds/meter_label_rms_normal_expanded.png"
+			image_no_peaks="backgrounds/rms/graduation_normal.png"
+			image_peaks="backgrounds/rms/graduation_normal.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_normal_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_normal_expanded.png"
 		/>
 
 		<meter_kmeter_left
