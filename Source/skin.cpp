@@ -455,14 +455,14 @@ void Skin::setBackgroundImage(ImageComponent* background, AudioProcessorEditor* 
             }
         }
 
-        XmlElement* xmlMeterLabel = nullptr;
+        XmlElement* xmlMeterGraduation = nullptr;
 
         // get rid of the "unused variable" warning
-        (void) xmlMeterLabel;
+        (void) xmlMeterGraduation;
 
-        forEachXmlChildElementWithTagName(*xmlSkinGroup, xmlMeterLabel, "meter_label")
+        forEachXmlChildElementWithTagName(*xmlSkinGroup, xmlMeterGraduation, "meter_graduation")
         {
-            String strImage = xmlMeterLabel->getStringAttribute(strBackgroundSelector);
+            String strImage = xmlMeterGraduation->getStringAttribute(strBackgroundSelector);
             File fileImage = fileResourcePath->getChildFile(strImage);
 
             if (!fileImage.existsAsFile())
@@ -471,13 +471,13 @@ void Skin::setBackgroundImage(ImageComponent* background, AudioProcessorEditor* 
             }
             else
             {
-                Image imageMeterLabel = ImageFileFormat::loadFrom(fileImage);
+                Image imageMeterGraduation = ImageFileFormat::loadFrom(fileImage);
 
-                int x = xmlMeterLabel->getIntAttribute("x", -1);
-                int y = xmlMeterLabel->getIntAttribute("y", -1);
+                int x = xmlMeterGraduation->getIntAttribute("x", -1);
+                int y = xmlMeterGraduation->getIntAttribute("y", -1);
 
                 Graphics g(imageBackground);
-                g.drawImageAt(imageMeterLabel, x, y, false);
+                g.drawImageAt(imageMeterGraduation, x, y, false);
             }
         }
 

@@ -11680,7 +11680,7 @@ layout-position-anchor: tl</desc>
     </rect>
     <rect
        style="opacity:0.5;fill:#ff0000"
-       id="meter_label_rms_k20"
+       id="graduation_rms_k20"
        x="500"
        y="145.00003"
        width="46"
@@ -11696,7 +11696,7 @@ layout-position-anchor: tl</desc>
        width="46"
        y="145.00003"
        x="550"
-       id="meter_label_rms_k14"
+       id="graduation_rms_k14"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc6530">format: png
@@ -11709,9 +11709,9 @@ layout-position-anchor: tl</desc>
        width="46"
        y="145.00003"
        x="600"
-       id="meter_label_rms_k12"
+       id="graduation_rms_k12"
        style="opacity:0.5;fill:#ff0000"
-       inkscape:label="#meter_label_rms_k12">
+       inkscape:label="#graduation_rms_k12">
       <desc
          id="desc6538">format: png
 dpi: 90
@@ -11720,7 +11720,7 @@ layout-position-anchor: tl</desc>
     </rect>
     <rect
        style="opacity:0.5;fill:#ff0000"
-       id="meter_label_rms_normal"
+       id="graduation_rms_normal"
        x="650"
        y="145.00003"
        width="46"
@@ -11736,7 +11736,7 @@ layout-position-anchor: tl</desc>
        width="46"
        y="145.00003"
        x="710"
-       id="meter_label_rms_k20_expanded"
+       id="graduation_rms_k20_expanded"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc6906">format: png
@@ -11746,7 +11746,7 @@ layout-position-anchor: tl</desc>
     </rect>
     <rect
        style="opacity:0.5;fill:#ff0000"
-       id="meter_label_rms_k14_expanded"
+       id="graduation_rms_k14_expanded"
        x="760"
        y="145.00003"
        width="46"
@@ -11759,7 +11759,7 @@ layout-position-anchor: tl</desc>
     </rect>
     <rect
        style="opacity:0.5;fill:#ff0000"
-       id="meter_label_rms_k12_expanded"
+       id="graduation_rms_k12_expanded"
        x="810"
        y="145.00003"
        width="46"
@@ -11775,7 +11775,7 @@ layout-position-anchor: tl</desc>
        width="46"
        y="145.00003"
        x="860"
-       id="meter_label_rms_normal_expanded"
+       id="graduation_rms_normal_expanded"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc6930">format: png
@@ -11837,7 +11837,7 @@ layout-position-anchor: tl</desc>
     </rect>
     <rect
        style="opacity:0.5;fill:#ff0000"
-       id="meter_label_itu_k20"
+       id="graduation_itu_k20"
        x="920"
        y="145.00003"
        width="102"
@@ -11853,7 +11853,7 @@ layout-position-anchor: tl</desc>
        width="102"
        y="145.00003"
        x="1030"
-       id="meter_label_itu_k14"
+       id="graduation_itu_k14"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc18440">format: png
@@ -11863,7 +11863,7 @@ layout-position-anchor: tl</desc>
     </rect>
     <rect
        style="opacity:0.5;fill:#ff0000"
-       id="meter_label_itu_k12"
+       id="graduation_itu_k12"
        x="1140"
        y="145.00003"
        width="102"
@@ -11879,7 +11879,7 @@ layout-position-anchor: tl</desc>
        width="102"
        y="145.00003"
        x="1250"
-       id="meter_label_itu_normal"
+       id="graduation_itu_normal"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc18448">format: png
@@ -11889,7 +11889,7 @@ layout-position-anchor: tl</desc>
     </rect>
     <rect
        style="opacity:0.5;fill:#ff0000"
-       id="meter_label_itu_k20_expanded"
+       id="graduation_itu_k20_expanded"
        x="1370"
        y="145.00003"
        width="102"
@@ -11905,7 +11905,7 @@ layout-position-anchor: tl</desc>
        width="102"
        y="145.00003"
        x="1480"
-       id="meter_label_itu_k14_expanded"
+       id="graduation_itu_k14_expanded"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc18456">format: png
@@ -11915,7 +11915,7 @@ layout-position-anchor: tl</desc>
     </rect>
     <rect
        style="opacity:0.5;fill:#ff0000"
-       id="meter_label_itu_k12_expanded"
+       id="graduation_itu_k12_expanded"
        x="1590"
        y="145.00003"
        width="102"
@@ -11931,7 +11931,7 @@ layout-position-anchor: tl</desc>
        width="102"
        y="145.00003"
        x="1700"
-       id="meter_label_itu_normal_expanded"
+       id="graduation_itu_normal_expanded"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc18464">format: png

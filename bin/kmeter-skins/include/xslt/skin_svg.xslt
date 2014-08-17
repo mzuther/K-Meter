@@ -432,7 +432,7 @@
 				</xsl:choose>
 			</image>
 
-			<xsl:for-each select="$node/meter_label">
+			<xsl:for-each select="$node/meter_graduation">
 				<image x="{@x}" y="{@y}" width="{@width}" height="{@height}">
 					<xsl:choose>
 						<xsl:when test="$expand = 'on'">

@@ -212,7 +212,7 @@
 			image_expanded_peaks="backgrounds/itu/background_stereo_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="13"
 			y="53"
 			width="102"
@@ -243,7 +243,7 @@
 			image_expanded_peaks="backgrounds/itu/background_stereo_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="13"
 			y="53"
 			width="102"
@@ -274,7 +274,7 @@
 			image_expanded_peaks="backgrounds/itu/background_stereo_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="13"
 			y="53"
 			width="102"
@@ -305,7 +305,7 @@
 			image_expanded_peaks="backgrounds/itu/background_stereo_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="13"
 			y="53"
 			width="102"
@@ -418,7 +418,7 @@
 			image_expanded_peaks="backgrounds/rms/background_stereo_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="41"
 			y="53"
 			width="46"
@@ -458,7 +458,7 @@
 			image_expanded_peaks="backgrounds/rms/background_stereo_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="41"
 			y="53"
 			width="46"
@@ -498,7 +498,7 @@
 			image_expanded_peaks="backgrounds/rms/background_stereo_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="41"
 			y="53"
 			width="46"
@@ -538,7 +538,7 @@
 			image_expanded_peaks="backgrounds/rms/background_stereo_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="41"
 			y="53"
 			width="46"
@@ -630,7 +630,7 @@
 			image_expanded_peaks="backgrounds/itu/background_surround_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="13"
 			y="75"
 			width="102"
@@ -661,7 +661,7 @@
 			image_expanded_peaks="backgrounds/itu/background_surround_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="13"
 			y="75"
 			width="102"
@@ -692,7 +692,7 @@
 			image_expanded_peaks="backgrounds/itu/background_surround_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="13"
 			y="75"
 			width="102"
@@ -723,7 +723,7 @@
 			image_expanded_peaks="backgrounds/itu/background_surround_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="13"
 			y="75"
 			width="102"
@@ -1034,7 +1034,7 @@
 			image_expanded_peaks="backgrounds/rms/background_surround_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="39"
 			y="75"
 			width="46"
@@ -1045,7 +1045,7 @@
 			image_expanded_peaks="backgrounds/rms/graduation_k20_expanded.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="152"
 			y="75"
 			width="46"
@@ -1056,7 +1056,7 @@
 			image_expanded_peaks="backgrounds/rms/graduation_k20_expanded.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="265"
 			y="75"
 			width="46"
@@ -1132,7 +1132,7 @@
 			image_expanded_peaks="backgrounds/rms/background_surround_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="39"
 			y="75"
 			width="46"
@@ -1143,7 +1143,7 @@
 			image_expanded_peaks="backgrounds/rms/graduation_k14_expanded.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="152"
 			y="75"
 			width="46"
@@ -1154,7 +1154,7 @@
 			image_expanded_peaks="backgrounds/rms/graduation_k14_expanded.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="265"
 			y="75"
 			width="46"
@@ -1230,7 +1230,7 @@
 			image_expanded_peaks="backgrounds/rms/background_surround_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="39"
 			y="75"
 			width="46"
@@ -1241,7 +1241,7 @@
 			image_expanded_peaks="backgrounds/rms/graduation_k12_expanded.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="152"
 			y="75"
 			width="46"
@@ -1252,7 +1252,7 @@
 			image_expanded_peaks="backgrounds/rms/graduation_k12_expanded.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="265"
 			y="75"
 			width="46"
@@ -1328,7 +1328,7 @@
 			image_expanded_peaks="backgrounds/rms/background_surround_peaks.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="39"
 			y="75"
 			width="46"
@@ -1339,7 +1339,7 @@
 			image_expanded_peaks="backgrounds/rms/graduation_normal_expanded.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="152"
 			y="75"
 			width="46"
@@ -1350,7 +1350,7 @@
 			image_expanded_peaks="backgrounds/rms/graduation_normal_expanded.png"
 		/>
 
-		<meter_label
+		<meter_graduation
 			x="265"
 			y="75"
 			width="46"

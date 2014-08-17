@@ -46,7 +46,7 @@
 
 <!ENTITY % kmeter_background
           "background,
-           meter_label*
+           meter_graduation*
 ">
 
 <!ENTITY % kmeter_components_itu
@@ -148,7 +148,7 @@
            image_expanded_peaks CDATA #REQUIRED
 ">
 
-<!ENTITY % attrs_meter_label
+<!ENTITY % attrs_meter_graduation
           "%attrs_image_position;
            image_no_peaks CDATA #REQUIRED
            image_peaks CDATA #REQUIRED
@@ -235,8 +235,8 @@
         <!ELEMENT background (#PCDATA)>
             <!ATTLIST background %attrs_background;>
 
-        <!ELEMENT meter_label (#PCDATA)>
-            <!ATTLIST meter_label %attrs_meter_label;>
+        <!ELEMENT meter_graduation (#PCDATA)>
+            <!ATTLIST meter_graduation %attrs_meter_graduation;>
 
         <!ELEMENT button_k20 (#PCDATA)>
             <!ATTLIST button_k20 %attrs_button;>
