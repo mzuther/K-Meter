@@ -2,67 +2,67 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="Source">
-			<UniqueIdentifier>{E23FA69A-7CEE-7576-8750-535A8F4273B1}</UniqueIdentifier>
+			<UniqueIdentifier>{1199912B-4361-8463-CA31-7B5CEA8B0012}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\resources">
-			<UniqueIdentifier>{99F8DC28-93BF-D706-568D-547BA2452F43}</UniqueIdentifier>
+			<UniqueIdentifier>{6DD62963-C1CC-CF85-97B3-36EA7A64F3B8}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries">
-			<UniqueIdentifier>{B5199756-4F2C-4A17-74A4-63DB52DC2776}</UniqueIdentifier>
+			<UniqueIdentifier>{C2454D16-F2E9-F110-F3A3-CAFCEA850894}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce">
-			<UniqueIdentifier>{DA56F77C-39FC-6D11-AE51-EF4D939B99CA}</UniqueIdentifier>
+			<UniqueIdentifier>{625EF337-8356-ABD9-4AE4-DE75C2D79C8A}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules">
-			<UniqueIdentifier>{03901C10-3B24-D0B0-F7E4-668E0C7EC172}</UniqueIdentifier>
+			<UniqueIdentifier>{DB69120F-98D2-AC47-5EB8-763A8FFFC105}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_basics">
-			<UniqueIdentifier>{531A5B3E-DC3C-8960-4CEC-863693D285B8}</UniqueIdentifier>
+			<UniqueIdentifier>{27678A4F-707D-87EA-0C06-4275830CC535}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_devices">
-			<UniqueIdentifier>{D493C8C0-E7A0-7823-B2AE-4C2A5C42C68A}</UniqueIdentifier>
+			<UniqueIdentifier>{4D21A58B-D4E9-D30F-E01E-5E20A757AA91}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_formats">
-			<UniqueIdentifier>{29102604-D837-4993-F599-4E109ADBD81E}</UniqueIdentifier>
+			<UniqueIdentifier>{865A8D34-C94C-68D8-2C82-CB93B7954D11}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_processors">
-			<UniqueIdentifier>{163DB250-36FF-9BD4-943E-FE611E8BE66B}</UniqueIdentifier>
+			<UniqueIdentifier>{5A0AA79B-FA13-756E-5BD5-D8013F3ACC62}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_utils">
-			<UniqueIdentifier>{6C0EC3B7-1433-1EE5-9249-7B95E38908E6}</UniqueIdentifier>
+			<UniqueIdentifier>{6AABDD13-3440-135F-55CB-51F417D53B8F}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_core">
-			<UniqueIdentifier>{069D0A61-61AC-129E-0585-A387EDB799C9}</UniqueIdentifier>
+			<UniqueIdentifier>{67D340A5-CAF1-B71D-76C3-C09C7FFF8B95}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_cryptography">
-			<UniqueIdentifier>{D99ABFFE-D69F-183B-D33C-E5F7C1052C53}</UniqueIdentifier>
+			<UniqueIdentifier>{FE1051C7-B4EF-3874-755E-44C48EEFFAA5}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_data_structures">
-			<UniqueIdentifier>{297A4CD6-24B3-199C-4BDD-6C037AA45860}</UniqueIdentifier>
+			<UniqueIdentifier>{3F973607-6EA7-F290-0C77-84537117A15C}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_events">
-			<UniqueIdentifier>{3C6E3466-B92A-2E69-BFB6-B2BC7140603A}</UniqueIdentifier>
+			<UniqueIdentifier>{BB7BC0C7-B24F-82EF-2852-904F9C25DDA4}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_graphics">
-			<UniqueIdentifier>{B2440098-5E86-3228-E08A-A6947714A634}</UniqueIdentifier>
+			<UniqueIdentifier>{52CD5F3B-3CB1-753F-A923-3AD1201B1CD5}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_gui_basics">
-			<UniqueIdentifier>{0C969F24-F5C3-0A47-9EBB-323444604EBC}</UniqueIdentifier>
+			<UniqueIdentifier>{88E9B3FE-05A0-5A70-C727-7135EFB70628}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_gui_extra">
-			<UniqueIdentifier>{4AFC6CBB-59BB-FB39-ACE2-824EDA676EBF}</UniqueIdentifier>
+			<UniqueIdentifier>{C756C19C-C488-EDDE-5383-8D689B422DD9}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_video">
-			<UniqueIdentifier>{F445A91C-7D95-4743-640D-12EDB6CDFA90}</UniqueIdentifier>
+			<UniqueIdentifier>{5A5EF259-8D5C-617D-567B-6252BC142D8C}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_plugin_client">
-			<UniqueIdentifier>{128153DB-AC8F-F38A-EFCD-B39712B3AA60}</UniqueIdentifier>
+			<UniqueIdentifier>{880F935C-40F8-B630-1FFA-A3DCEA19C0C6}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_plugin_client\utility">
-			<UniqueIdentifier>{A7D4F0EE-4AAC-2F2B-A9ED-476656B6DA6B}</UniqueIdentifier>
+			<UniqueIdentifier>{3B2AA7AC-8939-6FB9-927B-D303804C3C2C}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_plugin_client\VST">
-			<UniqueIdentifier>{53C015FC-1BC2-7CE4-6C87-0D8D7FD1FE11}</UniqueIdentifier>
+			<UniqueIdentifier>{32B62AD0-260A-1BA4-69A6-2695A7C8BEF4}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -70,9 +70,6 @@
 			<Filter>Source</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\Source\window_validation.h">
-			<Filter>Source</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h">
 			<Filter>Source</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\Source\channel_slider.h">

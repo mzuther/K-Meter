@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{F17B2850-FF10-E491-E1C4-E6B18E6E7A23}</ProjectGuid>
+		<ProjectGuid>{EFDE5801-1C73-C7F8-B901-ED865C60765C}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -207,7 +207,6 @@
 	<ItemGroup>
 		<ClInclude Include="..\..\..\Source\meter_bar.h" />
 		<ClInclude Include="..\..\..\Source\window_validation.h" />
-		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h" />
 		<ClInclude Include="..\..\..\Source\channel_slider.h" />
 		<ClInclude Include="..\..\..\Source\average_level_filtered.h" />
 		<ClInclude Include="..\..\..\Source\meter_segment.h" />

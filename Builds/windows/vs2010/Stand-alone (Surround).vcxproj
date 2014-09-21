@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{9F5E570B-4AFD-B858-7185-D75AD286306C}</ProjectGuid>
+		<ProjectGuid>{915C33FC-E6CC-07B6-D1FF-35034835347A}</ProjectGuid>
 		<RootNamespace>Stand-alone (Surround)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -207,7 +207,6 @@
 	<ItemGroup>
 		<ClInclude Include="..\..\..\Source\meter_bar.h" />
 		<ClInclude Include="..\..\..\Source\window_validation.h" />
-		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h" />
 		<ClInclude Include="..\..\..\Source\channel_slider.h" />
 		<ClInclude Include="..\..\..\Source\average_level_filtered.h" />
 		<ClInclude Include="..\..\..\Source\meter_segment.h" />

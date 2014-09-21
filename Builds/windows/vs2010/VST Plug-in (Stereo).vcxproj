@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{DCB5F6C3-1F9F-E1EA-B2CC-B1D857D6C0E3}</ProjectGuid>
+		<ProjectGuid>{E87F7BD8-4DE7-6A17-7592-F593FC7A3FA2}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -215,7 +215,6 @@
 	<ItemGroup>
 		<ClInclude Include="..\..\..\Source\meter_bar.h" />
 		<ClInclude Include="..\..\..\Source\window_validation.h" />
-		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h" />
 		<ClInclude Include="..\..\..\Source\channel_slider.h" />
 		<ClInclude Include="..\..\..\Source\average_level_filtered.h" />
 		<ClInclude Include="..\..\..\Source\meter_segment.h" />

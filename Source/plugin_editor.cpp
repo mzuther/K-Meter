@@ -302,7 +302,7 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String& message)
     }
     else
     {
-        DBG("[K-Meter] Received unknown action message \"" + message + "\".");
+        DBG("[K-Meter] received unknown action message \"" + message + "\".");
     }
 }
 
@@ -529,9 +529,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     }
     else if (button == ButtonAbout)
     {
-        WindowAbout* windowAbout = new WindowAbout(getWidth(), getHeight());
-        addAndMakeVisible(windowAbout);
-
+        WindowAbout* windowAbout = new WindowAbout(this, 270, 540);
         windowAbout->runModalLoop();
 
         removeChildComponent(windowAbout);
@@ -540,9 +538,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     }
     else if (button == ButtonValidation)
     {
-        WindowValidation* windowValidation = new WindowValidation(getWidth(), getHeight(), pProcessor);
-        addAndMakeVisible(windowValidation);
-
+        WindowValidation* windowValidation = new WindowValidation(this, 190, 250, pProcessor);
         windowValidation->runModalLoop();
 
         removeChildComponent(windowValidation);

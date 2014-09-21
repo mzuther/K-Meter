@@ -29,16 +29,14 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "channel_slider.h"
 #include "plugin_processor.h"
-#include "prohibiting_bounds_constrainer.h"
 
 
-class WindowValidation : public ResizableWindow, ButtonListener
+class WindowValidation : public DocumentWindow, ButtonListener
 {
 public:
-    WindowValidation(int nWidth, int nHeight, KmeterAudioProcessor* processor);
+    WindowValidation(Component* pEditorWindow, int nWidth, int nHeight, KmeterAudioProcessor* processor);
     ~WindowValidation();
 
-    void paint(Graphics& g);
     void buttonClicked(Button* button);
 
 private:
@@ -48,7 +46,6 @@ private:
     File fileValidation;
 
     Component* contentComponent;
-    ProhibitingBoundsConstrainer* pConstrainer;
 
     Label* LabelFileSelection;
     Label* LabelSampleRate;
