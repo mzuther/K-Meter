@@ -42,6 +42,9 @@ KmeterPluginParameters::KmeterPluginParameters()
     nParam[selInfiniteHold] = 0;
     nParam[selMono] = 0;
 
+    nParam[selValidationFileName] = -1;
+    strValidationFile = String::empty;
+
     nParam[selValidationSelectedChannel] = -1;
     nParam[selValidationAverageMeterLevel] = 1;
     nParam[selValidationPeakMeterLevel] = 1;
@@ -51,7 +54,8 @@ KmeterPluginParameters::KmeterPluginParameters()
 
     nParam[selValidationCSVFormat] = 0;
 
-    strValidationFile = String::empty;
+    nParam[selSkinName] = -1;
+    strSkinName = "Default";
 
     bParamChanged = new bool[nNumParameters];
 
@@ -179,6 +183,18 @@ void KmeterPluginParameters::setValidationFile(File& fileValidation)
 }
 
 
+String KmeterPluginParameters::getSkinName()
+{
+    return strSkinName;
+}
+
+
+void KmeterPluginParameters::setSkinName(String& strSkinNameNew)
+{
+    strSkinName = strSkinNameNew;
+}
+
+
 void KmeterPluginParameters::MarkParameter(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -263,6 +279,10 @@ const String KmeterPluginParameters::getParameterName(int nIndex)
         return "Validation: CSV output format";
         break;
 
+    case selSkinName:
+        return "Skin";
+        break;
+
     default:
         return "invalid";
         break;
@@ -327,6 +347,10 @@ const String KmeterPluginParameters::getParameterText(int nIndex)
         {
             return String(nParam[nIndex]);
         }
+    }
+    else if (nIndex == selSkinName)
+    {
+        return strSkinName;
     }
     else
     {
@@ -454,6 +478,7 @@ XmlElement KmeterPluginParameters::storeAsXml()
     xml.setAttribute("ValidationStereoMeterValue", getParameterAsInt(selValidationStereoMeterValue));
     xml.setAttribute("ValidationPhaseCorrelation", getParameterAsInt(selValidationPhaseCorrelation));
     xml.setAttribute("ValidationCSVFormat", getParameterAsInt(selValidationCSVFormat));
+    xml.setAttribute("Skin", strSkinName);
 
     return xml;
 }
@@ -501,6 +526,8 @@ void KmeterPluginParameters::loadFromXml(XmlElement* xml)
         setParameterFromInt(selValidationStereoMeterValue, xml->getIntAttribute("ValidationStereoMeterValue", getParameterAsInt(selValidationStereoMeterValue)));
         setParameterFromInt(selValidationPhaseCorrelation, xml->getIntAttribute("ValidationPhaseCorrelation", getParameterAsInt(selValidationPhaseCorrelation)));
         setParameterFromInt(selValidationCSVFormat, xml->getIntAttribute("ValidationCSVFormat", getParameterAsInt(selValidationCSVFormat)));
+
+        strSkinName = xml->getStringAttribute("Skin", strSkinName);
     }
 }
 

@@ -163,7 +163,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     fileSkinDirectory = fileApplicationDirectory.getChildFile("./kmeter-skins/");
 
     pSkin = nullptr;
-    strSkinName = "Default";
+    strSkinName = pProcessor->getParameterSkinName();
     loadSkin();
 
     // force meter reload after initialisation ...
@@ -205,6 +205,7 @@ void KmeterAudioProcessorEditor::loadSkin()
         fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
     }
 
+    pProcessor->setParameterSkinName(strSkinName);
     pSkin = new Skin(fileSkin, nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
 }
 

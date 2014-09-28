@@ -77,6 +77,9 @@ public:
     File getParameterValidationFile();
     void setParameterValidationFile(File& fileValidation);
 
+    String getParameterSkinName();
+    void setParameterSkinName(String& strSkinName);
+
     const String getParameterName(int index);
     const String getParameterText(int index);
 

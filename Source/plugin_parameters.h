@@ -52,6 +52,9 @@ public:
     File getValidationFile();
     void setValidationFile(File& fileValidation);
 
+    String getSkinName();
+    void setSkinName(String& strSkinNameNew);
+
     void MarkParameter(int nIndex);
     void UnmarkParameter(int nIndex);
     bool isParameterMarked(int nIndex);
@@ -84,6 +87,7 @@ public:
         selValidationStereoMeterValue,
         selValidationPhaseCorrelation,
         selValidationCSVFormat,
+        selSkinName,
 
         nNumParameters,
 
@@ -105,7 +109,9 @@ private:
 
     int* nParam;
     bool* bParamChanged;
+
     String strValidationFile;
+    String strSkinName;
 };
 
 #endif  // __PLUGINPARAMETERS_H__
