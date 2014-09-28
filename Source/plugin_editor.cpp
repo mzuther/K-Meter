@@ -195,14 +195,14 @@ void KmeterAudioProcessorEditor::loadSkin()
         pSkin = nullptr;
     }
 
-    File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".xml");
+    File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
 
     if (!fileSkin.existsAsFile())
     {
         Logger::outputDebugString("[Skin] file \"" + fileSkin.getFileName() + "\" not found");
 
         strSkinName = "Default";
-        fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".xml");
+        fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
     }
 
     pSkin = new Skin(fileSkin, nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
@@ -523,8 +523,8 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     }
     else if (button == ButtonSkin)
     {
-        File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".xml");
-        FileChooser browser("Select skin file", fileSkin, "*.xml", true);
+        File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
+        FileChooser browser("Select skin file", fileSkin, "*.skin", true);
 
         if (browser.showDialog(FileBrowserComponent::openMode | FileBrowserComponent::canSelectFiles | FileBrowserComponent::filenameBoxIsReadOnly, nullptr))
         {
