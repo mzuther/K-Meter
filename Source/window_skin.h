@@ -35,7 +35,7 @@ class SkinListBoxModel;
 class WindowSkin : public DocumentWindow, ButtonListener
 {
 public:
-    WindowSkin(Component* pEditorWindow, File& fileSkin);
+    WindowSkin(Component* pEditorWindow, const File& fileSkin);
     ~WindowSkin();
 
     void buttonClicked(Button* button);
@@ -48,7 +48,9 @@ private:
 
     ListBox* pListBox;
     SkinListBoxModel* pListBoxModel;
+
     TextButton* ButtonSelect;
+    TextButton* ButtonDefault;
 
     String strSkinName;
 };
@@ -57,12 +59,13 @@ private:
 class SkinListBoxModel : public ListBoxModel
 {
 public:
-    SkinListBoxModel(File& fileSkin);
+    SkinListBoxModel(const File& fileSkinDirectory);
     ~SkinListBoxModel();
 
     int getNumRows();
     int getRow(const String& strQuery);
     const String& getValue(int nRow);
+    void setDefault(int nRow);
 
     void paintListBoxItem(int rowNumber, Graphics& g, int width, int height, bool rowIsSelected);
 
@@ -70,6 +73,8 @@ private:
     WildcardFileFilter skinWildcard;
     TimeSliceThread directoryThread;
 
+    File fileDefaultSkin;
+    String strDefaultSkin;
     StringArray strValues;
 };
 

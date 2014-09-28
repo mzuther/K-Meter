@@ -1,18 +1,10 @@
-o [mzuther] switching of skins
-
-o [mzuther] change default skin
-
 o [mzuther] use smart pointers
-
-o [mzuther] skin windows ("about", "validate")
 
 o [mzuther] document code
 
 o [mzuther] add const to methods
 
 * horizontal meter
-
-* save and restore default settings
 
 * implement inter-sample peak meter (ITU BS.1770-1, Annex 2)
 

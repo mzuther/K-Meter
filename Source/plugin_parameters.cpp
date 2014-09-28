@@ -54,8 +54,25 @@ KmeterPluginParameters::KmeterPluginParameters()
 
     nParam[selValidationCSVFormat] = 0;
 
+    // the following may or may not work on Mac
+    File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
+    File fileSkinDirectory = fileApplicationDirectory.getChildFile("./kmeter-skins/");
+
+    // file defining the default skin's name
+    File fileDefaultSkin = fileSkinDirectory.getChildFile("default_skin.ini");
+
+    // create file if necessary
+    if (!fileDefaultSkin.existsAsFile())
+    {
+        fileDefaultSkin.create();
+
+        // set "Default" as default skin
+        fileDefaultSkin.replaceWithText("Default", true, true);
+    }
+
+    // load name of default skin
     nParam[selSkinName] = -1;
-    strSkinName = "Default";
+    strSkinName = fileDefaultSkin.loadFileAsString();
 
     bParamChanged = new bool[nNumParameters];
 

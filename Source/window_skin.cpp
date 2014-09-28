@@ -26,7 +26,7 @@
 #include "window_skin.h"
 
 
-WindowSkin::WindowSkin(Component* pEditorWindow, File& fileSkin)
+WindowSkin::WindowSkin(Component* pEditorWindow, const File& fileSkin)
     : DocumentWindow("Select skin", Colours::white, 0, true)
     // create new window child
 {
@@ -40,7 +40,7 @@ WindowSkin::WindowSkin(Component* pEditorWindow, File& fileSkin)
 
     // prepare a list box and its model
     pListBox = new ListBox("ListBox Skins", nullptr);
-    pListBoxModel = new SkinListBoxModel(fileSkin);
+    pListBoxModel = new SkinListBoxModel(fileSkin.getParentDirectory());
     pListBox->setModel(pListBoxModel);
 
     // calculate and set necessary height for list box
@@ -73,6 +73,16 @@ WindowSkin::WindowSkin(Component* pEditorWindow, File& fileSkin)
     // add "skin" window as button listener and display the button
     ButtonSelect->addListener(this);
     contentComponent->addAndMakeVisible(ButtonSelect);
+
+    // create and position an "default" button
+    ButtonDefault = new TextButton("Default");
+    ButtonDefault->setBounds(nWidth - 70, nHeight - 30, 60, 20);
+    ButtonDefault->setColour(TextButton::buttonColourId, Colours::red);
+    ButtonDefault->setColour(TextButton::buttonOnColourId, Colours::red);
+
+    // add "skin" window as button listener and display the button
+    ButtonDefault->addListener(this);
+    contentComponent->addAndMakeVisible(ButtonDefault);
 
     // set window dimensions to those passed to the function ...
     setSize(nWidth, nHeight + getTitleBarHeight());
@@ -111,6 +121,17 @@ void WindowSkin::buttonClicked(Button* button)
         // close window by making it invisible
         setVisible(false);
     }
+    else if (button == ButtonDefault)
+    {
+        // get selected row from list box
+        int nSelectedRow = pListBox->getSelectedRow(0);
+
+        // update default skin
+        pListBoxModel->setDefault(nSelectedRow);
+
+        // redraw list box
+        pListBox->repaint();
+    }
 }
 
 
@@ -124,14 +145,18 @@ const String& WindowSkin::getSelectedString()
 }
 
 
-SkinListBoxModel::SkinListBoxModel(File& fileSkin)
+SkinListBoxModel::SkinListBoxModel(const File& fileSkinDirectory)
     : skinWildcard("*.skin", String::empty, "skin files"),
       directoryThread("skin directory scanner")
 {
     // set up scanner for skin directory
     DirectoryContentsList skinFiles(&skinWildcard, directoryThread);
-    skinFiles.setDirectory(fileSkin.getParentDirectory(), false, true);
+    skinFiles.setDirectory(fileSkinDirectory, false, true);
     directoryThread.startThread();
+
+    // load name of default skin
+    fileDefaultSkin = fileSkinDirectory.getChildFile("default_skin.ini");
+    strDefaultSkin = fileDefaultSkin.loadFileAsString();
 
     // wait for scan of directory
     while (skinFiles.isStillLoading())
@@ -141,8 +166,8 @@ SkinListBoxModel::SkinListBoxModel(File& fileSkin)
     // add found skins to list box
     for (int n = 0; n < skinFiles.getNumFiles(); n++)
     {
-        File foundSkin = skinFiles.getFile(n);
-        strValues.add(foundSkin.getFileNameWithoutExtension());
+        File fileSkin = skinFiles.getFile(n);
+        strValues.add(fileSkin.getFileNameWithoutExtension());
     }
 }
 
@@ -170,6 +195,16 @@ const String& SkinListBoxModel::getValue(int nRow)
 }
 
 
+void SkinListBoxModel::setDefault(int nRow)
+{
+    // update internal note to default skin
+    strDefaultSkin = strValues[nRow];
+
+    // update file to default skin
+    fileDefaultSkin.replaceWithText(strDefaultSkin, true, true);
+}
+
+
 void SkinListBoxModel::paintListBoxItem(int rowNumber, Graphics& g, int width, int height, bool rowIsSelected)
 {
     // draw selected rows in light blue
@@ -178,11 +213,22 @@ void SkinListBoxModel::paintListBoxItem(int rowNumber, Graphics& g, int width, i
         g.fillAll(Colours::lightblue);
     }
 
-    // render row text
-    g.setFont(14.0f);
-    g.setColour(Colours::black);
+    // get value of list item
+    String strListItem = getValue(rowNumber);
 
-    g.drawText(getValue(rowNumber), 2, 0, width - 4, height, Justification::centredLeft, true);
+    // draw default skin in bold font
+    if (strListItem == strDefaultSkin)
+    {
+        g.setFont(Font(14.0f, Font::bold));
+    }
+    else
+    {
+        g.setFont(Font(14.0f, Font::plain));
+    }
+
+    // render row text
+    g.setColour(Colours::black);
+    g.drawText(strListItem, 2, 0, width - 4, height, Justification::centredLeft, true);
 }
 
 // Local Variables:
