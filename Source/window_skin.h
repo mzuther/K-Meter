@@ -23,37 +23,58 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WINDOW_ABOUT_H__
-#define __WINDOW_ABOUT_H__
+#ifndef __WINDOW_SKIN_H__
+#define __WINDOW_SKIN_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "resources/resources.h"
 
+class SkinListBoxModel;
 
-class WindowAbout : public DocumentWindow, ButtonListener
+
+class WindowSkin : public DocumentWindow, ButtonListener
 {
 public:
-    WindowAbout(Component* pEditorWindow);
-    ~WindowAbout();
+    WindowSkin(Component* pEditorWindow, File& fileSkin);
+    ~WindowSkin();
 
     void buttonClicked(Button* button);
+    const String& getSelectedString();
 
 private:
-    JUCE_LEAK_DETECTOR(WindowAbout);
+    JUCE_LEAK_DETECTOR(WindowSkin);
 
     Component* contentComponent;
 
-    TextEditor* TextEditorAbout;
-    TextButton* ButtonClose;
-    ImageButton* ButtonGpl;
+    ListBox* pListBox;
+    SkinListBoxModel* pListBoxModel;
+    TextButton* ButtonSelect;
 
-    Image* ImageButtonGplNormal;
-    Image* ImageButtonGplOver;
-    Image* ImageButtonGplDown;
+    String strSkinName;
 };
 
 
-#endif  // __WINDOW_ABOUT_H__
+class SkinListBoxModel : public ListBoxModel
+{
+public:
+    SkinListBoxModel(File& fileSkin);
+    ~SkinListBoxModel();
+
+    int getNumRows();
+    int getRow(const String& strQuery);
+    const String& getValue(int nRow);
+
+    void paintListBoxItem(int rowNumber, Graphics& g, int width, int height, bool rowIsSelected);
+
+private:
+    WildcardFileFilter skinWildcard;
+    TimeSliceThread directoryThread;
+
+    StringArray strValues;
+};
+
+
+#endif  // __WINDOW_SKIN_H__
 
 
 // Local Variables:

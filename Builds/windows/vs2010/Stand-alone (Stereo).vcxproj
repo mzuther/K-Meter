@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{EFDE5801-1C73-C7F8-B901-ED865C60765C}</ProjectGuid>
+		<ProjectGuid>{00485190-37CD-8559-13BA-7F205512C81D}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -217,6 +217,7 @@
 		<ClInclude Include="..\..\..\Source\state_label.h" />
 		<ClInclude Include="..\..\..\Source\horizontal_meter.h" />
 		<ClInclude Include="..\..\..\Source\window_about.h" />
+		<ClInclude Include="..\..\..\Source\window_skin.h" />
 		<ClInclude Include="..\..\..\Source\audio_file_player.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\Source\skin.h" />
@@ -241,6 +242,8 @@
 		<ClCompile Include="..\..\..\Source\averager.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\main.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\window_skin.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\horizontal_meter.cpp">
 		</ClCompile>

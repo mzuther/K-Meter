@@ -26,10 +26,13 @@
 #include "window_about.h"
 
 
-WindowAbout::WindowAbout(Component* pEditorWindow, int nWidth, int nHeight)
+WindowAbout::WindowAbout(Component* pEditorWindow)
     : DocumentWindow(String("About ") + ProjectInfo::projectName, Colours::white, 0, true)
     // create new window child
 {
+    int nWidth = 270;
+    int nHeight = 540;
+
     // set dimensions to those passed to the function ...
     setSize(nWidth, nHeight + getTitleBarHeight());
 
@@ -223,7 +226,7 @@ WindowAbout::WindowAbout(Component* pEditorWindow, int nWidth, int nHeight)
 
     // create and position an "close" button
     ButtonClose = new TextButton("Close");
-    ButtonClose->setBounds(nWidth - 73, nHeight - 34, 60, 20);
+    ButtonClose->setBounds(nWidth - 70, nHeight - 34, 60, 20);
     ButtonClose->setColour(TextButton::buttonColourId, Colours::yellow);
     ButtonClose->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
@@ -234,7 +237,7 @@ WindowAbout::WindowAbout(Component* pEditorWindow, int nWidth, int nHeight)
     // create and position the image button which opens the license
     // text in a web browser
     ButtonGpl = new ImageButton("GPL Link");
-    ButtonGpl->setBounds(4, nHeight - 41, 64, 32);
+    ButtonGpl->setBounds(6, nHeight - 41, 64, 32);
     ButtonGpl->setImages(true, false, true,
                          ImageCache::getFromMemory(
                              resources::button_gpl_normal_png,

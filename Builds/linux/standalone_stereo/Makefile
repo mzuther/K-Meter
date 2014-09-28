@@ -115,6 +115,7 @@ OBJECTS := \
 	$(OBJDIR)/skin.o \
 	$(OBJDIR)/averager.o \
 	$(OBJDIR)/main.o \
+	$(OBJDIR)/window_skin.o \
 	$(OBJDIR)/horizontal_meter.o \
 	$(OBJDIR)/average_level_filtered.o \
 	$(OBJDIR)/window_validation.o \
@@ -222,6 +223,9 @@ $(OBJDIR)/averager.o: ../../../Source/averager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/main.o: ../../../Source/main.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/window_skin.o: ../../../Source/window_skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/horizontal_meter.o: ../../../Source/horizontal_meter.cpp

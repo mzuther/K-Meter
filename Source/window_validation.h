@@ -34,7 +34,7 @@
 class WindowValidation : public DocumentWindow, ButtonListener
 {
 public:
-    WindowValidation(Component* pEditorWindow, int nWidth, int nHeight, KmeterAudioProcessor* processor);
+    WindowValidation(Component* pEditorWindow, KmeterAudioProcessor* processor);
     ~WindowValidation();
 
     void buttonClicked(Button* button);

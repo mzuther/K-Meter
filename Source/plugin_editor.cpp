@@ -409,13 +409,6 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         ButtonExpanded->setToggleState(bExpanded, dontSendNotification);
         break;
 
-        // case KmeterPluginParameters::selSkin:
-        //     // will also apply skin to plug-in editor
-        //     bReloadMeters = true;
-
-        //     ButtonSkin->setToggleState(false, dontSendNotification);
-        //     break;
-
     case KmeterPluginParameters::selPeak:
         bDisplayPeakMeter = (nValue != 0);
         // will also apply skin to plug-in editor
@@ -525,19 +518,16 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     else if (button == ButtonSkin)
     {
         File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
-        FileChooser browser("Select skin file", fileSkin, "*.skin", true);
 
-        if (browser.showDialog(FileBrowserComponent::openMode | FileBrowserComponent::canSelectFiles | FileBrowserComponent::filenameBoxIsReadOnly, nullptr))
-        {
-            fileSkin = browser.getResult();
-            strSkinName = fileSkin.getFileNameWithoutExtension();
+        WindowSkin windowSkin(this, fileSkin);
+        windowSkin.runModalLoop();
 
-            loadSkin();
+        strSkinName = windowSkin.getSelectedString();
+        loadSkin();
 
-            // will also apply skin to plug-in editor
-            bReloadMeters = true;
-            reloadMeters();
-        }
+        // will also apply skin to plug-in editor
+        bReloadMeters = true;
+        reloadMeters();
     }
     else if (button == ButtonDisplayPeakMeter)
     {
@@ -564,21 +554,13 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     }
     else if (button == ButtonAbout)
     {
-        WindowAbout* windowAbout = new WindowAbout(this, 270, 540);
-        windowAbout->runModalLoop();
-
-        removeChildComponent(windowAbout);
-        delete windowAbout;
-        windowAbout = nullptr;
+        WindowAbout windowAbout(this);
+        windowAbout.runModalLoop();
     }
     else if (button == ButtonValidation)
     {
-        WindowValidation* windowValidation = new WindowValidation(this, 190, 250, pProcessor);
-        windowValidation->runModalLoop();
-
-        removeChildComponent(windowValidation);
-        delete windowValidation;
-        windowValidation = nullptr;
+        WindowValidation windowValidation(this, pProcessor);
+        windowValidation.runModalLoop();
     }
 }
 

@@ -26,10 +26,13 @@
 #include "window_validation.h"
 
 
-WindowValidation::WindowValidation(Component* pEditorWindow, int nWidth, int nHeight, KmeterAudioProcessor* processor)
+WindowValidation::WindowValidation(Component* pEditorWindow, KmeterAudioProcessor* processor)
     : DocumentWindow("Validation", Colours::white, 0, true)
     // create new window child
 {
+    int nWidth = 170;
+    int nHeight = 250;
+
     pProcessor = processor;
     pProcessor->stopValidation();
     fileValidation = pProcessor->getParameterValidationFile();
@@ -129,7 +132,7 @@ WindowValidation::WindowValidation(Component* pEditorWindow, int nWidth, int nHe
     // window and runs the selected audio file when clicked
     ButtonValidation = new TextButton("Validate");
     ButtonValidation->setColour(TextButton::textColourOffId, Colours::black);
-    ButtonValidation->setColour(TextButton::buttonColourId, Colours::red);
+    ButtonValidation->setColour(TextButton::buttonColourId, Colours::yellow);
     ButtonValidation->setColour(TextButton::buttonOnColourId, Colours::grey);
 
     // add "validation" window as button listener and display the
@@ -141,7 +144,7 @@ WindowValidation::WindowValidation(Component* pEditorWindow, int nWidth, int nHe
     // window when clicked
     ButtonCancel = new TextButton("Cancel");
     ButtonCancel->setColour(TextButton::textColourOffId, Colours::black);
-    ButtonCancel->setColour(TextButton::buttonColourId, Colours::yellow);
+    ButtonCancel->setColour(TextButton::buttonColourId, Colours::red);
     ButtonCancel->setColour(TextButton::buttonOnColourId, Colours::grey);
 
     // add "validation" window as button listener and display the button
@@ -149,10 +152,10 @@ WindowValidation::WindowValidation(Component* pEditorWindow, int nWidth, int nHe
     contentComponent->addAndMakeVisible(ButtonCancel);
 
     int nPositionX = 4;
-    int nPositionY = 6;
+    int nPositionY = 7;
 
-    LabelFileSelection->setBounds(nPositionX + 4, nPositionY, 138, 20);
-    ButtonFileSelection->setBounds(nPositionX + 147, nPositionY, 30, 20);
+    LabelFileSelection->setBounds(nPositionX + 4, nPositionY, 120, 20);
+    ButtonFileSelection->setBounds(nPositionX + 127, nPositionY, 30, 20);
 
     nPositionY += 24;
     LabelSampleRate->setBounds(nPositionX, nPositionY, 75, 20);
@@ -163,26 +166,26 @@ WindowValidation::WindowValidation(Component* pEditorWindow, int nWidth, int nHe
     SliderDumpSelectedChannel->setBounds(nPositionX + 66, nPositionY, 70, 20);
 
     nPositionY += 30;
-    ButtonDumpPeakMeterLevel->setBounds(nPositionX, nPositionY, 180, 20);
+    ButtonDumpPeakMeterLevel->setBounds(nPositionX + 1, nPositionY, 180, 20);
 
     nPositionY += 20;
-    ButtonDumpAverageMeterLevel->setBounds(nPositionX, nPositionY, 180, 20);
+    ButtonDumpAverageMeterLevel->setBounds(nPositionX + 1, nPositionY, 180, 20);
 
     nPositionY += 20;
-    ButtonDumpMaximumPeakLevel->setBounds(nPositionX, nPositionY, 180, 20);
+    ButtonDumpMaximumPeakLevel->setBounds(nPositionX + 1, nPositionY, 180, 20);
 
     nPositionY += 20;
-    ButtonDumpStereoMeterValue->setBounds(nPositionX, nPositionY, 180, 20);
+    ButtonDumpStereoMeterValue->setBounds(nPositionX + 1, nPositionY, 180, 20);
 
     nPositionY += 20;
-    ButtonDumpPhaseCorrelation->setBounds(nPositionX, nPositionY, 180, 20);
+    ButtonDumpPhaseCorrelation->setBounds(nPositionX + 1, nPositionY, 180, 20);
 
     nPositionY += 20;
-    ButtonDumpCSV->setBounds(nPositionX, nPositionY, 180, 20);
+    ButtonDumpCSV->setBounds(nPositionX + 1, nPositionY, 180, 20);
 
-    nPositionY += 30;
-    ButtonValidation->setBounds(nPositionX + 25, nPositionY, 60, 20);
-    ButtonCancel->setBounds(nPositionX + 95, nPositionY, 60, 20);
+    nPositionY += 31;
+    ButtonValidation->setBounds(18, nPositionY, 60, 20);
+    ButtonCancel->setBounds(88, nPositionY, 60, 20);
 
     // finally, display window
     setVisible(true);

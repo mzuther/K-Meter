@@ -32,6 +32,7 @@
 #include "skin.h"
 #include "horizontal_meter.h"
 #include "window_about.h"
+#include "window_skin.h"
 #include "window_validation.h"
 
 
