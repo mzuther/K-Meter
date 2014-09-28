@@ -38,10 +38,10 @@ class Skin;
 class Skin
 {
 public:
-    Skin(String strSkinFileName, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
+    Skin(File& fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
     ~Skin();
 
-    bool loadFromXml(String strSkinFileName);
+    bool loadFromXml(File& fileSkin);
     void updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
     void placeComponent(Component* component, String strXmlTag);
     void placeAndSkinButton(ImageButton* button, String strXmlTag);

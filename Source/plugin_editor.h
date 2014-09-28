@@ -59,6 +59,7 @@ private:
 
     void reloadMeters();
     void applySkin();
+    void loadSkin();
     void updateAverageAlgorithm(bool reload_meters);
 
     bool bReloadMeters;
@@ -71,8 +72,9 @@ private:
     int nInputChannels;
     int nStereoInputChannels;
 
+    File fileSkinDirectory;
     Skin* pSkin;
-    String strSkinFileName;
+    String strSkinName;
 
     KmeterAudioProcessor* pProcessor;
     Kmeter* kmeter;

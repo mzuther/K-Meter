@@ -46,9 +46,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     bExpanded = false;
     bDisplayPeakMeter = false;
 
-    strSkinFileName = "default.xml";
-    pSkin = new Skin("./kmeter-skins/" + strSkinFileName, nInputChannels, nCrestFactor, -1, bExpanded, bDisplayPeakMeter);
-
     // The plug-in editor's size as well as the location of buttons
     // and labels will be set later on in this constructor.
 
@@ -161,6 +158,14 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     nIndex = KmeterPluginParameters::selMono;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
+    // the following may or may not work on Mac
+    File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
+    fileSkinDirectory = fileApplicationDirectory.getChildFile("./kmeter-skins/");
+
+    pSkin = nullptr;
+    strSkinName = "Default";
+    loadSkin();
+
     // force meter reload after initialisation ...
     bInitialising = false;
     bReloadMeters = true;
@@ -179,6 +184,28 @@ KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
     pSkin = nullptr;
 
     deleteAllChildren();
+}
+
+
+void KmeterAudioProcessorEditor::loadSkin()
+{
+    if (pSkin != nullptr)
+    {
+        delete pSkin;
+        pSkin = nullptr;
+    }
+
+    File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".xml");
+
+    if (!fileSkin.existsAsFile())
+    {
+        Logger::outputDebugString("[Skin] file \"" + fileSkin.getFileName() + "\" not found");
+
+        strSkinName = "Default";
+        fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".xml");
+    }
+
+    pSkin = new Skin(fileSkin, nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
 }
 
 
@@ -496,19 +523,20 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     }
     else if (button == ButtonSkin)
     {
-        strSkinFileName = "default.xml";
+        File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".xml");
+        FileChooser browser("Select skin file", fileSkin, "*.xml", true);
 
-        if (pSkin != nullptr)
+        if (browser.showDialog(FileBrowserComponent::openMode | FileBrowserComponent::canSelectFiles | FileBrowserComponent::filenameBoxIsReadOnly, nullptr))
         {
-            delete pSkin;
-            pSkin = nullptr;
+            fileSkin = browser.getResult();
+            strSkinName = fileSkin.getFileNameWithoutExtension();
+
+            loadSkin();
+
+            // will also apply skin to plug-in editor
+            bReloadMeters = true;
+            reloadMeters();
         }
-
-        pSkin = new Skin("./kmeter-skins/" + strSkinFileName, nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
-
-        // will also apply skin to plug-in editor
-        bReloadMeters = true;
-        reloadMeters();
     }
     else if (button == ButtonDisplayPeakMeter)
     {
@@ -522,6 +550,12 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
         {
             pMeterBallistics->reset();
         }
+
+        loadSkin();
+
+        // will also apply skin to plug-in editor
+        bReloadMeters = true;
+        reloadMeters();
     }
     else if (button == ButtonMono)
     {

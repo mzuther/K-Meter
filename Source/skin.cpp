@@ -26,13 +26,13 @@
 #include "skin.h"
 
 
-Skin::Skin(String strSkinFileName, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter)
+Skin::Skin(File& fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter)
 {
     fileResourcePath = nullptr;
     xml = nullptr;
 
     updateSkin(nNumChannels, nCrestFactor, nAverageAlgorithm, bExpanded, bDisplayPeakMeter);
-    loadFromXml(strSkinFileName);
+    loadFromXml(fileSkin);
 }
 
 
@@ -52,11 +52,9 @@ Skin::~Skin()
 }
 
 
-bool Skin::loadFromXml(String strSkinFileName)
+bool Skin::loadFromXml(File& fileSkin)
 {
-    // may not work on Mac OS
-    File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
-    File fileSkin = fileApplicationDirectory.getChildFile(strSkinFileName);
+    DBG(String("[Skin] loading file \"") + fileSkin.getFileName() + "\"");
 
     if (fileResourcePath != nullptr)
     {

@@ -246,15 +246,11 @@ void WindowValidation::buttonClicked(Button* button)
     }
     else if (button == ButtonFileSelection)
     {
-        WildcardFileFilter wildcardFilter("*.wav;*.aiff;*.flac", "", "Audio files (*.wav, *.aiff, *.flac)");
+        FileChooser browser("Open audio file for validation", fileValidation, "*.wav;*.aiff;*.flac", true);
 
-        FileBrowserComponent browser(FileBrowserComponent::openMode | FileBrowserComponent::canSelectFiles, fileValidation, &wildcardFilter, nullptr);
-
-        FileChooserDialogBox dialogBox("Open audio file", "Please select an audio file to inject into K-Meter's audio path.", browser, true, getLookAndFeel().findColour(AlertWindow::backgroundColourId));
-
-        if (dialogBox.show())
+        if (browser.showDialog(FileBrowserComponent::openMode | FileBrowserComponent::canSelectFiles, nullptr))
         {
-            File selectedFile = browser.getSelectedFile(0);
+            File selectedFile = browser.getResult();
             pProcessor->setParameterValidationFile(selectedFile);
             fileValidation = pProcessor->getParameterValidationFile();
             LabelFileSelection->setText(fileValidation.getFileName(), dontSendNotification);
