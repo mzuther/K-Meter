@@ -1,9 +1,10 @@
+o [mzuther] use smart pointers
 
 o [mzuther] document code
 
 o [mzuther] add const to methods
 
-* save and restore default settings
+* horizontal meter
 
 * implement inter-sample peak meter (ITU BS.1770-1, Annex 2)
 

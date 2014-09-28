@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -37,14 +37,14 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     // prevent meter reload during initialisation
     bInitialising = true;
 
-    bHorizontalLayout = false;
     bIsValidating = false;
 
     nInputChannels = nNumChannels;
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
     nCrestFactor = 0;
 
-    pSkin = new Skin(nInputChannels, nCrestFactor, -1, bHorizontalLayout);
+    bExpanded = false;
+    bDisplayPeakMeter = false;
 
     // The plug-in editor's size as well as the location of buttons
     // and labels will be set later on in this constructor.
@@ -52,126 +52,82 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     pProcessor = ownerFilter;
     pProcessor->addActionListener(this);
 
-    ButtonK20 = new TextButton("K-20");
+    ButtonK20 = new ImageButton("K-20");
     ButtonK20->setRadioGroupId(1);
-    ButtonK20->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonK20->setColour(TextButton::buttonOnColourId, Colours::green);
-
     ButtonK20->addListener(this);
     addAndMakeVisible(ButtonK20);
 
-    ButtonK14 = new TextButton("K-14");
+    ButtonK14 = new ImageButton("K-14");
     ButtonK14->setRadioGroupId(1);
-    ButtonK14->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonK14->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
     ButtonK14->addListener(this);
     addAndMakeVisible(ButtonK14);
 
-    ButtonK12 = new TextButton("K-12");
+    ButtonK12 = new ImageButton("K-12");
     ButtonK12->setRadioGroupId(1);
-    ButtonK12->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonK12->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
     ButtonK12->addListener(this);
     addAndMakeVisible(ButtonK12);
 
-    ButtonNormal = new TextButton("Normal");
+    ButtonNormal = new ImageButton("Normal");
     ButtonNormal->setRadioGroupId(1);
-    ButtonNormal->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonNormal->setColour(TextButton::buttonOnColourId, Colours::red);
-
     ButtonNormal->addListener(this);
     addAndMakeVisible(ButtonNormal);
 
-    ButtonItuBs1770 = new TextButton("ITU-R");
-    ButtonItuBs1770->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonItuBs1770->setColour(TextButton::buttonOnColourId, Colours::green);
-
+    ButtonItuBs1770 = new ImageButton("ITU-R");
     ButtonItuBs1770->addListener(this);
     addAndMakeVisible(ButtonItuBs1770);
 
-    ButtonRms = new TextButton("RMS");
-    ButtonRms->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonRms->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
+    ButtonRms = new ImageButton("RMS");
     ButtonRms->addListener(this);
     addAndMakeVisible(ButtonRms);
 
     updateAverageAlgorithm(false);
 
-    ButtonInfiniteHold = new TextButton("Hold");
-    ButtonInfiniteHold->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonInfiniteHold->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
+    ButtonInfiniteHold = new ImageButton("Hold");
     ButtonInfiniteHold->addListener(this);
     addAndMakeVisible(ButtonInfiniteHold);
 
-    ButtonDisplayPeakMeter = new TextButton("Peaks");
-    ButtonDisplayPeakMeter->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDisplayPeakMeter->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
+    ButtonDisplayPeakMeter = new ImageButton("Peaks");
     ButtonDisplayPeakMeter->addListener(this);
     addAndMakeVisible(ButtonDisplayPeakMeter);
 
-    ButtonExpanded = new TextButton("Expand");
-    ButtonExpanded->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonExpanded->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
+    ButtonExpanded = new ImageButton("Expand");
     ButtonExpanded->addListener(this);
     addAndMakeVisible(ButtonExpanded);
 
-    ButtonHorizontal = new TextButton("Horizontal");
-    ButtonHorizontal->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonHorizontal->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonSkin = new ImageButton("Skin");
+    ButtonSkin->addListener(this);
+    addAndMakeVisible(ButtonSkin);
 
-    ButtonHorizontal->addListener(this);
-    addAndMakeVisible(ButtonHorizontal);
-
-    ButtonMono = new TextButton("Mono");
-    ButtonMono->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonMono->setColour(TextButton::buttonOnColourId, Colours::red);
-
+    ButtonMono = new ImageButton("Mono");
     ButtonMono->addListener(this);
     addAndMakeVisible(ButtonMono);
 
-    ButtonReset = new TextButton("Reset");
-    ButtonReset->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonReset->setColour(TextButton::buttonOnColourId, Colours::red);
-
+    ButtonReset = new ImageButton("Reset");
     ButtonReset->addListener(this);
     addAndMakeVisible(ButtonReset);
 
-#ifdef DEBUG
-    LabelDebug = new Label("Debug Notification", "DEBUG");
-    LabelDebug->setColour(Label::textColourId, Colours::red);
-    LabelDebug->setJustificationType(Justification::centred);
+    LabelDebug = new ImageComponent("Debug Notification");
     addAndMakeVisible(LabelDebug);
-#else
-    LabelDebug = nullptr;
-#endif
 
-    ButtonValidation = new TextButton("Validate");
-    ButtonValidation->setColour(TextButton::textColourOnId, Colours::white);
-    ButtonValidation->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonValidation->setColour(TextButton::buttonOnColourId, Colours::blue);
-
+    ButtonValidation = new ImageButton("Validate");
     ButtonValidation->addListener(this);
     addAndMakeVisible(ButtonValidation);
 
-    ButtonAbout = new TextButton("About");
-    ButtonAbout->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
+    ButtonAbout = new ImageButton("About");
     ButtonAbout->addListener(this);
     addAndMakeVisible(ButtonAbout);
 
+    BackgroundImage = new ImageComponent("Background Image");
+    // prevent unnecessary redrawing of plugin editor
+    BackgroundImage->setOpaque(true);
+    addAndMakeVisible(BackgroundImage);
+
     if (nInputChannels <= 2)
     {
-        stereoMeter = new StereoMeter("Stereo Meter");
+        stereoMeter = new HorizontalMeter("Stereo Meter");
         addAndMakeVisible(stereoMeter);
 
-        phaseCorrelationMeter = new PhaseCorrelationMeter("Correlation Meter");
+        phaseCorrelationMeter = new HorizontalMeter("Correlation Meter");
         addAndMakeVisible(phaseCorrelationMeter);
     }
     else
@@ -193,9 +149,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     nIndex = KmeterPluginParameters::selExpanded;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
-    nIndex = KmeterPluginParameters::selOrientation;
-    changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
-
     nIndex = KmeterPluginParameters::selPeak;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
@@ -205,13 +158,20 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* own
     nIndex = KmeterPluginParameters::selMono;
     changeParameter(nIndex, pProcessor->getParameterAsInt(nIndex));
 
+    // the following may or may not work on Mac
+    File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
+    fileSkinDirectory = fileApplicationDirectory.getChildFile("./kmeter-skins/");
+
+    pSkin = nullptr;
+    strSkinName = pProcessor->getParameterSkinName();
+    loadSkin();
+
     // force meter reload after initialisation ...
     bInitialising = false;
     bReloadMeters = true;
-    reloadMeters();
 
-    // ... and set our plug-in editor's size.
-    resizeEditor();
+    // will also apply skin to plug-in editor
+    reloadMeters();
 }
 
 
@@ -227,93 +187,83 @@ KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 }
 
 
-void KmeterAudioProcessorEditor::resizeEditor()
+void KmeterAudioProcessorEditor::loadSkin()
 {
-    if (bHorizontalLayout)
+    if (pSkin != nullptr)
     {
-        if (nInputChannels <= 2)
-        {
-            nWidth = 680;
-            nButtonColumnTop = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 24;
-        }
-        else
-        {
-            nWidth = 662;
-
-            if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
-            {
-                nButtonColumnTop = Kmeter::KMETER_STEREO_WIDTH + 24;
-            }
-            else
-            {
-                nButtonColumnTop = nStereoInputChannels * (Kmeter::KMETER_STEREO_WIDTH + 6) + 18;
-            }
-        }
-
-        nButtonColumnLeft = 10;
-        nHeight = nButtonColumnTop + 56;
-        setSize(nWidth, nHeight);
-
-        if (nInputChannels <= 2)
-        {
-            stereoMeter->setBounds(28, 10, 13, 107);
-            phaseCorrelationMeter->setBounds(10, 10, 13, 107);
-        }
-    }
-    else
-    {
-        if (nInputChannels <= 2)
-        {
-            nHeight = 648;
-            nButtonColumnLeft = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 24;
-        }
-        else
-        {
-            nHeight = 630;
-
-            if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
-            {
-                nButtonColumnLeft = Kmeter::KMETER_STEREO_WIDTH + 24;
-            }
-            else
-            {
-                nButtonColumnLeft = nStereoInputChannels * (Kmeter::KMETER_STEREO_WIDTH + 6) + 18;
-            }
-        }
-
-        nButtonColumnTop = 10;
-        nWidth = nButtonColumnLeft + 70;
-        setSize(nWidth, nHeight);
-
-        if (nInputChannels <= 2)
-        {
-            stereoMeter->setBounds(10, nHeight - 41, 107, 13);
-            phaseCorrelationMeter->setBounds(10, nHeight - 24, 107, 13);
-        }
+        delete pSkin;
+        pSkin = nullptr;
     }
 
-    pSkin->placeButton(Skin::ButtonK20, ButtonK20);
-    pSkin->placeButton(Skin::ButtonK14, ButtonK14);
-    pSkin->placeButton(Skin::ButtonK12, ButtonK12);
-    pSkin->placeButton(Skin::ButtonNormal, ButtonNormal);
+    File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
 
-    pSkin->placeButton(Skin::ButtonItuBs1770, ButtonItuBs1770);
-    pSkin->placeButton(Skin::ButtonRms, ButtonRms);
-
-    pSkin->placeButton(Skin::ButtonInfiniteHold, ButtonInfiniteHold);
-    pSkin->placeButton(Skin::ButtonDisplayPeakMeter, ButtonDisplayPeakMeter);
-    pSkin->placeButton(Skin::ButtonExpanded, ButtonExpanded);
-
-    pSkin->placeButton(Skin::ButtonMono, ButtonMono);
-    pSkin->placeButton(Skin::ButtonReset, ButtonReset);
-    pSkin->placeButton(Skin::ButtonHorizontal, ButtonHorizontal);
-
-    pSkin->placeButton(Skin::ButtonValidation, ButtonValidation);
-    pSkin->placeButton(Skin::ButtonAbout, ButtonAbout);
-
-    if (LabelDebug)
+    if (!fileSkin.existsAsFile())
     {
-        pSkin->placeButton(Skin::LabelDebug, LabelDebug);
+        Logger::outputDebugString("[Skin] file \"" + fileSkin.getFileName() + "\" not found");
+
+        strSkinName = "Default";
+        fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
+    }
+
+    pProcessor->setParameterSkinName(strSkinName);
+    pSkin = new Skin(fileSkin, nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
+}
+
+
+void KmeterAudioProcessorEditor::applySkin()
+{
+    // prevent skin application during meter initialisation
+    if (bInitialising)
+    {
+        return;
+    }
+
+    // update skin
+    pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
+
+    // will also resize plug-in editor
+    pSkin->setBackgroundImage(BackgroundImage, this);
+
+    pSkin->placeAndSkinButton(ButtonK20, "button_k20");
+    pSkin->placeAndSkinButton(ButtonK14, "button_k14");
+    pSkin->placeAndSkinButton(ButtonK12, "button_k12");
+    pSkin->placeAndSkinButton(ButtonNormal, "button_normal");
+
+    pSkin->placeAndSkinButton(ButtonItuBs1770, "button_itu");
+    pSkin->placeAndSkinButton(ButtonRms, "button_rms");
+
+    pSkin->placeAndSkinButton(ButtonInfiniteHold, "button_hold");
+    pSkin->placeAndSkinButton(ButtonDisplayPeakMeter, "button_peaks");
+    pSkin->placeAndSkinButton(ButtonExpanded, "button_expand");
+
+    pSkin->placeAndSkinButton(ButtonMono, "button_mono");
+    pSkin->placeAndSkinButton(ButtonReset, "button_reset");
+    pSkin->placeAndSkinButton(ButtonSkin, "button_skin");
+
+    pSkin->placeAndSkinButton(ButtonValidation, "button_validate");
+    pSkin->placeAndSkinButton(ButtonAbout, "button_about");
+
+#ifdef DEBUG
+    pSkin->placeAndSkinLabel(LabelDebug, "label_debug");
+#else
+    pSkin->placeComponent(LabelDebug, "label_debug");
+    LabelDebug->setImage(Image());
+    LabelDebug->setBounds(-1, -1, 1, 1);
+#endif
+
+    if (kmeter != nullptr)
+    {
+        kmeter->applySkin(pSkin);
+    }
+
+    if (stereoMeter != nullptr)
+    {
+        pSkin->placeAndSkinHorizontalMeter(stereoMeter, "meter_stereo");
+    }
+
+    if (phaseCorrelationMeter != nullptr)
+    {
+        pSkin->placeAndSkinHorizontalMeter(phaseCorrelationMeter, "meter_phase_correlation");
     }
 }
 
@@ -336,28 +286,30 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String& message)
     {
         MeterBallistics* pMeterBallistics = pProcessor->getLevels();
 
-        if (pMeterBallistics)
+        if (pMeterBallistics != nullptr)
         {
-            if (kmeter)
+            if (kmeter != nullptr)
             {
                 kmeter->setLevels(pMeterBallistics);
             }
 
-            if (stereoMeter)
+            if (stereoMeter != nullptr)
             {
-                stereoMeter->setValue(pMeterBallistics->getStereoMeterValue());
+                float fStereo = pMeterBallistics->getStereoMeterValue();
+                stereoMeter->setValue(fStereo / 2.0f + 0.5f);
             }
 
-            if (phaseCorrelationMeter)
+            if (phaseCorrelationMeter != nullptr)
             {
-                phaseCorrelationMeter->setValue(pMeterBallistics->getPhaseCorrelation());
+                float fPhase = pMeterBallistics->getPhaseCorrelation();
+                phaseCorrelationMeter->setValue(fPhase / 2.0f + 0.5f);
             }
         }
 
         if (bIsValidating && !pProcessor->isValidating())
         {
             bIsValidating = false;
-            ButtonValidation->setColour(TextButton::buttonColourId, Colours::grey);
+            ButtonValidation->setToggleState(false, dontSendNotification);
         }
     }
     // "AC" --> algorithm changed
@@ -369,7 +321,7 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String& message)
     else if ((!message.compare("V+")) && pProcessor->isValidating())
     {
         bIsValidating = true;
-        ButtonValidation->setColour(TextButton::buttonColourId, Colours::red);
+        ButtonValidation->setToggleState(true, dontSendNotification);
     }
     // "V-" --> validation stopped
     else if (!message.compare("V-"))
@@ -378,7 +330,7 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String& message)
     }
     else
     {
-        DBG("[K-Meter] Received unknown action message \"" + message + "\".");
+        DBG("[K-Meter] received unknown action message \"" + message + "\".");
     }
 }
 
@@ -405,33 +357,33 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         if (nValue == 0)
         {
             nCrestFactor = nValue;
+            // will also apply skin to plug-in editor
             bReloadMeters = true;
 
-            pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bHorizontalLayout);
             ButtonNormal->setToggleState(true, dontSendNotification);
         }
         else if (nValue == 12)
         {
             nCrestFactor = nValue;
+            // will also apply skin to plug-in editor
             bReloadMeters = true;
 
-            pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bHorizontalLayout);
             ButtonK12->setToggleState(true, dontSendNotification);
         }
         else if (nValue == 14)
         {
             nCrestFactor = nValue;
+            // will also apply skin to plug-in editor
             bReloadMeters = true;
 
-            pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bHorizontalLayout);
             ButtonK14->setToggleState(true, dontSendNotification);
         }
         else // K-20
         {
             nCrestFactor = 20;
+            // will also apply skin to plug-in editor
             bReloadMeters = true;
 
-            pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bHorizontalLayout);
             ButtonK20->setToggleState(true, dontSendNotification);
         }
 
@@ -448,37 +400,26 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
         // executed...
         pProcessor->setAverageAlgorithm(nValue);
 
-        if (nInputChannels > 2)
-        {
-            resizeEditor();
-        }
-
         break;
 
     case KmeterPluginParameters::selExpanded:
+        bExpanded = (nValue != 0);
+        // will also apply skin to plug-in editor
         bReloadMeters = true;
-        ButtonExpanded->setToggleState(nValue != 0, dontSendNotification);
-        break;
-
-    case KmeterPluginParameters::selOrientation:
-        bReloadMeters = true;
-
-        bHorizontalLayout = (nValue == KmeterPluginParameters::selOrientationHorizontal);
-        ButtonHorizontal->setToggleState(bHorizontalLayout, dontSendNotification);
-
-        pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bHorizontalLayout);
-        resizeEditor();
+        ButtonExpanded->setToggleState(bExpanded, dontSendNotification);
         break;
 
     case KmeterPluginParameters::selPeak:
+        bDisplayPeakMeter = (nValue != 0);
+        // will also apply skin to plug-in editor
         bReloadMeters = true;
-        ButtonDisplayPeakMeter->setToggleState(nValue != 0, dontSendNotification);
+        ButtonDisplayPeakMeter->setToggleState(bDisplayPeakMeter, dontSendNotification);
         break;
 
     case KmeterPluginParameters::selInfiniteHold:
         pMeterBallistics = pProcessor->getLevels();
 
-        if (pMeterBallistics)
+        if (pMeterBallistics != nullptr)
         {
             pMeterBallistics->setPeakMeterInfiniteHold(nValue != 0);
             pMeterBallistics->setAverageMeterInfiniteHold(nValue != 0);
@@ -495,6 +436,7 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
     // prevent meter reload during initialisation
     if (!bInitialising)
     {
+        // will also apply skin to plug-in editor
         reloadMeters();
     }
 }
@@ -505,9 +447,8 @@ void KmeterAudioProcessorEditor::reloadMeters()
     if (bReloadMeters)
     {
         bReloadMeters = false;
-        bool isSurround = (nInputChannels > 2);
 
-        if (kmeter)
+        if (kmeter != nullptr)
         {
             removeChildComponent(kmeter);
             delete kmeter;
@@ -516,72 +457,28 @@ void KmeterAudioProcessorEditor::reloadMeters()
 
         if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
         {
-            String strUnit;
-
-            if (ButtonDisplayPeakMeter->getToggleState())
-            {
-                strUnit = String("LK|dB");
-            }
-            else
-            {
-                strUnit = String("LK");
-            }
-
-            if (bHorizontalLayout)
-            {
-                if (nInputChannels <= 2)
-                {
-                    kmeter = new Kmeter("K-Meter", 48, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), true, ButtonDisplayPeakMeter->getToggleState(), 4);
-                }
-                else
-                {
-                    kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), true, ButtonDisplayPeakMeter->getToggleState(), 4);
-                }
-            }
-            else
-            {
-                kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, 1, strUnit, isSurround, ButtonExpanded->getToggleState(), false, ButtonDisplayPeakMeter->getToggleState(), 4);
-            }
+            kmeter = new Kmeter("K-Meter", nCrestFactor, 1, ButtonExpanded->getToggleState(), false, ButtonDisplayPeakMeter->getToggleState(), 4);
         }
         else
         {
-            String strUnit;
-
-            if (ButtonDisplayPeakMeter->getToggleState())
-            {
-                strUnit = String("dB|dB");
-            }
-            else
-            {
-                strUnit = String("dB");
-            }
-
-            if (bHorizontalLayout)
-            {
-                if (nInputChannels <= 2)
-                {
-                    kmeter = new Kmeter("K-Meter", 48, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), true, ButtonDisplayPeakMeter->getToggleState(), 4);
-                }
-                else
-                {
-                    kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), true, ButtonDisplayPeakMeter->getToggleState(), 4);
-                }
-            }
-            else
-            {
-                kmeter = new Kmeter("K-Meter", 10, 10, nCrestFactor, nInputChannels, strUnit, isSurround, ButtonExpanded->getToggleState(), false, ButtonDisplayPeakMeter->getToggleState(), 4);
-            }
+            kmeter = new Kmeter("K-Meter", nCrestFactor, nInputChannels, ButtonExpanded->getToggleState(), false, ButtonDisplayPeakMeter->getToggleState(), 4);
         }
 
         addAndMakeVisible(kmeter);
+
+        // to ensure operability, move background image to the back of
+        // the editor's z-plane and place K-Meter just above it
+        kmeter->toBack();
+        BackgroundImage->toBehind(kmeter);
+
+        applySkin();
     }
 }
 
 //==============================================================================
 void KmeterAudioProcessorEditor::paint(Graphics& g)
 {
-    g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.8f), 0, 0, Colours::darkgrey.darker(1.4f), 0, (float) getHeight(), false));
-    g.fillAll();
+    g.fillAll(Colours::black);
 }
 
 void KmeterAudioProcessorEditor::buttonClicked(Button* button)
@@ -618,9 +515,19 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selExpanded, !button->getToggleState());
     }
-    else if (button == ButtonHorizontal)
+    else if (button == ButtonSkin)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selOrientation, button->getToggleState());
+        File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
+
+        WindowSkin windowSkin(this, fileSkin);
+        windowSkin.runModalLoop();
+
+        strSkinName = windowSkin.getSelectedString();
+        loadSkin();
+
+        // will also apply skin to plug-in editor
+        bReloadMeters = true;
+        reloadMeters();
     }
     else if (button == ButtonDisplayPeakMeter)
     {
@@ -634,6 +541,12 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
         {
             pMeterBallistics->reset();
         }
+
+        loadSkin();
+
+        // will also apply skin to plug-in editor
+        bReloadMeters = true;
+        reloadMeters();
     }
     else if (button == ButtonMono)
     {
@@ -641,25 +554,13 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     }
     else if (button == ButtonAbout)
     {
-        WindowAbout* windowAbout = new WindowAbout(getWidth(), getHeight());
-        addAndMakeVisible(windowAbout);
-
-        windowAbout->runModalLoop();
-
-        removeChildComponent(windowAbout);
-        delete windowAbout;
-        windowAbout = nullptr;
+        WindowAbout windowAbout(this);
+        windowAbout.runModalLoop();
     }
     else if (button == ButtonValidation)
     {
-        WindowValidation* windowValidation = new WindowValidation(getWidth(), getHeight(), bHorizontalLayout, pProcessor);
-        addAndMakeVisible(windowValidation);
-
-        windowValidation->runModalLoop();
-
-        removeChildComponent(windowValidation);
-        delete windowValidation;
-        windowValidation = nullptr;
+        WindowValidation windowValidation(this, pProcessor);
+        windowValidation.runModalLoop();
     }
 }
 
@@ -680,16 +581,14 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
     bReloadMeters = reload_meters;
     MeterBallistics* pMeterBallistics = pProcessor->getLevels();
 
-    if (pMeterBallistics)
+    if (pMeterBallistics != nullptr)
     {
         pMeterBallistics->reset();
     }
 
-    pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bHorizontalLayout);
-
     if (!bInitialising)
     {
-        resizeEditor();
+        // will also apply skin to plug-in editor
         reloadMeters();
     }
 }

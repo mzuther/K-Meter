@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -52,6 +52,9 @@ public:
     File getValidationFile();
     void setValidationFile(File& fileValidation);
 
+    String getSkinName();
+    void setSkinName(String& strSkinNameNew);
+
     void MarkParameter(int nIndex);
     void UnmarkParameter(int nIndex);
     bool isParameterMarked(int nIndex);
@@ -70,7 +73,6 @@ public:
         selCrestFactor = 0,
         selAverageAlgorithm,
         selExpanded,
-        selOrientation,
         selPeak,
         selInfiniteHold,
         selMono,
@@ -85,6 +87,7 @@ public:
         selValidationStereoMeterValue,
         selValidationPhaseCorrelation,
         selValidationCSVFormat,
+        selSkinName,
 
         nNumParameters,
 
@@ -98,9 +101,6 @@ public:
         selAlgorithmRms = 0,
         selAlgorithmItuBs1770,
 
-        selOrientationHorizontal = 0,
-        selOrientationVertical,
-
         nNumAlgorithms,
     };
 
@@ -109,7 +109,9 @@ private:
 
     int* nParam;
     bool* bParamChanged;
+
     String strValidationFile;
+    String strSkinName;
 };
 
 #endif  // __PLUGINPARAMETERS_H__

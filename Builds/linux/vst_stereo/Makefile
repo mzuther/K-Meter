@@ -108,20 +108,21 @@ ifeq ($(config),release64)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/stereo_meter.o \
 	$(OBJDIR)/meter_segment.o \
 	$(OBJDIR)/plugin_processor.o \
+	$(OBJDIR)/state_label.o \
 	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/skin.o \
 	$(OBJDIR)/averager.o \
 	$(OBJDIR)/main.o \
+	$(OBJDIR)/window_skin.o \
+	$(OBJDIR)/horizontal_meter.o \
 	$(OBJDIR)/average_level_filtered.o \
 	$(OBJDIR)/window_validation.o \
 	$(OBJDIR)/meter_bar.o \
 	$(OBJDIR)/peak_label.o \
 	$(OBJDIR)/kmeter.o \
 	$(OBJDIR)/audio_ring_buffer.o \
-	$(OBJDIR)/phase_correlation_meter.o \
 	$(OBJDIR)/window_about.o \
 	$(OBJDIR)/meter_ballistics.o \
 	$(OBJDIR)/plugin_editor.o \
@@ -204,13 +205,13 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 endif
 
-$(OBJDIR)/stereo_meter.o: ../../../Source/stereo_meter.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_segment.o: ../../../Source/meter_segment.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_processor.o: ../../../Source/plugin_processor.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/state_label.o: ../../../Source/state_label.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
@@ -223,6 +224,12 @@ $(OBJDIR)/averager.o: ../../../Source/averager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/main.o: ../../../Source/main.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/window_skin.o: ../../../Source/window_skin.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/horizontal_meter.o: ../../../Source/horizontal_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/average_level_filtered.o: ../../../Source/average_level_filtered.cpp
@@ -241,9 +248,6 @@ $(OBJDIR)/kmeter.o: ../../../Source/kmeter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/audio_ring_buffer.o: ../../../Source/audio_ring_buffer.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/phase_correlation_meter.o: ../../../Source/phase_correlation_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/window_about.o: ../../../Source/window_about.cpp

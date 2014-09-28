@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,9 +30,9 @@
 #include "plugin_processor.h"
 #include "kmeter.h"
 #include "skin.h"
-#include "stereo_meter.h"
-#include "phase_correlation_meter.h"
+#include "horizontal_meter.h"
 #include "window_about.h"
+#include "window_skin.h"
 #include "window_validation.h"
 
 
@@ -59,48 +59,49 @@ private:
     JUCE_LEAK_DETECTOR(KmeterAudioProcessorEditor);
 
     void reloadMeters();
-    void resizeEditor();
+    void applySkin();
+    void loadSkin();
     void updateAverageAlgorithm(bool reload_meters);
 
     bool bReloadMeters;
-    bool bHorizontalLayout;
     bool bIsValidating;
     bool bInitialising;
+    bool bExpanded;
+    bool bDisplayPeakMeter;
 
     int nCrestFactor;
     int nInputChannels;
     int nStereoInputChannels;
-    int nButtonColumnLeft;
-    int nButtonColumnTop;
-    int nHeight;
-    int nWidth;
 
+    File fileSkinDirectory;
     Skin* pSkin;
+    String strSkinName;
 
     KmeterAudioProcessor* pProcessor;
     Kmeter* kmeter;
-    StereoMeter* stereoMeter;
-    PhaseCorrelationMeter* phaseCorrelationMeter;
+    HorizontalMeter* stereoMeter;
+    HorizontalMeter* phaseCorrelationMeter;
 
-    TextButton* ButtonNormal;
-    TextButton* ButtonK12;
-    TextButton* ButtonK14;
-    TextButton* ButtonK20;
+    ImageButton* ButtonNormal;
+    ImageButton* ButtonK12;
+    ImageButton* ButtonK14;
+    ImageButton* ButtonK20;
 
-    TextButton* ButtonItuBs1770;
-    TextButton* ButtonRms;
+    ImageButton* ButtonItuBs1770;
+    ImageButton* ButtonRms;
 
-    TextButton* ButtonExpanded;
-    TextButton* ButtonHorizontal;
-    TextButton* ButtonDisplayPeakMeter;
-    TextButton* ButtonInfiniteHold;
-    TextButton* ButtonReset;
+    ImageButton* ButtonExpanded;
+    ImageButton* ButtonSkin;
+    ImageButton* ButtonDisplayPeakMeter;
+    ImageButton* ButtonInfiniteHold;
+    ImageButton* ButtonReset;
 
-    TextButton* ButtonMono;
-    TextButton* ButtonValidation;
-    TextButton* ButtonAbout;
+    ImageButton* ButtonMono;
+    ImageButton* ButtonValidation;
+    ImageButton* ButtonAbout;
 
-    Label* LabelDebug;
+    ImageComponent* LabelDebug;
+    ImageComponent* BackgroundImage;
 };
 
 

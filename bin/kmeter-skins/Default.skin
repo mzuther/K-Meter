@@ -1,0 +1,1418 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE kmeter-skin SYSTEM "include/dtd/kmeter-skin.dtd">
+<?xml-stylesheet type="text/xsl" href="include/xslt/skin_svg.xslt"?>
+
+<kmeter-skin
+	name="Default"
+	orientation="vertical"
+	path="Default"
+	version="1.0">
+
+	<default>
+		<button_k20
+			x="130"
+			y="10"
+			width="60"
+			height="20"
+			image_on="buttons/button_k20_on.png"
+			image_off="buttons/button_k20_off.png"
+		/>
+
+		<button_k14
+			x="130"
+			y="35"
+			width="60"
+			height="20"
+			image_on="buttons/button_k14_on.png"
+			image_off="buttons/button_k14_off.png"
+		/>
+
+		<button_k12
+			x="130"
+			y="60"
+			width="60"
+			height="20"
+			image_on="buttons/button_k12_on.png"
+			image_off="buttons/button_k12_off.png"
+		/>
+
+		<button_normal
+			x="130"
+			y="85"
+			width="60"
+			height="20"
+			image_on="buttons/button_normal_on.png"
+			image_off="buttons/button_normal_off.png"
+		/>
+
+		<button_itu
+			x="130"
+			y="125"
+			width="60"
+			height="20"
+			image_on="buttons/button_itu_on.png"
+			image_off="buttons/button_itu_off.png"
+		/>
+
+		<button_rms
+			x="130"
+			y="150"
+			width="60"
+			height="20"
+			image_on="buttons/button_rms_on.png"
+			image_off="buttons/button_rms_off.png"
+		/>
+
+		<button_hold
+			x="130"
+			y="190"
+			width="60"
+			height="20"
+			image_on="buttons/button_hold_on.png"
+			image_off="buttons/button_hold_off.png"
+		/>
+
+		<button_peaks
+			x="130"
+			y="215"
+			width="60"
+			height="20"
+			image_on="buttons/button_peaks_on.png"
+			image_off="buttons/button_peaks_off.png"
+		/>
+
+		<button_expand
+			x="130"
+			y="240"
+			width="60"
+			height="20"
+			image_on="buttons/button_expand_on.png"
+			image_off="buttons/button_expand_off.png"
+		/>
+
+		<button_skin
+			x="130"
+			y="265"
+			width="60"
+			height="20"
+			image_on="buttons/button_skin_on.png"
+			image_off="buttons/button_skin_off.png"
+		/>
+
+		<button_mono
+			x="130"
+			y="305"
+			width="60"
+			height="20"
+			image_on="buttons/button_mono_on.png"
+			image_off="buttons/button_mono_off.png"
+		/>
+
+		<button_reset
+			x="130"
+			y="330"
+			width="60"
+			height="20"
+			image_on="buttons/button_reset_on.png"
+			image_off="buttons/button_reset_off.png"
+		/>
+
+		<button_validate
+			x="130"
+			y="596"
+			width="60"
+			height="20"
+			image_on="buttons/button_validate_on.png"
+			image_off="buttons/button_validate_off.png"
+		/>
+
+		<button_about
+			x="130"
+			y="621"
+			width="60"
+			height="20"
+			image_on="buttons/button_about_on.png"
+			image_off="buttons/button_about_off.png"
+		/>
+
+		<label_debug
+			x="140"
+			y="571"
+			width="40"
+			height="10"
+			image="labels/label_debug.png"
+		/>
+	</default>
+
+	<stereo_itu>
+		<meter_phase_correlation
+			x="10"
+			y="626"
+			width="107"
+			height="16"
+			spacing_left="6"
+			spacing_top="2"
+			image="meters/meter_phase_correlation.png"
+			>
+			<needle
+				width="3"
+				height="12"
+				image="meters/meter_phase_correlation_needle.png"
+			/>
+		</meter_phase_correlation>
+
+		<meter_stereo
+			x="10"
+			y="607"
+			width="107"
+			height="16"
+			spacing_left="6"
+			spacing_top="2"
+			image="meters/meter_stereo.png"
+			>
+			<needle
+				width="3"
+				height="12"
+				image="meters/meter_stereo_needle.png"
+			/>
+		</meter_stereo>
+
+		<label_over
+			x="48"
+			y="14"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_over_on.png"
+			image_off="labels/label_over_off.png"
+		/>
+
+		<label_peak
+			x="48"
+			y="33"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_peak_on.png"
+			image_off="labels/label_peak_off.png"
+		/>
+	</stereo_itu>
+
+	<stereo_itu_k20>
+		<background
+			width="200"
+			height="650"
+			image_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/itu/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_stereo_peaks.png"
+		/>
+
+		<meter_graduation
+			x="13"
+			y="53"
+			width="102"
+			height="532"
+			image_no_peaks="backgrounds/itu/graduation_k20.png"
+			image_peaks="backgrounds/itu/graduation_k20.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_k20_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_k20_expanded.png"
+		/>
+
+		<meter_kmeter
+			x="52"
+			y="58"
+			width="24"
+			height="537"
+			image="meters/meter_kmeter_itu_k20.png"
+			image_expanded="meters/meter_kmeter_itu_k20_expanded.png"
+		/>
+	</stereo_itu_k20>
+
+	<stereo_itu_k14>
+		<background
+			width="200"
+			height="650"
+			image_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/itu/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_stereo_peaks.png"
+		/>
+
+		<meter_graduation
+			x="13"
+			y="53"
+			width="102"
+			height="532"
+			image_no_peaks="backgrounds/itu/graduation_k14.png"
+			image_peaks="backgrounds/itu/graduation_k14.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_k14_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_k14_expanded.png"
+		/>
+
+		<meter_kmeter
+			x="52"
+			y="58"
+			width="24"
+			height="537"
+			image="meters/meter_kmeter_itu_k14.png"
+			image_expanded="meters/meter_kmeter_itu_k14_expanded.png"
+		/>
+	</stereo_itu_k14>
+
+	<stereo_itu_k12>
+		<background
+			width="200"
+			height="650"
+			image_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/itu/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_stereo_peaks.png"
+		/>
+
+		<meter_graduation
+			x="13"
+			y="53"
+			width="102"
+			height="532"
+			image_no_peaks="backgrounds/itu/graduation_k12.png"
+			image_peaks="backgrounds/itu/graduation_k12.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_k12_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_k12_expanded.png"
+		/>
+
+		<meter_kmeter
+			x="52"
+			y="58"
+			width="24"
+			height="537"
+			image="meters/meter_kmeter_itu_k12.png"
+			image_expanded="meters/meter_kmeter_itu_k12_expanded.png"
+		/>
+	</stereo_itu_k12>
+
+	<stereo_itu_normal>
+		<background
+			width="200"
+			height="650"
+			image_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/itu/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_stereo_peaks.png"
+		/>
+
+		<meter_graduation
+			x="13"
+			y="53"
+			width="102"
+			height="532"
+			image_no_peaks="backgrounds/itu/graduation_normal.png"
+			image_peaks="backgrounds/itu/graduation_normal.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_normal_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_normal_expanded.png"
+		/>
+
+		<meter_kmeter
+			x="52"
+			y="58"
+			width="24"
+			height="537"
+			image="meters/meter_kmeter_itu_normal.png"
+			image_expanded="meters/meter_kmeter_itu_normal_expanded.png"
+		/>
+	</stereo_itu_normal>
+
+	<stereo_rms>
+		<meter_phase_correlation
+			x="10"
+			y="626"
+			width="107"
+			height="16"
+			spacing_left="6"
+			spacing_top="2"
+			image="meters/meter_phase_correlation.png"
+			>
+			<needle
+				width="3"
+				height="12"
+				image="meters/meter_phase_correlation_needle.png"
+			/>
+		</meter_phase_correlation>
+
+		<meter_stereo
+			x="10"
+			y="607"
+			width="107"
+			height="16"
+			spacing_left="6"
+			spacing_top="2"
+			image="meters/meter_stereo.png"
+			>
+			<needle
+				width="3"
+				height="12"
+				image="meters/meter_stereo_needle.png"
+			/>
+		</meter_stereo>
+
+		<label_over_left
+			x="15"
+			y="14"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_over_on.png"
+			image_off="labels/label_over_off.png"
+		/>
+
+		<label_over_right
+			x="80"
+			y="14"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_over_on.png"
+			image_off="labels/label_over_off.png"
+		/>
+
+		<label_peak_left
+			x="15"
+			y="33"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_peak_on.png"
+			image_off="labels/label_peak_off.png"
+		/>
+
+		<label_peak_right
+			x="80"
+			y="33"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_peak_on.png"
+			image_off="labels/label_peak_off.png"
+		/>
+	</stereo_rms>
+
+	<stereo_rms_k20>
+		<background
+			width="200"
+			height="650"
+			image_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/rms/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_stereo_peaks.png"
+		/>
+
+		<meter_graduation
+			x="41"
+			y="53"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_k20.png"
+			image_peaks="backgrounds/rms/graduation_k20.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k20_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k20_expanded.png"
+		/>
+
+		<meter_kmeter_left
+			x="19"
+			y="58"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
+		/>
+
+		<meter_kmeter_right
+			x="89"
+			y="58"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
+		/>
+	</stereo_rms_k20>
+
+	<stereo_rms_k14>
+		<background
+			width="200"
+			height="650"
+			image_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/rms/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_stereo_peaks.png"
+		/>
+
+		<meter_graduation
+			x="41"
+			y="53"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_k14.png"
+			image_peaks="backgrounds/rms/graduation_k14.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k14_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k14_expanded.png"
+		/>
+
+		<meter_kmeter_left
+			x="19"
+			y="58"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
+		/>
+
+		<meter_kmeter_right
+			x="89"
+			y="58"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
+		/>
+	</stereo_rms_k14>
+
+	<stereo_rms_k12>
+		<background
+			width="200"
+			height="650"
+			image_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/rms/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_stereo_peaks.png"
+		/>
+
+		<meter_graduation
+			x="41"
+			y="53"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_k12.png"
+			image_peaks="backgrounds/rms/graduation_k12.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k12_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k12_expanded.png"
+		/>
+
+		<meter_kmeter_left
+			x="19"
+			y="58"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
+		/>
+
+		<meter_kmeter_right
+			x="89"
+			y="58"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
+		/>
+	</stereo_rms_k12>
+
+	<stereo_rms_normal>
+		<background
+			width="200"
+			height="650"
+			image_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_peaks="backgrounds/rms/background_stereo_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_stereo_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_stereo_peaks.png"
+		/>
+
+		<meter_graduation
+			x="41"
+			y="53"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_normal.png"
+			image_peaks="backgrounds/rms/graduation_normal.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_normal_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_normal_expanded.png"
+		/>
+
+		<meter_kmeter_left
+			x="19"
+			y="58"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
+		/>
+
+		<meter_kmeter_right
+			x="89"
+			y="58"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
+		/>
+	</stereo_rms_normal>
+
+	<surround_itu>
+		<button_validate
+			x="130"
+			y="576"
+			width="60"
+			height="20"
+			image_on="buttons/button_validate_on.png"
+			image_off="buttons/button_validate_off.png"
+		/>
+
+		<button_about
+			x="130"
+			y="601"
+			width="60"
+			height="20"
+			image_on="buttons/button_about_on.png"
+			image_off="buttons/button_about_off.png"
+		/>
+
+		<label_debug
+			x="140"
+			y="551"
+			width="40"
+			height="10"
+			image="labels/label_debug.png"
+		/>
+
+		<label_over
+			x="48"
+			y="36"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_over_on.png"
+			image_off="labels/label_over_off.png"
+		/>
+
+		<label_peak
+			x="48"
+			y="55"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_peak_on.png"
+			image_off="labels/label_peak_off.png"
+		/>
+	</surround_itu>
+
+	<surround_itu_k20>
+		<background
+			width="200"
+			height="632"
+			image_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_peaks="backgrounds/itu/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_surround_peaks.png"
+		/>
+
+		<meter_graduation
+			x="13"
+			y="75"
+			width="102"
+			height="532"
+			image_no_peaks="backgrounds/itu/graduation_k20.png"
+			image_peaks="backgrounds/itu/graduation_k20.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_k20_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_k20_expanded.png"
+		/>
+
+		<meter_kmeter
+			x="52"
+			y="80"
+			width="24"
+			height="537"
+			image="meters/meter_kmeter_itu_k20.png"
+			image_expanded="meters/meter_kmeter_itu_k20_expanded.png"
+		/>
+	</surround_itu_k20>
+
+	<surround_itu_k14>
+		<background
+			width="200"
+			height="632"
+			image_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_peaks="backgrounds/itu/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_surround_peaks.png"
+		/>
+
+		<meter_graduation
+			x="13"
+			y="75"
+			width="102"
+			height="532"
+			image_no_peaks="backgrounds/itu/graduation_k14.png"
+			image_peaks="backgrounds/itu/graduation_k14.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_k14_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_k14_expanded.png"
+		/>
+
+		<meter_kmeter
+			x="52"
+			y="80"
+			width="24"
+			height="537"
+			image="meters/meter_kmeter_itu_k14.png"
+			image_expanded="meters/meter_kmeter_itu_k14_expanded.png"
+		/>
+	</surround_itu_k14>
+
+	<surround_itu_k12>
+		<background
+			width="200"
+			height="632"
+			image_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_peaks="backgrounds/itu/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_surround_peaks.png"
+		/>
+
+		<meter_graduation
+			x="13"
+			y="75"
+			width="102"
+			height="532"
+			image_no_peaks="backgrounds/itu/graduation_k12.png"
+			image_peaks="backgrounds/itu/graduation_k12.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_k12_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_k12_expanded.png"
+		/>
+
+		<meter_kmeter
+			x="52"
+			y="80"
+			width="24"
+			height="537"
+			image="meters/meter_kmeter_itu_k12.png"
+			image_expanded="meters/meter_kmeter_itu_k12_expanded.png"
+		/>
+	</surround_itu_k12>
+
+	<surround_itu_normal>
+		<background
+			width="200"
+			height="632"
+			image_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_peaks="backgrounds/itu/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/itu/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/itu/background_surround_peaks.png"
+		/>
+
+		<meter_graduation
+			x="13"
+			y="75"
+			width="102"
+			height="532"
+			image_no_peaks="backgrounds/itu/graduation_normal.png"
+			image_peaks="backgrounds/itu/graduation_normal.png"
+			image_expanded_no_peaks="backgrounds/itu/graduation_normal_expanded.png"
+			image_expanded_peaks="backgrounds/itu/graduation_normal_expanded.png"
+		/>
+
+		<meter_kmeter
+			x="52"
+			y="80"
+			width="24"
+			height="537"
+			image="meters/meter_kmeter_itu_normal.png"
+			image_expanded="meters/meter_kmeter_itu_normal_expanded.png"
+		/>
+	</surround_itu_normal>
+
+	<surround_rms>
+		<button_k20
+			x="354"
+			y="10"
+			width="60"
+			height="20"
+			image_on="buttons/button_k20_on.png"
+			image_off="buttons/button_k20_off.png"
+		/>
+
+		<button_k14
+			x="354"
+			y="35"
+			width="60"
+			height="20"
+			image_on="buttons/button_k14_on.png"
+			image_off="buttons/button_k14_off.png"
+		/>
+
+		<button_k12
+			x="354"
+			y="60"
+			width="60"
+			height="20"
+			image_on="buttons/button_k12_on.png"
+			image_off="buttons/button_k12_off.png"
+		/>
+
+		<button_normal
+			x="354"
+			y="85"
+			width="60"
+			height="20"
+			image_on="buttons/button_normal_on.png"
+			image_off="buttons/button_normal_off.png"
+		/>
+
+		<button_itu
+			x="354"
+			y="125"
+			width="60"
+			height="20"
+			image_on="buttons/button_itu_on.png"
+			image_off="buttons/button_itu_off.png"
+		/>
+
+		<button_rms
+			x="354"
+			y="150"
+			width="60"
+			height="20"
+			image_on="buttons/button_rms_on.png"
+			image_off="buttons/button_rms_off.png"
+		/>
+
+		<button_hold
+			x="354"
+			y="190"
+			width="60"
+			height="20"
+			image_on="buttons/button_hold_on.png"
+			image_off="buttons/button_hold_off.png"
+		/>
+
+		<button_peaks
+			x="354"
+			y="215"
+			width="60"
+			height="20"
+			image_on="buttons/button_peaks_on.png"
+			image_off="buttons/button_peaks_off.png"
+		/>
+
+		<button_expand
+			x="354"
+			y="240"
+			width="60"
+			height="20"
+			image_on="buttons/button_expand_on.png"
+			image_off="buttons/button_expand_off.png"
+		/>
+
+		<button_skin
+			x="354"
+			y="265"
+			width="60"
+			height="20"
+			image_on="buttons/button_skin_on.png"
+			image_off="buttons/button_skin_off.png"
+		/>
+
+		<button_mono
+			x="354"
+			y="305"
+			width="60"
+			height="20"
+			image_on="buttons/button_mono_on.png"
+			image_off="buttons/button_mono_off.png"
+		/>
+
+		<button_reset
+			x="354"
+			y="330"
+			width="60"
+			height="20"
+			image_on="buttons/button_reset_on.png"
+			image_off="buttons/button_reset_off.png"
+		/>
+
+		<button_validate
+			x="354"
+			y="576"
+			width="60"
+			height="20"
+			image_on="buttons/button_validate_on.png"
+			image_off="buttons/button_validate_off.png"
+		/>
+
+		<button_about
+			x="354"
+			y="601"
+			width="60"
+			height="20"
+			image_on="buttons/button_about_on.png"
+			image_off="buttons/button_about_off.png"
+		/>
+
+		<label_debug
+			x="364"
+			y="551"
+			width="40"
+			height="10"
+			image="labels/label_debug.png"
+		/>
+
+		<label_over_left
+			x="13"
+			y="36"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_over_on.png"
+			image_off="labels/label_over_off.png"
+		/>
+
+		<label_over_right
+			x="78"
+			y="36"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_over_on.png"
+			image_off="labels/label_over_off.png"
+		/>
+
+		<label_over_center
+			x="126"
+			y="36"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_over_on.png"
+			image_off="labels/label_over_off.png"
+		/>
+
+		<label_over_lfe
+			x="191"
+			y="36"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_over_on.png"
+			image_off="labels/label_over_off.png"
+		/>
+
+		<label_over_ls
+			x="239"
+			y="36"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_over_on.png"
+			image_off="labels/label_over_off.png"
+		/>
+
+		<label_over_rs
+			x="304"
+			y="36"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_over_on.png"
+			image_off="labels/label_over_off.png"
+		/>
+
+		<label_peak_left
+			x="13"
+			y="55"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_peak_on.png"
+			image_off="labels/label_peak_off.png"
+		/>
+
+		<label_peak_right
+			x="78"
+			y="55"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_peak_on.png"
+			image_off="labels/label_peak_off.png"
+		/>
+
+		<label_peak_center
+			x="126"
+			y="55"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_peak_on.png"
+			image_off="labels/label_peak_off.png"
+		/>
+
+		<label_peak_lfe
+			x="191"
+			y="55"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_peak_on.png"
+			image_off="labels/label_peak_off.png"
+		/>
+
+		<label_peak_ls
+			x="239"
+			y="55"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_peak_on.png"
+			image_off="labels/label_peak_off.png"
+		/>
+
+		<label_peak_rs
+			x="304"
+			y="55"
+			width="32"
+			height="17"
+			spacing_left="4"
+			spacing_top="3"
+			font_size="11"
+			image_on="labels/label_peak_on.png"
+			image_off="labels/label_peak_off.png"
+		/>
+	</surround_rms>
+
+	<surround_rms_k20>
+		<background
+			width="424"
+			height="632"
+			image_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_peaks="backgrounds/rms/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_surround_peaks.png"
+		/>
+
+		<meter_graduation
+			x="39"
+			y="75"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_k20.png"
+			image_peaks="backgrounds/rms/graduation_k20.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k20_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k20_expanded.png"
+		/>
+
+		<meter_graduation
+			x="152"
+			y="75"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_k20.png"
+			image_peaks="backgrounds/rms/graduation_k20.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k20_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k20_expanded.png"
+		/>
+
+		<meter_graduation
+			x="265"
+			y="75"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_k20.png"
+			image_peaks="backgrounds/rms/graduation_k20.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k20_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k20_expanded.png"
+		/>
+
+		<meter_kmeter_left
+			x="17"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
+		/>
+
+		<meter_kmeter_right
+			x="87"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
+		/>
+
+		<meter_kmeter_center
+			x="130"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
+		/>
+
+		<meter_kmeter_lfe
+			x="200"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
+		/>
+
+		<meter_kmeter_ls
+			x="243"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
+		/>
+
+		<meter_kmeter_rs
+			x="313"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k20.png"
+			image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
+		/>
+	</surround_rms_k20>
+
+	<surround_rms_k14>
+		<background
+			width="424"
+			height="632"
+			image_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_peaks="backgrounds/rms/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_surround_peaks.png"
+		/>
+
+		<meter_graduation
+			x="39"
+			y="75"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_k14.png"
+			image_peaks="backgrounds/rms/graduation_k14.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k14_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k14_expanded.png"
+		/>
+
+		<meter_graduation
+			x="152"
+			y="75"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_k14.png"
+			image_peaks="backgrounds/rms/graduation_k14.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k14_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k14_expanded.png"
+		/>
+
+		<meter_graduation
+			x="265"
+			y="75"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_k14.png"
+			image_peaks="backgrounds/rms/graduation_k14.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k14_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k14_expanded.png"
+		/>
+
+		<meter_kmeter_left
+			x="17"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
+		/>
+
+		<meter_kmeter_right
+			x="87"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
+		/>
+
+		<meter_kmeter_center
+			x="130"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
+		/>
+
+		<meter_kmeter_lfe
+			x="200"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
+		/>
+
+		<meter_kmeter_ls
+			x="243"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
+		/>
+
+		<meter_kmeter_rs
+			x="313"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k14.png"
+			image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
+		/>
+	</surround_rms_k14>
+
+	<surround_rms_k12>
+		<background
+			width="424"
+			height="632"
+			image_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_peaks="backgrounds/rms/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_surround_peaks.png"
+		/>
+
+		<meter_graduation
+			x="39"
+			y="75"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_k12.png"
+			image_peaks="backgrounds/rms/graduation_k12.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k12_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k12_expanded.png"
+		/>
+
+		<meter_graduation
+			x="152"
+			y="75"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_k12.png"
+			image_peaks="backgrounds/rms/graduation_k12.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k12_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k12_expanded.png"
+		/>
+
+		<meter_graduation
+			x="265"
+			y="75"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_k12.png"
+			image_peaks="backgrounds/rms/graduation_k12.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_k12_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_k12_expanded.png"
+		/>
+
+		<meter_kmeter_left
+			x="17"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
+		/>
+
+		<meter_kmeter_right
+			x="87"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
+		/>
+
+		<meter_kmeter_center
+			x="130"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
+		/>
+
+		<meter_kmeter_lfe
+			x="200"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
+		/>
+
+		<meter_kmeter_ls
+			x="243"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
+		/>
+
+		<meter_kmeter_rs
+			x="313"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_k12.png"
+			image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
+		/>
+	</surround_rms_k12>
+
+	<surround_rms_normal>
+		<background
+			width="424"
+			height="632"
+			image_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_peaks="backgrounds/rms/background_surround_peaks.png"
+			image_expanded_no_peaks="backgrounds/rms/background_surround_no_peaks.png"
+			image_expanded_peaks="backgrounds/rms/background_surround_peaks.png"
+		/>
+
+		<meter_graduation
+			x="39"
+			y="75"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_normal.png"
+			image_peaks="backgrounds/rms/graduation_normal.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_normal_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_normal_expanded.png"
+		/>
+
+		<meter_graduation
+			x="152"
+			y="75"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_normal.png"
+			image_peaks="backgrounds/rms/graduation_normal.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_normal_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_normal_expanded.png"
+		/>
+
+		<meter_graduation
+			x="265"
+			y="75"
+			width="46"
+			height="532"
+			image_no_peaks="backgrounds/rms/graduation_normal.png"
+			image_peaks="backgrounds/rms/graduation_normal.png"
+			image_expanded_no_peaks="backgrounds/rms/graduation_normal_expanded.png"
+			image_expanded_peaks="backgrounds/rms/graduation_normal_expanded.png"
+		/>
+
+		<meter_kmeter_left
+			x="17"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
+		/>
+
+		<meter_kmeter_right
+			x="87"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
+		/>
+
+		<meter_kmeter_center
+			x="130"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
+		/>
+
+		<meter_kmeter_lfe
+			x="200"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
+		/>
+
+		<meter_kmeter_ls
+			x="243"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
+		/>
+
+		<meter_kmeter_rs
+			x="313"
+			y="80"
+			width="20"
+			height="537"
+			image="meters/meter_kmeter_rms_normal.png"
+			image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
+		/>
+	</surround_rms_normal>
+</kmeter-skin>

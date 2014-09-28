@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -28,26 +28,23 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "resources/resources.h"
-#include "prohibiting_bounds_constrainer.h"
 
 
-class WindowAbout : public ResizableWindow, ButtonListener
+class WindowAbout : public DocumentWindow, ButtonListener
 {
 public:
-    WindowAbout(int nWidth, int nHeight);
+    WindowAbout(Component* pEditorWindow);
     ~WindowAbout();
 
-    void paint(Graphics& g);
     void buttonClicked(Button* button);
 
 private:
     JUCE_LEAK_DETECTOR(WindowAbout);
 
     Component* contentComponent;
-    ProhibitingBoundsConstrainer* pConstrainer;
 
     TextEditor* TextEditorAbout;
-    TextButton* ButtonAbout;
+    TextButton* ButtonClose;
     ImageButton* ButtonGpl;
 
     Image* ImageButtonGplNormal;

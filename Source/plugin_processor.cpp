@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -72,11 +72,17 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
     // allocated memory is freed
     releaseResources();
 
-    delete pPluginParameters;
-    pPluginParameters = nullptr;
+    if (pPluginParameters != nullptr)
+    {
+        delete pPluginParameters;
+        pPluginParameters = nullptr;
+    }
 
-    delete audioFilePlayer;
-    audioFilePlayer = nullptr;
+    if (audioFilePlayer != nullptr)
+    {
+        delete audioFilePlayer;
+        audioFilePlayer = nullptr;
+    }
 }
 
 
@@ -180,6 +186,28 @@ void KmeterAudioProcessor::setParameterValidationFile(File& fileValidation)
     // block in any way!
 
     pPluginParameters->setValidationFile(fileValidation);
+}
+
+
+String KmeterAudioProcessor::getParameterSkinName()
+{
+    // This method will be called by the host, probably on the audio
+    // thread, so it's absolutely time-critical. Don't use critical
+    // sections or anything GUI-related, or anything at all that may
+    // block in any way!
+
+    return pPluginParameters->getSkinName();
+}
+
+
+void KmeterAudioProcessor::setParameterSkinName(String& strSkinName)
+{
+    // This method will be called by the host, probably on the audio
+    // thread, so it's absolutely time-critical. Don't use critical
+    // sections or anything GUI-related, or anything at all that may
+    // block in any way!
+
+    pPluginParameters->setSkinName(strSkinName);
 }
 
 
@@ -419,32 +447,59 @@ void KmeterAudioProcessor::releaseResources()
         return;
     }
 
-    delete pAverageLevelFiltered;
-    pAverageLevelFiltered = nullptr;
+    if (pAverageLevelFiltered != nullptr)
+    {
+        delete pAverageLevelFiltered;
+        pAverageLevelFiltered = nullptr;
+    }
 
-    delete pMeterBallistics;
-    pMeterBallistics = nullptr;
+    if (pMeterBallistics != nullptr)
+    {
+        delete pMeterBallistics;
+        pMeterBallistics = nullptr;
+    }
 
-    delete pRingBufferOutput;
-    pRingBufferOutput = nullptr;
+    if (pRingBufferOutput != nullptr)
+    {
+        delete pRingBufferOutput;
+        pRingBufferOutput = nullptr;
+    }
 
-    delete pRingBufferInput;
-    pRingBufferInput = nullptr;
+    if (pRingBufferInput != nullptr)
+    {
+        delete pRingBufferInput;
+        pRingBufferInput = nullptr;
+    }
 
-    delete [] fPeakLevels;
-    fPeakLevels = nullptr;
+    if (fPeakLevels != nullptr)
+    {
+        delete [] fPeakLevels;
+        fPeakLevels = nullptr;
+    }
 
-    delete [] fRmsLevels;
-    fRmsLevels = nullptr;
+    if (fRmsLevels != nullptr)
+    {
+        delete [] fRmsLevels;
+        fRmsLevels = nullptr;
+    }
 
-    delete [] fAverageLevelsFiltered;
-    fAverageLevelsFiltered = nullptr;
+    if (fAverageLevelsFiltered != nullptr)
+    {
+        delete [] fAverageLevelsFiltered;
+        fAverageLevelsFiltered = nullptr;
+    }
 
-    delete [] nOverflows;
-    nOverflows = nullptr;
+    if (nOverflows != nullptr)
+    {
+        delete [] nOverflows;
+        nOverflows = nullptr;
+    }
 
-    delete audioFilePlayer;
-    audioFilePlayer = nullptr;
+    if (audioFilePlayer != nullptr)
+    {
+        delete audioFilePlayer;
+        audioFilePlayer = nullptr;
+    }
 }
 
 
@@ -662,8 +717,11 @@ void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel,
 
 void KmeterAudioProcessor::stopValidation()
 {
-    delete audioFilePlayer;
-    audioFilePlayer = nullptr;
+    if (audioFilePlayer != nullptr)
+    {
+        delete audioFilePlayer;
+        audioFilePlayer = nullptr;
+    }
 
     // refresh editor; "V-" --> validation stopped
     sendActionMessage("V-");
@@ -734,7 +792,14 @@ void KmeterAudioProcessor::setAverageAlgorithm(const int average_algorithm)
 {
     if (average_algorithm != nAverageAlgorithm)
     {
-        pAverageLevelFiltered->setAlgorithm(average_algorithm);
+        if (pAverageLevelFiltered != nullptr)
+        {
+            pAverageLevelFiltered->setAlgorithm(average_algorithm);
+        }
+        else
+        {
+            nAverageAlgorithm = average_algorithm;
+        }
     }
 }
 

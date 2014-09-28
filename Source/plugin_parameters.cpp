@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -38,10 +38,12 @@ KmeterPluginParameters::KmeterPluginParameters()
 
     nParam[selAverageAlgorithm] = selAlgorithmItuBs1770;
     nParam[selExpanded] = 0;
-    nParam[selOrientation] = selOrientationVertical;
     nParam[selPeak] = 0;
     nParam[selInfiniteHold] = 0;
     nParam[selMono] = 0;
+
+    nParam[selValidationFileName] = -1;
+    strValidationFile = String::empty;
 
     nParam[selValidationSelectedChannel] = -1;
     nParam[selValidationAverageMeterLevel] = 1;
@@ -52,7 +54,25 @@ KmeterPluginParameters::KmeterPluginParameters()
 
     nParam[selValidationCSVFormat] = 0;
 
-    strValidationFile = String::empty;
+    // the following may or may not work on Mac
+    File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
+    File fileSkinDirectory = fileApplicationDirectory.getChildFile("./kmeter-skins/");
+
+    // file defining the default skin's name
+    File fileDefaultSkin = fileSkinDirectory.getChildFile("default_skin.ini");
+
+    // create file if necessary
+    if (!fileDefaultSkin.existsAsFile())
+    {
+        fileDefaultSkin.create();
+
+        // set "Default" as default skin
+        fileDefaultSkin.replaceWithText("Default", true, true);
+    }
+
+    // load name of default skin
+    nParam[selSkinName] = -1;
+    strSkinName = fileDefaultSkin.loadFileAsString();
 
     bParamChanged = new bool[nNumParameters];
 
@@ -180,6 +200,18 @@ void KmeterPluginParameters::setValidationFile(File& fileValidation)
 }
 
 
+String KmeterPluginParameters::getSkinName()
+{
+    return strSkinName;
+}
+
+
+void KmeterPluginParameters::setSkinName(String& strSkinNameNew)
+{
+    strSkinName = strSkinNameNew;
+}
+
+
 void KmeterPluginParameters::MarkParameter(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -218,10 +250,6 @@ const String KmeterPluginParameters::getParameterName(int nIndex)
 
     case selExpanded:
         return "Expand Meter";
-        break;
-
-    case selOrientation:
-        return "Orientation";
         break;
 
     case selPeak:
@@ -268,6 +296,10 @@ const String KmeterPluginParameters::getParameterName(int nIndex)
         return "Validation: CSV output format";
         break;
 
+    case selSkinName:
+        return "Skin";
+        break;
+
     default:
         return "invalid";
         break;
@@ -309,17 +341,6 @@ const String KmeterPluginParameters::getParameterText(int nIndex)
             return "RMS";
         }
     }
-    else if (nIndex == selOrientation)
-    {
-        if (nParam[nIndex] == selOrientationHorizontal)
-        {
-            return "Horizontal";
-        }
-        else
-        {
-            return "Vertical";
-        }
-    }
     else if (nIndex == selValidationFileName)
     {
         File fileValidation = File(strValidationFile);
@@ -343,6 +364,10 @@ const String KmeterPluginParameters::getParameterText(int nIndex)
         {
             return String(nParam[nIndex]);
         }
+    }
+    else if (nIndex == selSkinName)
+    {
+        return strSkinName;
     }
     else
     {
@@ -375,10 +400,6 @@ float KmeterPluginParameters::translateParameterToFloat(int nIndex, int nValue)
         }
     }
     else if (nIndex == selAverageAlgorithm)
-    {
-        return (float) nValue;
-    }
-    else if (nIndex == selOrientation)
     {
         return (float) nValue;
     }
@@ -426,11 +447,6 @@ int KmeterPluginParameters::translateParameterToInt(int nIndex, float fValue)
         int nRoundedValue = int(fValue + 0.5f);
         return nRoundedValue;
     }
-    else if (nIndex == selOrientation)
-    {
-        int nRoundedValue = int(fValue + 0.5f);
-        return nRoundedValue;
-    }
     else if (nIndex == selValidationSelectedChannel)
     {
         // 0.00f: dump all channels
@@ -467,7 +483,6 @@ XmlElement KmeterPluginParameters::storeAsXml()
 
     xml.setAttribute("AverageAlgorithm", getParameterAsInt(selAverageAlgorithm));
     xml.setAttribute("Expanded", getParameterAsInt(selExpanded));
-    xml.setAttribute("Orientation", getParameterAsInt(selOrientation));
     xml.setAttribute("Peak", getParameterAsInt(selPeak));
     xml.setAttribute("Hold", getParameterAsInt(selInfiniteHold));
     xml.setAttribute("Mono", getParameterAsInt(selMono));
@@ -480,6 +495,7 @@ XmlElement KmeterPluginParameters::storeAsXml()
     xml.setAttribute("ValidationStereoMeterValue", getParameterAsInt(selValidationStereoMeterValue));
     xml.setAttribute("ValidationPhaseCorrelation", getParameterAsInt(selValidationPhaseCorrelation));
     xml.setAttribute("ValidationCSVFormat", getParameterAsInt(selValidationCSVFormat));
+    xml.setAttribute("Skin", strSkinName);
 
     return xml;
 }
@@ -513,7 +529,6 @@ void KmeterPluginParameters::loadFromXml(XmlElement* xml)
 
         setParameterFromInt(selAverageAlgorithm, xml->getIntAttribute("AverageAlgorithm", getParameterAsInt(selAverageAlgorithm)));
         setParameterFromInt(selExpanded, xml->getIntAttribute("Expanded", getParameterAsInt(selExpanded)));
-        setParameterFromInt(selOrientation, xml->getIntAttribute("Orientation", getParameterAsInt(selOrientation)));
         setParameterFromInt(selPeak, xml->getIntAttribute("Peak", getParameterAsInt(selPeak)));
         setParameterFromInt(selInfiniteHold, xml->getIntAttribute("Hold", getParameterAsInt(selInfiniteHold)));
         setParameterFromInt(selMono, xml->getIntAttribute("Mono", getParameterAsInt(selMono)));
@@ -528,6 +543,8 @@ void KmeterPluginParameters::loadFromXml(XmlElement* xml)
         setParameterFromInt(selValidationStereoMeterValue, xml->getIntAttribute("ValidationStereoMeterValue", getParameterAsInt(selValidationStereoMeterValue)));
         setParameterFromInt(selValidationPhaseCorrelation, xml->getIntAttribute("ValidationPhaseCorrelation", getParameterAsInt(selValidationPhaseCorrelation)));
         setParameterFromInt(selValidationCSVFormat, xml->getIntAttribute("ValidationCSVFormat", getParameterAsInt(selValidationCSVFormat)));
+
+        strSkinName = xml->getStringAttribute("Skin", strSkinName);
     }
 }
 

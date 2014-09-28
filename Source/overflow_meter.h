@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -27,12 +27,14 @@
 #define __OVERFLOW_METER_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "state_label.h"
+
 
 
 //==============================================================================
 /**
 */
-class OverflowMeter : public Label
+class OverflowMeter : public StateLabel
 {
 public:
     OverflowMeter(const String& componentName);

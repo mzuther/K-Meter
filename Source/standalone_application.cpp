@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -29,9 +29,11 @@ StandaloneApplication::StandaloneApplication()
 {
 }
 
+
 StandaloneApplication::~StandaloneApplication()
 {
 }
+
 
 void StandaloneApplication::initialise(const String& commandLineParameters)
 {
@@ -48,22 +50,26 @@ void StandaloneApplication::initialise(const String& commandLineParameters)
     PropertiesFile* pPropertiesFile = new PropertiesFile(options);
     String strApplicationName = getApplicationName();
 
-    filterWindow = new StandaloneFilterWindow(strApplicationName, Colours::black, pPropertiesFile);
+    filterWindow = new StandaloneFilterWindow(strApplicationName, Colours::black, pPropertiesFile, true);
 
     filterWindow->setTitleBarButtonsRequired(DocumentWindow::allButtons, false);
     filterWindow->setVisible(true);
     filterWindow->setResizable(false, true);
 }
 
+
 void StandaloneApplication::shutdown()
 {
+    filterWindow->pluginHolder->savePluginState();
     deleteAndZero(filterWindow);
 }
+
 
 const String StandaloneApplication::getApplicationName()
 {
     return JucePlugin_Name;
 }
+
 
 const String StandaloneApplication::getApplicationVersion()
 {

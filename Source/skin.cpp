@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -26,218 +26,467 @@
 #include "skin.h"
 
 
-Skin::Skin(int number_of_channels, int crest_factor, int average_algorithm, bool horizontal_layout)
+Skin::Skin(File& fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter)
 {
-    updateSkin(number_of_channels, crest_factor, average_algorithm, horizontal_layout);
+    fileResourcePath = nullptr;
+    xml = nullptr;
+
+    updateSkin(nNumChannels, nCrestFactor, nAverageAlgorithm, bExpanded, bDisplayPeakMeter);
+    loadFromXml(fileSkin);
 }
 
 
 Skin::~Skin()
 {
+    if (fileResourcePath != nullptr)
+    {
+        delete fileResourcePath;
+        fileResourcePath = nullptr;
+    }
+
+    if (xml != nullptr)
+    {
+        delete xml;
+        xml = nullptr;
+    }
 }
 
 
-void Skin::updateSkin(int number_of_channels, int crest_factor, int average_algorithm, bool horizontal_layout)
+bool Skin::loadFromXml(File& fileSkin)
 {
-    jassert(number_of_channels > 0);
+    DBG(String("[Skin] loading file \"") + fileSkin.getFileName() + "\"");
 
-    nNumberOfChannels = number_of_channels;
-    nStereoInputChannels = (nNumberOfChannels + 1) / 2;
-    nCrestFactor = crest_factor;
-    nAverageAlgorithm = average_algorithm;
-    bHorizontalLayout = horizontal_layout;
-
-    if (bHorizontalLayout)
+    if (fileResourcePath != nullptr)
     {
-        if (nNumberOfChannels <= 2)
-        {
-            nWidth = 680;
-            nButtonColumnTop = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 24;
-        }
-        else
-        {
-            nWidth = 662;
+        delete fileResourcePath;
+        fileResourcePath = nullptr;
+    }
 
-            if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
-            {
-                nButtonColumnTop = Kmeter::KMETER_STEREO_WIDTH + 24;
-            }
-            else
-            {
-                nButtonColumnTop = nStereoInputChannels * (Kmeter::KMETER_STEREO_WIDTH + 6) + 18;
-            }
-        }
+    if (xml != nullptr)
+    {
+        delete xml;
+        xml = nullptr;
+    }
 
-        nButtonColumnLeft = 10;
-        nHeight = nButtonColumnTop + 56;
+    xml = XmlDocument::parse(fileSkin);
+
+    xmlSkinGroup = nullptr;
+    xmlSkinFallback_1 = nullptr;
+    xmlSkinFallback_2 = nullptr;
+
+    if (xml == nullptr)
+    {
+        Logger::outputDebugString(String("[Skin] file \"") + fileSkin.getFullPathName() + "\" not found");
+        return false;
+    }
+    else if ((!xml->hasTagName("kmeter-skin")) || (xml->getChildByName("default") == nullptr))
+    {
+        Logger::outputDebugString("[Skin] XML file not valid");
+
+        delete xml;
+        xml = nullptr;
+
+        return false;
     }
     else
     {
-        if (nNumberOfChannels <= 2)
-        {
-            nHeight = 648;
-            nButtonColumnLeft = nStereoInputChannels * Kmeter::KMETER_STEREO_WIDTH + 24;
-        }
-        else
-        {
-            nHeight = 630;
+        xmlSkinGroup = xml->getChildByName(strSkinGroup);
+        xmlSkinFallback_1 = xml->getChildByName(strSkinFallback_1);
+        xmlSkinFallback_2 = xml->getChildByName("default");
 
-            if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
-            {
-                nButtonColumnLeft = Kmeter::KMETER_STEREO_WIDTH + 24;
-            }
-            else
-            {
-                nButtonColumnLeft = nStereoInputChannels * (Kmeter::KMETER_STEREO_WIDTH + 6) + 18;
-            }
+        String strResourcePath = xml->getStringAttribute("path");
+        fileResourcePath = new File(fileSkin.getSiblingFile(strResourcePath));
+
+        if (!fileResourcePath->isDirectory())
+        {
+            Logger::outputDebugString(String("[Skin] directory \"") + fileResourcePath->getFullPathName() + "\" not found");
+
+            delete fileResourcePath;
+            fileResourcePath = nullptr;
+
+            delete xml;
+            xml = nullptr;
+
+            return false;
         }
 
-        nButtonColumnTop = 10;
-        nWidth = nButtonColumnLeft + 70;
+        return true;
     }
 }
 
 
-void Skin::placeButton(int nButtonID, Component* pButton)
+void Skin::updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter)
 {
-    jassert(pButton != nullptr);
+    jassert(nNumChannels > 0);
+    nNumberOfChannels = nNumChannels;
 
-    if (bHorizontalLayout)
+    if (bExpanded)
     {
-        switch (nButtonID)
-        {
-        case ButtonK20:
-            setBoundsButtonColumn(pButton, 0, 0, 60, 20);
-            break;
-
-        case ButtonK14:
-            setBoundsButtonColumn(pButton, 66, 0, 60, 20);
-            break;
-
-        case ButtonK12:
-            setBoundsButtonColumn(pButton, 132, 0, 60, 20);
-            break;
-
-        case ButtonNormal:
-            setBoundsButtonColumn(pButton, 198, 0, 60, 20);
-            break;
-
-        case ButtonItuBs1770:
-            setBoundsButtonColumn(pButton, 0, 25, 60, 20);
-            break;
-
-        case ButtonRms:
-            setBoundsButtonColumn(pButton, 66, 25, 60, 20);
-            break;
-
-        case ButtonInfiniteHold:
-            setBoundsButtonColumn(pButton, 300, 0, 60, 20);
-            break;
-
-        case ButtonDisplayPeakMeter:
-            setBoundsButtonColumn(pButton, 366, 0, 60, 20);
-            break;
-
-        case ButtonExpanded:
-            setBoundsButtonColumn(pButton, 432, 0, 60, 20);
-            break;
-
-        case ButtonMono:
-            setBoundsButtonColumn(pButton, 300, 25, 60, 20);
-            break;
-
-        case ButtonReset:
-            setBoundsButtonColumn(pButton, 366, 25, 60, 20);
-            break;
-
-        case ButtonHorizontal:
-            setBoundsButtonColumn(pButton, 432, 25, 60, 20);
-            break;
-
-        case ButtonValidation:
-            setBoundsButtonColumn(pButton, nWidth - 80, 0, 60, 20);
-            break;
-
-        case ButtonAbout:
-            setBoundsButtonColumn(pButton, nWidth - 80, 25, 60, 20);
-            break;
-
-        case LabelDebug:
-            setBoundsButtonColumn(pButton, 198, 25, 60, 16);
-            break;
-        }
+        strBackgroundSelector = "image_expanded";
     }
     else
     {
-        switch (nButtonID)
-        {
-        case ButtonK20:
-            setBoundsButtonColumn(pButton, 0, 0, 60, 20);
-            break;
+        strBackgroundSelector = "image";
+    }
 
-        case ButtonK14:
-            setBoundsButtonColumn(pButton, 0, 25, 60, 20);
-            break;
+    if (bDisplayPeakMeter)
+    {
+        strBackgroundSelector += "_peaks";
+    }
+    else
+    {
+        strBackgroundSelector += "_no_peaks";
+    }
 
-        case ButtonK12:
-            setBoundsButtonColumn(pButton, 0, 50, 60, 20);
-            break;
+    if (nNumberOfChannels <= 2)
+    {
+        strSkinFallback_1 = "stereo";
+    }
+    else
+    {
+        strSkinFallback_1 = "surround";
+    }
 
-        case ButtonNormal:
-            setBoundsButtonColumn(pButton, 0, 75, 60, 20);
-            break;
+    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        strSkinFallback_1 += "_itu";
+    }
+    else
+    {
+        strSkinFallback_1 += "_rms";
+    }
 
-        case ButtonItuBs1770:
-            setBoundsButtonColumn(pButton, 0, 115, 60, 20);
-            break;
+    switch (nCrestFactor)
+    {
+    case 20:
+        strSkinGroup = strSkinFallback_1 + "_k20";
+        break;
 
-        case ButtonRms:
-            setBoundsButtonColumn(pButton, 0, 140, 60, 20);
-            break;
+    case 14:
+        strSkinGroup = strSkinFallback_1 + "_k14";
+        break;
 
-        case ButtonInfiniteHold:
-            setBoundsButtonColumn(pButton, 0, 180, 60, 20);
-            break;
+    case 12:
+        strSkinGroup = strSkinFallback_1 + "_k12";
+        break;
 
-        case ButtonDisplayPeakMeter:
-            setBoundsButtonColumn(pButton, 0, 205, 60, 20);
-            break;
+    default:
+        strSkinGroup = strSkinFallback_1 + "_normal";
+        break;
+    }
 
-        case ButtonExpanded:
-            setBoundsButtonColumn(pButton, 0, 230, 60, 20);
-            break;
-
-        case ButtonHorizontal:
-            setBoundsButtonColumn(pButton, 0, 255, 60, 20);
-            break;
-
-        case ButtonMono:
-            setBoundsButtonColumn(pButton, 0, 295, 60, 20);
-            break;
-
-        case ButtonReset:
-            setBoundsButtonColumn(pButton, 0, 320, 60, 20);
-            break;
-
-        case ButtonValidation:
-            setBoundsButtonColumn(pButton, 0, nHeight - 66, 60, 20);
-            break;
-
-        case ButtonAbout:
-            setBoundsButtonColumn(pButton, 0, nHeight - 41, 60, 20);
-            break;
-
-        case LabelDebug:
-            setBoundsButtonColumn(pButton, 0, nHeight - 102, 60, 16);
-            break;
-        }
+    if (xml != nullptr)
+    {
+        xmlSkinGroup = xml->getChildByName(strSkinGroup);
+        xmlSkinFallback_1 = xml->getChildByName(strSkinFallback_1);
+        xmlSkinFallback_2 = xml->getChildByName("default");
+    }
+    else
+    {
+        xmlSkinGroup = nullptr;
+        xmlSkinFallback_1 = nullptr;
+        xmlSkinFallback_2 = nullptr;
     }
 }
 
 
-void Skin::setBoundsButtonColumn(Component* component, int x, int y, int width, int height)
+XmlElement* Skin::getComponentFromXml(String strXmlTag)
 {
-    component->setBounds(nButtonColumnLeft + x, nButtonColumnTop + y, width, height);
+    XmlElement* xmlComponent;
+
+    // suppress unnecessary warnings and save some time
+    if (xml == nullptr)
+    {
+        xmlComponent = nullptr;
+    }
+    else if ((xmlSkinGroup != nullptr) && (xmlSkinGroup->getChildByName(strXmlTag) != nullptr))
+    {
+        xmlComponent = xmlSkinGroup->getChildByName(strXmlTag);
+    }
+    else if ((xmlSkinFallback_1 != nullptr) && (xmlSkinFallback_1->getChildByName(strXmlTag) != nullptr))
+    {
+        xmlComponent = xmlSkinFallback_1->getChildByName(strXmlTag);
+    }
+    else if ((xmlSkinFallback_2 != nullptr) && (xmlSkinFallback_2->getChildByName(strXmlTag) != nullptr))
+    {
+        xmlComponent = xmlSkinFallback_2->getChildByName(strXmlTag);
+    }
+    else
+    {
+        Logger::outputDebugString(String("[Skin] XML element \"") + strXmlTag + "\" not found");
+        xmlComponent = nullptr;
+    }
+
+    return xmlComponent;
+}
+
+
+void Skin::placeAndSkinButton(ImageButton* button, String strXmlTag)
+{
+    jassert(button != nullptr);
+
+    XmlElement* xmlButton = getComponentFromXml(strXmlTag);
+
+    if (xmlButton != nullptr)
+    {
+        int x = xmlButton->getIntAttribute("x", -1);
+        int y = xmlButton->getIntAttribute("y", -1);
+
+        String strImageOn = xmlButton->getStringAttribute("image_on");
+        File fileImageOn = fileResourcePath->getChildFile(strImageOn);
+        Image imageOn;
+
+        if (!fileImageOn.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageOn.getFullPathName() + "\" not found");
+            imageOn = Image();
+        }
+        else
+        {
+            imageOn = ImageFileFormat::loadFrom(fileImageOn);
+        }
+
+        String strImageOff = xmlButton->getStringAttribute("image_off");
+        File fileImageOff = fileResourcePath->getChildFile(strImageOff);
+        Image imageOff;
+
+        if (!fileImageOff.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageOff.getFullPathName() + "\" not found");
+            imageOff = Image();
+        }
+        else
+        {
+            imageOff = ImageFileFormat::loadFrom(fileImageOff);
+        }
+
+        button->setImages(true, true, true,
+                          imageOff, 1.0f, Colour(),
+                          imageOn, 0.5f, Colour(),
+                          imageOn, 1.0f, Colour(),
+                          0.3f);
+        button->setTopLeftPosition(x, y);
+    }
+}
+
+
+void Skin::placeAndSkinHorizontalMeter(HorizontalMeter* meter, String strXmlTag)
+{
+    jassert(meter != nullptr);
+
+    XmlElement* xmlMeter = getComponentFromXml(strXmlTag);
+
+    if (xmlMeter != nullptr)
+    {
+        int x = xmlMeter->getIntAttribute("x", -1);
+        int y = xmlMeter->getIntAttribute("y", -1);
+        int width = xmlMeter->getIntAttribute("width", -1);
+        int height = xmlMeter->getIntAttribute("height", -1);
+
+        int spacing_left = xmlMeter->getIntAttribute("spacing_left", 0);
+        int spacing_top = xmlMeter->getIntAttribute("spacing_top", 0);
+
+        String strImageBackground = xmlMeter->getStringAttribute("image");
+        File fileImageBackground = fileResourcePath->getChildFile(strImageBackground);
+        Image imageBackground;
+
+        if (!fileImageBackground.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageBackground.getFullPathName() + "\" not found");
+            imageBackground = Image();
+        }
+        else
+        {
+            imageBackground = ImageFileFormat::loadFrom(fileImageBackground);
+        }
+
+        XmlElement* xmlNeedle = xmlMeter->getChildByName("needle");
+
+        String strImageNeedle = xmlNeedle->getStringAttribute("image");
+        File fileImageNeedle = fileResourcePath->getChildFile(strImageNeedle);
+        Image imageNeedle;
+
+        if (!fileImageNeedle.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageNeedle.getFullPathName() + "\" not found");
+            imageNeedle = Image();
+        }
+        else
+        {
+            imageNeedle = ImageFileFormat::loadFrom(fileImageNeedle);
+        }
+
+        meter->setImages(imageBackground, imageNeedle, spacing_left, spacing_top);
+        meter->setBounds(x, y, width, height);
+    }
+}
+
+
+void Skin::placeAndSkinLabel(ImageComponent* label, String strXmlTag)
+{
+    jassert(label != nullptr);
+
+    XmlElement* xmlLabel = getComponentFromXml(strXmlTag);
+
+    if (xmlLabel != nullptr)
+    {
+        int x = xmlLabel->getIntAttribute("x", -1);
+        int y = xmlLabel->getIntAttribute("y", -1);
+        int width = xmlLabel->getIntAttribute("width", -1);
+        int height = xmlLabel->getIntAttribute("height", -1);
+
+        String strImage = xmlLabel->getStringAttribute("image");
+        File fileImage = fileResourcePath->getChildFile(strImage);
+        Image imageLabel;
+
+        if (!fileImage.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImage.getFullPathName() + "\" not found");
+            imageLabel = Image();
+        }
+        else
+        {
+            imageLabel = ImageFileFormat::loadFrom(fileImage);
+        }
+
+        label->setImage(imageLabel);
+        label->setBounds(x, y, width, height);
+    }
+}
+
+
+void Skin::placeAndSkinStateLabel(StateLabel* label, String strXmlTag)
+{
+    jassert(label != nullptr);
+
+    XmlElement* xmlLabel = getComponentFromXml(strXmlTag);
+
+    if (xmlLabel != nullptr)
+    {
+        int x = xmlLabel->getIntAttribute("x", -1);
+        int y = xmlLabel->getIntAttribute("y", -1);
+        int width = xmlLabel->getIntAttribute("width", -1);
+        int height = xmlLabel->getIntAttribute("height", -1);
+
+        int spacing_left = xmlLabel->getIntAttribute("spacing_left", 0);
+        int spacing_top = xmlLabel->getIntAttribute("spacing_top", 0);
+        int font_size = xmlLabel->getIntAttribute("font_size", 12);
+
+        String strImageOn = xmlLabel->getStringAttribute("image_on");
+        File fileImageOn = fileResourcePath->getChildFile(strImageOn);
+        Image imageOn;
+
+        if (!fileImageOn.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageOn.getFullPathName() + "\" not found");
+            imageOn = Image();
+        }
+        else
+        {
+            imageOn = ImageFileFormat::loadFrom(fileImageOn);
+        }
+
+        String strImageOff = xmlLabel->getStringAttribute("image_off");
+        File fileImageOff = fileResourcePath->getChildFile(strImageOff);
+        Image imageOff;
+
+        if (!fileImageOff.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageOff.getFullPathName() + "\" not found");
+            imageOff = Image();
+        }
+        else
+        {
+            imageOff = ImageFileFormat::loadFrom(fileImageOff);
+        }
+
+        label->setImages(imageOff, imageOn, spacing_left, spacing_top, font_size);
+        label->setBounds(x, y, width, height);
+    }
+}
+
+
+void Skin::placeComponent(Component* component, String strXmlTag)
+{
+    jassert(component != nullptr);
+
+    XmlElement* xmlComponent = getComponentFromXml(strXmlTag);
+
+    if (xmlComponent != nullptr)
+    {
+        int x = xmlComponent->getIntAttribute("x", -1);
+        int y = xmlComponent->getIntAttribute("y", -1);
+        int width = xmlComponent->getIntAttribute("width", -1);
+        int height = xmlComponent->getIntAttribute("height", -1);
+
+        component->setBounds(x, y, width, height);
+    }
+}
+
+
+void Skin::setBackgroundImage(ImageComponent* background, AudioProcessorEditor* editor)
+{
+    if (xmlSkinGroup != nullptr)
+    {
+        Image imageBackground;
+
+        XmlElement* xmlBackground = xmlSkinGroup->getChildByName("background");
+
+        if (xmlBackground == nullptr)
+        {
+            Logger::outputDebugString(String("[Skin] XML element \"") + strSkinGroup + "\" specifies no background image");
+            imageBackground = Image();
+        }
+        else
+        {
+            String strImage = xmlBackground->getStringAttribute(strBackgroundSelector);
+            File fileImage = fileResourcePath->getChildFile(strImage);
+
+            if (!fileImage.existsAsFile())
+            {
+                Logger::outputDebugString(String("[Skin] image file \"") + fileImage.getFullPathName() + "\" not found");
+                imageBackground = Image();
+            }
+            else
+            {
+                imageBackground = ImageFileFormat::loadFrom(fileImage);
+            }
+        }
+
+        XmlElement* xmlMeterGraduation = nullptr;
+
+        // get rid of the "unused variable" warning
+        (void) xmlMeterGraduation;
+
+        forEachXmlChildElementWithTagName(*xmlSkinGroup, xmlMeterGraduation, "meter_graduation")
+        {
+            String strImage = xmlMeterGraduation->getStringAttribute(strBackgroundSelector);
+            File fileImage = fileResourcePath->getChildFile(strImage);
+
+            if (!fileImage.existsAsFile())
+            {
+                Logger::outputDebugString(String("[Skin] image file \"") + fileImage.getFullPathName() + "\" not found");
+            }
+            else
+            {
+                Image imageMeterGraduation = ImageFileFormat::loadFrom(fileImage);
+
+                int x = xmlMeterGraduation->getIntAttribute("x", -1);
+                int y = xmlMeterGraduation->getIntAttribute("y", -1);
+
+                Graphics g(imageBackground);
+                g.drawImageAt(imageMeterGraduation, x, y, false);
+            }
+        }
+
+        int nBackgroundWidth = imageBackground.getWidth();
+        int nBackgroundHeight = imageBackground.getHeight();
+
+        background->setImage(imageBackground);
+        background->setBounds(0, 0, nBackgroundWidth, nBackgroundHeight);
+
+        editor->setSize(nBackgroundWidth, nBackgroundHeight);
+    }
 }
 
 

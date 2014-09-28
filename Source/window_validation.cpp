@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -26,18 +26,22 @@
 #include "window_validation.h"
 
 
-WindowValidation::WindowValidation(int nWidth, int nHeight, bool horizontal_layout, KmeterAudioProcessor* processor)
-    : ResizableWindow("Validation K-Meter", false)
-    // create new window child of width "nWidth" and height "nHeight"
+WindowValidation::WindowValidation(Component* pEditorWindow, KmeterAudioProcessor* processor)
+    : DocumentWindow("Validation", Colours::white, 0, true)
+    // create new window child
 {
-    bHorizontalLayout = horizontal_layout;
+    int nWidth = 170;
+    int nHeight = 250;
 
     pProcessor = processor;
     pProcessor->stopValidation();
     fileValidation = pProcessor->getParameterValidationFile();
 
     // set dimensions to those passed to the function ...
-    setBounds(0, 0, nWidth, nHeight);
+    setSize(nWidth, nHeight + getTitleBarHeight());
+
+    // ... center window on editor ...
+    centreAroundComponent(pEditorWindow, getWidth(), getHeight());
 
     // ... and keep the new window on top
     setAlwaysOnTop(true);
@@ -46,10 +50,6 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, bool horizontal_layo
     // performance on redrawing)
     setOpaque(true);
 
-    // prohibit movement of the new window
-    pConstrainer = new ProhibitingBoundsConstrainer();
-    setConstrainer(pConstrainer);
-
     // empty windows are boring, so let's prepare a space for some
     // window components
     contentComponent = new Component("Window Area");
@@ -57,9 +57,9 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, bool horizontal_layo
 
     LabelFileSelection = new Label("Label FileSelection", fileValidation.getFileName());
     LabelFileSelection->setMinimumHorizontalScale(1.0f);
-    LabelFileSelection->setColour(Label::textColourId, Colours::white);
-    LabelFileSelection->setColour(Label::backgroundColourId, Colours::grey.darker(0.6f));
-    LabelFileSelection->setColour(Label::outlineColourId, Colours::black);
+    LabelFileSelection->setColour(Label::textColourId, Colours::black);
+    LabelFileSelection->setColour(Label::backgroundColourId, Colours::white.darker(0.15f));
+    LabelFileSelection->setColour(Label::outlineColourId, Colours::grey);
 
     // add and display the label
     contentComponent->addAndMakeVisible(LabelFileSelection);
@@ -69,7 +69,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, bool horizontal_layo
     contentComponent->addAndMakeVisible(ButtonFileSelection);
 
     LabelSampleRate = new Label("Label SampleRate", "Host SR: ");
-    LabelSampleRate->setColour(Label::textColourId, Colours::white);
+    LabelSampleRate->setColour(Label::textColourId, Colours::black);
     contentComponent->addAndMakeVisible(LabelSampleRate);
 
     int nSampleRate = (int) pProcessor->getSampleRate();
@@ -79,24 +79,24 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, bool horizontal_layo
 
     LabelSampleRateValue = new Label("Label SampleRateValue", strSampleRate);
     LabelSampleRateValue->setMinimumHorizontalScale(1.0f);
-    LabelSampleRateValue->setColour(Label::textColourId, Colours::white);
-    LabelSampleRateValue->setColour(Label::backgroundColourId, Colours::grey.darker(0.6f));
-    LabelSampleRateValue->setColour(Label::outlineColourId, Colours::black);
+    LabelSampleRateValue->setColour(Label::textColourId, Colours::black);
+    LabelSampleRateValue->setColour(Label::backgroundColourId, Colours::white.darker(0.15f));
+    LabelSampleRateValue->setColour(Label::outlineColourId, Colours::grey);
 
     // add and display the label
     contentComponent->addAndMakeVisible(LabelSampleRateValue);
 
     LabelDumpSelectedChannel = new Label("Selected channel", "Channel: ");
-    LabelDumpSelectedChannel->setColour(Label::textColourId, Colours::white);
+    LabelDumpSelectedChannel->setColour(Label::textColourId, Colours::black);
     contentComponent->addAndMakeVisible(LabelDumpSelectedChannel);
 
     SliderDumpSelectedChannel = new ChannelSlider("Selected channel", pProcessor->getNumChannels() - 1);
-    SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxTextColourId, Colours::white);
-    SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxBackgroundColourId, Colours::grey.darker(0.6f));
-    SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxOutlineColourId, Colours::black);
+    SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxTextColourId, Colours::black);
+    SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxBackgroundColourId, Colours::white.darker(0.15f));
+    SliderDumpSelectedChannel->setColour(ChannelSlider::textBoxOutlineColourId, Colours::grey);
 
     ButtonDumpCSV = new ToggleButton("CSV format");
-    ButtonDumpCSV->setColour(ToggleButton::textColourId, Colours::white);
+    ButtonDumpCSV->setColour(ToggleButton::textColourId, Colours::black);
     ButtonDumpCSV->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationCSVFormat), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpCSV);
 
@@ -104,27 +104,27 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, bool horizontal_layo
     contentComponent->addAndMakeVisible(SliderDumpSelectedChannel);
 
     ButtonDumpAverageMeterLevel = new ToggleButton("Average meter level");
-    ButtonDumpAverageMeterLevel->setColour(ToggleButton::textColourId, Colours::white);
+    ButtonDumpAverageMeterLevel->setColour(ToggleButton::textColourId, Colours::black);
     ButtonDumpAverageMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationAverageMeterLevel), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpAverageMeterLevel);
 
     ButtonDumpPeakMeterLevel = new ToggleButton("Peak meter level");
-    ButtonDumpPeakMeterLevel->setColour(ToggleButton::textColourId, Colours::white);
+    ButtonDumpPeakMeterLevel->setColour(ToggleButton::textColourId, Colours::black);
     ButtonDumpPeakMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPeakMeterLevel), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpPeakMeterLevel);
 
     ButtonDumpMaximumPeakLevel = new ToggleButton("Maximum peak level");
-    ButtonDumpMaximumPeakLevel->setColour(ToggleButton::textColourId, Colours::white);
+    ButtonDumpMaximumPeakLevel->setColour(ToggleButton::textColourId, Colours::black);
     ButtonDumpMaximumPeakLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationMaximumPeakLevel), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpMaximumPeakLevel);
 
     ButtonDumpStereoMeterValue = new ToggleButton("Stereo meter value");
-    ButtonDumpStereoMeterValue->setColour(ToggleButton::textColourId, Colours::white);
+    ButtonDumpStereoMeterValue->setColour(ToggleButton::textColourId, Colours::black);
     ButtonDumpStereoMeterValue->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationStereoMeterValue), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpStereoMeterValue);
 
     ButtonDumpPhaseCorrelation = new ToggleButton("Phase correlation");
-    ButtonDumpPhaseCorrelation->setColour(ToggleButton::textColourId, Colours::white);
+    ButtonDumpPhaseCorrelation->setColour(ToggleButton::textColourId, Colours::black);
     ButtonDumpPhaseCorrelation->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPhaseCorrelation), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpPhaseCorrelation);
 
@@ -132,7 +132,7 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, bool horizontal_layo
     // window and runs the selected audio file when clicked
     ButtonValidation = new TextButton("Validate");
     ButtonValidation->setColour(TextButton::textColourOffId, Colours::black);
-    ButtonValidation->setColour(TextButton::buttonColourId, Colours::red);
+    ButtonValidation->setColour(TextButton::buttonColourId, Colours::yellow);
     ButtonValidation->setColour(TextButton::buttonOnColourId, Colours::grey);
 
     // add "validation" window as button listener and display the
@@ -144,98 +144,59 @@ WindowValidation::WindowValidation(int nWidth, int nHeight, bool horizontal_layo
     // window when clicked
     ButtonCancel = new TextButton("Cancel");
     ButtonCancel->setColour(TextButton::textColourOffId, Colours::black);
-    ButtonCancel->setColour(TextButton::buttonColourId, Colours::yellow);
+    ButtonCancel->setColour(TextButton::buttonColourId, Colours::red);
     ButtonCancel->setColour(TextButton::buttonOnColourId, Colours::grey);
 
     // add "validation" window as button listener and display the button
     ButtonCancel->addListener(this);
     contentComponent->addAndMakeVisible(ButtonCancel);
 
-    if (bHorizontalLayout)
-    {
-        ButtonFileSelection->setBounds(nWidth - 209, nHeight - 170, 30, 20);
-        LabelFileSelection->setBounds(nWidth - 358, nHeight - 170, 144, 20);
+    int nPositionX = 4;
+    int nPositionY = 7;
 
-        LabelSampleRate->setBounds(nWidth - 362, nHeight - 144, 75, 20);
-        LabelSampleRateValue->setBounds(nWidth - 296, nHeight - 144, 82, 20);
+    LabelFileSelection->setBounds(nPositionX + 4, nPositionY, 120, 20);
+    ButtonFileSelection->setBounds(nPositionX + 127, nPositionY, 30, 20);
 
-        LabelDumpSelectedChannel->setBounds(nWidth - 362, nHeight - 118, 75, 20);
-        SliderDumpSelectedChannel->setBounds(nWidth - 296, nHeight - 118, 70, 20);
-        ButtonDumpCSV->setBounds(nWidth - 362, nHeight - 94, 180, 20);
+    nPositionY += 24;
+    LabelSampleRate->setBounds(nPositionX, nPositionY, 75, 20);
+    LabelSampleRateValue->setBounds(nPositionX + 66, nPositionY, 82, 20);
 
-        ButtonDumpPeakMeterLevel->setBounds(nWidth - 165, nHeight - 174, 180, 20);
-        ButtonDumpAverageMeterLevel->setBounds(nWidth - 165, nHeight - 154, 180, 20);
-        ButtonDumpMaximumPeakLevel->setBounds(nWidth - 165, nHeight - 134, 180, 20);
-        ButtonDumpStereoMeterValue->setBounds(nWidth - 165, nHeight - 114, 180, 20);
-        ButtonDumpPhaseCorrelation->setBounds(nWidth - 165, nHeight - 94, 180, 20);
+    nPositionY += 24;
+    LabelDumpSelectedChannel->setBounds(nPositionX, nPositionY, 75, 20);
+    SliderDumpSelectedChannel->setBounds(nPositionX + 66, nPositionY, 70, 20);
 
-        ButtonValidation->setBounds(nWidth - 73, nHeight - 59, 60, 20);
-        ButtonCancel->setBounds(nWidth - 138, nHeight - 59, 60, 20);
-    }
-    else
-    {
-        ButtonFileSelection->setBounds(nWidth - 45, nHeight - 269, 30, 20);
-        LabelFileSelection->setBounds(nWidth - 188, nHeight - 269, 138, 20);
+    nPositionY += 30;
+    ButtonDumpPeakMeterLevel->setBounds(nPositionX + 1, nPositionY, 180, 20);
 
-        LabelSampleRate->setBounds(nWidth - 192, nHeight - 244, 75, 20);
-        LabelSampleRateValue->setBounds(nWidth - 126, nHeight - 244, 82, 20);
+    nPositionY += 20;
+    ButtonDumpAverageMeterLevel->setBounds(nPositionX + 1, nPositionY, 180, 20);
 
-        LabelDumpSelectedChannel->setBounds(nWidth - 192, nHeight - 219, 75, 20);
-        SliderDumpSelectedChannel->setBounds(nWidth - 126, nHeight - 219, 70, 20);
+    nPositionY += 20;
+    ButtonDumpMaximumPeakLevel->setBounds(nPositionX + 1, nPositionY, 180, 20);
 
-        ButtonDumpPeakMeterLevel->setBounds(nWidth - 192, nHeight - 189, 180, 20);
-        ButtonDumpAverageMeterLevel->setBounds(nWidth - 192, nHeight - 169, 180, 20);
-        ButtonDumpMaximumPeakLevel->setBounds(nWidth - 192, nHeight - 149, 180, 20);
-        ButtonDumpStereoMeterValue->setBounds(nWidth - 192, nHeight - 129, 180, 20);
-        ButtonDumpPhaseCorrelation->setBounds(nWidth - 192, nHeight - 109, 180, 20);
-        ButtonDumpCSV->setBounds(nWidth - 192, nHeight - 89, 180, 20);
+    nPositionY += 20;
+    ButtonDumpStereoMeterValue->setBounds(nPositionX + 1, nPositionY, 180, 20);
 
-        ButtonValidation->setBounds(nWidth - 73, nHeight - 59, 60, 20);
-        ButtonCancel->setBounds(nWidth - 138, nHeight - 59, 60, 20);
-    }
+    nPositionY += 20;
+    ButtonDumpPhaseCorrelation->setBounds(nPositionX + 1, nPositionY, 180, 20);
+
+    nPositionY += 20;
+    ButtonDumpCSV->setBounds(nPositionX + 1, nPositionY, 180, 20);
+
+    nPositionY += 31;
+    ButtonValidation->setBounds(18, nPositionY, 60, 20);
+    ButtonCancel->setBounds(88, nPositionY, 60, 20);
+
+    // finally, display window
+    setVisible(true);
 }
 
 
 WindowValidation::~WindowValidation()
 {
-    delete pConstrainer;
-    pConstrainer = nullptr;
-
     // delete all children of the window; "contentComponent" will be
     // deleted by the base class, so please leave it alone!
     contentComponent->deleteAllChildren();
-}
-
-
-void WindowValidation::paint(Graphics& g)
-{
-    int nHeight = getHeight();
-    int nWidth = getWidth();
-
-    // fill window background with grey colour gradient
-    g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.4f), 0, 0, Colours::darkgrey.darker(1.0f), 0, (float) nHeight, false));
-    g.fillAll();
-
-    if (bHorizontalLayout)
-    {
-        g.setColour(Colours::white);
-        g.setOpacity(0.15f);
-        g.drawRect(nWidth - 362, nHeight - 174, 358, 146);
-
-        g.setColour(Colours::white);
-        g.setOpacity(0.05f);
-        g.fillRect(nWidth - 362, nHeight - 173, 356, 144);
-    }
-    else
-    {
-        g.setColour(Colours::white);
-        g.setOpacity(0.15f);
-        g.drawRect(nWidth - 193, nHeight - 273, 188, 244);
-
-        g.setColour(Colours::white);
-        g.setOpacity(0.05f);
-        g.fillRect(nWidth - 192, nHeight - 272, 186, 242);
-    }
 }
 
 
@@ -244,6 +205,15 @@ void WindowValidation::buttonClicked(Button* button)
     // find out which button has been clicked
     if (button == ButtonValidation)
     {
+        // file name has not been set
+        if (fileValidation.getFileName() == "")
+        {
+            DBG("[K-Meter] file name for validation not set.");
+
+            // prevent closing of window
+            return;
+        }
+
         int nSelectedChannel = (int) SliderDumpSelectedChannel->getValue();
         float fSelectedChannel = (nSelectedChannel + 1.0f) / 100.0f;
         pProcessor->setParameter(KmeterPluginParameters::selValidationSelectedChannel, fSelectedChannel);
@@ -279,15 +249,11 @@ void WindowValidation::buttonClicked(Button* button)
     }
     else if (button == ButtonFileSelection)
     {
-        WildcardFileFilter wildcardFilter("*.wav;*.aiff;*.flac", "", "Audio files (*.wav, *.aiff, *.flac)");
+        FileChooser browser("Open audio file for validation", fileValidation, "*.wav;*.aiff;*.flac", true);
 
-        FileBrowserComponent browser(FileBrowserComponent::openMode | FileBrowserComponent::canSelectFiles, fileValidation, &wildcardFilter, nullptr);
-
-        FileChooserDialogBox dialogBox("Open audio file", "Please select an audio file to inject into K-Meter's audio path.", browser, true, getLookAndFeel().findColour(AlertWindow::backgroundColourId));
-
-        if (dialogBox.show())
+        if (browser.showDialog(FileBrowserComponent::openMode | FileBrowserComponent::canSelectFiles, nullptr))
         {
-            File selectedFile = browser.getSelectedFile(0);
+            File selectedFile = browser.getResult();
             pProcessor->setParameterValidationFile(selectedFile);
             fileValidation = pProcessor->getParameterValidationFile();
             LabelFileSelection->setText(fileValidation.getFileName(), dontSendNotification);

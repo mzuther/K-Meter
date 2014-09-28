@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@
 #include "overflow_meter.h"
 #include "peak_label.h"
 #include "plugin_processor.h"
+#include "skin.h"
 
 
 //==============================================================================
@@ -42,49 +43,21 @@ public:
     static const int KMETER_STEREO_WIDTH = 106;
     static const int KMETER_STEREO_WIDTH_2 = KMETER_STEREO_WIDTH / 2;
 
-    Kmeter(const String& componentName, int PosX, int PosY, int nCrestFactor, int nNumChannels, const String& unitName, bool bIsSurround, bool bExpanded, bool bHorizontal, bool bDisplayPeakMeter, int nSegmentHeight);
+    Kmeter(const String& componentName, int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight);
     ~Kmeter();
 
     void setLevels(MeterBallistics* pMeterBallistics);
-    void paint(Graphics& g);
+    void applySkin(Skin* pSkin);
     void resized();
-    void visibilityChanged();
 
 private:
     JUCE_LEAK_DETECTOR(Kmeter);
-
-    void paintMonoChannel(Graphics& g);
-    void paintStereoChannel(Graphics& g, int nStereoChannel);
-
-    bool bHorizontalMeter;
-
-    int nWidth;
-    int nHeight;
-    int nPosX;
-    int nPosY;
-
-    int nMainSegmentHeight;
-    int nMeterPositionTop;
-    bool isExpanded;
-    bool displayPeakMeter;
-    bool isSurround;
-    String strUnit;
-
-    int nMeterCrestFactor;
-    int nInputChannels;
-    int nStereoInputChannels;
 
     MeterBar** LevelMeters;
     OverflowMeter** OverflowMeters;
     PeakLabel** MaximumPeakLabels;
 
-    void drawMarkersMono(Graphics& g, String& strMarker, int x, int y, int width, int height);
-    void drawMarkersMonoVertical(Graphics& g, String& strMarker, int x, int y, int width, int height);
-    void drawMarkersMonoHorizontal(Graphics& g, String& strMarker, int x, int y, int width, int height);
-
-    void drawMarkersStereo(Graphics& g, String& strMarker, int x, int y, int width, int height);
-    void drawMarkersStereoVertical(Graphics& g, String& strMarker, int x, int y, int width, int height);
-    void drawMarkersStereoHorizontal(Graphics& g, String& strMarker, int x, int y, int width, int height);
+    int nInputChannels;
 };
 
 

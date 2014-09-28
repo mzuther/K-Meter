@@ -12,7 +12,7 @@
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" includeBinaryInAppConfig="1"
               buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com">
   <EXPORTFORMATS>
-    <LINUX_MAKE targetFolder="Builds/Linux">
+    <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/SDKs/vstsdk2.4">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
                        targetName="K-Meter"/>

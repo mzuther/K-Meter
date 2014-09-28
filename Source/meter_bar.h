@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -36,13 +36,12 @@
 class MeterBar : public Component
 {
 public:
-    MeterBar(const String& componentName, int PosX, int PosY, int Width, int nCrestFactor, bool bExpanded, bool bHorizontal, bool bDisplayPeakMeter, int nSegmentHeight);
+    MeterBar(const String& componentName, int nCrestFactor, bool bExpanded, bool bHorizontal, bool bDisplayPeakMeter, int nSegmentHeight);
     ~MeterBar();
 
     void setLevels(float peakLevel, float averageLevel, float peakLevelPeak, float averageLevelPeak);
     void paint(Graphics& g);
     void resized();
-    void visibilityChanged();
 
 private:
     JUCE_LEAK_DETECTOR(MeterBar);
@@ -56,13 +55,9 @@ private:
     int nMeterCrestFactor;
     bool isExpanded;
     bool displayPeakMeter;
-
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nMainSegmentHeight;
-
     bool bHorizontalMeter;
+
+    int nMainSegmentHeight;
 
     int nNumberOfBars;
     int nLimitTopBars;

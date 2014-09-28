@@ -6,7 +6,7 @@
 #  =======
 #  Implementation of a K-System meter according to Bob Katz' specifications
 #
-#  Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+#  Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -27,6 +27,13 @@
 
 BINARY_BUILDER_DIR=../../libraries/juce/extras/binarybuilder/Builds/Linux/build
 OUTPUT_DIR=.
+
+if [ ! -x "$BINARY_BUILDER_DIR/BinaryBuilder" ]; then
+	echo
+	echo "BinaryBuilder not found in $BINARY_BUILDER_DIR"
+	echo
+	exit 1
+fi
 
 cd $(dirname $0)
 "$BINARY_BUILDER_DIR/BinaryBuilder" output "$OUTPUT_DIR" resources '*.png'

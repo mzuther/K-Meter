@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -199,6 +199,8 @@ void AverageLevelFiltered::setAlgorithm(const int average_algorithm)
     {
         return;
     }
+
+    DBG(String("[K-Meter] averaging algorithm: ") + (average_algorithm == KmeterPluginParameters::selAlgorithmItuBs1770 ? "ITU-R BS.1770-1" : "RMS"));
 
     if ((average_algorithm >= 0) && (average_algorithm < KmeterPluginParameters::nNumAlgorithms))
     {

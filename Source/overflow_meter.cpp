@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -25,24 +25,20 @@
 
 #include "overflow_meter.h"
 
-OverflowMeter::OverflowMeter(const String& componentName) : Label(componentName, "0")
+
+OverflowMeter::OverflowMeter(const String& componentName) : StateLabel(componentName)
 {
     nOverflows = 0;
 
-    // this component does not have any transparent areas (increases
-    // performance on redrawing)
-    setOpaque(true);
-
-    setFont(12.0f);
-    setJustificationType(Justification::centredRight);
-    setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
-    setColour(Label::textColourId, Colours::white);
-    setColour(Label::outlineColourId, Colours::grey.darker(0.2f));
+    pLabel->setText(String(nOverflows), dontSendNotification);
+    pLabel->setColour(Label::textColourId, Colours::white);
 }
+
 
 OverflowMeter::~OverflowMeter()
 {
 }
+
 
 void OverflowMeter::setOverflows(int Overflows)
 {
@@ -51,15 +47,15 @@ void OverflowMeter::setOverflows(int Overflows)
 
     if (nOverflows != nOverflowsOld)
     {
-        setText(String(nOverflows), dontSendNotification);
+        pLabel->setText(String(nOverflows), dontSendNotification);
 
-        if (nOverflowsOld == 0)
+        if (nOverflows == 0)
         {
-            setColour(Label::backgroundColourId, Colours::red.darker(0.2f));
+            setState(false);
         }
-        else if (nOverflows == 0)
+        else
         {
-            setColour(Label::backgroundColourId, Colours::grey.darker(0.7f));
+            setState(true);
         }
     }
 }

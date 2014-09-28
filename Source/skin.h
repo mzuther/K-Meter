@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,56 +30,43 @@ class Skin;
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "kmeter.h"
+#include "horizontal_meter.h"
 #include "plugin_parameters.h"
+#include "state_label.h"
 
 
 class Skin
 {
 public:
-    enum Parameters  // public namespace!
-    {
-        ButtonNormal = 0,
-        ButtonK12,
-        ButtonK14,
-        ButtonK20,
-
-        ButtonItuBs1770,
-        ButtonRms,
-
-        ButtonExpanded,
-        ButtonHorizontal,
-        ButtonDisplayPeakMeter,
-        ButtonInfiniteHold,
-        ButtonReset,
-
-        ButtonMono,
-        ButtonValidation,
-        ButtonAbout,
-
-        LabelDebug,
-    };
-
-    Skin(int number_of_channels, int crest_factor, int average_algorithm, bool horizontal_layout);
+    Skin(File& fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
     ~Skin();
 
-    void updateSkin(int number_of_channels, int crest_factor, int average_algorithm, bool horizontal_layout);
-    void placeButton(int nButtonID, Component* pButton);
+    bool loadFromXml(File& fileSkin);
+    void updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
+    void placeComponent(Component* component, String strXmlTag);
+    void placeAndSkinButton(ImageButton* button, String strXmlTag);
+    void placeAndSkinHorizontalMeter(HorizontalMeter* meter, String strXmlTag);
+    void placeAndSkinLabel(ImageComponent* label, String strXmlTag);
+    void placeAndSkinStateLabel(StateLabel* label, String strXmlTag);
+    void setBackgroundImage(ImageComponent* background, AudioProcessorEditor* editor);
 
 private:
     JUCE_LEAK_DETECTOR(Skin);
 
-    void setBoundsButtonColumn(Component* component, int x, int y, int width, int height);
+    XmlElement* getComponentFromXml(String strXmlTag);
+
+    XmlElement* xml;
+    XmlElement* xmlSkinGroup;
+    XmlElement* xmlSkinFallback_1;
+    XmlElement* xmlSkinFallback_2;
+
+    File* fileResourcePath;
+
+    String strBackgroundSelector;
+    String strSkinGroup;
+    String strSkinFallback_1;
 
     int nNumberOfChannels;
-    int nStereoInputChannels;
-    int nCrestFactor;
-    int nAverageAlgorithm;
-    bool bHorizontalLayout;
-
-    int nWidth;
-    int nHeight;
-    int nButtonColumnLeft;
-    int nButtonColumnTop;
 };
 
 #endif   // __SKIN__

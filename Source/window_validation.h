@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -29,27 +29,23 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "channel_slider.h"
 #include "plugin_processor.h"
-#include "prohibiting_bounds_constrainer.h"
 
 
-class WindowValidation : public ResizableWindow, ButtonListener
+class WindowValidation : public DocumentWindow, ButtonListener
 {
 public:
-    WindowValidation(int nWidth, int nHeight, bool horizontal_layout, KmeterAudioProcessor* processor);
+    WindowValidation(Component* pEditorWindow, KmeterAudioProcessor* processor);
     ~WindowValidation();
 
-    void paint(Graphics& g);
     void buttonClicked(Button* button);
 
 private:
     JUCE_LEAK_DETECTOR(WindowValidation);
 
-    bool bHorizontalLayout;
     KmeterAudioProcessor* pProcessor;
     File fileValidation;
 
     Component* contentComponent;
-    ProhibitingBoundsConstrainer* pConstrainer;
 
     Label* LabelFileSelection;
     Label* LabelSampleRate;

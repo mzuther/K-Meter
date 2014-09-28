@@ -4,7 +4,7 @@
    =======
    Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2010-2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 
 #include "meter_bar.h"
 
-MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, int nCrestFactor, bool bExpanded, bool bHorizontal, bool bDisplayPeakMeter, int nSegmentHeight)
+MeterBar::MeterBar(const String& componentName, int nCrestFactor, bool bExpanded, bool bHorizontal, bool bDisplayPeakMeter, int nSegmentHeight)
 {
     setName(componentName);
     isExpanded = bExpanded;
@@ -104,9 +104,6 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
         }
     }
 
-    nPosX = posX;
-    nPosY = posY;
-    nWidth = Width;
     nMainSegmentHeight = nSegmentHeight;
 
     fPeakLevel = 0.0f;
@@ -205,6 +202,7 @@ MeterBar::MeterBar(const String& componentName, int posX, int posY, int Width, i
     }
 }
 
+
 MeterBar::~MeterBar()
 {
     for (int n = 0; n < nNumberOfBars; n++)
@@ -220,29 +218,34 @@ MeterBar::~MeterBar()
     deleteAllChildren();
 }
 
-void MeterBar::visibilityChanged()
+
+void MeterBar::paint(Graphics& g)
+{
+    g.fillAll(Colours::black);
+}
+
+
+void MeterBar::resized()
 {
     int x = 0;
     int y = 0;
-    int width = 0;
-    int height = 0;
-    int segment_height = nMainSegmentHeight;
+    int nWidth;
+    int nHeight;
+    int nSegmentHeight = nMainSegmentHeight;
 
     if (bHorizontalMeter)
     {
-        width = 134 * nMainSegmentHeight + 1;
-        height = nWidth;
+        nWidth = 134 * nMainSegmentHeight + 1;
+        nHeight = getHeight();
     }
     else
     {
-        width = nWidth;
-        height = 134 * nMainSegmentHeight + 1;
+        nWidth = getWidth();;
+        nHeight = 134 * nMainSegmentHeight + 1;
     }
 
     int nKmeterLevel = nMeterCrestFactor; // bar K-Meter level (in 0.1 dB)
     int nRange = 0; // bar level range (in 0.1 dB)
-
-    setBounds(nPosX, nPosY, width, height);
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
@@ -272,82 +275,72 @@ void MeterBar::visibilityChanged()
 
         if (isExpanded)
         {
-            segment_height = nMainSegmentHeight;
+            nSegmentHeight = nMainSegmentHeight;
         }
         else if (nKmeterLevel > nLimitTopBars)
         {
-            segment_height = nMainSegmentHeight;
+            nSegmentHeight = nMainSegmentHeight;
         }
         else if (nKmeterLevel > nLimitGreenBars_1)
         {
-            segment_height = 2 * nMainSegmentHeight;
+            nSegmentHeight = 2 * nMainSegmentHeight;
         }
         else if (nKmeterLevel > nLimitGreenBars_2)
         {
-            segment_height = 6 * nMainSegmentHeight;
+            nSegmentHeight = 6 * nMainSegmentHeight;
         }
         else if (n == nNumberOfBars - 1)
         {
             if (nMeterCrestFactor == 0)
             {
-                segment_height = 10 * nMainSegmentHeight;
+                nSegmentHeight = 10 * nMainSegmentHeight;
             }
             else if (nMeterCrestFactor == +120)
             {
-                segment_height = 14 * nMainSegmentHeight;
+                nSegmentHeight = 14 * nMainSegmentHeight;
             }
             else if (nMeterCrestFactor == +140)
             {
-                segment_height = 13 * nMainSegmentHeight;
+                nSegmentHeight = 13 * nMainSegmentHeight;
             }
             else // K-20
             {
-                segment_height = 10 * nMainSegmentHeight;
+                nSegmentHeight = 10 * nMainSegmentHeight;
             }
         }
         else
         {
             if (nMeterCrestFactor == 0)
             {
-                segment_height = 11 * nMainSegmentHeight;
+                nSegmentHeight = 11 * nMainSegmentHeight;
             }
             else if (nMeterCrestFactor == +120)
             {
-                segment_height = 12 * nMainSegmentHeight;
+                nSegmentHeight = 12 * nMainSegmentHeight;
             }
             else if (nMeterCrestFactor == +140)
             {
-                segment_height = 11 * nMainSegmentHeight;
+                nSegmentHeight = 11 * nMainSegmentHeight;
             }
             else // K-20
             {
-                segment_height = 10 * nMainSegmentHeight;
+                nSegmentHeight = 10 * nMainSegmentHeight;
             }
         }
 
         if (bHorizontalMeter)
         {
-            MeterArray[n]->setBounds(width - x - (segment_height + 1), y, segment_height + 1, height);
-            x += segment_height;
+            MeterArray[n]->setBounds(nWidth - x - (nSegmentHeight + 1), y, nSegmentHeight + 1, nHeight);
+            x += nSegmentHeight;
         }
         else
         {
-            MeterArray[n]->setBounds(x, y, width, segment_height + 1);
-            y += segment_height;
+            MeterArray[n]->setBounds(x, y, nWidth, nSegmentHeight + 1);
+            y += nSegmentHeight;
         }
 
         nKmeterLevel -= nRange;
     }
-}
-
-
-void MeterBar::paint(Graphics& g)
-{
-    g.fillAll(Colours::black);
-}
-
-void MeterBar::resized()
-{
 }
 
 
