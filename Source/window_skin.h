@@ -35,22 +35,22 @@ class SkinListBoxModel;
 class WindowSkin : public DocumentWindow, ButtonListener
 {
 public:
-    WindowSkin(Component* pEditorWindow, const File& fileSkin);
+    WindowSkin(Component *pEditorWindow, const File &fileSkin);
     ~WindowSkin();
 
-    void buttonClicked(Button* button);
-    const String& getSelectedString();
+    void buttonClicked(Button *button);
+    const String &getSelectedString();
 
 private:
     JUCE_LEAK_DETECTOR(WindowSkin);
 
-    Component* contentComponent;
+    Component *contentComponent;
 
-    ListBox* pListBox;
-    SkinListBoxModel* pListBoxModel;
+    ListBox *pListBox;
+    SkinListBoxModel *pListBoxModel;
 
-    TextButton* ButtonSelect;
-    TextButton* ButtonDefault;
+    TextButton *ButtonSelect;
+    TextButton *ButtonDefault;
 
     String strSkinName;
 };
@@ -59,15 +59,15 @@ private:
 class SkinListBoxModel : public ListBoxModel
 {
 public:
-    SkinListBoxModel(const File& fileSkinDirectory);
+    SkinListBoxModel(const File &fileSkinDirectory);
     ~SkinListBoxModel();
 
     int getNumRows();
-    int getRow(const String& strQuery);
-    const String& getValue(int nRow);
+    int getRow(const String &strQuery);
+    const String &getValue(int nRow);
     void setDefault(int nRow);
 
-    void paintListBoxItem(int rowNumber, Graphics& g, int width, int height, bool rowIsSelected);
+    void paintListBoxItem(int rowNumber, Graphics &g, int width, int height, bool rowIsSelected);
 
 private:
     WildcardFileFilter skinWildcard;

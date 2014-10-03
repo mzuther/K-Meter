@@ -26,7 +26,7 @@
 #include "overflow_meter.h"
 
 
-OverflowMeter::OverflowMeter(const String& componentName) : StateLabel(componentName)
+OverflowMeter::OverflowMeter(const String &componentName) : StateLabel(componentName)
 {
     nOverflows = 0;
 

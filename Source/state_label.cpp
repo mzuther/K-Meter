@@ -25,7 +25,7 @@
 
 #include "state_label.h"
 
-StateLabel::StateLabel(const String& componentName)
+StateLabel::StateLabel(const String &componentName)
 {
     setName(componentName);
 
@@ -85,7 +85,7 @@ void StateLabel::updateState()
 }
 
 
-void StateLabel::setImages(Image& imageOffNew, Image& imageOnNew, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize)
+void StateLabel::setImages(Image &imageOffNew, Image &imageOnNew, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize)
 {
     nSpacingLeft = nSpacingLeftNew;
     nSpacingTop = nSpacingTopNew;

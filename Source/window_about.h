@@ -33,23 +33,23 @@
 class WindowAbout : public DocumentWindow, ButtonListener
 {
 public:
-    WindowAbout(Component* pEditorWindow);
+    WindowAbout(Component *pEditorWindow);
     ~WindowAbout();
 
-    void buttonClicked(Button* button);
+    void buttonClicked(Button *button);
 
 private:
     JUCE_LEAK_DETECTOR(WindowAbout);
 
-    Component* contentComponent;
+    Component *contentComponent;
 
-    TextEditor* TextEditorAbout;
-    TextButton* ButtonClose;
-    ImageButton* ButtonGpl;
+    TextEditor *TextEditorAbout;
+    TextButton *ButtonClose;
+    ImageButton *ButtonGpl;
 
-    Image* ImageButtonGplNormal;
-    Image* ImageButtonGplOver;
-    Image* ImageButtonGplDown;
+    Image *ImageButtonGplNormal;
+    Image *ImageButtonGplOver;
+    Image *ImageButtonGplDown;
 };
 
 

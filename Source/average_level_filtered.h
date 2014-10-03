@@ -42,15 +42,15 @@ class AverageLevelFiltered
 public:
     static const int KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS = 3;
 
-    AverageLevelFiltered(KmeterAudioProcessor* processor, const int channels, const int buffer_size, const int sample_rate, const int average_algorithm);
+    AverageLevelFiltered(KmeterAudioProcessor *processor, const int channels, const int buffer_size, const int sample_rate, const int average_algorithm);
     ~AverageLevelFiltered();
 
     float getLevel(const int channel);
     int getAlgorithm();
     void setAlgorithm(const int average_algorithm);
-    void copyFromBuffer(AudioRingBuffer& ringBuffer, const unsigned int pre_delay, const int sample_rate);
-    void copyToBuffer(AudioRingBuffer& destination, const unsigned int sourceStartSample, const unsigned int numSamples);
-    void copyToBuffer(AudioSampleBuffer& destination, const int channel, const int destStartSample, const int numSamples);
+    void copyFromBuffer(AudioRingBuffer &ringBuffer, const unsigned int pre_delay, const int sample_rate);
+    void copyToBuffer(AudioRingBuffer &destination, const unsigned int sourceStartSample, const unsigned int numSamples);
+    void copyToBuffer(AudioSampleBuffer &destination, const int channel, const int destStartSample, const int numSamples);
 
 private:
     JUCE_LEAK_DETECTOR(AverageLevelFiltered);
@@ -64,30 +64,30 @@ private:
 
     void setPeakToAverageCorrection(float peak_to_average_correction);
 
-    AudioSampleBuffer* pSampleBuffer;
-    AudioSampleBuffer* pOverlapAddSamples;
+    AudioSampleBuffer *pSampleBuffer;
+    AudioSampleBuffer *pOverlapAddSamples;
 
-    float* arrFilterKernel_TD;
-    fftwf_complex* arrFilterKernel_FD;
+    float *arrFilterKernel_TD;
+    fftwf_complex *arrFilterKernel_FD;
     fftwf_plan planFilterKernel_DFT;
 
-    float* arrAudioSamples_TD;
-    fftwf_complex* arrAudioSamples_FD;
+    float *arrAudioSamples_TD;
+    fftwf_complex *arrAudioSamples_FD;
     fftwf_plan planAudioSamples_DFT;
     fftwf_plan planAudioSamples_IDFT;
 
-    float** pIIRCoefficients_1;
-    float** pIIRCoefficients_2;
+    float **pIIRCoefficients_1;
+    float **pIIRCoefficients_2;
 
-    AudioSampleBuffer* pPreviousSamplesOutputTemp;
+    AudioSampleBuffer *pPreviousSamplesOutputTemp;
 
-    AudioSampleBuffer* pPreviousSamplesInput_1;
-    AudioSampleBuffer* pPreviousSamplesOutput_1;
+    AudioSampleBuffer *pPreviousSamplesInput_1;
+    AudioSampleBuffer *pPreviousSamplesOutput_1;
 
-    AudioSampleBuffer* pPreviousSamplesInput_2;
-    AudioSampleBuffer* pPreviousSamplesOutput_2;
+    AudioSampleBuffer *pPreviousSamplesInput_2;
+    AudioSampleBuffer *pPreviousSamplesOutput_2;
 
-    KmeterAudioProcessor* pProcessor;
+    KmeterAudioProcessor *pProcessor;
     int nNumberOfChannels;
     int nAverageAlgorithm;
     int nSampleRate;
@@ -99,14 +99,14 @@ private:
     float fPeakToAverageCorrection;
 
 #if (defined (_WIN32) || defined (_WIN64))
-    DynamicLibrary* pDynamicLibraryFFTW;
+    DynamicLibrary *pDynamicLibraryFFTW;
 
-    float* (*fftwf_alloc_real)(size_t);
-    fftwf_complex* (*fftwf_alloc_complex)(size_t);
-    void (*fftwf_free)(void*);
+    float *(*fftwf_alloc_real)(size_t);
+    fftwf_complex *(*fftwf_alloc_complex)(size_t);
+    void (*fftwf_free)(void *);
 
-    fftwf_plan(*fftwf_plan_dft_r2c_1d)(int, float*, fftwf_complex*, unsigned);
-    fftwf_plan(*fftwf_plan_dft_c2r_1d)(int, fftwf_complex*, float*, unsigned);
+    fftwf_plan(*fftwf_plan_dft_r2c_1d)(int, float *, fftwf_complex *, unsigned);
+    fftwf_plan(*fftwf_plan_dft_c2r_1d)(int, fftwf_complex *, float *, unsigned);
     void (*fftwf_destroy_plan)(fftwf_plan);
 
     void (*fftwf_execute)(const fftwf_plan);

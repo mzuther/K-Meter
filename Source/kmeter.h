@@ -43,19 +43,19 @@ public:
     static const int KMETER_STEREO_WIDTH = 106;
     static const int KMETER_STEREO_WIDTH_2 = KMETER_STEREO_WIDTH / 2;
 
-    Kmeter(const String& componentName, int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight);
+    Kmeter(const String &componentName, int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight);
     ~Kmeter();
 
-    void setLevels(MeterBallistics* pMeterBallistics);
-    void applySkin(Skin* pSkin);
+    void setLevels(MeterBallistics *pMeterBallistics);
+    void applySkin(Skin *pSkin);
     void resized();
 
 private:
     JUCE_LEAK_DETECTOR(Kmeter);
 
-    MeterBar** LevelMeters;
-    OverflowMeter** OverflowMeters;
-    PeakLabel** MaximumPeakLabels;
+    MeterBar **LevelMeters;
+    OverflowMeter **OverflowMeters;
+    PeakLabel **MaximumPeakLabels;
 
     int nInputChannels;
 };

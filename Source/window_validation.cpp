@@ -26,7 +26,7 @@
 #include "window_validation.h"
 
 
-WindowValidation::WindowValidation(Component* pEditorWindow, KmeterAudioProcessor* processor)
+WindowValidation::WindowValidation(Component *pEditorWindow, KmeterAudioProcessor *processor)
     : DocumentWindow("Validation", Colours::white, 0, true)
     // create new window child
 {
@@ -200,7 +200,7 @@ WindowValidation::~WindowValidation()
 }
 
 
-void WindowValidation::buttonClicked(Button* button)
+void WindowValidation::buttonClicked(Button *button)
 {
     // find out which button has been clicked
     if (button == ButtonValidation)

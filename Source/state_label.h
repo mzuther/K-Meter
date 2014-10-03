@@ -35,18 +35,18 @@
 class StateLabel : public Component
 {
 public:
-    StateLabel(const String& componentName);
+    StateLabel(const String &componentName);
     ~StateLabel();
 
     void resized();
     void setState(bool isActivatedNew);
     void updateState();
 
-    void setImages(Image& imageOffNew, Image& imageOnNew, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize);
+    void setImages(Image &imageOffNew, Image &imageOnNew, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize);
 
 protected:
-    Label* pLabel;
-    ImageComponent* pBackgroundImage;
+    Label *pLabel;
+    ImageComponent *pBackgroundImage;
 
 private:
     JUCE_LEAK_DETECTOR(StateLabel);

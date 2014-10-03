@@ -37,7 +37,7 @@
 class OverflowMeter : public StateLabel
 {
 public:
-    OverflowMeter(const String& componentName);
+    OverflowMeter(const String &componentName);
     ~OverflowMeter();
 
     void setOverflows(int Overflows);

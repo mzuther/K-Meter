@@ -48,21 +48,21 @@ public:
     KmeterAudioProcessor();
     ~KmeterAudioProcessor();
 
-    void addActionListenerParameters(ActionListener* listener) throw();
-    void removeActionListenerParameters(ActionListener* listener) throw();
+    void addActionListenerParameters(ActionListener *listener) throw();
+    void removeActionListenerParameters(ActionListener *listener) throw();
 
     //==========================================================================
     void prepareToPlay(double sampleRate, int samplesPerBlock);
     void releaseResources();
 
-    void processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages);
+    void processBlock(AudioSampleBuffer &buffer, MidiBuffer &midiMessages);
 
     void startValidation(File fileAudio, int nSelectedChannel, bool bReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
     void stopValidation();
     bool isValidating();
 
     //==========================================================================
-    AudioProcessorEditor* createEditor();
+    AudioProcessorEditor *createEditor();
     bool hasEditor() const;
 
     //==========================================================================
@@ -75,10 +75,10 @@ public:
     void updateParameters(bool bIncludeHiddenParameters);
 
     File getParameterValidationFile();
-    void setParameterValidationFile(File& fileValidation);
+    void setParameterValidationFile(File &fileValidation);
 
     String getParameterSkinName();
-    void setParameterSkinName(String& strSkinName);
+    void setParameterSkinName(String &strSkinName);
 
     const String getParameterName(int index);
     const String getParameterText(int index);
@@ -104,8 +104,8 @@ public:
     bool silenceInProducesSilenceOut() const;
     double getTailLengthSeconds() const;
 
-    MeterBallistics* getLevels();
-    void processBufferChunk(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
+    MeterBallistics *getLevels();
+    void processBufferChunk(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
     int getAverageAlgorithm();
     void setAverageAlgorithm(const int average_algorithm);
@@ -117,11 +117,11 @@ public:
     int getCurrentProgram();
     void setCurrentProgram(int index);
     const String getProgramName(int index);
-    void changeProgramName(int index, const String& newName);
+    void changeProgramName(int index, const String &newName);
 
     //==========================================================================
-    void getStateInformation(MemoryBlock& destData);
-    void setStateInformation(const void* data, int sizeInBytes);
+    void getStateInformation(MemoryBlock &destData);
+    void setStateInformation(const void *data, int sizeInBytes);
 
     //==========================================================================
     juce_UseDebuggingNewOperator
@@ -129,15 +129,15 @@ public:
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(KmeterAudioProcessor);
 
-    AudioFilePlayer* audioFilePlayer;
+    AudioFilePlayer *audioFilePlayer;
 
-    AudioRingBuffer* pRingBufferInput;
-    AudioRingBuffer* pRingBufferOutput;
+    AudioRingBuffer *pRingBufferInput;
+    AudioRingBuffer *pRingBufferOutput;
 
-    AverageLevelFiltered* pAverageLevelFiltered;
-    MeterBallistics* pMeterBallistics;
+    AverageLevelFiltered *pAverageLevelFiltered;
+    MeterBallistics *pMeterBallistics;
 
-    KmeterPluginParameters* pPluginParameters;
+    KmeterPluginParameters *pPluginParameters;
 
     int nNumInputChannels;
     bool isStereo;
@@ -147,15 +147,15 @@ private:
     int nSamplesInBuffer;
     float fProcessedSeconds;
 
-    float* fPeakLevels;
-    float* fRmsLevels;
-    float* fAverageLevelsFiltered;
+    float *fPeakLevels;
+    float *fRmsLevels;
+    float *fAverageLevelsFiltered;
 
-    int* nOverflows;
-    int countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay);
+    int *nOverflows;
+    int countOverflows(AudioRingBuffer *ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay);
 };
 
-AudioProcessor* JUCE_CALLTYPE createPluginFilter();
+AudioProcessor *JUCE_CALLTYPE createPluginFilter();
 
 #endif  // __KMETER_PLUGINPROCESSOR_H__
 

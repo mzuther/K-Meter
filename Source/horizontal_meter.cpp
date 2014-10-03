@@ -26,7 +26,7 @@
 #include "horizontal_meter.h"
 
 
-HorizontalMeter::HorizontalMeter(const String& componentName)
+HorizontalMeter::HorizontalMeter(const String &componentName)
 {
     setName(componentName);
 
@@ -53,7 +53,7 @@ HorizontalMeter::~HorizontalMeter()
 }
 
 
-void HorizontalMeter::paint(Graphics& g)
+void HorizontalMeter::paint(Graphics &g)
 {
     g.setColour(Colours::black);
     g.drawImageAt(imageBackground, 0, 0, false);
@@ -109,7 +109,7 @@ void HorizontalMeter::setValue(float newValue)
 }
 
 
-void HorizontalMeter::setImages(Image& imageBackgroundNew, Image& imageNeedleNew, int nSpacingLeftNew, int nSpacingTopNew)
+void HorizontalMeter::setImages(Image &imageBackgroundNew, Image &imageNeedleNew, int nSpacingLeftNew, int nSpacingTopNew)
 {
     nSpacingLeft = nSpacingLeftNew;
     nSpacingTop = nSpacingTopNew;

@@ -25,7 +25,7 @@
 
 #include "kmeter.h"
 
-Kmeter::Kmeter(const String& componentName, int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight)
+Kmeter::Kmeter(const String &componentName, int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight)
 {
     setName(componentName);
 
@@ -94,7 +94,7 @@ Kmeter::~Kmeter()
 }
 
 
-void Kmeter::applySkin(Skin* pSkin)
+void Kmeter::applySkin(Skin *pSkin)
 {
     if (nInputChannels == 1)
     {
@@ -143,7 +143,7 @@ void Kmeter::applySkin(Skin* pSkin)
         DBG("[K-Meter] channel configuration (" + String(nInputChannels) + " channels) not supported");
     }
 
-    Component* parent = getParentComponent();
+    Component *parent = getParentComponent();
 
     if (parent != nullptr)
     {
@@ -157,7 +157,7 @@ void Kmeter::resized()
 }
 
 
-void Kmeter::setLevels(MeterBallistics* pMeterBallistics)
+void Kmeter::setLevels(MeterBallistics *pMeterBallistics)
 {
     for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
     {

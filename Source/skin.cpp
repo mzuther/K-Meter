@@ -26,7 +26,7 @@
 #include "skin.h"
 
 
-Skin::Skin(File& fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter)
+Skin::Skin(File &fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter)
 {
     fileResourcePath = nullptr;
     xml = nullptr;
@@ -52,7 +52,7 @@ Skin::~Skin()
 }
 
 
-bool Skin::loadFromXml(File& fileSkin)
+bool Skin::loadFromXml(File &fileSkin)
 {
     DBG(String("[Skin] loading file \"") + fileSkin.getFileName() + "\"");
 
@@ -190,9 +190,9 @@ void Skin::updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm,
 }
 
 
-XmlElement* Skin::getComponentFromXml(String strXmlTag)
+XmlElement *Skin::getComponentFromXml(String strXmlTag)
 {
-    XmlElement* xmlComponent;
+    XmlElement *xmlComponent;
 
     // suppress unnecessary warnings and save some time
     if (xml == nullptr)
@@ -221,11 +221,11 @@ XmlElement* Skin::getComponentFromXml(String strXmlTag)
 }
 
 
-void Skin::placeAndSkinButton(ImageButton* button, String strXmlTag)
+void Skin::placeAndSkinButton(ImageButton *button, String strXmlTag)
 {
     jassert(button != nullptr);
 
-    XmlElement* xmlButton = getComponentFromXml(strXmlTag);
+    XmlElement *xmlButton = getComponentFromXml(strXmlTag);
 
     if (xmlButton != nullptr)
     {
@@ -270,11 +270,11 @@ void Skin::placeAndSkinButton(ImageButton* button, String strXmlTag)
 }
 
 
-void Skin::placeAndSkinHorizontalMeter(HorizontalMeter* meter, String strXmlTag)
+void Skin::placeAndSkinHorizontalMeter(HorizontalMeter *meter, String strXmlTag)
 {
     jassert(meter != nullptr);
 
-    XmlElement* xmlMeter = getComponentFromXml(strXmlTag);
+    XmlElement *xmlMeter = getComponentFromXml(strXmlTag);
 
     if (xmlMeter != nullptr)
     {
@@ -300,7 +300,7 @@ void Skin::placeAndSkinHorizontalMeter(HorizontalMeter* meter, String strXmlTag)
             imageBackground = ImageFileFormat::loadFrom(fileImageBackground);
         }
 
-        XmlElement* xmlNeedle = xmlMeter->getChildByName("needle");
+        XmlElement *xmlNeedle = xmlMeter->getChildByName("needle");
 
         String strImageNeedle = xmlNeedle->getStringAttribute("image");
         File fileImageNeedle = fileResourcePath->getChildFile(strImageNeedle);
@@ -322,11 +322,11 @@ void Skin::placeAndSkinHorizontalMeter(HorizontalMeter* meter, String strXmlTag)
 }
 
 
-void Skin::placeAndSkinLabel(ImageComponent* label, String strXmlTag)
+void Skin::placeAndSkinLabel(ImageComponent *label, String strXmlTag)
 {
     jassert(label != nullptr);
 
-    XmlElement* xmlLabel = getComponentFromXml(strXmlTag);
+    XmlElement *xmlLabel = getComponentFromXml(strXmlTag);
 
     if (xmlLabel != nullptr)
     {
@@ -355,11 +355,11 @@ void Skin::placeAndSkinLabel(ImageComponent* label, String strXmlTag)
 }
 
 
-void Skin::placeAndSkinStateLabel(StateLabel* label, String strXmlTag)
+void Skin::placeAndSkinStateLabel(StateLabel *label, String strXmlTag)
 {
     jassert(label != nullptr);
 
-    XmlElement* xmlLabel = getComponentFromXml(strXmlTag);
+    XmlElement *xmlLabel = getComponentFromXml(strXmlTag);
 
     if (xmlLabel != nullptr)
     {
@@ -406,11 +406,11 @@ void Skin::placeAndSkinStateLabel(StateLabel* label, String strXmlTag)
 }
 
 
-void Skin::placeComponent(Component* component, String strXmlTag)
+void Skin::placeComponent(Component *component, String strXmlTag)
 {
     jassert(component != nullptr);
 
-    XmlElement* xmlComponent = getComponentFromXml(strXmlTag);
+    XmlElement *xmlComponent = getComponentFromXml(strXmlTag);
 
     if (xmlComponent != nullptr)
     {
@@ -424,13 +424,13 @@ void Skin::placeComponent(Component* component, String strXmlTag)
 }
 
 
-void Skin::setBackgroundImage(ImageComponent* background, AudioProcessorEditor* editor)
+void Skin::setBackgroundImage(ImageComponent *background, AudioProcessorEditor *editor)
 {
     if (xmlSkinGroup != nullptr)
     {
         Image imageBackground;
 
-        XmlElement* xmlBackground = xmlSkinGroup->getChildByName("background");
+        XmlElement *xmlBackground = xmlSkinGroup->getChildByName("background");
 
         if (xmlBackground == nullptr)
         {
@@ -453,7 +453,7 @@ void Skin::setBackgroundImage(ImageComponent* background, AudioProcessorEditor* 
             }
         }
 
-        XmlElement* xmlMeterGraduation = nullptr;
+        XmlElement *xmlMeterGraduation = nullptr;
 
         // get rid of the "unused variable" warning
         (void) xmlMeterGraduation;

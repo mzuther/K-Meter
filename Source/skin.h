@@ -38,29 +38,29 @@ class Skin;
 class Skin
 {
 public:
-    Skin(File& fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
+    Skin(File &fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
     ~Skin();
 
-    bool loadFromXml(File& fileSkin);
+    bool loadFromXml(File &fileSkin);
     void updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
-    void placeComponent(Component* component, String strXmlTag);
-    void placeAndSkinButton(ImageButton* button, String strXmlTag);
-    void placeAndSkinHorizontalMeter(HorizontalMeter* meter, String strXmlTag);
-    void placeAndSkinLabel(ImageComponent* label, String strXmlTag);
-    void placeAndSkinStateLabel(StateLabel* label, String strXmlTag);
-    void setBackgroundImage(ImageComponent* background, AudioProcessorEditor* editor);
+    void placeComponent(Component *component, String strXmlTag);
+    void placeAndSkinButton(ImageButton *button, String strXmlTag);
+    void placeAndSkinHorizontalMeter(HorizontalMeter *meter, String strXmlTag);
+    void placeAndSkinLabel(ImageComponent *label, String strXmlTag);
+    void placeAndSkinStateLabel(StateLabel *label, String strXmlTag);
+    void setBackgroundImage(ImageComponent *background, AudioProcessorEditor *editor);
 
 private:
     JUCE_LEAK_DETECTOR(Skin);
 
-    XmlElement* getComponentFromXml(String strXmlTag);
+    XmlElement *getComponentFromXml(String strXmlTag);
 
-    XmlElement* xml;
-    XmlElement* xmlSkinGroup;
-    XmlElement* xmlSkinFallback_1;
-    XmlElement* xmlSkinFallback_2;
+    XmlElement *xml;
+    XmlElement *xmlSkinGroup;
+    XmlElement *xmlSkinFallback_1;
+    XmlElement *xmlSkinFallback_2;
 
-    File* fileResourcePath;
+    File *fileResourcePath;
 
     String strBackgroundSelector;
     String strSkinGroup;

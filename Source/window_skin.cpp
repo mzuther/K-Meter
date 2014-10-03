@@ -26,7 +26,7 @@
 #include "window_skin.h"
 
 
-WindowSkin::WindowSkin(Component* pEditorWindow, const File& fileSkin)
+WindowSkin::WindowSkin(Component *pEditorWindow, const File &fileSkin)
     : DocumentWindow("Select skin", Colours::white, 0, true)
     // create new window child
 {
@@ -113,7 +113,7 @@ WindowSkin::~WindowSkin()
 }
 
 
-void WindowSkin::buttonClicked(Button* button)
+void WindowSkin::buttonClicked(Button *button)
 {
     // find out which button has been clicked
     if (button == ButtonSelect)
@@ -135,7 +135,7 @@ void WindowSkin::buttonClicked(Button* button)
 }
 
 
-const String& WindowSkin::getSelectedString()
+const String &WindowSkin::getSelectedString()
 {
     // get selected row from list box
     int nSelectedRow = pListBox->getSelectedRow(0);
@@ -145,7 +145,7 @@ const String& WindowSkin::getSelectedString()
 }
 
 
-SkinListBoxModel::SkinListBoxModel(const File& fileSkinDirectory)
+SkinListBoxModel::SkinListBoxModel(const File &fileSkinDirectory)
     : skinWildcard("*.skin", String::empty, "skin files"),
       directoryThread("skin directory scanner")
 {
@@ -183,13 +183,13 @@ int SkinListBoxModel::getNumRows()
 }
 
 
-int SkinListBoxModel::getRow(const String& strQuery)
+int SkinListBoxModel::getRow(const String &strQuery)
 {
     return strValues.indexOf(strQuery);
 }
 
 
-const String& SkinListBoxModel::getValue(int nRow)
+const String &SkinListBoxModel::getValue(int nRow)
 {
     return strValues[nRow];
 }
@@ -205,7 +205,7 @@ void SkinListBoxModel::setDefault(int nRow)
 }
 
 
-void SkinListBoxModel::paintListBoxItem(int rowNumber, Graphics& g, int width, int height, bool rowIsSelected)
+void SkinListBoxModel::paintListBoxItem(int rowNumber, Graphics &g, int width, int height, bool rowIsSelected)
 {
     // draw selected rows in light blue
     if (rowIsSelected)

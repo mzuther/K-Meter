@@ -25,7 +25,7 @@
 
 #include "average_level_filtered.h"
 
-AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor* processor, const int channels, const int buffer_size, const int sample_rate, const int average_algorithm)
+AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor *processor, const int channels, const int buffer_size, const int sample_rate, const int average_algorithm)
 {
     jassert(channels > 0);
 
@@ -44,15 +44,15 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor* processor, cons
     pDynamicLibraryFFTW->open(strDynamicLibraryFFTW);
     jassert(pDynamicLibraryFFTW->getNativeHandle() != nullptr);
 
-    fftwf_alloc_real = (float * (*)(size_t)) pDynamicLibraryFFTW->getFunction("fftwf_alloc_real");
-    fftwf_alloc_complex = (fftwf_complex * (*)(size_t)) pDynamicLibraryFFTW->getFunction("fftwf_alloc_complex");
-    fftwf_free = (void (*)(void*)) pDynamicLibraryFFTW->getFunction("fftwf_free");
+    fftwf_alloc_real = (float * ( *)(size_t)) pDynamicLibraryFFTW->getFunction("fftwf_alloc_real");
+    fftwf_alloc_complex = (fftwf_complex * ( *)(size_t)) pDynamicLibraryFFTW->getFunction("fftwf_alloc_complex");
+    fftwf_free = (void ( *)(void *)) pDynamicLibraryFFTW->getFunction("fftwf_free");
 
-    fftwf_plan_dft_r2c_1d = (fftwf_plan(*)(int, float*, fftwf_complex*, unsigned)) pDynamicLibraryFFTW->getFunction("fftwf_plan_dft_r2c_1d");
-    fftwf_plan_dft_c2r_1d = (fftwf_plan(*)(int, fftwf_complex*, float*, unsigned)) pDynamicLibraryFFTW->getFunction("fftwf_plan_dft_c2r_1d");
-    fftwf_destroy_plan = (void (*)(fftwf_plan)) pDynamicLibraryFFTW->getFunction("fftwf_destroy_plan");
+    fftwf_plan_dft_r2c_1d = (fftwf_plan( *)(int, float *, fftwf_complex *, unsigned)) pDynamicLibraryFFTW->getFunction("fftwf_plan_dft_r2c_1d");
+    fftwf_plan_dft_c2r_1d = (fftwf_plan( *)(int, fftwf_complex *, float *, unsigned)) pDynamicLibraryFFTW->getFunction("fftwf_plan_dft_c2r_1d");
+    fftwf_destroy_plan = (void ( *)(fftwf_plan)) pDynamicLibraryFFTW->getFunction("fftwf_destroy_plan");
 
-    fftwf_execute = (void (*)(const fftwf_plan)) pDynamicLibraryFFTW->getFunction("fftwf_execute");
+    fftwf_execute = (void ( *)(const fftwf_plan)) pDynamicLibraryFFTW->getFunction("fftwf_execute");
 #endif
 
     pProcessor = processor;
@@ -430,13 +430,13 @@ void AverageLevelFiltered::FilterSamples_ItuBs1770()
     {
         // pre-filter
         pPreviousSamplesOutputTemp->clear();
-        const float* pSamplesInput = pSampleBuffer->getReadPointer(nChannel);
+        const float *pSamplesInput = pSampleBuffer->getReadPointer(nChannel);
 
         // temporary buffer with only one channel
-        float* pSamplesOutput = pPreviousSamplesOutputTemp->getWritePointer(0);
+        float *pSamplesOutput = pPreviousSamplesOutputTemp->getWritePointer(0);
 
-        const float* pSamplesInputOld_1 = pPreviousSamplesInput_1->getReadPointer(nChannel);
-        const float* pSamplesOutputOld_1 = pPreviousSamplesOutput_1->getReadPointer(nChannel);
+        const float *pSamplesInputOld_1 = pPreviousSamplesInput_1->getReadPointer(nChannel);
+        const float *pSamplesOutputOld_1 = pPreviousSamplesOutput_1->getReadPointer(nChannel);
 
         for (int nSample = 0; nSample < nBufferSize; nSample++)
         {
@@ -490,8 +490,8 @@ void AverageLevelFiltered::FilterSamples_ItuBs1770()
         // data, so we need to update the pointers
         pSamplesOutput = pPreviousSamplesOutputTemp->getWritePointer(0);
 
-        const float* pSamplesInputOld_2 = pPreviousSamplesInput_2->getReadPointer(nChannel);
-        const float* pSamplesOutputOld_2 = pPreviousSamplesOutput_2->getReadPointer(nChannel);
+        const float *pSamplesInputOld_2 = pPreviousSamplesInput_2->getReadPointer(nChannel);
+        const float *pSamplesOutputOld_2 = pPreviousSamplesOutput_2->getReadPointer(nChannel);
 
         for (int nSample = 0; nSample < nBufferSize; nSample++)
         {
@@ -563,7 +563,7 @@ float AverageLevelFiltered::getLevel(const int channel)
             for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
             {
                 float fAverageLevelChannel = 0.0f;
-                const float* fSampleData = pSampleBuffer->getReadPointer(nChannel);
+                const float *fSampleData = pSampleBuffer->getReadPointer(nChannel);
 
                 // calculate mean square of the filtered input signal
                 for (int n = 0; n < nBufferSize; n++)
@@ -624,7 +624,7 @@ float AverageLevelFiltered::getLevel(const int channel)
 }
 
 
-void AverageLevelFiltered::copyFromBuffer(AudioRingBuffer& ringBuffer, const unsigned int pre_delay, const int sample_rate)
+void AverageLevelFiltered::copyFromBuffer(AudioRingBuffer &ringBuffer, const unsigned int pre_delay, const int sample_rate)
 {
     // recalculate filter kernel when sample rate changes
     if (nSampleRate != sample_rate)
@@ -638,14 +638,14 @@ void AverageLevelFiltered::copyFromBuffer(AudioRingBuffer& ringBuffer, const uns
 }
 
 
-void AverageLevelFiltered::copyToBuffer(AudioRingBuffer& destination, const unsigned int sourceStartSample, const unsigned int numSamples)
+void AverageLevelFiltered::copyToBuffer(AudioRingBuffer &destination, const unsigned int sourceStartSample, const unsigned int numSamples)
 {
     // copy data from sample buffer to ring buffer
     destination.addSamples(*pSampleBuffer, sourceStartSample, numSamples);
 }
 
 
-void AverageLevelFiltered::copyToBuffer(AudioSampleBuffer& destination, const int channel, const int destStartSample, const int numSamples)
+void AverageLevelFiltered::copyToBuffer(AudioSampleBuffer &destination, const int channel, const int destStartSample, const int numSamples)
 {
     jassert(channel >= 0);
     jassert(channel < nNumberOfChannels);

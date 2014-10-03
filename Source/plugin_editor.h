@@ -42,17 +42,17 @@
 class KmeterAudioProcessorEditor : public AudioProcessorEditor, public ButtonListener, public ActionListener
 {
 public:
-    KmeterAudioProcessorEditor(KmeterAudioProcessor* ownerFilter, int nNumChannels);
+    KmeterAudioProcessorEditor(KmeterAudioProcessor *ownerFilter, int nNumChannels);
     ~KmeterAudioProcessorEditor();
 
-    void buttonClicked(Button* button);
-    void actionListenerCallback(const String& message);
+    void buttonClicked(Button *button);
+    void actionListenerCallback(const String &message);
     void changeParameter(int nIndex);
     void changeParameter(int nIndex, int nValue);
 
     //==============================================================================
     // This is just a standard Juce paint method...
-    void paint(Graphics& g);
+    void paint(Graphics &g);
     void resized();
 
 private:
@@ -74,34 +74,34 @@ private:
     int nStereoInputChannels;
 
     File fileSkinDirectory;
-    Skin* pSkin;
+    Skin *pSkin;
     String strSkinName;
 
-    KmeterAudioProcessor* pProcessor;
-    Kmeter* kmeter;
-    HorizontalMeter* stereoMeter;
-    HorizontalMeter* phaseCorrelationMeter;
+    KmeterAudioProcessor *pProcessor;
+    Kmeter *kmeter;
+    HorizontalMeter *stereoMeter;
+    HorizontalMeter *phaseCorrelationMeter;
 
-    ImageButton* ButtonNormal;
-    ImageButton* ButtonK12;
-    ImageButton* ButtonK14;
-    ImageButton* ButtonK20;
+    ImageButton *ButtonNormal;
+    ImageButton *ButtonK12;
+    ImageButton *ButtonK14;
+    ImageButton *ButtonK20;
 
-    ImageButton* ButtonItuBs1770;
-    ImageButton* ButtonRms;
+    ImageButton *ButtonItuBs1770;
+    ImageButton *ButtonRms;
 
-    ImageButton* ButtonExpanded;
-    ImageButton* ButtonSkin;
-    ImageButton* ButtonDisplayPeakMeter;
-    ImageButton* ButtonInfiniteHold;
-    ImageButton* ButtonReset;
+    ImageButton *ButtonExpanded;
+    ImageButton *ButtonSkin;
+    ImageButton *ButtonDisplayPeakMeter;
+    ImageButton *ButtonInfiniteHold;
+    ImageButton *ButtonReset;
 
-    ImageButton* ButtonMono;
-    ImageButton* ButtonValidation;
-    ImageButton* ButtonAbout;
+    ImageButton *ButtonMono;
+    ImageButton *ButtonValidation;
+    ImageButton *ButtonAbout;
 
-    ImageComponent* LabelDebug;
-    ImageComponent* BackgroundImage;
+    ImageComponent *LabelDebug;
+    ImageComponent *BackgroundImage;
 };
 
 

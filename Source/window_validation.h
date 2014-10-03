@@ -34,35 +34,35 @@
 class WindowValidation : public DocumentWindow, ButtonListener
 {
 public:
-    WindowValidation(Component* pEditorWindow, KmeterAudioProcessor* processor);
+    WindowValidation(Component *pEditorWindow, KmeterAudioProcessor *processor);
     ~WindowValidation();
 
-    void buttonClicked(Button* button);
+    void buttonClicked(Button *button);
 
 private:
     JUCE_LEAK_DETECTOR(WindowValidation);
 
-    KmeterAudioProcessor* pProcessor;
+    KmeterAudioProcessor *pProcessor;
     File fileValidation;
 
-    Component* contentComponent;
+    Component *contentComponent;
 
-    Label* LabelFileSelection;
-    Label* LabelSampleRate;
-    Label* LabelSampleRateValue;
+    Label *LabelFileSelection;
+    Label *LabelSampleRate;
+    Label *LabelSampleRateValue;
 
-    TextButton* ButtonFileSelection;
-    TextButton* ButtonValidation;
-    TextButton* ButtonCancel;
+    TextButton *ButtonFileSelection;
+    TextButton *ButtonValidation;
+    TextButton *ButtonCancel;
 
-    Label* LabelDumpSelectedChannel;
-    ChannelSlider* SliderDumpSelectedChannel;
-    ToggleButton* ButtonDumpCSV;
-    ToggleButton* ButtonDumpAverageMeterLevel;
-    ToggleButton* ButtonDumpPeakMeterLevel;
-    ToggleButton* ButtonDumpMaximumPeakLevel;
-    ToggleButton* ButtonDumpStereoMeterValue;
-    ToggleButton* ButtonDumpPhaseCorrelation;
+    Label *LabelDumpSelectedChannel;
+    ChannelSlider *SliderDumpSelectedChannel;
+    ToggleButton *ButtonDumpCSV;
+    ToggleButton *ButtonDumpAverageMeterLevel;
+    ToggleButton *ButtonDumpPeakMeterLevel;
+    ToggleButton *ButtonDumpMaximumPeakLevel;
+    ToggleButton *ButtonDumpStereoMeterValue;
+    ToggleButton *ButtonDumpPhaseCorrelation;
 };
 
 

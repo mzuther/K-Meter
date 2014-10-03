@@ -191,7 +191,7 @@ File KmeterPluginParameters::getValidationFile()
 }
 
 
-void KmeterPluginParameters::setValidationFile(File& fileValidation)
+void KmeterPluginParameters::setValidationFile(File &fileValidation)
 {
     if (fileValidation.existsAsFile())
     {
@@ -206,7 +206,7 @@ String KmeterPluginParameters::getSkinName()
 }
 
 
-void KmeterPluginParameters::setSkinName(String& strSkinNameNew)
+void KmeterPluginParameters::setSkinName(String &strSkinNameNew)
 {
     strSkinName = strSkinNameNew;
 }
@@ -501,7 +501,7 @@ XmlElement KmeterPluginParameters::storeAsXml()
 }
 
 
-void KmeterPluginParameters::loadFromXml(XmlElement* xml)
+void KmeterPluginParameters::loadFromXml(XmlElement *xml)
 {
     if (xml && xml->hasTagName("KMETER_SETTINGS"))
     {

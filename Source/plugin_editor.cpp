@@ -27,7 +27,7 @@
 
 
 //==============================================================================
-KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor* ownerFilter, int nNumChannels)
+KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *ownerFilter, int nNumChannels)
     : AudioProcessorEditor(ownerFilter)
 {
     // the editor window does not have any transparent areas
@@ -268,7 +268,7 @@ void KmeterAudioProcessorEditor::applySkin()
 }
 
 
-void KmeterAudioProcessorEditor::actionListenerCallback(const String& message)
+void KmeterAudioProcessorEditor::actionListenerCallback(const String &message)
 {
     // "PC" --> parameter changed, followed by a hash and the
     // parameter's ID
@@ -284,7 +284,7 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String& message)
     // "UM" --> update meters
     else if (!message.compare("UM"))
     {
-        MeterBallistics* pMeterBallistics = pProcessor->getLevels();
+        MeterBallistics *pMeterBallistics = pProcessor->getLevels();
 
         if (pMeterBallistics != nullptr)
         {
@@ -348,7 +348,7 @@ void KmeterAudioProcessorEditor::changeParameter(int nIndex)
 
 void KmeterAudioProcessorEditor::changeParameter(int nIndex, int nValue)
 {
-    MeterBallistics* pMeterBallistics = nullptr;
+    MeterBallistics *pMeterBallistics = nullptr;
 
     switch (nIndex)
     {
@@ -476,12 +476,12 @@ void KmeterAudioProcessorEditor::reloadMeters()
 }
 
 //==============================================================================
-void KmeterAudioProcessorEditor::paint(Graphics& g)
+void KmeterAudioProcessorEditor::paint(Graphics &g)
 {
     g.fillAll(Colours::black);
 }
 
-void KmeterAudioProcessorEditor::buttonClicked(Button* button)
+void KmeterAudioProcessorEditor::buttonClicked(Button *button)
 {
     if (button == ButtonNormal)
     {
@@ -535,7 +535,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button* button)
     }
     else if (button == ButtonReset)
     {
-        MeterBallistics* pMeterBallistics = pProcessor->getLevels();
+        MeterBallistics *pMeterBallistics = pProcessor->getLevels();
 
         if (pMeterBallistics)
         {
@@ -579,7 +579,7 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
     }
 
     bReloadMeters = reload_meters;
-    MeterBallistics* pMeterBallistics = pProcessor->getLevels();
+    MeterBallistics *pMeterBallistics = pProcessor->getLevels();
 
     if (pMeterBallistics != nullptr)
     {

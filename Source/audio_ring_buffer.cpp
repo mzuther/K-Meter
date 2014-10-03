@@ -25,7 +25,7 @@
 
 #include "audio_ring_buffer.h"
 
-AudioRingBuffer::AudioRingBuffer(const String& buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size)
+AudioRingBuffer::AudioRingBuffer(const String &buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size)
 {
     jassert(channels > 0);
     jassert(length > 0);
@@ -42,7 +42,7 @@ AudioRingBuffer::AudioRingBuffer(const String& buffer_name, const unsigned int c
 
     // pad memory areas with RING_BUFFER_MEM_TEST to allow detection of
     // memory leaks
-    pAudioData = (float*) malloc(uChannels * (uTotalLength + 2) * sizeof(float));
+    pAudioData = (float *) malloc(uChannels * (uTotalLength + 2) * sizeof(float));
 
     for (unsigned int i = 0; i < (uChannels * (uTotalLength + 2)); i++)
     {
@@ -155,7 +155,7 @@ float AudioRingBuffer::getSample(const unsigned int channel, const unsigned int 
 }
 
 
-unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer& source, const unsigned int sourceStartSample, const unsigned int numSamples)
+unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer &source, const unsigned int sourceStartSample, const unsigned int numSamples)
 {
     if (numSamples <= 0)
     {
@@ -226,7 +226,7 @@ unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer& source, const unsign
 }
 
 
-void AudioRingBuffer::copyToBuffer(AudioSampleBuffer& destination, const unsigned int destStartSample, const unsigned int numSamples, const unsigned int pre_delay)
+void AudioRingBuffer::copyToBuffer(AudioSampleBuffer &destination, const unsigned int destStartSample, const unsigned int numSamples, const unsigned int pre_delay)
 {
     if (numSamples <= 0)
     {
@@ -306,7 +306,7 @@ float AudioRingBuffer::getRMSLevel(const unsigned int channel, const unsigned in
 }
 
 
-void AudioRingBuffer::setCallbackClass(KmeterAudioProcessor* callback_class)
+void AudioRingBuffer::setCallbackClass(KmeterAudioProcessor *callback_class)
 {
     pCallbackClass = callback_class;
 }
@@ -318,7 +318,7 @@ void AudioRingBuffer::clearCallbackClass()
 }
 
 
-void AudioRingBuffer::triggerFullBuffer(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
+void AudioRingBuffer::triggerFullBuffer(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
     if (pCallbackClass)
     {

@@ -40,11 +40,11 @@ class AudioRingBuffer;
 class AudioRingBuffer
 {
 public:
-    AudioRingBuffer(const String& buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size);
+    AudioRingBuffer(const String &buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size);
     ~AudioRingBuffer();
 
     void clear();
-    void setCallbackClass(KmeterAudioProcessor* callback_class);
+    void setCallbackClass(KmeterAudioProcessor *callback_class);
 
     String getBufferName();
     unsigned int getCurrentPosition();
@@ -55,8 +55,8 @@ public:
 
     float getSample(const unsigned int channel, const unsigned int relative_position, const unsigned int pre_delay);
 
-    unsigned int addSamples(AudioSampleBuffer& source, const unsigned int sourceStartSample, const unsigned int numSamples);
-    void copyToBuffer(AudioSampleBuffer& destination, const unsigned int destStartSample, const unsigned int numSamples, const unsigned int pre_delay);
+    unsigned int addSamples(AudioSampleBuffer &source, const unsigned int sourceStartSample, const unsigned int numSamples);
+    void copyToBuffer(AudioSampleBuffer &destination, const unsigned int destStartSample, const unsigned int numSamples, const unsigned int pre_delay);
 
     float getMagnitude(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay);
     float getRMSLevel(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay);
@@ -65,9 +65,9 @@ private:
     JUCE_LEAK_DETECTOR(AudioRingBuffer);
 
     void clearCallbackClass();
-    void triggerFullBuffer(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
+    void triggerFullBuffer(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
-    KmeterAudioProcessor* pCallbackClass;
+    KmeterAudioProcessor *pCallbackClass;
     String strBufferName;
 
     unsigned int uChannels;
@@ -78,9 +78,9 @@ private:
 
     unsigned int uCurrentPosition;
     unsigned int uSamplesInBuffer;
-    unsigned int* uChannelOffset;
+    unsigned int *uChannelOffset;
 
-    float* pAudioData;
+    float *pAudioData;
 };
 
 

@@ -711,7 +711,7 @@ float MeterBallistics::PeakMeterBallistics(float fTimePassed, float fPeakLevelCu
 }
 
 
-float MeterBallistics::PeakMeterPeakBallistics(float fTimePassed, float* fLastChanged, float fPeakCurrent, float fPeakOld)
+float MeterBallistics::PeakMeterPeakBallistics(float fTimePassed, float *fLastChanged, float fPeakCurrent, float fPeakOld)
 /*  Calculate ballistics for peak meter peak marks.
 
     fTimePassed (float): time that has passed since last update (in
@@ -810,7 +810,7 @@ void MeterBallistics::AverageMeterBallistics(int nChannel, float fTimePassed, fl
 }
 
 
-float MeterBallistics::AverageMeterPeakBallistics(float fTimePassed, float* fLastChanged, float fPeakCurrent, float fPeakOld)
+float MeterBallistics::AverageMeterPeakBallistics(float fTimePassed, float *fLastChanged, float fPeakCurrent, float fPeakOld)
 /*  Calculate ballistics for average meter peak marks.
 
     fTimePassed (float): time that has passed since last update (in
@@ -866,7 +866,7 @@ void MeterBallistics::PhaseCorrelationMeterBallistics(float fTimePassed, float f
 }
 
 
-void MeterBallistics::LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float& fReadout)
+void MeterBallistics::LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float &fReadout)
 /*  Calculate logarithmic meter ballistics.
 
     fMeterInertia (float): time needed to reach 99% of the final

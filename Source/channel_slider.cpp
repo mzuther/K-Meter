@@ -25,7 +25,7 @@
 
 #include "channel_slider.h"
 
-ChannelSlider::ChannelSlider(const String& componentName, int nNumChannels) : Slider(componentName)
+ChannelSlider::ChannelSlider(const String &componentName, int nNumChannels) : Slider(componentName)
 {
     setRange(-1.0f, nNumChannels, 1.0f);
     setSliderStyle(Slider::IncDecButtons);
@@ -41,7 +41,7 @@ ChannelSlider::~ChannelSlider()
 }
 
 
-double ChannelSlider::getValueFromText(const String& strText)
+double ChannelSlider::getValueFromText(const String &strText)
 {
     if (strText == "All")
     {

@@ -36,11 +36,11 @@ class AudioFilePlayer;
 class AudioFilePlayer
 {
 public:
-    AudioFilePlayer(const File audioFile, int sample_rate, MeterBallistics* meter_ballistics, int crest_factor);
+    AudioFilePlayer(const File audioFile, int sample_rate, MeterBallistics *meter_ballistics, int crest_factor);
     ~AudioFilePlayer();
 
     bool isPlaying();
-    void fillBufferChunk(AudioSampleBuffer* buffer);
+    void fillBufferChunk(AudioSampleBuffer *buffer);
     void setCrestFactor(int crest_factor);
     void setReporters(int nChannel, bool ReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
 
@@ -66,11 +66,11 @@ private:
     bool bReportStereoMeterValue;
     bool bReportPhaseCorrelation;
 
-    Averager** pAverager_AverageMeterLevels;
-    Averager** pAverager_PeakMeterLevels;
+    Averager **pAverager_AverageMeterLevels;
+    Averager **pAverager_PeakMeterLevels;
 
-    AudioFormatReaderSource* audioFileSource;
-    MeterBallistics* pMeterBallistics;
+    AudioFormatReaderSource *audioFileSource;
+    MeterBallistics *pMeterBallistics;
 
     void outputReportPlain(void);
     void outputReportCSVHeader(void);
@@ -79,8 +79,8 @@ private:
     String formatTime(void);
     String formatValue(const float fValue);
 
-    void outputValue(const float fValue, Averager* pAverager, const String& strPrefix, const String& strSuffix);
-    void outputMessage(const String& strMessage);
+    void outputValue(const float fValue, Averager *pAverager, const String &strPrefix, const String &strSuffix);
+    void outputMessage(const String &strMessage);
 };
 
 #endif   // __AUDIO_FILE_PLAYER__

@@ -36,7 +36,7 @@
 class PeakLabel : public StateLabel
 {
 public:
-    PeakLabel(const String& componentName, int nCrestFactor);
+    PeakLabel(const String &componentName, int nCrestFactor);
     ~PeakLabel();
 
     void resetLevel();

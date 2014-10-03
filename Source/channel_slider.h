@@ -35,10 +35,10 @@
 class ChannelSlider : public Slider
 {
 public:
-    ChannelSlider(const String& componentName, int nNumChannels);
+    ChannelSlider(const String &componentName, int nNumChannels);
     ~ChannelSlider();
 
-    double getValueFromText(const String& strText);
+    double getValueFromText(const String &strText);
     String getTextFromValue(double fValue);
 
 private:

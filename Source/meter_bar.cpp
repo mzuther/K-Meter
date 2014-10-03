@@ -25,7 +25,7 @@
 
 #include "meter_bar.h"
 
-MeterBar::MeterBar(const String& componentName, int nCrestFactor, bool bExpanded, bool bHorizontal, bool bDisplayPeakMeter, int nSegmentHeight)
+MeterBar::MeterBar(const String &componentName, int nCrestFactor, bool bExpanded, bool bHorizontal, bool bDisplayPeakMeter, int nSegmentHeight)
 {
     setName(componentName);
     isExpanded = bExpanded;
@@ -219,7 +219,7 @@ MeterBar::~MeterBar()
 }
 
 
-void MeterBar::paint(Graphics& g)
+void MeterBar::paint(Graphics &g)
 {
     g.fillAll(Colours::black);
 }

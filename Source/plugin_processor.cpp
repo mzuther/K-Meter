@@ -86,13 +86,13 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
 }
 
 
-void KmeterAudioProcessor::addActionListenerParameters(ActionListener* listener) throw()
+void KmeterAudioProcessor::addActionListenerParameters(ActionListener *listener) throw()
 {
     pPluginParameters->addActionListener(listener);
 }
 
 
-void KmeterAudioProcessor::removeActionListenerParameters(ActionListener* listener) throw()
+void KmeterAudioProcessor::removeActionListenerParameters(ActionListener *listener) throw()
 {
     pPluginParameters->removeActionListener(listener);
 }
@@ -178,7 +178,7 @@ File KmeterAudioProcessor::getParameterValidationFile()
 }
 
 
-void KmeterAudioProcessor::setParameterValidationFile(File& fileValidation)
+void KmeterAudioProcessor::setParameterValidationFile(File &fileValidation)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
@@ -200,7 +200,7 @@ String KmeterAudioProcessor::getParameterSkinName()
 }
 
 
-void KmeterAudioProcessor::setParameterSkinName(String& strSkinName)
+void KmeterAudioProcessor::setParameterSkinName(String &strSkinName)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
@@ -369,7 +369,7 @@ const String KmeterAudioProcessor::getProgramName(int index)
 }
 
 
-void KmeterAudioProcessor::changeProgramName(int index, const String& newName)
+void KmeterAudioProcessor::changeProgramName(int index, const String &newName)
 {
 }
 
@@ -503,7 +503,7 @@ void KmeterAudioProcessor::releaseResources()
 }
 
 
-void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &midiMessages)
 {
     // This is the place where you'd normally do the guts of your
     // plug-in's audio processing...
@@ -554,8 +554,8 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
     // convert stereo input to mono if "Mono" button has been pressed
     if (isStereo && bMono)
     {
-        float* output_left = buffer.getWritePointer(0);
-        float* output_right = buffer.getWritePointer(1);
+        float *output_left = buffer.getWritePointer(0);
+        float *output_right = buffer.getWritePointer(1);
 
         for (int i = 0; i < nNumSamples; i++)
         {
@@ -573,7 +573,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& m
 }
 
 
-void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer& buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
+void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
     unsigned int uPreDelay = uChunkSize / 2;
     bool bMono = getParameterAsBool(KmeterPluginParameters::selMono);
@@ -749,7 +749,7 @@ bool KmeterAudioProcessor::isValidating()
 }
 
 
-int KmeterAudioProcessor::countOverflows(AudioRingBuffer* ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay)
+int KmeterAudioProcessor::countOverflows(AudioRingBuffer *ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay)
 {
     // initialise number of overflows in this buffer
     int nOverflows = 0;
@@ -776,7 +776,7 @@ int KmeterAudioProcessor::countOverflows(AudioRingBuffer* ring_buffer, const uns
 }
 
 
-MeterBallistics* KmeterAudioProcessor::getLevels()
+MeterBallistics *KmeterAudioProcessor::getLevels()
 {
     return pMeterBallistics;
 }
@@ -819,7 +819,7 @@ void KmeterAudioProcessor::setAverageAlgorithmFinal(const int average_algorithm)
 
 //==============================================================================
 
-AudioProcessorEditor* KmeterAudioProcessor::createEditor()
+AudioProcessorEditor *KmeterAudioProcessor::createEditor()
 {
     if (nNumInputChannels > 0)
     {
@@ -840,13 +840,13 @@ bool KmeterAudioProcessor::hasEditor() const
 
 //==============================================================================
 
-void KmeterAudioProcessor::getStateInformation(MemoryBlock& destData)
+void KmeterAudioProcessor::getStateInformation(MemoryBlock &destData)
 {
     copyXmlToBinary(pPluginParameters->storeAsXml(), destData);
 }
 
 
-void KmeterAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
+void KmeterAudioProcessor::setStateInformation(const void *data, int sizeInBytes)
 {
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     pPluginParameters->loadFromXml(xml);
@@ -856,7 +856,7 @@ void KmeterAudioProcessor::setStateInformation(const void* data, int sizeInBytes
 //==============================================================================
 
 // This creates new instances of the plug-in.
-AudioProcessor* JUCE_CALLTYPE createPluginFilter()
+AudioProcessor *JUCE_CALLTYPE createPluginFilter()
 {
     return new KmeterAudioProcessor();
 }

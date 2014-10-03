@@ -50,7 +50,7 @@ private:
     int nCurrentSample;
     float fSum;
 
-    float* pSamples;
+    float *pSamples;
 };
 
 #endif   // __AVERAGER__

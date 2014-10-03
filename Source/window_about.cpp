@@ -26,7 +26,7 @@
 #include "window_about.h"
 
 
-WindowAbout::WindowAbout(Component* pEditorWindow)
+WindowAbout::WindowAbout(Component *pEditorWindow)
     : DocumentWindow(String("About ") + ProjectInfo::projectName, Colours::white, 0, true)
     // create new window child
 {
@@ -269,7 +269,7 @@ WindowAbout::~WindowAbout()
 }
 
 
-void WindowAbout::buttonClicked(Button* button)
+void WindowAbout::buttonClicked(Button *button)
 {
     // find out which button has been clicked
     if (button == ButtonClose)

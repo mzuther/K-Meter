@@ -35,12 +35,12 @@
 class HorizontalMeter : public Component
 {
 public:
-    HorizontalMeter(const String& componentName);
+    HorizontalMeter(const String &componentName);
     ~HorizontalMeter();
 
-    void setImages(Image& imageBackgroundNew, Image& imageNeedleNew, int nSpacingLeftNew, int nSpacingTopNew);
+    void setImages(Image &imageBackgroundNew, Image &imageNeedleNew, int nSpacingLeftNew, int nSpacingTopNew);
     void setValue(float newValue);
-    void paint(Graphics& g);
+    void paint(Graphics &g);
     void initialize();
     void resized();
 
