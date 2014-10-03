@@ -89,7 +89,8 @@ void StateLabel::setImages(Image &imageOffNew, Image &imageOnNew, int nSpacingLe
 {
     nSpacingLeft = nSpacingLeftNew;
     nSpacingTop = nSpacingTopNew;
-    pLabel->setFont((float) nFontSize);
+    pLabel->setFont(Font((float) nFontSize, Font::bold));
+    pLabel->setColour(Label::textColourId, Colours::white.withAlpha(0.8f));
 
     imageOff = Image(imageOffNew);
     imageOn = Image(imageOnNew);

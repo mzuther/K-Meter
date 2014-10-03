@@ -132,7 +132,7 @@ WindowValidation::WindowValidation(Component *pEditorWindow, KmeterAudioProcesso
     // window and runs the selected audio file when clicked
     ButtonValidation = new TextButton("Validate");
     ButtonValidation->setColour(TextButton::textColourOffId, Colours::black);
-    ButtonValidation->setColour(TextButton::buttonColourId, Colours::yellow);
+    ButtonValidation->setColour(TextButton::buttonColourId, Colours::red);
     ButtonValidation->setColour(TextButton::buttonOnColourId, Colours::grey);
 
     // add "validation" window as button listener and display the
@@ -144,7 +144,7 @@ WindowValidation::WindowValidation(Component *pEditorWindow, KmeterAudioProcesso
     // window when clicked
     ButtonCancel = new TextButton("Cancel");
     ButtonCancel->setColour(TextButton::textColourOffId, Colours::black);
-    ButtonCancel->setColour(TextButton::buttonColourId, Colours::red);
+    ButtonCancel->setColour(TextButton::buttonColourId, Colours::yellow);
     ButtonCancel->setColour(TextButton::buttonOnColourId, Colours::grey);
 
     // add "validation" window as button listener and display the button

@@ -67,8 +67,8 @@ WindowSkin::WindowSkin(Component *pEditorWindow, const File &fileSkin)
     // create and position an "select" button
     ButtonSelect = new TextButton("Select");
     ButtonSelect->setBounds(10, nHeight - 30, 60, 20);
-    ButtonSelect->setColour(TextButton::buttonColourId, Colours::yellow);
-    ButtonSelect->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonSelect->setColour(TextButton::buttonColourId, Colours::red);
+    ButtonSelect->setColour(TextButton::buttonOnColourId, Colours::red);
 
     // add "skin" window as button listener and display the button
     ButtonSelect->addListener(this);
@@ -77,8 +77,8 @@ WindowSkin::WindowSkin(Component *pEditorWindow, const File &fileSkin)
     // create and position an "default" button
     ButtonDefault = new TextButton("Default");
     ButtonDefault->setBounds(nWidth - 70, nHeight - 30, 60, 20);
-    ButtonDefault->setColour(TextButton::buttonColourId, Colours::red);
-    ButtonDefault->setColour(TextButton::buttonOnColourId, Colours::red);
+    ButtonDefault->setColour(TextButton::buttonColourId, Colours::yellow);
+    ButtonDefault->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
     // add "skin" window as button listener and display the button
     ButtonDefault->addListener(this);
