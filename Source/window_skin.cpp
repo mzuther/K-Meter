@@ -161,6 +161,8 @@ SkinListBoxModel::SkinListBoxModel(const File &fileSkinDirectory)
     // wait for scan of directory
     while (skinFiles.isStillLoading())
     {
+		// keep Visual C++ from optimising (and thus breaking) the loop
+		Thread::sleep(10);
     }
 
     // add found skins to list box
