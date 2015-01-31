@@ -887,7 +887,7 @@ void MeterBallistics::LogMeterBallistics(float fMeterInertia, float fTimePassed,
     // meter readout are not equal
     if (fLevel != fReadout)
     {
-        // Thanks to Bram from Smartelectronix for the code snippet!
+        // Thanks to Bram de Jong for the code snippet!
         // (http://www.musicdsp.org/showone.php?id=136)
         //
         // rise and fall: 99% of final reading in "fMeterInertia" seconds

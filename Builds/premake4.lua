@@ -63,7 +63,6 @@ solution "kmeter"
 		"../libraries/juce/modules/juce_video/juce_video.cpp"
 	}
 
-
 	includedirs {
 		"../JuceLibraryCode/",
 		"../libraries/"

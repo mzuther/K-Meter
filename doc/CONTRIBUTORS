@@ -1,14 +1,38 @@
+Project owner
+=============
+
+* Martin Zuther a.k.a. radix (http://www.mzuther.de/)
+
+
+
 Contributors
 ============
-Martin Zuther a.k.a. radix
-Bob Katz
-bram@smartelectronix
-Filipe Lopes
-Raiden
+
+* Bob Katz (http://www.digido.com/)
+
+  Creator of the K-Meter.  Also a decent mastering engineer... :)
+
+
+* Jan Kokemüller a.k.a. Raiden (https://github.com/jiixyj)
+
+  Paper "ITU-R BS.1770-1 filter specifications (unofficial)", 2011.
+
+
+* Filipe Coelho (http://www.falktx.com/)
+
+  LV2 support for JUCE.
+
+
+* Bram de Jong (http://bram.smartelectronix.com/)
+
+  Envelope follower with different attack and release.
+
+
 
 Beta testing
 ============
-Rickard (Interfearing Sounds)
+
+* Rickard (http://www.interfearingsounds.com/)
 
 
 (note: do not forget to update "src/window_about.cpp"!)
