@@ -1,9 +1,27 @@
 Git HEAD
 ========
 
-* vertical meter
+
+v1.40 (2015-02-06)
+==================
+
+* skin for plug-in
+
+* added horizontal meter
 
 * optimised plug-in editor inialisation (less redraws)
+
+* Windows: enable WASAPI
+
+* LV2: renamed debug versions
+
+* renamed "meter_label" to "meter_graduation"
+
+* updated framework to JUCE v3.1.1
+
+* moved to FFTW 3.3.4
+
+* updated documentation
 
 
 v1.31 (2013-05-29)
