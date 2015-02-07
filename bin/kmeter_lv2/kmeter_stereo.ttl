@@ -60,6 +60,7 @@
         lv2:symbol "lv2_latency" ;
         lv2:name "Latency" ;
         lv2:designation <http://lv2plug.in/ns/lv2core#latency> ;
+        lv2:portProperty lv2:reportsLatency, lv2:integer ;
     ] ;
 
     lv2:port [
@@ -112,7 +113,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 6 ;
         lv2:symbol "metering_mode" ;
-        lv2:name "Metering Mode" ;
+        lv2:name "Metering mode" ;
         lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -139,7 +140,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 7 ;
         lv2:symbol "averaging_algorithm" ;
-        lv2:name "Averaging Algorithm" ;
+        lv2:name "Averaging algorithm" ;
         lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -158,7 +159,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 8 ;
         lv2:symbol "expand_meter" ;
-        lv2:name "Expand Meter" ;
+        lv2:name "Expand meter" ;
         lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -168,8 +169,8 @@
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 9 ;
-        lv2:symbol "peak_meter" ;
-        lv2:name "Peak Meter" ;
+        lv2:symbol "show_peaks" ;
+        lv2:name "Show peaks" ;
         lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -180,7 +181,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 10 ;
         lv2:symbol "peak_hold" ;
-        lv2:name "Peak Hold" ;
+        lv2:name "Peak hold" ;
         lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -191,7 +192,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 11 ;
         lv2:symbol "mono_input" ;
-        lv2:name "Mono Input" ;
+        lv2:name "Mono input" ;
         lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
