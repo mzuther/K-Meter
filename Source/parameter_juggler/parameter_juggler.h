@@ -47,7 +47,7 @@ public:
 
     static String getVersion()
     {
-        return "1.1.1";
+        return "1.1.2";
     }
 
     WrappedParameter *getWrappedParameter(int nIndex);
@@ -101,7 +101,7 @@ public:
 
 protected:
     int nNumParameters;
-    OwnedArray<WrappedParameter> arrParameters;
+    Array<WrappedParameter *> arrParameters;
     Array<bool> arrMayModify;
 
     String strSettingsID;
