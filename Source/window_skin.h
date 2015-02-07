@@ -26,7 +26,7 @@
 #ifndef __WINDOW_SKIN_H__
 #define __WINDOW_SKIN_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "resources/resources.h"
 
 class SkinListBoxModel;

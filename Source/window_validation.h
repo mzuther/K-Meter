@@ -26,7 +26,7 @@
 #ifndef __WINDOW_VALIDATION_H__
 #define __WINDOW_VALIDATION_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "channel_slider.h"
 #include "plugin_processor.h"
 

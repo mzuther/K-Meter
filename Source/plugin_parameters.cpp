@@ -31,28 +31,113 @@
 
 KmeterPluginParameters::KmeterPluginParameters()
 {
-    nParam = new int[nNumParameters];
+    strSettingsID = "KMETER_SETTINGS";
 
-    // K-20 is the default scale
-    nParam[selCrestFactor] = 20;
 
-    nParam[selAverageAlgorithm] = selAlgorithmItuBs1770;
-    nParam[selExpanded] = 0;
-    nParam[selPeak] = 0;
-    nParam[selInfiniteHold] = 0;
-    nParam[selMono] = 0;
+    ParameterCrestFactor = new WrappedParameterSwitch();
+    ParameterCrestFactor->setName("Metering mode");
 
-    nParam[selValidationFileName] = -1;
-    strValidationFile = String::empty;
+    ParameterCrestFactor->addConstant(0.0f,  "Normal");
+    ParameterCrestFactor->addConstant(12.0f, "K-12");
+    ParameterCrestFactor->addConstant(14.0f, "K-14");
+    ParameterCrestFactor->addConstant(20.0f, "K-20");
 
-    nParam[selValidationSelectedChannel] = -1;
-    nParam[selValidationAverageMeterLevel] = 1;
-    nParam[selValidationPeakMeterLevel] = 1;
-    nParam[selValidationMaximumPeakLevel] = 1;
-    nParam[selValidationStereoMeterValue] = 1;
-    nParam[selValidationPhaseCorrelation] = 1;
+    ParameterCrestFactor->setDefaultRealFloat(20.0f, true);
+    add(ParameterCrestFactor, selCrestFactor);
 
-    nParam[selValidationCSVFormat] = 0;
+
+    ParameterAverageAlgorithm = new WrappedParameterSwitch();
+    ParameterAverageAlgorithm->setName("Averaging algorithm");
+
+    ParameterAverageAlgorithm->addConstant(selAlgorithmRms, "RMS");
+    ParameterAverageAlgorithm->addConstant(selAlgorithmItuBs1770,  "ITU-R BS.1770-1");
+
+    ParameterAverageAlgorithm->setDefaultRealFloat(selAlgorithmItuBs1770, true);
+    add(ParameterAverageAlgorithm, selAverageAlgorithm);
+
+
+    ParameterExpanded = new WrappedParameterToggleSwitch("Off", "On");
+    ParameterExpanded->setName("Expand meter");
+    ParameterExpanded->setDefaultBoolean(false, true);
+    add(ParameterExpanded, selExpanded);
+
+
+    ParameterShowPeaks = new WrappedParameterToggleSwitch("Off", "On");
+    ParameterShowPeaks->setName("Show peaks");
+    ParameterShowPeaks->setDefaultBoolean(false, true);
+    add(ParameterShowPeaks, selShowPeaks);
+
+
+    ParameterInfinitePeakHold = new WrappedParameterToggleSwitch("Off", "On");
+    ParameterInfinitePeakHold->setName("Peak hold");
+    ParameterInfinitePeakHold->setDefaultBoolean(false, true);
+    add(ParameterInfinitePeakHold, selInfinitePeakHold);
+
+
+    ParameterMono = new WrappedParameterToggleSwitch("Off", "On");
+    ParameterMono->setName("Mono input");
+    ParameterMono->setDefaultBoolean(false, true);
+    add(ParameterMono, selMono);
+
+
+    ParameterValidationFileName = new WrappedParameterString(String::empty);
+    ParameterValidationFileName->setName("Validation: file name");
+    add(ParameterValidationFileName, selValidationFileName);
+
+
+    ParameterValidationSelectedChannel = new WrappedParameterSwitch();
+    ParameterValidationSelectedChannel->setName("Validation: selected channel");
+
+    // values correspond to the channel index in AudioSampleBuffer
+    ParameterValidationSelectedChannel->addConstant(-1.0f, "All");
+    ParameterValidationSelectedChannel->addConstant(0.0f,   "1");
+    ParameterValidationSelectedChannel->addConstant(1.0f,   "2");
+#ifdef KMETER_SURROUND
+    ParameterValidationSelectedChannel->addConstant(2.0f,   "3");
+    ParameterValidationSelectedChannel->addConstant(3.0f,   "4");
+    ParameterValidationSelectedChannel->addConstant(4.0f,   "5");
+    ParameterValidationSelectedChannel->addConstant(5.0f,   "6");
+#endif
+
+    ParameterValidationSelectedChannel->setDefaultRealFloat(-1.0f, true);
+    add(ParameterValidationSelectedChannel, selValidationSelectedChannel);
+
+
+    ParameterValidationAverageMeterLevel = new WrappedParameterToggleSwitch("Off", "On");
+    ParameterValidationAverageMeterLevel->setName("Validation: average meter level");
+    ParameterValidationAverageMeterLevel->setDefaultBoolean(true, true);
+    add(ParameterValidationAverageMeterLevel, selValidationAverageMeterLevel);
+
+
+    ParameterValidationPeakMeterLevel = new WrappedParameterToggleSwitch("Off", "On");
+    ParameterValidationPeakMeterLevel->setName("Validation: peak meter level");
+    ParameterValidationPeakMeterLevel->setDefaultBoolean(true, true);
+    add(ParameterValidationPeakMeterLevel, selValidationPeakMeterLevel);
+
+
+    ParameterValidationMaximumPeakLevel = new WrappedParameterToggleSwitch("Off", "On");
+    ParameterValidationMaximumPeakLevel->setName("Validation: maximum peak level");
+    ParameterValidationMaximumPeakLevel->setDefaultBoolean(true, true);
+    add(ParameterValidationMaximumPeakLevel, selValidationMaximumPeakLevel);
+
+
+    ParameterValidationStereoMeterValue = new WrappedParameterToggleSwitch("Off", "On");
+    ParameterValidationStereoMeterValue->setName("Validation: stereo meter value");
+    ParameterValidationStereoMeterValue->setDefaultBoolean(true, true);
+    add(ParameterValidationStereoMeterValue, selValidationStereoMeterValue);
+
+
+    ParameterValidationPhaseCorrelation = new WrappedParameterToggleSwitch("Off", "On");
+    ParameterValidationPhaseCorrelation->setName("Validation: phase correlation");
+    ParameterValidationPhaseCorrelation->setDefaultBoolean(true, true);
+    add(ParameterValidationPhaseCorrelation, selValidationPhaseCorrelation);
+
+
+    ParameterValidationCSVFormat = new WrappedParameterToggleSwitch("Off", "On");
+    ParameterValidationCSVFormat->setName("Validation: CSV output format");
+    ParameterValidationCSVFormat->setDefaultBoolean(false, true);
+    add(ParameterValidationCSVFormat, selValidationCSVFormat);
+
 
     // the following may or may not work on Mac
     File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
@@ -71,27 +156,60 @@ KmeterPluginParameters::KmeterPluginParameters()
     }
 
     // load name of default skin
-    nParam[selSkinName] = -1;
-    strSkinName = fileDefaultSkin.loadFileAsString();
+    String strDefaultSkinName = fileDefaultSkin.loadFileAsString();
 
-    bParamChanged = new bool[nNumParameters];
-
-    for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
-    {
-        UnmarkParameter(nIndex);
-    }
+    ParameterSkinName = new WrappedParameterString(strDefaultSkinName);
+    ParameterSkinName->setName("Skin");
+    add(ParameterSkinName, selSkinName);
 }
 
 
 KmeterPluginParameters::~KmeterPluginParameters()
 {
-    removeAllActionListeners();
+    delete ParameterCrestFactor;
+    ParameterCrestFactor = nullptr;
 
-    delete [] nParam;
-    nParam = nullptr;
+    delete ParameterAverageAlgorithm;
+    ParameterAverageAlgorithm = nullptr;
 
-    delete [] bParamChanged;
-    bParamChanged = nullptr;
+    delete ParameterExpanded;
+    ParameterExpanded = nullptr;
+
+    delete ParameterShowPeaks;
+    ParameterShowPeaks = nullptr;
+
+    delete ParameterInfinitePeakHold;
+    ParameterInfinitePeakHold = nullptr;
+
+    delete ParameterMono;
+    ParameterMono = nullptr;
+
+    delete ParameterValidationFileName;
+    ParameterValidationFileName = nullptr;
+
+    delete ParameterValidationSelectedChannel;
+    ParameterValidationSelectedChannel = nullptr;
+
+    delete ParameterValidationAverageMeterLevel;
+    ParameterValidationAverageMeterLevel = nullptr;
+
+    delete ParameterValidationPeakMeterLevel;
+    ParameterValidationPeakMeterLevel = nullptr;
+
+    delete ParameterValidationMaximumPeakLevel;
+    ParameterValidationMaximumPeakLevel = nullptr;
+
+    delete ParameterValidationStereoMeterValue;
+    ParameterValidationStereoMeterValue = nullptr;
+
+    delete ParameterValidationPhaseCorrelation;
+    ParameterValidationPhaseCorrelation = nullptr;
+
+    delete ParameterValidationCSVFormat;
+    ParameterValidationCSVFormat = nullptr;
+
+    delete ParameterSkinName;
+    ParameterSkinName = nullptr;
 }
 
 
@@ -99,7 +217,7 @@ int KmeterPluginParameters::getNumParameters(bool bIncludeHiddenParameters)
 {
     if (bIncludeHiddenParameters)
     {
-        return nNumParameters;
+        return nNumParametersComplete;
     }
     else
     {
@@ -108,77 +226,9 @@ int KmeterPluginParameters::getNumParameters(bool bIncludeHiddenParameters)
 }
 
 
-bool KmeterPluginParameters::getParameterAsBool(int nIndex)
-{
-    return (getParameterAsInt(nIndex) != 0) ? true : false;
-}
-
-
-float KmeterPluginParameters::getParameterAsFloat(int nIndex)
-{
-    int nValue = getParameterAsInt(nIndex);
-    return translateParameterToFloat(nIndex, nValue);
-}
-
-
-int KmeterPluginParameters::getParameterAsInt(int nIndex)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-
-    return nParam[nIndex];
-}
-
-
-void KmeterPluginParameters::setParameterFromBool(int nIndex, bool bValue)
-{
-    setParameterFromInt(nIndex, bValue ? 1 : 0);
-}
-
-
-void KmeterPluginParameters::setParameterFromFloat(int nIndex, float fValue)
-{
-    int nValue = translateParameterToInt(nIndex, fValue);
-    setParameterFromInt(nIndex, nValue);
-}
-
-
-void KmeterPluginParameters::setParameterFromInt(int nIndex, int nValue)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-
-    if (nParam[nIndex] != nValue)
-    {
-        if (nIndex == selCrestFactor)
-        {
-            if ((nValue == 0) || (nValue == 12) || (nValue == 14))
-            {
-                nParam[nIndex] = nValue;
-            }
-            else
-            {
-                nParam[nIndex] = 20;
-            }
-        }
-        else if (nIndex == selValidationSelectedChannel)
-        {
-            nParam[nIndex] = nValue;
-        }
-        else
-        {
-            nParam[nIndex] = (nValue != 0) ? 1 : 0;
-        }
-
-        MarkParameter(nIndex);
-        // "PC" --> parameter changed, followed by a hash and the
-        // parameter's ID
-        sendActionMessage("PC#" + String(nIndex));
-    }
-}
-
-
 File KmeterPluginParameters::getValidationFile()
 {
-    File fileValidation = File(strValidationFile);
+    File fileValidation = File(ParameterValidationFileName->getText());
 
     if (fileValidation.existsAsFile())
     {
@@ -195,357 +245,21 @@ void KmeterPluginParameters::setValidationFile(File &fileValidation)
 {
     if (fileValidation.existsAsFile())
     {
-        strValidationFile = fileValidation.getFullPathName();
+        String strFilename = fileValidation.getFullPathName();
+        ParameterValidationFileName->setText(strFilename);
     }
 }
 
 
 String KmeterPluginParameters::getSkinName()
 {
-    return strSkinName;
+    return ParameterSkinName->getText();
 }
 
 
-void KmeterPluginParameters::setSkinName(String &strSkinNameNew)
+void KmeterPluginParameters::setSkinName(String &strSkinName)
 {
-    strSkinName = strSkinNameNew;
-}
-
-
-void KmeterPluginParameters::MarkParameter(int nIndex)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-
-    bParamChanged[nIndex] = true;
-}
-
-
-void KmeterPluginParameters::UnmarkParameter(int nIndex)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-
-    bParamChanged[nIndex] = false;
-}
-
-
-bool KmeterPluginParameters::isParameterMarked(int nIndex)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-
-    return bParamChanged[nIndex];
-}
-
-
-const String KmeterPluginParameters::getParameterName(int nIndex)
-{
-    switch (nIndex)
-    {
-    case selCrestFactor:
-        return "Metering Mode";
-        break;
-
-    case selAverageAlgorithm:
-        return "Averaging Algorithm";
-        break;
-
-    case selExpanded:
-        return "Expand Meter";
-        break;
-
-    case selPeak:
-        return "Peak Meter";
-        break;
-
-    case selInfiniteHold:
-        return "Peak Hold";
-        break;
-
-    case selMono:
-        return "Mono Input";
-        break;
-
-    case selValidationFileName:
-        return "Validation: file name";
-        break;
-
-    case selValidationSelectedChannel:
-        return "Validation: selected channel";
-        break;
-
-    case selValidationAverageMeterLevel:
-        return "Validation: average meter level";
-        break;
-
-    case selValidationPeakMeterLevel:
-        return "Validation: peak meter level";
-        break;
-
-    case selValidationMaximumPeakLevel:
-        return "Validation: maximum peak level";
-        break;
-
-    case selValidationStereoMeterValue:
-        return "Validation: stereo meter value";
-        break;
-
-    case selValidationPhaseCorrelation:
-        return "Validation: phase correlation";
-        break;
-
-    case selValidationCSVFormat:
-        return "Validation: CSV output format";
-        break;
-
-    case selSkinName:
-        return "Skin";
-        break;
-
-    default:
-        return "invalid";
-        break;
-    }
-}
-
-
-const String KmeterPluginParameters::getParameterText(int nIndex)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-
-    if (nIndex == selCrestFactor)
-    {
-        if (nParam[nIndex] == 0)
-        {
-            return "Normal";
-        }
-        else if (nParam[nIndex] == 12)
-        {
-            return "K-12";
-        }
-        else if (nParam[nIndex] == 14)
-        {
-            return "K-14";
-        }
-        else // K-20
-        {
-            return "K-20";
-        }
-    }
-    else if (nIndex == selAverageAlgorithm)
-    {
-        if (nParam[nIndex] == selAlgorithmItuBs1770)
-        {
-            return "ITU-R BS.1770-1";
-        }
-        else
-        {
-            return "RMS";
-        }
-    }
-    else if (nIndex == selValidationFileName)
-    {
-        File fileValidation = File(strValidationFile);
-
-        if (fileValidation.existsAsFile())
-        {
-            return strValidationFile;
-        }
-        else
-        {
-            return String::empty;
-        }
-    }
-    else if (nIndex == selValidationSelectedChannel)
-    {
-        if (nParam[nIndex] < 0)
-        {
-            return "All";
-        }
-        else
-        {
-            return String(nParam[nIndex]);
-        }
-    }
-    else if (nIndex == selSkinName)
-    {
-        return strSkinName;
-    }
-    else
-    {
-        return getParameterAsBool(nIndex) ? "On" : "Off";
-    }
-}
-
-
-float KmeterPluginParameters::translateParameterToFloat(int nIndex, int nValue)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-
-    if (nIndex == selCrestFactor)
-    {
-        if (nValue == 0)
-        {
-            return (selNormal / float(nNumCrestFactors - 1));
-        }
-        else if (nValue == 12)
-        {
-            return (selK12 / float(nNumCrestFactors - 1));
-        }
-        else if (nValue == 14)
-        {
-            return (selK14 / float(nNumCrestFactors - 1));
-        }
-        else // K-20
-        {
-            return (selK20 / float(nNumCrestFactors - 1));
-        }
-    }
-    else if (nIndex == selAverageAlgorithm)
-    {
-        return (float) nValue;
-    }
-    else if (nIndex == selValidationSelectedChannel)
-    {
-        // 0.00f: dump all channels
-        // 0.01f: dump channel #0
-        // 0.02f: dump channel #1
-        // ...
-        // 1.00f: dump channel #99
-        return (nValue + 1.0f) / 100.0f;
-    }
-    else
-    {
-        return (nValue != 0) ? 1.0f : 0.0f;
-    }
-}
-
-
-int KmeterPluginParameters::translateParameterToInt(int nIndex, float fValue)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-
-    if (nIndex == selCrestFactor)
-    {
-        if (fValue < (selK12 / float(nNumCrestFactors)))
-        {
-            return 0;
-        }
-        else if (fValue < (selK14 / float(nNumCrestFactors)))
-        {
-            return 12;
-        }
-        else if (fValue < (selK20 / float(nNumCrestFactors)))
-        {
-            return 14;
-        }
-        else // K-20
-        {
-            return 20;
-        }
-    }
-    else if (nIndex == selAverageAlgorithm)
-    {
-        int nRoundedValue = int(fValue + 0.5f);
-        return nRoundedValue;
-    }
-    else if (nIndex == selValidationSelectedChannel)
-    {
-        // 0.00f: dump all channels
-        // 0.01f: dump channel #0
-        // 0.02f: dump channel #1
-        // ...
-        // 1.00f: dump channel #99
-        int nRoundedValue = int(fValue * 100.0f + 0.5f);
-        return nRoundedValue - 1;
-    }
-    else
-    {
-        return (fValue > 0.5f) ? true : false;
-    }
-}
-
-
-XmlElement KmeterPluginParameters::storeAsXml()
-{
-    XmlElement xml("KMETER_SETTINGS");
-    xml.setAttribute("version", JucePlugin_VersionString);
-
-    int nCrestFactor = getParameterAsInt(selCrestFactor);
-
-    if (nCrestFactor == 0)
-    {
-        // K-20 is the default scale
-        xml.setAttribute("CrestFactor", 20);
-    }
-    else
-    {
-        xml.setAttribute("CrestFactor", nCrestFactor);
-    }
-
-    xml.setAttribute("AverageAlgorithm", getParameterAsInt(selAverageAlgorithm));
-    xml.setAttribute("Expanded", getParameterAsInt(selExpanded));
-    xml.setAttribute("Peak", getParameterAsInt(selPeak));
-    xml.setAttribute("Hold", getParameterAsInt(selInfiniteHold));
-    xml.setAttribute("Mono", getParameterAsInt(selMono));
-
-    xml.setAttribute("ValidationFile", strValidationFile);
-    xml.setAttribute("ValidationSelectedChannel", getParameterAsInt(selValidationSelectedChannel));
-    xml.setAttribute("ValidationAverageMeterLevel", getParameterAsInt(selValidationAverageMeterLevel));
-    xml.setAttribute("ValidationPeakMeterLevel", getParameterAsInt(selValidationPeakMeterLevel));
-    xml.setAttribute("ValidationMaximumPeakLevel", getParameterAsInt(selValidationMaximumPeakLevel));
-    xml.setAttribute("ValidationStereoMeterValue", getParameterAsInt(selValidationStereoMeterValue));
-    xml.setAttribute("ValidationPhaseCorrelation", getParameterAsInt(selValidationPhaseCorrelation));
-    xml.setAttribute("ValidationCSVFormat", getParameterAsInt(selValidationCSVFormat));
-    xml.setAttribute("Skin", strSkinName);
-
-    return xml;
-}
-
-
-void KmeterPluginParameters::loadFromXml(XmlElement *xml)
-{
-    if (xml && xml->hasTagName("KMETER_SETTINGS"))
-    {
-        int nCrestFactor = 0;
-
-        // make sure settings for K-Meter v1.21 and below load fine
-        if (xml->hasAttribute("Headroom"))
-        {
-            nCrestFactor = xml->getIntAttribute("Headroom", getParameterAsInt(selCrestFactor));
-        }
-        else
-        {
-            nCrestFactor = xml->getIntAttribute("CrestFactor", getParameterAsInt(selCrestFactor));
-        }
-
-        if (nCrestFactor == 0)
-        {
-            // K-20 is the default scale
-            setParameterFromInt(selCrestFactor, 20);
-        }
-        else
-        {
-            setParameterFromInt(selCrestFactor, nCrestFactor);
-        }
-
-        setParameterFromInt(selAverageAlgorithm, xml->getIntAttribute("AverageAlgorithm", getParameterAsInt(selAverageAlgorithm)));
-        setParameterFromInt(selExpanded, xml->getIntAttribute("Expanded", getParameterAsInt(selExpanded)));
-        setParameterFromInt(selPeak, xml->getIntAttribute("Peak", getParameterAsInt(selPeak)));
-        setParameterFromInt(selInfiniteHold, xml->getIntAttribute("Hold", getParameterAsInt(selInfiniteHold)));
-        setParameterFromInt(selMono, xml->getIntAttribute("Mono", getParameterAsInt(selMono)));
-
-        File fileValidation = File(xml->getStringAttribute("ValidationFile", strValidationFile));
-        setValidationFile(fileValidation);
-
-        setParameterFromInt(selValidationSelectedChannel, xml->getIntAttribute("ValidationSelectedChannel", getParameterAsInt(selValidationSelectedChannel)));
-        setParameterFromInt(selValidationAverageMeterLevel, xml->getIntAttribute("ValidationAverageMeterLevel", getParameterAsInt(selValidationAverageMeterLevel)));
-        setParameterFromInt(selValidationPeakMeterLevel, xml->getIntAttribute("ValidationPeakMeterLevel", getParameterAsInt(selValidationPeakMeterLevel)));
-        setParameterFromInt(selValidationMaximumPeakLevel, xml->getIntAttribute("ValidationMaximumPeakLevel", getParameterAsInt(selValidationMaximumPeakLevel)));
-        setParameterFromInt(selValidationStereoMeterValue, xml->getIntAttribute("ValidationStereoMeterValue", getParameterAsInt(selValidationStereoMeterValue)));
-        setParameterFromInt(selValidationPhaseCorrelation, xml->getIntAttribute("ValidationPhaseCorrelation", getParameterAsInt(selValidationPhaseCorrelation)));
-        setParameterFromInt(selValidationCSVFormat, xml->getIntAttribute("ValidationCSVFormat", getParameterAsInt(selValidationCSVFormat)));
-
-        strSkinName = xml->getStringAttribute("Skin", strSkinName);
-    }
+    ParameterSkinName->setText(strSkinName);
 }
 
 

@@ -26,7 +26,7 @@
 #ifndef __PLUGINEDITOR_KMETER_H__
 #define __PLUGINEDITOR_KMETER_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "plugin_processor.h"
 #include "kmeter.h"
 #include "skin.h"
@@ -47,8 +47,7 @@ public:
 
     void buttonClicked(Button *button);
     void actionListenerCallback(const String &message);
-    void changeParameter(int nIndex);
-    void changeParameter(int nIndex, int nValue);
+    void updateParameter(int nIndex);
 
     //==============================================================================
     // This is just a standard Juce paint method...
@@ -93,7 +92,7 @@ private:
     ImageButton *ButtonExpanded;
     ImageButton *ButtonSkin;
     ImageButton *ButtonDisplayPeakMeter;
-    ImageButton *ButtonInfiniteHold;
+    ImageButton *ButtonInfinitePeakHold;
     ImageButton *ButtonReset;
 
     ImageButton *ButtonMono;

@@ -130,6 +130,16 @@ OBJECTS := \
 	$(OBJDIR)/audio_file_player.o \
 	$(OBJDIR)/overflow_meter.o \
 	$(OBJDIR)/channel_slider.o \
+	$(OBJDIR)/wrapped_parameter_toggle_switch.o \
+	$(OBJDIR)/parameter_juggler.o \
+	$(OBJDIR)/slider_combined.o \
+	$(OBJDIR)/slider_switch.o \
+	$(OBJDIR)/wrapped_parameter_string.o \
+	$(OBJDIR)/slider_continuous.o \
+	$(OBJDIR)/wrapped_parameter_switch.o \
+	$(OBJDIR)/slider_switch_linear_bar.o \
+	$(OBJDIR)/wrapped_parameter_continuous.o \
+	$(OBJDIR)/wrapped_parameter_combined.o \
 	$(OBJDIR)/resources.o \
 	$(OBJDIR)/juce_audio_basics.o \
 	$(OBJDIR)/juce_audio_devices.o \
@@ -268,6 +278,36 @@ $(OBJDIR)/overflow_meter.o: ../../../Source/overflow_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/channel_slider.o: ../../../Source/channel_slider.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_toggle_switch.o: ../../../Source/parameter_juggler/wrapped_parameter_toggle_switch.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/parameter_juggler.o: ../../../Source/parameter_juggler/parameter_juggler.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/slider_combined.o: ../../../Source/parameter_juggler/slider_combined.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/slider_switch.o: ../../../Source/parameter_juggler/slider_switch.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_string.o: ../../../Source/parameter_juggler/wrapped_parameter_string.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/slider_continuous.o: ../../../Source/parameter_juggler/slider_continuous.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_switch.o: ../../../Source/parameter_juggler/wrapped_parameter_switch.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/parameter_juggler/slider_switch_linear_bar.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_continuous.o: ../../../Source/parameter_juggler/wrapped_parameter_continuous.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_combined.o: ../../../Source/parameter_juggler/wrapped_parameter_combined.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/resources.o: ../../../Source/resources/resources.cpp

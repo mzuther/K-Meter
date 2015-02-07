@@ -26,7 +26,7 @@
 #ifndef __CHANNEL_SLIDER_H__
 #define __CHANNEL_SLIDER_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 
 //==============================================================================
@@ -38,6 +38,7 @@ public:
     ChannelSlider(const String &componentName, int nNumChannels);
     ~ChannelSlider();
 
+    float getFloat();
     double getValueFromText(const String &strText);
     String getTextFromValue(double fValue);
 

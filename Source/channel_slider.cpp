@@ -41,6 +41,14 @@ ChannelSlider::~ChannelSlider()
 }
 
 
+float ChannelSlider::getFloat()
+{
+    double dRange = getMaximum() - getMinimum();
+    double dValue = (getValue() - getMinimum()) / dRange;
+    return (float) dValue;
+}
+
+
 double ChannelSlider::getValueFromText(const String &strText)
 {
     if (strText == "All")

@@ -26,7 +26,19 @@
 #include "plugin_processor.h"
 #include "plugin_editor.h"
 
-//==============================================================================
+
+/*==============================================================================
+
+Flow of parameter processing:
+
+  Editor:      buttonClicked(button) / sliderValueChanged(slider)
+  Processor:   changeParameter(nIndex, fValue)
+  Processor:   setParameter(nIndex, fValue)
+  Parameters:  setFloat(nIndex, fValue)
+  Editor:      actionListenerCallback(strMessage)
+  Editor:      updateParameter(nIndex)
+
+==============================================================================*/
 
 KmeterAudioProcessor::KmeterAudioProcessor()
 {
@@ -52,7 +64,7 @@ KmeterAudioProcessor::KmeterAudioProcessor()
     pPluginParameters = new KmeterPluginParameters();
 
     // depends on "KmeterPluginParameters"!
-    nAverageAlgorithm = getParameterAsInt(KmeterPluginParameters::selAverageAlgorithm);
+    nAverageAlgorithm = getRealInteger(KmeterPluginParameters::selAverageAlgorithm);
 
     fProcessedSeconds = 0.0f;
 
@@ -86,18 +98,6 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
 }
 
 
-void KmeterAudioProcessor::addActionListenerParameters(ActionListener *listener) throw()
-{
-    pPluginParameters->addActionListener(listener);
-}
-
-
-void KmeterAudioProcessor::removeActionListenerParameters(ActionListener *listener) throw()
-{
-    pPluginParameters->removeActionListener(listener);
-}
-
-
 //==============================================================================
 
 const String KmeterAudioProcessor::getName() const
@@ -112,58 +112,172 @@ int KmeterAudioProcessor::getNumParameters()
 }
 
 
-float KmeterAudioProcessor::getParameter(int index)
+const String KmeterAudioProcessor::getParameterName(int nIndex)
+{
+    return pPluginParameters->getName(nIndex);
+}
+
+
+const String KmeterAudioProcessor::getParameterText(int nIndex)
+{
+    return pPluginParameters->getText(nIndex);
+}
+
+
+float KmeterAudioProcessor::getParameter(int nIndex)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    return pPluginParameters->getParameterAsFloat(index);
+    return pPluginParameters->getFloat(nIndex);
 }
 
 
-void KmeterAudioProcessor::setParameter(int index, float newValue)
+void KmeterAudioProcessor::changeParameter(int nIndex, float fValue)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    // Please use this method for non-automatable values only!
-
-    pPluginParameters->setParameterFromFloat(index, newValue);
-
-    if (index == KmeterPluginParameters::selAverageAlgorithm)
+    if (nIndex == KmeterPluginParameters::selMono)
     {
-        setAverageAlgorithm(getParameterAsInt(index));
-    }
-}
-
-
-void KmeterAudioProcessor::updateParameters(bool bIncludeHiddenParameters)
-{
-    int nNumParameters = pPluginParameters->getNumParameters(bIncludeHiddenParameters);
-
-    for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
-    {
-        if (pPluginParameters->isParameterMarked(nIndex))
+        // automatically enable "Mono" button for mono channels
+        if (nNumInputChannels == 1)
         {
-            int nValue = pPluginParameters->getParameterAsInt(nIndex);
-            changeParameter(nIndex, nValue);
+            fValue = 1.0f;
+        }
+        // automatically disable "Mono" button for multi-channel audio
+        else if (nNumInputChannels > 2)
+        {
+            fValue = 0.0f;
+        }
+    }
+
+    // notify host of parameter change (this will automatically call
+    // "setParameter"!)
+    beginParameterChangeGesture(nIndex);
+    setParameterNotifyingHost(nIndex, fValue);
+    endParameterChangeGesture(nIndex);
+}
+
+
+void KmeterAudioProcessor::setParameter(int nIndex, float fValue)
+{
+    // This method will be called by the host, probably on the audio
+    // thread, so it's absolutely time-critical. Don't use critical
+    // sections or anything GUI-related, or anything at all that may
+    // block in any way!
+
+    // Please only call this method directly for non-automatable
+    // values!
+
+    pPluginParameters->setFloat(nIndex, fValue);
+
+    // notify plug-in editor of parameter change
+    if (pPluginParameters->hasChanged(nIndex))
+    {
+        // for visible parameters, notify the editor of changes (this
+        // will also clear the change flag)
+        if (nIndex < pPluginParameters->getNumParameters(false))
+        {
+            if (nIndex == KmeterPluginParameters::selCrestFactor)
+            {
+                if (audioFilePlayer)
+                {
+                    audioFilePlayer->setCrestFactor(getRealInteger(nIndex));
+                }
+            }
+            else if (nIndex == KmeterPluginParameters::selAverageAlgorithm)
+            {
+                setAverageAlgorithm(getRealInteger(nIndex));
+            }
+
+            // "PC" --> parameter changed, followed by a hash and the
+            // parameter's ID
+            sendActionMessage("PC#" + String(nIndex));
+        }
+        // for hidden parameters, we only have to clear the change
+        // flag
+        else
+        {
+            pPluginParameters->clearChangeFlag(nIndex);
         }
     }
 }
 
 
-bool KmeterAudioProcessor::getParameterAsBool(int nIndex)
+void KmeterAudioProcessor::clearChangeFlag(int nIndex)
+{
+    pPluginParameters->clearChangeFlag(nIndex);
+}
+
+
+void KmeterAudioProcessor::setChangeFlag(int nIndex)
+{
+    pPluginParameters->setChangeFlag(nIndex);
+}
+
+
+bool KmeterAudioProcessor::hasChanged(int nIndex)
+{
+    return pPluginParameters->hasChanged(nIndex);
+}
+
+
+void KmeterAudioProcessor::updateParameters(bool bIncludeHiddenParameters)
+{
+    int nNumParameters = pPluginParameters->getNumParameters(false);
+
+    for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
+    {
+        if (pPluginParameters->hasChanged(nIndex))
+        {
+            float fValue = pPluginParameters->getFloat(nIndex);
+            changeParameter(nIndex, fValue);
+        }
+    }
+
+    if (bIncludeHiddenParameters)
+    {
+        // handle hidden parameters here!
+
+        // the following parameters need no updating:
+        //
+        // * selValidationFileName
+        // * selValidationSelectedChannel
+        // * selValidationAverageMeterLevel
+        // * selValidationPeakMeterLevel
+        // * selValidationMaximumPeakLevel
+        // * selValidationStereoMeterValue
+        // * selValidationPhaseCorrelation
+        // * selValidationCSVFormat
+        // * selSkinName
+    }
+}
+
+
+bool KmeterAudioProcessor::getBoolean(int nIndex)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    return pPluginParameters->getParameterAsBool(nIndex);
+    return pPluginParameters->getBoolean(nIndex);
+}
+
+
+int KmeterAudioProcessor::getRealInteger(int nIndex)
+{
+    // This method will be called by the host, probably on the audio
+    // thread, so it's absolutely time-critical. Don't use critical
+    // sections or anything GUI-related, or anything at all that may
+    // block in any way!
+
+    return pPluginParameters->getRealInteger(nIndex);
 }
 
 
@@ -211,79 +325,6 @@ void KmeterAudioProcessor::setParameterSkinName(String &strSkinName)
 }
 
 
-const String KmeterAudioProcessor::getParameterName(int index)
-{
-    return pPluginParameters->getParameterName(index);
-}
-
-
-const String KmeterAudioProcessor::getParameterText(int index)
-{
-    return pPluginParameters->getParameterText(index);
-}
-
-
-int KmeterAudioProcessor::getParameterAsInt(int index)
-{
-    return pPluginParameters->getParameterAsInt(index);
-}
-
-
-void KmeterAudioProcessor::changeParameter(int index, int nValue)
-{
-    if (index == KmeterPluginParameters::selMono)
-    {
-        // automatically enable "Mono" button for mono channels
-        if (nNumInputChannels < 2)
-        {
-            nValue = true;
-        }
-        // automatically disable "Mono" button for multi-channel audio
-        else if (nNumInputChannels > 2)
-        {
-            nValue = false;
-        }
-    }
-    else if (index == KmeterPluginParameters::selCrestFactor)
-    {
-        if (isValidating())
-        {
-            audioFilePlayer->setCrestFactor(nValue);
-        }
-    }
-
-    beginParameterChangeGesture(index);
-
-    float newValue = pPluginParameters->translateParameterToFloat(index, nValue);
-    setParameterNotifyingHost(index, newValue);
-
-    endParameterChangeGesture(index);
-
-    if (index == KmeterPluginParameters::selAverageAlgorithm)
-    {
-        setAverageAlgorithm(nValue);
-    }
-}
-
-
-void KmeterAudioProcessor::MarkParameter(int nIndex)
-{
-    pPluginParameters->MarkParameter(nIndex);
-}
-
-
-void KmeterAudioProcessor::UnmarkParameter(int nIndex)
-{
-    pPluginParameters->UnmarkParameter(nIndex);
-}
-
-
-bool KmeterAudioProcessor::isParameterMarked(int nIndex)
-{
-    return pPluginParameters->isParameterMarked(nIndex);
-}
-
-
 const String KmeterAudioProcessor::getInputChannelName(int channelIndex) const
 {
     return "Input " + String(channelIndex + 1);
@@ -296,13 +337,13 @@ const String KmeterAudioProcessor::getOutputChannelName(int channelIndex) const
 }
 
 
-bool KmeterAudioProcessor::isInputChannelStereoPair(int index) const
+bool KmeterAudioProcessor::isInputChannelStereoPair(int nIndex) const
 {
     return true;
 }
 
 
-bool KmeterAudioProcessor::isOutputChannelStereoPair(int index) const
+bool KmeterAudioProcessor::isOutputChannelStereoPair(int nIndex) const
 {
     return true;
 }
@@ -358,20 +399,21 @@ int KmeterAudioProcessor::getCurrentProgram()
 }
 
 
-void KmeterAudioProcessor::setCurrentProgram(int index)
+void KmeterAudioProcessor::setCurrentProgram(int nIndex)
 {
 }
 
 
-const String KmeterAudioProcessor::getProgramName(int index)
+const String KmeterAudioProcessor::getProgramName(int nIndex)
 {
     return String::empty;
 }
 
 
-void KmeterAudioProcessor::changeProgramName(int index, const String &newName)
+void KmeterAudioProcessor::changeProgramName(int nIndex, const String &newName)
 {
 }
+
 
 //==============================================================================
 
@@ -508,20 +550,13 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &m
     // This is the place where you'd normally do the guts of your
     // plug-in's audio processing...
 
+    int nNumSamples = buffer.getNumSamples();
+
     if (!bSampleRateIsValid)
     {
-        int nNumSamples = buffer.getNumSamples();
-        int nNumChannels = getNumInputChannels();
-
-        // make sure we'll clear all output channels
-        if (getNumOutputChannels() > nNumChannels)
+        for (int nChannel = 0; nChannel < getNumOutputChannels(); nChannel++)
         {
-            nNumChannels = getNumOutputChannels();
-        }
-
-        for (int i = 0; i < nNumChannels; i++)
-        {
-            buffer.clear(i, 0, nNumSamples);
+            buffer.clear(nChannel, 0, nNumSamples);
         }
 
         return;
@@ -533,15 +568,13 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &m
         return;
     }
 
-    int nNumSamples = buffer.getNumSamples();
-
     // In case we have more outputs than inputs, we'll clear any
     // output channels that didn't contain input data, because these
     // aren't guaranteed to be empty -- they may contain garbage.
 
-    for (int i = nNumInputChannels; i < getNumOutputChannels(); i++)
+    for (int nChannel = nNumInputChannels; nChannel < getNumOutputChannels(); nChannel++)
     {
-        buffer.clear(i, 0, nNumSamples);
+        buffer.clear(nChannel, 0, nNumSamples);
     }
 
     if (audioFilePlayer)
@@ -549,7 +582,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &m
         audioFilePlayer->fillBufferChunk(&buffer);
     }
 
-    bool bMono = getParameterAsBool(KmeterPluginParameters::selMono);
+    bool bMono = getBoolean(KmeterPluginParameters::selMono);
 
     // convert stereo input to mono if "Mono" button has been pressed
     if (isStereo && bMono)
@@ -576,7 +609,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &m
 void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
     unsigned int uPreDelay = uChunkSize / 2;
-    bool bMono = getParameterAsBool(KmeterPluginParameters::selMono);
+    bool bMono = getBoolean(KmeterPluginParameters::selMono);
 
     // length of buffer chunk in fractional seconds
     // (1024 samples / 44100 samples/s = 23.2 ms)
@@ -706,7 +739,7 @@ void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel,
     // reset all meters before we start the validation
     pMeterBallistics->reset();
 
-    int nCrestFactor = getParameterAsInt(KmeterPluginParameters::selCrestFactor);
+    int nCrestFactor = getRealInteger(KmeterPluginParameters::selCrestFactor);
     audioFilePlayer = new AudioFilePlayer(fileAudio, (int) getSampleRate(), pMeterBallistics, nCrestFactor);
     audioFilePlayer->setReporters(nSelectedChannel, bReportCSV, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bStereoMeterValue, bPhaseCorrelation);
 
@@ -850,7 +883,8 @@ void KmeterAudioProcessor::setStateInformation(const void *data, int sizeInBytes
 {
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     pPluginParameters->loadFromXml(xml);
-    updateParameters(false);
+
+    updateParameters(true);
 }
 
 //==============================================================================

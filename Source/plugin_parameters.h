@@ -23,15 +23,17 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGINPARAMETERS_H__
-#define __PLUGINPARAMETERS_H__
+#ifndef __PLUGIN_PARAMETERS_KMETER_H__
+#define __PLUGIN_PARAMETERS_KMETER_H__
 
 class KmeterPluginParameters;
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
+#include "parameter_juggler/parameter_juggler.h"
+
 
 //============================================================================
-class KmeterPluginParameters  : public ActionBroadcaster
+class KmeterPluginParameters  : public ParameterJuggler
 {
 public:
     //==========================================================================
@@ -41,40 +43,19 @@ public:
 
     int getNumParameters(bool bIncludeHiddenParameters);
 
-    bool getParameterAsBool(int nIndex);
-    float getParameterAsFloat(int nIndex);
-    int getParameterAsInt(int nIndex);
-
-    void setParameterFromBool(int nIndex, bool bValue);
-    void setParameterFromFloat(int nIndex, float fValue);
-    void setParameterFromInt(int nIndex, int nValue);
-
     File getValidationFile();
     void setValidationFile(File &fileValidation);
 
     String getSkinName();
-    void setSkinName(String &strSkinNameNew);
-
-    void MarkParameter(int nIndex);
-    void UnmarkParameter(int nIndex);
-    bool isParameterMarked(int nIndex);
-
-    const String getParameterName(int nIndex);
-    const String getParameterText(int nIndex);
-
-    int translateParameterToInt(int nIndex, float fValue);
-    float translateParameterToFloat(int nIndex, int nValue);
-
-    XmlElement storeAsXml();
-    void loadFromXml(XmlElement *xml);
+    void setSkinName(String &strSkinName);
 
     enum Parameters  // public namespace!
     {
         selCrestFactor = 0,
         selAverageAlgorithm,
         selExpanded,
-        selPeak,
-        selInfiniteHold,
+        selShowPeaks,
+        selInfinitePeakHold,
         selMono,
 
         nNumParametersRevealed,
@@ -89,7 +70,7 @@ public:
         selValidationCSVFormat,
         selSkinName,
 
-        nNumParameters,
+        nNumParametersComplete,
 
         selNormal = 0,
         selK12,
@@ -107,14 +88,26 @@ public:
 private:
     JUCE_LEAK_DETECTOR(KmeterPluginParameters);
 
-    int *nParam;
-    bool *bParamChanged;
+    WrappedParameterSwitch        *ParameterCrestFactor;
+    WrappedParameterSwitch        *ParameterAverageAlgorithm;
+    WrappedParameterToggleSwitch  *ParameterExpanded;
+    WrappedParameterToggleSwitch  *ParameterShowPeaks;
+    WrappedParameterToggleSwitch  *ParameterInfinitePeakHold;
+    WrappedParameterToggleSwitch  *ParameterMono;
 
-    String strValidationFile;
-    String strSkinName;
+    WrappedParameterString        *ParameterValidationFileName;
+    WrappedParameterSwitch        *ParameterValidationSelectedChannel;
+    WrappedParameterToggleSwitch  *ParameterValidationAverageMeterLevel;
+    WrappedParameterToggleSwitch  *ParameterValidationPeakMeterLevel;
+    WrappedParameterToggleSwitch  *ParameterValidationMaximumPeakLevel;
+    WrappedParameterToggleSwitch  *ParameterValidationStereoMeterValue;
+    WrappedParameterToggleSwitch  *ParameterValidationPhaseCorrelation;
+    WrappedParameterToggleSwitch  *ParameterValidationCSVFormat;
+
+    WrappedParameterString        *ParameterSkinName;
 };
 
-#endif  // __PLUGINPARAMETERS_H__
+#endif  // __PLUGIN_PARAMETERS_KMETER_H__
 
 
 // Local Variables:

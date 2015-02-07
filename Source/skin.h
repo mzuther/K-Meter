@@ -28,7 +28,7 @@
 
 class Skin;
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "kmeter.h"
 #include "horizontal_meter.h"
 #include "plugin_parameters.h"

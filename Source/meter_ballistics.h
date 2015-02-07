@@ -26,7 +26,7 @@
 #ifndef __METER_BALLISTICS_H__
 #define __METER_BALLISTICS_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "plugin_processor.h"
 
 

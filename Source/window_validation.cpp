@@ -97,35 +97,35 @@ WindowValidation::WindowValidation(Component *pEditorWindow, KmeterAudioProcesso
 
     ButtonDumpCSV = new ToggleButton("CSV format");
     ButtonDumpCSV->setColour(ToggleButton::textColourId, Colours::black);
-    ButtonDumpCSV->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationCSVFormat), dontSendNotification);
+    ButtonDumpCSV->setToggleState(pProcessor->getBoolean(KmeterPluginParameters::selValidationCSVFormat), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpCSV);
 
-    SliderDumpSelectedChannel->setValue(pProcessor->getParameterAsInt(KmeterPluginParameters::selValidationSelectedChannel), dontSendNotification);
+    SliderDumpSelectedChannel->setValue(pProcessor->getRealInteger(KmeterPluginParameters::selValidationSelectedChannel), dontSendNotification);
     contentComponent->addAndMakeVisible(SliderDumpSelectedChannel);
 
     ButtonDumpAverageMeterLevel = new ToggleButton("Average meter level");
     ButtonDumpAverageMeterLevel->setColour(ToggleButton::textColourId, Colours::black);
-    ButtonDumpAverageMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationAverageMeterLevel), dontSendNotification);
+    ButtonDumpAverageMeterLevel->setToggleState(pProcessor->getBoolean(KmeterPluginParameters::selValidationAverageMeterLevel), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpAverageMeterLevel);
 
     ButtonDumpPeakMeterLevel = new ToggleButton("Peak meter level");
     ButtonDumpPeakMeterLevel->setColour(ToggleButton::textColourId, Colours::black);
-    ButtonDumpPeakMeterLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPeakMeterLevel), dontSendNotification);
+    ButtonDumpPeakMeterLevel->setToggleState(pProcessor->getBoolean(KmeterPluginParameters::selValidationPeakMeterLevel), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpPeakMeterLevel);
 
     ButtonDumpMaximumPeakLevel = new ToggleButton("Maximum peak level");
     ButtonDumpMaximumPeakLevel->setColour(ToggleButton::textColourId, Colours::black);
-    ButtonDumpMaximumPeakLevel->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationMaximumPeakLevel), dontSendNotification);
+    ButtonDumpMaximumPeakLevel->setToggleState(pProcessor->getBoolean(KmeterPluginParameters::selValidationMaximumPeakLevel), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpMaximumPeakLevel);
 
     ButtonDumpStereoMeterValue = new ToggleButton("Stereo meter value");
     ButtonDumpStereoMeterValue->setColour(ToggleButton::textColourId, Colours::black);
-    ButtonDumpStereoMeterValue->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationStereoMeterValue), dontSendNotification);
+    ButtonDumpStereoMeterValue->setToggleState(pProcessor->getBoolean(KmeterPluginParameters::selValidationStereoMeterValue), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpStereoMeterValue);
 
     ButtonDumpPhaseCorrelation = new ToggleButton("Phase correlation");
     ButtonDumpPhaseCorrelation->setColour(ToggleButton::textColourId, Colours::black);
-    ButtonDumpPhaseCorrelation->setToggleState(pProcessor->getParameterAsBool(KmeterPluginParameters::selValidationPhaseCorrelation), dontSendNotification);
+    ButtonDumpPhaseCorrelation->setToggleState(pProcessor->getBoolean(KmeterPluginParameters::selValidationPhaseCorrelation), dontSendNotification);
     contentComponent->addAndMakeVisible(ButtonDumpPhaseCorrelation);
 
     // create and position a "validation" button which closes the
@@ -206,7 +206,7 @@ void WindowValidation::buttonClicked(Button *button)
     if (button == ButtonValidation)
     {
         // file name has not been set
-        if (fileValidation.getFileName() == "")
+        if (fileValidation.getFileName().isEmpty())
         {
             DBG("[K-Meter] file name for validation not set.");
 
@@ -215,7 +215,7 @@ void WindowValidation::buttonClicked(Button *button)
         }
 
         int nSelectedChannel = (int) SliderDumpSelectedChannel->getValue();
-        float fSelectedChannel = (nSelectedChannel + 1.0f) / 100.0f;
+        float fSelectedChannel = SliderDumpSelectedChannel->getFloat();
         pProcessor->setParameter(KmeterPluginParameters::selValidationSelectedChannel, fSelectedChannel);
 
         bool bReportCSV = ButtonDumpCSV->getToggleState();
@@ -249,7 +249,11 @@ void WindowValidation::buttonClicked(Button *button)
     }
     else if (button == ButtonFileSelection)
     {
-        FileChooser browser("Open audio file for validation", fileValidation, "*.wav;*.aiff;*.flac", true);
+        AudioFormatManager formatManager;
+        formatManager.registerBasicFormats();
+        String strWildcards = formatManager.getWildcardForAllFormats();
+
+        FileChooser browser("Open audio file for validation", fileValidation, strWildcards, true);
 
         if (browser.showDialog(FileBrowserComponent::openMode | FileBrowserComponent::canSelectFiles, nullptr))
         {

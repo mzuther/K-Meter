@@ -26,7 +26,7 @@
 #ifndef __KMETER_H__
 #define __KMETER_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "meter_bar.h"
 #include "overflow_meter.h"
 #include "peak_label.h"

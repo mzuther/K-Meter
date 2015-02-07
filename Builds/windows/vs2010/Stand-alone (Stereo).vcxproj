@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{00485190-37CD-8559-13BA-7F205512C81D}</ProjectGuid>
+		<ProjectGuid>{180E2A7B-1639-71B1-3EA9-1C3C1B008159}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -226,6 +226,17 @@
 		<ClInclude Include="..\..\..\Source\plugin_editor.h" />
 		<ClInclude Include="..\..\..\Source\standalone_application.h" />
 		<ClInclude Include="..\..\..\Source\averager.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter_continuous.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\slider_continuous.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter_toggle_switch.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\parameter_juggler.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\slider_combined.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter_switch.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter_combined.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter_string.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\slider_switch_linear_bar.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\slider_switch.h" />
 		<ClInclude Include="..\..\..\Source\resources\resources.h" />
 	</ItemGroup>
 	<ItemGroup>
@@ -272,6 +283,26 @@
 		<ClCompile Include="..\..\..\Source\overflow_meter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\channel_slider.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\parameter_juggler\wrapped_parameter_toggle_switch.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\parameter_juggler\parameter_juggler.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\parameter_juggler\slider_combined.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\parameter_juggler\slider_switch.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\parameter_juggler\wrapped_parameter_string.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\parameter_juggler\slider_continuous.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\parameter_juggler\wrapped_parameter_switch.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\parameter_juggler\slider_switch_linear_bar.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\parameter_juggler\wrapped_parameter_continuous.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\parameter_juggler\wrapped_parameter_combined.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\resources\resources.cpp">
 		</ClCompile>

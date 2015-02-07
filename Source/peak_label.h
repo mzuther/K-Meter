@@ -26,7 +26,7 @@
 #ifndef __PEAK_LABEL_H__
 #define __PEAK_LABEL_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "state_label.h"
 
 

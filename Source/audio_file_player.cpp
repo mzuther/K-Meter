@@ -281,7 +281,7 @@ void AudioFilePlayer::outputReportPlain(void)
     {
         float fStereoMeterValue = pMeterBallistics->getStereoMeterValue();
         String strPrefix = "Stereo meter value:      ";
-        String strSuffix = "";
+        String strSuffix = String::empty;
         outputValue(fStereoMeterValue, nullptr, strPrefix, strSuffix);
     }
 
@@ -289,7 +289,7 @@ void AudioFilePlayer::outputReportPlain(void)
     {
         float fPhaseCorrelation = pMeterBallistics->getPhaseCorrelation();
         String strPrefix = "Phase correlation:       ";
-        String strSuffix = "";
+        String strSuffix = String::empty;
         outputValue(fPhaseCorrelation, nullptr, strPrefix, strSuffix);
     }
 

@@ -28,7 +28,7 @@
 
 class AudioFilePlayer;
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "averager.h"
 #include "meter_ballistics.h"
 

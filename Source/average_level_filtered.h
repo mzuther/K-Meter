@@ -28,7 +28,7 @@
 
 class AverageLevelFiltered;
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "audio_ring_buffer.h"
 #include "meter_ballistics.h"
 #include "plugin_processor.h"

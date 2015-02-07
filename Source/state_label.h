@@ -26,7 +26,7 @@
 #ifndef __STATE_LABEL_H__
 #define __STATE_LABEL_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 
 //==============================================================================
