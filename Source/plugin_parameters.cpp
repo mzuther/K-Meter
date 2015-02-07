@@ -34,7 +34,7 @@ KmeterPluginParameters::KmeterPluginParameters()
     strSettingsID = "KMETER_SETTINGS";
 
 
-    ParameterCrestFactor = new WrappedParameterSwitch();
+    WrappedParameterSwitch *ParameterCrestFactor = new WrappedParameterSwitch();
     ParameterCrestFactor->setName("Metering mode");
 
     ParameterCrestFactor->addConstant(0.0f,  "Normal");
@@ -46,7 +46,7 @@ KmeterPluginParameters::KmeterPluginParameters()
     add(ParameterCrestFactor, selCrestFactor);
 
 
-    ParameterAverageAlgorithm = new WrappedParameterSwitch();
+    WrappedParameterSwitch *ParameterAverageAlgorithm = new WrappedParameterSwitch();
     ParameterAverageAlgorithm->setName("Averaging algorithm");
 
     ParameterAverageAlgorithm->addConstant(selAlgorithmRms, "RMS");
@@ -56,36 +56,36 @@ KmeterPluginParameters::KmeterPluginParameters()
     add(ParameterAverageAlgorithm, selAverageAlgorithm);
 
 
-    ParameterExpanded = new WrappedParameterToggleSwitch("Off", "On");
+    WrappedParameterToggleSwitch *ParameterExpanded = new WrappedParameterToggleSwitch("Off", "On");
     ParameterExpanded->setName("Expand meter");
     ParameterExpanded->setDefaultBoolean(false, true);
     add(ParameterExpanded, selExpanded);
 
 
-    ParameterShowPeaks = new WrappedParameterToggleSwitch("Off", "On");
+    WrappedParameterToggleSwitch *ParameterShowPeaks = new WrappedParameterToggleSwitch("Off", "On");
     ParameterShowPeaks->setName("Show peaks");
     ParameterShowPeaks->setDefaultBoolean(false, true);
     add(ParameterShowPeaks, selShowPeaks);
 
 
-    ParameterInfinitePeakHold = new WrappedParameterToggleSwitch("Off", "On");
+    WrappedParameterToggleSwitch *ParameterInfinitePeakHold = new WrappedParameterToggleSwitch("Off", "On");
     ParameterInfinitePeakHold->setName("Peak hold");
     ParameterInfinitePeakHold->setDefaultBoolean(false, true);
     add(ParameterInfinitePeakHold, selInfinitePeakHold);
 
 
-    ParameterMono = new WrappedParameterToggleSwitch("Off", "On");
+    WrappedParameterToggleSwitch *ParameterMono = new WrappedParameterToggleSwitch("Off", "On");
     ParameterMono->setName("Mono input");
     ParameterMono->setDefaultBoolean(false, true);
     add(ParameterMono, selMono);
 
 
-    ParameterValidationFileName = new WrappedParameterString(String::empty);
+    WrappedParameterString *ParameterValidationFileName = new WrappedParameterString(String::empty);
     ParameterValidationFileName->setName("Validation: file name");
     add(ParameterValidationFileName, selValidationFileName);
 
 
-    ParameterValidationSelectedChannel = new WrappedParameterSwitch();
+    WrappedParameterSwitch *ParameterValidationSelectedChannel = new WrappedParameterSwitch();
     ParameterValidationSelectedChannel->setName("Validation: selected channel");
 
     // values correspond to the channel index in AudioSampleBuffer
@@ -103,37 +103,37 @@ KmeterPluginParameters::KmeterPluginParameters()
     add(ParameterValidationSelectedChannel, selValidationSelectedChannel);
 
 
-    ParameterValidationAverageMeterLevel = new WrappedParameterToggleSwitch("Off", "On");
+    WrappedParameterToggleSwitch *ParameterValidationAverageMeterLevel = new WrappedParameterToggleSwitch("Off", "On");
     ParameterValidationAverageMeterLevel->setName("Validation: average meter level");
     ParameterValidationAverageMeterLevel->setDefaultBoolean(true, true);
     add(ParameterValidationAverageMeterLevel, selValidationAverageMeterLevel);
 
 
-    ParameterValidationPeakMeterLevel = new WrappedParameterToggleSwitch("Off", "On");
+    WrappedParameterToggleSwitch *ParameterValidationPeakMeterLevel = new WrappedParameterToggleSwitch("Off", "On");
     ParameterValidationPeakMeterLevel->setName("Validation: peak meter level");
     ParameterValidationPeakMeterLevel->setDefaultBoolean(true, true);
     add(ParameterValidationPeakMeterLevel, selValidationPeakMeterLevel);
 
 
-    ParameterValidationMaximumPeakLevel = new WrappedParameterToggleSwitch("Off", "On");
+    WrappedParameterToggleSwitch *ParameterValidationMaximumPeakLevel = new WrappedParameterToggleSwitch("Off", "On");
     ParameterValidationMaximumPeakLevel->setName("Validation: maximum peak level");
     ParameterValidationMaximumPeakLevel->setDefaultBoolean(true, true);
     add(ParameterValidationMaximumPeakLevel, selValidationMaximumPeakLevel);
 
 
-    ParameterValidationStereoMeterValue = new WrappedParameterToggleSwitch("Off", "On");
+    WrappedParameterToggleSwitch *ParameterValidationStereoMeterValue = new WrappedParameterToggleSwitch("Off", "On");
     ParameterValidationStereoMeterValue->setName("Validation: stereo meter value");
     ParameterValidationStereoMeterValue->setDefaultBoolean(true, true);
     add(ParameterValidationStereoMeterValue, selValidationStereoMeterValue);
 
 
-    ParameterValidationPhaseCorrelation = new WrappedParameterToggleSwitch("Off", "On");
+    WrappedParameterToggleSwitch *ParameterValidationPhaseCorrelation = new WrappedParameterToggleSwitch("Off", "On");
     ParameterValidationPhaseCorrelation->setName("Validation: phase correlation");
     ParameterValidationPhaseCorrelation->setDefaultBoolean(true, true);
     add(ParameterValidationPhaseCorrelation, selValidationPhaseCorrelation);
 
 
-    ParameterValidationCSVFormat = new WrappedParameterToggleSwitch("Off", "On");
+    WrappedParameterToggleSwitch *ParameterValidationCSVFormat = new WrappedParameterToggleSwitch("Off", "On");
     ParameterValidationCSVFormat->setName("Validation: CSV output format");
     ParameterValidationCSVFormat->setDefaultBoolean(false, true);
     add(ParameterValidationCSVFormat, selValidationCSVFormat);
@@ -158,7 +158,7 @@ KmeterPluginParameters::KmeterPluginParameters()
     // load name of default skin
     String strDefaultSkinName = fileDefaultSkin.loadFileAsString();
 
-    ParameterSkinName = new WrappedParameterString(strDefaultSkinName);
+    WrappedParameterString *ParameterSkinName = new WrappedParameterString(strDefaultSkinName);
     ParameterSkinName->setName("Skin");
     add(ParameterSkinName, selSkinName);
 }
@@ -166,50 +166,7 @@ KmeterPluginParameters::KmeterPluginParameters()
 
 KmeterPluginParameters::~KmeterPluginParameters()
 {
-    delete ParameterCrestFactor;
-    ParameterCrestFactor = nullptr;
-
-    delete ParameterAverageAlgorithm;
-    ParameterAverageAlgorithm = nullptr;
-
-    delete ParameterExpanded;
-    ParameterExpanded = nullptr;
-
-    delete ParameterShowPeaks;
-    ParameterShowPeaks = nullptr;
-
-    delete ParameterInfinitePeakHold;
-    ParameterInfinitePeakHold = nullptr;
-
-    delete ParameterMono;
-    ParameterMono = nullptr;
-
-    delete ParameterValidationFileName;
-    ParameterValidationFileName = nullptr;
-
-    delete ParameterValidationSelectedChannel;
-    ParameterValidationSelectedChannel = nullptr;
-
-    delete ParameterValidationAverageMeterLevel;
-    ParameterValidationAverageMeterLevel = nullptr;
-
-    delete ParameterValidationPeakMeterLevel;
-    ParameterValidationPeakMeterLevel = nullptr;
-
-    delete ParameterValidationMaximumPeakLevel;
-    ParameterValidationMaximumPeakLevel = nullptr;
-
-    delete ParameterValidationStereoMeterValue;
-    ParameterValidationStereoMeterValue = nullptr;
-
-    delete ParameterValidationPhaseCorrelation;
-    ParameterValidationPhaseCorrelation = nullptr;
-
-    delete ParameterValidationCSVFormat;
-    ParameterValidationCSVFormat = nullptr;
-
-    delete ParameterSkinName;
-    ParameterSkinName = nullptr;
+    // parameters will be deleted in "ParameterJuggler"
 }
 
 
@@ -228,7 +185,7 @@ int KmeterPluginParameters::getNumParameters(bool bIncludeHiddenParameters)
 
 File KmeterPluginParameters::getValidationFile()
 {
-    File fileValidation = File(ParameterValidationFileName->getText());
+    File fileValidation = File(getText(selValidationFileName));
 
     if (fileValidation.existsAsFile())
     {
@@ -246,20 +203,20 @@ void KmeterPluginParameters::setValidationFile(File &fileValidation)
     if (fileValidation.existsAsFile())
     {
         String strFilename = fileValidation.getFullPathName();
-        ParameterValidationFileName->setText(strFilename);
+        setText(selValidationFileName, strFilename);
     }
 }
 
 
 String KmeterPluginParameters::getSkinName()
 {
-    return ParameterSkinName->getText();
+    return getText(selSkinName);
 }
 
 
 void KmeterPluginParameters::setSkinName(String &strSkinName)
 {
-    ParameterSkinName->setText(strSkinName);
+    setText(selSkinName, strSkinName);
 }
 
 

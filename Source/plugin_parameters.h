@@ -87,24 +87,6 @@ public:
 
 private:
     JUCE_LEAK_DETECTOR(KmeterPluginParameters);
-
-    WrappedParameterSwitch        *ParameterCrestFactor;
-    WrappedParameterSwitch        *ParameterAverageAlgorithm;
-    WrappedParameterToggleSwitch  *ParameterExpanded;
-    WrappedParameterToggleSwitch  *ParameterShowPeaks;
-    WrappedParameterToggleSwitch  *ParameterInfinitePeakHold;
-    WrappedParameterToggleSwitch  *ParameterMono;
-
-    WrappedParameterString        *ParameterValidationFileName;
-    WrappedParameterSwitch        *ParameterValidationSelectedChannel;
-    WrappedParameterToggleSwitch  *ParameterValidationAverageMeterLevel;
-    WrappedParameterToggleSwitch  *ParameterValidationPeakMeterLevel;
-    WrappedParameterToggleSwitch  *ParameterValidationMaximumPeakLevel;
-    WrappedParameterToggleSwitch  *ParameterValidationStereoMeterValue;
-    WrappedParameterToggleSwitch  *ParameterValidationPhaseCorrelation;
-    WrappedParameterToggleSwitch  *ParameterValidationCSVFormat;
-
-    WrappedParameterString        *ParameterSkinName;
 };
 
 #endif  // __PLUGIN_PARAMETERS_KMETER_H__
