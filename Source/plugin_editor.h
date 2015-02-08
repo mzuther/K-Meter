@@ -64,6 +64,7 @@ private:
 
     bool bReloadMeters;
     bool bIsValidating;
+    bool bValidateWindow;
     bool bInitialising;
     bool bExpanded;
     bool bDisplayPeakMeter;

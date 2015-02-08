@@ -38,6 +38,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     bInitialising = true;
 
     bIsValidating = false;
+    bValidateWindow = false;
 
     nInputChannels = nNumChannels;
     nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
@@ -298,7 +299,6 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
         if (bIsValidating && !pProcessor->isValidating())
         {
             bIsValidating = false;
-            ButtonValidation->setToggleState(false, dontSendNotification);
         }
     }
     // "AC" --> algorithm changed
@@ -310,11 +310,15 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
     else if ((!strMessage.compare("V+")) && pProcessor->isValidating())
     {
         bIsValidating = true;
-        ButtonValidation->setToggleState(true, dontSendNotification);
     }
     // "V-" --> validation stopped
     else if (!strMessage.compare("V-"))
     {
+        if (!bValidateWindow)
+        {
+            ButtonValidation->setToggleState(false, dontSendNotification);
+        }
+
         // do nothing till you hear from me... :)
     }
     else
@@ -498,10 +502,16 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
     }
     else if (button == ButtonSkin)
     {
+        // manually activate button
+        button->setToggleState(true, dontSendNotification);
+
         File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
 
         WindowSkin windowSkin(this, fileSkin);
         windowSkin.runModalLoop();
+
+        // manually deactivate button
+        button->setToggleState(false, dontSendNotification);
 
         strSkinName = windowSkin.getSelectedString();
         loadSkin();
@@ -535,13 +545,27 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
     }
     else if (button == ButtonAbout)
     {
+        // manually activate button
+        button->setToggleState(true, dontSendNotification);
+
         WindowAbout windowAbout(this);
         windowAbout.runModalLoop();
+
+        // manually deactivate button
+        button->setToggleState(false, dontSendNotification);
     }
     else if (button == ButtonValidation)
     {
+        // manually activate button
+        button->setToggleState(true, dontSendNotification);
+
+        bValidateWindow = true;
         WindowValidation windowValidation(this, pProcessor);
         windowValidation.runModalLoop();
+        bValidateWindow = false;
+
+        // manually set button according to validation state
+        button->setToggleState(bIsValidating, dontSendNotification);
     }
 }
 
