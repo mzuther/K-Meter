@@ -171,6 +171,7 @@
           "%attrs_image_position;
            %attrs_image_spacing;
            %attrs_font;
+           colour_on CDATA #IMPLIED
            image_on CDATA #REQUIRED
            image_off CDATA #REQUIRED
 ">

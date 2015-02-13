@@ -372,6 +372,9 @@ void Skin::placeAndSkinStateLabel(StateLabel *label, String strXmlTag)
         int spacing_top = xmlLabel->getIntAttribute("spacing_top", 0);
         int font_size = xmlLabel->getIntAttribute("font_size", 12);
 
+        String strColourOn = xmlLabel->getStringAttribute("colour_on", "ffffff");
+        String strColourActive = xmlLabel->getStringAttribute("colour_active", "ffffff");
+
         String strImageOff = xmlLabel->getStringAttribute("image_off");
         File fileImageOff = fileResourcePath->getChildFile(strImageOff);
         Image imageOff;
@@ -415,7 +418,7 @@ void Skin::placeAndSkinStateLabel(StateLabel *label, String strXmlTag)
             imageActive = ImageFileFormat::loadFrom(fileImageActive);
         }
 
-        label->setImages(imageOff, imageOn, imageActive, spacing_left, spacing_top, font_size);
+        label->setImages(imageOff, imageOn, imageActive, strColourOn, strColourActive, spacing_left, spacing_top, font_size);
         label->setBounds(x, y, width, height);
     }
 }

@@ -51,7 +51,7 @@ public:
     void setState(int nStateNew, bool bForceUpdate = false);
     void updateState();
 
-    void setImages(Image &imageOffNew, Image &imageOnNew, Image &imageActiveNew, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize);
+    void setImages(Image &imageOffNew, Image &imageOnNew, Image &imageActiveNew, String &strColourOn, String &strColourActive, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize);
 
 protected:
     Label *pLabel;
@@ -67,6 +67,9 @@ private:
     Image imageOff;
     Image imageOn;
     Image imageActive;
+
+    Colour colOn;
+    Colour colActive;
 };
 
 

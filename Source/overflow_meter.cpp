@@ -31,7 +31,6 @@ OverflowMeter::OverflowMeter(const String &componentName) : StateLabel(component
     nOverflows = 0;
 
     pLabel->setText(String(nOverflows), dontSendNotification);
-    pLabel->setColour(Label::textColourId, Colours::white);
 }
 
 

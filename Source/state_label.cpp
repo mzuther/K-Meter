@@ -83,10 +83,12 @@ void StateLabel::updateState()
     if (nState == stateActive)
     {
         pBackgroundImage->setImage(imageActive);
+        pLabel->setColour(Label::textColourId, colActive);
     }
     else if (nState == stateOn)
     {
         pBackgroundImage->setImage(imageOn);
+        pLabel->setColour(Label::textColourId, colOn);
     }
     else
     {
@@ -95,12 +97,16 @@ void StateLabel::updateState()
 }
 
 
-void StateLabel::setImages(Image &imageOffNew, Image &imageOnNew, Image &imageActiveNew, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize)
+void StateLabel::setImages(Image &imageOffNew, Image &imageOnNew, Image &imageActiveNew, String &strColourOn, String &strColourActive, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize)
 {
     nSpacingLeft = nSpacingLeftNew;
     nSpacingTop = nSpacingTopNew;
     pLabel->setFont(Font((float) nFontSize, Font::bold));
-    pLabel->setColour(Label::textColourId, Colours::white.withAlpha(0.8f));
+
+    colOn = Colour::fromString("ff" + strColourOn);
+    colActive = Colour::fromString("ff" + strColourActive);
+
+    pLabel->setColour(Label::textColourId, colOn);
 
     imageOff = Image(imageOffNew);
     imageOn = Image(imageOnNew);
