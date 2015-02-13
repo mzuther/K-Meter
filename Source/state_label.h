@@ -35,14 +35,23 @@
 class StateLabel : public Component
 {
 public:
+    enum Parameters  // public namespace!
+    {
+        stateOff = 0,
+        stateOn,
+        stateActive,
+
+        nNumStates,
+    };
+
     StateLabel(const String &componentName);
     ~StateLabel();
 
     void resized();
-    void setState(bool isActivatedNew);
+    void setState(int nStateNew, bool bForceUpdate = false);
     void updateState();
 
-    void setImages(Image &imageOffNew, Image &imageOnNew, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize);
+    void setImages(Image &imageOffNew, Image &imageOnNew, Image &imageActiveNew, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize);
 
 protected:
     Label *pLabel;
@@ -53,10 +62,11 @@ private:
 
     int nSpacingLeft;
     int nSpacingTop;
-    bool isActivated;
+    int nState;
 
     Image imageOff;
     Image imageOn;
+    Image imageActive;
 };
 
 

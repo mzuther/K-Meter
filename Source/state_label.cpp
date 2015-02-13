@@ -29,9 +29,12 @@ StateLabel::StateLabel(const String &componentName)
 {
     setName(componentName);
 
+    // this component blends in with the background
+    setOpaque(false);
+
     nSpacingLeft = 0;
     nSpacingTop = 0;
-    isActivated = false;
+    nState = stateOff;
 
     imageOff = Image();
     imageOn = Image();
@@ -65,16 +68,23 @@ void StateLabel::resized()
 }
 
 
-void StateLabel::setState(bool isActivatedNew)
+void StateLabel::setState(int nStateNew, bool bForceUpdate)
 {
-    isActivated = isActivatedNew;
-    updateState();
+    if ((nState != nStateNew) || bForceUpdate)
+    {
+        nState = nStateNew;
+        updateState();
+    }
 }
 
 
 void StateLabel::updateState()
 {
-    if (isActivated)
+    if (nState == stateActive)
+    {
+        pBackgroundImage->setImage(imageActive);
+    }
+    else if (nState == stateOn)
     {
         pBackgroundImage->setImage(imageOn);
     }
@@ -85,7 +95,7 @@ void StateLabel::updateState()
 }
 
 
-void StateLabel::setImages(Image &imageOffNew, Image &imageOnNew, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize)
+void StateLabel::setImages(Image &imageOffNew, Image &imageOnNew, Image &imageActiveNew, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize)
 {
     nSpacingLeft = nSpacingLeftNew;
     nSpacingTop = nSpacingTopNew;
@@ -94,8 +104,10 @@ void StateLabel::setImages(Image &imageOffNew, Image &imageOnNew, int nSpacingLe
 
     imageOff = Image(imageOffNew);
     imageOn = Image(imageOnNew);
+    imageActive = Image(imageActiveNew);
 
     jassert(imageOff.getBounds() == imageOn.getBounds());
+    jassert(imageOff.getBounds() == imageActive.getBounds());
 
     updateState();
 }

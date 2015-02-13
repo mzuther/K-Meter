@@ -107,9 +107,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     ButtonReset->addListener(this);
     addAndMakeVisible(ButtonReset);
 
-    LabelDebug = new ImageComponent("Debug Notification");
-    addAndMakeVisible(LabelDebug);
-
     ButtonValidation = new ImageButton("Validate");
     ButtonValidation->addListener(this);
     addAndMakeVisible(ButtonValidation);
@@ -118,10 +115,17 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     ButtonAbout->addListener(this);
     addAndMakeVisible(ButtonAbout);
 
+    LabelDebug = new ImageComponent("Debug Notification");
+    // moves debug label to the back of the editor's z-plane to that
+    // it doesn't overlay (and thus block) any other components
+    addAndMakeVisible(LabelDebug, 0);
+
     BackgroundImage = new ImageComponent("Background Image");
     // prevent unnecessary redrawing of plugin editor
     BackgroundImage->setOpaque(true);
-    addAndMakeVisible(BackgroundImage);
+    // moves background image to the back of the editor's z-plane to
+    // that it doesn't overlay (and thus block) any other components
+    addAndMakeVisible(BackgroundImage, 0);
 
     if (nInputChannels <= 2)
     {
@@ -208,6 +212,7 @@ void KmeterAudioProcessorEditor::applySkin()
     // update skin
     pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
 
+    // moves background image to the back of the editor's z-plane;
     // will also resize plug-in editor
     pSkin->setBackgroundImage(BackgroundImage, this);
 
@@ -342,6 +347,7 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
         if (nValue == 0)
         {
             nCrestFactor = nValue;
+
             // will also apply skin to plug-in editor
             bReloadMeters = true;
 
@@ -350,6 +356,7 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
         else if (nValue == 12)
         {
             nCrestFactor = nValue;
+
             // will also apply skin to plug-in editor
             bReloadMeters = true;
 
@@ -358,6 +365,7 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
         else if (nValue == 14)
         {
             nCrestFactor = nValue;
+
             // will also apply skin to plug-in editor
             bReloadMeters = true;
 
@@ -366,6 +374,7 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
         else // K-20
         {
             nCrestFactor = 20;
+
             // will also apply skin to plug-in editor
             bReloadMeters = true;
 
@@ -389,16 +398,18 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
 
     case KmeterPluginParameters::selExpanded:
         bExpanded = (nValue != 0);
+        ButtonExpanded->setToggleState(bExpanded, dontSendNotification);
+
         // will also apply skin to plug-in editor
         bReloadMeters = true;
-        ButtonExpanded->setToggleState(bExpanded, dontSendNotification);
         break;
 
     case KmeterPluginParameters::selShowPeaks:
         bDisplayPeakMeter = (nValue != 0);
+        ButtonDisplayPeakMeter->setToggleState(bDisplayPeakMeter, dontSendNotification);
+
         // will also apply skin to plug-in editor
         bReloadMeters = true;
-        ButtonDisplayPeakMeter->setToggleState(bDisplayPeakMeter, dontSendNotification);
         break;
 
     case KmeterPluginParameters::selInfinitePeakHold:
@@ -449,13 +460,11 @@ void KmeterAudioProcessorEditor::reloadMeters()
             kmeter = new Kmeter("K-Meter", nCrestFactor, nInputChannels, ButtonExpanded->getToggleState(), false, ButtonDisplayPeakMeter->getToggleState(), 4);
         }
 
-        addAndMakeVisible(kmeter);
+        // moves traKmeter to the back of the editor's z-plane so that
+        // it doesn't overlay (and thus block) any other components
+        addAndMakeVisible(kmeter, 0);
 
-        // to ensure operability, move background image to the back of
-        // the editor's z-plane and place K-Meter just above it
-        kmeter->toBack();
-        BackgroundImage->toBehind(kmeter);
-
+        // moves background image to the back of the editor's z-plane
         applySkin();
     }
 }
@@ -601,7 +610,6 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
 void KmeterAudioProcessorEditor::resized()
 {
 }
-
 
 
 // Local Variables:
