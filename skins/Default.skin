@@ -11,7 +11,7 @@
     <default>
         <button_k20
             x="130"
-            y="10"
+            y="11"
             width="60"
             height="20"
             image_on="buttons/button_k20_on.png"
@@ -20,7 +20,7 @@
 
         <button_k14
             x="130"
-            y="35"
+            y="36"
             width="60"
             height="20"
             image_on="buttons/button_k14_on.png"
@@ -29,7 +29,7 @@
 
         <button_k12
             x="130"
-            y="60"
+            y="61"
             width="60"
             height="20"
             image_on="buttons/button_k12_on.png"
@@ -38,7 +38,7 @@
 
         <button_normal
             x="130"
-            y="85"
+            y="86"
             width="60"
             height="20"
             image_on="buttons/button_normal_on.png"
@@ -47,7 +47,7 @@
 
         <button_itu
             x="130"
-            y="125"
+            y="126"
             width="60"
             height="20"
             image_on="buttons/button_itu_on.png"
@@ -56,7 +56,7 @@
 
         <button_rms
             x="130"
-            y="150"
+            y="151"
             width="60"
             height="20"
             image_on="buttons/button_rms_on.png"
@@ -65,7 +65,7 @@
 
         <button_hold
             x="130"
-            y="190"
+            y="191"
             width="60"
             height="20"
             image_on="buttons/button_hold_on.png"
@@ -74,7 +74,7 @@
 
         <button_peaks
             x="130"
-            y="215"
+            y="216"
             width="60"
             height="20"
             image_on="buttons/button_peaks_on.png"
@@ -83,7 +83,7 @@
 
         <button_expand
             x="130"
-            y="240"
+            y="241"
             width="60"
             height="20"
             image_on="buttons/button_expand_on.png"
@@ -92,7 +92,7 @@
 
         <button_skin
             x="130"
-            y="265"
+            y="266"
             width="60"
             height="20"
             image_on="buttons/button_skin_on.png"
@@ -101,7 +101,7 @@
 
         <button_mono
             x="130"
-            y="305"
+            y="306"
             width="60"
             height="20"
             image_on="buttons/button_mono_on.png"
@@ -110,7 +110,7 @@
 
         <button_reset
             x="130"
-            y="330"
+            y="331"
             width="60"
             height="20"
             image_on="buttons/button_reset_on.png"
@@ -755,7 +755,7 @@
     <surround_rms>
         <button_k20
             x="354"
-            y="10"
+            y="11"
             width="60"
             height="20"
             image_on="buttons/button_k20_on.png"
@@ -764,7 +764,7 @@
 
         <button_k14
             x="354"
-            y="35"
+            y="36"
             width="60"
             height="20"
             image_on="buttons/button_k14_on.png"
@@ -773,7 +773,7 @@
 
         <button_k12
             x="354"
-            y="60"
+            y="61"
             width="60"
             height="20"
             image_on="buttons/button_k12_on.png"
@@ -782,7 +782,7 @@
 
         <button_normal
             x="354"
-            y="85"
+            y="86"
             width="60"
             height="20"
             image_on="buttons/button_normal_on.png"
@@ -791,7 +791,7 @@
 
         <button_itu
             x="354"
-            y="125"
+            y="126"
             width="60"
             height="20"
             image_on="buttons/button_itu_on.png"
@@ -800,7 +800,7 @@
 
         <button_rms
             x="354"
-            y="150"
+            y="151"
             width="60"
             height="20"
             image_on="buttons/button_rms_on.png"
@@ -809,7 +809,7 @@
 
         <button_hold
             x="354"
-            y="190"
+            y="191"
             width="60"
             height="20"
             image_on="buttons/button_hold_on.png"
@@ -818,7 +818,7 @@
 
         <button_peaks
             x="354"
-            y="215"
+            y="216"
             width="60"
             height="20"
             image_on="buttons/button_peaks_on.png"
@@ -827,7 +827,7 @@
 
         <button_expand
             x="354"
-            y="240"
+            y="241"
             width="60"
             height="20"
             image_on="buttons/button_expand_on.png"
@@ -836,7 +836,7 @@
 
         <button_skin
             x="354"
-            y="265"
+            y="266"
             width="60"
             height="20"
             image_on="buttons/button_skin_on.png"
@@ -845,7 +845,7 @@
 
         <button_mono
             x="354"
-            y="305"
+            y="306"
             width="60"
             height="20"
             image_on="buttons/button_mono_on.png"
@@ -854,7 +854,7 @@
 
         <button_reset
             x="354"
-            y="330"
+            y="331"
             width="60"
             height="20"
             image_on="buttons/button_reset_on.png"

@@ -9,13 +9,14 @@
 
 .Rhistory
 
-bin/*
-bin/kmeter-skins/default_skin.ini
-!bin/kmeter-skins/
-!bin/kmeter_lv2/
-!bin/kmeter_lv2_x64/
-!bin/final/
-!bin/releases/
+bin/*.dll
+bin/*.exe
+bin/*.so
+bin/kmeter_stereo_*
+bin/kmeter_surround_*
+bin/intermediate_*
+
+skins/default_skin.ini
 
 ignore/
 

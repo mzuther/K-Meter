@@ -29,7 +29,9 @@ KMETER_VERSION="1.31"
 
 KMETER_EXECUTABLE_DIR="final"
 KMETER_RELEASE_DIR="releases"
+
 KMETER_DOCUMENTATION_DIR="../doc"
+KMETER_SKIN_DIR="../skins"
 
 function copy_new_executable
 {
@@ -99,6 +101,11 @@ function compress_new_archive
 }
 
 echo
+
+
+# ----- General -----
+
+rm -f "$KMETER_SKIN_DIR/default_skin.ini"
 
 
 # ----- GNU/Linux Standalone (32 bit) -----
