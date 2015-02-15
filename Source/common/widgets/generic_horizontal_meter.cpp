@@ -23,10 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "horizontal_meter.h"
+#include "generic_horizontal_meter.h"
 
 
-HorizontalMeter::HorizontalMeter(const String &componentName)
+GenericHorizontalMeter::GenericHorizontalMeter(const String &componentName)
 {
     setName(componentName);
 
@@ -48,12 +48,12 @@ HorizontalMeter::HorizontalMeter(const String &componentName)
 }
 
 
-HorizontalMeter::~HorizontalMeter()
+GenericHorizontalMeter::~GenericHorizontalMeter()
 {
 }
 
 
-void HorizontalMeter::paint(Graphics &g)
+void GenericHorizontalMeter::paint(Graphics &g)
 {
     g.setColour(Colours::black);
     g.drawImageAt(imageBackground, 0, 0, false);
@@ -69,13 +69,13 @@ void HorizontalMeter::paint(Graphics &g)
 }
 
 
-void HorizontalMeter::resized()
+void GenericHorizontalMeter::resized()
 {
     initialize();
 }
 
 
-void HorizontalMeter::initialize()
+void GenericHorizontalMeter::initialize()
 {
     nWidth = getWidth();
     nHeight = getHeight();
@@ -95,7 +95,7 @@ void HorizontalMeter::initialize()
 }
 
 
-void HorizontalMeter::setValue(float newValue)
+void GenericHorizontalMeter::setValue(float newValue)
 {
     int nNeedlePositionOld = nNeedlePosition;
 
@@ -109,7 +109,7 @@ void HorizontalMeter::setValue(float newValue)
 }
 
 
-void HorizontalMeter::setImages(Image &imageBackgroundNew, Image &imageNeedleNew, int nSpacingLeftNew, int nSpacingTopNew)
+void GenericHorizontalMeter::setImages(Image &imageBackgroundNew, Image &imageNeedleNew, int nSpacingLeftNew, int nSpacingTopNew)
 {
     nSpacingLeft = nSpacingLeftNew;
     nSpacingTop = nSpacingTopNew;

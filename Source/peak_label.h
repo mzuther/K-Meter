@@ -27,7 +27,7 @@
 #define __PEAK_LABEL_H__
 
 #include "JuceHeader.h"
-#include "mz_juce_common/widgets/generic_state_label.h"
+#include "common/widgets/generic_state_label.h"
 
 
 //==============================================================================

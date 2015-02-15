@@ -29,7 +29,7 @@
 class AudioFilePlayer;
 
 #include "JuceHeader.h"
-#include "mz_juce_common/math/averager.h"
+#include "common/math/averager.h"
 #include "meter_ballistics.h"
 
 

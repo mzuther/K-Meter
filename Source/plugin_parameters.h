@@ -29,7 +29,7 @@
 class KmeterPluginParameters;
 
 #include "JuceHeader.h"
-#include "mz_juce_common/parameter_juggler/parameter_juggler.h"
+#include "common/parameter_juggler/parameter_juggler.h"
 
 
 //============================================================================

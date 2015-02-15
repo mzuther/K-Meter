@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{0E93ACAF-BE4F-447B-1D0F-D49A347E6CD6}</ProjectGuid>
+		<ProjectGuid>{73391A6C-5630-64E6-E6E0-84FC5F5F68E7}</ProjectGuid>
 		<RootNamespace>Stand-alone (Surround)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -214,7 +214,6 @@
 		<ClInclude Include="..\..\..\Source\audio_ring_buffer.h" />
 		<ClInclude Include="..\..\..\Source\peak_label.h" />
 		<ClInclude Include="..\..\..\Source\kmeter.h" />
-		<ClInclude Include="..\..\..\Source\horizontal_meter.h" />
 		<ClInclude Include="..\..\..\Source\audio_file_player.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\Source\skin.h" />
@@ -222,26 +221,28 @@
 		<ClInclude Include="..\..\..\Source\meter_ballistics.h" />
 		<ClInclude Include="..\..\..\Source\plugin_editor.h" />
 		<ClInclude Include="..\..\..\Source\standalone_application.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\tools.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\mz_juce_common.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\math\averager.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\generic_plugin_standalone.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\slider_continuous.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\generic_window_about.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\slider_combined.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\generic_window_skin.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\slider_switch_linear_bar.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\slider_switch.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\generic_state_label.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\resources\resources.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\audio\dither.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_continuous.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_toggle_switch.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\parameter_juggler.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_switch.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_combined.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_string.h" />
+		<ClInclude Include="..\..\..\Source\common\tools.h" />
+		<ClInclude Include="..\..\..\Source\common\mz_juce_common.h" />
+		<ClInclude Include="..\..\..\Source\common\math\averager.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_plugin_standalone.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\slider_continuous.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_about.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\slider_combined.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_skin.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_horizontal_meter.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_state_label.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\resources\resources.h" />
+		<ClInclude Include="..\..\..\Source\common\audio\dither.h" />
+		<ClInclude Include="..\..\..\Source\common\skin\generic_skin.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_continuous.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_toggle_switch.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\parameter_juggler.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_switch.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_combined.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_string.h" />
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="..\..\..\Source\meter_segment.cpp">
@@ -253,8 +254,6 @@
 		<ClCompile Include="..\..\..\Source\skin.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\main.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\horizontal_meter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\average_level_filtered.cpp">
 		</ClCompile>
@@ -280,39 +279,43 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\channel_slider.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\math\averager.cpp">
+		<ClCompile Include="..\..\..\Source\common\math\averager.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\slider_combined.cpp">
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_horizontal_meter.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\slider_switch.cpp">
+		<ClCompile Include="..\..\..\Source\common\widgets\slider_combined.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\generic_window_skin.cpp">
+		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\generic_window_about.cpp">
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_window_skin.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\slider_continuous.cpp">
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_window_about.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\slider_switch_linear_bar.cpp">
+		<ClCompile Include="..\..\..\Source\common\widgets\slider_continuous.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\generic_plugin_standalone.cpp">
+		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\generic_state_label.cpp">
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_plugin_standalone.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\resources\resources.cpp">
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_state_label.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\audio\dither.cpp">
+		<ClCompile Include="..\..\..\Source\common\widgets\resources\resources.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_toggle_switch.cpp">
+		<ClCompile Include="..\..\..\Source\common\audio\dither.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\parameter_juggler.cpp">
+		<ClCompile Include="..\..\..\Source\common\skin\generic_skin.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_string.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_toggle_switch.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_switch.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\parameter_juggler.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_continuous.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_string.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_combined.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_switch.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_continuous.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_combined.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\libraries\juce\modules\juce_audio_basics\juce_audio_basics.cpp">
 		</ClCompile>

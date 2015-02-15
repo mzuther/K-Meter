@@ -26,7 +26,7 @@
 #ifndef __KMETER_STANDALONE_H__
 #define __KMETER_STANDALONE_H__
 
-#include "mz_juce_common/widgets/generic_plugin_standalone.h"
+#include "common/widgets/generic_plugin_standalone.h"
 
 
 class KmeterStandalone : virtual public GenericPluginStandalone

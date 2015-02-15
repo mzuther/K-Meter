@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   MZ common JUCE
+   ==============
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,45 +23,26 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __HORIZONTAL_METER_H__
-#define __HORIZONTAL_METER_H__
+#ifndef __MZ_JUCE_COMMON_H__
+#define __MZ_JUCE_COMMON_H__
 
 #include "JuceHeader.h"
 
 
-//==============================================================================
-/**
-*/
-class HorizontalMeter : public Component
+class MZ_Juce_Common
 {
 public:
-    HorizontalMeter(const String &componentName);
-    ~HorizontalMeter();
-
-    void setImages(Image &imageBackgroundNew, Image &imageNeedleNew, int nSpacingLeftNew, int nSpacingTopNew);
-    void setValue(float newValue);
-    void paint(Graphics &g);
-    void initialize();
-    void resized();
+    static String getVersion()
+    {
+        return "1.2.2";
+    }
 
 private:
-    JUCE_LEAK_DETECTOR(HorizontalMeter);
-
-    int nNeedlePosition;
-    int nNeedleTravelPath;
-    bool bVerticalMeter;
-
-    int nWidth;
-    int nHeight;
-    int nSpacingLeft;
-    int nSpacingTop;
-
-    Image imageBackground;
-    Image imageNeedle;
+    JUCE_LEAK_DETECTOR(MZ_Juce_Common);
 };
 
 
-#endif  // __HORIZONTAL_METER_H__
+#endif  // __MZ_JUCE_COMMON_H__
 
 
 // Local Variables:
