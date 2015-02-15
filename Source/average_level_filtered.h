@@ -29,9 +29,9 @@
 class AverageLevelFiltered;
 
 #include "JuceHeader.h"
-#include "audio_ring_buffer.h"
 #include "meter_ballistics.h"
 #include "plugin_processor.h"
+#include "common/audio/audio_ring_buffer.h"
 #include "fftw3/api/fftw3.h"
 
 //==============================================================================

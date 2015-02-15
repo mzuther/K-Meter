@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{8344439C-D667-4348-2F80-253FB22D8D93}</ProjectGuid>
+		<ProjectGuid>{802AE25A-456F-5F78-DF23-0CB9FD6D59D1}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Surround)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -219,7 +219,6 @@
 		<ClInclude Include="..\..\..\Source\average_level_filtered.h" />
 		<ClInclude Include="..\..\..\Source\meter_segment.h" />
 		<ClInclude Include="..\..\..\Source\overflow_meter.h" />
-		<ClInclude Include="..\..\..\Source\audio_ring_buffer.h" />
 		<ClInclude Include="..\..\..\Source\peak_label.h" />
 		<ClInclude Include="..\..\..\Source\kmeter.h" />
 		<ClInclude Include="..\..\..\Source\audio_file_player.h" />
@@ -241,6 +240,7 @@
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_horizontal_meter.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_state_label.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\resources\resources.h" />
+		<ClInclude Include="..\..\..\Source\common\audio\audio_ring_buffer.h" />
 		<ClInclude Include="..\..\..\Source\common\audio\dither.h" />
 		<ClInclude Include="..\..\..\Source\common\skin\generic_skin.h" />
 		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_continuous.h" />
@@ -271,8 +271,6 @@
 		<ClCompile Include="..\..\..\Source\peak_label.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\kmeter.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\audio_ring_buffer.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\meter_ballistics.cpp">
 		</ClCompile>
@@ -305,6 +303,8 @@
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_state_label.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\resources\resources.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\audio\audio_ring_buffer.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\audio\dither.cpp">
 		</ClCompile>

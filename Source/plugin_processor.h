@@ -34,13 +34,14 @@ class MeterBallistics;
 
 #include "JuceHeader.h"
 #include "audio_file_player.h"
-#include "audio_ring_buffer.h"
 #include "average_level_filtered.h"
 #include "meter_ballistics.h"
 #include "plugin_parameters.h"
+#include "common/audio/audio_ring_buffer.h"
+
 
 //============================================================================
-class KmeterAudioProcessor  : public AudioProcessor, public ActionBroadcaster
+class KmeterAudioProcessor  : public AudioProcessor, public ActionBroadcaster, virtual public AudioRingBufferProcessor
 {
 public:
     //==========================================================================
@@ -101,7 +102,7 @@ public:
     double getTailLengthSeconds() const;
 
     MeterBallistics *getLevels();
-    void processBufferChunk(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
+    virtual void processBufferChunk(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
     int getAverageAlgorithm();
     void setAverageAlgorithm(const int average_algorithm);

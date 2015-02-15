@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   traKmeter
+   =========
+   Loudness meter for correctly setting up tracking and mixing levels
 
-   Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2012-2015 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -306,7 +306,7 @@ float AudioRingBuffer::getRMSLevel(const unsigned int channel, const unsigned in
 }
 
 
-void AudioRingBuffer::setCallbackClass(KmeterAudioProcessor *callback_class)
+void AudioRingBuffer::setCallbackClass(AudioRingBufferProcessor *callback_class)
 {
     pCallbackClass = callback_class;
 }
