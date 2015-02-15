@@ -32,7 +32,7 @@ class Skin;
 #include "kmeter.h"
 #include "horizontal_meter.h"
 #include "plugin_parameters.h"
-#include "state_label.h"
+#include "mz_juce_common/widgets/generic_state_label.h"
 
 
 class Skin
@@ -47,7 +47,7 @@ public:
     void placeAndSkinButton(ImageButton *button, String strXmlTag);
     void placeAndSkinHorizontalMeter(HorizontalMeter *meter, String strXmlTag);
     void placeAndSkinLabel(ImageComponent *label, String strXmlTag);
-    void placeAndSkinStateLabel(StateLabel *label, String strXmlTag);
+    void placeAndSkinStateLabel(GenericStateLabel *label, String strXmlTag);
     void setBackgroundImage(ImageComponent *background, AudioProcessorEditor *editor);
 
 private:

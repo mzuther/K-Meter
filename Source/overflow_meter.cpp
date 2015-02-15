@@ -26,7 +26,7 @@
 #include "overflow_meter.h"
 
 
-OverflowMeter::OverflowMeter(const String &componentName) : StateLabel(componentName)
+OverflowMeter::OverflowMeter(const String &componentName) : GenericStateLabel(componentName)
 {
     nOverflows = 0;
 
@@ -50,11 +50,11 @@ void OverflowMeter::setOverflows(int Overflows)
 
         if (nOverflows == 0)
         {
-            setState(StateLabel::stateOff);
+            setState(GenericStateLabel::stateOff);
         }
         else
         {
-            setState(StateLabel::stateOn);
+            setState(GenericStateLabel::stateOn);
         }
     }
 }

@@ -27,14 +27,14 @@
 #define __OVERFLOW_METER_H__
 
 #include "JuceHeader.h"
-#include "state_label.h"
+#include "mz_juce_common/widgets/generic_state_label.h"
 
 
 
 //==============================================================================
 /**
 */
-class OverflowMeter : public StateLabel
+class OverflowMeter : public GenericStateLabel
 {
 public:
     OverflowMeter(const String &componentName);

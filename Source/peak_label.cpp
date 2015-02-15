@@ -26,7 +26,7 @@
 #include "peak_label.h"
 
 
-PeakLabel::PeakLabel(const String &componentName, int nCrestFactor) : StateLabel(componentName)
+PeakLabel::PeakLabel(const String &componentName, int nCrestFactor) : GenericStateLabel(componentName)
 {
     nMeterCrestFactor = nCrestFactor;
     resetLevel();

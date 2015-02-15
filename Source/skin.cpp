@@ -355,7 +355,7 @@ void Skin::placeAndSkinLabel(ImageComponent *label, String strXmlTag)
 }
 
 
-void Skin::placeAndSkinStateLabel(StateLabel *label, String strXmlTag)
+void Skin::placeAndSkinStateLabel(GenericStateLabel *label, String strXmlTag)
 {
     jassert(label != nullptr);
 
