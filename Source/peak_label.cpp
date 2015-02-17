@@ -31,7 +31,7 @@ PeakLabel::PeakLabel(const String &componentName, int nCrestFactor) : GenericSta
     nMeterCrestFactor = nCrestFactor;
     resetLevel();
 
-    pLabel->setColour(Label::textColourId, Colours::white);
+    label->setColour(Label::textColourId, Colours::white);
 }
 
 
@@ -65,11 +65,11 @@ void PeakLabel::updateLevel(float newLevel)
 
     if (fCorrectedLevel < 0.0f)
     {
-        pLabel->setText(String(fCorrectedLevel, 1), dontSendNotification);
+        label->setText(String(fCorrectedLevel, 1), dontSendNotification);
     }
     else
     {
-        pLabel->setText("+" + String(fCorrectedLevel, 1), dontSendNotification);
+        label->setText("+" + String(fCorrectedLevel, 1), dontSendNotification);
     }
 
     if (fMaximumLevel < -0.20f)

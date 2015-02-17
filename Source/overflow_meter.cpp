@@ -30,7 +30,7 @@ OverflowMeter::OverflowMeter(const String &componentName) : GenericStateLabel(co
 {
     nOverflows = 0;
 
-    pLabel->setText(String(nOverflows), dontSendNotification);
+    label->setText(String(nOverflows), dontSendNotification);
 }
 
 
@@ -46,7 +46,7 @@ void OverflowMeter::setOverflows(int Overflows)
 
     if (nOverflows != nOverflowsOld)
     {
-        pLabel->setText(String(nOverflows), dontSendNotification);
+        label->setText(String(nOverflows), dontSendNotification);
 
         if (nOverflows == 0)
         {
