@@ -40,7 +40,8 @@ Flow of parameter processing:
 
 ==============================================================================*/
 
-KmeterAudioProcessor::KmeterAudioProcessor()
+KmeterAudioProcessor::KmeterAudioProcessor() :
+    nTrakmeterBufferSize(1024)
 {
     if (DEBUG_FILTER)
     {
@@ -52,7 +53,7 @@ KmeterAudioProcessor::KmeterAudioProcessor()
     bSampleRateIsValid = false;
     nNumInputChannels = 0;
 
-    setLatencySamples(KMETER_BUFFER_SIZE);
+    setLatencySamples(nTrakmeterBufferSize);
 
     // depends on "KmeterPluginParameters"!
     nAverageAlgorithm = getRealInteger(KmeterPluginParameters::selAverageAlgorithm);
@@ -432,17 +433,17 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
         arrOverflows.add(0);
     }
 
-    pAverageLevelFiltered = new AverageLevelFiltered(this, nNumInputChannels, (int) sampleRate, KMETER_BUFFER_SIZE, nAverageAlgorithm);
+    pAverageLevelFiltered = new AverageLevelFiltered(this, nNumInputChannels, (int) sampleRate, nTrakmeterBufferSize, nAverageAlgorithm);
 
-    // make sure that ring buffer can hold at least KMETER_BUFFER_SIZE
+    // make sure that ring buffer can hold at least nTrakmeterBufferSize
     // samples and is large enough to receive a full block of audio
     nSamplesInBuffer = 0;
-    unsigned int uRingBufferSize = (samplesPerBlock > KMETER_BUFFER_SIZE) ? samplesPerBlock : KMETER_BUFFER_SIZE;
+    unsigned int uRingBufferSize = (samplesPerBlock > nTrakmeterBufferSize) ? samplesPerBlock : nTrakmeterBufferSize;
 
-    pRingBufferInput = new AudioRingBuffer("Input ring buffer", nNumInputChannels, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
+    pRingBufferInput = new AudioRingBuffer("Input ring buffer", nNumInputChannels, uRingBufferSize, nTrakmeterBufferSize, nTrakmeterBufferSize);
     pRingBufferInput->setCallbackClass(this);
 
-    pRingBufferOutput = new AudioRingBuffer("Output ring buffer", nNumInputChannels, uRingBufferSize, KMETER_BUFFER_SIZE, KMETER_BUFFER_SIZE);
+    pRingBufferOutput = new AudioRingBuffer("Output ring buffer", nNumInputChannels, uRingBufferSize, nTrakmeterBufferSize, nTrakmeterBufferSize);
 }
 
 
@@ -513,9 +514,9 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &m
     pRingBufferInput->addSamples(buffer, 0, nNumSamples);
 
     nSamplesInBuffer += nNumSamples;
-    nSamplesInBuffer %= KMETER_BUFFER_SIZE;
+    nSamplesInBuffer %= nTrakmeterBufferSize;
 
-    pRingBufferOutput->copyToBuffer(buffer, 0, nNumSamples, KMETER_BUFFER_SIZE - nSamplesInBuffer);
+    pRingBufferOutput->copyToBuffer(buffer, 0, nNumSamples, nTrakmeterBufferSize - nSamplesInBuffer);
 }
 
 

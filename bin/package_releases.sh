@@ -25,7 +25,7 @@
 #
 # ----------------------------------------------------------------------------
 
-KMETER_VERSION="1.31"
+KMETER_VERSION="1.40.1"
 
 KMETER_EXECUTABLE_DIR="final"
 KMETER_RELEASE_DIR="releases"
@@ -58,6 +58,9 @@ function fill_archive
 	if [ -f "$1" ]; then
 		echo "    $1"
 		cp "$1" "$2"
+	elif [ -d "$1" ]; then
+		echo "    $1"
+		cp --recursive "$1" "$2"
 	fi
 }
 
@@ -126,6 +129,7 @@ fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_stereo" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_surround" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_SKIN_DIR/" "$KMETER_ARCHIVE_DIR"
 
 compress_new_archive "$KMETER_RELEASE_DIR/linux32/$KMETER_ARCHIVE_DIR.tar.bz2" "$KMETER_ARCHIVE_DIR" "bzip2"
 
@@ -152,6 +156,7 @@ fill_archive "$KMETER_LV2_DIR/kmeter_stereo.ttl" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_LV2_DIR/kmeter_surround.ttl" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_SKIN_DIR/" "$KMETER_ARCHIVE_DIR"
 
 compress_new_archive "$KMETER_RELEASE_DIR/linux32/$KMETER_ARCHIVE_DIR.tar.bz2" "$KMETER_ARCHIVE_DIR" "bzip2"
 
@@ -174,6 +179,7 @@ fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_stereo_vst.so" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_surround_vst.so" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_SKIN_DIR/" "$KMETER_ARCHIVE_DIR"
 
 compress_new_archive "$KMETER_RELEASE_DIR/linux32/$KMETER_ARCHIVE_DIR.tar.bz2" "$KMETER_ARCHIVE_DIR" "bzip2"
 
@@ -196,6 +202,7 @@ fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_stereo_x64" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_surround_x64" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_SKIN_DIR/" "$KMETER_ARCHIVE_DIR"
 
 compress_new_archive "$KMETER_RELEASE_DIR/linux64/$KMETER_ARCHIVE_DIR.tar.bz2" "$KMETER_ARCHIVE_DIR" "bzip2"
 
@@ -222,6 +229,7 @@ fill_archive "$KMETER_LV2_DIR/kmeter_stereo.ttl" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_LV2_DIR/kmeter_surround.ttl" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_SKIN_DIR/" "$KMETER_ARCHIVE_DIR"
 
 compress_new_archive "$KMETER_RELEASE_DIR/linux64/$KMETER_ARCHIVE_DIR.tar.bz2" "$KMETER_ARCHIVE_DIR" "bzip2"
 
@@ -244,6 +252,7 @@ fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_stereo_vst_x64.so" "$KMETER_ARCHIVE_
 fill_archive "$KMETER_EXECUTABLE_DIR/kmeter_surround_vst_x64.so" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_SKIN_DIR/" "$KMETER_ARCHIVE_DIR"
 
 compress_new_archive "$KMETER_RELEASE_DIR/linux64/$KMETER_ARCHIVE_DIR.tar.bz2" "$KMETER_ARCHIVE_DIR" "bzip2"
 
@@ -267,6 +276,7 @@ fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter (Stereo).exe" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter (Surround).exe" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_SKIN_DIR/" "$KMETER_ARCHIVE_DIR"
 
 fill_archive "COPYRIGHT_FFTW" "$KMETER_ARCHIVE_DIR"
 fill_archive "LICENSE_FFTW" "$KMETER_ARCHIVE_DIR"
@@ -294,6 +304,7 @@ fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter (Stereo).dll" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter (Surround).dll" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_SKIN_DIR/" "$KMETER_ARCHIVE_DIR"
 
 fill_archive "COPYRIGHT_FFTW" "$KMETER_ARCHIVE_DIR"
 fill_archive "LICENSE_FFTW" "$KMETER_ARCHIVE_DIR"
@@ -321,6 +332,7 @@ fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter (Stereo x64).exe" "$KMETER_ARCHIVE_
 fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter (Surround x64).exe" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_SKIN_DIR/" "$KMETER_ARCHIVE_DIR"
 
 fill_archive "COPYRIGHT_FFTW" "$KMETER_ARCHIVE_DIR"
 fill_archive "LICENSE_FFTW" "$KMETER_ARCHIVE_DIR"
@@ -348,6 +360,7 @@ fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter (Stereo x64).dll" "$KMETER_ARCHIVE_
 fill_archive "$KMETER_EXECUTABLE_DIR/K-Meter (Surround x64).dll" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/LICENSE" "$KMETER_ARCHIVE_DIR"
 fill_archive "$KMETER_DOCUMENTATION_DIR/kmeter.pdf" "$KMETER_ARCHIVE_DIR"
+fill_archive "$KMETER_SKIN_DIR/" "$KMETER_ARCHIVE_DIR"
 
 fill_archive "COPYRIGHT_FFTW" "$KMETER_ARCHIVE_DIR"
 fill_archive "LICENSE_FFTW" "$KMETER_ARCHIVE_DIR"

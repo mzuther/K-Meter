@@ -26,7 +26,6 @@
 #ifndef __KMETER_PLUGINPROCESSOR_H__
 #define __KMETER_PLUGINPROCESSOR_H__
 
-#define KMETER_BUFFER_SIZE 1024
 #define DEBUG_FILTER 0
 
 class KmeterAudioProcessor;
@@ -127,6 +126,8 @@ public:
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(KmeterAudioProcessor);
+
+    const int nTrakmeterBufferSize;
 
     ScopedPointer<AudioFilePlayer> audioFilePlayer;
 
