@@ -50,51 +50,20 @@ KmeterAudioProcessor::KmeterAudioProcessor()
     }
 
     bSampleRateIsValid = false;
-    audioFilePlayer = nullptr;
-
-    pRingBufferInput = nullptr;
-    pRingBufferOutput = nullptr;
-
     nNumInputChannels = 0;
-    pMeterBallistics = nullptr;
 
     setLatencySamples(KMETER_BUFFER_SIZE);
-
-    pAverageLevelFiltered = nullptr;
-    pPluginParameters = new KmeterPluginParameters();
 
     // depends on "KmeterPluginParameters"!
     nAverageAlgorithm = getRealInteger(KmeterPluginParameters::selAverageAlgorithm);
 
     fProcessedSeconds = 0.0f;
-
-    fPeakLevels = nullptr;
-    fRmsLevels = nullptr;
-    fAverageLevelsFiltered = nullptr;
-
-    nOverflows = nullptr;
 }
 
 
 KmeterAudioProcessor::~KmeterAudioProcessor()
 {
     removeAllActionListeners();
-
-    // call function "releaseResources()" by force to make sure all
-    // allocated memory is freed
-    releaseResources();
-
-    if (pPluginParameters != nullptr)
-    {
-        delete pPluginParameters;
-        pPluginParameters = nullptr;
-    }
-
-    if (audioFilePlayer != nullptr)
-    {
-        delete audioFilePlayer;
-        audioFilePlayer = nullptr;
-    }
 }
 
 
@@ -108,19 +77,19 @@ const String KmeterAudioProcessor::getName() const
 
 int KmeterAudioProcessor::getNumParameters()
 {
-    return pPluginParameters->getNumParameters(false);
+    return pluginParameters.getNumParameters(false);
 }
 
 
 const String KmeterAudioProcessor::getParameterName(int nIndex)
 {
-    return pPluginParameters->getName(nIndex);
+    return pluginParameters.getName(nIndex);
 }
 
 
 const String KmeterAudioProcessor::getParameterText(int nIndex)
 {
-    return pPluginParameters->getText(nIndex);
+    return pluginParameters.getText(nIndex);
 }
 
 
@@ -131,7 +100,7 @@ float KmeterAudioProcessor::getParameter(int nIndex)
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    return pPluginParameters->getFloat(nIndex);
+    return pluginParameters.getFloat(nIndex);
 }
 
 
@@ -174,14 +143,14 @@ void KmeterAudioProcessor::setParameter(int nIndex, float fValue)
     // Please only call this method directly for non-automatable
     // values!
 
-    pPluginParameters->setFloat(nIndex, fValue);
+    pluginParameters.setFloat(nIndex, fValue);
 
     // notify plug-in editor of parameter change
-    if (pPluginParameters->hasChanged(nIndex))
+    if (pluginParameters.hasChanged(nIndex))
     {
         // for visible parameters, notify the editor of changes (this
         // will also clear the change flag)
-        if (nIndex < pPluginParameters->getNumParameters(false))
+        if (nIndex < pluginParameters.getNumParameters(false))
         {
             if (nIndex == KmeterPluginParameters::selCrestFactor)
             {
@@ -203,7 +172,7 @@ void KmeterAudioProcessor::setParameter(int nIndex, float fValue)
         // flag
         else
         {
-            pPluginParameters->clearChangeFlag(nIndex);
+            pluginParameters.clearChangeFlag(nIndex);
         }
     }
 }
@@ -211,31 +180,31 @@ void KmeterAudioProcessor::setParameter(int nIndex, float fValue)
 
 void KmeterAudioProcessor::clearChangeFlag(int nIndex)
 {
-    pPluginParameters->clearChangeFlag(nIndex);
+    pluginParameters.clearChangeFlag(nIndex);
 }
 
 
 void KmeterAudioProcessor::setChangeFlag(int nIndex)
 {
-    pPluginParameters->setChangeFlag(nIndex);
+    pluginParameters.setChangeFlag(nIndex);
 }
 
 
 bool KmeterAudioProcessor::hasChanged(int nIndex)
 {
-    return pPluginParameters->hasChanged(nIndex);
+    return pluginParameters.hasChanged(nIndex);
 }
 
 
 void KmeterAudioProcessor::updateParameters(bool bIncludeHiddenParameters)
 {
-    int nNumParameters = pPluginParameters->getNumParameters(false);
+    int nNumParameters = pluginParameters.getNumParameters(false);
 
     for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
     {
-        if (pPluginParameters->hasChanged(nIndex))
+        if (pluginParameters.hasChanged(nIndex))
         {
-            float fValue = pPluginParameters->getFloat(nIndex);
+            float fValue = pluginParameters.getFloat(nIndex);
             changeParameter(nIndex, fValue);
         }
     }
@@ -266,7 +235,7 @@ bool KmeterAudioProcessor::getBoolean(int nIndex)
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    return pPluginParameters->getBoolean(nIndex);
+    return pluginParameters.getBoolean(nIndex);
 }
 
 
@@ -277,7 +246,7 @@ int KmeterAudioProcessor::getRealInteger(int nIndex)
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    return pPluginParameters->getRealInteger(nIndex);
+    return pluginParameters.getRealInteger(nIndex);
 }
 
 
@@ -288,7 +257,7 @@ File KmeterAudioProcessor::getParameterValidationFile()
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    return pPluginParameters->getValidationFile();
+    return pluginParameters.getValidationFile();
 }
 
 
@@ -299,7 +268,7 @@ void KmeterAudioProcessor::setParameterValidationFile(File &fileValidation)
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    pPluginParameters->setValidationFile(fileValidation);
+    pluginParameters.setValidationFile(fileValidation);
 }
 
 
@@ -310,7 +279,7 @@ String KmeterAudioProcessor::getParameterSkinName()
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    return pPluginParameters->getSkinName();
+    return pluginParameters.getSkinName();
 }
 
 
@@ -321,7 +290,7 @@ void KmeterAudioProcessor::setParameterSkinName(String &strSkinName)
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    pPluginParameters->setSkinName(strSkinName);
+    pluginParameters.setSkinName(strSkinName);
 }
 
 
@@ -422,7 +391,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 
-    DBG("[K-Meter] in method KmeterAudioProcessor::prepareToPlay()");
+    DBG("[K-Meter] preparing to play");
 
     if ((sampleRate < 44100) || (sampleRate > 192000))
     {
@@ -448,22 +417,22 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 
     pMeterBallistics = new MeterBallistics(nNumInputChannels, nAverageAlgorithm, false, false);
 
-    fPeakLevels = new float[nNumInputChannels];
-    fRmsLevels = new float[nNumInputChannels];
-    fAverageLevelsFiltered = new float[nNumInputChannels];
+    arrPeakLevels.clear();
+    arrRmsLevels.clear();
+    arrAverageLevelsFiltered.clear();
 
-    nOverflows = new int[nNumInputChannels];
+    arrOverflows.clear();
 
     for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
     {
-        fPeakLevels[nChannel] = 0.0f;
-        fRmsLevels[nChannel] = 0.0f;
-        fAverageLevelsFiltered[nChannel] = MeterBallistics::getMeterMinimumDecibel();
+        arrPeakLevels.add(0.0f);
+        arrRmsLevels.add(0.0f);
+        arrAverageLevelsFiltered.add(MeterBallistics::getMeterMinimumDecibel());
 
-        nOverflows[nChannel] = 0;
+        arrOverflows.add(0);
     }
 
-    pAverageLevelFiltered = new AverageLevelFiltered(this, nNumInputChannels, KMETER_BUFFER_SIZE, (int) sampleRate, nAverageAlgorithm);
+    pAverageLevelFiltered = new AverageLevelFiltered(this, nNumInputChannels, (int) sampleRate, KMETER_BUFFER_SIZE, nAverageAlgorithm);
 
     // make sure that ring buffer can hold at least KMETER_BUFFER_SIZE
     // samples and is large enough to receive a full block of audio
@@ -482,66 +451,10 @@ void KmeterAudioProcessor::releaseResources()
     // When playback stops, you can use this as an opportunity to free
     // up any spare memory, etc.
 
-    DBG("[K-Meter] in method KmeterAudioProcessor::releaseResources()");
+    DBG("[K-Meter] releasing resources");
 
-    if (!bSampleRateIsValid)
-    {
-        return;
-    }
-
-    if (pAverageLevelFiltered != nullptr)
-    {
-        delete pAverageLevelFiltered;
-        pAverageLevelFiltered = nullptr;
-    }
-
-    if (pMeterBallistics != nullptr)
-    {
-        delete pMeterBallistics;
-        pMeterBallistics = nullptr;
-    }
-
-    if (pRingBufferOutput != nullptr)
-    {
-        delete pRingBufferOutput;
-        pRingBufferOutput = nullptr;
-    }
-
-    if (pRingBufferInput != nullptr)
-    {
-        delete pRingBufferInput;
-        pRingBufferInput = nullptr;
-    }
-
-    if (fPeakLevels != nullptr)
-    {
-        delete [] fPeakLevels;
-        fPeakLevels = nullptr;
-    }
-
-    if (fRmsLevels != nullptr)
-    {
-        delete [] fRmsLevels;
-        fRmsLevels = nullptr;
-    }
-
-    if (fAverageLevelsFiltered != nullptr)
-    {
-        delete [] fAverageLevelsFiltered;
-        fAverageLevelsFiltered = nullptr;
-    }
-
-    if (nOverflows != nullptr)
-    {
-        delete [] nOverflows;
-        nOverflows = nullptr;
-    }
-
-    if (audioFilePlayer != nullptr)
-    {
-        delete audioFilePlayer;
-        audioFilePlayer = nullptr;
-    }
+    pMeterBallistics = nullptr;
+    pAverageLevelFiltered = nullptr;
 }
 
 
@@ -623,31 +536,32 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const u
     {
         if (bMono && (nChannel == 1))
         {
-            fPeakLevels[nChannel] = fPeakLevels[0];
-            fRmsLevels[nChannel] = fRmsLevels[0];
-            fAverageLevelsFiltered[nChannel] = fAverageLevelsFiltered[0];
-            nOverflows[nChannel] = nOverflows[0];
+            arrPeakLevels.set(nChannel, arrPeakLevels[0]);
+            arrRmsLevels.set(nChannel, arrRmsLevels[0]);
+            arrAverageLevelsFiltered.set(nChannel, arrAverageLevelsFiltered[0]);
+
+            arrOverflows.set(nChannel, arrOverflows[0]);
         }
         else
         {
             // determine peak level for uChunkSize samples (use pre-delay)
-            fPeakLevels[nChannel] = pRingBufferInput->getMagnitude(nChannel, uChunkSize, uPreDelay);
+            arrPeakLevels.set(nChannel, pRingBufferInput->getMagnitude(nChannel, uChunkSize, uPreDelay));
 
             // determine peak level for uChunkSize samples (use pre-delay)
-            fRmsLevels[nChannel] = pRingBufferInput->getRMSLevel(nChannel, uChunkSize, uPreDelay);
+            arrRmsLevels.set(nChannel, pRingBufferInput->getRMSLevel(nChannel, uChunkSize, uPreDelay));
 
             // determine filtered average level for uChunkSize samples
             // (please note that this level has already been converted
             // to decibels!)
-            fAverageLevelsFiltered[nChannel] = pAverageLevelFiltered->getLevel(nChannel);
+            arrAverageLevelsFiltered.set(nChannel, pAverageLevelFiltered->getLevel(nChannel));
 
             // determine overflows for uChunkSize samples (use pre-delay)
-            nOverflows[nChannel] = countOverflows(pRingBufferInput, nChannel, uChunkSize, uPreDelay);
+            arrOverflows.set(nChannel, countOverflows(pRingBufferInput, nChannel, uChunkSize, uPreDelay));
         }
 
         // apply meter ballistics and store values so that the editor
         // can access them
-        pMeterBallistics->updateChannel(nChannel, fProcessedSeconds, fPeakLevels[nChannel], fRmsLevels[nChannel], fAverageLevelsFiltered[nChannel], nOverflows[nChannel]);
+        pMeterBallistics->updateChannel(nChannel, fProcessedSeconds, arrPeakLevels[nChannel], arrRmsLevels[nChannel], arrAverageLevelsFiltered[nChannel], arrOverflows[nChannel]);
     }
 
     // phase correlation is only defined for stereo signals
@@ -661,7 +575,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const u
             fPhaseCorrelation = 1.0f;
         }
         // otherwise, process only levels at or above -80 dB
-        else if ((fRmsLevels[0] >= 0.0001f) || (fRmsLevels[1] >= 0.0001f))
+        else if ((arrRmsLevels[0] >= 0.0001f) || (arrRmsLevels[1] >= 0.0001f))
         {
             float sum_of_product = 0.0f;
             float sum_of_squares_left = 0.0f;
@@ -699,17 +613,17 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const u
         float fStereoMeterValue = 0.0f;
 
         // do not process levels below -80 dB
-        if ((fRmsLevels[0] < 0.0001f) && (fRmsLevels[1] < 0.0001f))
+        if ((arrRmsLevels[0] < 0.0001f) && (arrRmsLevels[1] < 0.0001f))
         {
             fStereoMeterValue = 0.0f;
         }
-        else if (fRmsLevels[1] >= fRmsLevels[0])
+        else if (arrRmsLevels[1] >= arrRmsLevels[0])
         {
-            fStereoMeterValue = 1.0f - fRmsLevels[0] / fRmsLevels[1];
+            fStereoMeterValue = 1.0f - arrRmsLevels[0] / arrRmsLevels[1];
         }
         else
         {
-            fStereoMeterValue = fRmsLevels[1] / fRmsLevels[0] - 1.0f;
+            fStereoMeterValue = arrRmsLevels[1] / arrRmsLevels[0] - 1.0f;
         }
 
         pMeterBallistics->setStereoMeterValue(fProcessedSeconds, fStereoMeterValue);
@@ -752,7 +666,6 @@ void KmeterAudioProcessor::stopValidation()
 {
     if (audioFilePlayer != nullptr)
     {
-        delete audioFilePlayer;
         audioFilePlayer = nullptr;
     }
 
@@ -875,14 +788,14 @@ bool KmeterAudioProcessor::hasEditor() const
 
 void KmeterAudioProcessor::getStateInformation(MemoryBlock &destData)
 {
-    copyXmlToBinary(pPluginParameters->storeAsXml(), destData);
+    copyXmlToBinary(pluginParameters.storeAsXml(), destData);
 }
 
 
 void KmeterAudioProcessor::setStateInformation(const void *data, int sizeInBytes)
 {
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
-    pPluginParameters->loadFromXml(xml);
+    pluginParameters.loadFromXml(xml);
 
     updateParameters(true);
 }

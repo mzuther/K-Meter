@@ -45,24 +45,24 @@ private:
     KmeterAudioProcessor *pProcessor;
     File fileValidation;
 
-    Component *contentComponent;
+    ScopedPointer<Component> contentComponent;
 
-    Label *LabelFileSelection;
-    Label *LabelSampleRate;
-    Label *LabelSampleRateValue;
+    ScopedPointer<Label> LabelFileSelection;
+    ScopedPointer<Label> LabelSampleRate;
+    ScopedPointer<Label> LabelSampleRateValue;
 
-    TextButton *ButtonFileSelection;
-    TextButton *ButtonValidation;
-    TextButton *ButtonCancel;
+    ScopedPointer<TextButton> ButtonFileSelection;
+    ScopedPointer<TextButton> ButtonValidation;
+    ScopedPointer<TextButton> ButtonCancel;
 
-    Label *LabelDumpSelectedChannel;
-    ChannelSlider *SliderDumpSelectedChannel;
-    ToggleButton *ButtonDumpCSV;
-    ToggleButton *ButtonDumpAverageMeterLevel;
-    ToggleButton *ButtonDumpPeakMeterLevel;
-    ToggleButton *ButtonDumpMaximumPeakLevel;
-    ToggleButton *ButtonDumpStereoMeterValue;
-    ToggleButton *ButtonDumpPhaseCorrelation;
+    ScopedPointer<Label> LabelDumpSelectedChannel;
+    ScopedPointer<ChannelSlider> SliderDumpSelectedChannel;
+    ScopedPointer<ToggleButton> ButtonDumpCSV;
+    ScopedPointer<ToggleButton> ButtonDumpAverageMeterLevel;
+    ScopedPointer<ToggleButton> ButtonDumpPeakMeterLevel;
+    ScopedPointer<ToggleButton> ButtonDumpMaximumPeakLevel;
+    ScopedPointer<ToggleButton> ButtonDumpStereoMeterValue;
+    ScopedPointer<ToggleButton> ButtonDumpPhaseCorrelation;
 };
 
 

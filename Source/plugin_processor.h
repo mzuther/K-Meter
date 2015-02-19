@@ -128,15 +128,15 @@ public:
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(KmeterAudioProcessor);
 
-    AudioFilePlayer *audioFilePlayer;
+    ScopedPointer<AudioFilePlayer> audioFilePlayer;
 
-    AudioRingBuffer *pRingBufferInput;
-    AudioRingBuffer *pRingBufferOutput;
+    ScopedPointer<AudioRingBuffer> pRingBufferInput;
+    ScopedPointer<AudioRingBuffer> pRingBufferOutput;
 
-    AverageLevelFiltered *pAverageLevelFiltered;
-    MeterBallistics *pMeterBallistics;
+    ScopedPointer<AverageLevelFiltered> pAverageLevelFiltered;
+    ScopedPointer<MeterBallistics> pMeterBallistics;
 
-    KmeterPluginParameters *pPluginParameters;
+    KmeterPluginParameters pluginParameters;
 
     int nNumInputChannels;
     bool isStereo;
@@ -146,11 +146,11 @@ private:
     int nSamplesInBuffer;
     float fProcessedSeconds;
 
-    float *fPeakLevels;
-    float *fRmsLevels;
-    float *fAverageLevelsFiltered;
+    Array<float> arrPeakLevels;
+    Array<float> arrRmsLevels;
+    Array<float> arrAverageLevelsFiltered;
 
-    int *nOverflows;
+    Array<int> arrOverflows;
 
     int countOverflows(AudioRingBuffer *ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay);
 };

@@ -194,9 +194,6 @@ WindowValidation::WindowValidation(Component *pEditorWindow, KmeterAudioProcesso
 
 WindowValidation::~WindowValidation()
 {
-    // delete all children of the window; "contentComponent" will be
-    // deleted by the base class, so please leave it alone!
-    contentComponent->deleteAllChildren();
 }
 
 

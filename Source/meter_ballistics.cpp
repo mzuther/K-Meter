@@ -61,27 +61,6 @@ MeterBallistics::MeterBallistics(int nChannels, int AverageAlgorithm, bool bPeak
     // store algorithm for average meter levels
     setAverageAlgorithm(AverageAlgorithm);
 
-    // allocate variables for peak meter's level and peak mark (all
-    // audio input channels)
-    fPeakMeterLevels = new float[nNumberOfChannels];
-    fPeakMeterPeakLevels = new float[nNumberOfChannels];
-
-    // allocate variables for average meter's level and peak mark (all
-    // audio input channels)
-    fAverageMeterLevels = new float[nNumberOfChannels];
-    fAverageMeterPeakLevels = new float[nNumberOfChannels];
-
-    // allocate variables for the time since the peak mark was last
-    // changed (all audio input channels)
-    fPeakMeterPeakLastChanged = new float[nNumberOfChannels];
-    fAverageMeterPeakLastChanged = new float[nNumberOfChannels];
-
-    // allocate variables for overall maximum peak level and number of
-    // registered overflows (all audio input channels)
-    fMaximumPeakLevels = new float[nNumberOfChannels];
-    nNumberOfOverflows = new int[nNumberOfChannels];
-
-
     // select "infinite peak hold" or "falling peaks" mode
     setPeakMeterInfiniteHold(bPeakMeterInfiniteHold);
     setAverageMeterInfiniteHold(bAverageMeterInfiniteHold);
@@ -97,30 +76,6 @@ MeterBallistics::~MeterBallistics()
     return value: none
 */
 {
-    // delete all allocated variables
-    delete [] fPeakMeterLevels;
-    fPeakMeterLevels = nullptr;
-
-    delete [] fPeakMeterPeakLevels;
-    fPeakMeterPeakLevels = nullptr;
-
-    delete [] fAverageMeterLevels;
-    fAverageMeterLevels = nullptr;
-
-    delete [] fAverageMeterPeakLevels;
-    fAverageMeterPeakLevels = nullptr;
-
-    delete [] fPeakMeterPeakLastChanged;
-    fPeakMeterPeakLastChanged = nullptr;
-
-    delete [] fAverageMeterPeakLastChanged;
-    fAverageMeterPeakLastChanged = nullptr;
-
-    delete [] fMaximumPeakLevels;
-    fMaximumPeakLevels = nullptr;
-
-    delete [] nNumberOfOverflows;
-    nNumberOfOverflows = nullptr;
 }
 
 
@@ -140,18 +95,18 @@ void MeterBallistics::reset()
     for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
     {
         // set peak meter's level and peak mark to meter's minimum
-        fPeakMeterLevels[nChannel] = fMeterMinimumDecibel;
-        fPeakMeterPeakLevels[nChannel] = fMeterMinimumDecibel;
+        arrPeakMeterLevels.set(nChannel, fMeterMinimumDecibel);
+        arrPeakMeterPeakLevels.set(nChannel, fMeterMinimumDecibel);
 
         // set average meter's level and peak mark to meter's minimum
-        fAverageMeterLevels[nChannel] = fMeterMinimumDecibel;
-        fAverageMeterPeakLevels[nChannel] = fMeterMinimumDecibel;
+        arrAverageMeterLevels.set(nChannel, fMeterMinimumDecibel);
+        arrAverageMeterPeakLevels.set(nChannel, fMeterMinimumDecibel);
 
         // set overall maximum peak level to meter's minimum
-        fMaximumPeakLevels[nChannel] = fMeterMinimumDecibel;
+        arrMaximumPeakLevels.set(nChannel, fMeterMinimumDecibel);
 
         // reset number of registered overflows
-        nNumberOfOverflows[nChannel] = 0;
+        arrNumberOfOverflows.set(nChannel, 0);
     }
 }
 
@@ -186,13 +141,13 @@ void MeterBallistics::setPeakMeterInfiniteHold(bool bInfiniteHold)
         // so this effectively selects "infinite peak hold" mode
         if (bInfiniteHold)
         {
-            fPeakMeterPeakLastChanged[nChannel] = -1.0f;
+            arrPeakMeterPeakLastChanged.set(nChannel, -1.0f);
         }
         // select "falling peaks" mode by resetting time since peak
         // mark was last changed
         else
         {
-            fPeakMeterPeakLastChanged[nChannel] = 0.0f;
+            arrPeakMeterPeakLastChanged.set(nChannel, 0.0f);
         }
     }
 }
@@ -214,13 +169,13 @@ void MeterBallistics::setAverageMeterInfiniteHold(bool bInfiniteHold)
         // so this effectively selects "infinite peak hold" mode
         if (bInfiniteHold)
         {
-            fAverageMeterPeakLastChanged[nChannel] = -1.0f;
+            arrAverageMeterPeakLastChanged.set(nChannel, -1.0f);
         }
         // select "falling peaks" mode by resetting time since peak mark
         // was last changed
         else
         {
-            fAverageMeterPeakLastChanged[nChannel] = 0.0f;
+            arrAverageMeterPeakLastChanged.set(nChannel, 0.0f);
         }
     }
 }
@@ -262,9 +217,9 @@ float MeterBallistics::getPeakMeterLevel(int nChannel)
             // loop through all audio channels to find maximum level
             for (int channel = 0; channel < nNumberOfChannels; channel++)
             {
-                if (fPeakMeterLevels[channel] > fPeakMeterLevel)
+                if (arrPeakMeterLevels[channel] > fPeakMeterLevel)
                 {
-                    fPeakMeterLevel = fPeakMeterLevels[channel];
+                    fPeakMeterLevel = arrPeakMeterLevels[channel];
                 }
             }
         }
@@ -275,7 +230,7 @@ float MeterBallistics::getPeakMeterLevel(int nChannel)
     // otherwise, simply return the requested channel's level
     else
     {
-        return fPeakMeterLevels[nChannel];
+        return arrPeakMeterLevels[nChannel];
     }
 }
 
@@ -306,9 +261,9 @@ float MeterBallistics::getPeakMeterPeakLevel(int nChannel)
             // level
             for (int channel = 0; channel < nNumberOfChannels; channel++)
             {
-                if (fPeakMeterPeakLevels[channel] > fPeakMeterPeakLevel)
+                if (arrPeakMeterPeakLevels[channel] > fPeakMeterPeakLevel)
                 {
-                    fPeakMeterPeakLevel = fPeakMeterPeakLevels[channel];
+                    fPeakMeterPeakLevel = arrPeakMeterPeakLevels[channel];
                 }
             }
         }
@@ -320,7 +275,7 @@ float MeterBallistics::getPeakMeterPeakLevel(int nChannel)
     // level
     else
     {
-        return fPeakMeterPeakLevels[nChannel];
+        return arrPeakMeterPeakLevels[nChannel];
     }
 }
 
@@ -343,7 +298,7 @@ float MeterBallistics::getAverageMeterLevel(int nChannel)
     {
         if (nChannel == 0)
         {
-            return fAverageMeterLevels[nChannel];
+            return arrAverageMeterLevels[nChannel];
         }
         else
         {
@@ -353,7 +308,7 @@ float MeterBallistics::getAverageMeterLevel(int nChannel)
     // otherwise, simply return the requested channel's average level
     else
     {
-        return fAverageMeterLevels[nChannel];
+        return arrAverageMeterLevels[nChannel];
     }
 }
 
@@ -376,7 +331,7 @@ float MeterBallistics::getAverageMeterPeakLevel(int nChannel)
     {
         if (nChannel == 0)
         {
-            return fAverageMeterPeakLevels[nChannel];
+            return arrAverageMeterPeakLevels[nChannel];
         }
         else
         {
@@ -387,7 +342,7 @@ float MeterBallistics::getAverageMeterPeakLevel(int nChannel)
     // level
     else
     {
-        return fAverageMeterPeakLevels[nChannel];
+        return arrAverageMeterPeakLevels[nChannel];
     }
 }
 
@@ -417,9 +372,9 @@ float MeterBallistics::getMaximumPeakLevel(int nChannel)
             // loop through all audio channels to find maximum level
             for (int channel = 0; channel < nNumberOfChannels; channel++)
             {
-                if (fMaximumPeakLevels[channel] > fMaximumPeakLevel)
+                if (arrMaximumPeakLevels[channel] > fMaximumPeakLevel)
                 {
-                    fMaximumPeakLevel = fMaximumPeakLevels[channel];
+                    fMaximumPeakLevel = arrMaximumPeakLevels[channel];
                 }
             }
         }
@@ -430,7 +385,7 @@ float MeterBallistics::getMaximumPeakLevel(int nChannel)
     // otherwise, simply return the requested channel's maximum level
     else
     {
-        return fMaximumPeakLevels[nChannel];
+        return arrMaximumPeakLevels[nChannel];
     }
 }
 
@@ -462,7 +417,7 @@ int MeterBallistics::getNumberOfOverflows(int nChannel)
             // overflows
             for (int channel = 0; channel < nNumberOfChannels; channel++)
             {
-                nSumOfOverflows += nNumberOfOverflows[channel];
+                nSumOfOverflows += arrNumberOfOverflows[channel];
             }
         }
 
@@ -473,7 +428,7 @@ int MeterBallistics::getNumberOfOverflows(int nChannel)
     // overflows
     else
     {
-        return nNumberOfOverflows[nChannel];
+        return arrNumberOfOverflows[nChannel];
     }
 }
 
@@ -592,23 +547,23 @@ void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak
 
     // if current peak meter level exceeds overall maximum peak level,
     // store it as new overall maximum peak level
-    if (fPeak > fMaximumPeakLevels[nChannel])
+    if (fPeak > arrMaximumPeakLevels[nChannel])
     {
-        fMaximumPeakLevels[nChannel] = fPeak;
+        arrMaximumPeakLevels.set(nChannel, fPeak);
     }
 
     // apply peak meter's ballistics and store resulting level and
     // peak mark
-    fPeakMeterLevels[nChannel] = PeakMeterBallistics(fTimePassed, fPeak, fPeakMeterLevels[nChannel]);
-    fPeakMeterPeakLevels[nChannel] = PeakMeterPeakBallistics(fTimePassed, &fPeakMeterPeakLastChanged[nChannel], fPeak, fPeakMeterPeakLevels[nChannel]);
+    arrPeakMeterLevels.set(nChannel, PeakMeterBallistics(fTimePassed, fPeak, arrPeakMeterLevels[nChannel]));
+    arrPeakMeterPeakLevels.set(nChannel, PeakMeterPeakBallistics(fTimePassed, arrPeakMeterPeakLastChanged.getReference(nChannel), fPeak, arrPeakMeterPeakLevels[nChannel]));
 
     // apply average meter's ballistics and store resulting level and
     // peak mark
     AverageMeterBallistics(nChannel, fTimePassed, fAverageFiltered);
-    fAverageMeterPeakLevels[nChannel] = AverageMeterPeakBallistics(fTimePassed, &fAverageMeterPeakLastChanged[nChannel], fAverageMeterLevels[nChannel], fAverageMeterPeakLevels[nChannel]);
+    arrAverageMeterPeakLevels.set(nChannel, AverageMeterPeakBallistics(fTimePassed, arrAverageMeterPeakLastChanged.getReference(nChannel), arrAverageMeterLevels[nChannel], arrAverageMeterPeakLevels[nChannel]));
 
     // update registered number of overflows
-    nNumberOfOverflows[nChannel] += nOverflows;
+    arrNumberOfOverflows.set(nChannel, arrNumberOfOverflows[nChannel] + nOverflows);
 }
 
 
@@ -711,13 +666,13 @@ float MeterBallistics::PeakMeterBallistics(float fTimePassed, float fPeakLevelCu
 }
 
 
-float MeterBallistics::PeakMeterPeakBallistics(float fTimePassed, float *fLastChanged, float fPeakCurrent, float fPeakOld)
+float MeterBallistics::PeakMeterPeakBallistics(float fTimePassed, float &fLastChanged, float fPeakCurrent, float fPeakOld)
 /*  Calculate ballistics for peak meter peak marks.
 
     fTimePassed (float): time that has passed since last update (in
     fractional seconds)
 
-    fLastChanged (float pointer): time since peak mark was last
+    fLastChanged (reference to float): time since peak mark was last
     changed in fractional seconds
 
     fPeakCurrent (float): current peak level mark in decibel
@@ -742,9 +697,9 @@ float MeterBallistics::PeakMeterPeakBallistics(float fTimePassed, float *fLastCh
         // if peak meter is set to "falling peaks" mode (non-negative
         // values), reset hold time (time that peaks are held before
         // starting to fall back down)
-        if (*fLastChanged >= 0.0f)
+        if (fLastChanged >= 0.0f)
         {
-            *fLastChanged = 0.0f;
+            fLastChanged = 0.0f;
         }
 
         // immediate rise time, so set current peak level mark as new
@@ -757,16 +712,16 @@ float MeterBallistics::PeakMeterPeakBallistics(float fTimePassed, float *fLastCh
         // if peak meter is set to "falling peaks" mode (non-negative
         // values), update hold time (time that peaks are held before
         // starting to fall back down)
-        if (*fLastChanged >= 0.0f)
+        if (fLastChanged >= 0.0f)
         {
-            *fLastChanged += fTimePassed;
+            fLastChanged += fTimePassed;
         }
 
         // peak meter is EITHER set to "infinite peak hold" mode
         // (negative values) OR the peak meter's hold time of 10
         // seconds has not yet been exceeded, so retain old peak level
         // mark
-        if (*fLastChanged < 10.0f)
+        if (fLastChanged < 10.0f)
         {
             fOutput = fPeakOld;
         }
@@ -806,17 +761,17 @@ void MeterBallistics::AverageMeterBallistics(int nChannel, float fTimePassed, fl
 */
 {
     // meter ballistics: 99% of final reading in 0.6 s (logarithmic)
-    LogMeterBallistics(0.600f, fTimePassed, fAverageLevelCurrent, fAverageMeterLevels[nChannel]);
+    LogMeterBallistics(0.600f, fTimePassed, fAverageLevelCurrent, arrAverageMeterLevels.getReference(nChannel));
 }
 
 
-float MeterBallistics::AverageMeterPeakBallistics(float fTimePassed, float *fLastChanged, float fPeakCurrent, float fPeakOld)
+float MeterBallistics::AverageMeterPeakBallistics(float fTimePassed, float &fLastChanged, float fPeakCurrent, float fPeakOld)
 /*  Calculate ballistics for average meter peak marks.
 
     fTimePassed (float): time that has passed since last update (in
     fractional seconds)
 
-    fLastChanged (float pointer): time since peak mark was last
+    fLastChanged (reference to float): time since peak mark was last
     changed in fractional seconds
 
     fPeakCurrent (float): current peak level mark in decibel

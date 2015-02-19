@@ -123,8 +123,6 @@ MeterBar::MeterBar(const String &componentName, int nCrestFactor, bool bExpanded
     int nRange = 0; // bar level range (in 0.1 dB)
     int nColor = 0;
 
-    MeterArray = new MeterSegment*[nNumberOfBars];
-
     for (int n = 0; n < nNumberOfBars; n++)
     {
         if (isExpanded)
@@ -196,26 +194,15 @@ MeterBar::MeterBar(const String &componentName, int nCrestFactor, bool bExpanded
 
         nThreshold -= nRange;
         nKmeterLevel -= nRange;
-        MeterArray[n] = new MeterSegment("MeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, nRange * 0.1f, displayPeakMeter, nColor);
 
-        addAndMakeVisible(MeterArray[n]);
+        MeterSegment *pMeterSegment = p_arrMeterArray.add(new MeterSegment("MeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, nRange * 0.1f, displayPeakMeter, nColor));
+        addAndMakeVisible(pMeterSegment);
     }
 }
 
 
 MeterBar::~MeterBar()
 {
-    for (int n = 0; n < nNumberOfBars; n++)
-    {
-        removeChildComponent(MeterArray[n]);
-        delete MeterArray[n];
-        MeterArray[n] = nullptr;
-    }
-
-    delete [] MeterArray;
-    MeterArray = nullptr;
-
-    deleteAllChildren();
 }
 
 
@@ -330,12 +317,12 @@ void MeterBar::resized()
 
         if (bHorizontalMeter)
         {
-            MeterArray[n]->setBounds(nWidth - x - (nSegmentHeight + 1), y, nSegmentHeight + 1, nHeight);
+            p_arrMeterArray[n]->setBounds(nWidth - x - (nSegmentHeight + 1), y, nSegmentHeight + 1, nHeight);
             x += nSegmentHeight;
         }
         else
         {
-            MeterArray[n]->setBounds(x, y, nWidth, nSegmentHeight + 1);
+            p_arrMeterArray[n]->setBounds(x, y, nWidth, nSegmentHeight + 1);
             y += nSegmentHeight;
         }
 
@@ -356,7 +343,7 @@ void MeterBar::setLevels(float peakLevel, float averageLevel, float peakLevelPea
 
         for (int n = 0; n < nNumberOfBars; n++)
         {
-            MeterArray[n]->setLevels(fPeakLevel, fAverageLevel, fPeakLevelPeak, fAverageLevelPeak);
+            p_arrMeterArray[n]->setLevels(fPeakLevel, fAverageLevel, fPeakLevelPeak, fAverageLevelPeak);
         }
     }
 }

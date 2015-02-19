@@ -33,64 +33,24 @@ Kmeter::Kmeter(const String &componentName, int nCrestFactor, int nNumChannels, 
     setOpaque(false);
 
     nInputChannels = nNumChannels;
-    LevelMeters = new MeterBar*[nInputChannels];
 
     for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
     {
-        LevelMeters[nChannel] = new MeterBar("Level Meter #" + String(nChannel), nCrestFactor, bExpanded, bHorizontalMeter, bDisplayPeakMeter, nSegmentHeight);
+        MeterBar *pMeterBar = p_arrLevelMeters.add(new MeterBar("Level Meter #" + String(nChannel), nCrestFactor, bExpanded, bHorizontalMeter, bDisplayPeakMeter, nSegmentHeight));
 
-        addAndMakeVisible(LevelMeters[nChannel]);
-    }
+        addAndMakeVisible(pMeterBar);
 
-    OverflowMeters = new OverflowMeter*[nInputChannels];
-    MaximumPeakLabels = new PeakLabel*[nInputChannels];
+        OverflowMeter *pOverflowMeter = p_arrOverflowMeters.add(new OverflowMeter("Overflows #" + String(nChannel)));
+        addAndMakeVisible(pOverflowMeter);
 
-    if (nInputChannels == 1)
-    {
-        OverflowMeters[0] = new OverflowMeter("Overflows #0");
-        addAndMakeVisible(OverflowMeters[0]);
-
-        MaximumPeakLabels[0] = new PeakLabel("Maximum Peak #0", nCrestFactor);
-        addAndMakeVisible(MaximumPeakLabels[0]);
-    }
-    else
-    {
-        for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
-        {
-            OverflowMeters[nChannel] = new OverflowMeter("Overflows #" + String(nChannel));
-            addAndMakeVisible(OverflowMeters[nChannel]);
-
-            MaximumPeakLabels[nChannel] = new PeakLabel("Maximum Peak #" + String(nChannel), nCrestFactor);
-            addAndMakeVisible(MaximumPeakLabels[nChannel]);
-        }
+        PeakLabel *pPeakLabel = p_arrMaximumPeakLabels.add(new PeakLabel("Maximum Peak #" + String(nChannel), nCrestFactor));
+        addAndMakeVisible(pPeakLabel);
     }
 }
 
 
 Kmeter::~Kmeter()
 {
-    for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
-    {
-        delete LevelMeters[nChannel];
-        LevelMeters[nChannel] = nullptr;
-
-        delete OverflowMeters[nChannel];
-        OverflowMeters[nChannel] = nullptr;
-
-        delete MaximumPeakLabels[nChannel];
-        MaximumPeakLabels[nChannel] = nullptr;
-    }
-
-    delete [] LevelMeters;
-    LevelMeters = nullptr;
-
-    delete [] OverflowMeters;
-    OverflowMeters = nullptr;
-
-    delete [] MaximumPeakLabels;
-    MaximumPeakLabels = nullptr;
-
-    deleteAllChildren();
 }
 
 
@@ -98,45 +58,45 @@ void Kmeter::applySkin(Skin *pSkin)
 {
     if (nInputChannels == 1)
     {
-        pSkin->placeComponent(LevelMeters[0], "meter_kmeter");
-        pSkin->placeAndSkinStateLabel(OverflowMeters[0], "label_over");
-        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[0], "label_peak");
+        pSkin->placeComponent(p_arrLevelMeters[0], "meter_kmeter");
+        pSkin->placeAndSkinStateLabel(p_arrOverflowMeters[0], "label_over");
+        pSkin->placeAndSkinStateLabel(p_arrMaximumPeakLabels[0], "label_peak");
     }
     else if (nInputChannels == 2)
     {
-        pSkin->placeComponent(LevelMeters[0], "meter_kmeter_left");
-        pSkin->placeAndSkinStateLabel(OverflowMeters[0], "label_over_left");
-        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[0], "label_peak_left");
+        pSkin->placeComponent(p_arrLevelMeters[0], "meter_kmeter_left");
+        pSkin->placeAndSkinStateLabel(p_arrOverflowMeters[0], "label_over_left");
+        pSkin->placeAndSkinStateLabel(p_arrMaximumPeakLabels[0], "label_peak_left");
 
-        pSkin->placeComponent(LevelMeters[1], "meter_kmeter_right");
-        pSkin->placeAndSkinStateLabel(OverflowMeters[1], "label_over_right");
-        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[1], "label_peak_right");
+        pSkin->placeComponent(p_arrLevelMeters[1], "meter_kmeter_right");
+        pSkin->placeAndSkinStateLabel(p_arrOverflowMeters[1], "label_over_right");
+        pSkin->placeAndSkinStateLabel(p_arrMaximumPeakLabels[1], "label_peak_right");
     }
     else if (nInputChannels == 6)
     {
-        pSkin->placeComponent(LevelMeters[0], "meter_kmeter_left");
-        pSkin->placeAndSkinStateLabel(OverflowMeters[0], "label_over_left");
-        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[0], "label_peak_left");
+        pSkin->placeComponent(p_arrLevelMeters[0], "meter_kmeter_left");
+        pSkin->placeAndSkinStateLabel(p_arrOverflowMeters[0], "label_over_left");
+        pSkin->placeAndSkinStateLabel(p_arrMaximumPeakLabels[0], "label_peak_left");
 
-        pSkin->placeComponent(LevelMeters[1], "meter_kmeter_right");
-        pSkin->placeAndSkinStateLabel(OverflowMeters[1], "label_over_right");
-        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[1], "label_peak_right");
+        pSkin->placeComponent(p_arrLevelMeters[1], "meter_kmeter_right");
+        pSkin->placeAndSkinStateLabel(p_arrOverflowMeters[1], "label_over_right");
+        pSkin->placeAndSkinStateLabel(p_arrMaximumPeakLabels[1], "label_peak_right");
 
-        pSkin->placeComponent(LevelMeters[2], "meter_kmeter_center");
-        pSkin->placeAndSkinStateLabel(OverflowMeters[2], "label_over_center");
-        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[2], "label_peak_center");
+        pSkin->placeComponent(p_arrLevelMeters[2], "meter_kmeter_center");
+        pSkin->placeAndSkinStateLabel(p_arrOverflowMeters[2], "label_over_center");
+        pSkin->placeAndSkinStateLabel(p_arrMaximumPeakLabels[2], "label_peak_center");
 
-        pSkin->placeComponent(LevelMeters[3], "meter_kmeter_lfe");
-        pSkin->placeAndSkinStateLabel(OverflowMeters[3], "label_over_lfe");
-        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[3], "label_peak_lfe");
+        pSkin->placeComponent(p_arrLevelMeters[3], "meter_kmeter_lfe");
+        pSkin->placeAndSkinStateLabel(p_arrOverflowMeters[3], "label_over_lfe");
+        pSkin->placeAndSkinStateLabel(p_arrMaximumPeakLabels[3], "label_peak_lfe");
 
-        pSkin->placeComponent(LevelMeters[4], "meter_kmeter_ls");
-        pSkin->placeAndSkinStateLabel(OverflowMeters[4], "label_over_ls");
-        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[4], "label_peak_ls");
+        pSkin->placeComponent(p_arrLevelMeters[4], "meter_kmeter_ls");
+        pSkin->placeAndSkinStateLabel(p_arrOverflowMeters[4], "label_over_ls");
+        pSkin->placeAndSkinStateLabel(p_arrMaximumPeakLabels[4], "label_peak_ls");
 
-        pSkin->placeComponent(LevelMeters[5], "meter_kmeter_rs");
-        pSkin->placeAndSkinStateLabel(OverflowMeters[5], "label_over_rs");
-        pSkin->placeAndSkinStateLabel(MaximumPeakLabels[5], "label_peak_rs");
+        pSkin->placeComponent(p_arrLevelMeters[5], "meter_kmeter_rs");
+        pSkin->placeAndSkinStateLabel(p_arrOverflowMeters[5], "label_over_rs");
+        pSkin->placeAndSkinStateLabel(p_arrMaximumPeakLabels[5], "label_peak_rs");
     }
     else
     {
@@ -161,11 +121,11 @@ void Kmeter::setLevels(MeterBallistics *pMeterBallistics)
 {
     for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
     {
-        LevelMeters[nChannel]->setLevels(pMeterBallistics->getPeakMeterLevel(nChannel), pMeterBallistics->getAverageMeterLevel(nChannel), pMeterBallistics->getPeakMeterPeakLevel(nChannel), pMeterBallistics->getAverageMeterPeakLevel(nChannel));
+        p_arrLevelMeters[nChannel]->setLevels(pMeterBallistics->getPeakMeterLevel(nChannel), pMeterBallistics->getAverageMeterLevel(nChannel), pMeterBallistics->getPeakMeterPeakLevel(nChannel), pMeterBallistics->getAverageMeterPeakLevel(nChannel));
 
-        MaximumPeakLabels[nChannel]->updateLevel(pMeterBallistics->getMaximumPeakLevel(nChannel));
+        p_arrMaximumPeakLabels[nChannel]->updateLevel(pMeterBallistics->getMaximumPeakLevel(nChannel));
 
-        OverflowMeters[nChannel]->setOverflows(pMeterBallistics->getNumberOfOverflows(nChannel));
+        p_arrOverflowMeters[nChannel]->setOverflows(pMeterBallistics->getNumberOfOverflows(nChannel));
     }
 }
 

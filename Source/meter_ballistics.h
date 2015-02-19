@@ -75,26 +75,26 @@ private:
     static float fMeterMinimumDecibel;
     static float fPeakToAverageCorrection;
 
-    float *fPeakMeterLevels;
-    float *fPeakMeterPeakLevels;
+    Array<float> arrPeakMeterLevels;
+    Array<float> arrPeakMeterPeakLevels;
 
-    float *fAverageMeterLevels;
-    float *fAverageMeterPeakLevels;
+    Array<float> arrAverageMeterLevels;
+    Array<float> arrAverageMeterPeakLevels;
 
-    float *fMaximumPeakLevels;
-    int *nNumberOfOverflows;
+    Array<float> arrMaximumPeakLevels;
+    Array<int> arrNumberOfOverflows;
 
-    float *fPeakMeterPeakLastChanged;
-    float *fAverageMeterPeakLastChanged;
+    Array<float> arrPeakMeterPeakLastChanged;
+    Array<float> arrAverageMeterPeakLastChanged;
 
     float fStereoMeterValue;
     float fPhaseCorrelation;
 
     float PeakMeterBallistics(float fTimePassed, float fPeakLevelCurrent, float fPeakLevelOld);
-    float PeakMeterPeakBallistics(float fTimePassed, float *fLastChanged, float fPeakLevelCurrent, float fPeakLevelOld);
+    float PeakMeterPeakBallistics(float fTimePassed, float &fLastChanged, float fPeakLevelCurrent, float fPeakLevelOld);
 
     void AverageMeterBallistics(int nChannel, float fTimePassed, float fAverageLevelCurrent);
-    float AverageMeterPeakBallistics(float fTimePassed, float *fLastChanged, float fAverageLevelCurrent, float fAverageLevelOld);
+    float AverageMeterPeakBallistics(float fTimePassed, float &fLastChanged, float fAverageLevelCurrent, float fAverageLevelOld);
 
     void StereoMeterBallistics(float fTimePassed, float fStereoMeterCurrent);
 

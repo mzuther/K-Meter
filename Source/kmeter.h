@@ -53,9 +53,9 @@ public:
 private:
     JUCE_LEAK_DETECTOR(Kmeter);
 
-    MeterBar **LevelMeters;
-    OverflowMeter **OverflowMeters;
-    PeakLabel **MaximumPeakLabels;
+    OwnedArray<MeterBar> p_arrLevelMeters;
+    OwnedArray<OverflowMeter> p_arrOverflowMeters;
+    OwnedArray<PeakLabel> p_arrMaximumPeakLabels;
 
     int nInputChannels;
 };

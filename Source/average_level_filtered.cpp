@@ -25,7 +25,18 @@
 
 #include "average_level_filtered.h"
 
-AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor *processor, const int channels, const int buffer_size, const int sample_rate, const int average_algorithm)
+AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor *processor, const int channels, const int sample_rate, const int buffer_size, const int average_algorithm) :
+    nNumberOfChannels(channels),
+    nSampleRate(sample_rate),
+    nBufferSize(buffer_size),
+    sampleBuffer(nNumberOfChannels, nBufferSize),
+    overlapAddSamples(nNumberOfChannels, nBufferSize),
+    previousSamplesPreFilterInput(nNumberOfChannels, KMETER_MAXIMUM_FILTER_STAGES - 1),
+    previousSamplesPreFilterOutput(nNumberOfChannels, KMETER_MAXIMUM_FILTER_STAGES - 1),
+    previousSamplesWeightingFilterInput(nNumberOfChannels, KMETER_MAXIMUM_FILTER_STAGES - 1),
+    previousSamplesWeightingFilterOutput(nNumberOfChannels, KMETER_MAXIMUM_FILTER_STAGES - 1),
+    previousSamplesOutputTemp(1, nBufferSize),
+    dither(24)
 {
     jassert(channels > 0);
 
@@ -40,71 +51,26 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor *processor, cons
 
     String strDynamicLibraryFFTW = fileDynamicLibraryFFTW.getFullPathName();
 
-    pDynamicLibraryFFTW = new DynamicLibrary();
-    pDynamicLibraryFFTW->open(strDynamicLibraryFFTW);
-    jassert(pDynamicLibraryFFTW->getNativeHandle() != nullptr);
+    dynamicLibraryFFTW.open(strDynamicLibraryFFTW);
+    jassert(dynamicLibraryFFTW.getNativeHandle() != nullptr);
 
-    fftwf_alloc_real = (float * ( *)(size_t)) pDynamicLibraryFFTW->getFunction("fftwf_alloc_real");
-    fftwf_alloc_complex = (fftwf_complex * ( *)(size_t)) pDynamicLibraryFFTW->getFunction("fftwf_alloc_complex");
-    fftwf_free = (void ( *)(void *)) pDynamicLibraryFFTW->getFunction("fftwf_free");
+    fftwf_alloc_real = (float * ( *)(size_t)) dynamicLibraryFFTW.getFunction("fftwf_alloc_real");
+    fftwf_alloc_complex = (fftwf_complex * ( *)(size_t)) dynamicLibraryFFTW.getFunction("fftwf_alloc_complex");
+    fftwf_free = (void ( *)(void *)) dynamicLibraryFFTW.getFunction("fftwf_free");
 
-    fftwf_plan_dft_r2c_1d = (fftwf_plan( *)(int, float *, fftwf_complex *, unsigned)) pDynamicLibraryFFTW->getFunction("fftwf_plan_dft_r2c_1d");
-    fftwf_plan_dft_c2r_1d = (fftwf_plan( *)(int, fftwf_complex *, float *, unsigned)) pDynamicLibraryFFTW->getFunction("fftwf_plan_dft_c2r_1d");
-    fftwf_destroy_plan = (void ( *)(fftwf_plan)) pDynamicLibraryFFTW->getFunction("fftwf_destroy_plan");
+    fftwf_plan_dft_r2c_1d = (fftwf_plan( *)(int, float *, fftwf_complex *, unsigned)) dynamicLibraryFFTW.getFunction("fftwf_plan_dft_r2c_1d");
+    fftwf_plan_dft_c2r_1d = (fftwf_plan( *)(int, fftwf_complex *, float *, unsigned)) dynamicLibraryFFTW.getFunction("fftwf_plan_dft_c2r_1d");
+    fftwf_destroy_plan = (void ( *)(fftwf_plan)) dynamicLibraryFFTW.getFunction("fftwf_destroy_plan");
 
-    fftwf_execute = (void ( *)(const fftwf_plan)) pDynamicLibraryFFTW->getFunction("fftwf_execute");
+    fftwf_execute = (void ( *)(const fftwf_plan)) dynamicLibraryFFTW.getFunction("fftwf_execute");
 #endif
 
     pProcessor = processor;
-    nNumberOfChannels = channels;
-    nSampleRate = sample_rate;
-    nBufferSize = buffer_size;
     fPeakToAverageCorrection = 0.0f;
     fAverageLevelItuBs1770 = 0.0f;
 
     nFftSize = nBufferSize * 2;
     nHalfFftSize = nFftSize / 2 + 1;
-
-    pSampleBuffer = new AudioSampleBuffer(nNumberOfChannels, nBufferSize);
-    pOverlapAddSamples = new AudioSampleBuffer(nNumberOfChannels, nBufferSize);
-
-    // IIR coefficients: 0 represents input, 1 represents output
-    pIIRCoefficients_1 = new float*[2];
-    pIIRCoefficients_1[0] = new float[KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS];
-    pIIRCoefficients_1[1] = new float[KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS];
-
-    pIIRCoefficients_2 = new float*[2];
-    pIIRCoefficients_2[0] = new float[KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS];
-    pIIRCoefficients_2[1] = new float[KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS];
-
-    // previous samples
-    pPreviousSamplesInput_1 = new AudioSampleBuffer(nNumberOfChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
-    pPreviousSamplesOutput_1 = new AudioSampleBuffer(nNumberOfChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
-
-    pPreviousSamplesInput_2 = new AudioSampleBuffer(nNumberOfChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
-    pPreviousSamplesOutput_2 = new AudioSampleBuffer(nNumberOfChannels, KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS - 1);
-
-    pPreviousSamplesOutputTemp = new AudioSampleBuffer(1, nBufferSize);
-
-    // reset IIR coefficients and previous samples
-    for (int nSource = 0; nSource <= 1; nSource++)
-    {
-        for (int nSample = 0; nSample < KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS; nSample++)
-        {
-            pIIRCoefficients_1[nSource][nSample] = 0.0f;
-            pIIRCoefficients_2[nSource][nSample] = 0.0f;
-        }
-    }
-
-    pPreviousSamplesInput_1->clear();
-    pPreviousSamplesOutput_1->clear();
-
-    pPreviousSamplesInput_2->clear();
-    pPreviousSamplesOutput_2->clear();
-
-    // make sure there's no overlap yet
-    pSampleBuffer->clear();
-    pOverlapAddSamples->clear();
 
     arrFilterKernel_TD = fftwf_alloc_real(nFftSize);
     arrFilterKernel_FD = fftwf_alloc_complex(nHalfFftSize);
@@ -118,48 +84,14 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor *processor, cons
     planAudioSamples_IDFT = fftwf_plan_dft_c2r_1d(nFftSize, arrAudioSamples_FD, arrAudioSamples_TD, FFTW_MEASURE);
 
     nAverageAlgorithm = -1;
+
+    // also calculates filter kernel
     setAlgorithm(average_algorithm);
 }
 
 
 AverageLevelFiltered::~AverageLevelFiltered()
 {
-    delete pSampleBuffer;
-    pSampleBuffer = nullptr;
-
-    delete pOverlapAddSamples;
-    pOverlapAddSamples = nullptr;
-
-    for (int nSource = 0; nSource <= 1; nSource++)
-    {
-        delete [] pIIRCoefficients_1[nSource];
-        pIIRCoefficients_1[nSource] = nullptr;
-
-        delete [] pIIRCoefficients_2[nSource];
-        pIIRCoefficients_2[nSource] = nullptr;
-    }
-
-    delete [] pIIRCoefficients_1;
-    pIIRCoefficients_1 = nullptr;
-
-    delete [] pIIRCoefficients_2;
-    pIIRCoefficients_2 = nullptr;
-
-    delete pPreviousSamplesInput_1;
-    pPreviousSamplesInput_1 = nullptr;
-
-    delete pPreviousSamplesOutput_1;
-    pPreviousSamplesOutput_1 = nullptr;
-
-    delete pPreviousSamplesInput_2;
-    pPreviousSamplesInput_2 = nullptr;
-
-    delete pPreviousSamplesOutput_2;
-    pPreviousSamplesOutput_2 = nullptr;
-
-    delete pPreviousSamplesOutputTemp;
-    pPreviousSamplesOutputTemp = nullptr;
-
     fftwf_destroy_plan(planFilterKernel_DFT);
     fftwf_free(arrFilterKernel_TD);
     fftwf_free(arrFilterKernel_FD);
@@ -179,10 +111,6 @@ AverageLevelFiltered::~AverageLevelFiltered()
     fftwf_destroy_plan = nullptr;
 
     fftwf_execute = nullptr;
-
-    pDynamicLibraryFFTW->close();
-    delete pDynamicLibraryFFTW;
-    pDynamicLibraryFFTW = nullptr;
 #endif
 }
 
@@ -219,24 +147,30 @@ void AverageLevelFiltered::setAlgorithm(const int average_algorithm)
 void AverageLevelFiltered::calculateFilterKernel()
 {
     // reset IIR coefficients and previous samples
-    for (int nSource = 0; nSource <= 1; nSource++)
+    arrPreFilterInputCoefficients.clear();
+    arrPreFilterOutputCoefficients.clear();
+
+    arrWeightingFilterInputCoefficients.clear();
+    arrWeightingFilterOutputCoefficients.clear();
+
+    for (int nStage = 0; nStage < KMETER_MAXIMUM_FILTER_STAGES; nStage++)
     {
-        for (int nSample = 0; nSample < KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS; nSample++)
-        {
-            pIIRCoefficients_1[nSource][nSample] = 0.0f;
-            pIIRCoefficients_2[nSource][nSample] = 0.0f;
-        }
+        arrPreFilterInputCoefficients.add(0.0);
+        arrPreFilterOutputCoefficients.add(0.0);
+
+        arrWeightingFilterInputCoefficients.add(0.0);
+        arrWeightingFilterOutputCoefficients.add(0.0);
     }
 
-    pPreviousSamplesInput_1->clear();
-    pPreviousSamplesOutput_1->clear();
+    previousSamplesPreFilterInput.clear();
+    previousSamplesPreFilterOutput.clear();
 
-    pPreviousSamplesInput_2->clear();
-    pPreviousSamplesOutput_2->clear();
+    previousSamplesWeightingFilterInput.clear();
+    previousSamplesWeightingFilterOutput.clear();
 
     // make sure there's no overlap yet
-    pSampleBuffer->clear();
-    pOverlapAddSamples->clear();
+    sampleBuffer.clear();
+    overlapAddSamples.clear();
 
     if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
@@ -338,13 +272,13 @@ void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
     double pf_omega_q = pf_omega / pf_q;
     double pf_div = (pf_omega_2 + pf_omega_q + 1.0);
 
-    pIIRCoefficients_1[0][0] = float((pf_vl * pf_omega_2 + pf_vb * pf_omega_q + pf_vh) / pf_div);
-    pIIRCoefficients_1[0][1] = float(2.0 * (pf_vl * pf_omega_2 - pf_vh) / pf_div);
-    pIIRCoefficients_1[0][2] = float((pf_vl * pf_omega_2 - pf_vb * pf_omega_q + pf_vh) / pf_div);
+    arrPreFilterInputCoefficients.set(0, (pf_vl * pf_omega_2 + pf_vb * pf_omega_q + pf_vh) / pf_div);
+    arrPreFilterInputCoefficients.set(1, 2.0 * (pf_vl * pf_omega_2 - pf_vh) / pf_div);
+    arrPreFilterInputCoefficients.set(2, (pf_vl * pf_omega_2 - pf_vb * pf_omega_q + pf_vh) / pf_div);
 
-    pIIRCoefficients_1[1][0] = -1.0f;
-    pIIRCoefficients_1[1][1] = float(-2.0 * (pf_omega_2 - 1.0) / pf_div);
-    pIIRCoefficients_1[1][2] = float(-(pf_omega_2 - pf_omega_q + 1.0) / pf_div);
+    arrPreFilterOutputCoefficients.set(0, -1.0);
+    arrPreFilterOutputCoefficients.set(1, -2.0 * (pf_omega_2 - 1.0) / pf_div);
+    arrPreFilterOutputCoefficients.set(2, -(pf_omega_2 - pf_omega_q + 1.0) / pf_div);
 
     // initialise RLB weighting curve (ITU-R BS.1770-1)
     double rlb_vh = 1.0;
@@ -358,13 +292,13 @@ void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
     double rlb_div_1 = (rlb_vl * rlb_omega_2 + rlb_vb * rlb_omega_q + rlb_vh);
     double rlb_div_2 = (rlb_omega_2 + rlb_omega_q + 1.0);
 
-    pIIRCoefficients_2[0][0] = 1.0f;
-    pIIRCoefficients_2[0][1] = float(2.0 * (rlb_vl * rlb_omega_2 - rlb_vh) / rlb_div_1);
-    pIIRCoefficients_2[0][2] = float((rlb_vl * rlb_omega_2 - rlb_vb * rlb_omega_q + rlb_vh) / rlb_div_1);
+    arrWeightingFilterInputCoefficients.set(0, 1.0);
+    arrWeightingFilterInputCoefficients.set(1, 2.0 * (rlb_vl * rlb_omega_2 - rlb_vh) / rlb_div_1);
+    arrWeightingFilterInputCoefficients.set(2, (rlb_vl * rlb_omega_2 - rlb_vb * rlb_omega_q + rlb_vh) / rlb_div_1);
 
-    pIIRCoefficients_2[1][0] = -1.0f;
-    pIIRCoefficients_2[1][1] = float(-2.0 * (rlb_omega_2 - 1.0) / rlb_div_2);
-    pIIRCoefficients_2[1][2] = float(-(rlb_omega_2 - rlb_omega_q + 1.0) / rlb_div_2);
+    arrWeightingFilterOutputCoefficients.set(0, -1.0);
+    arrWeightingFilterOutputCoefficients.set(1, -2.0 * (rlb_omega_2 - 1.0) / rlb_div_2);
+    arrWeightingFilterOutputCoefficients.set(2, -(rlb_omega_2 - rlb_omega_q + 1.0) / rlb_div_2);
 
     calculateFilterKernel_Rms();
 }
@@ -378,7 +312,7 @@ void AverageLevelFiltered::FilterSamples_Rms(const int channel)
 
     // copy audio data to temporary buffer as the sample buffer is not
     // optimised for MME
-    memcpy(arrAudioSamples_TD, pSampleBuffer->getReadPointer(channel), nBufferSize * sizeof(float));
+    memcpy(arrAudioSamples_TD, sampleBuffer.getReadPointer(channel), nBufferSize * sizeof(float));
 
     // pad audio data with zeros
     for (int nSample = nBufferSize; nSample < nFftSize; nSample++)
@@ -414,13 +348,13 @@ void AverageLevelFiltered::FilterSamples_Rms(const int channel)
     }
 
     // copy data from temporary buffer back to sample buffer
-    pSampleBuffer->copyFrom(channel, 0, arrAudioSamples_TD, nBufferSize);
+    sampleBuffer.copyFrom(channel, 0, arrAudioSamples_TD, nBufferSize);
 
     // add old overlapping samples
-    pSampleBuffer->addFrom(channel, 0, *pOverlapAddSamples, channel, 0, nBufferSize);
+    sampleBuffer.addFrom(channel, 0, overlapAddSamples, channel, 0, nBufferSize);
 
     // store new overlapping samples
-    pOverlapAddSamples->copyFrom(channel, 0, arrAudioSamples_TD + nBufferSize, nBufferSize);
+    overlapAddSamples.copyFrom(channel, 0, arrAudioSamples_TD + nBufferSize, nBufferSize);
 }
 
 
@@ -429,114 +363,124 @@ void AverageLevelFiltered::FilterSamples_ItuBs1770()
     for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
     {
         // pre-filter
-        pPreviousSamplesOutputTemp->clear();
-        const float *pSamplesInput = pSampleBuffer->getReadPointer(nChannel);
+        previousSamplesOutputTemp.clear();
+        const float *pSamplesInput = sampleBuffer.getReadPointer(nChannel);
 
         // temporary buffer with only one channel
-        float *pSamplesOutput = pPreviousSamplesOutputTemp->getWritePointer(0);
+        float *pSamplesOutput = previousSamplesOutputTemp.getWritePointer(0);
 
-        const float *pSamplesInputOld_1 = pPreviousSamplesInput_1->getReadPointer(nChannel);
-        const float *pSamplesOutputOld_1 = pPreviousSamplesOutput_1->getReadPointer(nChannel);
+        const float *pSamplesInputOld_1 = previousSamplesPreFilterInput.getReadPointer(nChannel);
+        const float *pSamplesOutputOld_1 = previousSamplesPreFilterOutput.getReadPointer(nChannel);
 
         for (int nSample = 0; nSample < nBufferSize; nSample++)
         {
+            double dOutput;
+
             if (nSample < 2)
             {
                 if (nSample == 0)
                 {
-                    pSamplesOutput[nSample] =
-                        pIIRCoefficients_1[0][0] * pSamplesInput[nSample] +
-                        pIIRCoefficients_1[0][1] * pSamplesInputOld_1[1] +
-                        pIIRCoefficients_1[0][2] * pSamplesInputOld_1[0] +
-                        pIIRCoefficients_1[1][1] * pSamplesOutputOld_1[1] +
-                        pIIRCoefficients_1[1][2] * pSamplesOutputOld_1[0];
+                    dOutput =
+                        arrPreFilterInputCoefficients[0] * pSamplesInput[nSample] +
+                        arrPreFilterInputCoefficients[1] * pSamplesInputOld_1[1] +
+                        arrPreFilterInputCoefficients[2] * pSamplesInputOld_1[0] +
+                        arrPreFilterOutputCoefficients[1] * pSamplesOutputOld_1[1] +
+                        arrPreFilterOutputCoefficients[2] * pSamplesOutputOld_1[0];
                 }
                 else
                 {
-                    pSamplesOutput[nSample] =
-                        pIIRCoefficients_1[0][0] * pSamplesInput[nSample] +
-                        pIIRCoefficients_1[0][1] * pSamplesInput[nSample - 1] +
-                        pIIRCoefficients_1[0][2] * pSamplesInputOld_1[1] +
-                        pIIRCoefficients_1[1][1] * pSamplesOutput[nSample - 1] +
-                        pIIRCoefficients_1[1][2] * pSamplesOutputOld_1[1];
-                }
-
-                // avoid underflows (1e-20f corresponds to -400 dBFS)
-                if (fabs(pSamplesOutput[nSample]) < 1e-20f)
-                {
-                    pSamplesOutput[nSample] = 0.0f;
+                    dOutput =
+                        arrPreFilterInputCoefficients[0] * pSamplesInput[nSample] +
+                        arrPreFilterInputCoefficients[1] * pSamplesInput[nSample - 1] +
+                        arrPreFilterInputCoefficients[2] * pSamplesInputOld_1[1] +
+                        arrPreFilterOutputCoefficients[1] * pSamplesOutput[nSample - 1] +
+                        arrPreFilterOutputCoefficients[2] * pSamplesOutputOld_1[1];
                 }
             }
             else
             {
-                pSamplesOutput[nSample] =
-                    pIIRCoefficients_1[0][0] * pSamplesInput[nSample] +
-                    pIIRCoefficients_1[0][1] * pSamplesInput[nSample - 1] +
-                    pIIRCoefficients_1[0][2] * pSamplesInput[nSample - 2] +
-                    pIIRCoefficients_1[1][1] * pSamplesOutput[nSample - 1] +
-                    pIIRCoefficients_1[1][2] * pSamplesOutput[nSample - 2];
+                dOutput =
+                    arrPreFilterInputCoefficients[0] * pSamplesInput[nSample] +
+                    arrPreFilterInputCoefficients[1] * pSamplesInput[nSample - 1] +
+                    arrPreFilterInputCoefficients[2] * pSamplesInput[nSample - 2] +
+                    arrPreFilterOutputCoefficients[1] * pSamplesOutput[nSample - 1] +
+                    arrPreFilterOutputCoefficients[2] * pSamplesOutput[nSample - 2];
+            }
+
+            // dither output to float
+            pSamplesOutput[nSample] = dither.dither(dOutput);
+
+            // avoid underflows (1e-20f corresponds to -400 dBFS)
+            if (fabs(pSamplesOutput[nSample]) < 1e-20f)
+            {
+                pSamplesOutput[nSample] = 0.0f;
             }
         }
 
-        pPreviousSamplesInput_1->copyFrom(nChannel, 0, *pSampleBuffer, nChannel, nBufferSize - 2, 2);
-        pPreviousSamplesOutput_1->copyFrom(nChannel, 0, *pPreviousSamplesOutputTemp, 0, nBufferSize - 2, 2);
+        previousSamplesPreFilterInput.copyFrom(nChannel, 0, sampleBuffer, nChannel, nBufferSize - 2, 2);
+        previousSamplesPreFilterOutput.copyFrom(nChannel, 0, previousSamplesOutputTemp, 0, nBufferSize - 2, 2);
 
-        pSampleBuffer->copyFrom(nChannel, 0, *pPreviousSamplesOutputTemp, 0, 0, nBufferSize);
+        sampleBuffer.copyFrom(nChannel, 0, previousSamplesOutputTemp, 0, 0, nBufferSize);
 
         // RLB weighting filter
-        pPreviousSamplesOutputTemp->clear();
+        previousSamplesOutputTemp.clear();
 
         // clearing the buffer invalidates the pointers to its sample
         // data, so we need to update the pointers
-        pSamplesOutput = pPreviousSamplesOutputTemp->getWritePointer(0);
+        pSamplesOutput = previousSamplesOutputTemp.getWritePointer(0);
 
-        const float *pSamplesInputOld_2 = pPreviousSamplesInput_2->getReadPointer(nChannel);
-        const float *pSamplesOutputOld_2 = pPreviousSamplesOutput_2->getReadPointer(nChannel);
+        const float *pSamplesInputOld_2 = previousSamplesWeightingFilterInput.getReadPointer(nChannel);
+        const float *pSamplesOutputOld_2 = previousSamplesWeightingFilterOutput.getReadPointer(nChannel);
 
         for (int nSample = 0; nSample < nBufferSize; nSample++)
         {
+            double dOutput;
+
             if (nSample < 2)
             {
                 if (nSample == 0)
                 {
-                    pSamplesOutput[nSample] =
-                        pIIRCoefficients_2[0][0] * pSamplesInput[nSample] +
-                        pIIRCoefficients_2[0][1] * pSamplesInputOld_2[1] +
-                        pIIRCoefficients_2[0][2] * pSamplesInputOld_2[0] +
-                        pIIRCoefficients_2[1][1] * pSamplesOutputOld_2[1] +
-                        pIIRCoefficients_2[1][2] * pSamplesOutputOld_2[0];
+                    dOutput =
+                        arrWeightingFilterInputCoefficients[0] * pSamplesInput[nSample] +
+                        arrWeightingFilterInputCoefficients[1] * pSamplesInputOld_2[1] +
+                        arrWeightingFilterInputCoefficients[2] * pSamplesInputOld_2[0] +
+                        arrWeightingFilterOutputCoefficients[1] * pSamplesOutputOld_2[1] +
+                        arrWeightingFilterOutputCoefficients[2] * pSamplesOutputOld_2[0];
                 }
                 else
                 {
-                    pSamplesOutput[nSample] =
-                        pIIRCoefficients_2[0][0] * pSamplesInput[nSample] +
-                        pIIRCoefficients_2[0][1] * pSamplesInput[nSample - 1] +
-                        pIIRCoefficients_2[0][2] * pSamplesInputOld_2[1] +
-                        pIIRCoefficients_2[1][1] * pSamplesOutput[nSample - 1] +
-                        pIIRCoefficients_2[1][2] * pSamplesOutputOld_2[1];
-                }
-
-                // avoid underflows (1e-20f corresponds to -400 dBFS)
-                if (fabs(pSamplesOutput[nSample]) < 1e-20f)
-                {
-                    pSamplesOutput[nSample] = 0.0f;
+                    dOutput =
+                        arrWeightingFilterInputCoefficients[0] * pSamplesInput[nSample] +
+                        arrWeightingFilterInputCoefficients[1] * pSamplesInput[nSample - 1] +
+                        arrWeightingFilterInputCoefficients[2] * pSamplesInputOld_2[1] +
+                        arrWeightingFilterOutputCoefficients[1] * pSamplesOutput[nSample - 1] +
+                        arrWeightingFilterOutputCoefficients[2] * pSamplesOutputOld_2[1];
                 }
             }
             else
             {
-                pSamplesOutput[nSample] =
-                    pIIRCoefficients_2[0][0] * pSamplesInput[nSample] +
-                    pIIRCoefficients_2[0][1] * pSamplesInput[nSample - 1] +
-                    pIIRCoefficients_2[0][2] * pSamplesInput[nSample - 2] +
-                    pIIRCoefficients_2[1][1] * pSamplesOutput[nSample - 1] +
-                    pIIRCoefficients_2[1][2] * pSamplesOutput[nSample - 2];
+                dOutput =
+                    arrWeightingFilterInputCoefficients[0] * pSamplesInput[nSample] +
+                    arrWeightingFilterInputCoefficients[1] * pSamplesInput[nSample - 1] +
+                    arrWeightingFilterInputCoefficients[2] * pSamplesInput[nSample - 2] +
+                    arrWeightingFilterOutputCoefficients[1] * pSamplesOutput[nSample - 1] +
+                    arrWeightingFilterOutputCoefficients[2] * pSamplesOutput[nSample - 2];
+            }
+
+            // dither output to float
+            pSamplesOutput[nSample] = dither.dither(dOutput);
+
+            // avoid underflows (1e-20f corresponds to -400 dBFS)
+            if (fabs(pSamplesOutput[nSample]) < 1e-20f)
+            {
+                pSamplesOutput[nSample] = 0.0f;
             }
         }
 
-        pPreviousSamplesInput_2->copyFrom(nChannel, 0, *pSampleBuffer, nChannel, nBufferSize - 2, 2);
-        pPreviousSamplesOutput_2->copyFrom(nChannel, 0, *pPreviousSamplesOutputTemp, 0, nBufferSize - 2, 2);
+        previousSamplesWeightingFilterInput.copyFrom(nChannel, 0, sampleBuffer, nChannel, nBufferSize - 2, 2);
+        previousSamplesWeightingFilterOutput.copyFrom(nChannel, 0, previousSamplesOutputTemp, 0, nBufferSize - 2, 2);
 
-        pSampleBuffer->copyFrom(nChannel, 0, *pPreviousSamplesOutputTemp, 0, 0, nBufferSize);
+        sampleBuffer.copyFrom(nChannel, 0, previousSamplesOutputTemp, 0, 0, nBufferSize);
 
         FilterSamples_Rms(nChannel);
     }
@@ -563,7 +507,7 @@ float AverageLevelFiltered::getLevel(const int channel)
             for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
             {
                 float fAverageLevelChannel = 0.0f;
-                const float *fSampleData = pSampleBuffer->getReadPointer(nChannel);
+                const float *fSampleData = sampleBuffer.getReadPointer(nChannel);
 
                 // calculate mean square of the filtered input signal
                 for (int n = 0; n < nBufferSize; n++)
@@ -615,7 +559,7 @@ float AverageLevelFiltered::getLevel(const int channel)
         // filter audio data (overwrites contents of sample buffer)
         FilterSamples_Rms(channel);
 
-        float fAverageLevel = MeterBallistics::level2decibel(pSampleBuffer->getRMSLevel(channel, 0, nBufferSize));
+        float fAverageLevel = MeterBallistics::level2decibel(sampleBuffer.getRMSLevel(channel, 0, nBufferSize));
 
         // apply peak-to-average gain correction so that sine waves
         // read the same on peak and average meters
@@ -634,14 +578,14 @@ void AverageLevelFiltered::copyFromBuffer(AudioRingBuffer &ringBuffer, const uns
     }
 
     // copy data from ring buffer to sample buffer
-    ringBuffer.copyToBuffer(*pSampleBuffer, 0, nBufferSize, pre_delay);
+    ringBuffer.copyToBuffer(sampleBuffer, 0, nBufferSize, pre_delay);
 }
 
 
 void AverageLevelFiltered::copyToBuffer(AudioRingBuffer &destination, const unsigned int sourceStartSample, const unsigned int numSamples)
 {
     // copy data from sample buffer to ring buffer
-    destination.addSamples(*pSampleBuffer, sourceStartSample, numSamples);
+    destination.addSamples(sampleBuffer, sourceStartSample, numSamples);
 }
 
 
@@ -651,7 +595,7 @@ void AverageLevelFiltered::copyToBuffer(AudioSampleBuffer &destination, const in
     jassert(channel < nNumberOfChannels);
     jassert((destStartSample + numSamples) <= destination.getNumSamples());
 
-    memcpy(destination.getWritePointer(channel, destStartSample), pSampleBuffer->getReadPointer(channel), numSamples * sizeof(float));
+    memcpy(destination.getWritePointer(channel, destStartSample), sampleBuffer.getReadPointer(channel), numSamples * sizeof(float));
 }
 
 

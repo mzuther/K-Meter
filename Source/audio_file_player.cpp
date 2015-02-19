@@ -46,13 +46,10 @@ AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBal
     nSamplesMovingAverage = 50;
     nNumberOfChannels = pMeterBallistics->getNumberOfChannels();
 
-    pAverager_AverageMeterLevels = new Averager*[nNumberOfChannels];
-    pAverager_PeakMeterLevels = new Averager*[nNumberOfChannels];
-
     for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
     {
-        pAverager_AverageMeterLevels[nChannel] = new Averager(nSamplesMovingAverage, fMeterMinimumDecibel);
-        pAverager_PeakMeterLevels[nChannel] = new Averager(nSamplesMovingAverage, fMeterMinimumDecibel);
+        p_arrAverager_AverageMeterLevels.add(new Averager(nSamplesMovingAverage, fMeterMinimumDecibel));
+        p_arrAverager_PeakMeterLevels.add(new Averager(nSamplesMovingAverage, fMeterMinimumDecibel));
     }
 
     AudioFormatManager formatManager;
@@ -87,7 +84,6 @@ AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBal
     }
     else
     {
-        audioFileSource = nullptr;
         bIsPlaying = false;
         bReports = false;
     }
@@ -100,24 +96,6 @@ AudioFilePlayer::~AudioFilePlayer()
     {
         outputMessage("Stopping validation ...");
     }
-
-    delete audioFileSource;
-    audioFileSource = nullptr;
-
-    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
-    {
-        delete pAverager_AverageMeterLevels[nChannel];
-        pAverager_AverageMeterLevels[nChannel] = nullptr;
-
-        delete pAverager_PeakMeterLevels[nChannel];
-        pAverager_PeakMeterLevels[nChannel] = nullptr;
-    }
-
-    delete [] pAverager_AverageMeterLevels;
-    pAverager_AverageMeterLevels = nullptr;
-
-    delete [] pAverager_PeakMeterLevels;
-    pAverager_PeakMeterLevels = nullptr;
 }
 
 
@@ -223,7 +201,7 @@ void AudioFilePlayer::outputReportPlain(void)
                 float fAverageMeterLevel = fCrestFactor + pMeterBallistics->getAverageMeterLevel(nChannel);
                 String strPrefix = strCrestFactor + " average (ch. " + String(nChannel + 1) + "):    ";
                 String strSuffix = " dB";
-                outputValue(fAverageMeterLevel, pAverager_AverageMeterLevels[nChannel], strPrefix, strSuffix);
+                outputValue(fAverageMeterLevel, p_arrAverager_AverageMeterLevels[nChannel], strPrefix, strSuffix);
             }
         }
         else
@@ -231,7 +209,7 @@ void AudioFilePlayer::outputReportPlain(void)
             float fAverageMeterLevel = fCrestFactor + pMeterBallistics->getAverageMeterLevel(nReportChannel);
             String strPrefix = strCrestFactor + " average (ch. " + String(nReportChannel + 1) + "):    ";
             String strSuffix = " dB";
-            outputValue(fAverageMeterLevel, pAverager_AverageMeterLevels[nReportChannel], strPrefix, strSuffix);
+            outputValue(fAverageMeterLevel, p_arrAverager_AverageMeterLevels[nReportChannel], strPrefix, strSuffix);
         }
     }
 
@@ -244,7 +222,7 @@ void AudioFilePlayer::outputReportPlain(void)
                 float fPeakMeterLevel = fCrestFactor + pMeterBallistics->getPeakMeterLevel(nChannel);
                 String strPrefix = strCrestFactor + " peak (ch. " + String(nChannel + 1) + "):       ";
                 String strSuffix = " dB";
-                outputValue(fPeakMeterLevel, pAverager_PeakMeterLevels[nChannel], strPrefix, strSuffix);
+                outputValue(fPeakMeterLevel, p_arrAverager_PeakMeterLevels[nChannel], strPrefix, strSuffix);
             }
         }
         else
@@ -252,7 +230,7 @@ void AudioFilePlayer::outputReportPlain(void)
             float fPeakMeterLevel = fCrestFactor + pMeterBallistics->getPeakMeterLevel(nReportChannel);
             String strPrefix = strCrestFactor + " peak (ch. " + String(nReportChannel + 1) + "):       ";
             String strSuffix = " dB";
-            outputValue(fPeakMeterLevel, pAverager_PeakMeterLevels[nReportChannel], strPrefix, strSuffix);
+            outputValue(fPeakMeterLevel, p_arrAverager_PeakMeterLevels[nReportChannel], strPrefix, strSuffix);
         }
     }
 

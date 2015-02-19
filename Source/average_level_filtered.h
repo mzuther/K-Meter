@@ -32,6 +32,7 @@ class AverageLevelFiltered;
 #include "meter_ballistics.h"
 #include "plugin_processor.h"
 #include "common/audio/audio_ring_buffer.h"
+#include "common/audio/dither.h"
 #include "fftw3/api/fftw3.h"
 
 //==============================================================================
@@ -40,9 +41,9 @@ class AverageLevelFiltered;
 class AverageLevelFiltered
 {
 public:
-    static const int KMETER_MAXIMUM_IIR_FILTER_COEFFICIENTS = 3;
+    static const int KMETER_MAXIMUM_FILTER_STAGES = 3;
 
-    AverageLevelFiltered(KmeterAudioProcessor *processor, const int channels, const int buffer_size, const int sample_rate, const int average_algorithm);
+    AverageLevelFiltered(KmeterAudioProcessor *processor, const int channels, const int sample_rate, const int buffer_size, const int average_algorithm);
     ~AverageLevelFiltered();
 
     float getLevel(const int channel);
@@ -64,9 +65,6 @@ private:
 
     void setPeakToAverageCorrection(float peak_to_average_correction);
 
-    AudioSampleBuffer *pSampleBuffer;
-    AudioSampleBuffer *pOverlapAddSamples;
-
     float *arrFilterKernel_TD;
     fftwf_complex *arrFilterKernel_FD;
     fftwf_plan planFilterKernel_DFT;
@@ -76,22 +74,31 @@ private:
     fftwf_plan planAudioSamples_DFT;
     fftwf_plan planAudioSamples_IDFT;
 
-    float **pIIRCoefficients_1;
-    float **pIIRCoefficients_2;
-
-    AudioSampleBuffer *pPreviousSamplesOutputTemp;
-
-    AudioSampleBuffer *pPreviousSamplesInput_1;
-    AudioSampleBuffer *pPreviousSamplesOutput_1;
-
-    AudioSampleBuffer *pPreviousSamplesInput_2;
-    AudioSampleBuffer *pPreviousSamplesOutput_2;
-
-    KmeterAudioProcessor *pProcessor;
     int nNumberOfChannels;
-    int nAverageAlgorithm;
     int nSampleRate;
     int nBufferSize;
+
+    Array<double> arrPreFilterInputCoefficients;
+    Array<double> arrPreFilterOutputCoefficients;
+
+    Array<double> arrWeightingFilterInputCoefficients;
+    Array<double> arrWeightingFilterOutputCoefficients;
+
+    AudioSampleBuffer sampleBuffer;
+    AudioSampleBuffer overlapAddSamples;
+
+    AudioSampleBuffer previousSamplesPreFilterInput;
+    AudioSampleBuffer previousSamplesPreFilterOutput;
+
+    AudioSampleBuffer previousSamplesWeightingFilterInput;
+    AudioSampleBuffer previousSamplesWeightingFilterOutput;
+
+    AudioSampleBuffer previousSamplesOutputTemp;
+
+    Dither dither;
+
+    KmeterAudioProcessor *pProcessor;
+    int nAverageAlgorithm;
     int nFftSize;
     int nHalfFftSize;
 
@@ -99,7 +106,7 @@ private:
     float fPeakToAverageCorrection;
 
 #if (defined (_WIN32) || defined (_WIN64))
-    DynamicLibrary *pDynamicLibraryFFTW;
+    DynamicLibrary dynamicLibraryFFTW;
 
     float *(*fftwf_alloc_real)(size_t);
     fftwf_complex *(*fftwf_alloc_complex)(size_t);

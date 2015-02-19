@@ -66,7 +66,7 @@ private:
     int nLimitGreenBars_1;
     int nLimitGreenBars_2;
 
-    MeterSegment **MeterArray;
+    OwnedArray<MeterSegment> p_arrMeterArray;
 };
 
 

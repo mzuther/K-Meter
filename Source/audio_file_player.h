@@ -29,8 +29,8 @@
 class AudioFilePlayer;
 
 #include "JuceHeader.h"
-#include "common/math/averager.h"
 #include "meter_ballistics.h"
+#include "common/math/averager.h"
 
 
 class AudioFilePlayer
@@ -66,10 +66,10 @@ private:
     bool bReportStereoMeterValue;
     bool bReportPhaseCorrelation;
 
-    Averager **pAverager_AverageMeterLevels;
-    Averager **pAverager_PeakMeterLevels;
+    OwnedArray<Averager> p_arrAverager_AverageMeterLevels;
+    OwnedArray<Averager> p_arrAverager_PeakMeterLevels;
 
-    AudioFormatReaderSource *audioFileSource;
+    ScopedPointer<AudioFormatReaderSource> audioFileSource;
     MeterBallistics *pMeterBallistics;
 
     void outputReportPlain(void);

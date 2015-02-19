@@ -135,13 +135,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
         phaseCorrelationMeter = new GenericHorizontalMeter("Correlation Meter");
         addAndMakeVisible(phaseCorrelationMeter);
     }
-    else
-    {
-        stereoMeter = nullptr;
-        phaseCorrelationMeter = nullptr;
-    }
-
-    kmeter = nullptr;
 
     updateParameter(KmeterPluginParameters::selCrestFactor);
     updateParameter(KmeterPluginParameters::selAverageAlgorithm);
@@ -154,7 +147,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
     fileSkinDirectory = fileApplicationDirectory.getChildFile("./kmeter-skins/");
 
-    pSkin = nullptr;
     strSkinName = pProcessor->getParameterSkinName();
     loadSkin();
 
@@ -170,22 +162,11 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
 KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 {
     pProcessor->removeActionListener(this);
-
-    delete pSkin;
-    pSkin = nullptr;
-
-    deleteAllChildren();
 }
 
 
 void KmeterAudioProcessorEditor::loadSkin()
 {
-    if (pSkin != nullptr)
-    {
-        delete pSkin;
-        pSkin = nullptr;
-    }
-
     File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
 
     if (!fileSkin.existsAsFile())
@@ -447,8 +428,6 @@ void KmeterAudioProcessorEditor::reloadMeters()
         if (kmeter != nullptr)
         {
             removeChildComponent(kmeter);
-            delete kmeter;
-            kmeter = nullptr;
         }
 
         if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
