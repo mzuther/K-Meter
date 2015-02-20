@@ -66,8 +66,9 @@ private:
     bool bReportStereoMeterValue;
     bool bReportPhaseCorrelation;
 
-    OwnedArray<Averager> p_arrAverager_AverageMeterLevels;
-    OwnedArray<Averager> p_arrAverager_PeakMeterLevels;
+    Averager nullAverager;
+    Array<Averager> arrAverager_AverageMeterLevels;
+    Array<Averager> arrAverager_PeakMeterLevels;
 
     ScopedPointer<AudioFormatReaderSource> audioFileSource;
     MeterBallistics *pMeterBallistics;
@@ -79,7 +80,7 @@ private:
     String formatTime(void);
     String formatValue(const float fValue);
 
-    void outputValue(const float fValue, Averager *pAverager, const String &strPrefix, const String &strSuffix);
+    void outputValue(const float fValue, Averager &averager, const String &strPrefix, const String &strSuffix);
     void outputMessage(const String &strMessage);
 };
 

@@ -53,79 +53,65 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     pProcessor = ownerFilter;
     pProcessor->addActionListener(this);
 
-    ButtonK20 = new ImageButton("K-20");
-    ButtonK20->setRadioGroupId(1);
-    ButtonK20->addListener(this);
-    addAndMakeVisible(ButtonK20);
+    ButtonK20.setRadioGroupId(1);
+    ButtonK20.addListener(this);
+    addAndMakeVisible(&ButtonK20);
 
-    ButtonK14 = new ImageButton("K-14");
-    ButtonK14->setRadioGroupId(1);
-    ButtonK14->addListener(this);
-    addAndMakeVisible(ButtonK14);
+    ButtonK14.setRadioGroupId(1);
+    ButtonK14.addListener(this);
+    addAndMakeVisible(&ButtonK14);
 
-    ButtonK12 = new ImageButton("K-12");
-    ButtonK12->setRadioGroupId(1);
-    ButtonK12->addListener(this);
-    addAndMakeVisible(ButtonK12);
+    ButtonK12.setRadioGroupId(1);
+    ButtonK12.addListener(this);
+    addAndMakeVisible(&ButtonK12);
 
-    ButtonNormal = new ImageButton("Normal");
-    ButtonNormal->setRadioGroupId(1);
-    ButtonNormal->addListener(this);
-    addAndMakeVisible(ButtonNormal);
+    ButtonNormal.setRadioGroupId(1);
+    ButtonNormal.addListener(this);
+    addAndMakeVisible(&ButtonNormal);
 
-    ButtonItuBs1770 = new ImageButton("ITU-R");
-    ButtonItuBs1770->addListener(this);
-    addAndMakeVisible(ButtonItuBs1770);
+    ButtonItuBs1770.addListener(this);
+    addAndMakeVisible(&ButtonItuBs1770);
 
-    ButtonRms = new ImageButton("RMS");
-    ButtonRms->addListener(this);
-    addAndMakeVisible(ButtonRms);
+    ButtonRms.addListener(this);
+    addAndMakeVisible(&ButtonRms);
 
     updateAverageAlgorithm(false);
 
-    ButtonInfinitePeakHold = new ImageButton("Hold");
-    ButtonInfinitePeakHold->addListener(this);
-    addAndMakeVisible(ButtonInfinitePeakHold);
+    ButtonExpanded.addListener(this);
+    addAndMakeVisible(&ButtonExpanded);
 
-    ButtonDisplayPeakMeter = new ImageButton("Peaks");
-    ButtonDisplayPeakMeter->addListener(this);
-    addAndMakeVisible(ButtonDisplayPeakMeter);
+    ButtonSkin.addListener(this);
+    addAndMakeVisible(&ButtonSkin);
 
-    ButtonExpanded = new ImageButton("Expand");
-    ButtonExpanded->addListener(this);
-    addAndMakeVisible(ButtonExpanded);
+    ButtonDisplayPeakMeter.addListener(this);
+    addAndMakeVisible(&ButtonDisplayPeakMeter);
 
-    ButtonSkin = new ImageButton("Skin");
-    ButtonSkin->addListener(this);
-    addAndMakeVisible(ButtonSkin);
+    ButtonInfinitePeakHold.addListener(this);
+    addAndMakeVisible(&ButtonInfinitePeakHold);
 
-    ButtonMono = new ImageButton("Mono");
-    ButtonMono->addListener(this);
-    addAndMakeVisible(ButtonMono);
+    ButtonMono.addListener(this);
+    addAndMakeVisible(&ButtonMono);
 
-    ButtonReset = new ImageButton("Reset");
-    ButtonReset->addListener(this);
-    addAndMakeVisible(ButtonReset);
+    ButtonReset.addListener(this);
+    addAndMakeVisible(&ButtonReset);
 
-    ButtonValidation = new ImageButton("Validate");
-    ButtonValidation->addListener(this);
-    addAndMakeVisible(ButtonValidation);
+    ButtonValidation.addListener(this);
+    addAndMakeVisible(&ButtonValidation);
 
-    ButtonAbout = new ImageButton("About");
-    ButtonAbout->addListener(this);
-    addAndMakeVisible(ButtonAbout);
+    ButtonAbout.addListener(this);
+    addAndMakeVisible(&ButtonAbout);
 
-    LabelDebug = new ImageComponent("Debug Notification");
+#ifdef DEBUG
     // moves debug label to the back of the editor's z-plane to that
     // it doesn't overlay (and thus block) any other components
-    addAndMakeVisible(LabelDebug, 0);
+    addAndMakeVisible(&LabelDebug, 0);
+#endif
 
-    BackgroundImage = new ImageComponent("Background Image");
     // prevent unnecessary redrawing of plugin editor
-    BackgroundImage->setOpaque(true);
+    BackgroundImage.setOpaque(true);
     // moves background image to the back of the editor's z-plane to
     // that it doesn't overlay (and thus block) any other components
-    addAndMakeVisible(BackgroundImage, 0);
+    addAndMakeVisible(&BackgroundImage, 0);
 
     if (nInputChannels <= 2)
     {
@@ -178,7 +164,7 @@ void KmeterAudioProcessorEditor::loadSkin()
     }
 
     pProcessor->setParameterSkinName(strSkinName);
-    pSkin = new Skin(fileSkin, nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
+    skin.loadSkin(fileSkin, nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
 }
 
 
@@ -191,52 +177,48 @@ void KmeterAudioProcessorEditor::applySkin()
     }
 
     // update skin
-    pSkin->updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
+    skin.updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
 
     // moves background image to the back of the editor's z-plane;
     // will also resize plug-in editor
-    pSkin->setBackgroundImage(BackgroundImage, this);
+    skin.setBackgroundImage(&BackgroundImage, this);
 
-    pSkin->placeAndSkinButton(ButtonK20, "button_k20");
-    pSkin->placeAndSkinButton(ButtonK14, "button_k14");
-    pSkin->placeAndSkinButton(ButtonK12, "button_k12");
-    pSkin->placeAndSkinButton(ButtonNormal, "button_normal");
+    skin.placeAndSkinButton(&ButtonK20, "button_k20");
+    skin.placeAndSkinButton(&ButtonK14, "button_k14");
+    skin.placeAndSkinButton(&ButtonK12, "button_k12");
+    skin.placeAndSkinButton(&ButtonNormal, "button_normal");
 
-    pSkin->placeAndSkinButton(ButtonItuBs1770, "button_itu");
-    pSkin->placeAndSkinButton(ButtonRms, "button_rms");
+    skin.placeAndSkinButton(&ButtonItuBs1770, "button_itu");
+    skin.placeAndSkinButton(&ButtonRms, "button_rms");
 
-    pSkin->placeAndSkinButton(ButtonInfinitePeakHold, "button_hold");
-    pSkin->placeAndSkinButton(ButtonDisplayPeakMeter, "button_peaks");
-    pSkin->placeAndSkinButton(ButtonExpanded, "button_expand");
+    skin.placeAndSkinButton(&ButtonExpanded, "button_expand");
+    skin.placeAndSkinButton(&ButtonDisplayPeakMeter, "button_peaks");
+    skin.placeAndSkinButton(&ButtonInfinitePeakHold, "button_hold");
 
-    pSkin->placeAndSkinButton(ButtonMono, "button_mono");
-    pSkin->placeAndSkinButton(ButtonReset, "button_reset");
-    pSkin->placeAndSkinButton(ButtonSkin, "button_skin");
+    skin.placeAndSkinButton(&ButtonMono, "button_mono");
+    skin.placeAndSkinButton(&ButtonReset, "button_reset");
+    skin.placeAndSkinButton(&ButtonSkin, "button_skin");
 
-    pSkin->placeAndSkinButton(ButtonValidation, "button_validate");
-    pSkin->placeAndSkinButton(ButtonAbout, "button_about");
+    skin.placeAndSkinButton(&ButtonValidation, "button_validate");
+    skin.placeAndSkinButton(&ButtonAbout, "button_about");
 
 #ifdef DEBUG
-    pSkin->placeAndSkinLabel(LabelDebug, "label_debug");
-#else
-    pSkin->placeComponent(LabelDebug, "label_debug");
-    LabelDebug->setImage(Image());
-    LabelDebug->setBounds(-1, -1, 1, 1);
+    skin.placeAndSkinLabel(&LabelDebug, "label_debug");
 #endif
 
     if (kmeter != nullptr)
     {
-        kmeter->applySkin(pSkin);
+        kmeter->applySkin(&skin);
     }
 
     if (stereoMeter != nullptr)
     {
-        pSkin->placeAndSkinHorizontalMeter(stereoMeter, "meter_stereo");
+        skin.placeAndSkinHorizontalMeter(stereoMeter, "meter_stereo");
     }
 
     if (phaseCorrelationMeter != nullptr)
     {
-        pSkin->placeAndSkinHorizontalMeter(phaseCorrelationMeter, "meter_phase_correlation");
+        skin.placeAndSkinHorizontalMeter(phaseCorrelationMeter, "meter_phase_correlation");
     }
 }
 
@@ -302,7 +284,7 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
     {
         if (!bValidateWindow)
         {
-            ButtonValidation->setToggleState(false, dontSendNotification);
+            ButtonValidation.setToggleState(false, dontSendNotification);
         }
 
         // do nothing till you hear from me... :)
@@ -332,7 +314,7 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
             // will also apply skin to plug-in editor
             bReloadMeters = true;
 
-            ButtonNormal->setToggleState(true, dontSendNotification);
+            ButtonNormal.setToggleState(true, dontSendNotification);
         }
         else if (nValue == 12)
         {
@@ -341,7 +323,7 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
             // will also apply skin to plug-in editor
             bReloadMeters = true;
 
-            ButtonK12->setToggleState(true, dontSendNotification);
+            ButtonK12.setToggleState(true, dontSendNotification);
         }
         else if (nValue == 14)
         {
@@ -350,7 +332,7 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
             // will also apply skin to plug-in editor
             bReloadMeters = true;
 
-            ButtonK14->setToggleState(true, dontSendNotification);
+            ButtonK14.setToggleState(true, dontSendNotification);
         }
         else // K-20
         {
@@ -359,7 +341,7 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
             // will also apply skin to plug-in editor
             bReloadMeters = true;
 
-            ButtonK20->setToggleState(true, dontSendNotification);
+            ButtonK20.setToggleState(true, dontSendNotification);
         }
 
         break;
@@ -379,7 +361,7 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
 
     case KmeterPluginParameters::selExpanded:
         bExpanded = (nValue != 0);
-        ButtonExpanded->setToggleState(bExpanded, dontSendNotification);
+        ButtonExpanded.setToggleState(bExpanded, dontSendNotification);
 
         // will also apply skin to plug-in editor
         bReloadMeters = true;
@@ -387,7 +369,7 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
 
     case KmeterPluginParameters::selShowPeaks:
         bDisplayPeakMeter = (nValue != 0);
-        ButtonDisplayPeakMeter->setToggleState(bDisplayPeakMeter, dontSendNotification);
+        ButtonDisplayPeakMeter.setToggleState(bDisplayPeakMeter, dontSendNotification);
 
         // will also apply skin to plug-in editor
         bReloadMeters = true;
@@ -402,11 +384,11 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
             pMeterBallistics->setAverageMeterInfiniteHold(nValue != 0);
         }
 
-        ButtonInfinitePeakHold->setToggleState(nValue != 0, dontSendNotification);
+        ButtonInfinitePeakHold.setToggleState(nValue != 0, dontSendNotification);
         break;
 
     case KmeterPluginParameters::selMono:
-        ButtonMono->setToggleState(nValue != 0, dontSendNotification);
+        ButtonMono.setToggleState(nValue != 0, dontSendNotification);
         break;
     }
 
@@ -432,11 +414,11 @@ void KmeterAudioProcessorEditor::reloadMeters()
 
         if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
         {
-            kmeter = new Kmeter("K-Meter", nCrestFactor, 1, ButtonExpanded->getToggleState(), false, ButtonDisplayPeakMeter->getToggleState(), 4);
+            kmeter = new Kmeter("K-Meter", nCrestFactor, 1, ButtonExpanded.getToggleState(), false, ButtonDisplayPeakMeter.getToggleState(), 4);
         }
         else
         {
-            kmeter = new Kmeter("K-Meter", nCrestFactor, nInputChannels, ButtonExpanded->getToggleState(), false, ButtonDisplayPeakMeter->getToggleState(), 4);
+            kmeter = new Kmeter("K-Meter", nCrestFactor, nInputChannels, ButtonExpanded.getToggleState(), false, ButtonDisplayPeakMeter.getToggleState(), 4);
         }
 
         // moves traKmeter to the back of the editor's z-plane so that
@@ -456,39 +438,39 @@ void KmeterAudioProcessorEditor::paint(Graphics &g)
 
 void KmeterAudioProcessorEditor::buttonClicked(Button *button)
 {
-    if (button == ButtonNormal)
-    {
-        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selNormal / float(KmeterPluginParameters::nNumCrestFactors - 1));
-    }
-    else if (button == ButtonK12)
-    {
-        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selK12 / float(KmeterPluginParameters::nNumCrestFactors - 1));
-    }
-    else if (button == ButtonK14)
-    {
-        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selK14 / float(KmeterPluginParameters::nNumCrestFactors - 1));
-    }
-    else if (button == ButtonK20)
+    if (button == &ButtonK20)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selK20 / float(KmeterPluginParameters::nNumCrestFactors - 1));
     }
-    else if (button == ButtonInfinitePeakHold)
+    else if (button == &ButtonK14)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selK14 / float(KmeterPluginParameters::nNumCrestFactors - 1));
+    }
+    else if (button == &ButtonK12)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selK12 / float(KmeterPluginParameters::nNumCrestFactors - 1));
+    }
+    else if (button == &ButtonNormal)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selNormal / float(KmeterPluginParameters::nNumCrestFactors - 1));
+    }
+    else if (button == &ButtonInfinitePeakHold)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selInfinitePeakHold, button->getToggleState() ? 0.0f : 1.0f);
     }
-    else if (button == ButtonRms)
-    {
-        pProcessor->changeParameter(KmeterPluginParameters::selAverageAlgorithm, KmeterPluginParameters::selAlgorithmRms / float(KmeterPluginParameters::nNumAlgorithms - 1));
-    }
-    else if (button == ButtonItuBs1770)
+    else if (button == &ButtonItuBs1770)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selAverageAlgorithm, KmeterPluginParameters::selAlgorithmItuBs1770 / float(KmeterPluginParameters::nNumAlgorithms - 1));
     }
-    else if (button == ButtonExpanded)
+    else if (button == &ButtonRms)
+    {
+        pProcessor->changeParameter(KmeterPluginParameters::selAverageAlgorithm, KmeterPluginParameters::selAlgorithmRms / float(KmeterPluginParameters::nNumAlgorithms - 1));
+    }
+    else if (button == &ButtonExpanded)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selExpanded, button->getToggleState() ? 0.0f : 1.0f);
     }
-    else if (button == ButtonSkin)
+    else if (button == &ButtonSkin)
     {
         // manually activate button
         button->setToggleState(true, dontSendNotification);
@@ -508,11 +490,11 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         bReloadMeters = true;
         reloadMeters();
     }
-    else if (button == ButtonDisplayPeakMeter)
+    else if (button == &ButtonDisplayPeakMeter)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selShowPeaks, button->getToggleState() ? 0.0f : 1.0f);
     }
-    else if (button == ButtonReset)
+    else if (button == &ButtonReset)
     {
         MeterBallistics *pMeterBallistics = pProcessor->getLevels();
 
@@ -527,11 +509,11 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         bReloadMeters = true;
         reloadMeters();
     }
-    else if (button == ButtonMono)
+    else if (button == &ButtonMono)
     {
         pProcessor->changeParameter(KmeterPluginParameters::selMono, button->getToggleState() ? 0.0f : 1.0f);
     }
-    else if (button == ButtonAbout)
+    else if (button == &ButtonAbout)
     {
         // manually activate button
         button->setToggleState(true, dontSendNotification);
@@ -597,7 +579,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         // manually deactivate button
         button->setToggleState(false, dontSendNotification);
     }
-    else if (button == ButtonValidation)
+    else if (button == &ButtonValidation)
     {
         // manually activate button
         button->setToggleState(true, dontSendNotification);
@@ -617,13 +599,13 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
 {
     if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
-        ButtonItuBs1770->setToggleState(true, dontSendNotification);
-        ButtonRms->setToggleState(false, dontSendNotification);
+        ButtonItuBs1770.setToggleState(true, dontSendNotification);
+        ButtonRms.setToggleState(false, dontSendNotification);
     }
     else
     {
-        ButtonItuBs1770->setToggleState(false, dontSendNotification);
-        ButtonRms->setToggleState(true, dontSendNotification);
+        ButtonItuBs1770.setToggleState(false, dontSendNotification);
+        ButtonRms.setToggleState(true, dontSendNotification);
     }
 
     bReloadMeters = reload_meters;

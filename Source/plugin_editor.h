@@ -74,7 +74,7 @@ private:
     int nStereoInputChannels;
 
     File fileSkinDirectory;
-    ScopedPointer<Skin> pSkin;
+    Skin skin;
     String strSkinName;
 
     KmeterAudioProcessor *pProcessor;
@@ -82,26 +82,29 @@ private:
     ScopedPointer<GenericHorizontalMeter> stereoMeter;
     ScopedPointer<GenericHorizontalMeter> phaseCorrelationMeter;
 
-    ScopedPointer<ImageButton> ButtonNormal;
-    ScopedPointer<ImageButton> ButtonK12;
-    ScopedPointer<ImageButton> ButtonK14;
-    ScopedPointer<ImageButton> ButtonK20;
+    ImageButton ButtonK20;
+    ImageButton ButtonK14;
+    ImageButton ButtonK12;
+    ImageButton ButtonNormal;
 
-    ScopedPointer<ImageButton> ButtonItuBs1770;
-    ScopedPointer<ImageButton> ButtonRms;
+    ImageButton ButtonItuBs1770;
+    ImageButton ButtonRms;
 
-    ScopedPointer<ImageButton> ButtonExpanded;
-    ScopedPointer<ImageButton> ButtonSkin;
-    ScopedPointer<ImageButton> ButtonDisplayPeakMeter;
-    ScopedPointer<ImageButton> ButtonInfinitePeakHold;
-    ScopedPointer<ImageButton> ButtonReset;
+    ImageButton ButtonExpanded;
+    ImageButton ButtonSkin;
+    ImageButton ButtonDisplayPeakMeter;
+    ImageButton ButtonInfinitePeakHold;
+    ImageButton ButtonReset;
 
-    ScopedPointer<ImageButton> ButtonMono;
-    ScopedPointer<ImageButton> ButtonValidation;
-    ScopedPointer<ImageButton> ButtonAbout;
+    ImageButton ButtonMono;
+    ImageButton ButtonValidation;
+    ImageButton ButtonAbout;
 
-    ScopedPointer<ImageComponent> LabelDebug;
-    ScopedPointer<ImageComponent> BackgroundImage;
+#ifdef DEBUG
+    ImageComponent LabelDebug;
+#endif
+
+    ImageComponent BackgroundImage;
 };
 
 

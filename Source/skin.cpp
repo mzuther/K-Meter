@@ -26,16 +26,20 @@
 #include "skin.h"
 
 
-Skin::Skin(File &fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter)
-    : GenericSkin(fileSkin, "kmeter-skin")
+Skin::Skin()
 {
-    updateSkin(nNumChannels, nCrestFactor, nAverageAlgorithm, bExpanded, bDisplayPeakMeter);
-    loadFromXml(fileSkin);
 }
 
 
 Skin::~Skin()
 {
+}
+
+
+void Skin::loadSkin(File &fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter)
+{
+    updateSkin(nNumChannels, nCrestFactor, nAverageAlgorithm, bExpanded, bDisplayPeakMeter);
+    loadFromXml(fileSkin, "kmeter-skin");
 }
 
 

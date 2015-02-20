@@ -93,6 +93,10 @@
             <FILE id="MNHk7F" name="resources.cpp" compile="1" resource="0" file="Source/common/widgets/resources/resources.cpp"/>
             <FILE id="cDKX9o" name="resources.h" compile="0" resource="0" file="Source/common/widgets/resources/resources.h"/>
           </GROUP>
+          <FILE id="mgpoVp" name="generic_channel_slider.cpp" compile="1" resource="0"
+                file="Source/common/widgets/generic_channel_slider.cpp"/>
+          <FILE id="DDXIDn" name="generic_channel_slider.h" compile="0" resource="0"
+                file="Source/common/widgets/generic_channel_slider.h"/>
           <FILE id="RYOnyl" name="generic_horizontal_meter.cpp" compile="1" resource="0"
                 file="Source/common/widgets/generic_horizontal_meter.cpp"/>
           <FILE id="lDTPGr" name="generic_horizontal_meter.h" compile="0" resource="0"
@@ -141,10 +145,6 @@
             file="Source/average_level_filtered.cpp"/>
       <FILE id="mhyicF" name="average_level_filtered.h" compile="0" resource="0"
             file="Source/average_level_filtered.h"/>
-      <FILE id="e1zMdJ" name="channel_slider.cpp" compile="1" resource="0"
-            file="Source/channel_slider.cpp"/>
-      <FILE id="ETesNY" name="channel_slider.h" compile="0" resource="0"
-            file="Source/channel_slider.h"/>
       <FILE id="e51RNe" name="kmeter.cpp" compile="1" resource="0" file="Source/kmeter.cpp"/>
       <FILE id="FM5iPP" name="kmeter.h" compile="0" resource="0" file="Source/kmeter.h"/>
       <FILE id="DnwLK2" name="main.cpp" compile="1" resource="0" file="Source/main.cpp"/>

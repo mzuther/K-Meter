@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   traKmeter
+   =========
+   Loudness meter for correctly setting up tracking and mixing levels
 
-   Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2012-2015 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,25 +23,40 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "channel_slider.h"
+#include "generic_channel_slider.h"
 
-ChannelSlider::ChannelSlider(const String &componentName, int nNumChannels) : Slider(componentName)
+GenericChannelSlider::GenericChannelSlider(const String &componentName) :
+    Slider(componentName)
 {
-    setRange(-1.0f, nNumChannels, 1.0f);
     setSliderStyle(Slider::IncDecButtons);
     setTextBoxStyle(Slider::TextBoxLeft, true, 30, 20);
     setIncDecButtonsMode(Slider::incDecButtonsNotDraggable);
 
-    setValue(-1, dontSendNotification);
+    setNumberOfChannels(0);
 }
 
 
-ChannelSlider::~ChannelSlider()
+GenericChannelSlider::~GenericChannelSlider()
 {
 }
 
 
-float ChannelSlider::getFloat()
+int GenericChannelSlider::getNumberOfChannels()
+{
+    return nNumberOfChannels;
+}
+
+
+void GenericChannelSlider::setNumberOfChannels(int nNumChannels)
+{
+    nNumberOfChannels = nNumChannels;
+
+    setRange(-1.0, nNumberOfChannels, 1.0);
+    setValue(-1.0, sendNotificationAsync);
+}
+
+
+float GenericChannelSlider::getFloat()
 {
     double dRange = getMaximum() - getMinimum();
     double dValue = (getValue() - getMinimum()) / dRange;
@@ -49,7 +64,7 @@ float ChannelSlider::getFloat()
 }
 
 
-double ChannelSlider::getValueFromText(const String &strText)
+double GenericChannelSlider::getValueFromText(const String &strText)
 {
     if (strText == "All")
     {
@@ -62,7 +77,7 @@ double ChannelSlider::getValueFromText(const String &strText)
 }
 
 
-String ChannelSlider::getTextFromValue(double fValue)
+String GenericChannelSlider::getTextFromValue(double fValue)
 {
     if (fValue < 0)
     {

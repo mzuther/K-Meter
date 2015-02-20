@@ -29,7 +29,6 @@
 class Skin;
 
 #include "JuceHeader.h"
-#include "kmeter.h"
 #include "plugin_parameters.h"
 #include "common/skin/generic_skin.h"
 
@@ -37,9 +36,10 @@ class Skin;
 class Skin : public GenericSkin
 {
 public:
-    Skin(File &fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
+    Skin();
     ~Skin();
 
+    void loadSkin(File &fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
     void updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter);
 
 protected:

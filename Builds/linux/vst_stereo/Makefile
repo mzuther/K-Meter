@@ -122,7 +122,6 @@ OBJECTS := \
 	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/audio_file_player.o \
 	$(OBJDIR)/overflow_meter.o \
-	$(OBJDIR)/channel_slider.o \
 	$(OBJDIR)/averager.o \
 	$(OBJDIR)/generic_horizontal_meter.o \
 	$(OBJDIR)/slider_combined.o \
@@ -131,6 +130,7 @@ OBJECTS := \
 	$(OBJDIR)/generic_window_about.o \
 	$(OBJDIR)/slider_continuous.o \
 	$(OBJDIR)/slider_switch_linear_bar.o \
+	$(OBJDIR)/generic_channel_slider.o \
 	$(OBJDIR)/generic_plugin_standalone.o \
 	$(OBJDIR)/generic_state_label.o \
 	$(OBJDIR)/resources.o \
@@ -260,9 +260,6 @@ $(OBJDIR)/audio_file_player.o: ../../../Source/audio_file_player.cpp
 $(OBJDIR)/overflow_meter.o: ../../../Source/overflow_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/channel_slider.o: ../../../Source/channel_slider.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/averager.o: ../../../Source/common/math/averager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -285,6 +282,9 @@ $(OBJDIR)/slider_continuous.o: ../../../Source/common/widgets/slider_continuous.
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/common/widgets/slider_switch_linear_bar.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_channel_slider.o: ../../../Source/common/widgets/generic_channel_slider.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_plugin_standalone.o: ../../../Source/common/widgets/generic_plugin_standalone.cpp
