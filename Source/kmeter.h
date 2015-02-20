@@ -27,10 +27,10 @@
 #define __KMETER_H__
 
 #include "JuceHeader.h"
+#include "meter_ballistics.h"
 #include "meter_bar.h"
 #include "overflow_meter.h"
 #include "peak_label.h"
-#include "plugin_processor.h"
 #include "skin.h"
 
 

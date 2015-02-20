@@ -30,10 +30,10 @@
 #include "plugin_processor.h"
 #include "kmeter.h"
 #include "skin.h"
+#include "window_validation.h"
 #include "common/widgets/generic_horizontal_meter.h"
 #include "common/widgets/generic_window_about.h"
 #include "common/widgets/generic_window_skin.h"
-#include "window_validation.h"
 
 
 //==============================================================================
