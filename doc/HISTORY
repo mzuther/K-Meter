@@ -1,7 +1,14 @@
 Git HEAD
 ========
 
+
+v1.41 (2015-02-20)
+==================
+
 * completely new parameter handling
+
+* lots of internal changes
+
 
 
 v1.40 (2015-02-06)
@@ -26,6 +33,7 @@ v1.40 (2015-02-06)
 * updated documentation
 
 
+
 v1.31 (2013-05-29)
 ==================
 
@@ -38,6 +46,7 @@ v1.31 (2013-05-29)
 * updated framework to JUCE v2.40
 
 * validation: full re-calibration and new audio file
+
 
 
 v1.30 (2012-09-06)
@@ -54,6 +63,7 @@ v1.30 (2012-09-06)
 * updated documentation
 
 * validation: full re-calibration and updated documentation
+
 
 
 v1.22 (2011-04-10)
@@ -88,6 +98,7 @@ v1.22 (2011-04-10)
 * beautified meters
 
 
+
 v1.21 (2010-12-12)
 ==================
 
@@ -98,6 +109,7 @@ v1.21 (2010-12-12)
 * moved from premake v4.2 to v4.3
 
 * generation of Visual C++ project files using premake4
+
 
 
 

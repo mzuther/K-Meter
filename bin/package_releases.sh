@@ -25,7 +25,7 @@
 #
 # ----------------------------------------------------------------------------
 
-KMETER_VERSION="1.40.1"
+KMETER_VERSION="1.41.0"
 
 KMETER_EXECUTABLE_DIR="final"
 KMETER_RELEASE_DIR="releases"
