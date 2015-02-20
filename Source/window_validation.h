@@ -38,6 +38,7 @@ public:
     ~WindowValidation();
 
     void buttonClicked(Button *button);
+    void closeButtonPressed();
 
 private:
     JUCE_LEAK_DETECTOR(WindowValidation);

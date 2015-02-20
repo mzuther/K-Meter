@@ -235,13 +235,11 @@ void WindowValidation::buttonClicked(Button *button)
         // validation file has already been initialised
         pProcessor->startValidation(fileValidation, nSelectedChannel, bReportCSV, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bStereoMeterValue, bPhaseCorrelation);
 
-        // close window by making it invisible
-        setVisible(false);
+        exitModalState(2);
     }
     else if (button == &ButtonCancel)
     {
-        // close window by making it invisible
-        setVisible(false);
+        exitModalState(1);
     }
     else if (button == &ButtonFileSelection)
     {
@@ -259,6 +257,12 @@ void WindowValidation::buttonClicked(Button *button)
             LabelFileSelection.setText(fileValidation.getFileName(), dontSendNotification);
         }
     }
+}
+
+
+void WindowValidation::closeButtonPressed()
+{
+    exitModalState(0);
 }
 
 

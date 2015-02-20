@@ -478,17 +478,20 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
 
         GenericWindowSkin windowSkin(this, fileSkin);
-        windowSkin.runModalLoop();
+        int nExitValue = windowSkin.runModalLoop();
 
         // manually deactivate button
         button->setToggleState(false, dontSendNotification);
 
-        strSkinName = windowSkin.getSelectedString();
-        loadSkin();
+        if (nExitValue > 0)
+        {
+            strSkinName = windowSkin.getSelectedString();
+            loadSkin();
 
-        // will also apply skin to plug-in editor
-        bReloadMeters = true;
-        reloadMeters();
+            // will also apply skin to plug-in editor
+            bReloadMeters = true;
+            reloadMeters();
+        }
     }
     else if (button == &ButtonDisplayPeakMeter)
     {
