@@ -25,18 +25,17 @@
 
 #include "kmeter.h"
 
-Kmeter::Kmeter(const String &componentName, int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight)
+Kmeter::Kmeter(int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight)
 {
-    setName(componentName);
-
     // this component blends in with the background
     setOpaque(false);
 
     nInputChannels = nNumChannels;
+    displayPeakMeter = bDisplayPeakMeter;
 
     for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
     {
-        MeterBar *pMeterBar = p_arrLevelMeters.add(new MeterBar("Level Meter #" + String(nChannel), nCrestFactor, bExpanded, bHorizontalMeter, bDisplayPeakMeter, nSegmentHeight));
+        MeterBar *pMeterBar = p_arrLevelMeters.add(new MeterBar(nCrestFactor, bExpanded, bHorizontalMeter, nSegmentHeight));
 
         addAndMakeVisible(pMeterBar);
 
@@ -121,7 +120,14 @@ void Kmeter::setLevels(MeterBallistics *pMeterBallistics)
 {
     for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
     {
-        p_arrLevelMeters[nChannel]->setLevels(pMeterBallistics->getPeakMeterLevel(nChannel), pMeterBallistics->getAverageMeterLevel(nChannel), pMeterBallistics->getPeakMeterPeakLevel(nChannel), pMeterBallistics->getAverageMeterPeakLevel(nChannel));
+        if (displayPeakMeter)
+        {
+            p_arrLevelMeters[nChannel]->setLevels(pMeterBallistics->getPeakMeterLevel(nChannel), pMeterBallistics->getAverageMeterLevel(nChannel), pMeterBallistics->getPeakMeterPeakLevel(nChannel), pMeterBallistics->getAverageMeterPeakLevel(nChannel));
+        }
+        else
+        {
+            p_arrLevelMeters[nChannel]->setNormalLevels(pMeterBallistics->getAverageMeterLevel(nChannel), pMeterBallistics->getAverageMeterPeakLevel(nChannel));
+        }
 
         p_arrMaximumPeakLabels[nChannel]->updateLevel(pMeterBallistics->getMaximumPeakLevel(nChannel));
 

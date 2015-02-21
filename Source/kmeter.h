@@ -43,7 +43,7 @@ public:
     static const int KMETER_STEREO_WIDTH = 106;
     static const int KMETER_STEREO_WIDTH_2 = KMETER_STEREO_WIDTH / 2;
 
-    Kmeter(const String &componentName, int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight);
+    Kmeter(int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight);
     ~Kmeter();
 
     void setLevels(MeterBallistics *pMeterBallistics);
@@ -58,6 +58,7 @@ private:
     OwnedArray<PeakLabel> p_arrMaximumPeakLabels;
 
     int nInputChannels;
+    bool displayPeakMeter;
 };
 
 

@@ -414,11 +414,11 @@ void KmeterAudioProcessorEditor::reloadMeters()
 
         if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
         {
-            kmeter = new Kmeter("K-Meter", nCrestFactor, 1, ButtonExpanded.getToggleState(), false, ButtonDisplayPeakMeter.getToggleState(), 4);
+            kmeter = new Kmeter(nCrestFactor, 1, ButtonExpanded.getToggleState(), false, ButtonDisplayPeakMeter.getToggleState(), 4);
         }
         else
         {
-            kmeter = new Kmeter("K-Meter", nCrestFactor, nInputChannels, ButtonExpanded.getToggleState(), false, ButtonDisplayPeakMeter.getToggleState(), 4);
+            kmeter = new Kmeter(nCrestFactor, nInputChannels, ButtonExpanded.getToggleState(), false, ButtonDisplayPeakMeter.getToggleState(), 4);
         }
 
         // moves traKmeter to the back of the editor's z-plane so that

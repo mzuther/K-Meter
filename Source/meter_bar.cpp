@@ -25,16 +25,28 @@
 
 #include "meter_bar.h"
 
-MeterBar::MeterBar(const String &componentName, int nCrestFactor, bool bExpanded, bool bHorizontal, bool bDisplayPeakMeter, int nSegmentHeight)
+MeterBar::MeterBar(int nCrestFactor, bool bExpanded, bool bHorizontal, int nSegmentHeight)
 {
-    setName(componentName);
+    nMainSegmentHeight = nSegmentHeight;
     isExpanded = bExpanded;
     bHorizontalMeter = bHorizontal;
-    displayPeakMeter = bDisplayPeakMeter;
 
     // this component does not have any transparent areas (increases
     // performance on redrawing)
     setOpaque(true);
+
+    fPeakLevel = -9999.8f;
+    fAverageLevel = -9999.8f;
+
+    fPeakLevelPeak = -9999.8f;
+    fAverageLevelPeak = -9999.8f;
+
+    Array<float> arrHues;
+
+    arrHues.add(0.00f);  // red
+    arrHues.add(0.18f);  // yellow
+    arrHues.add(0.30f);  // green
+    arrHues.add(0.58f);  // blue
 
     // to prevent the inherent round-off errors of float subtraction,
     // crest factor and limits are stored as integers representing
@@ -104,34 +116,23 @@ MeterBar::MeterBar(const String &componentName, int nCrestFactor, bool bExpanded
         }
     }
 
-    nMainSegmentHeight = nSegmentHeight;
-
-    fPeakLevel = 0.0f;
-    fAverageLevel = 0.0f;
-
-    fPeakLevelPeak = 0.0f;
-    fAverageLevelPeak = 0.0f;
-
-    int nThreshold = 0; // bar threshold (in 0.1 dB)
+    // bar threshold (in 0.1 dB)
+    int nThreshold = 0;
 
     if (isExpanded && (nMeterCrestFactor > 80))
     {
-        nThreshold = +80 - nMeterCrestFactor; // zoom into important region
+        // zoom into important region
+        nThreshold = +80 - nMeterCrestFactor;
     }
 
-    int nKmeterLevel = nThreshold + nMeterCrestFactor; // bar K-Meter level (in 0.1 dB)
-    int nRange = 0; // bar level range (in 0.1 dB)
-    int nColor = 0;
-
-    Array<float> arrHues;
-
-    arrHues.add(0.00f);  // red
-    arrHues.add(0.18f);  // yellow
-    arrHues.add(0.30f);  // green
-    arrHues.add(0.58f);  // blue
+    // bar K-Meter level (in 0.1 dB)
+    int nKmeterLevel = nThreshold + nMeterCrestFactor;
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
+        // bar level range (in 0.1 dB)
+        int nRange;
+
         if (isExpanded)
         {
             nRange = 1;
@@ -155,6 +156,11 @@ MeterBar::MeterBar(const String &componentName, int nCrestFactor, bool bExpanded
                 nRange = 100;
             }
         }
+
+        nThreshold -= nRange;
+        nKmeterLevel -= nRange;
+
+        int nColor;
 
         if (nCrestFactor == 0)
         {
@@ -199,10 +205,8 @@ MeterBar::MeterBar(const String &componentName, int nCrestFactor, bool bExpanded
             }
         }
 
-        nThreshold -= nRange;
-        nKmeterLevel -= nRange;
-
-        GenericMeterSegment *pMeterSegment = p_arrMeterArray.add(new GenericMeterSegment("GenericMeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, nRange * 0.1f, displayPeakMeter));
+        GenericMeterSegment *pMeterSegment = p_arrMeterArray.add(new GenericMeterSegment());
+        pMeterSegment->setThresholds(nThreshold * 0.1f, nRange * 0.1f);
         pMeterSegment->setColour(arrHues[nColor], Colours::white);
 
         addAndMakeVisible(pMeterSegment);
@@ -227,7 +231,6 @@ void MeterBar::resized()
     int y = 0;
     int nWidth;
     int nHeight;
-    int nSegmentHeight = nMainSegmentHeight;
 
     if (bHorizontalMeter)
     {
@@ -240,8 +243,11 @@ void MeterBar::resized()
         nHeight = 134 * nMainSegmentHeight + 1;
     }
 
-    int nKmeterLevel = nMeterCrestFactor; // bar K-Meter level (in 0.1 dB)
-    int nRange = 0; // bar level range (in 0.1 dB)
+    // bar K-Meter level (in 0.1 dB)
+    int nKmeterLevel = nMeterCrestFactor;
+
+    // bar level range (in 0.1 dB)
+    int nRange;
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
@@ -268,6 +274,8 @@ void MeterBar::resized()
                 nRange = 100;
             }
         }
+
+        int nSegmentHeight;
 
         if (isExpanded)
         {
@@ -340,6 +348,36 @@ void MeterBar::resized()
 }
 
 
+void MeterBar::setNormalLevels(float averageLevel, float averageLevelPeak)
+{
+    if ((averageLevel != fAverageLevel) || (averageLevelPeak != fAverageLevelPeak))
+    {
+        fAverageLevel = averageLevel;
+        fAverageLevelPeak = averageLevelPeak;
+
+        for (int n = 0; n < nNumberOfBars; n++)
+        {
+            p_arrMeterArray[n]->setNormalLevels(fAverageLevel, fAverageLevelPeak);
+        }
+    }
+}
+
+
+void MeterBar::setDiscreteLevels(float peakLevel, float peakLevelPeak)
+{
+    if ((peakLevel != fPeakLevel) || (peakLevelPeak != fPeakLevelPeak))
+    {
+        fPeakLevel = peakLevel;
+        fPeakLevelPeak = peakLevelPeak;
+
+        for (int n = 0; n < nNumberOfBars; n++)
+        {
+            p_arrMeterArray[n]->setDiscreteLevels(fPeakLevel, fPeakLevelPeak);
+        }
+    }
+}
+
+
 void MeterBar::setLevels(float peakLevel, float averageLevel, float peakLevelPeak, float averageLevelPeak)
 {
     if ((peakLevel != fPeakLevel) || (averageLevel != fAverageLevel) || (peakLevelPeak != fPeakLevelPeak) || (averageLevelPeak != fAverageLevelPeak))
@@ -352,7 +390,7 @@ void MeterBar::setLevels(float peakLevel, float averageLevel, float peakLevelPea
 
         for (int n = 0; n < nNumberOfBars; n++)
         {
-            p_arrMeterArray[n]->setLevels(fPeakLevel, fAverageLevel, fPeakLevelPeak, fAverageLevelPeak);
+            p_arrMeterArray[n]->setLevels(fAverageLevel, fPeakLevel, fAverageLevelPeak, fPeakLevelPeak);
         }
     }
 }

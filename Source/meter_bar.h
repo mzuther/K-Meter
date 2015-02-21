@@ -36,10 +36,13 @@
 class MeterBar : public Component
 {
 public:
-    MeterBar(const String &componentName, int nCrestFactor, bool bExpanded, bool bHorizontal, bool bDisplayPeakMeter, int nSegmentHeight);
+    MeterBar(int nCrestFactor, bool bExpanded, bool bHorizontal, int nSegmentHeight);
     ~MeterBar();
 
+    void setNormalLevels(float averageLevel, float averageLevelPeak);
+    void setDiscreteLevels(float peakLevel, float peakLevelPeak);
     void setLevels(float peakLevel, float averageLevel, float peakLevelPeak, float averageLevelPeak);
+
     void paint(Graphics &g);
     void resized();
 
@@ -54,7 +57,6 @@ private:
 
     int nMeterCrestFactor;
     bool isExpanded;
-    bool displayPeakMeter;
     bool bHorizontalMeter;
 
     int nMainSegmentHeight;
