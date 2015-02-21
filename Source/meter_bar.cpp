@@ -123,6 +123,13 @@ MeterBar::MeterBar(const String &componentName, int nCrestFactor, bool bExpanded
     int nRange = 0; // bar level range (in 0.1 dB)
     int nColor = 0;
 
+    Array<float> arrHues;
+
+    arrHues.add(0.00f);  // red
+    arrHues.add(0.18f);  // yellow
+    arrHues.add(0.30f);  // green
+    arrHues.add(0.58f);  // blue
+
     for (int n = 0; n < nNumberOfBars; n++)
     {
         if (isExpanded)
@@ -195,7 +202,9 @@ MeterBar::MeterBar(const String &componentName, int nCrestFactor, bool bExpanded
         nThreshold -= nRange;
         nKmeterLevel -= nRange;
 
-        MeterSegment *pMeterSegment = p_arrMeterArray.add(new MeterSegment("MeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, nRange * 0.1f, displayPeakMeter, nColor));
+        GenericMeterSegment *pMeterSegment = p_arrMeterArray.add(new GenericMeterSegment("GenericMeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, nRange * 0.1f, displayPeakMeter));
+        pMeterSegment->setColour(arrHues[nColor], Colours::white);
+
         addAndMakeVisible(pMeterSegment);
     }
 }

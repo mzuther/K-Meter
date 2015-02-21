@@ -27,7 +27,7 @@
 #define __METER_BAR_H__
 
 #include "JuceHeader.h"
-#include "meter_segment.h"
+#include "common/widgets/generic_meter_segment.h"
 
 
 //==============================================================================
@@ -66,7 +66,7 @@ private:
     int nLimitGreenBars_1;
     int nLimitGreenBars_2;
 
-    OwnedArray<MeterSegment> p_arrMeterArray;
+    OwnedArray<GenericMeterSegment> p_arrMeterArray;
 };
 
 

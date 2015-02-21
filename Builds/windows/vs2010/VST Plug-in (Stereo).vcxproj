@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{BBD5D0A8-06F6-4528-BBA2-8CBD0AACDC65}</ProjectGuid>
+		<ProjectGuid>{90F224E0-1186-9635-E0CB-1025AB231507}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -216,7 +216,6 @@
 		<ClInclude Include="..\..\..\Source\meter_bar.h" />
 		<ClInclude Include="..\..\..\Source\window_validation.h" />
 		<ClInclude Include="..\..\..\Source\average_level_filtered.h" />
-		<ClInclude Include="..\..\..\Source\meter_segment.h" />
 		<ClInclude Include="..\..\..\Source\overflow_meter.h" />
 		<ClInclude Include="..\..\..\Source\peak_label.h" />
 		<ClInclude Include="..\..\..\Source\kmeter.h" />
@@ -239,6 +238,7 @@
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_horizontal_meter.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_state_label.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_meter_segment.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\resources\resources.h" />
 		<ClInclude Include="..\..\..\Source\common\audio\audio_ring_buffer.h" />
 		<ClInclude Include="..\..\..\Source\common\audio\dither.h" />
@@ -252,8 +252,6 @@
 		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_string.h" />
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="..\..\..\Source\meter_segment.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_processor.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
@@ -287,6 +285,8 @@
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_combined.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_meter_segment.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_window_skin.cpp">
 		</ClCompile>
