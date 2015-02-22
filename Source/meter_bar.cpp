@@ -25,192 +25,12 @@
 
 #include "meter_bar.h"
 
-MeterBar::MeterBar(int nCrestFactor, bool bExpanded, bool bHorizontal, int nSegmentHeight)
+MeterBar::MeterBar()
 {
-    nMainSegmentHeight = nSegmentHeight;
-    isExpanded = bExpanded;
-    bHorizontalMeter = bHorizontal;
-
-    // this component does not have any transparent areas (increases
-    // performance on redrawing)
-    setOpaque(true);
-
-    fPeakLevel = -9999.8f;
-    fAverageLevel = -9999.8f;
-
-    fPeakLevelPeak = -9999.8f;
-    fAverageLevelPeak = -9999.8f;
-
-    Array<float> arrHues;
-
     arrHues.add(0.00f);  // red
     arrHues.add(0.18f);  // yellow
     arrHues.add(0.30f);  // green
     arrHues.add(0.58f);  // blue
-
-    // to prevent the inherent round-off errors of float subtraction,
-    // crest factor and limits are stored as integers representing
-    // 0.1 dB steps
-    if (nCrestFactor == 0)
-    {
-        nMeterCrestFactor = 0;
-
-        nLimitTopBars = nMeterCrestFactor - 20;
-        nLimitRedBars = -90;
-        nLimitAmberBars = -180;
-        nLimitGreenBars_1 = -400;
-        nLimitGreenBars_2 = nLimitGreenBars_1;
-    }
-    else if (nCrestFactor == 12)
-    {
-        nMeterCrestFactor = +120;
-
-        nLimitTopBars = nMeterCrestFactor - 20;
-        nLimitRedBars = +40;
-        nLimitAmberBars = 0;
-        nLimitGreenBars_1 = -300;
-        nLimitGreenBars_2 = nLimitGreenBars_1;
-    }
-    else if (nCrestFactor == 14)
-    {
-        nMeterCrestFactor = +140;
-
-        nLimitTopBars = nMeterCrestFactor - 20;
-        nLimitRedBars = +40;
-        nLimitAmberBars = 0;
-        nLimitGreenBars_1 = -300;
-        nLimitGreenBars_2 = nLimitGreenBars_1;
-    }
-    else // K-20
-    {
-        nMeterCrestFactor = +200;
-
-        nLimitTopBars = nMeterCrestFactor - 20;
-        nLimitRedBars = +40;
-        nLimitAmberBars = 0;
-        nLimitGreenBars_1 = -240;
-        nLimitGreenBars_2 = -300;
-    }
-
-    if (isExpanded)
-    {
-        nNumberOfBars = 134;
-    }
-    else
-    {
-        if (nCrestFactor == 0)
-        {
-            nNumberOfBars = 47;
-        }
-        else if (nCrestFactor == 12)
-        {
-            nNumberOfBars = 48;
-        }
-        else if (nCrestFactor == 14)
-        {
-            nNumberOfBars = 50;
-        }
-        else // K-20
-        {
-            nNumberOfBars = 51;
-        }
-    }
-
-    // bar threshold (in 0.1 dB)
-    int nThreshold = 0;
-
-    if (isExpanded && (nMeterCrestFactor > 80))
-    {
-        // zoom into important region
-        nThreshold = +80 - nMeterCrestFactor;
-    }
-
-    // bar K-Meter level (in 0.1 dB)
-    int nKmeterLevel = nThreshold + nMeterCrestFactor;
-
-    for (int n = 0; n < nNumberOfBars; n++)
-    {
-        // bar level range (in 0.1 dB)
-        int nRange;
-
-        if (isExpanded)
-        {
-            nRange = 1;
-        }
-        else
-        {
-            if (nKmeterLevel > nLimitTopBars)
-            {
-                nRange = 5;
-            }
-            else if (nKmeterLevel > nLimitGreenBars_1)
-            {
-                nRange = 10;
-            }
-            else if (nKmeterLevel > nLimitGreenBars_2)
-            {
-                nRange = 60;
-            }
-            else
-            {
-                nRange = 100;
-            }
-        }
-
-        nThreshold -= nRange;
-        nKmeterLevel -= nRange;
-
-        int nColor;
-
-        if (nCrestFactor == 0)
-        {
-            if (nKmeterLevel <= -280)
-            {
-                nColor = 0;
-            }
-            else if (nKmeterLevel <= -220)
-            {
-                nColor = 1;
-            }
-            else if ((nKmeterLevel > -160) && (nKmeterLevel <= -100))
-            {
-                nColor = 2;
-            }
-            else if (nKmeterLevel > nLimitRedBars)
-            {
-                nColor = 0;
-            }
-            else if (nKmeterLevel > nLimitAmberBars)
-            {
-                nColor = 1;
-            }
-            else
-            {
-                nColor = 2;
-            }
-        }
-        else
-        {
-            if (nKmeterLevel > nLimitRedBars)
-            {
-                nColor = 0;
-            }
-            else if (nKmeterLevel > nLimitAmberBars)
-            {
-                nColor = 1;
-            }
-            else
-            {
-                nColor = 2;
-            }
-        }
-
-        GenericMeterSegment *pMeterSegment = p_arrMeterArray.add(new GenericMeterSegment());
-        pMeterSegment->setThresholds(nThreshold * 0.1f, nRange * 0.1f);
-        pMeterSegment->setColour(arrHues[nColor], Colours::white);
-
-        addAndMakeVisible(pMeterSegment);
-    }
 }
 
 
@@ -219,53 +39,105 @@ MeterBar::~MeterBar()
 }
 
 
-void MeterBar::paint(Graphics &g)
+void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, int nMainSegmentHeight)
 {
-    g.fillAll(Colours::black);
-}
+    GenericMeterBar::create();
+    setOrientation(orientation);
 
+    int nCrestFactor;
+    int nNumberOfBars;
 
-void MeterBar::resized()
-{
-    int x = 0;
-    int y = 0;
-    int nWidth;
-    int nHeight;
+    int nLimitTopBars;
+    int nLimitRedBars;
+    int nLimitAmberBars;
+    int nLimitGreenBars_1;
+    int nLimitGreenBars_2;
 
-    if (bHorizontalMeter)
+    // to prevent the inherent round-off errors of float subtraction,
+    // crest factor and limits are stored as integers representing
+    // 0.1 dB steps
+    if (crestFactor == 0)
     {
-        nWidth = 134 * nMainSegmentHeight + 1;
-        nHeight = getHeight();
+        nCrestFactor = 0;
+        nNumberOfBars = 47;
+
+        nLimitTopBars = nCrestFactor - 20;
+        nLimitRedBars = -90;
+        nLimitAmberBars = -180;
+        nLimitGreenBars_1 = -400;
+        nLimitGreenBars_2 = nLimitGreenBars_1;
     }
-    else
+    else if (crestFactor == 12)
     {
-        nWidth = getWidth();;
-        nHeight = 134 * nMainSegmentHeight + 1;
+        nCrestFactor = +120;
+        nNumberOfBars = 48;
+
+        nLimitTopBars = nCrestFactor - 20;
+        nLimitRedBars = +40;
+        nLimitAmberBars = 0;
+        nLimitGreenBars_1 = -300;
+        nLimitGreenBars_2 = nLimitGreenBars_1;
+    }
+    else if (crestFactor == 14)
+    {
+        nCrestFactor = +140;
+        nNumberOfBars = 50;
+
+        nLimitTopBars = nCrestFactor - 20;
+        nLimitRedBars = +40;
+        nLimitAmberBars = 0;
+        nLimitGreenBars_1 = -300;
+        nLimitGreenBars_2 = nLimitGreenBars_1;
+    }
+    else // K-20
+    {
+        nCrestFactor = +200;
+        nNumberOfBars = 51;
+
+        nLimitTopBars = nCrestFactor - 20;
+        nLimitRedBars = +40;
+        nLimitAmberBars = 0;
+        nLimitGreenBars_1 = -240;
+        nLimitGreenBars_2 = -300;
+    }
+
+    if (bExpanded)
+    {
+        nNumberOfBars = 134;
+    }
+
+    // bar threshold (in 0.1 dB)
+    int nTrueLowerThreshold = 0;
+
+    if (bExpanded && (nCrestFactor > 80))
+    {
+        // zoom into important region
+        nTrueLowerThreshold = +80 - nCrestFactor;
     }
 
     // bar K-Meter level (in 0.1 dB)
-    int nKmeterLevel = nMeterCrestFactor;
-
-    // bar level range (in 0.1 dB)
-    int nRange;
+    int nLowerThreshold = nTrueLowerThreshold + nCrestFactor;
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
-        if (isExpanded)
+        // bar level range (in 0.1 dB)
+        int nRange;
+
+        if (bExpanded)
         {
             nRange = 1;
         }
         else
         {
-            if (nKmeterLevel > nLimitTopBars)
+            if (nLowerThreshold > nLimitTopBars)
             {
                 nRange = 5;
             }
-            else if (nKmeterLevel > nLimitGreenBars_1)
+            else if (nLowerThreshold > nLimitGreenBars_1)
             {
                 nRange = 10;
             }
-            else if (nKmeterLevel > nLimitGreenBars_2)
+            else if (nLowerThreshold > nLimitGreenBars_2)
             {
                 nRange = 60;
             }
@@ -275,35 +147,80 @@ void MeterBar::resized()
             }
         }
 
+        int nColor;
+
+        if (nCrestFactor == 0)
+        {
+            if (nLowerThreshold <= -280)
+            {
+                nColor = 0;
+            }
+            else if (nLowerThreshold <= -220)
+            {
+                nColor = 1;
+            }
+            else if ((nLowerThreshold > -160) && (nLowerThreshold <= -100))
+            {
+                nColor = 2;
+            }
+            else if (nLowerThreshold > nLimitRedBars)
+            {
+                nColor = 0;
+            }
+            else if (nLowerThreshold > nLimitAmberBars)
+            {
+                nColor = 1;
+            }
+            else
+            {
+                nColor = 2;
+            }
+        }
+        else
+        {
+            if (nLowerThreshold > nLimitRedBars)
+            {
+                nColor = 0;
+            }
+            else if (nLowerThreshold > nLimitAmberBars)
+            {
+                nColor = 1;
+            }
+            else
+            {
+                nColor = 2;
+            }
+        }
+
         int nSegmentHeight;
 
-        if (isExpanded)
+        if (bExpanded)
         {
             nSegmentHeight = nMainSegmentHeight;
         }
-        else if (nKmeterLevel > nLimitTopBars)
+        else if (nLowerThreshold > nLimitTopBars)
         {
             nSegmentHeight = nMainSegmentHeight;
         }
-        else if (nKmeterLevel > nLimitGreenBars_1)
+        else if (nLowerThreshold > nLimitGreenBars_1)
         {
             nSegmentHeight = 2 * nMainSegmentHeight;
         }
-        else if (nKmeterLevel > nLimitGreenBars_2)
+        else if (nLowerThreshold > nLimitGreenBars_2)
         {
             nSegmentHeight = 6 * nMainSegmentHeight;
         }
         else if (n == nNumberOfBars - 1)
         {
-            if (nMeterCrestFactor == 0)
+            if (nCrestFactor == 0)
             {
                 nSegmentHeight = 10 * nMainSegmentHeight;
             }
-            else if (nMeterCrestFactor == +120)
+            else if (nCrestFactor == +120)
             {
                 nSegmentHeight = 14 * nMainSegmentHeight;
             }
-            else if (nMeterCrestFactor == +140)
+            else if (nCrestFactor == +140)
             {
                 nSegmentHeight = 13 * nMainSegmentHeight;
             }
@@ -314,15 +231,15 @@ void MeterBar::resized()
         }
         else
         {
-            if (nMeterCrestFactor == 0)
+            if (nCrestFactor == 0)
             {
                 nSegmentHeight = 11 * nMainSegmentHeight;
             }
-            else if (nMeterCrestFactor == +120)
+            else if (nCrestFactor == +120)
             {
                 nSegmentHeight = 12 * nMainSegmentHeight;
             }
-            else if (nMeterCrestFactor == +140)
+            else if (nCrestFactor == +140)
             {
                 nSegmentHeight = 11 * nMainSegmentHeight;
             }
@@ -332,68 +249,35 @@ void MeterBar::resized()
             }
         }
 
-        if (bHorizontalMeter)
-        {
-            p_arrMeterArray[n]->setBounds(nWidth - x - (nSegmentHeight + 1), y, nSegmentHeight + 1, nHeight);
-            x += nSegmentHeight;
-        }
-        else
-        {
-            p_arrMeterArray[n]->setBounds(x, y, nWidth, nSegmentHeight + 1);
-            y += nSegmentHeight;
-        }
+        nTrueLowerThreshold -= nRange;
+        nLowerThreshold = nTrueLowerThreshold + nCrestFactor;
 
-        nKmeterLevel -= nRange;
+        int nSpacingBefore = 0;
+        bool bHasHighestLevel = (n == 0) ? true : false;
+
+        addSegment(nTrueLowerThreshold * 0.1f, nRange * 0.1f, bHasHighestLevel, nSegmentHeight, nSpacingBefore, arrHues[nColor], Colours::white);
     }
 }
 
 
-void MeterBar::setNormalLevels(float averageLevel, float averageLevelPeak)
-{
-    if ((averageLevel != fAverageLevel) || (averageLevelPeak != fAverageLevelPeak))
-    {
-        fAverageLevel = averageLevel;
-        fAverageLevelPeak = averageLevelPeak;
+// void MeterBar::resized()
+// {
+//     int x = 0;
+//     int y = 0;
+//     int nWidth;
+//     int nHeight;
 
-        for (int n = 0; n < nNumberOfBars; n++)
-        {
-            p_arrMeterArray[n]->setNormalLevels(fAverageLevel, fAverageLevelPeak);
-        }
-    }
-}
-
-
-void MeterBar::setDiscreteLevels(float peakLevel, float peakLevelPeak)
-{
-    if ((peakLevel != fPeakLevel) || (peakLevelPeak != fPeakLevelPeak))
-    {
-        fPeakLevel = peakLevel;
-        fPeakLevelPeak = peakLevelPeak;
-
-        for (int n = 0; n < nNumberOfBars; n++)
-        {
-            p_arrMeterArray[n]->setDiscreteLevels(fPeakLevel, fPeakLevelPeak);
-        }
-    }
-}
-
-
-void MeterBar::setLevels(float peakLevel, float averageLevel, float peakLevelPeak, float averageLevelPeak)
-{
-    if ((peakLevel != fPeakLevel) || (averageLevel != fAverageLevel) || (peakLevelPeak != fPeakLevelPeak) || (averageLevelPeak != fAverageLevelPeak))
-    {
-        fPeakLevel = peakLevel;
-        fAverageLevel = averageLevel;
-
-        fPeakLevelPeak = peakLevelPeak;
-        fAverageLevelPeak = averageLevelPeak;
-
-        for (int n = 0; n < nNumberOfBars; n++)
-        {
-            p_arrMeterArray[n]->setLevels(fAverageLevel, fPeakLevel, fAverageLevelPeak, fPeakLevelPeak);
-        }
-    }
-}
+//     if (bHorizontal)
+//     {
+//         nWidth = 134 * nMainSegmentHeight + 1;
+//         nHeight = getHeight();
+//     }
+//     else
+//     {
+//         nWidth = getWidth();;
+//         nHeight = 134 * nMainSegmentHeight + 1;
+//     }
+// }
 
 
 // Local Variables:

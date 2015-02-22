@@ -27,48 +27,24 @@
 #define __METER_BAR_H__
 
 #include "JuceHeader.h"
-#include "common/widgets/generic_meter_segment.h"
+#include "common/widgets/generic_meter_bar.h"
 
 
 //==============================================================================
 /**
 */
-class MeterBar : public Component
+class MeterBar : public GenericMeterBar
 {
 public:
-    MeterBar(int nCrestFactor, bool bExpanded, bool bHorizontal, int nSegmentHeight);
+    MeterBar();
     ~MeterBar();
 
-    void setNormalLevels(float averageLevel, float averageLevelPeak);
-    void setDiscreteLevels(float peakLevel, float peakLevelPeak);
-    void setLevels(float peakLevel, float averageLevel, float peakLevelPeak, float averageLevelPeak);
-
-    void paint(Graphics &g);
-    void resized();
+    void create(int crestFactor, bool bExpanded, Orientation orientation, int nMainSegmentHeight);
 
 private:
     JUCE_LEAK_DETECTOR(MeterBar);
 
-    float fPeakLevel;
-    float fAverageLevel;
-
-    float fPeakLevelPeak;
-    float fAverageLevelPeak;
-
-    int nMeterCrestFactor;
-    bool isExpanded;
-    bool bHorizontalMeter;
-
-    int nMainSegmentHeight;
-
-    int nNumberOfBars;
-    int nLimitTopBars;
-    int nLimitRedBars;
-    int nLimitAmberBars;
-    int nLimitGreenBars_1;
-    int nLimitGreenBars_2;
-
-    OwnedArray<GenericMeterSegment> p_arrMeterArray;
+    Array<float> arrHues;
 };
 
 

@@ -33,9 +33,21 @@ Kmeter::Kmeter(int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizon
     nInputChannels = nNumChannels;
     displayPeakMeter = bDisplayPeakMeter;
 
+    MeterBar::Orientation orientation;
+
+    if (bHorizontalMeter)
+    {
+        orientation = MeterBar::orientationHorizontal;
+    }
+    else
+    {
+        orientation = MeterBar::orientationVertical;
+    }
+
     for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
     {
-        MeterBar *pMeterBar = p_arrLevelMeters.add(new MeterBar(nCrestFactor, bExpanded, bHorizontalMeter, nSegmentHeight));
+        MeterBar *pMeterBar = p_arrLevelMeters.add(new MeterBar());
+        pMeterBar->create(nCrestFactor, bExpanded, orientation, nSegmentHeight);
 
         addAndMakeVisible(pMeterBar);
 
@@ -122,7 +134,7 @@ void Kmeter::setLevels(MeterBallistics *pMeterBallistics)
     {
         if (displayPeakMeter)
         {
-            p_arrLevelMeters[nChannel]->setLevels(pMeterBallistics->getPeakMeterLevel(nChannel), pMeterBallistics->getAverageMeterLevel(nChannel), pMeterBallistics->getPeakMeterPeakLevel(nChannel), pMeterBallistics->getAverageMeterPeakLevel(nChannel));
+            p_arrLevelMeters[nChannel]->setLevels(pMeterBallistics->getAverageMeterLevel(nChannel), pMeterBallistics->getPeakMeterLevel(nChannel), pMeterBallistics->getAverageMeterPeakLevel(nChannel), pMeterBallistics->getPeakMeterPeakLevel(nChannel));
         }
         else
         {
