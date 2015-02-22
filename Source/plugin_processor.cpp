@@ -405,6 +405,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
         bSampleRateIsValid = true;
     }
 
+    isPreValidating = false;
     nNumInputChannels = getNumInputChannels();
 
     if (nNumInputChannels < 1)
@@ -522,6 +523,13 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &m
 
 void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
+    // silence input if validation window is open
+    if (isPreValidating)
+    {
+        buffer.clear();
+        pRingBufferInput->clear();
+    }
+
     unsigned int uPreDelay = uChunkSize / 2;
     bool bMono = getBoolean(KmeterPluginParameters::selMono);
 
@@ -649,10 +657,24 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const u
 }
 
 
+void KmeterAudioProcessor::preValidation(bool bStart)
+{
+    if (bStart)
+    {
+        // stops any running validation and resets all meters
+        stopValidation();
+    }
+
+    isPreValidating = bStart;
+}
+
+
 void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel, bool bReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation)
 {
     // reset all meters before we start the validation
     pMeterBallistics->reset();
+
+    isPreValidating = false;
 
     int nCrestFactor = getRealInteger(KmeterPluginParameters::selCrestFactor);
     audioFilePlayer = new AudioFilePlayer(fileAudio, (int) getSampleRate(), pMeterBallistics, nCrestFactor);
@@ -665,10 +687,11 @@ void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel,
 
 void KmeterAudioProcessor::stopValidation()
 {
-    if (audioFilePlayer != nullptr)
-    {
-        audioFilePlayer = nullptr;
-    }
+    isPreValidating = false;
+    audioFilePlayer = nullptr;
+
+    // reset all meters after the validation
+    pMeterBallistics->reset();
 
     // refresh editor; "V-" --> validation stopped
     sendActionMessage("V-");

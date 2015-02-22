@@ -34,7 +34,10 @@ WindowValidation::WindowValidation(Component *pEditorWindow, KmeterAudioProcesso
     int nHeight = 250;
 
     pProcessor = processor;
-    pProcessor->stopValidation();
+
+    // stops any running validation and resets all meters
+    pProcessor->preValidation(true);
+
     fileValidation = pProcessor->getParameterValidationFile();
 
     // set dimensions to those passed to the function ...
@@ -193,6 +196,7 @@ WindowValidation::WindowValidation(Component *pEditorWindow, KmeterAudioProcesso
 
 WindowValidation::~WindowValidation()
 {
+    pProcessor->preValidation(false);
 }
 
 

@@ -54,6 +54,7 @@ public:
 
     void processBlock(AudioSampleBuffer &buffer, MidiBuffer &midiMessages);
 
+    void preValidation(bool bStart);
     void startValidation(File fileAudio, int nSelectedChannel, bool bReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
     void stopValidation();
     bool isValidating();
@@ -141,6 +142,7 @@ private:
     int nNumInputChannels;
     bool isStereo;
     bool bSampleRateIsValid;
+    bool isPreValidating;
 
     int nAverageAlgorithm;
     int nSamplesInBuffer;
