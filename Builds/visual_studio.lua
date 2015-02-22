@@ -37,7 +37,7 @@ else
 	print "Action not specified\n"
 end
 
-solution "kmeter"
+solution "K-Meter"
 	location ("windows/" .. _ACTION .. "/")
 	language "C++"
 
@@ -135,7 +135,7 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
-	project ("Stand-alone (Stereo)")
+	project ("K-Meter Stand-alone (Stereo)")
 		kind "WindowedApp"
 		targetname "K-Meter (Stereo"
 		targetprefix ""
@@ -168,7 +168,7 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
-	project ("Stand-alone (Surround)")
+	project ("K-Meter Stand-alone (Surround)")
 		kind "WindowedApp"
 		targetname "K-Meter (Surround"
 		targetprefix ""
@@ -201,7 +201,7 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
-	project ("VST Plug-in (Stereo)")
+	project ("K-Meter VST (Stereo)")
 		kind "SharedLib"
 		targetname "K-Meter (Stereo"
 		targetprefix ""
@@ -244,7 +244,7 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
-	project ("VST Plug-in (Surround)")
+	project ("K-Meter VST (Surround)")
 		kind "SharedLib"
 		targetname "K-Meter (Surround"
 		targetprefix ""

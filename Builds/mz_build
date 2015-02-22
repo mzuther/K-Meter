@@ -50,29 +50,29 @@ case $2 in
 		MAKEFILE_PRINT="clean targets"
 		;;
 	1)
-		MAKEFILE="linux_standalone_stereo"
+		MAKEFILE="kmeter_standalone_stereo"
 		MAKEFILE_PRINT="Standalone (Stereo)"
 		EXECUTABLE="kmeter_stereo"
 		;;
 	2)
-		MAKEFILE="linux_standalone_surround"
+		MAKEFILE="kmeter_standalone_surround"
 		MAKEFILE_PRINT="Standalone (Surround)"
 		EXECUTABLE="kmeter_surround"
 		;;
 	3)
-		MAKEFILE="linux_lv2_stereo"
+		MAKEFILE="kmeter_lv2_stereo"
 		MAKEFILE_PRINT="LV2 plug-in (Stereo)"
 		;;
 	4)
-		MAKEFILE="linux_lv2_surround"
+		MAKEFILE="kmeter_lv2_surround"
 		MAKEFILE_PRINT="LV2 plug-in (Surround)"
 		;;
 	5)
-		MAKEFILE="linux_vst_stereo"
+		MAKEFILE="kmeter_vst_stereo"
 		MAKEFILE_PRINT="VST plug-in (Stereo)"
 		;;
 	6)
-		MAKEFILE="linux_vst_surround"
+		MAKEFILE="kmeter_vst_surround"
 		MAKEFILE_PRINT="VST plug-in (Surround)"
 		;;
 	*)

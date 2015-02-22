@@ -176,7 +176,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking linux_lv2_surround
+	@echo Linking kmeter_lv2_surround
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -197,7 +197,7 @@ else
 endif
 
 clean:
-	@echo Cleaning linux_lv2_surround
+	@echo Cleaning kmeter_lv2_surround
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)

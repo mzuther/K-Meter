@@ -106,7 +106,7 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_standalone_stereo")
+	project ("kmeter_standalone_stereo")
 		kind "WindowedApp"
 		location (os.get() .. "/standalone_stereo")
 		targetname "kmeter_stereo"
@@ -152,7 +152,7 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_standalone_surround")
+	project ("kmeter_standalone_surround")
 		kind "WindowedApp"
 		location (os.get() .. "/standalone_surround")
 		targetname "kmeter_surround"
@@ -198,7 +198,7 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_lv2_stereo")
+	project ("kmeter_lv2_stereo")
 		kind "SharedLib"
 		location (os.get() .. "/lv2_stereo")
 		targetname "kmeter_stereo_lv2"
@@ -259,7 +259,7 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_lv2_surround")
+	project ("kmeter_lv2_surround")
 		kind "SharedLib"
 		location (os.get() .. "/lv2_surround")
 		targetname "kmeter_surround_lv2"
@@ -320,7 +320,7 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_vst_stereo")
+	project ("kmeter_vst_stereo")
 		kind "SharedLib"
 		location (os.get() .. "/vst_stereo")
 		targetname "kmeter_stereo_vst"
@@ -379,7 +379,7 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_vst_surround")
+	project ("kmeter_vst_surround")
 		kind "SharedLib"
 		location (os.get() .. "/vst_surround")
 		targetname "kmeter_surround_vst"
