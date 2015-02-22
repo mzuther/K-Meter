@@ -44,7 +44,7 @@ void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, 
     GenericMeterBar::create();
     setOrientation(orientation);
 
-    int nCrestFactor;
+    int nCrestFactor = 10 * crestFactor;
     int nNumberOfBars;
 
     int nLimitTopBars;
@@ -56,9 +56,8 @@ void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, 
     // to prevent the inherent round-off errors of float subtraction,
     // crest factor and limits are stored as integers representing
     // 0.1 dB steps
-    if (crestFactor == 0)
+    if (nCrestFactor == 0)
     {
-        nCrestFactor = 0;
         nNumberOfBars = 47;
 
         nLimitTopBars = nCrestFactor - 20;
@@ -67,9 +66,8 @@ void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, 
         nLimitGreenBars_1 = -400;
         nLimitGreenBars_2 = nLimitGreenBars_1;
     }
-    else if (crestFactor == 12)
+    else if (nCrestFactor == +120)
     {
-        nCrestFactor = +120;
         nNumberOfBars = 48;
 
         nLimitTopBars = nCrestFactor - 20;
@@ -78,9 +76,8 @@ void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, 
         nLimitGreenBars_1 = -300;
         nLimitGreenBars_2 = nLimitGreenBars_1;
     }
-    else if (crestFactor == 14)
+    else if (nCrestFactor == +140)
     {
-        nCrestFactor = +140;
         nNumberOfBars = 50;
 
         nLimitTopBars = nCrestFactor - 20;
@@ -91,6 +88,7 @@ void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, 
     }
     else // K-20
     {
+        // force crest factor of +20 dB
         nCrestFactor = +200;
         nNumberOfBars = 51;
 
@@ -258,26 +256,6 @@ void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, 
         addSegment(nTrueLowerThreshold * 0.1f, nRange * 0.1f, bHasHighestLevel, nSegmentHeight, nSpacingBefore, arrHues[nColor], Colours::white);
     }
 }
-
-
-// void MeterBar::resized()
-// {
-//     int x = 0;
-//     int y = 0;
-//     int nWidth;
-//     int nHeight;
-
-//     if (bHorizontal)
-//     {
-//         nWidth = 134 * nMainSegmentHeight + 1;
-//         nHeight = getHeight();
-//     }
-//     else
-//     {
-//         nWidth = getWidth();;
-//         nHeight = 134 * nMainSegmentHeight + 1;
-//     }
-// }
 
 
 // Local Variables:
