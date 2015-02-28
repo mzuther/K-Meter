@@ -42,7 +42,6 @@ MeterBar::~MeterBar()
 void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, int nMainSegmentHeight)
 {
     GenericMeterBar::create();
-    setOrientation(orientation);
 
     int nCrestFactor = 10 * crestFactor;
     int nNumberOfBars;
@@ -145,48 +144,48 @@ void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, 
             }
         }
 
-        int nColor;
+        int nColour;
 
         if (nCrestFactor == 0)
         {
             if (nLowerThreshold <= -280)
             {
-                nColor = 0;
+                nColour = 0;
             }
             else if (nLowerThreshold <= -220)
             {
-                nColor = 1;
+                nColour = 1;
             }
             else if ((nLowerThreshold > -160) && (nLowerThreshold <= -100))
             {
-                nColor = 2;
+                nColour = 2;
             }
             else if (nLowerThreshold > nLimitRedBars)
             {
-                nColor = 0;
+                nColour = 0;
             }
             else if (nLowerThreshold > nLimitAmberBars)
             {
-                nColor = 1;
+                nColour = 1;
             }
             else
             {
-                nColor = 2;
+                nColour = 2;
             }
         }
         else
         {
             if (nLowerThreshold > nLimitRedBars)
             {
-                nColor = 0;
+                nColour = 0;
             }
             else if (nLowerThreshold > nLimitAmberBars)
             {
-                nColor = 1;
+                nColour = 1;
             }
             else
             {
-                nColor = 2;
+                nColour = 2;
             }
         }
 
@@ -253,8 +252,11 @@ void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, 
         int nSpacingBefore = 0;
         bool bHasHighestLevel = (n == 0) ? true : false;
 
-        addSegment(nTrueLowerThreshold * 0.1f, nRange * 0.1f, bHasHighestLevel, nSegmentHeight, nSpacingBefore, arrHues[nColor], Colours::white);
+        addSegment(nTrueLowerThreshold * 0.1f, nRange * 0.1f, bHasHighestLevel, nSegmentHeight, nSpacingBefore, arrHues[nColour], Colours::white);
     }
+
+    // set orientation only when *all* meter segments have been added!
+    setOrientation(orientation);
 }
 
 
