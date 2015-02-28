@@ -255,7 +255,7 @@ void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, 
         addSegment(nTrueLowerThreshold * 0.1f, nRange * 0.1f, bHasHighestLevel, nSegmentHeight, nSpacingBefore, arrHues[nColour], Colours::white);
     }
 
-    // set orientation only when *all* meter segments have been added!
+    // set orientation here to save some processing power
     setOrientation(orientation);
 }
 
