@@ -135,7 +135,7 @@ solution "K-Meter"
 
 --------------------------------------------------------------------------------
 
-	project ("K-Meter Stand-alone (Stereo)")
+	project ("K-Meter (Stereo)")
 		kind "WindowedApp"
 		targetname "K-Meter (Stereo"
 		targetprefix ""
@@ -168,7 +168,7 @@ solution "K-Meter"
 
 --------------------------------------------------------------------------------
 
-	project ("K-Meter Stand-alone (Surround)")
+	project ("K-Meter (Surround)")
 		kind "WindowedApp"
 		targetname "K-Meter (Surround"
 		targetprefix ""

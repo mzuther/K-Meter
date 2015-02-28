@@ -3,14 +3,15 @@
 <JUCERPROJECT id="LEmwq6" name="K-Meter" projectType="audioplug" version="2.1.0"
               bundleIdentifier="de.mzuther.KMeter" buildVST="1" buildRTAS="0"
               buildAU="0" pluginName="K-Meter" pluginDesc="Implementation of a K-System meter according to Bob Katz' specifications"
-              pluginManufacturer="mzuther" pluginManufacturerCode="mz" pluginCode="kmet"
-              pluginChannelConfigs="{1, 1}, {2, 2}" pluginIsSynth="0" pluginWantsMidiIn="0"
-              pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1" pluginTailLength="0"
-              pluginEditorRequiresKeys="0" pluginAUExportPrefix="KMeterAU"
+              pluginManufacturer="Martin Zuther" pluginManufacturerCode="MZut"
+              pluginCode="kmet" pluginChannelConfigs="{1, 1}, {2, 2}" pluginIsSynth="0"
+              pluginWantsMidiIn="0" pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1"
+              pluginTailLength="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="KMeterAU"
               pluginAUViewClass="KMeterAU_V1" pluginRTASCategory="ePlugInCategory_None"
-              jucerVersion="3.1.0" companyName="mzuther" aaxIdentifier="de.mzuther.KMeter"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" includeBinaryInAppConfig="1"
-              buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com">
+              jucerVersion="3.1.0" companyName="Martin Zuther" aaxIdentifier="de.mzuther.KMeter"
+              pluginAAXCategory="AAX_ePlugInCategory_None" includeBinaryInAppConfig="1"
+              buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
+              companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategAnalysis">
   <EXPORTFORMATS>
     <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/SDKs/vstsdk2.4">
       <CONFIGURATIONS>

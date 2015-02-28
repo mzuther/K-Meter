@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{D113314F-357B-5149-80DD-8A905B489C83}</ProjectGuid>
+		<ProjectGuid>{A8C5D0F8-CDC5-C7BE-1BB4-4AE4109300CF}</ProjectGuid>
 		<RootNamespace>K-Meter VST (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>

@@ -19,10 +19,9 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{8A806D53-A928-994F-2301-A5959C06A6C3}</ProjectGuid>
-		<RootNamespace>K-Meter Stand-alone (Surround)</RootNamespace>
+		<ProjectGuid>{D0F4E186-D48D-E536-D0A6-30BCED48361C}</ProjectGuid>
+		<RootNamespace>K-Meter (Surround)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
-		<PlatformToolset>Windows7.1SDK</PlatformToolset>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

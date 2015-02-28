@@ -294,16 +294,16 @@
  #define JucePlugin_Desc                   "Implementation of a K-System meter according to Bob Katz\' specifications"
 #endif
 #ifndef  JucePlugin_Manufacturer
- #define JucePlugin_Manufacturer           "mzuther"
+ #define JucePlugin_Manufacturer           "Martin Zuther"
 #endif
 #ifndef  JucePlugin_ManufacturerWebsite
- #define JucePlugin_ManufacturerWebsite    ""
+ #define JucePlugin_ManufacturerWebsite    "http://code.mzuther.de/"
 #endif
 #ifndef  JucePlugin_ManufacturerEmail
  #define JucePlugin_ManufacturerEmail      ""
 #endif
 #ifndef  JucePlugin_ManufacturerCode
- #define JucePlugin_ManufacturerCode       'mz'
+ #define JucePlugin_ManufacturerCode       'MZut'
 #endif
 #ifndef  JucePlugin_PluginCode
  #define JucePlugin_PluginCode             'kmet'
@@ -345,7 +345,7 @@
  #define JucePlugin_VSTUniqueID            JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_VSTCategory
- #define JucePlugin_VSTCategory            kPlugCategEffect
+ #define JucePlugin_VSTCategory            kPlugCategAnalysis
 #endif
 #ifndef  JucePlugin_AUMainType
  #define JucePlugin_AUMainType             kAudioUnitType_Effect
@@ -390,7 +390,7 @@
  #define JucePlugin_AAXProductId           JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_AAXCategory
- #define JucePlugin_AAXCategory            AAX_ePlugInCategory_Dynamics
+ #define JucePlugin_AAXCategory            AAX_ePlugInCategory_None
 #endif
 #ifndef  JucePlugin_AAXDisableBypass
  #define JucePlugin_AAXDisableBypass       0
