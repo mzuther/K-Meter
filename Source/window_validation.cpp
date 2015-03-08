@@ -239,11 +239,13 @@ void WindowValidation::buttonClicked(Button *button)
         // validation file has already been initialised
         pProcessor->startValidation(fileValidation, nSelectedChannel, bReportCSV, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bStereoMeterValue, bPhaseCorrelation);
 
-        exitModalState(2);
+        int exitValue = 2;
+        exitModalState(exitValue);
     }
     else if (button == &ButtonCancel)
     {
-        exitModalState(1);
+        int exitValue = 1;
+        exitModalState(exitValue);
     }
     else if (button == &ButtonFileSelection)
     {
@@ -266,7 +268,8 @@ void WindowValidation::buttonClicked(Button *button)
 
 void WindowValidation::closeButtonPressed()
 {
-    exitModalState(0);
+    int exitValue = 0;
+    exitModalState(exitValue);
 }
 
 
