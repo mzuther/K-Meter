@@ -55,63 +55,63 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
 
     ButtonK20.setRadioGroupId(1);
     ButtonK20.addListener(this);
-    addAndMakeVisible(&ButtonK20);
+    addAndMakeVisible(ButtonK20);
 
     ButtonK14.setRadioGroupId(1);
     ButtonK14.addListener(this);
-    addAndMakeVisible(&ButtonK14);
+    addAndMakeVisible(ButtonK14);
 
     ButtonK12.setRadioGroupId(1);
     ButtonK12.addListener(this);
-    addAndMakeVisible(&ButtonK12);
+    addAndMakeVisible(ButtonK12);
 
     ButtonNormal.setRadioGroupId(1);
     ButtonNormal.addListener(this);
-    addAndMakeVisible(&ButtonNormal);
+    addAndMakeVisible(ButtonNormal);
 
     ButtonItuBs1770.addListener(this);
-    addAndMakeVisible(&ButtonItuBs1770);
+    addAndMakeVisible(ButtonItuBs1770);
 
     ButtonRms.addListener(this);
-    addAndMakeVisible(&ButtonRms);
+    addAndMakeVisible(ButtonRms);
 
     updateAverageAlgorithm(false);
 
     ButtonExpanded.addListener(this);
-    addAndMakeVisible(&ButtonExpanded);
+    addAndMakeVisible(ButtonExpanded);
 
     ButtonSkin.addListener(this);
-    addAndMakeVisible(&ButtonSkin);
+    addAndMakeVisible(ButtonSkin);
 
     ButtonDisplayPeakMeter.addListener(this);
-    addAndMakeVisible(&ButtonDisplayPeakMeter);
+    addAndMakeVisible(ButtonDisplayPeakMeter);
 
     ButtonInfinitePeakHold.addListener(this);
-    addAndMakeVisible(&ButtonInfinitePeakHold);
+    addAndMakeVisible(ButtonInfinitePeakHold);
 
     ButtonMono.addListener(this);
-    addAndMakeVisible(&ButtonMono);
+    addAndMakeVisible(ButtonMono);
 
     ButtonReset.addListener(this);
-    addAndMakeVisible(&ButtonReset);
+    addAndMakeVisible(ButtonReset);
 
     ButtonValidation.addListener(this);
-    addAndMakeVisible(&ButtonValidation);
+    addAndMakeVisible(ButtonValidation);
 
     ButtonAbout.addListener(this);
-    addAndMakeVisible(&ButtonAbout);
+    addAndMakeVisible(ButtonAbout);
 
 #ifdef DEBUG
     // moves debug label to the back of the editor's z-plane to that
     // it doesn't overlay (and thus block) any other components
-    addAndMakeVisible(&LabelDebug, 0);
+    addAndMakeVisible(LabelDebug, 0);
 #endif
 
     // prevent unnecessary redrawing of plugin editor
     BackgroundImage.setOpaque(true);
     // moves background image to the back of the editor's z-plane to
     // that it doesn't overlay (and thus block) any other components
-    addAndMakeVisible(&BackgroundImage, 0);
+    addAndMakeVisible(BackgroundImage, 0);
 
     if (nInputChannels <= 2)
     {
@@ -485,7 +485,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
 
         if (exitValue > 0)
         {
-            strSkinName = windowSkin.getSelectedString();
+            strSkinName = windowSkin.getSelectedSkinName();
             loadSkin();
 
             // will also apply skin to plug-in editor
@@ -521,62 +521,97 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         // manually activate button
         button->setToggleState(true, dontSendNotification);
 
-        StringPairArray strArray;
+        StringPairArray arrChapters;
 
-        strArray.set("Copyright", "(c) 2010-2015 Martin Zuther\n");
+        String pluginNameAndVersion = String(ProjectInfo::projectName);
+        pluginNameAndVersion += " v";
+        pluginNameAndVersion += JucePlugin_VersionString;
 
-        strArray.set("Contributors",
-                     L"Bob Katz\n"
-                     L"Jan Kokemüller\n"
-                     L"Filipe Coelho\n"
-                     L"Bram de Jong\n");
+        arrChapters.set(
+            pluginNameAndVersion,
+            String(JucePlugin_Desc) + ".\n");
 
-        strArray.set("Beta testing",
-                     L"Rickard (Interfearing Sounds)\n");
+        arrChapters.set(
+            "Copyright",
+            "(c) 2010-2015 Martin Zuther\n");
 
-        strArray.set("Thanks",
-                     L"Thanks to Bob Katz, all contributors "
-                     L"and beta testers and the open source "
-                     L"community at large!\n\n"
-                     L"Thank you for using free software!\n");
+        arrChapters.set(
+            "Contributors",
+            L"Bob Katz\n"
+            L"Jan Kokemüller\n"
+            L"Filipe Coelho\n"
+            L"Bram de Jong\n");
 
-        strArray.set("Libraries",
+        arrChapters.set(
+            "Beta testing",
+            L"Rickard (Interfearing Sounds)\n");
+
+        arrChapters.set(
+            "Thanks",
+            L"Thanks to Bob Katz, all contributors and beta testers "
+            L"and the open source community at large!\n\n"
+            L"Thank you for using free software!\n");
+
+        arrChapters.set(
+            "Libraries",
 #ifdef LINUX
-                     L"ALSA\n"
+            L"ALSA\n"
 #endif
-                     L"FFTW\n"
+            L"FFTW\n"
 #ifdef LINUX
-                     L"FreeType\n"
-                     L"JACK\n"
+            L"FreeType\n"
+            L"JACK\n"
 #endif
-                     L"JUCE\n"
+            L"JUCE\n"
 #if (KMETER_LV2_PLUGIN != 0)
-                     L"LV2\n"
+            L"LV2\n"
 #endif
 #ifdef LINUX
-                     L"POSIX Threads\n"
-                     L"Xlib\n"
-                     L"Xext\n"
+            L"POSIX Threads\n"
+            L"Xlib\n"
+            L"Xext\n"
 #endif
-                    );
+        );
 
 #if (JUCE_USE_VSTSDK_2_4 != 0)
-
         // display trademarks (but only when necessary)
-        strArray.set("Trademarks",
-                     L"VST PlugIn Technology by Steinberg\n");
-
+        arrChapters.set(
+            "Trademarks",
+            L"VST PlugIn Technology by Steinberg\n");
 #endif
 
 #if (JUCE_ASIO != 0)
-
         // display trademarks (but only when necessary)
-        strArray.set("Trademarks",
-                     L"ASIO Technology by Steinberg Media Technologies GmbH\n");
-
+        arrChapters.set(
+            "Trademarks",
+            L"ASIO Technology by Steinberg Media Technologies GmbH\n");
 #endif
 
-        GenericWindowAbout windowAbout(this, strArray);
+        arrChapters.set(
+            "License",
+            L"This program is free software: you can redistribute it "
+            L"and/or modify it under the terms of the GNU General "
+            L"Public License as published by the Free Software "
+            L"Foundation, either version 3 of the License, or (at "
+            L"your option) any later version.\n\n"
+
+            L"This program is distributed in the hope that it will "
+            L"be useful, but WITHOUT ANY WARRANTY; without even "
+            L"the implied warranty of MERCHANTABILITY or FITNESS "
+            L"FOR A PARTICULAR PURPOSE.  See the GNU General Public "
+            L"License for more details.\n\n"
+
+            L"You should have received a copy of the GNU General "
+            L"Public License along with this program.  If not, "
+            L"see <http://www.gnu.org/licenses/>.\n\n"
+
+            L"Thank you for using free software!");
+
+        GenericWindowAbout windowAbout(this);
+
+        // display "chapters"
+        windowAbout.addChapters(arrChapters);
+
         windowAbout.runModalLoop();
 
         // manually deactivate button

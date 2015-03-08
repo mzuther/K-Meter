@@ -64,15 +64,15 @@ WindowValidation::WindowValidation(Component *pEditorWindow, KmeterAudioProcesso
     LabelFileSelection.setColour(Label::outlineColourId, Colours::grey);
 
     // add and display the label
-    contentComponent.addAndMakeVisible(&LabelFileSelection);
+    contentComponent.addAndMakeVisible(LabelFileSelection);
 
     ButtonFileSelection.setButtonText("...");
     ButtonFileSelection.addListener(this);
-    contentComponent.addAndMakeVisible(&ButtonFileSelection);
+    contentComponent.addAndMakeVisible(ButtonFileSelection);
 
     LabelSampleRate.setText("Host SR: ", dontSendNotification);
     LabelSampleRate.setColour(Label::textColourId, Colours::black);
-    contentComponent.addAndMakeVisible(&LabelSampleRate);
+    contentComponent.addAndMakeVisible(LabelSampleRate);
 
     int nSampleRate = (int) pProcessor->getSampleRate();
     String strSampleRateThousands = String(nSampleRate / 1000);
@@ -86,11 +86,11 @@ WindowValidation::WindowValidation(Component *pEditorWindow, KmeterAudioProcesso
     LabelSampleRateValue.setColour(Label::outlineColourId, Colours::grey);
 
     // add and display the label
-    contentComponent.addAndMakeVisible(&LabelSampleRateValue);
+    contentComponent.addAndMakeVisible(LabelSampleRateValue);
 
     LabelDumpSelectedChannel.setText("Channel: ", dontSendNotification);
     LabelDumpSelectedChannel.setColour(Label::textColourId, Colours::black);
-    contentComponent.addAndMakeVisible(&LabelDumpSelectedChannel);
+    contentComponent.addAndMakeVisible(LabelDumpSelectedChannel);
 
     SliderDumpSelectedChannel.setNumberOfChannels(pProcessor->getNumChannels() - 1);
     SliderDumpSelectedChannel.setColour(GenericChannelSlider::textBoxTextColourId, Colours::black);
@@ -100,35 +100,35 @@ WindowValidation::WindowValidation(Component *pEditorWindow, KmeterAudioProcesso
     ButtonDumpCSV.setButtonText("CSV format");
     ButtonDumpCSV.setColour(ToggleButton::textColourId, Colours::black);
     ButtonDumpCSV.setToggleState(pProcessor->getBoolean(KmeterPluginParameters::selValidationCSVFormat), dontSendNotification);
-    contentComponent.addAndMakeVisible(&ButtonDumpCSV);
+    contentComponent.addAndMakeVisible(ButtonDumpCSV);
 
     SliderDumpSelectedChannel.setValue(pProcessor->getRealInteger(KmeterPluginParameters::selValidationSelectedChannel), dontSendNotification);
-    contentComponent.addAndMakeVisible(&SliderDumpSelectedChannel);
+    contentComponent.addAndMakeVisible(SliderDumpSelectedChannel);
 
     ButtonDumpAverageMeterLevel.setButtonText("Average meter level");
     ButtonDumpAverageMeterLevel.setColour(ToggleButton::textColourId, Colours::black);
     ButtonDumpAverageMeterLevel.setToggleState(pProcessor->getBoolean(KmeterPluginParameters::selValidationAverageMeterLevel), dontSendNotification);
-    contentComponent.addAndMakeVisible(&ButtonDumpAverageMeterLevel);
+    contentComponent.addAndMakeVisible(ButtonDumpAverageMeterLevel);
 
     ButtonDumpPeakMeterLevel.setButtonText("Peak meter level");
     ButtonDumpPeakMeterLevel.setColour(ToggleButton::textColourId, Colours::black);
     ButtonDumpPeakMeterLevel.setToggleState(pProcessor->getBoolean(KmeterPluginParameters::selValidationPeakMeterLevel), dontSendNotification);
-    contentComponent.addAndMakeVisible(&ButtonDumpPeakMeterLevel);
+    contentComponent.addAndMakeVisible(ButtonDumpPeakMeterLevel);
 
     ButtonDumpMaximumPeakLevel.setButtonText("Maximum peak level");
     ButtonDumpMaximumPeakLevel.setColour(ToggleButton::textColourId, Colours::black);
     ButtonDumpMaximumPeakLevel.setToggleState(pProcessor->getBoolean(KmeterPluginParameters::selValidationMaximumPeakLevel), dontSendNotification);
-    contentComponent.addAndMakeVisible(&ButtonDumpMaximumPeakLevel);
+    contentComponent.addAndMakeVisible(ButtonDumpMaximumPeakLevel);
 
     ButtonDumpStereoMeterValue.setButtonText("Stereo meter value");
     ButtonDumpStereoMeterValue.setColour(ToggleButton::textColourId, Colours::black);
     ButtonDumpStereoMeterValue.setToggleState(pProcessor->getBoolean(KmeterPluginParameters::selValidationStereoMeterValue), dontSendNotification);
-    contentComponent.addAndMakeVisible(&ButtonDumpStereoMeterValue);
+    contentComponent.addAndMakeVisible(ButtonDumpStereoMeterValue);
 
     ButtonDumpPhaseCorrelation.setButtonText("Phase correlation");
     ButtonDumpPhaseCorrelation.setColour(ToggleButton::textColourId, Colours::black);
     ButtonDumpPhaseCorrelation.setToggleState(pProcessor->getBoolean(KmeterPluginParameters::selValidationPhaseCorrelation), dontSendNotification);
-    contentComponent.addAndMakeVisible(&ButtonDumpPhaseCorrelation);
+    contentComponent.addAndMakeVisible(ButtonDumpPhaseCorrelation);
 
     // create and position a "validation" button which closes the
     // window and runs the selected audio file when clicked
@@ -140,7 +140,7 @@ WindowValidation::WindowValidation(Component *pEditorWindow, KmeterAudioProcesso
     // add "validation" window as button listener and display the
     // button
     ButtonValidation.addListener(this);
-    contentComponent.addAndMakeVisible(&ButtonValidation);
+    contentComponent.addAndMakeVisible(ButtonValidation);
 
     // create and position a "validation" button which closes the
     // window when clicked
@@ -151,7 +151,7 @@ WindowValidation::WindowValidation(Component *pEditorWindow, KmeterAudioProcesso
 
     // add "validation" window as button listener and display the button
     ButtonCancel.addListener(this);
-    contentComponent.addAndMakeVisible(&ButtonCancel);
+    contentComponent.addAndMakeVisible(ButtonCancel);
 
     int nPositionX = 4;
     int nPositionY = 7;
