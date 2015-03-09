@@ -34,7 +34,7 @@ KmeterPluginParameters::KmeterPluginParameters()
     strSettingsID = "KMETER_SETTINGS";
 
 
-    WrappedParameterSwitch *ParameterCrestFactor = new WrappedParameterSwitch();
+    PluginParameterSwitch *ParameterCrestFactor = new PluginParameterSwitch();
     ParameterCrestFactor->setName("Metering mode");
 
     ParameterCrestFactor->addConstant(0.0f,  "Normal");
@@ -46,7 +46,7 @@ KmeterPluginParameters::KmeterPluginParameters()
     add(ParameterCrestFactor, selCrestFactor);
 
 
-    WrappedParameterSwitch *ParameterAverageAlgorithm = new WrappedParameterSwitch();
+    PluginParameterSwitch *ParameterAverageAlgorithm = new PluginParameterSwitch();
     ParameterAverageAlgorithm->setName("Averaging algorithm");
 
     ParameterAverageAlgorithm->addConstant(selAlgorithmRms, "RMS");
@@ -56,36 +56,36 @@ KmeterPluginParameters::KmeterPluginParameters()
     add(ParameterAverageAlgorithm, selAverageAlgorithm);
 
 
-    WrappedParameterToggleSwitch *ParameterExpanded = new WrappedParameterToggleSwitch("Off", "On");
+    PluginParameterToggleSwitch *ParameterExpanded = new PluginParameterToggleSwitch("Off", "On");
     ParameterExpanded->setName("Expand meter");
     ParameterExpanded->setDefaultBoolean(false, true);
     add(ParameterExpanded, selExpanded);
 
 
-    WrappedParameterToggleSwitch *ParameterShowPeaks = new WrappedParameterToggleSwitch("Off", "On");
+    PluginParameterToggleSwitch *ParameterShowPeaks = new PluginParameterToggleSwitch("Off", "On");
     ParameterShowPeaks->setName("Show peaks");
     ParameterShowPeaks->setDefaultBoolean(false, true);
     add(ParameterShowPeaks, selShowPeaks);
 
 
-    WrappedParameterToggleSwitch *ParameterInfinitePeakHold = new WrappedParameterToggleSwitch("Off", "On");
+    PluginParameterToggleSwitch *ParameterInfinitePeakHold = new PluginParameterToggleSwitch("Off", "On");
     ParameterInfinitePeakHold->setName("Peak hold");
     ParameterInfinitePeakHold->setDefaultBoolean(false, true);
     add(ParameterInfinitePeakHold, selInfinitePeakHold);
 
 
-    WrappedParameterToggleSwitch *ParameterMono = new WrappedParameterToggleSwitch("Off", "On");
+    PluginParameterToggleSwitch *ParameterMono = new PluginParameterToggleSwitch("Off", "On");
     ParameterMono->setName("Mono input");
     ParameterMono->setDefaultBoolean(false, true);
     add(ParameterMono, selMono);
 
 
-    WrappedParameterString *ParameterValidationFileName = new WrappedParameterString(String::empty);
+    PluginParameterString *ParameterValidationFileName = new PluginParameterString(String::empty);
     ParameterValidationFileName->setName("Validation: file name");
     add(ParameterValidationFileName, selValidationFileName);
 
 
-    WrappedParameterSwitch *ParameterValidationSelectedChannel = new WrappedParameterSwitch();
+    PluginParameterSwitch *ParameterValidationSelectedChannel = new PluginParameterSwitch();
     ParameterValidationSelectedChannel->setName("Validation: selected channel");
 
     // values correspond to the channel index in AudioSampleBuffer
@@ -103,37 +103,37 @@ KmeterPluginParameters::KmeterPluginParameters()
     add(ParameterValidationSelectedChannel, selValidationSelectedChannel);
 
 
-    WrappedParameterToggleSwitch *ParameterValidationAverageMeterLevel = new WrappedParameterToggleSwitch("Off", "On");
+    PluginParameterToggleSwitch *ParameterValidationAverageMeterLevel = new PluginParameterToggleSwitch("Off", "On");
     ParameterValidationAverageMeterLevel->setName("Validation: average meter level");
     ParameterValidationAverageMeterLevel->setDefaultBoolean(true, true);
     add(ParameterValidationAverageMeterLevel, selValidationAverageMeterLevel);
 
 
-    WrappedParameterToggleSwitch *ParameterValidationPeakMeterLevel = new WrappedParameterToggleSwitch("Off", "On");
+    PluginParameterToggleSwitch *ParameterValidationPeakMeterLevel = new PluginParameterToggleSwitch("Off", "On");
     ParameterValidationPeakMeterLevel->setName("Validation: peak meter level");
     ParameterValidationPeakMeterLevel->setDefaultBoolean(true, true);
     add(ParameterValidationPeakMeterLevel, selValidationPeakMeterLevel);
 
 
-    WrappedParameterToggleSwitch *ParameterValidationMaximumPeakLevel = new WrappedParameterToggleSwitch("Off", "On");
+    PluginParameterToggleSwitch *ParameterValidationMaximumPeakLevel = new PluginParameterToggleSwitch("Off", "On");
     ParameterValidationMaximumPeakLevel->setName("Validation: maximum peak level");
     ParameterValidationMaximumPeakLevel->setDefaultBoolean(true, true);
     add(ParameterValidationMaximumPeakLevel, selValidationMaximumPeakLevel);
 
 
-    WrappedParameterToggleSwitch *ParameterValidationStereoMeterValue = new WrappedParameterToggleSwitch("Off", "On");
+    PluginParameterToggleSwitch *ParameterValidationStereoMeterValue = new PluginParameterToggleSwitch("Off", "On");
     ParameterValidationStereoMeterValue->setName("Validation: stereo meter value");
     ParameterValidationStereoMeterValue->setDefaultBoolean(true, true);
     add(ParameterValidationStereoMeterValue, selValidationStereoMeterValue);
 
 
-    WrappedParameterToggleSwitch *ParameterValidationPhaseCorrelation = new WrappedParameterToggleSwitch("Off", "On");
+    PluginParameterToggleSwitch *ParameterValidationPhaseCorrelation = new PluginParameterToggleSwitch("Off", "On");
     ParameterValidationPhaseCorrelation->setName("Validation: phase correlation");
     ParameterValidationPhaseCorrelation->setDefaultBoolean(true, true);
     add(ParameterValidationPhaseCorrelation, selValidationPhaseCorrelation);
 
 
-    WrappedParameterToggleSwitch *ParameterValidationCSVFormat = new WrappedParameterToggleSwitch("Off", "On");
+    PluginParameterToggleSwitch *ParameterValidationCSVFormat = new PluginParameterToggleSwitch("Off", "On");
     ParameterValidationCSVFormat->setName("Validation: CSV output format");
     ParameterValidationCSVFormat->setDefaultBoolean(false, true);
     add(ParameterValidationCSVFormat, selValidationCSVFormat);
@@ -158,7 +158,7 @@ KmeterPluginParameters::KmeterPluginParameters()
     // load name of default skin
     String strDefaultSkinName = fileDefaultSkin.loadFileAsString();
 
-    WrappedParameterString *ParameterSkinName = new WrappedParameterString(strDefaultSkinName);
+    PluginParameterString *ParameterSkinName = new PluginParameterString(strDefaultSkinName);
     ParameterSkinName->setName("Skin");
     add(ParameterSkinName, selSkinName);
 }

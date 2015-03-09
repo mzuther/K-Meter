@@ -2,76 +2,76 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="Source">
-			<UniqueIdentifier>{12A58E03-672D-B7DF-ED16-FBF2273F4CF9}</UniqueIdentifier>
+			<UniqueIdentifier>{BADB7DF9-117E-7437-4951-67E2B0CDC6A7}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common">
-			<UniqueIdentifier>{9950C121-ED98-8EDE-BEBB-7D08CAB3C636}</UniqueIdentifier>
+			<UniqueIdentifier>{23008469-99FB-3B33-825B-0FF02FACF99D}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\math">
-			<UniqueIdentifier>{26D0047D-B977-3C06-8822-E354DC08BA04}</UniqueIdentifier>
+			<UniqueIdentifier>{F26A3E68-9BB9-C675-C30E-DBE478D0B61F}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\widgets">
-			<UniqueIdentifier>{F5041CB8-2C79-2E06-0DDE-0FA709F3E3AC}</UniqueIdentifier>
+			<UniqueIdentifier>{F9A73EF0-3441-358C-5105-9FAE38059A40}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\widgets\resources">
-			<UniqueIdentifier>{6B0D0F74-097D-0D1E-B416-239F97F74007}</UniqueIdentifier>
+			<UniqueIdentifier>{3A8ACFF1-2C6D-4A9D-3C2D-BAA0C56239DD}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\audio">
-			<UniqueIdentifier>{85B1C988-3DFD-499E-2248-C9190785B2DA}</UniqueIdentifier>
+			<UniqueIdentifier>{AB678BDB-3BEF-8EBB-CAB2-1F6BDAEE5D8E}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\skin">
-			<UniqueIdentifier>{37CBF4F9-FA29-D14F-4C83-2580878AC05D}</UniqueIdentifier>
+			<UniqueIdentifier>{2E9CC8F3-C6BD-A836-F0BC-AC1F9E946050}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\parameter_juggler">
-			<UniqueIdentifier>{379347E0-690C-A090-6072-6EE0362C63DA}</UniqueIdentifier>
+			<UniqueIdentifier>{438C353A-64D7-01C7-5B05-4F788A93663D}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries">
-			<UniqueIdentifier>{51888CC9-DE64-DCC9-2143-FB991089CB13}</UniqueIdentifier>
+			<UniqueIdentifier>{262DBF96-ADD8-88B7-93E7-C8A7FE7E5380}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce">
-			<UniqueIdentifier>{B08A5576-03DF-B069-E401-49438F6B30A3}</UniqueIdentifier>
+			<UniqueIdentifier>{C7F19C67-3D24-F42A-26CB-0D09DB789587}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules">
-			<UniqueIdentifier>{930D14F2-AF46-68EF-0BEF-AA42A89A5DFC}</UniqueIdentifier>
+			<UniqueIdentifier>{13FAAB21-9929-CE96-7D1F-C6ECCE146D53}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_basics">
-			<UniqueIdentifier>{05FC6ED5-8FE6-A59E-5B02-4CDF15FBDF5A}</UniqueIdentifier>
+			<UniqueIdentifier>{F41470B8-D531-444F-1A67-CBC605841617}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_devices">
-			<UniqueIdentifier>{F11D736F-A6F7-4371-AE7C-2DA509E15547}</UniqueIdentifier>
+			<UniqueIdentifier>{EC48BDF4-280A-E15E-AD57-2E6D295D1DB2}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_formats">
-			<UniqueIdentifier>{891805C1-418B-3FC2-8677-63F8B33C6939}</UniqueIdentifier>
+			<UniqueIdentifier>{1AC4BB01-E9F9-5FF3-DBE4-907AAB43CC92}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_processors">
-			<UniqueIdentifier>{AE1ABD55-35BF-3E15-3B62-233E078DC3E9}</UniqueIdentifier>
+			<UniqueIdentifier>{16A03013-2D2F-BCE6-7D8A-CEC638A85CAA}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_utils">
-			<UniqueIdentifier>{B7A9D07E-6D4D-E8F6-E4E4-854A0CC4CCA4}</UniqueIdentifier>
+			<UniqueIdentifier>{97C19572-F17E-543C-3A88-888D123C26EE}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_core">
-			<UniqueIdentifier>{E4EF6AC5-A968-47DE-95BC-B6CD11591494}</UniqueIdentifier>
+			<UniqueIdentifier>{8CD4BF1D-5ED9-2193-BE9C-FE3B947C6864}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_cryptography">
-			<UniqueIdentifier>{55BF9519-AAC6-7516-F18B-C6CEED7033CD}</UniqueIdentifier>
+			<UniqueIdentifier>{04DA3D92-F46D-A585-D4F5-8C28354FCD93}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_data_structures">
-			<UniqueIdentifier>{E55CBA07-491B-85A3-D1B8-8B1D256E0DE9}</UniqueIdentifier>
+			<UniqueIdentifier>{8A2C3806-DBAF-C066-0A8C-FA4B2E1A3D5B}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_events">
-			<UniqueIdentifier>{D5B5C1A9-7C36-4DB8-EF42-F4BBAEB6467E}</UniqueIdentifier>
+			<UniqueIdentifier>{5E12B535-1645-2459-9CEA-6FE3A006647C}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_graphics">
-			<UniqueIdentifier>{FA41A4E5-9691-FD24-E7CD-A311586CEEA1}</UniqueIdentifier>
+			<UniqueIdentifier>{F08473FB-D98C-55F6-5F53-C91FECE57844}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_gui_basics">
-			<UniqueIdentifier>{747FB867-36C5-5066-A4C9-C3D398C37203}</UniqueIdentifier>
+			<UniqueIdentifier>{0957B59F-B6D2-A914-06B2-5B4E0878D7EA}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_gui_extra">
-			<UniqueIdentifier>{74C1176B-9D98-9F0E-13E1-15DA0B20562B}</UniqueIdentifier>
+			<UniqueIdentifier>{EED9D9F4-CD13-EAFF-E2A6-4477141D9061}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_video">
-			<UniqueIdentifier>{BF3477BD-401A-44A8-0DAC-9E278FD64BA8}</UniqueIdentifier>
+			<UniqueIdentifier>{37214B2B-07B6-D8F2-15AA-57AA7CD2D314}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -171,25 +171,25 @@
 		<ClInclude Include="..\..\..\Source\common\skin\generic_skin.h">
 			<Filter>Source\common\skin</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_continuous.h">
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_toggle_switch.h">
 			<Filter>Source\common\parameter_juggler</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_toggle_switch.h">
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter.h">
 			<Filter>Source\common\parameter_juggler</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter.h">
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_switch.h">
+			<Filter>Source\common\parameter_juggler</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_combined.h">
 			<Filter>Source\common\parameter_juggler</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\Source\common\parameter_juggler\parameter_juggler.h">
 			<Filter>Source\common\parameter_juggler</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_switch.h">
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_continuous.h">
 			<Filter>Source\common\parameter_juggler</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_combined.h">
-			<Filter>Source\common\parameter_juggler</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_string.h">
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_string.h">
 			<Filter>Source\common\parameter_juggler</Filter>
 		</ClInclude>
 	</ItemGroup>
@@ -287,22 +287,22 @@
 		<ClCompile Include="..\..\..\Source\common\skin\generic_skin.cpp">
 			<Filter>Source\common\skin</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_toggle_switch.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_switch.cpp">
 			<Filter>Source\common\parameter_juggler</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\parameter_juggler\parameter_juggler.cpp">
 			<Filter>Source\common\parameter_juggler</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_string.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_toggle_switch.cpp">
 			<Filter>Source\common\parameter_juggler</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_switch.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_string.cpp">
 			<Filter>Source\common\parameter_juggler</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_continuous.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_combined.cpp">
 			<Filter>Source\common\parameter_juggler</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_combined.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_continuous.cpp">
 			<Filter>Source\common\parameter_juggler</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\libraries\juce\modules\juce_audio_basics\juce_audio_basics.cpp">
