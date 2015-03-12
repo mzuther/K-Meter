@@ -189,12 +189,6 @@ void KmeterAudioProcessor::clearChangeFlag(int nIndex)
 }
 
 
-void KmeterAudioProcessor::setChangeFlag(int nIndex)
-{
-    pluginParameters.setChangeFlag(nIndex);
-}
-
-
 bool KmeterAudioProcessor::hasChanged(int nIndex)
 {
     return pluginParameters.hasChanged(nIndex);
