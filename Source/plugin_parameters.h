@@ -56,9 +56,9 @@ public:
         selInfinitePeakHold,
         selMono,
 
-        nNumParametersRevealed,
+        numberOfParametersRevealed,
 
-        selValidationFileName = nNumParametersRevealed,
+        selValidationFileName = numberOfParametersRevealed,
         selValidationSelectedChannel,
         selValidationAverageMeterLevel,
         selValidationPeakMeterLevel,
@@ -68,7 +68,7 @@ public:
         selValidationCSVFormat,
         selSkinName,
 
-        nNumParametersComplete,
+        numberOfParametersComplete,
 
         selNormal = 0,
         selK12,

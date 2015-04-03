@@ -816,8 +816,8 @@ void KmeterAudioProcessor::getStateInformation(MemoryBlock &destData)
 
 void KmeterAudioProcessor::setStateInformation(const void *data, int sizeInBytes)
 {
-    ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
-    pluginParameters.loadFromXml(xml);
+    ScopedPointer<XmlElement> xmlDocument(getXmlFromBinary(data, sizeInBytes));
+    pluginParameters.loadFromXml(xmlDocument);
 
     updateParameters(true);
 }

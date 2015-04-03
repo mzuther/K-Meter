@@ -31,16 +31,15 @@
 
 KmeterPluginParameters::KmeterPluginParameters()
 {
-    strSettingsID = "KMETER_SETTINGS";
-
+    jugglerID = "KMETER_SETTINGS";
 
     PluginParameterSwitch *ParameterCrestFactor = new PluginParameterSwitch();
     ParameterCrestFactor->setName("Metering mode");
 
-    ParameterCrestFactor->addConstant(0.0f,  "Normal");
-    ParameterCrestFactor->addConstant(12.0f, "K-12");
-    ParameterCrestFactor->addConstant(14.0f, "K-14");
-    ParameterCrestFactor->addConstant(20.0f, "K-20");
+    ParameterCrestFactor->addPreset(0.0f,  "Normal");
+    ParameterCrestFactor->addPreset(12.0f, "K-12");
+    ParameterCrestFactor->addPreset(14.0f, "K-14");
+    ParameterCrestFactor->addPreset(20.0f, "K-20");
 
     ParameterCrestFactor->setDefaultRealFloat(20.0f, true);
     add(ParameterCrestFactor, selCrestFactor);
@@ -49,32 +48,32 @@ KmeterPluginParameters::KmeterPluginParameters()
     PluginParameterSwitch *ParameterAverageAlgorithm = new PluginParameterSwitch();
     ParameterAverageAlgorithm->setName("Averaging algorithm");
 
-    ParameterAverageAlgorithm->addConstant(selAlgorithmRms, "RMS");
-    ParameterAverageAlgorithm->addConstant(selAlgorithmItuBs1770,  "ITU-R BS.1770-1");
+    ParameterAverageAlgorithm->addPreset(selAlgorithmRms, "RMS");
+    ParameterAverageAlgorithm->addPreset(selAlgorithmItuBs1770,  "ITU-R BS.1770-1");
 
     ParameterAverageAlgorithm->setDefaultRealFloat(selAlgorithmItuBs1770, true);
     add(ParameterAverageAlgorithm, selAverageAlgorithm);
 
 
-    PluginParameterToggleSwitch *ParameterExpanded = new PluginParameterToggleSwitch("Off", "On");
+    PluginParameterBoolean *ParameterExpanded = new PluginParameterBoolean("Off", "On");
     ParameterExpanded->setName("Expand meter");
     ParameterExpanded->setDefaultBoolean(false, true);
     add(ParameterExpanded, selExpanded);
 
 
-    PluginParameterToggleSwitch *ParameterShowPeaks = new PluginParameterToggleSwitch("Off", "On");
+    PluginParameterBoolean *ParameterShowPeaks = new PluginParameterBoolean("Off", "On");
     ParameterShowPeaks->setName("Show peaks");
     ParameterShowPeaks->setDefaultBoolean(false, true);
     add(ParameterShowPeaks, selShowPeaks);
 
 
-    PluginParameterToggleSwitch *ParameterInfinitePeakHold = new PluginParameterToggleSwitch("Off", "On");
+    PluginParameterBoolean *ParameterInfinitePeakHold = new PluginParameterBoolean("Off", "On");
     ParameterInfinitePeakHold->setName("Peak hold");
     ParameterInfinitePeakHold->setDefaultBoolean(false, true);
     add(ParameterInfinitePeakHold, selInfinitePeakHold);
 
 
-    PluginParameterToggleSwitch *ParameterMono = new PluginParameterToggleSwitch("Off", "On");
+    PluginParameterBoolean *ParameterMono = new PluginParameterBoolean("Off", "On");
     ParameterMono->setName("Mono input");
     ParameterMono->setDefaultBoolean(false, true);
     add(ParameterMono, selMono);
@@ -89,51 +88,51 @@ KmeterPluginParameters::KmeterPluginParameters()
     ParameterValidationSelectedChannel->setName("Validation: selected channel");
 
     // values correspond to the channel index in AudioSampleBuffer
-    ParameterValidationSelectedChannel->addConstant(-1.0f, "All");
-    ParameterValidationSelectedChannel->addConstant(0.0f,   "1");
-    ParameterValidationSelectedChannel->addConstant(1.0f,   "2");
+    ParameterValidationSelectedChannel->addPreset(-1.0f, "All");
+    ParameterValidationSelectedChannel->addPreset(0.0f,   "1");
+    ParameterValidationSelectedChannel->addPreset(1.0f,   "2");
 #ifdef KMETER_SURROUND
-    ParameterValidationSelectedChannel->addConstant(2.0f,   "3");
-    ParameterValidationSelectedChannel->addConstant(3.0f,   "4");
-    ParameterValidationSelectedChannel->addConstant(4.0f,   "5");
-    ParameterValidationSelectedChannel->addConstant(5.0f,   "6");
+    ParameterValidationSelectedChannel->addPreset(2.0f,   "3");
+    ParameterValidationSelectedChannel->addPreset(3.0f,   "4");
+    ParameterValidationSelectedChannel->addPreset(4.0f,   "5");
+    ParameterValidationSelectedChannel->addPreset(5.0f,   "6");
 #endif
 
     ParameterValidationSelectedChannel->setDefaultRealFloat(-1.0f, true);
     add(ParameterValidationSelectedChannel, selValidationSelectedChannel);
 
 
-    PluginParameterToggleSwitch *ParameterValidationAverageMeterLevel = new PluginParameterToggleSwitch("Off", "On");
+    PluginParameterBoolean *ParameterValidationAverageMeterLevel = new PluginParameterBoolean("Off", "On");
     ParameterValidationAverageMeterLevel->setName("Validation: average meter level");
     ParameterValidationAverageMeterLevel->setDefaultBoolean(true, true);
     add(ParameterValidationAverageMeterLevel, selValidationAverageMeterLevel);
 
 
-    PluginParameterToggleSwitch *ParameterValidationPeakMeterLevel = new PluginParameterToggleSwitch("Off", "On");
+    PluginParameterBoolean *ParameterValidationPeakMeterLevel = new PluginParameterBoolean("Off", "On");
     ParameterValidationPeakMeterLevel->setName("Validation: peak meter level");
     ParameterValidationPeakMeterLevel->setDefaultBoolean(true, true);
     add(ParameterValidationPeakMeterLevel, selValidationPeakMeterLevel);
 
 
-    PluginParameterToggleSwitch *ParameterValidationMaximumPeakLevel = new PluginParameterToggleSwitch("Off", "On");
+    PluginParameterBoolean *ParameterValidationMaximumPeakLevel = new PluginParameterBoolean("Off", "On");
     ParameterValidationMaximumPeakLevel->setName("Validation: maximum peak level");
     ParameterValidationMaximumPeakLevel->setDefaultBoolean(true, true);
     add(ParameterValidationMaximumPeakLevel, selValidationMaximumPeakLevel);
 
 
-    PluginParameterToggleSwitch *ParameterValidationStereoMeterValue = new PluginParameterToggleSwitch("Off", "On");
+    PluginParameterBoolean *ParameterValidationStereoMeterValue = new PluginParameterBoolean("Off", "On");
     ParameterValidationStereoMeterValue->setName("Validation: stereo meter value");
     ParameterValidationStereoMeterValue->setDefaultBoolean(true, true);
     add(ParameterValidationStereoMeterValue, selValidationStereoMeterValue);
 
 
-    PluginParameterToggleSwitch *ParameterValidationPhaseCorrelation = new PluginParameterToggleSwitch("Off", "On");
+    PluginParameterBoolean *ParameterValidationPhaseCorrelation = new PluginParameterBoolean("Off", "On");
     ParameterValidationPhaseCorrelation->setName("Validation: phase correlation");
     ParameterValidationPhaseCorrelation->setDefaultBoolean(true, true);
     add(ParameterValidationPhaseCorrelation, selValidationPhaseCorrelation);
 
 
-    PluginParameterToggleSwitch *ParameterValidationCSVFormat = new PluginParameterToggleSwitch("Off", "On");
+    PluginParameterBoolean *ParameterValidationCSVFormat = new PluginParameterBoolean("Off", "On");
     ParameterValidationCSVFormat->setName("Validation: CSV output format");
     ParameterValidationCSVFormat->setDefaultBoolean(false, true);
     add(ParameterValidationCSVFormat, selValidationCSVFormat);
@@ -174,11 +173,11 @@ int KmeterPluginParameters::getNumParameters(bool bIncludeHiddenParameters)
 {
     if (bIncludeHiddenParameters)
     {
-        return nNumParametersComplete;
+        return numberOfParametersComplete;
     }
     else
     {
-        return nNumParametersRevealed;
+        return numberOfParametersRevealed;
     }
 }
 
