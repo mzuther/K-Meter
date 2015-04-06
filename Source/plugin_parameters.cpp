@@ -139,25 +139,26 @@ KmeterPluginParameters::KmeterPluginParameters()
 
 
     // the following may or may not work on Mac
-    File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
-    File fileSkinDirectory = fileApplicationDirectory.getChildFile("./kmeter-skins/");
+    File applicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
+    File skinDirectory = applicationDirectory.getChildFile("./kmeter-skins/");
 
-    // file defining the default skin's name
-    File fileDefaultSkin = fileSkinDirectory.getChildFile("default_skin.ini");
+    // locate file containing the default skin's name
+    File defaultSkinFile = skinDirectory.getChildFile("default_skin.ini");
 
-    // create file if necessary
-    if (!fileDefaultSkin.existsAsFile())
+    // make sure the file exists
+    if (!defaultSkinFile.existsAsFile())
     {
-        fileDefaultSkin.create();
+        // create file
+        defaultSkinFile.create();
 
-        // set "Default" as default skin
-        fileDefaultSkin.replaceWithText("Default", true, true);
+        // set "Default" as default skin (using Unicode encoding)
+        defaultSkinFile.replaceWithText("Default", true, true);
     }
 
-    // load name of default skin
-    String strDefaultSkinName = fileDefaultSkin.loadFileAsString();
+    // load name of default skin from file
+    String defaultSkinName = defaultSkinFile.loadFileAsString();
 
-    PluginParameterString *ParameterSkinName = new PluginParameterString(strDefaultSkinName);
+    PluginParameterString *ParameterSkinName = new PluginParameterString(defaultSkinName);
     ParameterSkinName->setName("Skin");
     add(ParameterSkinName, selSkinName);
 }
@@ -184,11 +185,11 @@ int KmeterPluginParameters::getNumParameters(bool bIncludeHiddenParameters)
 
 File KmeterPluginParameters::getValidationFile()
 {
-    File fileValidation = File(getText(selValidationFileName));
+    File validationFile = File(getText(selValidationFileName));
 
-    if (fileValidation.existsAsFile())
+    if (validationFile.existsAsFile())
     {
-        return fileValidation;
+        return validationFile;
     }
     else
     {
@@ -197,12 +198,12 @@ File KmeterPluginParameters::getValidationFile()
 }
 
 
-void KmeterPluginParameters::setValidationFile(File &fileValidation)
+void KmeterPluginParameters::setValidationFile(File &validationFile)
 {
-    if (fileValidation.existsAsFile())
+    if (validationFile.existsAsFile())
     {
-        String strFilename = fileValidation.getFullPathName();
-        setText(selValidationFileName, strFilename);
+        String validationFileName = validationFile.getFullPathName();
+        setText(selValidationFileName, validationFileName);
     }
 }
 
