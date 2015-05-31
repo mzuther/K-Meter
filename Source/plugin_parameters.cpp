@@ -29,10 +29,10 @@
 // The methods of this class may be called on the audio thread, so
 // they are absolutely time-critical!
 
-KmeterPluginParameters::KmeterPluginParameters()
+KmeterPluginParameters::KmeterPluginParameters() :
+    ParameterJuggler("KMETER_SETTINGS", numberOfParametersComplete,
+                     numberOfParametersRevealed)
 {
-    jugglerID = "KMETER_SETTINGS";
-
     PluginParameterSwitch *ParameterCrestFactor = new PluginParameterSwitch();
     ParameterCrestFactor->setName("Metering mode");
 
@@ -55,37 +55,37 @@ KmeterPluginParameters::KmeterPluginParameters()
     add(ParameterAverageAlgorithm, selAverageAlgorithm);
 
 
-    PluginParameterBoolean *ParameterExpanded = new PluginParameterBoolean("Off", "On");
+    PluginParameterBoolean *ParameterExpanded = new PluginParameterBoolean("On", "Off");
     ParameterExpanded->setName("Expand meter");
     ParameterExpanded->setDefaultBoolean(false, true);
     add(ParameterExpanded, selExpanded);
 
 
-    PluginParameterBoolean *ParameterShowPeaks = new PluginParameterBoolean("Off", "On");
+    PluginParameterBoolean *ParameterShowPeaks = new PluginParameterBoolean("On", "Off");
     ParameterShowPeaks->setName("Show peaks");
     ParameterShowPeaks->setDefaultBoolean(false, true);
     add(ParameterShowPeaks, selShowPeaks);
 
 
-    PluginParameterBoolean *ParameterInfinitePeakHold = new PluginParameterBoolean("Off", "On");
+    PluginParameterBoolean *ParameterInfinitePeakHold = new PluginParameterBoolean("On", "Off");
     ParameterInfinitePeakHold->setName("Peak hold");
     ParameterInfinitePeakHold->setDefaultBoolean(false, true);
     add(ParameterInfinitePeakHold, selInfinitePeakHold);
 
 
-    PluginParameterBoolean *ParameterMono = new PluginParameterBoolean("Off", "On");
+    PluginParameterBoolean *ParameterMono = new PluginParameterBoolean("On", "Off");
     ParameterMono->setName("Mono input");
     ParameterMono->setDefaultBoolean(false, true);
     add(ParameterMono, selMono);
 
 
     PluginParameterString *ParameterValidationFileName = new PluginParameterString(String::empty);
-    ParameterValidationFileName->setName("Validation: file name");
+    ParameterValidationFileName->setName("Validation file");
     add(ParameterValidationFileName, selValidationFileName);
 
 
     PluginParameterSwitch *ParameterValidationSelectedChannel = new PluginParameterSwitch();
-    ParameterValidationSelectedChannel->setName("Validation: selected channel");
+    ParameterValidationSelectedChannel->setName("Validation audio channel");
 
     // values correspond to the channel index in AudioSampleBuffer
     ParameterValidationSelectedChannel->addPreset(-1.0f, "All");
@@ -102,38 +102,38 @@ KmeterPluginParameters::KmeterPluginParameters()
     add(ParameterValidationSelectedChannel, selValidationSelectedChannel);
 
 
-    PluginParameterBoolean *ParameterValidationAverageMeterLevel = new PluginParameterBoolean("Off", "On");
-    ParameterValidationAverageMeterLevel->setName("Validation: average meter level");
+    PluginParameterBoolean *ParameterValidationAverageMeterLevel = new PluginParameterBoolean("On", "Off");
+    ParameterValidationAverageMeterLevel->setName("Validate average meter level");
     ParameterValidationAverageMeterLevel->setDefaultBoolean(true, true);
     add(ParameterValidationAverageMeterLevel, selValidationAverageMeterLevel);
 
 
-    PluginParameterBoolean *ParameterValidationPeakMeterLevel = new PluginParameterBoolean("Off", "On");
-    ParameterValidationPeakMeterLevel->setName("Validation: peak meter level");
+    PluginParameterBoolean *ParameterValidationPeakMeterLevel = new PluginParameterBoolean("On", "Off");
+    ParameterValidationPeakMeterLevel->setName("Validate peak meter level");
     ParameterValidationPeakMeterLevel->setDefaultBoolean(true, true);
     add(ParameterValidationPeakMeterLevel, selValidationPeakMeterLevel);
 
 
-    PluginParameterBoolean *ParameterValidationMaximumPeakLevel = new PluginParameterBoolean("Off", "On");
-    ParameterValidationMaximumPeakLevel->setName("Validation: maximum peak level");
+    PluginParameterBoolean *ParameterValidationMaximumPeakLevel = new PluginParameterBoolean("On", "Off");
+    ParameterValidationMaximumPeakLevel->setName("Validate maximum peak level");
     ParameterValidationMaximumPeakLevel->setDefaultBoolean(true, true);
     add(ParameterValidationMaximumPeakLevel, selValidationMaximumPeakLevel);
 
 
-    PluginParameterBoolean *ParameterValidationStereoMeterValue = new PluginParameterBoolean("Off", "On");
-    ParameterValidationStereoMeterValue->setName("Validation: stereo meter value");
+    PluginParameterBoolean *ParameterValidationStereoMeterValue = new PluginParameterBoolean("On", "Off");
+    ParameterValidationStereoMeterValue->setName("Validate stereo meter value");
     ParameterValidationStereoMeterValue->setDefaultBoolean(true, true);
     add(ParameterValidationStereoMeterValue, selValidationStereoMeterValue);
 
 
-    PluginParameterBoolean *ParameterValidationPhaseCorrelation = new PluginParameterBoolean("Off", "On");
-    ParameterValidationPhaseCorrelation->setName("Validation: phase correlation");
+    PluginParameterBoolean *ParameterValidationPhaseCorrelation = new PluginParameterBoolean("On", "Off");
+    ParameterValidationPhaseCorrelation->setName("Validate phase correlation");
     ParameterValidationPhaseCorrelation->setDefaultBoolean(true, true);
     add(ParameterValidationPhaseCorrelation, selValidationPhaseCorrelation);
 
 
-    PluginParameterBoolean *ParameterValidationCSVFormat = new PluginParameterBoolean("Off", "On");
-    ParameterValidationCSVFormat->setName("Validation: CSV output format");
+    PluginParameterBoolean *ParameterValidationCSVFormat = new PluginParameterBoolean("CSV", "Full");
+    ParameterValidationCSVFormat->setName("Validation output format");
     ParameterValidationCSVFormat->setDefaultBoolean(false, true);
     add(ParameterValidationCSVFormat, selValidationCSVFormat);
 
@@ -167,19 +167,6 @@ KmeterPluginParameters::KmeterPluginParameters()
 KmeterPluginParameters::~KmeterPluginParameters()
 {
     // parameters will be deleted in "ParameterJuggler"
-}
-
-
-int KmeterPluginParameters::getNumParameters(bool bIncludeHiddenParameters)
-{
-    if (bIncludeHiddenParameters)
-    {
-        return numberOfParametersComplete;
-    }
-    else
-    {
-        return numberOfParametersRevealed;
-    }
 }
 
 
