@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{58AB90B8-FD3B-72E5-95A7-B46485E3474F}</ProjectGuid>
+		<ProjectGuid>{91EAAD8D-105C-3263-B274-D23C7211D83C}</ProjectGuid>
 		<RootNamespace>K-Meter (Surround)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -218,7 +218,6 @@
 		<ClInclude Include="..\..\..\Source\meter_ballistics.h" />
 		<ClInclude Include="..\..\..\Source\plugin_editor.h" />
 		<ClInclude Include="..\..\..\Source\standalone_application.h" />
-		<ClInclude Include="..\..\..\Source\common\tools.h" />
 		<ClInclude Include="..\..\..\Source\common\mz_juce_common.h" />
 		<ClInclude Include="..\..\..\Source\common\math\averager.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_plugin_standalone.h" />
