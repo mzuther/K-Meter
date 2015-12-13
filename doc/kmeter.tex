@@ -98,22 +98,15 @@ Science''.
 \label{chap:installation}
 
 In order to use the pre-compiled binaries, simply extract the
-\textbf{traKmeter} files from the downloaded archive.  For the
-plug-ins, you'll then have to move the extracted files to your
-respective plug-in folder (\path{~/.lv2}, \path{~/.vst},
+\textbf{K-Meter} files from the downloaded archive.  For the plug-ins,
+you'll then have to move the extracted files to your respective
+plug-in folder (\path{~/.lv2}, \path{~/.vst},
 \path{C:\Program Files\Steinberg\VstPlugins\} or the like).
 
 Loading K-Meter may take a few seconds: it checks your computer's
 capabilities on start-up so that FFT calculations will run at maximum
 speed.  Depending on your computer, this little wait in the beginning
 may well result in lower resource usage later.
-
-\section{Windows}
-
-If you move the pre-compiled binaries to another directory, please
-make sure to also move the file \path{libfftw3f-3.dll} (or
-\path{libfftw3f-3_x64.dll}) to this directory.  Otherwise, you will
-not be able to use K-Meter.
 
 \chapter{Controls}
 \label{chap:controls}
@@ -785,7 +778,7 @@ platform, you should run \emph{premake} using the scripts
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 3.0.8 \\
+  Version:     \> 3.2.0 \\
   License:     \> GPL v2 (among others) \\
   Homepage:    \> \href{http://www.juce.com/}{www.juce.com}
 \end{tabbing}
@@ -870,11 +863,11 @@ Extract the source code archive into the directory
 \path{libraries/fftw3} and the archive containing the pre-compiled
 binaries into the directory \path{libraries/fftw3/bin}.
 
-Please note that in order to run K-Meter on Windows, the library
-\path{libfftw3f-3.dll} (or \path{libfftw3f-3_x64.dll}) \textbf{must}
+Please note that in order to run K-Meter on Windows, the directory
+\path{kmeter} containing the FFTW libraries (and skins) \textbf{must}
 be located in the same directory as the standalone or plug-in.  To
-make things a little easier for you, I have already placed these files
-in the directories \path{bin} and \path{bin/final}.
+make things a little easier for you, I have already placed this
+directory in \path{bin} and \path{bin/final}.
 
 \subsection{Python}
 

@@ -131,7 +131,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
 
     // the following may or may not work on Mac
     File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
-    fileSkinDirectory = fileApplicationDirectory.getChildFile("./kmeter-skins/");
+    fileSkinDirectory = fileApplicationDirectory.getChildFile("./kmeter/skins/");
 
     strSkinName = pProcessor->getParameterSkinName();
     loadSkin();

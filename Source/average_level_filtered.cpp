@@ -44,9 +44,9 @@ AverageLevelFiltered::AverageLevelFiltered(KmeterAudioProcessor *processor, cons
     File fileCurrentExecutable = File::getSpecialLocation(File::currentExecutableFile);
 
 #ifdef _WIN64
-    File fileDynamicLibraryFFTW = fileCurrentExecutable.getSiblingFile("libfftw3f-3_x64.dll");
+    File fileDynamicLibraryFFTW = fileCurrentExecutable.getSiblingFile("kmeter/fftw/libfftw3f-3_x64.dll");
 #else
-    File fileDynamicLibraryFFTW = fileCurrentExecutable.getSiblingFile("libfftw3f-3.dll");
+    File fileDynamicLibraryFFTW = fileCurrentExecutable.getSiblingFile("kmeter/fftw/libfftw3f-3.dll");
 #endif
 
     String strDynamicLibraryFFTW = fileDynamicLibraryFFTW.getFullPathName();

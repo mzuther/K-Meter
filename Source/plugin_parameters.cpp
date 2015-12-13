@@ -140,7 +140,7 @@ KmeterPluginParameters::KmeterPluginParameters() :
 
     // the following may or may not work on Mac
     File applicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
-    File skinDirectory = applicationDirectory.getChildFile("./kmeter-skins/");
+    File skinDirectory = applicationDirectory.getChildFile("./kmeter/skins/");
 
     // locate file containing the default skin's name
     File defaultSkinFile = skinDirectory.getChildFile("default_skin.ini");
