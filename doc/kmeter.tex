@@ -23,7 +23,7 @@
       }}}
 }
 
-\author{\normalsize\copyright{} 2010-2014
+\author{\normalsize\copyright{} 2010-2015
   \href{http://www.mzuther.de/}{Martin Zuther}}
 
 \date{\normalsize \emph{Last edited on \today}}
@@ -92,7 +92,7 @@ In case you want to use the K-14 meter, attenuate the monitor gain by
 For more information about the K-System, please see
 \href{http://www.digido.com/level-practices-part-2-includes-the-k-system.html}{Bob's
   website} or his great book ``Mastering Audio -- The Art and the
-Science''.
+Science (second edition)''.
 
 \chapter{Installation}
 \label{chap:installation}
@@ -452,6 +452,10 @@ loudness gating).  A word of warning: these audio files may
 \textbf{damage your ears} and speakers, so please watch your monitor
 levels!
 
+Begin by starting \textbf{K-Meter}.  If in a Bash shell, try this:
+
+\path{./kmeter_stereo 2>&1 | tee /tmp/validation.log}
+
 \begin{wrapfigure}{r}{0.395\linewidth}
   \includegraphics[scale=\screenshotscale,clip]{include/images/dialog_validation.png}
 \end{wrapfigure}
@@ -491,7 +495,7 @@ mixers are set to the correct levels.
     Avg level meter &
     meter ballistics &
     \Checkmark{} &
-    \Checkmark{} \\
+    (\Checkmark{}) \\
 
     &
     readings &

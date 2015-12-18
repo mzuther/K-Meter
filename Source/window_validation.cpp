@@ -253,7 +253,7 @@ void WindowValidation::buttonClicked(Button *button)
         formatManager.registerBasicFormats();
         String strWildcards = formatManager.getWildcardForAllFormats();
 
-        FileChooser browser("Open audio file for validation", fileValidation, strWildcards, true);
+        FileChooser browser("Open audio file for validation", fileValidation, strWildcards, false);
 
         if (browser.showDialog(FileBrowserComponent::openMode | FileBrowserComponent::canSelectFiles, nullptr))
         {
