@@ -12,6 +12,7 @@
 bin/*.dll
 bin/*.exe
 bin/*.so
+bin/kmeter/skins/default_skin.ini
 bin/kmeter_stereo_*
 bin/kmeter_surround_*
 bin/intermediate_*

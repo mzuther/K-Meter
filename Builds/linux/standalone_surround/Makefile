@@ -108,44 +108,44 @@ ifeq ($(config),release64)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/plugin_processor.o \
-	$(OBJDIR)/plugin_parameters.o \
-	$(OBJDIR)/skin.o \
 	$(OBJDIR)/main.o \
-	$(OBJDIR)/average_level_filtered.o \
+	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/window_validation.o \
-	$(OBJDIR)/meter_bar.o \
+	$(OBJDIR)/standalone_application.o \
+	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/peak_label.o \
 	$(OBJDIR)/kmeter.o \
-	$(OBJDIR)/standalone_application.o \
 	$(OBJDIR)/meter_ballistics.o \
-	$(OBJDIR)/plugin_editor.o \
-	$(OBJDIR)/audio_file_player.o \
+	$(OBJDIR)/average_level_filtered.o \
+	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/overflow_meter.o \
-	$(OBJDIR)/averager.o \
-	$(OBJDIR)/generic_horizontal_meter.o \
-	$(OBJDIR)/slider_combined.o \
-	$(OBJDIR)/slider_switch.o \
-	$(OBJDIR)/generic_meter_segment.o \
-	$(OBJDIR)/generic_window_skin.o \
+	$(OBJDIR)/audio_file_player.o \
+	$(OBJDIR)/meter_bar.o \
+	$(OBJDIR)/skin.o \
 	$(OBJDIR)/generic_window_about.o \
 	$(OBJDIR)/slider_continuous.o \
-	$(OBJDIR)/slider_switch_linear_bar.o \
 	$(OBJDIR)/generic_channel_slider.o \
-	$(OBJDIR)/generic_plugin_standalone.o \
-	$(OBJDIR)/generic_state_label.o \
+	$(OBJDIR)/generic_window_skin.o \
+	$(OBJDIR)/slider_combined.o \
+	$(OBJDIR)/generic_horizontal_meter.o \
 	$(OBJDIR)/generic_meter_bar.o \
+	$(OBJDIR)/generic_state_label.o \
+	$(OBJDIR)/slider_switch.o \
+	$(OBJDIR)/generic_plugin_standalone.o \
+	$(OBJDIR)/slider_switch_linear_bar.o \
+	$(OBJDIR)/generic_meter_segment.o \
 	$(OBJDIR)/resources.o \
+	$(OBJDIR)/generic_skin.o \
+	$(OBJDIR)/averager.o \
+	$(OBJDIR)/plugin_parameter_combined.o \
+	$(OBJDIR)/parameter_juggler.o \
+	$(OBJDIR)/plugin_parameter_string.o \
+	$(OBJDIR)/plugin_parameter_switch.o \
+	$(OBJDIR)/plugin_parameter.o \
+	$(OBJDIR)/plugin_parameter_continuous.o \
+	$(OBJDIR)/plugin_parameter_boolean.o \
 	$(OBJDIR)/audio_ring_buffer.o \
 	$(OBJDIR)/dither.o \
-	$(OBJDIR)/generic_skin.o \
-	$(OBJDIR)/plugin_parameter_switch.o \
-	$(OBJDIR)/parameter_juggler.o \
-	$(OBJDIR)/plugin_parameter_boolean.o \
-	$(OBJDIR)/plugin_parameter.o \
-	$(OBJDIR)/plugin_parameter_string.o \
-	$(OBJDIR)/plugin_parameter_combined.o \
-	$(OBJDIR)/plugin_parameter_continuous.o \
 	$(OBJDIR)/juce_audio_basics.o \
 	$(OBJDIR)/juce_audio_devices.o \
 	$(OBJDIR)/juce_audio_formats.o \
@@ -219,25 +219,19 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 endif
 
-$(OBJDIR)/plugin_processor.o: ../../../Source/plugin_processor.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/skin.o: ../../../Source/skin.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/main.o: ../../../Source/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/average_level_filtered.o: ../../../Source/average_level_filtered.cpp
+$(OBJDIR)/plugin_editor.o: ../../../Source/plugin_editor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/window_validation.o: ../../../Source/window_validation.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/meter_bar.o: ../../../Source/meter_bar.cpp
+$(OBJDIR)/standalone_application.o: ../../../Source/standalone_application.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_processor.o: ../../../Source/plugin_processor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/peak_label.o: ../../../Source/peak_label.cpp
@@ -246,37 +240,25 @@ $(OBJDIR)/peak_label.o: ../../../Source/peak_label.cpp
 $(OBJDIR)/kmeter.o: ../../../Source/kmeter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/standalone_application.o: ../../../Source/standalone_application.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_ballistics.o: ../../../Source/meter_ballistics.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_editor.o: ../../../Source/plugin_editor.cpp
+$(OBJDIR)/average_level_filtered.o: ../../../Source/average_level_filtered.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/audio_file_player.o: ../../../Source/audio_file_player.cpp
+$(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/overflow_meter.o: ../../../Source/overflow_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/averager.o: ../../../Source/common/math/averager.cpp
+$(OBJDIR)/audio_file_player.o: ../../../Source/audio_file_player.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_horizontal_meter.o: ../../../Source/common/widgets/generic_horizontal_meter.cpp
+$(OBJDIR)/meter_bar.o: ../../../Source/meter_bar.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_combined.o: ../../../Source/common/widgets/slider_combined.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_switch.o: ../../../Source/common/widgets/slider_switch.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_meter_segment.o: ../../../Source/common/widgets/generic_meter_segment.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_window_skin.o: ../../../Source/common/widgets/generic_window_skin.cpp
+$(OBJDIR)/skin.o: ../../../Source/skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_window_about.o: ../../../Source/common/widgets/generic_window_about.cpp
@@ -285,52 +267,70 @@ $(OBJDIR)/generic_window_about.o: ../../../Source/common/widgets/generic_window_
 $(OBJDIR)/slider_continuous.o: ../../../Source/common/widgets/slider_continuous.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/common/widgets/slider_switch_linear_bar.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_channel_slider.o: ../../../Source/common/widgets/generic_channel_slider.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_plugin_standalone.o: ../../../Source/common/widgets/generic_plugin_standalone.cpp
+$(OBJDIR)/generic_window_skin.o: ../../../Source/common/widgets/generic_window_skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_state_label.o: ../../../Source/common/widgets/generic_state_label.cpp
+$(OBJDIR)/slider_combined.o: ../../../Source/common/widgets/slider_combined.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_horizontal_meter.o: ../../../Source/common/widgets/generic_horizontal_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_meter_bar.o: ../../../Source/common/widgets/generic_meter_bar.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_state_label.o: ../../../Source/common/widgets/generic_state_label.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/slider_switch.o: ../../../Source/common/widgets/slider_switch.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_plugin_standalone.o: ../../../Source/common/widgets/generic_plugin_standalone.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/common/widgets/slider_switch_linear_bar.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_meter_segment.o: ../../../Source/common/widgets/generic_meter_segment.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/resources.o: ../../../Source/common/widgets/resources/resources.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_skin.o: ../../../Source/common/skin/generic_skin.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/averager.o: ../../../Source/common/math/averager.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_parameter_combined.o: ../../../Source/common/parameter_juggler/plugin_parameter_combined.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/parameter_juggler.o: ../../../Source/common/parameter_juggler/parameter_juggler.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_parameter_string.o: ../../../Source/common/parameter_juggler/plugin_parameter_string.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_parameter_switch.o: ../../../Source/common/parameter_juggler/plugin_parameter_switch.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_parameter.o: ../../../Source/common/parameter_juggler/plugin_parameter.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_parameter_continuous.o: ../../../Source/common/parameter_juggler/plugin_parameter_continuous.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_parameter_boolean.o: ../../../Source/common/parameter_juggler/plugin_parameter_boolean.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/audio_ring_buffer.o: ../../../Source/common/audio/audio_ring_buffer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/dither.o: ../../../Source/common/audio/dither.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_skin.o: ../../../Source/common/skin/generic_skin.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_parameter_switch.o: ../../../Source/common/parameter_juggler/plugin_parameter_switch.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/parameter_juggler.o: ../../../Source/common/parameter_juggler/parameter_juggler.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_parameter_boolean.o: ../../../Source/common/parameter_juggler/plugin_parameter_boolean.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_parameter.o: ../../../Source/common/parameter_juggler/plugin_parameter.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_parameter_string.o: ../../../Source/common/parameter_juggler/plugin_parameter_string.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_parameter_combined.o: ../../../Source/common/parameter_juggler/plugin_parameter_combined.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_parameter_continuous.o: ../../../Source/common/parameter_juggler/plugin_parameter_continuous.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_audio_basics.o: ../../../libraries/juce/modules/juce_audio_basics/juce_audio_basics.cpp
