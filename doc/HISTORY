@@ -2,6 +2,29 @@ Git HEAD
 ========
 
 
+v2.2.0 (2015-12-20)
+==================
+
+* completely changed parameter handling
+
+* re-factored and documented code
+
+* changed plug-in manufacturer and category
+
+* moved DLLs, skins and documentation to subdirectory "kmeter"
+
+* updated framework to JUCE v3.2.0
+
+* simplified packaging
+
+* validation: full re-calibration
+
+* validation: updated documents
+
+* validation: Reaper file for R-REP-BS.2217-1
+
+
+
 v2.1.0 (2015-02-28)
 ==================
 
