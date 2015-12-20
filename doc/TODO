@@ -2,8 +2,6 @@ o [mzuther] document code
 
 o [mzuther] add const to methods
 
-* reset standalone by deleting .ini file
-
 * horizontal meter
 
 * implement inter-sample peak meter (ITU BS.1770-1, Annex 2)

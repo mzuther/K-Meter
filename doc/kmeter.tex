@@ -97,16 +97,21 @@ Science (second edition)''.
 \chapter{Installation}
 \label{chap:installation}
 
-In order to use the pre-compiled binaries, simply extract the
-\textbf{K-Meter} files from the downloaded archive.  For the plug-ins,
-you'll then have to move the extracted files to your respective
-plug-in folder (\path{~/.lv2}, \path{~/.vst},
-\path{C:\Program Files\Steinberg\VstPlugins\} or the like).
+In order to use the pre-compiled binaries, simply extract the K-Meter
+files from the downloaded archive.  For the plug-ins, you'll then have
+to move the extracted files to your respective plug-in folder
+(\path{~/.lv2}, \path{~/.vst}, \path{C:\Program
+  Files\Steinberg\VstPlugins\} or the like).
 
 Loading K-Meter may take a few seconds: it checks your computer's
 capabilities on start-up so that FFT calculations will run at maximum
 speed.  Depending on your computer, this little wait in the beginning
 may well result in lower resource usage later.
+
+Should the standalone version ever fail to start, you can reset its
+settings by deleting the file \path{kmeter_stereo.ini} or
+\path{kmeter_surround.ini}.  These files are located in
+\path{~/.config} (GNU/Linux) or \path{%appdata%\.config\} (Windows).
 
 \chapter{Controls}
 \label{chap:controls}
@@ -114,7 +119,7 @@ may well result in lower resource usage later.
 \section{Meter selection}
 
 \begin{wrapfigure}{r}{0pt}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_meter_selection.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_meter_selection.png}
 \end{wrapfigure}
 
 You can select the different K-System meter scales (\textbf{K-20},
@@ -124,7 +129,7 @@ strip, click the \textbf{Normal} button which will place \SI{0}{\dBFS}
 on top of the meter's scale.
 
 \begin{wrapfigure}{r}{0pt}
-  \includegraphics[scale=0.49,clip]{include/images/kmeter_normal_scale.png}
+\includegraphics[scale=0.60,clip]{include/images/kmeter_normal_scale.png}
 \end{wrapfigure}
 
 With its \emph{two} green areas, the \textbf{Normal} meter also looks
@@ -141,7 +146,7 @@ gain staging.
 \section{Averaging method}
 
 \begin{wrapfigure}{r}{0pt}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_averaging_selection.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_averaging_selection.png}
 \end{wrapfigure}
 
 The average level meters can either read unweighted levels
@@ -155,7 +160,7 @@ designed for stereophonic metering and calibration, while the
 loudness-weighted \textbf{ITU-R} method should be used for
 channel-summed loudness metering.  To reference a meter, state both
 K-System meter scale and averaging method, separated by a slash, such
-as ``K-20/ITU''.
+as ``K-20/ITU-R''.
 
 \emph{\underline{Note:} K-Meter fully implements Annex 1 of the now
   superseded ITU-R BS.1770-1 standard ('K' frequency weighting, mean
@@ -166,9 +171,9 @@ as ``K-20/ITU''.
 \section{Infinite peak hold}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_peak_hold_on.png}
-  \newline \vspace{-0.9\baselineskip}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_peak_hold_off.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_peak_hold_on.png}
+\newline \vspace{-0.9\baselineskip}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_peak_hold_off.png}
 \end{wrapfigure}
 
 Click on this button to toggle between infinite peak hold and
@@ -178,9 +183,9 @@ meters.
 \section{Show peak level meter}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_peak_meter_on.png}
-  \newline \vspace{-0.9\baselineskip}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_peak_meter_off.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_peak_meter_on.png}
+\newline \vspace{-0.9\baselineskip}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_peak_meter_off.png}
 \end{wrapfigure}
 
 Click on this button to toggle display of the peak level meters.  The
@@ -198,9 +203,9 @@ Bob Katz has asked me to hide them by default:
 \section{Magnify meters}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_expand_meter_on.png}
-  \newline \vspace{-0.9\baselineskip}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_expand_meter_off.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_expand_meter_on.png}
+\newline \vspace{-0.9\baselineskip}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_expand_meter_off.png}
 \end{wrapfigure}
 
 This button magnifies both average and peak level meters to
@@ -216,47 +221,60 @@ near the centre.
 \section{Mono mode}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_mono_on.png}
-  \newline \vspace{-0.9\baselineskip}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_mono_off.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_mono_on.png}
+\newline \vspace{-0.9\baselineskip}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_mono_off.png}
 \end{wrapfigure}
 
 Click this button to easily check the mono compatibility of your
 stereo mix or master.  In \textbf{mono} mode, audio channels will be
 down-mixed to mono and the meters will be linked.
 
-In case you insert the plug-in into a mono channel strip,
-\textbf{mono} mode will be selected and cannot be toggled.
+If you insert the stereo plug-in into a mono channel strip,
+\textbf{mono} mode will be selected and cannot be toggled.  In the
+surround version, the \textbf{mono} button is disabled.
 
 \section{Reset button}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_reset.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_reset_on.png}
+\newline \vspace{-0.9\baselineskip}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_reset_off.png}
 \end{wrapfigure}
 
 Click on this button to reset all meters, peaks and counters.  You can
 also use it to get rid of graphical artifacts, because all meters will
 be redrawn as well.
 
+\section{Select a skin}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_skin_on.png}
+\newline \vspace{-0.9\baselineskip}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_skin_off.png}
+\end{wrapfigure}
+
+Click on this button to select the currently used K-Meter skin.  You
+can also set a default skin that will be loaded when new plug-ins are
+instantiated.
+
 \section{Validation button}
 \label{sec:validation_button}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_validate_on.png}
-  \newline \vspace{-0.9\baselineskip}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_validate_off.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_validate_on.png}
+\newline \vspace{-0.9\baselineskip}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_validate_off.png}
 \end{wrapfigure}
 
 Click on this button to open the \textbf{validation window} (see
-\ref{chap:validation}) which allows you to play an audio file (WAV,
-AIFF or FLAC) through K-Meter and dump internal data.  During
-validation, the button will light up and clicking it will stop
-validation early.
+\ref{chap:validation}) which allows you to play an audio file through
+K-Meter and dump internal data.  During validation, the button will
+light up and clicking it will stop validation early.
 
 \emph{Unfortunately, the underlying JUCE library does not seem to
   support multi-channel audio files.  You may load such audio files
-  into your DAW of choice and insert \textbf{K-meter} as a plug-in
-  instance.}
+  into your DAW of choice and use a K-Meter plug-in.}
 
 On Linux, dumped data will be written to \path{stderr}, so just start
 the K-Meter standalone or your VST host from the shell and watch the
@@ -272,9 +290,9 @@ fluctuations.
 \section{About button}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_about_on.png}
-  \newline \vspace{-0.9\baselineskip}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_about_off.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_about_on.png}
+\newline \vspace{-0.9\baselineskip}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_about_off.png}
 \end{wrapfigure}
 
 Clicking on this button will open the \textbf{about window} where you
@@ -284,9 +302,9 @@ GNU General Public License.
 \section{Display license}
 
 \begin{wrapfigure}{r}{0.15\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_gpl_on.png}
-  \newline \vspace{-0.9\baselineskip}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_gpl_off.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_gpl_on.png}
+\newline \vspace{-0.9\baselineskip}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_gpl_off.png}
 \end{wrapfigure}
 
 This button is located in the \textbf{about window} and does not only
@@ -303,8 +321,8 @@ Please double-check whether this matches your host's channel order.
 
 \section{K-System meter}
 
-\begin{wrapfigure}{r}{0.14\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/level_meter_combined.png}
+\begin{wrapfigure}{r}{0.20\linewidth}
+\includegraphics[scale=0.6,clip]{include/images/level_meter_combined.png}
 \end{wrapfigure}
 
 The K-System meter consists of an average level meter (graphic on the
@@ -359,8 +377,8 @@ the final reading.
 \emph{Thus, in ITU-R mode sine waves do \emph{not} read the same on
   average and peak level meters.  Moreover, pink noise
   (\SI{-20}{\dBFS}\,RMS, \SI{20}{\hertz} to \SI{20}{\kilo\hertz}) does
-  \emph{not} read \SI{0}{\dB} on the K-20 average level meter.  So for
-  calibration, please switch K-Meter to RMS mode.}
+  \emph{not} read \SI{0}{\dB} on the K-20 average level meter.
+  \textbf{So for calibration, please switch K-Meter to RMS mode!}}
 
 \section{Peak level meter}
 
@@ -371,9 +389,9 @@ one sample and a fall time of \SI{8.67}{\dB\per\second}.
 \section{Overload counter}
 
 \begin{wrapfigure}{r}{0.23\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/overload_counter_normal.png}
-  \newline \vspace{-0.9\baselineskip}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/overload_counter_clipped.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/overload_counter_normal.png}
+\newline
+\includegraphics[scale=\screenshotscale,clip]{include/images/overload_counter_clipped.png}
 \end{wrapfigure}
 
 The overload counter displays the number of samples that have reached
@@ -389,9 +407,9 @@ warning than have my audio files clip.
 \section{Maximum peak display}
 
 \begin{wrapfigure}{r}{0.23\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/maximum_peak_normal.png}
-  \newline \vspace{-0.9\baselineskip}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/maximum_peak_clipped.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/maximum_peak_normal.png}
+\newline
+\includegraphics[scale=\screenshotscale,clip]{include/images/maximum_peak_clipped.png}
 \end{wrapfigure}
 
 This meter displays the maximum peak level encountered so far in
@@ -404,7 +422,7 @@ turn red.
 \section{Phase correlation meter}
 
 \begin{wrapfigure}{r}{0pt}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/phase_correlation_meter.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/phase_correlation_meter.png}
 \end{wrapfigure}
 
 This meter only works for stereo channels and displays the cross
@@ -427,7 +445,7 @@ your ears!
 \section{Stereo meter}
 
 \begin{wrapfigure}{r}{0pt}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/stereo_meter.png}
+\includegraphics[scale=\screenshotscale,clip]{include/images/stereo_meter.png}
 \end{wrapfigure}
 
 The stereo meter obviously only works for stereo channels and displays
@@ -437,7 +455,7 @@ hearing, wrong placement of your monitors or similar problems.
 
 But please don't get the false notion that the needle should stay in
 the middle all the time in order to achieve a good mix.  Quite the
-contrary!  As I said, you should not mix by your eyes \dots
+contrary!  As I said before, you should not mix by your eyes \dots
 
 \chapter{Validation}
 \label{chap:validation}
@@ -452,12 +470,12 @@ loudness gating).  A word of warning: these audio files may
 \textbf{damage your ears} and speakers, so please watch your monitor
 levels!
 
-Begin by starting \textbf{K-Meter}.  If in a Bash shell, try this:
+Begin by starting K-Meter.  If in a Bash shell, try this:
 
 \path{./kmeter_stereo 2>&1 | tee /tmp/validation.log}
 
-\begin{wrapfigure}{r}{0.395\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/dialog_validation.png}
+\begin{wrapfigure}{r}{0.32\linewidth}
+\includegraphics[scale=0.60,clip]{include/images/dialog_validation.png}
 \end{wrapfigure}
 
 After opening the \textbf{validation window} (see
@@ -480,6 +498,8 @@ In case you want to calibrate your monitor system, locate the file
 set K-Meter to \textbf{RMS} mode and click on the \textbf{validate}
 button.  Please ensure that all intermediate software and hardware
 mixers are set to the correct levels.
+
+\newpage %% layout
 
 \section{Validation status}
 
@@ -550,37 +570,37 @@ mixers are set to the correct levels.
   \end{tabular}
 \end{minipage}
 
-\newpage %% layout
-
 \section{Frequency and phase response}
 
-Frequency and phase response have been determined at a sample rate of
-\SI{192}{\kilo\hertz} using
-\href{http://www.savioursofsoul.de/Christian/programs/measurement-programs/}{VST
-  Plugin Analyser}.
+Frequency and phase response have been determined using Christan
+Budde's fantastic
+\href{http://www.pcjv.de/applications/measurement-programs/}{VST
+  Plugin Analyser} with a sample rate of \SI{192}{\kilo\hertz} and a
+log sine sweep as input signal (set using Ctrl-Shift-F).
+
+\newpage %% layout
 
 \textbf{Frequency response of complete effect path (\SI{5}{\hertz} to
   \SI{96}{\kilo\hertz}, \SI{0}{\dB} \SI{\pm 0.1}{\dB}):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-freq-fx_path.png}
+  \includegraphics[scale=0.60,clip]{include/images/fft_192khz-freq-fx_path.png}
 \end{center}
 
 \textbf{Phase response of complete effect path (\SI{5}{\hertz} to
   \SI{96}{\kilo\hertz}, \SI{0}{\degree}\,\SI{\pm 0.1}{\degree}):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-phase-fx_path.png}
-\end{center}
 
-\newpage %% layout
+\includegraphics[scale=0.60,clip]{include/images/fft_192khz-phase-fx_path.png}
+\end{center}
 
 \textbf{Frequency response of band-limited RMS detection stage
   (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{-140}{\dB} to
   \SI{5}{\dB}):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-freq-rms.png}
+  \includegraphics[scale=0.60,clip]{include/images/fft_192khz-freq-rms.png}
 \end{center}
 
 \textbf{Phase response of band-limited RMS detection stage
@@ -588,7 +608,7 @@ Frequency and phase response have been determined at a sample rate of
   \SI[addsign]{+180}{\degree}):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-phase-rms.png}
+  \includegraphics[scale=0.60,clip]{include/images/fft_192khz-phase-rms.png}
 \end{center}
 \newpage %% layout
 
@@ -597,7 +617,7 @@ Frequency and phase response have been determined at a sample rate of
   \SI{5}{\dB}):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-freq-itu_r.png}
+  \includegraphics[scale=0.60,clip]{include/images/fft_192khz-freq-itu_r.png}
 \end{center}
 
 \textbf{Phase response of band-limited ITU-R BS.1770-1 detection stage
@@ -605,32 +625,32 @@ Frequency and phase response have been determined at a sample rate of
   \SI[addsign]{+180}{\degree}):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-phase-itu_r.png}
+  \includegraphics[scale=0.60,clip]{include/images/fft_192khz-phase-itu_r.png}
 \end{center}
 
 \newpage %% layout
 
 \textbf{Frequency response of band-limited RMS detection stage
   (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{0}{\dB} \SI{\pm
-    1}{\dB}):}
+    4}{\dB}):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-freq_zoomed-rms.png}
+  \includegraphics[scale=0.60,clip]{include/images/fft_192khz-freq_zoomed-rms.png}
 \end{center}
 
 \textbf{Frequency response of band-limited ITU-R BS.1770-1 detection stage
-  (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{0}{\dB} \SI{-6}{\dB} to
-  \SI{4}{\dB}):}
+  (\SI{5}{\hertz} to \SI{96}{\kilo\hertz}, \SI{0}{\dB} \SI{\pm
+    4}{\dB}):}
 
 \begin{center}
-  \includegraphics[scale=0.65,clip]{include/images/fft_192khz-freq_zoomed-itu_r.png}
+  \includegraphics[scale=0.60,clip]{include/images/fft_192khz-freq_zoomed-itu_r.png}
 \end{center}
 
 \chapter{Help needed}
 \label{chap:help_needed}
 
 As K-Meter was coded using cross-platform code, it should be easy to
-compile on Mac OS X.  I just don’t have a Mac \dots
+compile on Mac OS X.  Unfortunately, I happen to not have a Mac \dots
 
 In case you want to help, please see the next chapter for an email
 address.  You’ll need sufficient experience in coding, compiling and
@@ -771,7 +791,7 @@ below), you are ready to build K-Meter.
 \subsubsection{Installation}
 
 Place the binary somewhere in your \path{PATH}.  Depending on your
-platform, you should run \emph{premake} using the scripts
+platform, you should run \path{premake} using the scripts
 \path{Builds/run_premake.sh} or \path{Builds/run_premake.bat}.
 
 \newpage %% layout
@@ -783,7 +803,7 @@ platform, you should run \emph{premake} using the scripts
 
   Importance:  \> required \\
   Version:     \> 3.2.0 \\
-  License:     \> GPL v2 (among others) \\
+  License:     \> GPL v3 (among others) \\
   Homepage:    \> \href{http://www.juce.com/}{www.juce.com}
 \end{tabbing}
 
@@ -912,7 +932,7 @@ with coding K-Meter.
 \subsubsection{Installation}
 
 Place the binary somewhere in your \path{PATH}.  Depending on your
-platform, you should run \emph{astyle} using the scripts
+platform, you should run \path{astyle} using the scripts
 \path{Source/format_code.sh} or \path{Source/format_code.bat}.
 
 \section{Building on GNU/Linux}
@@ -927,11 +947,8 @@ environment, change into the directory \path{build} and execute
 
 where \application{CFG} is one of \application{debug32},
 \application{debug64}, \application{release32} and
-\application{release64}, and \application{TARGET} is one of
-\application{linux\_standalone\_stereo},
-\application{linux\_standalone\_surround},
-\application{linux\_vst\_stereo} and
-\application{linux\_vst\_surround}.
+\application{release64}, and \application{TARGET} is the version you
+want to compile, such as \application{linux\_standalone\_stereo}.
 
 The compiled binaries will end up in the directory \path{bin}.
 
