@@ -57,6 +57,11 @@ function archive_add
 {
 	filename=$1
 	source_dir=$2
+	target_dir=$(dirname "/tmp/$archive_dir/$filename")
+
+	if [ ! -d "$target_dir" ]; then
+		mkdir -p "$target_dir"
+	fi
 
 	if [ -f "$source_dir/$filename" ]; then
 		echo "  [+] $filename"
@@ -177,8 +182,6 @@ finalise_executable "K-Meter (Surround x64).dll"
 echo "  Done."
 echo
 
-rm -f "$include_dir/skins/default_skin.ini"
-
 echo
 
 
@@ -194,8 +197,9 @@ archive_create
 archive_add "kmeter_stereo" "./$executable_dir"
 archive_add "kmeter_surround" "./$executable_dir"
 
-archive_add "$include_dir" "."
-archive_del "$include_dir/fftw"
+archive_add "$include_dir/doc" "."
+archive_add "$include_dir/skins/Default" "."
+archive_add "$include_dir/skins/Default.skin" "."
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux32"
@@ -218,8 +222,9 @@ archive_add "manifest.ttl" "./$lv2_dir"
 archive_add "kmeter_stereo.ttl" "./$lv2_dir"
 archive_add "kmeter_surround.ttl" "./$lv2_dir"
 
-archive_add "$include_dir" "."
-archive_del "$include_dir/fftw"
+archive_add "$include_dir/doc" "."
+archive_add "$include_dir/skins/Default" "."
+archive_add "$include_dir/skins/Default.skin" "."
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux32"
@@ -237,8 +242,9 @@ archive_create
 archive_add "kmeter_stereo_vst.so" "./$executable_dir"
 archive_add "kmeter_surround_vst.so" "./$executable_dir"
 
-archive_add "$include_dir" "."
-archive_del "$include_dir/fftw"
+archive_add "$include_dir/doc" "."
+archive_add "$include_dir/skins/Default" "."
+archive_add "$include_dir/skins/Default.skin" "."
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux32"
@@ -256,8 +262,9 @@ archive_create
 archive_add "kmeter_stereo_x64" "./$executable_dir"
 archive_add "kmeter_surround_x64" "./$executable_dir"
 
-archive_add "$include_dir" "."
-archive_del "$include_dir/fftw"
+archive_add "$include_dir/doc" "."
+archive_add "$include_dir/skins/Default" "."
+archive_add "$include_dir/skins/Default.skin" "."
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux64"
@@ -280,8 +287,9 @@ archive_add "manifest.ttl" "./$lv2_dir"
 archive_add "kmeter_stereo.ttl" "./$lv2_dir"
 archive_add "kmeter_surround.ttl" "./$lv2_dir"
 
-archive_add "$include_dir" "."
-archive_del "$include_dir/fftw"
+archive_add "$include_dir/doc" "."
+archive_add "$include_dir/skins/Default" "."
+archive_add "$include_dir/skins/Default.skin" "."
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux64"
@@ -299,8 +307,9 @@ archive_create
 archive_add "kmeter_stereo_vst_x64.so" "./$executable_dir"
 archive_add "kmeter_surround_vst_x64.so" "./$executable_dir"
 
-archive_add "$include_dir" "."
-archive_del "$include_dir/fftw"
+archive_add "$include_dir/doc" "."
+archive_add "$include_dir/skins/Default" "."
+archive_add "$include_dir/skins/Default.skin" "."
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux64"
@@ -318,7 +327,10 @@ archive_create
 archive_add "K-Meter (Stereo).exe" "./$executable_dir"
 archive_add "K-Meter (Surround).exe" "./$executable_dir"
 
-archive_add "$include_dir" "."
+archive_add "$include_dir/doc" "."
+archive_add "$include_dir/fftw" "."
+archive_add "$include_dir/skins/Default" "."
+archive_add "$include_dir/skins/Default.skin" "."
 archive_del "$include_dir/fftw/libfftw3f-3_x64.dll"
 
 archive_compress "zip"
@@ -337,7 +349,10 @@ archive_create
 archive_add "K-Meter (Stereo).dll" "./$executable_dir"
 archive_add "K-Meter (Surround).dll" "./$executable_dir"
 
-archive_add "$include_dir" "."
+archive_add "$include_dir/doc" "."
+archive_add "$include_dir/fftw" "."
+archive_add "$include_dir/skins/Default" "."
+archive_add "$include_dir/skins/Default.skin" "."
 archive_del "$include_dir/fftw/libfftw3f-3_x64.dll"
 
 archive_compress "zip"
@@ -356,7 +371,10 @@ archive_create
 archive_add "K-Meter (Stereo x64).exe" "./$executable_dir"
 archive_add "K-Meter (Surround x64).exe" "./$executable_dir"
 
-archive_add "$include_dir" "."
+archive_add "$include_dir/doc" "."
+archive_add "$include_dir/fftw" "."
+archive_add "$include_dir/skins/Default" "."
+archive_add "$include_dir/skins/Default.skin" "."
 archive_del "$include_dir/fftw/libfftw3f-3.dll"
 
 archive_compress "zip"
@@ -375,7 +393,10 @@ archive_create
 archive_add "K-Meter (Stereo x64).dll" "./$executable_dir"
 archive_add "K-Meter (Surround x64).dll" "./$executable_dir"
 
-archive_add "$include_dir" "."
+archive_add "$include_dir/doc" "."
+archive_add "$include_dir/fftw" "."
+archive_add "$include_dir/skins/Default" "."
+archive_add "$include_dir/skins/Default.skin" "."
 archive_del "$include_dir/fftw/libfftw3f-3.dll"
 
 archive_compress "zip"
