@@ -181,7 +181,6 @@ finalise_executable "K-Meter (Surround x64).dll"
 
 echo "  Done."
 echo
-
 echo
 
 
