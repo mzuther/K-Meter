@@ -120,15 +120,9 @@
            label_peak_rs?
 ">
 
-<!ENTITY % attrs_image_size
-          "width CDATA #REQUIRED
-           height CDATA #REQUIRED
-">
-
 <!ENTITY % attrs_image_position
           "x CDATA #REQUIRED
            y CDATA #REQUIRED
-           %attrs_image_size;
 ">
 
 <!ENTITY % attrs_image_spacing
@@ -141,8 +135,7 @@
 ">
 
 <!ENTITY % attrs_background
-          "%attrs_image_size;
-           image_no_peaks CDATA #REQUIRED
+          "image_no_peaks CDATA #REQUIRED
            image_peaks CDATA #REQUIRED
            image_expanded_no_peaks CDATA #REQUIRED
            image_expanded_peaks CDATA #REQUIRED
@@ -178,6 +171,8 @@
 
 <!ENTITY % attrs_meter
           "%attrs_image_position;
+           segment_width CDATA #REQUIRED
+           vertical CDATA #REQUIRED
            image CDATA #REQUIRED
            image_expanded CDATA #REQUIRED
 ">
@@ -186,11 +181,7 @@
           "%attrs_image_position;
            %attrs_image_spacing;
            image CDATA #REQUIRED
-">
-
-<!ENTITY % attrs_meter_needle
-          "%attrs_image_size;
-           image CDATA #REQUIRED
+           image_needle CDATA #REQUIRED
 ">
 
 
@@ -203,7 +194,7 @@
               name CDATA #REQUIRED
               orientation (vertical | horizontal) #REQUIRED
               path CDATA #REQUIRED
-              version CDATA "1.0"
+              version CDATA "1.1"
     >
 
     <!ELEMENT default (%main_components;)>
@@ -347,11 +338,8 @@
         <!ELEMENT meter_kmeter_rs (#PCDATA)>
             <!ATTLIST meter_kmeter_rs %attrs_meter;>
 
-        <!ELEMENT meter_phase_correlation (needle)>
+        <!ELEMENT meter_phase_correlation (#PCDATA)>
             <!ATTLIST meter_phase_correlation %attrs_meter_with_needle;>
 
-        <!ELEMENT meter_stereo (needle)>
+        <!ELEMENT meter_stereo (#PCDATA)>
             <!ATTLIST meter_stereo %attrs_meter_with_needle;>
-
-            <!ELEMENT needle (#PCDATA)>
-                <!ATTLIST needle %attrs_meter_needle;>
