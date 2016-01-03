@@ -639,7 +639,6 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
 
         // attach callback to dialog window
         ModalComponentManager::getInstance()->attachCallback(windowAbout, ModalCallbackFunction::forComponent(window_about_callback, this));
-
     }
     else if (button == &ButtonValidation)
     {

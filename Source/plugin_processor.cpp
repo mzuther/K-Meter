@@ -43,15 +43,15 @@ Flow of parameter processing:
 KmeterAudioProcessor::KmeterAudioProcessor() :
     nTrakmeterBufferSize(1024)
 {
-    DBG(String("App  v") + JucePlugin_VersionString);
-    DBG(String("Comm v") + MZ_Juce_Common::getVersion());
-    DBG("");
+    Logger::outputDebugString(String("App  v") + JucePlugin_VersionString);
+    Logger::outputDebugString(String("Comm v") + MZ_Juce_Common::getVersion());
+    Logger::outputDebugString("");
 
     if (DEBUG_FILTER)
     {
-        DBG("********************************************************************************");
-        DBG("** Debugging average filtering.  Please reset DEBUG_FILTER before committing! **");
-        DBG("********************************************************************************");
+        Logger::outputDebugString("********************************************************************************");
+        Logger::outputDebugString("** Debugging average filtering.  Please reset DEBUG_FILTER before committing! **");
+        Logger::outputDebugString("********************************************************************************");
     }
 
     bSampleRateIsValid = false;
@@ -390,7 +390,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 
-    DBG("[K-Meter] preparing to play");
+    Logger::outputDebugString("[K-Meter] preparing to play");
 
     if ((sampleRate < 44100) || (sampleRate > 192000))
     {
@@ -406,14 +406,19 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     isPreValidating = false;
     nNumInputChannels = getNumInputChannels();
 
-    if (nNumInputChannels < 1)
+    if (nNumInputChannels <= 0)
     {
+        Logger::outputDebugString("[K-Meter] no input channels detected, correcting this");
         nNumInputChannels = JucePlugin_MaxNumInputChannels;
-        DBG("[K-Meter] no input channels detected, correcting this");
+    }
+    else if (nNumInputChannels < JucePlugin_MaxNumInputChannels)
+    {
+        Logger::outputDebugString("[K-Meter] only " +  String(nNumInputChannels) + " input channel(s) detected, correcting this");
+        nNumInputChannels = JucePlugin_MaxNumInputChannels;
     }
 
+    Logger::outputDebugString("[K-Meter] number of input channels: " + String(nNumInputChannels));
     isStereo = (nNumInputChannels == 2);
-    DBG("[K-Meter] number of input channels: " + String(nNumInputChannels));
 
     pMeterBallistics = new MeterBallistics(nNumInputChannels, nAverageAlgorithm, false, false);
 
@@ -451,7 +456,8 @@ void KmeterAudioProcessor::releaseResources()
     // When playback stops, you can use this as an opportunity to free
     // up any spare memory, etc.
 
-    DBG("[K-Meter] releasing resources");
+    Logger::outputDebugString("[K-Meter] releasing resources");
+    Logger::outputDebugString("");
 
     pMeterBallistics = nullptr;
     pAverageLevelFiltered = nullptr;
