@@ -26,6 +26,24 @@
 #include "plugin_editor.h"
 
 
+static void window_about_callback(int modalResult, KmeterAudioProcessorEditor *pEditor)
+{
+    if (pEditor != nullptr)
+    {
+        pEditor->windowAboutCallback(modalResult);
+    }
+}
+
+
+static void window_skin_callback(int modalResult, KmeterAudioProcessorEditor *pEditor)
+{
+    if (pEditor != nullptr)
+    {
+        pEditor->windowSkinCallback(modalResult);
+    }
+}
+
+
 //==============================================================================
 KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *ownerFilter, int nNumChannels)
     : AudioProcessorEditor(ownerFilter)
@@ -133,15 +151,12 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
     fileSkinDirectory = fileApplicationDirectory.getChildFile("./kmeter/skins/");
 
+    // force meter reload after initialisation
+    bInitialising = false;
+
+    // apply skin to plug-in editor
     strSkinName = pProcessor->getParameterSkinName();
     loadSkin();
-
-    // force meter reload after initialisation ...
-    bInitialising = false;
-    bReloadMeters = true;
-
-    // will also apply skin to plug-in editor
-    reloadMeters();
 }
 
 
@@ -165,6 +180,10 @@ void KmeterAudioProcessorEditor::loadSkin()
 
     pProcessor->setParameterSkinName(strSkinName);
     skin.loadSkin(fileSkin, nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
+
+    // will also apply skin to plug-in editor
+    bReloadMeters = true;
+    reloadMeters();
 }
 
 
@@ -219,6 +238,27 @@ void KmeterAudioProcessorEditor::applySkin()
     if (phaseCorrelationMeter != nullptr)
     {
         skin.placeAndSkinHorizontalMeter(phaseCorrelationMeter, "meter_phase_correlation");
+    }
+}
+
+
+void KmeterAudioProcessorEditor::windowAboutCallback(int modalResult)
+{
+    // manually deactivate about button
+    ButtonAbout.setToggleState(false, dontSendNotification);
+}
+
+
+void KmeterAudioProcessorEditor::windowSkinCallback(int modalResult)
+{
+    // manually deactivate skin button
+    ButtonSkin.setToggleState(false, dontSendNotification);
+
+    // user has selected a skin
+    if (modalResult > 0)
+    {
+        // apply skin to plug-in editor
+        loadSkin();
     }
 }
 
@@ -472,26 +512,15 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
     }
     else if (button == &ButtonSkin)
     {
-        // manually activate button
+        // manually activate button (will be deactivated in dialog
+        // window callback)
         button->setToggleState(true, dontSendNotification);
 
-        File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
+        // prepare and launch dialog window
+        DialogWindow *windowSkin = GenericWindowSkin::createWindowSkin(this, &strSkinName, fileSkinDirectory);
 
-        GenericWindowSkin windowSkin(this, fileSkin);
-        int exitValue = windowSkin.runModalLoop();
-
-        // manually deactivate button
-        button->setToggleState(false, dontSendNotification);
-
-        if (exitValue > 0)
-        {
-            strSkinName = windowSkin.getSelectedSkinName();
-            loadSkin();
-
-            // will also apply skin to plug-in editor
-            bReloadMeters = true;
-            reloadMeters();
-        }
+        // attach callback to dialog window
+        ModalComponentManager::getInstance()->attachCallback(windowSkin, ModalCallbackFunction::forComponent(window_skin_callback, this));
     }
     else if (button == &ButtonDisplayPeakMeter)
     {
@@ -506,11 +535,8 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
             pMeterBallistics->reset();
         }
 
+        // apply skin to plug-in editor
         loadSkin();
-
-        // will also apply skin to plug-in editor
-        bReloadMeters = true;
-        reloadMeters();
     }
     else if (button == &ButtonMono)
     {
@@ -518,7 +544,8 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
     }
     else if (button == &ButtonAbout)
     {
-        // manually activate button
+        // manually activate button (will be deactivated in dialog
+        // window callback)
         button->setToggleState(true, dontSendNotification);
 
         StringPairArray arrChapters;
@@ -607,15 +634,12 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
 
             L"Thank you for using free software!");
 
-        GenericWindowAbout windowAbout(this);
+        // prepare and launch dialog window
+        DialogWindow *windowAbout = GenericWindowAbout::createWindowAbout(this, arrChapters);
 
-        // display "chapters"
-        windowAbout.addChapters(arrChapters);
+        // attach callback to dialog window
+        ModalComponentManager::getInstance()->attachCallback(windowAbout, ModalCallbackFunction::forComponent(window_about_callback, this));
 
-        windowAbout.runModalLoop();
-
-        // manually deactivate button
-        button->setToggleState(false, dontSendNotification);
     }
     else if (button == &ButtonValidation)
     {

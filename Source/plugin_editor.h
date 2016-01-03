@@ -49,6 +49,9 @@ public:
     void actionListenerCallback(const String &message);
     void updateParameter(int nIndex);
 
+    void windowAboutCallback(int modalResult);
+    void windowSkinCallback(int modalResult);
+
     //==============================================================================
     // This is just a standard Juce paint method...
     void paint(Graphics &g);

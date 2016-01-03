@@ -31,7 +31,7 @@
 
 
 //============================================================================
-class KmeterPluginParameters  : public ParameterJuggler
+class KmeterPluginParameters : public ParameterJuggler
 {
 public:
     //==========================================================================

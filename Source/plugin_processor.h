@@ -40,7 +40,7 @@ class MeterBallistics;
 
 
 //============================================================================
-class KmeterAudioProcessor  : public AudioProcessor, public ActionBroadcaster, virtual public AudioRingBufferProcessor
+class KmeterAudioProcessor : public AudioProcessor, public ActionBroadcaster, virtual public AudioRingBufferProcessor
 {
 public:
     //==========================================================================
