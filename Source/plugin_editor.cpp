@@ -517,7 +517,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         button->setToggleState(true, dontSendNotification);
 
         // prepare and launch dialog window
-        DialogWindow *windowSkin = GenericWindowSkin::createWindowSkin(this, &strSkinName, fileSkinDirectory);
+        DialogWindow *windowSkin = GenericWindowSkinContent::createDialogWindow(this, &strSkinName, fileSkinDirectory);
 
         // attach callback to dialog window
         ModalComponentManager::getInstance()->attachCallback(windowSkin, ModalCallbackFunction::forComponent(window_skin_callback, this));
@@ -635,7 +635,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
             L"Thank you for using free software!");
 
         // prepare and launch dialog window
-        DialogWindow *windowAbout = GenericWindowAbout::createWindowAbout(this, arrChapters);
+        DialogWindow *windowAbout = GenericWindowAboutContent::createDialogWindow(this, arrChapters);
 
         // attach callback to dialog window
         ModalComponentManager::getInstance()->attachCallback(windowAbout, ModalCallbackFunction::forComponent(window_about_callback, this));
