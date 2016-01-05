@@ -115,7 +115,7 @@ void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, 
     // bar K-Meter level (in 0.1 dB)
     int nLowerThreshold = nTrueLowerThreshold + nCrestFactor;
 
-    for (int n = 0; n < nNumberOfBars; n++)
+    for (int n = 0; n < nNumberOfBars; ++n)
     {
         // bar level range (in 0.1 dB)
         int nRange;

@@ -153,7 +153,7 @@ void AverageLevelFiltered::calculateFilterKernel()
     arrWeightingFilterInputCoefficients.clear();
     arrWeightingFilterOutputCoefficients.clear();
 
-    for (int nStage = 0; nStage < KMETER_MAXIMUM_FILTER_STAGES; nStage++)
+    for (int nStage = 0; nStage < KMETER_MAXIMUM_FILTER_STAGES; ++nStage)
     {
         arrPreFilterInputCoefficients.add(0.0);
         arrPreFilterOutputCoefficients.add(0.0);
@@ -216,7 +216,7 @@ void AverageLevelFiltered::calculateFilterKernel_Rms()
     float nSamplesHalf = nSamples / 2.0f;
 
     // calculate filter kernel
-    for (int i = 0; i < nSamples; i++)
+    for (int i = 0; i < nSamples; ++i)
     {
         if (i == nSamplesHalf)
         {
@@ -231,18 +231,18 @@ void AverageLevelFiltered::calculateFilterKernel_Rms()
     // normalise filter kernel for unity gain at DC
     float nSumKernel = 0.0;
 
-    for (int i = 0; i < nSamples; i++)
+    for (int i = 0; i < nSamples; ++i)
     {
         nSumKernel += arrFilterKernel_TD[i];
     }
 
-    for (int i = 0; i < nSamples; i++)
+    for (int i = 0; i < nSamples; ++i)
     {
         arrFilterKernel_TD[i] = arrFilterKernel_TD[i] / nSumKernel;
     }
 
     // pad filter kernel with zeros
-    for (int i = nSamples; i < nFftSize; i++)
+    for (int i = nSamples; i < nFftSize; ++i)
     {
         arrFilterKernel_TD[i] = 0.0f;
     }
@@ -315,7 +315,7 @@ void AverageLevelFiltered::FilterSamples_Rms(const int channel)
     memcpy(arrAudioSamples_TD, sampleBuffer.getReadPointer(channel), nBufferSize * sizeof(float));
 
     // pad audio data with zeros
-    for (int nSample = nBufferSize; nSample < nFftSize; nSample++)
+    for (int nSample = nBufferSize; nSample < nFftSize; ++nSample)
     {
         arrAudioSamples_TD[nSample] = 0.0f;
     }
@@ -324,7 +324,7 @@ void AverageLevelFiltered::FilterSamples_Rms(const int channel)
     fftwf_execute(planAudioSamples_DFT);
 
     // convolve audio data with filter kernel
-    for (int i = 0; i < nHalfFftSize; i++)
+    for (int i = 0; i < nHalfFftSize; ++i)
     {
         // multiplication of complex numbers: index 0 contains the real
         // part, index 1 the imaginary part
@@ -342,7 +342,7 @@ void AverageLevelFiltered::FilterSamples_Rms(const int channel)
     // normalise synthesised audio data
     float fNorm = float(nFftSize);
 
-    for (int i = 0; i < nFftSize; i++)
+    for (int i = 0; i < nFftSize; ++i)
     {
         arrAudioSamples_TD[i] = arrAudioSamples_TD[i] / fNorm;
     }
@@ -360,7 +360,7 @@ void AverageLevelFiltered::FilterSamples_Rms(const int channel)
 
 void AverageLevelFiltered::FilterSamples_ItuBs1770()
 {
-    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nNumberOfChannels; ++nChannel)
     {
         // pre-filter
         previousSamplesOutputTemp.clear();
@@ -372,7 +372,7 @@ void AverageLevelFiltered::FilterSamples_ItuBs1770()
         const float *pSamplesInputOld_1 = previousSamplesPreFilterInput.getReadPointer(nChannel);
         const float *pSamplesOutputOld_1 = previousSamplesPreFilterOutput.getReadPointer(nChannel);
 
-        for (int nSample = 0; nSample < nBufferSize; nSample++)
+        for (int nSample = 0; nSample < nBufferSize; ++nSample)
         {
             double dOutput;
 
@@ -432,7 +432,7 @@ void AverageLevelFiltered::FilterSamples_ItuBs1770()
         const float *pSamplesInputOld_2 = previousSamplesWeightingFilterInput.getReadPointer(nChannel);
         const float *pSamplesOutputOld_2 = previousSamplesWeightingFilterOutput.getReadPointer(nChannel);
 
-        for (int nSample = 0; nSample < nBufferSize; nSample++)
+        for (int nSample = 0; nSample < nBufferSize; ++nSample)
         {
             double dOutput;
 
@@ -504,13 +504,13 @@ float AverageLevelFiltered::getLevel(const int channel)
             // sample buffer)
             FilterSamples_ItuBs1770();
 
-            for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+            for (int nChannel = 0; nChannel < nNumberOfChannels; ++nChannel)
             {
                 float fAverageLevelChannel = 0.0f;
                 const float *fSampleData = sampleBuffer.getReadPointer(nChannel);
 
                 // calculate mean square of the filtered input signal
-                for (int n = 0; n < nBufferSize; n++)
+                for (int n = 0; n < nBufferSize; ++n)
                 {
                     fAverageLevelChannel += (fSampleData[n] * fSampleData[n]);
                 }

@@ -92,7 +92,7 @@ void MeterBallistics::reset()
     fStereoMeterValue = 0.0f;
 
     // loop through all audio channels
-    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nNumberOfChannels; ++nChannel)
     {
         // set peak meter's level and peak mark to meter's minimum
         arrPeakMeterLevels.set(nChannel, fMeterMinimumDecibel);
@@ -135,7 +135,7 @@ void MeterBallistics::setPeakMeterInfiniteHold(bool bInfiniteHold)
 */
 {
     // loop through all audio channels
-    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nNumberOfChannels; ++nChannel)
     {
         // negative times will not be processed by meter ballistics,
         // so this effectively selects "infinite peak hold" mode
@@ -163,7 +163,7 @@ void MeterBallistics::setAverageMeterInfiniteHold(bool bInfiniteHold)
 */
 {
     // loop through all audio channels
-    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nNumberOfChannels; ++nChannel)
     {
         // negative times will not be processed by meter ballistics,
         // so this effectively selects "infinite peak hold" mode
@@ -215,7 +215,7 @@ float MeterBallistics::getPeakMeterLevel(int nChannel)
         if (nChannel == 0)
         {
             // loop through all audio channels to find maximum level
-            for (int channel = 0; channel < nNumberOfChannels; channel++)
+            for (int channel = 0; channel < nNumberOfChannels; ++channel)
             {
                 if (arrPeakMeterLevels[channel] > fPeakMeterLevel)
                 {
@@ -259,7 +259,7 @@ float MeterBallistics::getPeakMeterPeakLevel(int nChannel)
         {
             // loop through all audio channels to find maximum peak
             // level
-            for (int channel = 0; channel < nNumberOfChannels; channel++)
+            for (int channel = 0; channel < nNumberOfChannels; ++channel)
             {
                 if (arrPeakMeterPeakLevels[channel] > fPeakMeterPeakLevel)
                 {
@@ -370,7 +370,7 @@ float MeterBallistics::getMaximumPeakLevel(int nChannel)
         if (nChannel == 0)
         {
             // loop through all audio channels to find maximum level
-            for (int channel = 0; channel < nNumberOfChannels; channel++)
+            for (int channel = 0; channel < nNumberOfChannels; ++channel)
             {
                 if (arrMaximumPeakLevels[channel] > fMaximumPeakLevel)
                 {
@@ -415,7 +415,7 @@ int MeterBallistics::getNumberOfOverflows(int nChannel)
         {
             // loop through all audio channels to add the number of
             // overflows
-            for (int channel = 0; channel < nNumberOfChannels; channel++)
+            for (int channel = 0; channel < nNumberOfChannels; ++channel)
             {
                 nSumOfOverflows += arrNumberOfOverflows[channel];
             }

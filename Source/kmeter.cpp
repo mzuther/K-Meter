@@ -44,7 +44,7 @@ Kmeter::Kmeter(int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizon
         orientation = MeterBar::orientationVertical;
     }
 
-    for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nInputChannels; ++nChannel)
     {
         MeterBar *pMeterBar = p_arrLevelMeters.add(new MeterBar());
         pMeterBar->create(nCrestFactor, bExpanded, orientation, nSegmentHeight);
@@ -130,7 +130,7 @@ void Kmeter::resized()
 
 void Kmeter::setLevels(MeterBallistics *pMeterBallistics)
 {
-    for (int nChannel = 0; nChannel < nInputChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nInputChannels; ++nChannel)
     {
         if (displayPeakMeter)
         {

@@ -199,7 +199,7 @@ void KmeterAudioProcessor::updateParameters(bool bIncludeHiddenParameters)
 {
     int nNumParameters = pluginParameters.getNumParameters(false);
 
-    for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
+    for (int nIndex = 0; nIndex < nNumParameters; ++nIndex)
     {
         if (pluginParameters.hasChanged(nIndex))
         {
@@ -428,7 +428,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 
     arrOverflows.clear();
 
-    for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nNumInputChannels; ++nChannel)
     {
         arrPeakLevels.add(0.0f);
         arrRmsLevels.add(0.0f);
@@ -473,7 +473,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &m
 
     if (!bSampleRateIsValid)
     {
-        for (int nChannel = 0; nChannel < getNumOutputChannels(); nChannel++)
+        for (int nChannel = 0; nChannel < getNumOutputChannels(); ++nChannel)
         {
             buffer.clear(nChannel, 0, nNumSamples);
         }
@@ -491,7 +491,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &m
     // output channels that didn't contain input data, because these
     // aren't guaranteed to be empty -- they may contain garbage.
 
-    for (int nChannel = nNumInputChannels; nChannel < getNumOutputChannels(); nChannel++)
+    for (int nChannel = nNumInputChannels; nChannel < getNumOutputChannels(); ++nChannel)
     {
         buffer.clear(nChannel, 0, nNumSamples);
     }
@@ -509,7 +509,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &m
         float *output_left = buffer.getWritePointer(0);
         float *output_right = buffer.getWritePointer(1);
 
-        for (int i = 0; i < nNumSamples; i++)
+        for (int i = 0; i < nNumSamples; ++i)
         {
             output_left[i] = 0.5f * (output_left[i] + output_right[i]);
             output_right[i] = output_left[i];
@@ -545,7 +545,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const u
     // adds delay of (uChunkSize / 2) samples)
     pAverageLevelFiltered->copyFromBuffer(*pRingBufferInput, 0, (int) getSampleRate());
 
-    for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nNumInputChannels; ++nChannel)
     {
         if (bMono && (nChannel == 1))
         {
@@ -595,7 +595,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const u
             float sum_of_squares_right = 0.0f;
 
             // determine correlation for uChunkSize samples (use pre-delay)
-            for (unsigned int uSample = 0; uSample < uChunkSize; uSample++)
+            for (unsigned int uSample = 0; uSample < uChunkSize; ++uSample)
             {
                 float ringbuffer_left = pRingBufferInput->getSample(0, uSample, uPreDelay);
                 float ringbuffer_right = pRingBufferInput->getSample(1, uSample, uPreDelay);
@@ -729,7 +729,7 @@ int KmeterAudioProcessor::countOverflows(AudioRingBuffer *ring_buffer, const uns
     int nOverflows = 0;
 
     // loop through samples of buffer
-    for (unsigned int uSample = 0; uSample < length; uSample++)
+    for (unsigned int uSample = 0; uSample < length; ++uSample)
     {
         // get current sample value
         float fSampleValue = ring_buffer->getSample(channel, uSample, pre_delay);
@@ -741,7 +741,7 @@ int KmeterAudioProcessor::countOverflows(AudioRingBuffer *ring_buffer, const uns
         // (approx. -0.001 dBFS).
         if ((fSampleValue < -0.9999f) || (fSampleValue > 0.9999f))
         {
-            nOverflows++;
+            ++nOverflows;
         }
     }
 
