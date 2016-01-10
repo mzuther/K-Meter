@@ -37,7 +37,6 @@ class GenericWindowAboutContent : public Component, public ButtonListener
 {
 public:
     GenericWindowAboutContent(StringPairArray &arrChapters);
-    ~GenericWindowAboutContent();
 
     void buttonClicked(Button *button);
 

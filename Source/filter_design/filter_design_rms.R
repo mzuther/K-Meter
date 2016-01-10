@@ -136,7 +136,7 @@ calculate_chebyshev_coefficients <- function(relative_cutoff_frequency, is_high_
     B[i] <- -B[i + 2]
   }
 
-  SA <- 0  # NORMALIZE the gain
+  SA <- 0  # NORMALISE the gain
   SB <- 0
 
   for (i in 1:21)

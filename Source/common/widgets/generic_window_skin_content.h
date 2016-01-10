@@ -37,7 +37,6 @@ class GenericSkinListBoxModel : public ListBoxModel
 {
 public:
     GenericSkinListBoxModel();
-    ~GenericSkinListBoxModel();
 
     void fill(const File &fileSkinDirectory);
 
@@ -66,7 +65,6 @@ class GenericWindowSkinContent : public Component, public ButtonListener
 {
 public:
     GenericWindowSkinContent(String *pSkinName, const File &currentSkinFile);
-    ~GenericWindowSkinContent();
 
     void buttonClicked(Button *button);
 

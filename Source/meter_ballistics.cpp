@@ -70,15 +70,6 @@ MeterBallistics::MeterBallistics(int nChannels, int AverageAlgorithm, bool bPeak
 }
 
 
-MeterBallistics::~MeterBallistics()
-/*  Destructor.
-
-    return value: none
-*/
-{
-}
-
-
 void MeterBallistics::reset()
 /*  Reset all meter readings
 

@@ -37,13 +37,12 @@ public:
     //==========================================================================
 
     KmeterPluginParameters();
-    ~KmeterPluginParameters();
 
     File getValidationFile();
-    void setValidationFile(File &fileValidation);
+    void setValidationFile(const File &fileValidation);
 
     String getSkinName();
-    void setSkinName(String &strSkinName);
+    void setSkinName(const String &strSkinName);
 
     enum Parameters  // public namespace!
     {

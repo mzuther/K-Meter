@@ -44,7 +44,6 @@ public:
     static const int KMETER_STEREO_WIDTH_2 = KMETER_STEREO_WIDTH / 2;
 
     Kmeter(int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight);
-    ~Kmeter();
 
     void setLevels(MeterBallistics *pMeterBallistics);
     void applySkin(Skin *pSkin);

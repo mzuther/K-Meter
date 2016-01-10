@@ -58,7 +58,7 @@ GenericWindowAboutContent::GenericWindowAboutContent(StringPairArray &arrChapter
 
     // position and display the text editor component
     editorAbout.setBounds(0, 0, windowWidth, windowHeight - 47);
-    this->addAndMakeVisible(editorAbout);
+    addAndMakeVisible(editorAbout);
 
     // add headlines and text to the text editor component
     addChapters(arrChapters);
@@ -71,7 +71,7 @@ GenericWindowAboutContent::GenericWindowAboutContent(StringPairArray &arrChapter
 
     // add "about" window as button listener and display the button
     buttonClose.addListener(this);
-    this->addAndMakeVisible(buttonClose);
+    addAndMakeVisible(buttonClose);
 
     // create and position the image button which opens the license
     // text in a web browser
@@ -92,24 +92,17 @@ GenericWindowAboutContent::GenericWindowAboutContent(StringPairArray &arrChapter
 
     // add "about" window as button listener and display the button
     buttonGpl.addListener(this);
-    this->addAndMakeVisible(buttonGpl);
+    addAndMakeVisible(buttonGpl);
 
     // set window dimensions
     setSize(windowWidth, windowHeight);
 }
 
 
-/// Destructor.
-///
-GenericWindowAboutContent::~GenericWindowAboutContent()
-{
-}
-
-
 /// Static helper function to create a dialog window for showing
 /// version, copyright, license and so on.
 ///
-/// @param pEditor pointer to audio plug-in editor
+/// @param pEditor audio plug-in editor
 ///
 /// @param arrChapters dictionary containing chapter headlines and the
 ///        accompanying text

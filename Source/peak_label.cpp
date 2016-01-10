@@ -35,11 +35,6 @@ PeakLabel::PeakLabel(const String &componentName, int nCrestFactor) : GenericSta
 }
 
 
-PeakLabel::~PeakLabel()
-{
-}
-
-
 void PeakLabel::resetLevel()
 {
     float fMaximumCrestFactor = 20.0f; // i.e. K-20

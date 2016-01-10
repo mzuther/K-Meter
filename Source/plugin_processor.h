@@ -54,7 +54,7 @@ public:
 
     void processBlock(AudioSampleBuffer &buffer, MidiBuffer &midiMessages);
 
-    void preValidation(bool bStart);
+    void silenceInput(bool isSilentNew);
     void startValidation(File fileAudio, int nSelectedChannel, bool bReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
     void stopValidation();
     bool isValidating();
@@ -77,10 +77,10 @@ public:
     void updateParameters(bool bIncludeHiddenParameters);
 
     File getParameterValidationFile();
-    void setParameterValidationFile(File &fileValidation);
+    void setParameterValidationFile(const File &fileValidation);
 
     String getParameterSkinName();
-    void setParameterSkinName(String &strSkinName);
+    void setParameterSkinName(const String &strSkinName);
 
     bool getBoolean(int nIndex);
     int getRealInteger(int nIndex);
@@ -141,7 +141,7 @@ private:
     int nNumInputChannels;
     bool isStereo;
     bool bSampleRateIsValid;
-    bool isPreValidating;
+    bool isSilent;
 
     int nAverageAlgorithm;
     int nSamplesInBuffer;

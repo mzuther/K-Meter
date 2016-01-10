@@ -35,11 +35,6 @@ OverflowMeter::OverflowMeter(const String &componentName) : GenericStateLabel(co
 }
 
 
-OverflowMeter::~OverflowMeter()
-{
-}
-
-
 void OverflowMeter::setOverflows(int Overflows)
 {
     int nOverflowsOld = nOverflows;

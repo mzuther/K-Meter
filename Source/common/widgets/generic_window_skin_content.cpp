@@ -29,7 +29,7 @@
 /// Create content component for dialog window that allows selecting a
 /// new GUI skin.
 ///
-/// @param pSkinName pointer to name of the currently used skin
+/// @param pSkinName name of the currently used skin
 ///
 /// @param fileSkinDirectory directory containing the skins
 ///
@@ -73,7 +73,7 @@ GenericWindowSkinContent::GenericWindowSkinContent(String *pSkinName, const File
     listBox.selectRow(rowNumber);
 
     // display list box
-    this->addAndMakeVisible(listBox);
+    addAndMakeVisible(listBox);
 
     // calculate dialog window height from height of list box
     windowHeight = listBoxHeight + 50;
@@ -86,7 +86,7 @@ GenericWindowSkinContent::GenericWindowSkinContent(String *pSkinName, const File
 
     // add "skin" window as button listener and display the button
     buttonSelect.addListener(this);
-    this->addAndMakeVisible(buttonSelect);
+    addAndMakeVisible(buttonSelect);
 
     // create and position an "default" button
     buttonDefault.setButtonText("Default");
@@ -96,26 +96,19 @@ GenericWindowSkinContent::GenericWindowSkinContent(String *pSkinName, const File
 
     // add "skin" window as button listener and display the button
     buttonDefault.addListener(this);
-    this->addAndMakeVisible(buttonDefault);
+    addAndMakeVisible(buttonDefault);
 
     // set component window dimensions
     setSize(windowWidth, windowHeight);
 }
 
 
-/// Destructor.
-///
-GenericWindowSkinContent::~GenericWindowSkinContent()
-{
-}
-
-
 /// Static helper function to create a dialog window for selecting a
 /// new GUI skin.
 ///
-/// @param pEditor pointer to audio plug-in editor
+/// @param pEditor audio plug-in editor
 ///
-/// @param pSkinName pointer to name of the currently used skin
+/// @param pSkinName name of the currently used skin
 ///
 /// @param fileSkinDirectory directory containing the skins
 ///
@@ -199,13 +192,6 @@ void GenericWindowSkinContent::buttonClicked(Button *button)
 GenericSkinListBoxModel::GenericSkinListBoxModel()
     : skinWildcard("*.skin", String::empty, "Skin files"),
       directoryThread("Skin directory scanner")
-{
-}
-
-
-/// Destructor.
-///
-GenericSkinListBoxModel::~GenericSkinListBoxModel()
 {
 }
 

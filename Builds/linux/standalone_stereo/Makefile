@@ -110,7 +110,6 @@ endif
 OBJECTS := \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/plugin_editor.o \
-	$(OBJDIR)/window_validation.o \
 	$(OBJDIR)/standalone_application.o \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/peak_label.o \
@@ -122,6 +121,7 @@ OBJECTS := \
 	$(OBJDIR)/audio_file_player.o \
 	$(OBJDIR)/meter_bar.o \
 	$(OBJDIR)/skin.o \
+	$(OBJDIR)/window_validation_content.o \
 	$(OBJDIR)/slider_continuous.o \
 	$(OBJDIR)/generic_channel_slider.o \
 	$(OBJDIR)/generic_window_skin_content.o \
@@ -131,6 +131,7 @@ OBJECTS := \
 	$(OBJDIR)/generic_state_label.o \
 	$(OBJDIR)/slider_switch.o \
 	$(OBJDIR)/generic_plugin_standalone.o \
+	$(OBJDIR)/generic_window_validation_content.o \
 	$(OBJDIR)/slider_switch_linear_bar.o \
 	$(OBJDIR)/generic_meter_segment.o \
 	$(OBJDIR)/generic_signal_led.o \
@@ -226,9 +227,6 @@ $(OBJDIR)/main.o: ../../../Source/main.cpp
 $(OBJDIR)/plugin_editor.o: ../../../Source/plugin_editor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/window_validation.o: ../../../Source/window_validation.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/standalone_application.o: ../../../Source/standalone_application.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -262,6 +260,9 @@ $(OBJDIR)/meter_bar.o: ../../../Source/meter_bar.cpp
 $(OBJDIR)/skin.o: ../../../Source/skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/window_validation_content.o: ../../../Source/window_validation_content.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_continuous.o: ../../../Source/common/widgets/slider_continuous.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -287,6 +288,9 @@ $(OBJDIR)/slider_switch.o: ../../../Source/common/widgets/slider_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_plugin_standalone.o: ../../../Source/common/widgets/generic_plugin_standalone.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_window_validation_content.o: ../../../Source/common/widgets/generic_window_validation_content.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/common/widgets/slider_switch_linear_bar.cpp

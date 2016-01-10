@@ -44,6 +44,15 @@ static void window_skin_callback(int modalResult, KmeterAudioProcessorEditor *pE
 }
 
 
+static void window_validation_callback(int modalResult, KmeterAudioProcessorEditor *pEditor)
+{
+    if (pEditor != nullptr)
+    {
+        pEditor->windowValidationCallback(modalResult);
+    }
+}
+
+
 //==============================================================================
 KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *ownerFilter, int nNumChannels)
     : AudioProcessorEditor(ownerFilter)
@@ -53,23 +62,22 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     setOpaque(true);
 
     // prevent meter reload during initialisation
-    bInitialising = true;
+    isInitialising = true;
 
-    bIsValidating = false;
-    bValidateWindow = false;
+    isValidating = false;
+    validationDialogOpen = false;
 
-    nInputChannels = nNumChannels;
-    nStereoInputChannels = (nNumChannels + (nNumChannels % 2)) / 2;
-    nCrestFactor = 0;
+    numberOfInputChannels = nNumChannels;
+    crestFactor = 0;
 
-    bExpanded = false;
-    bDisplayPeakMeter = false;
+    isExpanded = false;
+    usePeakMeter = false;
 
     // The plug-in editor's size as well as the location of buttons
     // and labels will be set later on in this constructor.
 
-    pProcessor = ownerFilter;
-    pProcessor->addActionListener(this);
+    audioProcessor = ownerFilter;
+    audioProcessor->addActionListener(this);
 
     ButtonK20.setRadioGroupId(1);
     ButtonK20.addListener(this);
@@ -131,7 +139,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     // that it doesn't overlay (and thus block) any other components
     addAndMakeVisible(BackgroundImage, 0);
 
-    if (nInputChannels <= 2)
+    if (numberOfInputChannels <= 2)
     {
         stereoMeter = new GenericHorizontalMeter("Stereo Meter");
         addAndMakeVisible(stereoMeter);
@@ -149,40 +157,40 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
 
     // the following may or may not work on Mac
     File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
-    fileSkinDirectory = fileApplicationDirectory.getChildFile("./kmeter/skins/");
+    skinDirectory = fileApplicationDirectory.getChildFile("./kmeter/skins/");
 
     // force meter reload after initialisation
-    bInitialising = false;
+    isInitialising = false;
 
     // apply skin to plug-in editor
-    strSkinName = pProcessor->getParameterSkinName();
+    currentSkinName = audioProcessor->getParameterSkinName();
     loadSkin();
 }
 
 
 KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 {
-    pProcessor->removeActionListener(this);
+    audioProcessor->removeActionListener(this);
 }
 
 
 void KmeterAudioProcessorEditor::loadSkin()
 {
-    File fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
+    File fileSkin = skinDirectory.getChildFile(currentSkinName + ".skin");
 
     if (!fileSkin.existsAsFile())
     {
         Logger::outputDebugString("[Skin] file \"" + fileSkin.getFileName() + "\" not found");
 
-        strSkinName = "Default";
-        fileSkin = fileSkinDirectory.getChildFile(strSkinName + ".skin");
+        currentSkinName = "Default";
+        fileSkin = skinDirectory.getChildFile(currentSkinName + ".skin");
     }
 
-    pProcessor->setParameterSkinName(strSkinName);
-    skin.loadSkin(fileSkin, nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
+    audioProcessor->setParameterSkinName(currentSkinName);
+    skin.loadSkin(fileSkin, numberOfInputChannels, crestFactor, audioProcessor->getAverageAlgorithm(), isExpanded, usePeakMeter);
 
     // will also apply skin to plug-in editor
-    bReloadMeters = true;
+    needsMeterReload = true;
     reloadMeters();
 }
 
@@ -190,13 +198,13 @@ void KmeterAudioProcessorEditor::loadSkin()
 void KmeterAudioProcessorEditor::applySkin()
 {
     // prevent skin application during meter initialisation
-    if (bInitialising)
+    if (isInitialising)
     {
         return;
     }
 
     // update skin
-    skin.updateSkin(nInputChannels, nCrestFactor, pProcessor->getAverageAlgorithm(), bExpanded, bDisplayPeakMeter);
+    skin.updateSkin(numberOfInputChannels, crestFactor, audioProcessor->getAverageAlgorithm(), isExpanded, usePeakMeter);
 
     // moves background image to the back of the editor's z-plane;
     // will also resize plug-in editor
@@ -263,6 +271,16 @@ void KmeterAudioProcessorEditor::windowSkinCallback(int modalResult)
 }
 
 
+void KmeterAudioProcessorEditor::windowValidationCallback(int modalResult)
+{
+    audioProcessor->silenceInput(false);
+    validationDialogOpen = false;
+
+    // manually set button according to validation state
+    ButtonValidation.setToggleState(isValidating, dontSendNotification);
+}
+
+
 void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage)
 {
     // "PC" --> parameter changed, followed by a hash and the
@@ -272,9 +290,9 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
         String strIndex = strMessage.substring(3);
         int nIndex = strIndex.getIntValue();
         jassert(nIndex >= 0);
-        jassert(nIndex < pProcessor->getNumParameters());
+        jassert(nIndex < audioProcessor->getNumParameters());
 
-        if (pProcessor->hasChanged(nIndex))
+        if (audioProcessor->hasChanged(nIndex))
         {
             updateParameter(nIndex);
         }
@@ -282,7 +300,7 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
     // "UM" --> update meters
     else if (!strMessage.compare("UM"))
     {
-        MeterBallistics *pMeterBallistics = pProcessor->getLevels();
+        MeterBallistics *pMeterBallistics = audioProcessor->getLevels();
 
         if (pMeterBallistics != nullptr)
         {
@@ -304,9 +322,9 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
             }
         }
 
-        if (bIsValidating && !pProcessor->isValidating())
+        if (isValidating && !audioProcessor->isValidating())
         {
-            bIsValidating = false;
+            isValidating = false;
         }
     }
     // "AC" --> algorithm changed
@@ -315,14 +333,14 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
         updateAverageAlgorithm(true);
     }
     // "V+" --> validation started
-    else if ((!strMessage.compare("V+")) && pProcessor->isValidating())
+    else if ((!strMessage.compare("V+")) && audioProcessor->isValidating())
     {
-        bIsValidating = true;
+        isValidating = true;
     }
     // "V-" --> validation stopped
     else if (!strMessage.compare("V-"))
     {
-        if (!bValidateWindow)
+        if (!validationDialogOpen)
         {
             ButtonValidation.setToggleState(false, dontSendNotification);
         }
@@ -339,9 +357,9 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
 void KmeterAudioProcessorEditor::updateParameter(int nIndex)
 {
     MeterBallistics *pMeterBallistics = nullptr;
-    int nValue = pProcessor->getRealInteger(nIndex);
+    int nValue = audioProcessor->getRealInteger(nIndex);
 
-    pProcessor->clearChangeFlag(nIndex);
+    audioProcessor->clearChangeFlag(nIndex);
 
     switch (nIndex)
     {
@@ -349,37 +367,37 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
 
         if (nValue == 0)
         {
-            nCrestFactor = nValue;
+            crestFactor = nValue;
 
             // will also apply skin to plug-in editor
-            bReloadMeters = true;
+            needsMeterReload = true;
 
             ButtonNormal.setToggleState(true, dontSendNotification);
         }
         else if (nValue == 12)
         {
-            nCrestFactor = nValue;
+            crestFactor = nValue;
 
             // will also apply skin to plug-in editor
-            bReloadMeters = true;
+            needsMeterReload = true;
 
             ButtonK12.setToggleState(true, dontSendNotification);
         }
         else if (nValue == 14)
         {
-            nCrestFactor = nValue;
+            crestFactor = nValue;
 
             // will also apply skin to plug-in editor
-            bReloadMeters = true;
+            needsMeterReload = true;
 
             ButtonK14.setToggleState(true, dontSendNotification);
         }
         else // K-20
         {
-            nCrestFactor = 20;
+            crestFactor = 20;
 
             // will also apply skin to plug-in editor
-            bReloadMeters = true;
+            needsMeterReload = true;
 
             ButtonK20.setToggleState(true, dontSendNotification);
         }
@@ -395,28 +413,28 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
         //
         // we just need to make make sure that this code is actually
         // executed...
-        pProcessor->setAverageAlgorithm(nValue);
+        audioProcessor->setAverageAlgorithm(nValue);
 
         break;
 
     case KmeterPluginParameters::selExpanded:
-        bExpanded = (nValue != 0);
-        ButtonExpanded.setToggleState(bExpanded, dontSendNotification);
+        isExpanded = (nValue != 0);
+        ButtonExpanded.setToggleState(isExpanded, dontSendNotification);
 
         // will also apply skin to plug-in editor
-        bReloadMeters = true;
+        needsMeterReload = true;
         break;
 
     case KmeterPluginParameters::selShowPeaks:
-        bDisplayPeakMeter = (nValue != 0);
-        ButtonDisplayPeakMeter.setToggleState(bDisplayPeakMeter, dontSendNotification);
+        usePeakMeter = (nValue != 0);
+        ButtonDisplayPeakMeter.setToggleState(usePeakMeter, dontSendNotification);
 
         // will also apply skin to plug-in editor
-        bReloadMeters = true;
+        needsMeterReload = true;
         break;
 
     case KmeterPluginParameters::selInfinitePeakHold:
-        pMeterBallistics = pProcessor->getLevels();
+        pMeterBallistics = audioProcessor->getLevels();
 
         if (pMeterBallistics != nullptr)
         {
@@ -433,7 +451,7 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
     }
 
     // prevent meter reload during initialisation
-    if (!bInitialising)
+    if (!isInitialising)
     {
         // will also apply skin to plug-in editor
         reloadMeters();
@@ -443,22 +461,22 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
 
 void KmeterAudioProcessorEditor::reloadMeters()
 {
-    if (bReloadMeters)
+    if (needsMeterReload)
     {
-        bReloadMeters = false;
+        needsMeterReload = false;
 
         if (kmeter != nullptr)
         {
             removeChildComponent(kmeter);
         }
 
-        if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
+        if (audioProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
         {
-            kmeter = new Kmeter(nCrestFactor, 1, ButtonExpanded.getToggleState(), false, ButtonDisplayPeakMeter.getToggleState(), 4);
+            kmeter = new Kmeter(crestFactor, 1, ButtonExpanded.getToggleState(), false, ButtonDisplayPeakMeter.getToggleState(), 4);
         }
         else
         {
-            kmeter = new Kmeter(nCrestFactor, nInputChannels, ButtonExpanded.getToggleState(), false, ButtonDisplayPeakMeter.getToggleState(), 4);
+            kmeter = new Kmeter(crestFactor, numberOfInputChannels, ButtonExpanded.getToggleState(), false, ButtonDisplayPeakMeter.getToggleState(), 4);
         }
 
         // moves traKmeter to the back of the editor's z-plane so that
@@ -480,35 +498,35 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
 {
     if (button == &ButtonK20)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selK20 / float(KmeterPluginParameters::nNumCrestFactors - 1));
+        audioProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selK20 / float(KmeterPluginParameters::nNumCrestFactors - 1));
     }
     else if (button == &ButtonK14)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selK14 / float(KmeterPluginParameters::nNumCrestFactors - 1));
+        audioProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selK14 / float(KmeterPluginParameters::nNumCrestFactors - 1));
     }
     else if (button == &ButtonK12)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selK12 / float(KmeterPluginParameters::nNumCrestFactors - 1));
+        audioProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selK12 / float(KmeterPluginParameters::nNumCrestFactors - 1));
     }
     else if (button == &ButtonNormal)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selNormal / float(KmeterPluginParameters::nNumCrestFactors - 1));
+        audioProcessor->changeParameter(KmeterPluginParameters::selCrestFactor, KmeterPluginParameters::selNormal / float(KmeterPluginParameters::nNumCrestFactors - 1));
     }
     else if (button == &ButtonInfinitePeakHold)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selInfinitePeakHold, button->getToggleState() ? 0.0f : 1.0f);
+        audioProcessor->changeParameter(KmeterPluginParameters::selInfinitePeakHold, button->getToggleState() ? 0.0f : 1.0f);
     }
     else if (button == &ButtonItuBs1770)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selAverageAlgorithm, KmeterPluginParameters::selAlgorithmItuBs1770 / float(KmeterPluginParameters::nNumAlgorithms - 1));
+        audioProcessor->changeParameter(KmeterPluginParameters::selAverageAlgorithm, KmeterPluginParameters::selAlgorithmItuBs1770 / float(KmeterPluginParameters::nNumAlgorithms - 1));
     }
     else if (button == &ButtonRms)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selAverageAlgorithm, KmeterPluginParameters::selAlgorithmRms / float(KmeterPluginParameters::nNumAlgorithms - 1));
+        audioProcessor->changeParameter(KmeterPluginParameters::selAverageAlgorithm, KmeterPluginParameters::selAlgorithmRms / float(KmeterPluginParameters::nNumAlgorithms - 1));
     }
     else if (button == &ButtonExpanded)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selExpanded, button->getToggleState() ? 0.0f : 1.0f);
+        audioProcessor->changeParameter(KmeterPluginParameters::selExpanded, button->getToggleState() ? 0.0f : 1.0f);
     }
     else if (button == &ButtonSkin)
     {
@@ -517,18 +535,18 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         button->setToggleState(true, dontSendNotification);
 
         // prepare and launch dialog window
-        DialogWindow *windowSkin = GenericWindowSkinContent::createDialogWindow(this, &strSkinName, fileSkinDirectory);
+        DialogWindow *windowSkin = GenericWindowSkinContent::createDialogWindow(this, &currentSkinName, skinDirectory);
 
         // attach callback to dialog window
         ModalComponentManager::getInstance()->attachCallback(windowSkin, ModalCallbackFunction::forComponent(window_skin_callback, this));
     }
     else if (button == &ButtonDisplayPeakMeter)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selShowPeaks, button->getToggleState() ? 0.0f : 1.0f);
+        audioProcessor->changeParameter(KmeterPluginParameters::selShowPeaks, button->getToggleState() ? 0.0f : 1.0f);
     }
     else if (button == &ButtonReset)
     {
-        MeterBallistics *pMeterBallistics = pProcessor->getLevels();
+        MeterBallistics *pMeterBallistics = audioProcessor->getLevels();
 
         if (pMeterBallistics)
         {
@@ -540,7 +558,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
     }
     else if (button == &ButtonMono)
     {
-        pProcessor->changeParameter(KmeterPluginParameters::selMono, button->getToggleState() ? 0.0f : 1.0f);
+        audioProcessor->changeParameter(KmeterPluginParameters::selMono, button->getToggleState() ? 0.0f : 1.0f);
     }
     else if (button == &ButtonAbout)
     {
@@ -645,20 +663,22 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         // manually activate button
         button->setToggleState(true, dontSendNotification);
 
-        bValidateWindow = true;
-        WindowValidation windowValidation(this, pProcessor);
-        windowValidation.runModalLoop();
-        bValidateWindow = false;
+        validationDialogOpen = true;
+        audioProcessor->stopValidation();
+        audioProcessor->silenceInput(true);
 
-        // manually set button according to validation state
-        button->setToggleState(bIsValidating, dontSendNotification);
+        // prepare and launch dialog window
+        DialogWindow *windowValidation = WindowValidationContent::createDialogWindow(this, audioProcessor);
+
+        // attach callback to dialog window
+        ModalComponentManager::getInstance()->attachCallback(windowValidation, ModalCallbackFunction::forComponent(window_validation_callback, this));
     }
 }
 
 
 void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
 {
-    if (pProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
+    if (audioProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
         ButtonItuBs1770.setToggleState(true, dontSendNotification);
         ButtonRms.setToggleState(false, dontSendNotification);
@@ -669,15 +689,15 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
         ButtonRms.setToggleState(true, dontSendNotification);
     }
 
-    bReloadMeters = reload_meters;
-    MeterBallistics *pMeterBallistics = pProcessor->getLevels();
+    needsMeterReload = reload_meters;
+    MeterBallistics *pMeterBallistics = audioProcessor->getLevels();
 
     if (pMeterBallistics != nullptr)
     {
         pMeterBallistics->reset();
     }
 
-    if (!bInitialising)
+    if (!isInitialising)
     {
         // will also apply skin to plug-in editor
         reloadMeters();

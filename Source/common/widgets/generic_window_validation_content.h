@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   MZ common JUCE
+   ==============
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,30 +23,36 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WINDOW_VALIDATION_H__
-#define __WINDOW_VALIDATION_H__
+#ifndef __GENERIC_WINDOW_VALIDATION_CONTENT_H__
+#define __GENERIC_WINDOW_VALIDATION_CONTENT_H__
 
 #include "JuceHeader.h"
-#include "plugin_processor.h"
-#include "common/widgets/generic_channel_slider.h"
+#include "generic_channel_slider.h"
 
 
-class WindowValidation : public DocumentWindow, ButtonListener
+/// Dialog window for validation settings.
+///
+class GenericWindowValidationContent : public Component, public ButtonListener
 {
 public:
-    WindowValidation(Component *pEditorWindow, KmeterAudioProcessor *processor);
-    ~WindowValidation();
+    GenericWindowValidationContent();
 
-    void buttonClicked(Button *button);
+    virtual void buttonClicked(Button *button);
     void closeButtonPressed();
+    virtual void applySkin();
 
-private:
-    JUCE_LEAK_DETECTOR(WindowValidation);
+    virtual void initialise(int width, int height, int numberOfInputChannels,
+                            int sampleRate, int selectedChannel,
+                            const File &validationFileNew);
 
-    KmeterAudioProcessor *pProcessor;
-    File fileValidation;
+    /// Select a new audio file for validation.
+    ///
+    /// @param validationFileNew audio file for validation
+    ///
+    virtual void selectValidationFile(const File &validationFileNew) = 0;
 
-    Component contentComponent;
+protected:
+    File validationFile;
 
     Label LabelFileSelection;
     Label LabelSampleRate;
@@ -58,16 +64,13 @@ private:
 
     Label LabelDumpSelectedChannel;
     GenericChannelSlider SliderDumpSelectedChannel;
-    ToggleButton ButtonDumpCSV;
-    ToggleButton ButtonDumpAverageMeterLevel;
-    ToggleButton ButtonDumpPeakMeterLevel;
-    ToggleButton ButtonDumpMaximumPeakLevel;
-    ToggleButton ButtonDumpStereoMeterValue;
-    ToggleButton ButtonDumpPhaseCorrelation;
+
+private:
+    JUCE_LEAK_DETECTOR(GenericWindowValidationContent);
 };
 
 
-#endif  // __WINDOW_VALIDATION_H__
+#endif  // __GENERIC_WINDOW_VALIDATION_CONTENT_H__
 
 
 // Local Variables:

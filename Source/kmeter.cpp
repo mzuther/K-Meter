@@ -60,11 +60,6 @@ Kmeter::Kmeter(int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizon
 }
 
 
-Kmeter::~Kmeter()
-{
-}
-
-
 void Kmeter::applySkin(Skin *pSkin)
 {
     if (nInputChannels == 1)

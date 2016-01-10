@@ -37,7 +37,6 @@ class MeterBallistics
 {
 public:
     MeterBallistics(int nChannels, int AverageAlgorithm, bool bPeakMeterInfiniteHold, bool bAverageMeterInfiniteHold);
-    ~MeterBallistics();
 
     void setAverageAlgorithm(int AverageAlgorithm);
     void setPeakMeterInfiniteHold(bool bInfiniteHold);

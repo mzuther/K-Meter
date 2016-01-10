@@ -33,6 +33,8 @@ KmeterPluginParameters::KmeterPluginParameters() :
     ParameterJuggler("KMETER_SETTINGS", numberOfParametersComplete,
                      numberOfParametersRevealed)
 {
+    // parameters created here will be deleted in "ParameterJuggler"!
+
     PluginParameterSwitch *ParameterCrestFactor = new PluginParameterSwitch();
     ParameterCrestFactor->setName("Metering mode");
 
@@ -164,12 +166,6 @@ KmeterPluginParameters::KmeterPluginParameters() :
 }
 
 
-KmeterPluginParameters::~KmeterPluginParameters()
-{
-    // parameters will be deleted in "ParameterJuggler"
-}
-
-
 File KmeterPluginParameters::getValidationFile()
 {
     File validationFile = File(getText(selValidationFileName));
@@ -185,7 +181,7 @@ File KmeterPluginParameters::getValidationFile()
 }
 
 
-void KmeterPluginParameters::setValidationFile(File &validationFile)
+void KmeterPluginParameters::setValidationFile(const File &validationFile)
 {
     if (validationFile.existsAsFile())
     {
@@ -201,7 +197,7 @@ String KmeterPluginParameters::getSkinName()
 }
 
 
-void KmeterPluginParameters::setSkinName(String &strSkinName)
+void KmeterPluginParameters::setSkinName(const String &strSkinName)
 {
     setText(selSkinName, strSkinName);
 }

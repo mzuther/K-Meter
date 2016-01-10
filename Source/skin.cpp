@@ -31,11 +31,6 @@ Skin::Skin()
 }
 
 
-Skin::~Skin()
-{
-}
-
-
 void Skin::loadSkin(File &fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter)
 {
     updateSkin(nNumChannels, nCrestFactor, nAverageAlgorithm, bExpanded, bDisplayPeakMeter);

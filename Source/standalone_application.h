@@ -33,7 +33,6 @@ class KmeterStandalone : virtual public GenericPluginStandalone
 {
 public:
     KmeterStandalone();
-    ~KmeterStandalone();
 
 protected:
     PropertiesFile::Options prepare_properties();

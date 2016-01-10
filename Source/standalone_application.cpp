@@ -30,11 +30,6 @@ KmeterStandalone::KmeterStandalone()
 }
 
 
-KmeterStandalone::~KmeterStandalone()
-{
-}
-
-
 PropertiesFile::Options KmeterStandalone::prepare_properties()
 {
     PropertiesFile::Options options;

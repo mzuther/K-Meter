@@ -260,7 +260,7 @@ File KmeterAudioProcessor::getParameterValidationFile()
 }
 
 
-void KmeterAudioProcessor::setParameterValidationFile(File &fileValidation)
+void KmeterAudioProcessor::setParameterValidationFile(const File &fileValidation)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
@@ -282,7 +282,7 @@ String KmeterAudioProcessor::getParameterSkinName()
 }
 
 
-void KmeterAudioProcessor::setParameterSkinName(String &strSkinName)
+void KmeterAudioProcessor::setParameterSkinName(const String &strSkinName)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
@@ -403,7 +403,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
         bSampleRateIsValid = true;
     }
 
-    isPreValidating = false;
+    isSilent = false;
     nNumInputChannels = getNumInputChannels();
 
     if (nNumInputChannels <= 0)
@@ -528,7 +528,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &m
 void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
     // silence input if validation window is open
-    if (isPreValidating)
+    if (isSilent)
     {
         buffer.clear();
         pRingBufferInput->clear();
@@ -661,15 +661,9 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const u
 }
 
 
-void KmeterAudioProcessor::preValidation(bool bStart)
+void KmeterAudioProcessor::silenceInput(bool isSilentNew)
 {
-    if (bStart)
-    {
-        // stops any running validation and resets all meters
-        stopValidation();
-    }
-
-    isPreValidating = bStart;
+    isSilent = isSilentNew;
 }
 
 
@@ -678,7 +672,7 @@ void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel,
     // reset all meters before we start the validation
     pMeterBallistics->reset();
 
-    isPreValidating = false;
+    isSilent = false;
 
     int nCrestFactor = getRealInteger(KmeterPluginParameters::selCrestFactor);
     audioFilePlayer = new AudioFilePlayer(fileAudio, (int) getSampleRate(), pMeterBallistics, nCrestFactor);
@@ -691,7 +685,7 @@ void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel,
 
 void KmeterAudioProcessor::stopValidation()
 {
-    isPreValidating = false;
+    isSilent = false;
     audioFilePlayer = nullptr;
 
     // reset all meters after the validation

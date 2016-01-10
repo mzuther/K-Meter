@@ -30,7 +30,7 @@
 #include "plugin_processor.h"
 #include "kmeter.h"
 #include "skin.h"
-#include "window_validation.h"
+#include "window_validation_content.h"
 #include "common/widgets/generic_horizontal_meter.h"
 #include "common/widgets/generic_window_about_content.h"
 #include "common/widgets/generic_window_skin_content.h"
@@ -51,6 +51,7 @@ public:
 
     void windowAboutCallback(int modalResult);
     void windowSkinCallback(int modalResult);
+    void windowValidationCallback(int modalResult);
 
     //==============================================================================
     // This is just a standard Juce paint method...
@@ -65,22 +66,21 @@ private:
     void loadSkin();
     void updateAverageAlgorithm(bool reload_meters);
 
-    bool bReloadMeters;
-    bool bIsValidating;
-    bool bValidateWindow;
-    bool bInitialising;
-    bool bExpanded;
-    bool bDisplayPeakMeter;
+    bool needsMeterReload;
+    bool isValidating;
+    bool validationDialogOpen;
+    bool isInitialising;
+    bool isExpanded;
+    bool usePeakMeter;
 
-    int nCrestFactor;
-    int nInputChannels;
-    int nStereoInputChannels;
+    int crestFactor;
+    int numberOfInputChannels;
 
-    File fileSkinDirectory;
+    File skinDirectory;
     Skin skin;
-    String strSkinName;
+    String currentSkinName;
 
-    KmeterAudioProcessor *pProcessor;
+    KmeterAudioProcessor *audioProcessor;
     ScopedPointer<Kmeter> kmeter;
     ScopedPointer<GenericHorizontalMeter> stereoMeter;
     ScopedPointer<GenericHorizontalMeter> phaseCorrelationMeter;

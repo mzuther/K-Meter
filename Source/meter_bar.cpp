@@ -34,11 +34,6 @@ MeterBar::MeterBar()
 }
 
 
-MeterBar::~MeterBar()
-{
-}
-
-
 void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, int nMainSegmentHeight)
 {
     GenericMeterBar::create();
