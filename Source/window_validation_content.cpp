@@ -66,6 +66,43 @@ WindowValidationContent::WindowValidationContent(KmeterAudioProcessor *processor
 }
 
 
+/// Static helper function to create a dialog window for validation
+/// settings.
+///
+/// @param pluginEditor audio plug-in editor
+///
+/// @param audioProcessor audio processor
+///
+/// @return created dialog window
+///
+DialogWindow *WindowValidationContent::createDialogWindow(AudioProcessorEditor *pluginEditor, KmeterAudioProcessor *audioProcessor)
+{
+    // prepare dialog window
+    DialogWindow::LaunchOptions windowValidationLauncher;
+
+    // create content component
+    WindowValidationContent *content = new WindowValidationContent(
+        audioProcessor);
+
+    // initialize dialog window settings
+    windowValidationLauncher.dialogTitle = String("Validation");
+    windowValidationLauncher.dialogBackgroundColour = Colours::white;
+    windowValidationLauncher.content.setOwned(content);
+    windowValidationLauncher.componentToCentreAround = pluginEditor;
+
+    windowValidationLauncher.escapeKeyTriggersCloseButton = true;
+    windowValidationLauncher.useNativeTitleBar = false;
+    windowValidationLauncher.resizable = false;
+    windowValidationLauncher.useBottomRightCornerResizer = false;
+
+    // launch dialog window
+    DialogWindow *windowValidation = windowValidationLauncher.launchAsync();
+    windowValidation->setAlwaysOnTop(true);
+
+    return windowValidation;
+}
+
+
 /// Initialise dialog window components.
 ///
 /// @param width width of content component
@@ -148,39 +185,6 @@ void WindowValidationContent::initialise(int width, int height,
 
     // style and place the dialog window's components
     applySkin();
-}
-
-
-/// Static helper function to create a dialog window for validation
-/// settings.
-///
-/// @param pluginEditor audio plug-in editor
-///
-/// @param audioProcessor audio processor
-///
-/// @return created dialog window
-///
-DialogWindow *WindowValidationContent::createDialogWindow(AudioProcessorEditor *pluginEditor, KmeterAudioProcessor *audioProcessor)
-{
-    // prepare dialog window
-    DialogWindow::LaunchOptions windowValidationLauncher;
-
-    windowValidationLauncher.dialogTitle = String("Validation");
-    windowValidationLauncher.dialogBackgroundColour = Colours::white;
-    windowValidationLauncher.content.setOwned(
-        new WindowValidationContent(audioProcessor));
-    windowValidationLauncher.componentToCentreAround = pluginEditor;
-
-    windowValidationLauncher.escapeKeyTriggersCloseButton = true;
-    windowValidationLauncher.useNativeTitleBar = false;
-    windowValidationLauncher.resizable = false;
-    windowValidationLauncher.useBottomRightCornerResizer = false;
-
-    // launch dialog window
-    DialogWindow *windowValidation = windowValidationLauncher.launchAsync();
-    windowValidation->setAlwaysOnTop(true);
-
-    return windowValidation;
 }
 
 

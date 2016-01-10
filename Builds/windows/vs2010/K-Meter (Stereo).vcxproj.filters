@@ -2,76 +2,76 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="Source">
-			<UniqueIdentifier>{D1D20087-0FCC-DD08-525B-3C1AB036763B}</UniqueIdentifier>
+			<UniqueIdentifier>{72FBFFEA-7763-E513-F196-1E220AC9FB63}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common">
-			<UniqueIdentifier>{DD4C60D7-6640-E63F-7A56-096A1BEB8636}</UniqueIdentifier>
+			<UniqueIdentifier>{2C745EEB-2459-30B8-BF7D-5C9F0568F942}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\widgets">
-			<UniqueIdentifier>{DD99D025-21F0-0643-8136-0D05C7A02AE9}</UniqueIdentifier>
+			<UniqueIdentifier>{1C4F9E13-88E4-F032-5A5E-8B999823936F}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\widgets\resources">
-			<UniqueIdentifier>{AD1AA57C-4CC2-4169-A5E3-4B7EB779CE2A}</UniqueIdentifier>
+			<UniqueIdentifier>{AA8F9701-DF69-F769-DEB8-8761114AB70F}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\skin">
-			<UniqueIdentifier>{7F3776CF-2C03-EDDB-6CA1-BB8AA4E356BC}</UniqueIdentifier>
+			<UniqueIdentifier>{EE8590D0-73A0-25A0-BC2E-2ACC2FCAA1AE}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\math">
-			<UniqueIdentifier>{A732B81B-AA35-5168-93BB-20EA6374254E}</UniqueIdentifier>
+			<UniqueIdentifier>{4FAFD844-E91D-51C1-B385-67A78E6FE5C4}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\parameter_juggler">
-			<UniqueIdentifier>{29EAE680-B9B6-244A-CD10-9331D34B0180}</UniqueIdentifier>
+			<UniqueIdentifier>{D4696D66-8033-A0B3-184E-290E086F56CA}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\audio">
-			<UniqueIdentifier>{C2B19CB9-F56B-198D-FC72-052241910C55}</UniqueIdentifier>
+			<UniqueIdentifier>{A7066140-9700-5DDD-2F04-7E4838FCD7C9}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries">
-			<UniqueIdentifier>{E544E4FC-7D00-FD85-E664-3F0C6E38CE91}</UniqueIdentifier>
+			<UniqueIdentifier>{ED094E73-3BB9-41EF-F3BF-CC9D20AF6C03}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce">
-			<UniqueIdentifier>{82BC3601-79B1-AD91-F7BF-6FF2BBFD5A2D}</UniqueIdentifier>
+			<UniqueIdentifier>{C635980F-CA2D-12E2-4EB9-3101D9AA2E1A}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules">
-			<UniqueIdentifier>{420D1042-3DDB-8813-76B3-14E79C2A549B}</UniqueIdentifier>
+			<UniqueIdentifier>{7E61203B-531D-053D-8575-16F1F1EA0540}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_basics">
-			<UniqueIdentifier>{B03B8EA6-B0A4-2E0D-D6B6-044A0B7A0CC5}</UniqueIdentifier>
+			<UniqueIdentifier>{A6E8F50D-97EE-3282-A679-153854444523}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_devices">
-			<UniqueIdentifier>{32A84EEF-C918-367D-68D1-F38BB9A92539}</UniqueIdentifier>
+			<UniqueIdentifier>{5E17FBFC-38A5-559B-7EDA-402241DF4B40}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_formats">
-			<UniqueIdentifier>{15AB149E-BF1A-7FF8-82AC-52F522A2EF2E}</UniqueIdentifier>
+			<UniqueIdentifier>{6D057E0C-9F82-69CC-520A-98F2BD415FF7}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_processors">
-			<UniqueIdentifier>{3A297083-4A50-1B7C-4478-E1AA4B3B59A3}</UniqueIdentifier>
+			<UniqueIdentifier>{09CEC2C3-3A1B-AB0E-198A-49DBD781F01C}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_utils">
-			<UniqueIdentifier>{F4201451-4988-40C9-A7C1-5BB70FA77A2B}</UniqueIdentifier>
+			<UniqueIdentifier>{0A894D2A-C029-EE14-9497-E5CEEDAE43FA}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_core">
-			<UniqueIdentifier>{7C035E54-EFA6-4ADF-AB9A-1708A9D68B9E}</UniqueIdentifier>
+			<UniqueIdentifier>{7F8DACBD-F241-1A63-A557-6DB786CDEEF7}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_cryptography">
-			<UniqueIdentifier>{36C1C32B-1FD4-EA88-ED6A-870672A1CD4C}</UniqueIdentifier>
+			<UniqueIdentifier>{8E8F4BAE-0C77-1F83-CC61-72D504AFE694}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_data_structures">
-			<UniqueIdentifier>{072D103F-570F-3B07-75D8-A5CB4A0EFC8E}</UniqueIdentifier>
+			<UniqueIdentifier>{1ED568EF-EA5A-CA89-D7F8-003F3BD71DD0}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_events">
-			<UniqueIdentifier>{013021CA-A75A-4697-F767-1ABDC1EC64FD}</UniqueIdentifier>
+			<UniqueIdentifier>{914E0BB5-830E-3C0C-42EC-038AD4735BA7}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_graphics">
-			<UniqueIdentifier>{52928435-DE12-A08F-DA5F-12499C54FB5E}</UniqueIdentifier>
+			<UniqueIdentifier>{F00CA27E-670E-9A77-096A-E952FA9290C6}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_gui_basics">
-			<UniqueIdentifier>{0FD8A631-09F6-D720-748B-A705836358F0}</UniqueIdentifier>
+			<UniqueIdentifier>{A53C4F75-EBDE-6790-B8FF-7F2D33B12BD0}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_gui_extra">
-			<UniqueIdentifier>{BD493666-C2D1-60FA-6CB7-F15DFDAB442B}</UniqueIdentifier>
+			<UniqueIdentifier>{532AD0AB-0CBD-3080-7EA7-E04163C89230}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_video">
-			<UniqueIdentifier>{7A447744-3CF0-3FA5-4664-F6997FF4916B}</UniqueIdentifier>
+			<UniqueIdentifier>{50973DA9-6E5A-46AF-3FEA-BA220C26934F}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -151,6 +151,9 @@
 			<Filter>Source\common\widgets</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_continuous.h">
+			<Filter>Source\common\widgets</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_settings_content.h">
 			<Filter>Source\common\widgets</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_state_label.h">
@@ -243,6 +246,9 @@
 			<Filter>Source\common\widgets</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_channel_slider.cpp">
+			<Filter>Source\common\widgets</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_window_settings_content.cpp">
 			<Filter>Source\common\widgets</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_window_skin_content.cpp">

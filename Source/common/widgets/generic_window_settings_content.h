@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   MZ common JUCE
-   ==============
-   Common classes for use with the JUCE library
+   Squeezer
+   ========
+   Flexible general-purpose audio compressor with a touch of lemon.
 
-   Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2013-2016 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,43 +23,38 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_WINDOW_ABOUT_CONTENT_H__
-#define __GENERIC_WINDOW_ABOUT_CONTENT_H__
+#ifndef __GENERIC_WINDOW_SETTINGS_CONTENT_H__
+#define __GENERIC_WINDOW_SETTINGS_CONTENT_H__
 
 #include "JuceHeader.h"
-#include "resources/resources.h"
 
 
-/// Dialog window for displaying version, copyright, license and so
-/// on.
+/// Dialog window for displaying plugin-settings.
 ///
-class GenericWindowAboutContent : public Component, public ButtonListener
+class GenericWindowSettingsContent : public Component, public ButtonListener
 {
 public:
-    GenericWindowAboutContent();
+    GenericWindowSettingsContent();
 
     static DialogWindow *createDialogWindow(AudioProcessorEditor *pluginEditor,
                                             int width, int height,
-                                            const StringPairArray &chapters);
+                                            const String &pluginSettings);
 
     virtual void buttonClicked(Button *button);
+    virtual void closeButtonPressed();
 
     virtual void applySkin();
-    virtual void initialize(int width, int height,
-                            const StringPairArray &chapters);
+    virtual void initialize(int width, int height, const String &pluginSettings);
 
 private:
-    JUCE_LEAK_DETECTOR(GenericWindowAboutContent);
+    JUCE_LEAK_DETECTOR(GenericWindowSettingsContent);
 
-    void addChapters(const StringPairArray &chapters);
-
-    TextEditor EditorAbout;
+    TextEditor TextEditorSettings;
     TextButton ButtonClose;
-    ImageButton ButtonGpl;
 };
 
 
-#endif  // __GENERIC_WINDOW_ABOUT_CONTENT_H__
+#endif  // __GENERIC_WINDOW_SETTINGS_CONTENT_H__
 
 
 // Local Variables:

@@ -124,6 +124,7 @@ OBJECTS := \
 	$(OBJDIR)/window_validation_content.o \
 	$(OBJDIR)/slider_continuous.o \
 	$(OBJDIR)/generic_channel_slider.o \
+	$(OBJDIR)/generic_window_settings_content.o \
 	$(OBJDIR)/generic_window_skin_content.o \
 	$(OBJDIR)/slider_combined.o \
 	$(OBJDIR)/generic_horizontal_meter.o \
@@ -267,6 +268,9 @@ $(OBJDIR)/slider_continuous.o: ../../../Source/common/widgets/slider_continuous.
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_channel_slider.o: ../../../Source/common/widgets/generic_channel_slider.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_window_settings_content.o: ../../../Source/common/widgets/generic_window_settings_content.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_window_skin_content.o: ../../../Source/common/widgets/generic_window_skin_content.cpp
