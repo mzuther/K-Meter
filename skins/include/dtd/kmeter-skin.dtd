@@ -172,7 +172,7 @@
 <!ENTITY % attrs_meter
           "%attrs_image_position;
            segment_width CDATA #REQUIRED
-           vertical CDATA #REQUIRED
+           vertical (true | false) #REQUIRED
            image CDATA #REQUIRED
            image_expanded CDATA #REQUIRED
 ">
