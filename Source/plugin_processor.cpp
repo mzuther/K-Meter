@@ -27,6 +27,11 @@
 #include "plugin_editor.h"
 
 
+// To hear the audio source after average filtering, simply set
+// DEBUG_FILTER to "true".  Please remember to revert this variable to
+// "false" before committing your changes.
+const bool DEBUG_FILTER = false;
+
 /*==============================================================================
 
 Flow of parameter processing:
@@ -646,8 +651,8 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const u
     sendActionMessage("UM");
 
     // To hear the audio source after average filtering, simply set
-    // DEBUG_FILTER to 1.  Please remember to disable this setting
-    // before committing your changes.
+    // DEBUG_FILTER to "true".  Please remember to revert this
+    // variable to "false" before committing your changes.
     if (DEBUG_FILTER)
     {
         pAverageLevelFiltered->copyToBuffer(*pRingBufferOutput, 0, uChunkSize);

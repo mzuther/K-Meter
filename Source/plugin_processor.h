@@ -26,8 +26,6 @@
 #ifndef __KMETER_PLUGINPROCESSOR_H__
 #define __KMETER_PLUGINPROCESSOR_H__
 
-#define DEBUG_FILTER 0
-
 class KmeterAudioProcessor;
 class MeterBallistics;
 
