@@ -129,16 +129,24 @@ void Kmeter::setLevels(MeterBallistics *pMeterBallistics)
     {
         if (displayPeakMeter)
         {
-            p_arrLevelMeters[nChannel]->setLevels(pMeterBallistics->getAverageMeterLevel(nChannel), pMeterBallistics->getPeakMeterLevel(nChannel), pMeterBallistics->getAverageMeterPeakLevel(nChannel), pMeterBallistics->getPeakMeterPeakLevel(nChannel));
+            p_arrLevelMeters[nChannel]->setLevels(
+                pMeterBallistics->getAverageMeterLevel(nChannel),
+                pMeterBallistics->getAverageMeterPeakLevel(nChannel),
+                pMeterBallistics->getPeakMeterLevel(nChannel),
+                pMeterBallistics->getPeakMeterPeakLevel(nChannel));
         }
         else
         {
-            p_arrLevelMeters[nChannel]->setNormalLevels(pMeterBallistics->getAverageMeterLevel(nChannel), pMeterBallistics->getAverageMeterPeakLevel(nChannel));
+            p_arrLevelMeters[nChannel]->setNormalLevels(
+                pMeterBallistics->getAverageMeterLevel(nChannel),
+                pMeterBallistics->getAverageMeterPeakLevel(nChannel));
         }
 
-        p_arrMaximumPeakLabels[nChannel]->updateLevel(pMeterBallistics->getMaximumPeakLevel(nChannel));
+        p_arrMaximumPeakLabels[nChannel]->updateLevel(
+            pMeterBallistics->getMaximumPeakLevel(nChannel));
 
-        p_arrOverflowMeters[nChannel]->setOverflows(pMeterBallistics->getNumberOfOverflows(nChannel));
+        p_arrOverflowMeters[nChannel]->setOverflows(
+            pMeterBallistics->getNumberOfOverflows(nChannel));
     }
 }
 
