@@ -60,6 +60,9 @@ private:
     File defaultSkinFile_;
     String defaultSkinName_;
     StringArray skinNames_;
+
+private:
+    JUCE_LEAK_DETECTOR(GenericSkinListBoxModel);
 };
 
 
@@ -85,9 +88,7 @@ public:
     virtual void initialize(String *currentSkinName,
                             const File &skinDirectory);
 
-private:
-    JUCE_LEAK_DETECTOR(GenericWindowSkinContent);
-
+protected:
     ListBox skinList_;
     GenericSkinListBoxModel listModel_;
 
@@ -95,6 +96,9 @@ private:
     TextButton buttonDefault_;
 
     String *currentSkinName_;
+
+private:
+    JUCE_LEAK_DETECTOR(GenericWindowSkinContent);
 };
 
 

@@ -53,11 +53,12 @@ public:
                             int componentHeight,
                             const String &pluginSettings);
 
-private:
-    JUCE_LEAK_DETECTOR(GenericWindowSettingsContent);
-
+protected:
     TextEditor textEditor_;
     TextButton buttonClose_;
+
+private:
+    JUCE_LEAK_DETECTOR(GenericWindowSettingsContent);
 };
 
 

@@ -53,14 +53,15 @@ public:
                             int componentHeight,
                             const StringPairArray &chapters);
 
-private:
-    JUCE_LEAK_DETECTOR(GenericWindowAboutContent);
-
+protected:
     void addChapters(const StringPairArray &chapters);
 
     TextEditor textEditor_;
     TextButton buttonClose_;
     ImageButton buttonLicense_;
+
+private:
+    JUCE_LEAK_DETECTOR(GenericWindowAboutContent);
 };
 
 

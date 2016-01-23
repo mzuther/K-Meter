@@ -33,7 +33,8 @@
 ///
 /// @see GenericMeterBar
 ///
-class GenericMeterSegment : public Component
+class GenericMeterSegment :
+    public Component
 {
 public:
     /// Destructor.
@@ -42,37 +43,37 @@ public:
     /// Set normal (average) levels.  *Use this only if you completely
     /// disregard discrete (peak) levels!*
     ///
-    /// @param normalLevelNew new normal level
+    /// @param normalLevel new normal level
     ///
-    /// @param normalLevelPeakNew new normal peak level
+    /// @param normalLevelPeak new normal peak level
     ///
-    virtual void setNormalLevels(float normalLevelNew,
-                                 float normalLevelPeakNew) { } ;
+    virtual void setNormalLevels(float normalLevel,
+                                 float normalLevelPeak) { } ;
 
     /// Set discrete (peak) levels.  *Use this only if you completely
     /// disregard normal (average) levels!*
     ///
-    /// @param discreteLevelNew new discrete level
+    /// @param discreteLevel new discrete level
     ///
-    /// @param discreteLevelPeakNew new discrete peak level
+    /// @param discreteLevelPeak new discrete peak level
     ///
-    virtual void setDiscreteLevels(float discreteLevelNew,
-                                   float discreteLevelPeakNew) { } ;
+    virtual void setDiscreteLevels(float discreteLevel,
+                                   float discreteLevelPeak) { } ;
 
     /// Set discrete (peak) and normal (average) levels.
     ///
-    /// @param normalLevelNew new normal level
+    /// @param normalLevel new normal level
     ///
-    /// @param normalLevelPeakNew new normal peak level
+    /// @param normalLevelPeak new normal peak level
     ///
-    /// @param discreteLevelNew new discrete level
+    /// @param discreteLevel new discrete level
     ///
-    /// @param discreteLevelPeakNew new discrete peak level
+    /// @param discreteLevelPeak new discrete peak level
     ///
-    virtual void setLevels(float normalLevelNew,
-                           float normalLevelPeakNew,
-                           float discreteLevelNew,
-                           float discreteLevelPeakNew) { } ;
+    virtual void setLevels(float normalLevel,
+                           float normalLevelPeak,
+                           float discreteLevel,
+                           float discreteLevelPeak) { } ;
 };
 
 

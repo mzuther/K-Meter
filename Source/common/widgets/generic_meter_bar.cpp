@@ -110,7 +110,7 @@ void GenericMeterBar::addSegment(
 
     // set segment's lower threshold and display range (both in
     // decibels) and whether it is the topmost segment
-    currentSegment->setThresholds(lowerThreshold, thresholdRange, isTopmost);
+    currentSegment->setThresholdAndRange(lowerThreshold, thresholdRange, isTopmost);
 
     // set segment's hue and peak marker colour
     currentSegment->setColour(segmentHue, colPeakMarker);

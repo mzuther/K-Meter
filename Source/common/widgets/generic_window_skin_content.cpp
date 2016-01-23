@@ -422,7 +422,7 @@ void GenericSkinListBoxModel::paintListBoxItem(
     // render row text in black
     g.setColour(Colours::black);
     g.drawText(skinName,
-               2, 0, rowWidth - 4, rowHeight, 
+               2, 0, rowWidth - 4, rowHeight,
                Justification::centredLeft,
                true);
 }

@@ -37,48 +37,50 @@
 ///
 /// @see GenericMeterBar
 ///
-class GenericMeterSegmentDiscrete : public GenericMeterSegment
+class GenericMeterSegmentDiscrete :
+    public GenericMeterSegment
 {
 public:
     GenericMeterSegmentDiscrete();
 
-    float setThresholds(float lowerThresholdNew,
-                        float thresholdRangeNew,
-                        bool isTopmostNew);
+    float setThresholdAndRange(float lowerThreshold,
+                               float thresholdRange,
+                               bool isTopmost);
 
-    void setColour(float segmentHueNew,
-                   const Colour &colPeakMarkerNew);
+    void setColour(float segmentHue,
+                   const Colour &peakMarkerColour);
 
-    virtual void setNormalLevels(float normalLevelNew,
-                                 float normalLevelPeakNew);
+    virtual void setNormalLevels(float normalLevel,
+                                 float normalLevelPeak);
 
-    virtual void setDiscreteLevels(float discreteLevelNew,
-                                   float discreteLevelPeakNew);
+    virtual void setDiscreteLevels(float discreteLevel,
+                                   float discreteLevelPeak);
 
-    virtual void setLevels(float normalLevelNew,
-                           float normalLevelPeakNew,
-                           float discreteLevelNew,
-                           float discreteLevelPeakNew);
+    virtual void setLevels(float normalLevel,
+                           float normalLevelPeak,
+                           float discreteLevel,
+                           float discreteLevelPeak);
 
     void paint(Graphics &g);
     void resized();
     void visibilityChanged();
 
+protected:
+    float lowerThreshold_;
+    float upperThreshold_;
+    float thresholdRange_;
+
+    Colour peakMarkerColour_;
+
+    float segmentHue_;
+    float segmentBrightness_;
+    float outlineBrightness_;
+
+    bool displayPeakMarker_;
+    bool isTopmost_;
+
 private:
     JUCE_LEAK_DETECTOR(GenericMeterSegmentDiscrete);
-
-    Colour colPeakMarker;
-
-    float segmentHue;
-    float segmentBrightness;
-    float outlineBrightness;
-
-    float lowerThreshold;
-    float upperThreshold;
-    float thresholdRange;
-
-    bool lightPeakMarker;
-    bool isTopmost;
 };
 
 
