@@ -37,28 +37,30 @@ class GenericMeterSegment :
     public Component
 {
 public:
-    /// Destructor.
-    virtual ~GenericMeterSegment() { } ;
+    GenericMeterSegment();
+    virtual ~GenericMeterSegment();
 
-    /// Set normal (average) levels.  *Use this only if you completely
-    /// disregard discrete (peak) levels!*
-    ///
-    /// @param normalLevel new normal level
-    ///
-    /// @param normalLevelPeak new normal peak level
-    ///
+    /// Orientation for the meter segment.
+    enum Orientation  // public namespace!
+    {
+        /// horizontal meter (bottom to top)
+        orientationHorizontal = 0,
+
+        /// inverted horizontal meter (top to bottom)
+        orientationHorizontalInverted,
+
+        /// vertical meter (left to right)
+        orientationVertical,
+
+        /// inverted vertical meter (right to left)
+        orientationVerticalInverted
+    };
+
     virtual void setNormalLevels(float normalLevel,
-                                 float normalLevelPeak) { } ;
+                                 float normalLevelPeak);
 
-    /// Set discrete (peak) levels.  *Use this only if you completely
-    /// disregard normal (average) levels!*
-    ///
-    /// @param discreteLevel new discrete level
-    ///
-    /// @param discreteLevelPeak new discrete peak level
-    ///
     virtual void setDiscreteLevels(float discreteLevel,
-                                   float discreteLevelPeak) { } ;
+                                   float discreteLevelPeak);
 
     /// Set discrete (peak) and normal (average) levels.
     ///
@@ -73,7 +75,14 @@ public:
     virtual void setLevels(float normalLevel,
                            float normalLevelPeak,
                            float discreteLevel,
-                           float discreteLevelPeak) { } ;
+                           float discreteLevelPeak) = 0 ;
+
+    virtual GenericMeterSegment::Orientation getOrientation();
+    virtual void setOrientation(GenericMeterSegment::Orientation orientation);
+
+protected:
+    GenericMeterSegment::Orientation orientation_;
+
 };
 
 

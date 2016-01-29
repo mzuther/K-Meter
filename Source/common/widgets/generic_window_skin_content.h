@@ -40,12 +40,12 @@ public:
     GenericSkinListBoxModel();
 
     virtual int getNumRows();
-    int getRow(const String &skinNameToLookFor);
+    virtual int getRow(const String &skinNameToLookFor);
 
-    void fill(const File &skinDirectory);
+    virtual void fill(const File &skinDirectory);
 
-    const String getSkinName(int rowNumber);
-    void setDefault(int rowNumber);
+    virtual const String getSkinName(int rowNumber);
+    virtual void setDefault(int rowNumber);
 
     virtual void paintListBoxItem(int rowNumber,
                                   Graphics &g,
@@ -85,7 +85,7 @@ public:
 
     virtual void applySkin();
 
-    virtual void initialize(String *currentSkinName,
+    virtual void initialise(String *currentSkinName,
                             const File &skinDirectory);
 
 protected:

@@ -67,7 +67,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     isValidating = false;
     validationDialogOpen = false;
 
-    numberOfInputChannels = nNumChannels;
+    numberOfInputChannels_ = nNumChannels;
     crestFactor = 0;
 
     isExpanded = false;
@@ -115,6 +115,9 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     ButtonInfinitePeakHold.addListener(this);
     addAndMakeVisible(ButtonInfinitePeakHold);
 
+    ButtonDiscreteMeter.addListener(this);
+    addAndMakeVisible(ButtonDiscreteMeter);
+
     ButtonMono.addListener(this);
     addAndMakeVisible(ButtonMono);
 
@@ -139,7 +142,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     // that it doesn't overlay (and thus block) any other components
     addAndMakeVisible(BackgroundImage, 0);
 
-    if (numberOfInputChannels <= 2)
+    if (numberOfInputChannels_ <= 2)
     {
         stereoMeter = new GenericHorizontalMeter("Stereo Meter");
         addAndMakeVisible(stereoMeter);
@@ -150,9 +153,12 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
 
     updateParameter(KmeterPluginParameters::selCrestFactor);
     updateParameter(KmeterPluginParameters::selAverageAlgorithm);
+
     updateParameter(KmeterPluginParameters::selExpanded);
     updateParameter(KmeterPluginParameters::selShowPeaks);
     updateParameter(KmeterPluginParameters::selInfinitePeakHold);
+    updateParameter(KmeterPluginParameters::selDiscreteMeter);
+
     updateParameter(KmeterPluginParameters::selMono);
 
     // the following may or may not work on Mac
@@ -187,7 +193,7 @@ void KmeterAudioProcessorEditor::loadSkin()
     }
 
     audioProcessor->setParameterSkinName(currentSkinName);
-    skin.loadSkin(fileSkin, numberOfInputChannels, crestFactor, audioProcessor->getAverageAlgorithm(), isExpanded, usePeakMeter);
+    skin.loadSkin(fileSkin, numberOfInputChannels_, crestFactor, audioProcessor->getAverageAlgorithm(), isExpanded, usePeakMeter);
 
     // will also apply skin to plug-in editor
     needsMeterReload = true;
@@ -204,7 +210,7 @@ void KmeterAudioProcessorEditor::applySkin()
     }
 
     // update skin
-    skin.updateSkin(numberOfInputChannels, crestFactor, audioProcessor->getAverageAlgorithm(), isExpanded, usePeakMeter);
+    skin.updateSkin(numberOfInputChannels_, crestFactor, audioProcessor->getAverageAlgorithm(), isExpanded, usePeakMeter);
 
     // moves background image to the back of the editor's z-plane;
     // will also resize plug-in editor
@@ -221,6 +227,7 @@ void KmeterAudioProcessorEditor::applySkin()
     skin.placeAndSkinButton(&ButtonExpanded, "button_expand");
     skin.placeAndSkinButton(&ButtonDisplayPeakMeter, "button_peaks");
     skin.placeAndSkinButton(&ButtonInfinitePeakHold, "button_hold");
+    skin.placeAndSkinButton(&ButtonDiscreteMeter, "button_discrete");
 
     skin.placeAndSkinButton(&ButtonMono, "button_mono");
     skin.placeAndSkinButton(&ButtonReset, "button_reset");
@@ -421,6 +428,9 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
         isExpanded = (nValue != 0);
         ButtonExpanded.setToggleState(isExpanded, dontSendNotification);
 
+        // discrete segments are forced for expanded meters
+        ButtonDiscreteMeter.setEnabled(!isExpanded);
+
         // will also apply skin to plug-in editor
         needsMeterReload = true;
         break;
@@ -445,6 +455,13 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
         ButtonInfinitePeakHold.setToggleState(nValue != 0, dontSendNotification);
         break;
 
+    case KmeterPluginParameters::selDiscreteMeter:
+        ButtonDiscreteMeter.setToggleState(nValue != 0, dontSendNotification);
+
+        // will also apply skin to plug-in editor
+        needsMeterReload = true;
+        break;
+
     case KmeterPluginParameters::selMono:
         ButtonMono.setToggleState(nValue != 0, dontSendNotification);
         break;
@@ -464,20 +481,27 @@ void KmeterAudioProcessorEditor::reloadMeters()
     if (needsMeterReload)
     {
         needsMeterReload = false;
+        int segmentHeight = 4;
 
         if (kmeter != nullptr)
         {
             removeChildComponent(kmeter);
         }
 
+        int numberOfInputChannels = numberOfInputChannels_;
+
         if (audioProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
         {
-            kmeter = new Kmeter(crestFactor, 1, ButtonExpanded.getToggleState(), false, ButtonDisplayPeakMeter.getToggleState(), 4);
+            numberOfInputChannels = 1;
         }
-        else
-        {
-            kmeter = new Kmeter(crestFactor, numberOfInputChannels, ButtonExpanded.getToggleState(), false, ButtonDisplayPeakMeter.getToggleState(), 4);
-        }
+
+        kmeter = new Kmeter(crestFactor,
+                            numberOfInputChannels,
+                            ButtonDiscreteMeter.getToggleState(),
+                            ButtonExpanded.getToggleState(),
+                            false,
+                            ButtonDisplayPeakMeter.getToggleState(),
+                            segmentHeight);
 
         // moves traKmeter to the back of the editor's z-plane so that
         // it doesn't overlay (and thus block) any other components
@@ -515,6 +539,10 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
     else if (button == &ButtonInfinitePeakHold)
     {
         audioProcessor->changeParameter(KmeterPluginParameters::selInfinitePeakHold, button->getToggleState() ? 0.0f : 1.0f);
+    }
+    else if (button == &ButtonDiscreteMeter)
+    {
+        audioProcessor->changeParameter(KmeterPluginParameters::selDiscreteMeter, button->getToggleState() ? 0.0f : 1.0f);
     }
     else if (button == &ButtonItuBs1770)
     {

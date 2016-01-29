@@ -49,7 +49,7 @@ public:
 
     virtual void applySkin();
 
-    virtual void initialize(int componentWidth,
+    virtual void initialise(int componentWidth,
                             int componentHeight,
                             const String &pluginSettings);
 

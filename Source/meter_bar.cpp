@@ -27,227 +27,253 @@
 
 MeterBar::MeterBar()
 {
-    arrHues.add(0.00f);  // red
-    arrHues.add(0.18f);  // yellow
-    arrHues.add(0.30f);  // green
-    arrHues.add(0.58f);  // blue
+    segmentHues_.add(0.00f);  // red
+    segmentHues_.add(0.18f);  // yellow
+    segmentHues_.add(0.30f);  // green
+    segmentHues_.add(0.58f);  // blue
 }
 
 
-void MeterBar::create(int crestFactor, bool bExpanded, Orientation orientation, int nMainSegmentHeight)
+void MeterBar::create(
+    int crestFactor, bool discreteMeter, bool isExpanded,
+    Orientation orientation, int mainSegmentHeight)
+
 {
     GenericMeterBar::create();
 
-    int nCrestFactor = 10 * crestFactor;
-    int nNumberOfBars;
+    crestFactor *= 10;
+    int numberOfBars;
 
-    int nLimitTopBars;
-    int nLimitRedBars;
-    int nLimitAmberBars;
-    int nLimitGreenBars_1;
-    int nLimitGreenBars_2;
+    int limitTopBars;
+    int limitRedBars;
+    int limitAmberBars;
+    int limitGreenBars_1;
+    int limitGreenBars_2;
 
     // to prevent the inherent round-off errors of float subtraction,
     // crest factor and limits are stored as integers representing
     // 0.1 dB steps
-    if (nCrestFactor == 0)
+    if (crestFactor == 0)
     {
-        nNumberOfBars = 47;
+        numberOfBars = 47;
 
-        nLimitTopBars = nCrestFactor - 20;
-        nLimitRedBars = -90;
-        nLimitAmberBars = -180;
-        nLimitGreenBars_1 = -400;
-        nLimitGreenBars_2 = nLimitGreenBars_1;
+        limitTopBars = crestFactor - 20;
+        limitRedBars = -90;
+        limitAmberBars = -180;
+        limitGreenBars_1 = -400;
+        limitGreenBars_2 = limitGreenBars_1;
     }
-    else if (nCrestFactor == +120)
+    else if (crestFactor == +120)
     {
-        nNumberOfBars = 48;
+        numberOfBars = 48;
 
-        nLimitTopBars = nCrestFactor - 20;
-        nLimitRedBars = +40;
-        nLimitAmberBars = 0;
-        nLimitGreenBars_1 = -300;
-        nLimitGreenBars_2 = nLimitGreenBars_1;
+        limitTopBars = crestFactor - 20;
+        limitRedBars = +40;
+        limitAmberBars = 0;
+        limitGreenBars_1 = -300;
+        limitGreenBars_2 = limitGreenBars_1;
     }
-    else if (nCrestFactor == +140)
+    else if (crestFactor == +140)
     {
-        nNumberOfBars = 50;
+        numberOfBars = 50;
 
-        nLimitTopBars = nCrestFactor - 20;
-        nLimitRedBars = +40;
-        nLimitAmberBars = 0;
-        nLimitGreenBars_1 = -300;
-        nLimitGreenBars_2 = nLimitGreenBars_1;
+        limitTopBars = crestFactor - 20;
+        limitRedBars = +40;
+        limitAmberBars = 0;
+        limitGreenBars_1 = -300;
+        limitGreenBars_2 = limitGreenBars_1;
     }
     else // K-20
     {
         // force crest factor of +20 dB
-        nCrestFactor = +200;
-        nNumberOfBars = 51;
+        crestFactor = +200;
+        numberOfBars = 51;
 
-        nLimitTopBars = nCrestFactor - 20;
-        nLimitRedBars = +40;
-        nLimitAmberBars = 0;
-        nLimitGreenBars_1 = -240;
-        nLimitGreenBars_2 = -300;
+        limitTopBars = crestFactor - 20;
+        limitRedBars = +40;
+        limitAmberBars = 0;
+        limitGreenBars_1 = -240;
+        limitGreenBars_2 = -300;
     }
 
-    if (bExpanded)
+    if (isExpanded)
     {
-        nNumberOfBars = 134;
+        numberOfBars = 134;
     }
 
     // bar threshold (in 0.1 dB)
-    int nTrueLowerThreshold = 0;
+    int trueLowerThreshold = 0;
 
-    if (bExpanded && (nCrestFactor > 80))
+    if (isExpanded && (crestFactor > 80))
     {
         // zoom into important region
-        nTrueLowerThreshold = +80 - nCrestFactor;
+        trueLowerThreshold = +80 - crestFactor;
     }
 
     // bar K-Meter level (in 0.1 dB)
-    int nLowerThreshold = nTrueLowerThreshold + nCrestFactor;
+    int lowerThreshold = trueLowerThreshold + crestFactor;
 
-    for (int n = 0; n < nNumberOfBars; ++n)
+    for (int n = 0; n < numberOfBars; ++n)
     {
         // bar level range (in 0.1 dB)
-        int nRange;
+        int segmentRange;
 
-        if (bExpanded)
+        if (isExpanded)
         {
-            nRange = 1;
+            segmentRange = 1;
         }
         else
         {
-            if (nLowerThreshold > nLimitTopBars)
+            if (lowerThreshold > limitTopBars)
             {
-                nRange = 5;
+                segmentRange = 5;
             }
-            else if (nLowerThreshold > nLimitGreenBars_1)
+            else if (lowerThreshold > limitGreenBars_1)
             {
-                nRange = 10;
+                segmentRange = 10;
             }
-            else if (nLowerThreshold > nLimitGreenBars_2)
+            else if (lowerThreshold > limitGreenBars_2)
             {
-                nRange = 60;
+                segmentRange = 60;
             }
             else
             {
-                nRange = 100;
+                segmentRange = 100;
             }
         }
 
-        int nColour;
+        int colourId;
 
-        if (nCrestFactor == 0)
+        if (crestFactor == 0)
         {
-            if (nLowerThreshold <= -280)
+            if (lowerThreshold <= -280)
             {
-                nColour = 0;
+                colourId = 0;
             }
-            else if (nLowerThreshold <= -220)
+            else if (lowerThreshold <= -220)
             {
-                nColour = 1;
+                colourId = 1;
             }
-            else if ((nLowerThreshold > -160) && (nLowerThreshold <= -100))
+            else if ((lowerThreshold > -160) && (lowerThreshold <= -100))
             {
-                nColour = 2;
+                colourId = 2;
             }
-            else if (nLowerThreshold > nLimitRedBars)
+            else if (lowerThreshold > limitRedBars)
             {
-                nColour = 0;
+                colourId = 0;
             }
-            else if (nLowerThreshold > nLimitAmberBars)
+            else if (lowerThreshold > limitAmberBars)
             {
-                nColour = 1;
+                colourId = 1;
             }
             else
             {
-                nColour = 2;
+                colourId = 2;
             }
         }
         else
         {
-            if (nLowerThreshold > nLimitRedBars)
+            if (lowerThreshold > limitRedBars)
             {
-                nColour = 0;
+                colourId = 0;
             }
-            else if (nLowerThreshold > nLimitAmberBars)
+            else if (lowerThreshold > limitAmberBars)
             {
-                nColour = 1;
+                colourId = 1;
             }
             else
             {
-                nColour = 2;
+                colourId = 2;
             }
         }
 
-        int nSegmentHeight;
+        Colour segmentColour(segmentHues_[colourId], 1.0f, 1.0f, 1.0f);
 
-        if (bExpanded)
+        int segmentHeight;
+
+        if (isExpanded)
         {
-            nSegmentHeight = nMainSegmentHeight;
+            segmentHeight = mainSegmentHeight;
         }
-        else if (nLowerThreshold > nLimitTopBars)
+        else if (lowerThreshold > limitTopBars)
         {
-            nSegmentHeight = nMainSegmentHeight;
+            segmentHeight = mainSegmentHeight;
         }
-        else if (nLowerThreshold > nLimitGreenBars_1)
+        else if (lowerThreshold > limitGreenBars_1)
         {
-            nSegmentHeight = 2 * nMainSegmentHeight;
+            segmentHeight = 2 * mainSegmentHeight;
         }
-        else if (nLowerThreshold > nLimitGreenBars_2)
+        else if (lowerThreshold > limitGreenBars_2)
         {
-            nSegmentHeight = 6 * nMainSegmentHeight;
+            segmentHeight = 6 * mainSegmentHeight;
         }
-        else if (n == nNumberOfBars - 1)
+        else if (n == numberOfBars - 1)
         {
-            if (nCrestFactor == 0)
+            if (crestFactor == 0)
             {
-                nSegmentHeight = 10 * nMainSegmentHeight;
+                segmentHeight = 10 * mainSegmentHeight;
             }
-            else if (nCrestFactor == +120)
+            else if (crestFactor == +120)
             {
-                nSegmentHeight = 14 * nMainSegmentHeight;
+                segmentHeight = 14 * mainSegmentHeight;
             }
-            else if (nCrestFactor == +140)
+            else if (crestFactor == +140)
             {
-                nSegmentHeight = 13 * nMainSegmentHeight;
+                segmentHeight = 13 * mainSegmentHeight;
             }
             else // K-20
             {
-                nSegmentHeight = 10 * nMainSegmentHeight;
+                segmentHeight = 10 * mainSegmentHeight;
             }
         }
         else
         {
-            if (nCrestFactor == 0)
+            if (crestFactor == 0)
             {
-                nSegmentHeight = 11 * nMainSegmentHeight;
+                segmentHeight = 11 * mainSegmentHeight;
             }
-            else if (nCrestFactor == +120)
+            else if (crestFactor == +120)
             {
-                nSegmentHeight = 12 * nMainSegmentHeight;
+                segmentHeight = 12 * mainSegmentHeight;
             }
-            else if (nCrestFactor == +140)
+            else if (crestFactor == +140)
             {
-                nSegmentHeight = 11 * nMainSegmentHeight;
+                segmentHeight = 11 * mainSegmentHeight;
             }
             else // K-20
             {
-                nSegmentHeight = 10 * nMainSegmentHeight;
+                segmentHeight = 10 * mainSegmentHeight;
             }
         }
 
-        nTrueLowerThreshold -= nRange;
-        nLowerThreshold = nTrueLowerThreshold + nCrestFactor;
+        trueLowerThreshold -= segmentRange;
+        lowerThreshold = trueLowerThreshold + crestFactor;
 
-        int nSpacingBefore = 0;
-        bool bHasHighestLevel = (n == 0) ? true : false;
+        int spacingBefore = 0;
+        bool hasHighestLevel = (n == 0) ? true : false;
 
-        addSegment(nTrueLowerThreshold * 0.1f, nRange * 0.1f, bHasHighestLevel, nSegmentHeight, nSpacingBefore, arrHues[nColour], Colours::white);
+        if (discreteMeter)
+        {
+            addDiscreteSegment(
+                trueLowerThreshold * 0.1f,
+                segmentRange * 0.1f,
+                hasHighestLevel,
+                segmentHeight,
+                spacingBefore,
+                segmentColour,
+                Colours::white);
+        }
+        else
+        {
+            addContinuousSegment(
+                trueLowerThreshold * 0.1f,
+                segmentRange * 0.1f,
+                hasHighestLevel,
+                segmentHeight,
+                spacingBefore,
+                segmentColour,
+                Colours::white);
+        }
     }
 
     // set orientation here to save some processing power

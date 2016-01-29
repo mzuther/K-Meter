@@ -37,27 +37,36 @@
 //==============================================================================
 /**
 */
-class Kmeter : public Component
+class Kmeter :
+    public Component
 {
 public:
     static const int KMETER_STEREO_WIDTH = 106;
     static const int KMETER_STEREO_WIDTH_2 = KMETER_STEREO_WIDTH / 2;
 
-    Kmeter(int nCrestFactor, int nNumChannels, bool bExpanded, bool bHorizontalMeter, bool bDisplayPeakMeter, int nSegmentHeight);
+    Kmeter(int crestFactor,
+           int numberOfInputChannels,
+           bool discreteMeter,
+           bool isExpanded,
+           bool isHorizontal,
+           bool displayPeakMeter,
+           int segmentHeight);
 
-    void setLevels(MeterBallistics *pMeterBallistics);
-    void applySkin(Skin *pSkin);
-    void resized();
+    virtual void applySkin(Skin *skin);
+    virtual void setLevels(MeterBallistics *meterBallistics);
+
+    virtual void resized();
+
+protected:
+    OwnedArray<MeterBar> levelMeters_;
+    OwnedArray<OverflowMeter> overflowMeters_;
+    OwnedArray<PeakLabel> maximumPeakLabels_;
+
+    int numberOfInputChannels_;
+    bool displayPeakMeter_;
 
 private:
     JUCE_LEAK_DETECTOR(Kmeter);
-
-    OwnedArray<MeterBar> p_arrLevelMeters;
-    OwnedArray<OverflowMeter> p_arrOverflowMeters;
-    OwnedArray<PeakLabel> p_arrMaximumPeakLabels;
-
-    int nInputChannels;
-    bool displayPeakMeter;
 };
 
 

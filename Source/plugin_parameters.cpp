@@ -81,6 +81,12 @@ KmeterPluginParameters::KmeterPluginParameters() :
     add(ParameterMono, selMono);
 
 
+    PluginParameterBoolean *ParameterDiscreteMeter = new PluginParameterBoolean("On", "Off");
+    ParameterDiscreteMeter->setName("Discrete meter");
+    ParameterDiscreteMeter->setDefaultBoolean(false, true);
+    add(ParameterDiscreteMeter, selDiscreteMeter);
+
+
     PluginParameterString *ParameterValidationFileName = new PluginParameterString(String::empty);
     ParameterValidationFileName->setName("Validation file");
     add(ParameterValidationFileName, selValidationFileName);

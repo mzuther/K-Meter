@@ -60,10 +60,7 @@
 ///
 GenericMeterSegmentDiscrete::GenericMeterSegmentDiscrete()
 {
-    // initialise meter segment's hue
-    segmentHue_ = 0.0f;
-
-    // initialise meter segment's brightness (0.0f is dark, 1.0f is
+    // initialise meter segment's brightness (0.0 is dark, 1.0 is
     // fully lit)
     segmentBrightness_ = 0.0f;
     outlineBrightness_ = 0.0f;
@@ -121,18 +118,18 @@ float GenericMeterSegmentDiscrete::setThresholdAndRange(
 
 /// Set colours of segment and peak marker.
 ///
-/// @param segmentHue hue of the segment (0.0 to 1.0)
+/// @param segmentColour colour of the segment
 ///
 /// @param peakMarkerColour colour of the peak marker
 ///
-void GenericMeterSegmentDiscrete::setColour(
-    float segmentHue, const Colour &peakMarkerColour)
+void GenericMeterSegmentDiscrete::setColours(
+    const Colour &segmentColour, const Colour &peakMarkerColour)
 
 {
-    // set meter segment's hue
-    segmentHue_ = segmentHue;
+    // initialise segment colour
+    segmentColour_ = segmentColour;
 
-    // set peak marker's colour
+    // initialise peak marker's colour
     peakMarkerColour_ = peakMarkerColour;
 
     // redraw meter segment
@@ -153,8 +150,8 @@ void GenericMeterSegmentDiscrete::paint(
     int tempWidth = getWidth();
     int tempHeight = getHeight();
 
-    // initialize colours from hue and brightness
-    Colour segmentColour(segmentHue_, 1.0f, segmentBrightness_, 1.0f);
+    // initialise colours from brightness
+    Colour segmentColour = segmentColour_.withBrightness(segmentBrightness_);
     Colour outlineColour = segmentColour.withBrightness(outlineBrightness_);
 
     // set segment colour
@@ -193,42 +190,6 @@ void GenericMeterSegmentDiscrete::visibilityChanged()
 ///
 void GenericMeterSegmentDiscrete::resized()
 {
-}
-
-
-/// Set normal (average) levels.  *Use this only if you completely
-/// disregard discrete (peak) levels!*
-///
-/// @param normalLevel new normal level
-///
-/// @param normalLevelPeak new normal peak level
-///
-void GenericMeterSegmentDiscrete::setNormalLevels(
-    float normalLevel, float normalLevelPeak)
-
-{
-    // lowest level of a 24-bit-signal in decibels
-    float initialLevel = -144.0f;
-
-    setLevels(normalLevel, normalLevelPeak, initialLevel, initialLevel);
-}
-
-
-/// Set discrete (peak) levels.  *Use this only if you completely
-/// disregard normal (average) levels!*
-///
-/// @param discreteLevel new discrete level
-///
-/// @param discreteLevelPeak new discrete peak level
-///
-void GenericMeterSegmentDiscrete::setDiscreteLevels(
-    float discreteLevel, float discreteLevelPeak)
-
-{
-    // lowest level of a 24-bit-signal in decibels
-    float initialLevel = -144.0f;
-
-    setLevels(initialLevel, initialLevel, discreteLevel, discreteLevelPeak);
 }
 
 

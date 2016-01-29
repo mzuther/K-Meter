@@ -7,6 +7,7 @@
            button_rms,
            button_hold,
            button_peaks,
+           button_discrete,
            button_expand,
            button_skin,
            button_mono,
@@ -30,6 +31,7 @@
            button_rms?,
            button_hold?,
            button_peaks?,
+           button_discrete?,
            button_expand?,
            button_skin?,
            button_mono?,
@@ -253,6 +255,9 @@
 
         <!ELEMENT button_peaks (#PCDATA)>
             <!ATTLIST button_peaks %attrs_button;>
+
+        <!ELEMENT button_discrete (#PCDATA)>
+            <!ATTLIST button_discrete %attrs_button;>
 
         <!ELEMENT button_expand (#PCDATA)>
             <!ATTLIST button_expand %attrs_button;>

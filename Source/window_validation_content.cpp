@@ -93,7 +93,7 @@ DialogWindow *WindowValidationContent::createDialogWindow(
     WindowValidationContent *contentComponent =
         new WindowValidationContent(audioProcessor);
 
-    // initialize dialog window settings
+    // initialise dialog window settings
     windowValidationLauncher.dialogTitle = String("Validation");
     windowValidationLauncher.dialogBackgroundColour = Colours::white;
     windowValidationLauncher.content.setOwned(contentComponent);

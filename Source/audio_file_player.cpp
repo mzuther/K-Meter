@@ -65,8 +65,8 @@ AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBal
         bIsPlaying = true;
 
         nNumberOfSamples = audioFileSource->getTotalLength();
-        // pause for ten seconds after playback
-        nNumberOfSamples += 10 * sample_rate;
+        // pause for twenty seconds after playback
+        nNumberOfSamples += 20 * sample_rate;
 
         outputMessage("Audio file: \"" + audioFile.getFullPathName() + "\"");
         outputMessage(String(formatReader->numChannels) + " channel(s), " + String(formatReader->sampleRate) + " Hz, " + String(formatReader->bitsPerSample) + " bit");

@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{FFC1D734-0F7E-BDA5-B7CC-0169EBF064DB}</ProjectGuid>
+		<ProjectGuid>{A094E27A-3ADF-1E45-5D49-82C15D5ED65A}</ProjectGuid>
 		<RootNamespace>K-Meter (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -227,6 +227,7 @@
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_about_content.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_horizontal_meter.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_meter_segment_continuous.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_meter_bar.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_combined.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.h" />
@@ -293,6 +294,8 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_state_label.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_meter_segment_continuous.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_plugin_standalone.cpp">
@@ -302,6 +305,8 @@
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_meter_segment_discrete.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_meter_segment.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_signal_led.cpp">
 		</ClCompile>

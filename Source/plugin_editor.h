@@ -74,7 +74,7 @@ private:
     bool usePeakMeter;
 
     int crestFactor;
-    int numberOfInputChannels;
+    int numberOfInputChannels_;
 
     File skinDirectory;
     Skin skin;
@@ -97,6 +97,7 @@ private:
     ImageButton ButtonSkin;
     ImageButton ButtonDisplayPeakMeter;
     ImageButton ButtonInfinitePeakHold;
+    ImageButton ButtonDiscreteMeter;
     ImageButton ButtonReset;
 
     ImageButton ButtonMono;

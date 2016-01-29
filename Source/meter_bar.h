@@ -33,17 +33,23 @@
 //==============================================================================
 /**
 */
-class MeterBar : public GenericMeterBar
+class MeterBar :
+    public GenericMeterBar
 {
 public:
     MeterBar();
 
-    void create(int crestFactor, bool bExpanded, Orientation orientation, int nMainSegmentHeight);
+    virtual void create(int crestFactor,
+                        bool discreteMeter,
+                        bool isExpanded,
+                        Orientation orientation,
+                        int mainSegmentHeight);
+
+protected:
+    Array<float> segmentHues_;
 
 private:
     JUCE_LEAK_DETECTOR(MeterBar);
-
-    Array<float> arrHues;
 };
 
 
