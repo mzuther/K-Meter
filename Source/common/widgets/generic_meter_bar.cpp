@@ -25,22 +25,15 @@
 
 #include "generic_meter_bar.h"
 
-/// Create container for an empty meter bar.  Call create() to create
-/// a new meter bar.
-///
-GenericMeterBar::GenericMeterBar()
-{
-    // this component does not have any transparent areas (increases
-    // performance on redrawing)
-    setOpaque(true);
-}
-
-
 /// Create a new meter bar (and delete an existing one).  The meter
 /// bar has to be filled using addSegment().
 ///
 void GenericMeterBar::create()
 {
+    // this component does not have any transparent areas (increases
+    // performance on redrawing)
+    setOpaque(true);
+
     // lowest level of a 24-bit-signal in decibels
     float initialLevel = -144.0f;
 

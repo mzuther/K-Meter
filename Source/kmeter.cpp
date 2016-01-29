@@ -25,7 +25,7 @@
 
 #include "kmeter.h"
 
-Kmeter::Kmeter(
+void Kmeter::create(
     int crestFactor, int numberOfInputChannels, bool discreteMeter,
     bool isExpanded, bool isHorizontal, bool displayPeakMeter,
     int segmentHeight)
@@ -33,6 +33,11 @@ Kmeter::Kmeter(
 {
     // this component blends in with the background
     setOpaque(false);
+
+    // clear old meters and peak labels
+    levelMeters_.clear();
+    overflowMeters_.clear();
+    maximumPeakLabels_.clear();
 
     numberOfInputChannels_ = numberOfInputChannels;
     displayPeakMeter_ = displayPeakMeter;

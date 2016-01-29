@@ -25,14 +25,6 @@
 
 #include "meter_bar.h"
 
-MeterBar::MeterBar()
-{
-    segmentHues_.add(0.00f);  // red
-    segmentHues_.add(0.18f);  // yellow
-    segmentHues_.add(0.30f);  // green
-    segmentHues_.add(0.58f);  // blue
-}
-
 
 void MeterBar::create(
     int crestFactor, bool discreteMeter, bool isExpanded,
@@ -40,6 +32,13 @@ void MeterBar::create(
 
 {
     GenericMeterBar::create();
+
+    segmentHues_.clear();
+
+    segmentHues_.add(0.00f);  // red
+    segmentHues_.add(0.18f);  // yellow
+    segmentHues_.add(0.30f);  // green
+    segmentHues_.add(0.58f);  // blue
 
     crestFactor *= 10;
     int numberOfBars;

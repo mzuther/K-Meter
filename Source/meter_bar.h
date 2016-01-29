@@ -37,8 +37,6 @@ class MeterBar :
     public GenericMeterBar
 {
 public:
-    MeterBar();
-
     virtual void create(int crestFactor,
                         bool discreteMeter,
                         bool isExpanded,

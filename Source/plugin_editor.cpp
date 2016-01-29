@@ -130,6 +130,10 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     ButtonAbout.addListener(this);
     addAndMakeVisible(ButtonAbout);
 
+    // moves K-Meter to the back of the editor's z-plane so that it
+    // doesn't overlay (and thus block) any other components
+    addAndMakeVisible(kmeter_, 0);
+
 #ifdef DEBUG
     // moves debug label to the back of the editor's z-plane to that
     // it doesn't overlay (and thus block) any other components
@@ -240,10 +244,7 @@ void KmeterAudioProcessorEditor::applySkin()
     skin.placeAndSkinLabel(&LabelDebug, "label_debug");
 #endif
 
-    if (kmeter != nullptr)
-    {
-        kmeter->applySkin(&skin);
-    }
+    kmeter_.applySkin(&skin);
 
     if (stereoMeter != nullptr)
     {
@@ -311,10 +312,7 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
 
         if (pMeterBallistics != nullptr)
         {
-            if (kmeter != nullptr)
-            {
-                kmeter->setLevels(pMeterBallistics);
-            }
+            kmeter_.setLevels(pMeterBallistics);
 
             if (stereoMeter != nullptr)
             {
@@ -483,11 +481,6 @@ void KmeterAudioProcessorEditor::reloadMeters()
         needsMeterReload = false;
         int segmentHeight = 4;
 
-        if (kmeter != nullptr)
-        {
-            removeChildComponent(kmeter);
-        }
-
         int numberOfInputChannels = numberOfInputChannels_;
 
         if (audioProcessor->getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770)
@@ -495,17 +488,13 @@ void KmeterAudioProcessorEditor::reloadMeters()
             numberOfInputChannels = 1;
         }
 
-        kmeter = new Kmeter(crestFactor,
-                            numberOfInputChannels,
-                            ButtonDiscreteMeter.getToggleState(),
-                            ButtonExpanded.getToggleState(),
-                            false,
-                            ButtonDisplayPeakMeter.getToggleState(),
-                            segmentHeight);
-
-        // moves traKmeter to the back of the editor's z-plane so that
-        // it doesn't overlay (and thus block) any other components
-        addAndMakeVisible(kmeter, 0);
+        kmeter_.create(crestFactor,
+                       numberOfInputChannels,
+                       ButtonDiscreteMeter.getToggleState(),
+                       ButtonExpanded.getToggleState(),
+                       false,
+                       ButtonDisplayPeakMeter.getToggleState(),
+                       segmentHeight);
 
         // moves background image to the back of the editor's z-plane
         applySkin();

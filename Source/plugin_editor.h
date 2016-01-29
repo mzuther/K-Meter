@@ -81,7 +81,7 @@ private:
     String currentSkinName;
 
     KmeterAudioProcessor *audioProcessor;
-    ScopedPointer<Kmeter> kmeter;
+    Kmeter kmeter_;
     ScopedPointer<GenericHorizontalMeter> stereoMeter;
     ScopedPointer<GenericHorizontalMeter> phaseCorrelationMeter;
 
