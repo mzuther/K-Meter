@@ -479,7 +479,7 @@ void KmeterAudioProcessorEditor::reloadMeters()
     if (needsMeterReload)
     {
         needsMeterReload = false;
-        int segmentHeight = 4;
+        int segmentHeight = 5;
 
         int numberOfInputChannels = numberOfInputChannels_;
 

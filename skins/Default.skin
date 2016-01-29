@@ -102,21 +102,21 @@
 
         <button_validate
             x="130"
-            y="596"
+            y="577"
             image_on="buttons/button_validate_on.png"
             image_off="buttons/button_validate_off.png"
         />
 
         <button_about
             x="130"
-            y="621"
+            y="602"
             image_on="buttons/button_about_on.png"
             image_off="buttons/button_about_off.png"
         />
 
         <label_debug
             x="140"
-            y="571"
+            y="552"
             image="labels/label_debug.png"
         />
     </default>
@@ -124,7 +124,7 @@
     <stereo_itu>
         <meter_phase_correlation
             x="10"
-            y="626"
+            y="607"
             spacing_left="6"
             spacing_top="2"
             image="meters/meter_phase_correlation.png"
@@ -133,7 +133,7 @@
 
         <meter_stereo
             x="10"
-            y="607"
+            y="588"
             spacing_left="6"
             spacing_top="2"
             image="meters/meter_stereo.png"
@@ -274,7 +274,7 @@
     <stereo_rms>
         <meter_phase_correlation
             x="10"
-            y="626"
+            y="607"
             spacing_left="6"
             spacing_top="2"
             image="meters/meter_phase_correlation.png"
@@ -283,7 +283,7 @@
 
         <meter_stereo
             x="10"
-            y="607"
+            y="588"
             spacing_left="6"
             spacing_top="2"
             image="meters/meter_stereo.png"
@@ -482,21 +482,21 @@
     <surround_itu>
         <button_validate
             x="130"
-            y="576"
+            y="557"
             image_on="buttons/button_validate_on.png"
             image_off="buttons/button_validate_off.png"
         />
 
         <button_about
             x="130"
-            y="601"
+            y="582"
             image_on="buttons/button_about_on.png"
             image_off="buttons/button_about_off.png"
         />
 
         <label_debug
             x="140"
-            y="551"
+            y="532"
             image="labels/label_debug.png"
         />
 
@@ -725,21 +725,21 @@
 
         <button_validate
             x="354"
-            y="576"
+            y="557"
             image_on="buttons/button_validate_on.png"
             image_off="buttons/button_validate_off.png"
         />
 
         <button_about
             x="354"
-            y="601"
+            y="582"
             image_on="buttons/button_about_on.png"
             image_off="buttons/button_about_off.png"
         />
 
         <label_debug
             x="364"
-            y="551"
+            y="532"
             image="labels/label_debug.png"
         />
 

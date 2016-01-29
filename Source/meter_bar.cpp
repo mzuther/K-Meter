@@ -33,12 +33,12 @@ void MeterBar::create(
 {
     GenericMeterBar::create();
 
-    segmentHues_.clear();
+    segmentColours_.clear();
 
-    segmentHues_.add(0.00f);  // red
-    segmentHues_.add(0.18f);  // yellow
-    segmentHues_.add(0.30f);  // green
-    segmentHues_.add(0.58f);  // blue
+    segmentColours_.add(Colour(0.00f, 1.0f, 1.0f, 1.0f));  // red
+    segmentColours_.add(Colour(0.18f, 1.0f, 1.0f, 1.0f));  // yellow
+    segmentColours_.add(Colour(0.30f, 1.0f, 1.0f, 1.0f));  // green
+    segmentColours_.add(Colour(0.30f, 1.0f, 1.0f, 1.0f));  // green
 
     crestFactor *= 10;
     int numberOfBars;
@@ -46,41 +46,41 @@ void MeterBar::create(
     int limitTopBars;
     int limitRedBars;
     int limitAmberBars;
-    int limitGreenBars_1;
-    int limitGreenBars_2;
+    int limitGreenBars;
+    int limitLinearArea;
 
     // to prevent the inherent round-off errors of float subtraction,
     // crest factor and limits are stored as integers representing
     // 0.1 dB steps
     if (crestFactor == 0)
     {
-        numberOfBars = 47;
+        numberOfBars = 49;
 
         limitTopBars = crestFactor - 20;
         limitRedBars = -90;
         limitAmberBars = -180;
-        limitGreenBars_1 = -400;
-        limitGreenBars_2 = limitGreenBars_1;
+        limitGreenBars = -400;
+        limitLinearArea = limitGreenBars;
     }
     else if (crestFactor == +120)
-    {
-        numberOfBars = 48;
-
-        limitTopBars = crestFactor - 20;
-        limitRedBars = +40;
-        limitAmberBars = 0;
-        limitGreenBars_1 = -300;
-        limitGreenBars_2 = limitGreenBars_1;
-    }
-    else if (crestFactor == +140)
     {
         numberOfBars = 50;
 
         limitTopBars = crestFactor - 20;
         limitRedBars = +40;
         limitAmberBars = 0;
-        limitGreenBars_1 = -300;
-        limitGreenBars_2 = limitGreenBars_1;
+        limitGreenBars = -300;
+        limitLinearArea = limitGreenBars;
+    }
+    else if (crestFactor == +140)
+    {
+        numberOfBars = 51;
+
+        limitTopBars = crestFactor - 20;
+        limitRedBars = +40;
+        limitAmberBars = 0;
+        limitGreenBars = -300;
+        limitLinearArea = limitGreenBars;
     }
     else // K-20
     {
@@ -91,13 +91,13 @@ void MeterBar::create(
         limitTopBars = crestFactor - 20;
         limitRedBars = +40;
         limitAmberBars = 0;
-        limitGreenBars_1 = -240;
-        limitGreenBars_2 = -300;
+        limitGreenBars = -240;
+        limitLinearArea = -300;
     }
 
     if (isExpanded)
     {
-        numberOfBars = 134;
+        numberOfBars = 103;
     }
 
     // bar threshold (in 0.1 dB)
@@ -127,11 +127,11 @@ void MeterBar::create(
             {
                 segmentRange = 5;
             }
-            else if (lowerThreshold > limitGreenBars_1)
+            else if (lowerThreshold > limitGreenBars)
             {
                 segmentRange = 10;
             }
-            else if (lowerThreshold > limitGreenBars_2)
+            else if (lowerThreshold > limitLinearArea)
             {
                 segmentRange = 60;
             }
@@ -180,13 +180,15 @@ void MeterBar::create(
             {
                 colourId = 1;
             }
+            else if (lowerThreshold > limitGreenBars)
+            {
+                colourId = 2;
+            }
             else
             {
                 colourId = 2;
             }
         }
-
-        Colour segmentColour(segmentHues_[colourId], 1.0f, 1.0f, 1.0f);
 
         int segmentHeight;
 
@@ -198,51 +200,36 @@ void MeterBar::create(
         {
             segmentHeight = mainSegmentHeight;
         }
-        else if (lowerThreshold > limitGreenBars_1)
+        else if (lowerThreshold > limitGreenBars)
         {
             segmentHeight = 2 * mainSegmentHeight;
         }
-        else if (lowerThreshold > limitGreenBars_2)
+        else if (lowerThreshold > limitLinearArea)
         {
-            segmentHeight = 6 * mainSegmentHeight;
+            segmentHeight = 3 * mainSegmentHeight;
         }
         else if (n == numberOfBars - 1)
         {
             if (crestFactor == 0)
             {
-                segmentHeight = 10 * mainSegmentHeight;
+                segmentHeight = 5 * mainSegmentHeight;
             }
             else if (crestFactor == +120)
             {
-                segmentHeight = 14 * mainSegmentHeight;
+                segmentHeight = 4 * mainSegmentHeight;
             }
             else if (crestFactor == +140)
             {
-                segmentHeight = 13 * mainSegmentHeight;
+                segmentHeight = 3 * mainSegmentHeight;
             }
             else // K-20
             {
-                segmentHeight = 10 * mainSegmentHeight;
+                segmentHeight = 3 * mainSegmentHeight;
             }
         }
         else
         {
-            if (crestFactor == 0)
-            {
-                segmentHeight = 11 * mainSegmentHeight;
-            }
-            else if (crestFactor == +120)
-            {
-                segmentHeight = 12 * mainSegmentHeight;
-            }
-            else if (crestFactor == +140)
-            {
-                segmentHeight = 11 * mainSegmentHeight;
-            }
-            else // K-20
-            {
-                segmentHeight = 10 * mainSegmentHeight;
-            }
+            segmentHeight = 3 * mainSegmentHeight;
         }
 
         trueLowerThreshold -= segmentRange;
@@ -259,7 +246,7 @@ void MeterBar::create(
                 hasHighestLevel,
                 segmentHeight,
                 spacingBefore,
-                segmentColour,
+                segmentColours_[colourId],
                 Colours::white);
         }
         else
@@ -270,7 +257,7 @@ void MeterBar::create(
                 hasHighestLevel,
                 segmentHeight,
                 spacingBefore,
-                segmentColour,
+                segmentColours_[colourId],
                 Colours::white);
         }
     }

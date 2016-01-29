@@ -44,7 +44,7 @@ public:
                         int mainSegmentHeight);
 
 protected:
-    Array<float> segmentHues_;
+    Array<Colour> segmentColours_;
 
 private:
     JUCE_LEAK_DETECTOR(MeterBar);
