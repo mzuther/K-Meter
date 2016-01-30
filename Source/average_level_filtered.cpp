@@ -185,11 +185,9 @@ void AverageLevelFiltered::calculateFilterKernel()
         calculateFilterKernel_Rms();
 
         // RMS peak-to-average gain correction; this is simply the
-        // difference between peak and average meter readings during
-        // validation, measured using a file from Bob Katz containing
-        // 15 seconds of uncorrelated pink noise with a level of -20
-        // dB FS RMS
-        setPeakToAverageCorrection(+2.9881f);
+        // level difference between the peak and RMS level of a sine
+        // wave: RMS / A = sqrt(2) = +3.0103 dB
+        setPeakToAverageCorrection(+3.0103f);
     }
 }
 

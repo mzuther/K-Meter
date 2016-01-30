@@ -102,21 +102,21 @@
 
         <button_validate
             x="130"
-            y="577"
+            y="584"
             image_on="buttons/button_validate_on.png"
             image_off="buttons/button_validate_off.png"
         />
 
         <button_about
             x="130"
-            y="602"
+            y="609"
             image_on="buttons/button_about_on.png"
             image_off="buttons/button_about_off.png"
         />
 
         <label_debug
             x="140"
-            y="552"
+            y="559"
             image="labels/label_debug.png"
         />
     </default>
@@ -482,21 +482,21 @@
     <surround_itu>
         <button_validate
             x="130"
-            y="557"
+            y="564"
             image_on="buttons/button_validate_on.png"
             image_off="buttons/button_validate_off.png"
         />
 
         <button_about
             x="130"
-            y="582"
+            y="589"
             image_on="buttons/button_about_on.png"
             image_off="buttons/button_about_off.png"
         />
 
         <label_debug
             x="140"
-            y="532"
+            y="539"
             image="labels/label_debug.png"
         />
 
@@ -725,21 +725,21 @@
 
         <button_validate
             x="354"
-            y="557"
+            y="564"
             image_on="buttons/button_validate_on.png"
             image_off="buttons/button_validate_off.png"
         />
 
         <button_about
             x="354"
-            y="582"
+            y="589"
             image_on="buttons/button_about_on.png"
             image_off="buttons/button_about_off.png"
         />
 
         <label_debug
             x="364"
-            y="532"
+            y="539"
             image="labels/label_debug.png"
         />
 

@@ -38,7 +38,7 @@ PeakLabel::PeakLabel(const String &componentName, int nCrestFactor) : GenericSta
 void PeakLabel::resetLevel()
 {
     float fMaximumCrestFactor = 20.0f; // i.e. K-20
-    float fMeterMinimumDecibel = -(fMaximumCrestFactor + 70.0f);
+    float fMeterMinimumDecibel = -(fMaximumCrestFactor + 90.0f);
 
     // reset level
     fMaximumLevel = fMeterMinimumDecibel;
