@@ -27,10 +27,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="1158.1038"
-     inkscape:cy="261.01187"
+     inkscape:cx="1049.6038"
+     inkscape:cy="259.01187"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1030"
@@ -2135,7 +2135,8 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Scales"
-     style="display:inline">
+     style="display:inline"
+     sodipodi:insensitive="true">
     <g
        style="display:inline"
        id="g3918"
@@ -20234,65 +20235,6 @@
          sodipodi:role="line"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000">DEBUG</tspan></text>
     <g
-       id="g4214"
-       transform="translate(0,25)">
-      <rect
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#333333;fill-opacity:1;stroke:#666666;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
-         id="rect3291"
-         width="58"
-         height="18"
-         x="371"
-         y="1033.3622"
-         ry="9"
-         rx="9" />
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#999999;fill-opacity:1;stroke:none"
-         x="400.16269"
-         y="1046.2562"
-         id="text3293"
-         sodipodi:linespacing="125%"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#999999;fill-opacity:1"
-           sodipodi:role="line"
-           id="tspan3295"
-           x="400.16269"
-           y="1046.2562">Cancel</tspan></text>
-    </g>
-    <g
-       id="g3297"
-       transform="translate(-71,389)">
-      <rect
-         ry="9"
-         y="669.36218"
-         x="372"
-         height="18"
-         width="58"
-         id="rect3299"
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffff00;fill-opacity:1;stroke:#ffff00;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
-         rx="9" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3301"
-         y="682.25623"
-         x="401.16269"
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
-         xml:space="preserve"><tspan
-           y="682.25623"
-           x="401.16269"
-           id="tspan3303"
-           sodipodi:role="line"
-           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000">Cancel</tspan></text>
-      <rect
-         ry="8"
-         y="670.36218"
-         x="373"
-         height="16"
-         width="56"
-         id="rect3305"
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.6;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
-         rx="8" />
-    </g>
-    <g
        id="g5081">
       <rect
          ry="0"
@@ -21042,33 +20984,6 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc4272">format: png
-dpi: 90
-layout-disposition: bg-el-norepeat
-layout-position-anchor: tl</desc>
-    </rect>
-    <rect
-       height="20"
-       width="60"
-       y="682"
-       x="300"
-       id="button_cancel_on"
-       style="opacity:0.5;fill:#ff0000">
-      <desc
-         id="desc3283">format: png
-dpi: 90
-layout-disposition: bg-el-norepeat
-layout-position-anchor: tl</desc>
-    </rect>
-    <rect
-       style="opacity:0.5;fill:#ff0000"
-       id="button_cancel_off"
-       x="370"
-       y="682"
-       width="60"
-       height="20"
-       inkscape:label="#button_cancel_off">
-      <desc
-         id="desc3287">format: png
 dpi: 90
 layout-disposition: bg-el-norepeat
 layout-position-anchor: tl</desc>
