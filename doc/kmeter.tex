@@ -200,6 +200,17 @@ Bob Katz has asked me to hide them by default:
     outlawed.''}
 \end{quotation}
 
+\section{Discrete segments}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_discrete_on.png}
+\newline \vspace{-0.9\baselineskip}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_discrete_off.png}
+\end{wrapfigure}
+
+This button switches between the discrete meters that are used on
+analogue gear and the continuous meters typically found in DAWs.
+
 \section{Magnify meters}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
@@ -210,11 +221,7 @@ Bob Katz has asked me to hide them by default:
 
 This button magnifies both average and peak level meters to
 \SI{0.1}{\dB} steps.  If switched on, the \SI{0}{\dB} mark is placed
-near the centre.
-
-\emph{\underline{Hint:} by selecting different meter scales, you can
-  easily magnify the whole range between \SI{-25}{\dBFS} and
-  \SI{0}{\dBFS}.}
+near the meter's bottom.
 
 \newpage %% layout
 
@@ -333,8 +340,8 @@ meters have \SI{14}{\dB} and \SI{12}{\dB} of headroom, respectively.
 
 Each level meter is divided into segments of \SI{1}{\dB}, with the
 exception of the top \SI{2}{\dB} (segments of \SI{0.5}{\dB}) and the
-bottom end (segments of \SI{10}{\dB}).  Magnified level meters are
-divided into segments of \SI{0.1}{\dB}.
+non-linear bottom end.  Magnified level meters are divided into
+segments of \SI{0.1}{\dB}.
 
 \emph{\underline{Note:} In ITU-R mode, the average level meter is
   graded in \emph{\si{\LK}} which stands for \emph{Loudness, K

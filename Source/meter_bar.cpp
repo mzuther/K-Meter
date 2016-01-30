@@ -54,7 +54,7 @@ void MeterBar::create(
     // 0.1 dB steps
     if (crestFactor == 0)
     {
-        numberOfBars = 49;
+        numberOfBars = 48;
 
         limitTopBars = crestFactor - 20;
         limitRedBars = -90;
@@ -97,16 +97,27 @@ void MeterBar::create(
 
     if (isExpanded)
     {
-        numberOfBars = 103;
+        numberOfBars = 52;
     }
 
     // bar threshold (in 0.1 dB)
     int trueLowerThreshold = 0;
 
-    if (isExpanded && (crestFactor > 80))
+    if (isExpanded)
     {
+        if (crestFactor > 50)
+        {
+            // set base level of important region
+            trueLowerThreshold = -crestFactor;
+        }
+        else
+        {
+            // set base level of important region
+            trueLowerThreshold = -220;
+        }
+
         // zoom into important region
-        trueLowerThreshold = +80 - crestFactor;
+        trueLowerThreshold += 45;
     }
 
     // bar K-Meter level (in 0.1 dB)
@@ -194,7 +205,7 @@ void MeterBar::create(
 
         if (isExpanded)
         {
-            segmentHeight = mainSegmentHeight;
+            segmentHeight = 2 * mainSegmentHeight;
         }
         else if (lowerThreshold > limitTopBars)
         {
@@ -210,33 +221,41 @@ void MeterBar::create(
         }
         else if (n == numberOfBars - 1)
         {
-            if (crestFactor == 0)
+            if (crestFactor == +120)
             {
                 segmentHeight = 5 * mainSegmentHeight;
             }
-            else if (crestFactor == +120)
+            else
             {
                 segmentHeight = 4 * mainSegmentHeight;
-            }
-            else if (crestFactor == +140)
-            {
-                segmentHeight = 3 * mainSegmentHeight;
-            }
-            else // K-20
-            {
-                segmentHeight = 3 * mainSegmentHeight;
             }
         }
         else
         {
-            segmentHeight = 3 * mainSegmentHeight;
+            if (crestFactor == 0)
+            {
+                segmentHeight = 4 * mainSegmentHeight;
+            }
+            else
+            {
+                segmentHeight = 3 * mainSegmentHeight;
+            }
         }
 
         trueLowerThreshold -= segmentRange;
         lowerThreshold = trueLowerThreshold + crestFactor;
 
         int spacingBefore = 0;
-        bool hasHighestLevel = (n == 0) ? true : false;
+        bool hasHighestLevel;
+
+        if (isExpanded)
+        {
+            hasHighestLevel = false;
+        }
+        else
+        {
+            hasHighestLevel = (n == 0) ? true : false;
+        }
 
         if (discreteMeter)
         {

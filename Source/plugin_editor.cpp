@@ -426,9 +426,6 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
         isExpanded = (nValue != 0);
         ButtonExpanded.setToggleState(isExpanded, dontSendNotification);
 
-        // discrete segments are forced for expanded meters
-        ButtonDiscreteMeter.setEnabled(!isExpanded);
-
         // will also apply skin to plug-in editor
         needsMeterReload = true;
         break;

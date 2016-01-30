@@ -44,12 +44,6 @@ void Kmeter::create(
 
     MeterBar::Orientation orientation;
 
-    // force discrete segments for expanded meters
-    if (isExpanded)
-    {
-        discreteMeter = true;
-    }
-
     if (isHorizontal)
     {
         orientation = MeterBar::orientationHorizontal;
