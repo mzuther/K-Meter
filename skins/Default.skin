@@ -6,7 +6,37 @@
     name="Default"
     orientation="vertical"
     path="Default"
-    version="1.1">
+    version="1.2">
+
+    <settings>
+        <kmeter_segment
+            height="5"
+        />
+
+        <kmeter_colour_red
+            hue="0.00"
+            saturation="1.00"
+            lightness="1.00"
+        />
+
+        <kmeter_colour_amber
+            hue="0.18"
+            saturation="1.00"
+            lightness="1.00"
+        />
+
+        <kmeter_colour_green
+            hue="0.30"
+            saturation="1.00"
+            lightness="1.00"
+        />
+
+        <kmeter_colour_nonlinear
+            hue="0.30"
+            saturation="1.00"
+            lightness="1.00"
+        />
+    </settings>
 
     <default>
         <button_k20

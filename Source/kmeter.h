@@ -44,15 +44,15 @@ public:
     static const int KMETER_STEREO_WIDTH = 106;
     static const int KMETER_STEREO_WIDTH_2 = KMETER_STEREO_WIDTH / 2;
 
-    virtual void create(int crestFactor,
-                        int numberOfInputChannels,
-                        bool discreteMeter,
-                        bool isExpanded,
-                        bool isHorizontal,
-                        bool displayPeakMeter,
-                        int segmentHeight);
+    virtual void create(int numberOfInputChannels);
 
-    virtual void applySkin(Skin *skin);
+    virtual void applySkin(Skin *skin,
+                           int crestFactor,
+                           bool discreteMeter,
+                           bool isExpanded,
+                           bool isHorizontal,
+                           bool displayPeakMeter);
+
     virtual void setLevels(MeterBallistics *meterBallistics);
 
     virtual void resized();

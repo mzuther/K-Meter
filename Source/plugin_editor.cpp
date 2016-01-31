@@ -244,7 +244,13 @@ void KmeterAudioProcessorEditor::applySkin()
     skin.placeAndSkinLabel(&LabelDebug, "label_debug");
 #endif
 
-    kmeter_.applySkin(&skin);
+    kmeter_.applySkin(
+        &skin,
+        crestFactor,
+        ButtonDiscreteMeter.getToggleState(),
+        ButtonExpanded.getToggleState(),
+        false,
+        ButtonDisplayPeakMeter.getToggleState());
 
     if (stereoMeter != nullptr)
     {
@@ -476,7 +482,6 @@ void KmeterAudioProcessorEditor::reloadMeters()
     if (needsMeterReload)
     {
         needsMeterReload = false;
-        int segmentHeight = 5;
 
         int numberOfInputChannels = numberOfInputChannels_;
 
@@ -485,13 +490,7 @@ void KmeterAudioProcessorEditor::reloadMeters()
             numberOfInputChannels = 1;
         }
 
-        kmeter_.create(crestFactor,
-                       numberOfInputChannels,
-                       ButtonDiscreteMeter.getToggleState(),
-                       ButtonExpanded.getToggleState(),
-                       false,
-                       ButtonDisplayPeakMeter.getToggleState(),
-                       segmentHeight);
+        kmeter_.create(numberOfInputChannels);
 
         // moves background image to the back of the editor's z-plane
         applySkin();

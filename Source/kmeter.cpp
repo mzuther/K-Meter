@@ -26,9 +26,7 @@
 #include "kmeter.h"
 
 void Kmeter::create(
-    int crestFactor, int numberOfInputChannels, bool discreteMeter,
-    bool isExpanded, bool isHorizontal, bool displayPeakMeter,
-    int segmentHeight)
+    int numberOfInputChannels)
 
 {
     // this component blends in with the background
@@ -40,6 +38,20 @@ void Kmeter::create(
     maximumPeakLabels_.clear();
 
     numberOfInputChannels_ = numberOfInputChannels;
+    displayPeakMeter_ = false;
+}
+
+
+// Creates meters and applies skin.
+void Kmeter::applySkin(
+    Skin *skin,
+    int crestFactor,
+    bool discreteMeter,
+    bool isExpanded,
+    bool isHorizontal,
+    bool displayPeakMeter)
+
+{
     displayPeakMeter_ = displayPeakMeter;
 
     MeterBar::Orientation orientation;
@@ -53,6 +65,38 @@ void Kmeter::create(
         orientation = MeterBar::orientationVertical;
     }
 
+    int segmentHeight = skin->getIntegerSetting(
+                            "kmeter_segment",
+                            "height",
+                            5);
+
+    Colour segmentRed = skin->getColourSetting(
+                            "kmeter_colour_red",
+                            0.00f);
+
+    Colour segmentAmber = skin->getColourSetting(
+                              "kmeter_colour_amber",
+                              0.18f);
+
+    Colour segmentGreen = skin->getColourSetting(
+                              "kmeter_colour_green",
+                              0.30f);
+
+    Colour segmentNonLinear = skin->getColourSetting(
+                                  "kmeter_colour_nonlinear",
+                                  0.30f);
+
+    Array<Colour> segmentColours;
+
+    segmentColours.add(segmentRed);
+    segmentColours.add(segmentAmber);
+    segmentColours.add(segmentGreen);
+    segmentColours.add(segmentNonLinear);
+
+    levelMeters_.clear();
+    overflowMeters_.clear();
+    maximumPeakLabels_.clear();
+
     for (int channel = 0; channel < numberOfInputChannels_; ++channel)
     {
         MeterBar *meterBar = levelMeters_.add(new MeterBar());
@@ -61,7 +105,8 @@ void Kmeter::create(
                          discreteMeter,
                          isExpanded,
                          orientation,
-                         segmentHeight);
+                         segmentHeight,
+                         segmentColours);
 
         addAndMakeVisible(meterBar);
 
@@ -72,15 +117,10 @@ void Kmeter::create(
         PeakLabel *peakLabel = maximumPeakLabels_.add(new PeakLabel(
                                    "Maximum Peak #" + String(channel),
                                    crestFactor));
+
         addAndMakeVisible(peakLabel);
     }
-}
 
-
-void Kmeter::applySkin(
-    Skin *skin)
-
-{
     if (numberOfInputChannels_ == 1)
     {
         skin->placeMeterBar(levelMeters_[0],

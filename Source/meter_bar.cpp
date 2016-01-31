@@ -28,17 +28,11 @@
 
 void MeterBar::create(
     int crestFactor, bool discreteMeter, bool isExpanded,
-    Orientation orientation, int mainSegmentHeight)
+    Orientation orientation, int mainSegmentHeight,
+    const Array<Colour> &segmentColours)
 
 {
     GenericMeterBar::create();
-
-    segmentColours_.clear();
-
-    segmentColours_.add(Colour(0.00f, 1.0f, 1.0f, 1.0f));  // red
-    segmentColours_.add(Colour(0.18f, 1.0f, 1.0f, 1.0f));  // yellow
-    segmentColours_.add(Colour(0.30f, 1.0f, 1.0f, 1.0f));  // green
-    segmentColours_.add(Colour(0.30f, 1.0f, 1.0f, 1.0f));  // green
 
     crestFactor *= 10;
     int numberOfBars;
@@ -158,7 +152,7 @@ void MeterBar::create(
         {
             if (lowerThreshold <= -280)
             {
-                colourId = 0;
+                colourId = 3;
             }
             else if (lowerThreshold <= -220)
             {
@@ -197,7 +191,7 @@ void MeterBar::create(
             }
             else
             {
-                colourId = 2;
+                colourId = 3;
             }
         }
 
@@ -265,7 +259,7 @@ void MeterBar::create(
                 hasHighestLevel,
                 segmentHeight,
                 spacingBefore,
-                segmentColours_[colourId],
+                segmentColours[colourId],
                 Colours::white);
         }
         else
@@ -276,7 +270,7 @@ void MeterBar::create(
                 hasHighestLevel,
                 segmentHeight,
                 spacingBefore,
-                segmentColours_[colourId],
+                segmentColours[colourId],
                 Colours::white);
         }
     }

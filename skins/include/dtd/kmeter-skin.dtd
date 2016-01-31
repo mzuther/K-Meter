@@ -122,6 +122,12 @@
            label_peak_rs?
 ">
 
+<!ENTITY % attrs_colour
+          "hue CDATA #REQUIRED
+           saturation CDATA #REQUIRED
+           lightness CDATA #REQUIRED
+">
+
 <!ENTITY % attrs_image_position
           "x CDATA #REQUIRED
            y CDATA #REQUIRED
@@ -187,7 +193,8 @@
 ">
 
 
-<!ELEMENT kmeter-skin (default,
+<!ELEMENT kmeter-skin (settings,
+                       default,
                        stereo_itu?, stereo_itu_k20, stereo_itu_k14, stereo_itu_k12, stereo_itu_normal,
                        stereo_rms?, stereo_rms_k20, stereo_rms_k14, stereo_rms_k12, stereo_rms_normal,
                        surround_itu?, surround_itu_k20, surround_itu_k14, surround_itu_k12, surround_itu_normal,
@@ -196,8 +203,26 @@
               name CDATA #REQUIRED
               orientation (vertical | horizontal) #REQUIRED
               path CDATA #REQUIRED
-              version CDATA "1.1"
+              version CDATA "1.2"
     >
+
+    <!ELEMENT settings (kmeter_segment, kmeter_colour_red, kmeter_colour_amber, kmeter_colour_green,
+                        kmeter_colour_nonlinear)>
+
+         <!ELEMENT kmeter_segment (#PCDATA)>
+            <!ATTLIST kmeter_segment height CDATA #REQUIRED>
+
+         <!ELEMENT kmeter_colour_red (#PCDATA)>
+             <!ATTLIST kmeter_colour_red %attrs_colour;>
+
+         <!ELEMENT kmeter_colour_amber (#PCDATA)>
+            <!ATTLIST kmeter_colour_amber %attrs_colour;>
+
+         <!ELEMENT kmeter_colour_green (#PCDATA)>
+            <!ATTLIST kmeter_colour_green %attrs_colour;>
+
+         <!ELEMENT kmeter_colour_nonlinear (#PCDATA)>
+            <!ATTLIST kmeter_colour_nonlinear %attrs_colour;>
 
     <!ELEMENT default (%main_components;)>
 

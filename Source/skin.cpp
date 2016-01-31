@@ -45,70 +45,70 @@ void Skin::updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm,
 
     if (bExpanded)
     {
-        strBackgroundSelector = "image_expanded";
+        currentBackgroundName_ = "image_expanded";
     }
     else
     {
-        strBackgroundSelector = "image";
+        currentBackgroundName_ = "image";
     }
 
     if (bDisplayPeakMeter)
     {
-        strBackgroundSelector += "_peaks";
+        currentBackgroundName_ += "_peaks";
     }
     else
     {
-        strBackgroundSelector += "_no_peaks";
+        currentBackgroundName_ += "_no_peaks";
     }
 
     if (nNumberOfChannels <= 2)
     {
-        strSkinFallback_1 = "stereo";
+        currentFallbackName_ = "stereo";
     }
     else
     {
-        strSkinFallback_1 = "surround";
+        currentFallbackName_ = "surround";
     }
 
     if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
-        strSkinFallback_1 += "_itu";
+        currentFallbackName_ += "_itu";
     }
     else
     {
-        strSkinFallback_1 += "_rms";
+        currentFallbackName_ += "_rms";
     }
 
     switch (nCrestFactor)
     {
     case 20:
-        strSkinGroup = strSkinFallback_1 + "_k20";
+        currentGroupName_ = currentFallbackName_ + "_k20";
         break;
 
     case 14:
-        strSkinGroup = strSkinFallback_1 + "_k14";
+        currentGroupName_ = currentFallbackName_ + "_k14";
         break;
 
     case 12:
-        strSkinGroup = strSkinFallback_1 + "_k12";
+        currentGroupName_ = currentFallbackName_ + "_k12";
         break;
 
     default:
-        strSkinGroup = strSkinFallback_1 + "_normal";
+        currentGroupName_ = currentFallbackName_ + "_normal";
         break;
     }
 
-    if (xml != nullptr)
+    if (document_ != nullptr)
     {
-        xmlSkinGroup = xml->getChildByName(strSkinGroup);
-        xmlSkinFallback_1 = xml->getChildByName(strSkinFallback_1);
-        xmlSkinFallback_2 = xml->getChildByName("default");
+        skinGroup_ = document_->getChildByName(currentGroupName_);
+        skinFallback_1_ = document_->getChildByName(currentFallbackName_);
+        skinFallback_2_ = document_->getChildByName("default");
     }
     else
     {
-        xmlSkinGroup = nullptr;
-        xmlSkinFallback_1 = nullptr;
-        xmlSkinFallback_2 = nullptr;
+        skinGroup_ = nullptr;
+        skinFallback_1_ = nullptr;
+        skinFallback_2_ = nullptr;
     }
 }
 
