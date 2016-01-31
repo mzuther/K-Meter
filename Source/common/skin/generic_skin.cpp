@@ -191,13 +191,16 @@ const Colour GenericSkin::getColourSetting(
                                        "saturation",
                                        1.00f);
 
-    float lightness = getFloatSetting(tagName,
-                                      "lightness",
-                                      1.00f);
+    float brightness = getFloatSetting(tagName,
+                                       "brightness",
+                                       1.00f);
 
-    float alpha = 1.00f;
+    float alpha = getFloatSetting(tagName,
+                                  "alpha",
+                                  1.00f);
 
-    return Colour(hue, saturation, lightness, alpha);
+    // initialise HSBA colour
+    return Colour(hue, saturation, brightness, alpha);
 }
 
 

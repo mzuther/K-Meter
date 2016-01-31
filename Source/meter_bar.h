@@ -30,9 +30,6 @@
 #include "common/widgets/generic_meter_bar.h"
 
 
-//==============================================================================
-/**
-*/
 class MeterBar :
     public GenericMeterBar
 {
@@ -43,6 +40,23 @@ public:
                         Orientation orientation,
                         int mainSegmentHeight,
                         const Array<Colour> &segmentColours);
+
+protected:
+    /// Colour ID selector for the meter segment.
+    enum colourSelector  // protected namespace
+    {
+        /// reddish
+        red = 0,
+
+        /// yellowish
+        amber,
+
+        /// greenish
+        green,
+
+        /// colourish :)
+        nonLinear
+    };
 
 private:
     JUCE_LEAK_DETECTOR(MeterBar);

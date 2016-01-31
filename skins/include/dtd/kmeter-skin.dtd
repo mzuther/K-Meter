@@ -7,8 +7,8 @@
            button_rms,
            button_hold,
            button_peaks,
-           button_discrete,
            button_expand,
+           button_discrete,
            button_skin,
            button_mono,
            button_reset,
@@ -31,8 +31,8 @@
            button_rms?,
            button_hold?,
            button_peaks?,
-           button_discrete?,
            button_expand?,
+           button_discrete?,
            button_skin?,
            button_mono?,
            button_reset?,
@@ -122,10 +122,10 @@
            label_peak_rs?
 ">
 
-<!ENTITY % attrs_colour
+<!ENTITY % attrs_colour_hsba
           "hue CDATA #REQUIRED
            saturation CDATA #REQUIRED
-           lightness CDATA #REQUIRED
+           brightness CDATA #REQUIRED
 ">
 
 <!ENTITY % attrs_image_position
@@ -213,16 +213,16 @@
             <!ATTLIST kmeter_segment height CDATA #REQUIRED>
 
          <!ELEMENT kmeter_colour_red (#PCDATA)>
-             <!ATTLIST kmeter_colour_red %attrs_colour;>
+             <!ATTLIST kmeter_colour_red %attrs_colour_hsba;>
 
          <!ELEMENT kmeter_colour_amber (#PCDATA)>
-            <!ATTLIST kmeter_colour_amber %attrs_colour;>
+            <!ATTLIST kmeter_colour_amber %attrs_colour_hsba;>
 
          <!ELEMENT kmeter_colour_green (#PCDATA)>
-            <!ATTLIST kmeter_colour_green %attrs_colour;>
+            <!ATTLIST kmeter_colour_green %attrs_colour_hsba;>
 
          <!ELEMENT kmeter_colour_nonlinear (#PCDATA)>
-            <!ATTLIST kmeter_colour_nonlinear %attrs_colour;>
+            <!ATTLIST kmeter_colour_nonlinear %attrs_colour_hsba;>
 
     <!ELEMENT default (%main_components;)>
 
@@ -281,11 +281,11 @@
         <!ELEMENT button_peaks (#PCDATA)>
             <!ATTLIST button_peaks %attrs_button;>
 
-        <!ELEMENT button_discrete (#PCDATA)>
-            <!ATTLIST button_discrete %attrs_button;>
-
         <!ELEMENT button_expand (#PCDATA)>
             <!ATTLIST button_expand %attrs_button;>
+
+        <!ELEMENT button_discrete (#PCDATA)>
+            <!ATTLIST button_discrete %attrs_button;>
 
         <!ELEMENT button_skin (#PCDATA)>
             <!ATTLIST button_skin %attrs_button;>

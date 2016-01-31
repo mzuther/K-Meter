@@ -150,48 +150,52 @@ void MeterBar::create(
 
         if (crestFactor == 0)
         {
-            if (lowerThreshold <= -280)
+            if (lowerThreshold <= limitLinearArea)
             {
-                colourId = 3;
+                colourId = colourSelector::nonLinear;
+            }
+            else if (lowerThreshold <= -280)
+            {
+                colourId = colourSelector::green;
             }
             else if (lowerThreshold <= -220)
             {
-                colourId = 1;
+                colourId = colourSelector::amber;
             }
             else if ((lowerThreshold > -160) && (lowerThreshold <= -100))
             {
-                colourId = 2;
+                colourId = colourSelector::green;
             }
             else if (lowerThreshold > limitRedBars)
             {
-                colourId = 0;
+                colourId = colourSelector::red;
             }
             else if (lowerThreshold > limitAmberBars)
             {
-                colourId = 1;
+                colourId = colourSelector::amber;
             }
             else
             {
-                colourId = 2;
+                colourId = colourSelector::green;
             }
         }
         else
         {
             if (lowerThreshold > limitRedBars)
             {
-                colourId = 0;
+                colourId = colourSelector::red;
             }
             else if (lowerThreshold > limitAmberBars)
             {
-                colourId = 1;
+                colourId = colourSelector::amber;
             }
             else if (lowerThreshold > limitGreenBars)
             {
-                colourId = 2;
+                colourId = colourSelector::green;
             }
             else
             {
-                colourId = 3;
+                colourId = colourSelector::nonLinear;
             }
         }
 
@@ -239,7 +243,6 @@ void MeterBar::create(
         trueLowerThreshold -= segmentRange;
         lowerThreshold = trueLowerThreshold + crestFactor;
 
-        int spacingBefore = 0;
         bool hasHighestLevel;
 
         if (isExpanded)
@@ -253,6 +256,10 @@ void MeterBar::create(
 
         if (discreteMeter)
         {
+            // meter segment outlines overlap
+            int spacingBefore = -1;
+            segmentHeight += 1;
+
             addDiscreteSegment(
                 trueLowerThreshold * 0.1f,
                 segmentRange * 0.1f,
@@ -264,6 +271,9 @@ void MeterBar::create(
         }
         else
         {
+            // meter segment outlines must not overlap
+            int spacingBefore = 0;
+
             addContinuousSegment(
                 trueLowerThreshold * 0.1f,
                 segmentRange * 0.1f,

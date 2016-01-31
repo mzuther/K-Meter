@@ -16,25 +16,25 @@
         <kmeter_colour_red
             hue="0.00"
             saturation="1.00"
-            lightness="1.00"
+            brightness="0.97"
         />
 
         <kmeter_colour_amber
             hue="0.18"
             saturation="1.00"
-            lightness="1.00"
+            brightness="0.97"
         />
 
         <kmeter_colour_green
             hue="0.30"
             saturation="1.00"
-            lightness="1.00"
+            brightness="0.97"
         />
 
         <kmeter_colour_nonlinear
             hue="0.30"
             saturation="1.00"
-            lightness="1.00"
+            brightness="0.97"
         />
     </settings>
 
@@ -95,37 +95,37 @@
             image_off="buttons/button_peaks_off.png"
         />
 
-        <button_discrete
-            x="130"
-            y="241"
-            image_on="buttons/button_discrete_on.png"
-            image_off="buttons/button_discrete_off.png"
-        />
-
         <button_expand
             x="130"
-            y="266"
+            y="241"
             image_on="buttons/button_expand_on.png"
             image_off="buttons/button_expand_off.png"
         />
 
+        <button_discrete
+            x="130"
+            y="281"
+            image_on="buttons/button_discrete_on.png"
+            image_off="buttons/button_discrete_off.png"
+        />
+
         <button_skin
             x="130"
-            y="291"
+            y="306"
             image_on="buttons/button_skin_on.png"
             image_off="buttons/button_skin_off.png"
         />
 
         <button_mono
             x="130"
-            y="331"
+            y="346"
             image_on="buttons/button_mono_on.png"
             image_off="buttons/button_mono_off.png"
         />
 
         <button_reset
             x="130"
-            y="356"
+            y="371"
             image_on="buttons/button_reset_on.png"
             image_off="buttons/button_reset_off.png"
         />
@@ -718,37 +718,37 @@
             image_off="buttons/button_peaks_off.png"
         />
 
-        <button_discrete
-            x="354"
-            y="241"
-            image_on="buttons/button_discrete_on.png"
-            image_off="buttons/button_discrete_off.png"
-        />
-
         <button_expand
             x="354"
-            y="266"
+            y="241"
             image_on="buttons/button_expand_on.png"
             image_off="buttons/button_expand_off.png"
         />
 
+        <button_discrete
+            x="354"
+            y="281"
+            image_on="buttons/button_discrete_on.png"
+            image_off="buttons/button_discrete_off.png"
+        />
+
         <button_skin
             x="354"
-            y="291"
+            y="306"
             image_on="buttons/button_skin_on.png"
             image_off="buttons/button_skin_off.png"
         />
 
         <button_mono
             x="354"
-            y="331"
+            y="346"
             image_on="buttons/button_mono_on.png"
             image_off="buttons/button_mono_off.png"
         />
 
         <button_reset
             x="354"
-            y="356"
+            y="371"
             image_on="buttons/button_reset_on.png"
             image_off="buttons/button_reset_off.png"
         />
