@@ -26,24 +26,34 @@
 #include "skin.h"
 
 
-Skin::Skin()
+void Skin::loadSkin(File &skinFile,
+                    int numberOfChannels,
+                    int crestFactor,
+                    int averageAlgorithm,
+                    bool isExpanded,
+                    bool displayPeakMeter)
+
 {
+    updateSkin(numberOfChannels,
+               crestFactor,
+               averageAlgorithm,
+               isExpanded,
+               displayPeakMeter);
+
+    loadFromXml(skinFile, "kmeter-skin");
 }
 
 
-void Skin::loadSkin(File &fileSkin, int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter)
+void Skin::updateSkin(int numberOfChannels,
+                      int crestFactor,
+                      int averageAlgorithm,
+                      bool isExpanded,
+                      bool displayPeakMeter)
+
 {
-    updateSkin(nNumChannels, nCrestFactor, nAverageAlgorithm, bExpanded, bDisplayPeakMeter);
-    loadFromXml(fileSkin, "kmeter-skin");
-}
+    jassert(numberOfChannels > 0);
 
-
-void Skin::updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm, bool bExpanded, bool bDisplayPeakMeter)
-{
-    jassert(nNumChannels > 0);
-    nNumberOfChannels = nNumChannels;
-
-    if (bExpanded)
+    if (isExpanded)
     {
         currentBackgroundName_ = "image_expanded";
     }
@@ -52,7 +62,7 @@ void Skin::updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm,
         currentBackgroundName_ = "image";
     }
 
-    if (bDisplayPeakMeter)
+    if (displayPeakMeter)
     {
         currentBackgroundName_ += "_peaks";
     }
@@ -61,7 +71,7 @@ void Skin::updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm,
         currentBackgroundName_ += "_no_peaks";
     }
 
-    if (nNumberOfChannels <= 2)
+    if (numberOfChannels <= 2)
     {
         currentFallbackName_ = "stereo";
     }
@@ -70,7 +80,7 @@ void Skin::updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm,
         currentFallbackName_ = "surround";
     }
 
-    if (nAverageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
+    if (averageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
         currentFallbackName_ += "_itu";
     }
@@ -79,7 +89,7 @@ void Skin::updateSkin(int nNumChannels, int nCrestFactor, int nAverageAlgorithm,
         currentFallbackName_ += "_rms";
     }
 
-    switch (nCrestFactor)
+    switch (crestFactor)
     {
     case 20:
         currentGroupName_ = currentFallbackName_ + "_k20";

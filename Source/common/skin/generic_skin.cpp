@@ -56,7 +56,6 @@ bool GenericSkin::loadFromXml(
     skinFallback_2_ = document_->getChildByName("default");
 
     if ((!document_->hasTagName(rootName)) ||
-            (settingsGroup_ == nullptr) ||
             (skinFallback_2_ == nullptr))
     {
         Logger::outputDebugString(
