@@ -26,7 +26,7 @@
 #include "peak_label.h"
 
 
-PeakLabel::PeakLabel(const String &componentName, int nCrestFactor) : GenericStateLabel(componentName)
+PeakLabel::PeakLabel(int nCrestFactor)
 {
     nMeterCrestFactor = nCrestFactor;
     setLabelColour(Colours::white);

@@ -37,7 +37,7 @@
 class OverflowMeter : public GenericStateLabel
 {
 public:
-    OverflowMeter(const String &componentName);
+    OverflowMeter();
 
     void setOverflows(int Overflows);
 

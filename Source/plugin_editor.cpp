@@ -148,10 +148,10 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
 
     if (numberOfInputChannels_ <= 2)
     {
-        stereoMeter = new GenericHorizontalMeter("Stereo Meter");
+        stereoMeter = new GenericHorizontalMeter();
         addAndMakeVisible(stereoMeter);
 
-        phaseCorrelationMeter = new GenericHorizontalMeter("Correlation Meter");
+        phaseCorrelationMeter = new GenericHorizontalMeter();
         addAndMakeVisible(phaseCorrelationMeter);
     }
 

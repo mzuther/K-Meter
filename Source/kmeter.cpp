@@ -110,13 +110,12 @@ void Kmeter::applySkin(
 
         addAndMakeVisible(meterBar);
 
-        OverflowMeter *overflowMeter = overflowMeters_.add(new OverflowMeter(
-                                           "Overflows #" + String(channel)));
+        OverflowMeter *overflowMeter = overflowMeters_.add(
+                                           new OverflowMeter());
         addAndMakeVisible(overflowMeter);
 
-        PeakLabel *peakLabel = maximumPeakLabels_.add(new PeakLabel(
-                                   "Maximum Peak #" + String(channel),
-                                   crestFactor));
+        PeakLabel *peakLabel = maximumPeakLabels_.add(
+                                   new PeakLabel(crestFactor));
 
         addAndMakeVisible(peakLabel);
     }
