@@ -46,11 +46,11 @@ void OverflowMeter::setOverflows(int Overflows)
 
         if (nOverflows == 0)
         {
-            setState(GenericStateLabel::stateOff);
+            setState(GenericStateLabel::State::off);
         }
         else
         {
-            setState(GenericStateLabel::stateOn);
+            setState(GenericStateLabel::State::on);
         }
     }
 }

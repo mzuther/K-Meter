@@ -42,7 +42,7 @@ public:
                         const Array<Colour> &segmentColours);
 
 protected:
-    /// Colour ID selector for the meter segment.
+    /// Colour ID selector for meter segments.
     enum colourSelector  // protected namespace
     {
         /// reddish

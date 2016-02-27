@@ -1,6 +1,10 @@
-o [mzuther] document code
+o [mzuther] rename internal "variables_" (get rid of "newVariable")
 
-o [mzuther] add const to methods
+o [mzuther] get rid of Hungarian notation
+
+o [mzuther] add const to methods variables
+
+o [mzuther] pretty-print and document code
 
 * horizontal meter
 
