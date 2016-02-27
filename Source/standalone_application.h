@@ -26,7 +26,7 @@
 #ifndef __KMETER_STANDALONE_H__
 #define __KMETER_STANDALONE_H__
 
-#include "common/widgets/generic_plugin_standalone.h"
+#include "FrutHeader.h"
 
 
 class KmeterStandalone :

@@ -29,12 +29,11 @@
 class KmeterAudioProcessor;
 class MeterBallistics;
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 #include "audio_file_player.h"
 #include "average_level_filtered.h"
 #include "meter_ballistics.h"
 #include "plugin_parameters.h"
-#include "common/audio/audio_ring_buffer.h"
 
 
 //============================================================================

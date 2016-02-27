@@ -26,8 +26,7 @@
 #ifndef __OVERFLOW_METER_H__
 #define __OVERFLOW_METER_H__
 
-#include "JuceHeader.h"
-#include "common/widgets/generic_state_label.h"
+#include "FrutHeader.h"
 
 
 

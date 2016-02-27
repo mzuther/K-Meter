@@ -28,9 +28,8 @@
 
 class Skin;
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 #include "plugin_parameters.h"
-#include "common/skin/generic_skin.h"
 
 
 class Skin :

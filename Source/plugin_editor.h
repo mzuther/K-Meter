@@ -26,14 +26,11 @@
 #ifndef __PLUGINEDITOR_KMETER_H__
 #define __PLUGINEDITOR_KMETER_H__
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 #include "plugin_processor.h"
 #include "kmeter.h"
 #include "skin.h"
 #include "window_validation_content.h"
-#include "common/widgets/generic_needle_meter.h"
-#include "common/widgets/generic_window_about_content.h"
-#include "common/widgets/generic_window_skin_content.h"
 
 
 //==============================================================================

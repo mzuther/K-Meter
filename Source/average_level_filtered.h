@@ -28,11 +28,9 @@
 
 class AverageLevelFiltered;
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 #include "meter_ballistics.h"
 #include "plugin_processor.h"
-#include "common/audio/audio_ring_buffer.h"
-#include "common/audio/dither.h"
 #include "fftw3/api/fftw3.h"
 
 //==============================================================================

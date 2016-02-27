@@ -26,7 +26,7 @@
 #ifndef __METER_BALLISTICS_H__
 #define __METER_BALLISTICS_H__
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 #include "plugin_parameters.h"
 
 

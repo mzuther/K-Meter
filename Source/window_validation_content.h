@@ -26,9 +26,8 @@
 #ifndef __WINDOW_VALIDATION_CONTENT_H__
 #define __WINDOW_VALIDATION_CONTENT_H__
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 #include "plugin_processor.h"
-#include "common/widgets/generic_window_validation_content.h"
 
 
 /// Customized dialog window for validation settings.

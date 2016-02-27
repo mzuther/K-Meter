@@ -28,9 +28,8 @@
 
 class AudioFilePlayer;
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 #include "meter_ballistics.h"
-#include "common/math/averager.h"
 
 
 class AudioFilePlayer

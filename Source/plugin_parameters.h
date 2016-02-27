@@ -26,8 +26,7 @@
 #ifndef __PLUGIN_PARAMETERS_KMETER_H__
 #define __PLUGIN_PARAMETERS_KMETER_H__
 
-#include "JuceHeader.h"
-#include "common/parameter_juggler/parameter_juggler.h"
+#include "FrutHeader.h"
 
 
 //============================================================================

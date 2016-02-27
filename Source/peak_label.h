@@ -26,8 +26,7 @@
 #ifndef __PEAK_LABEL_H__
 #define __PEAK_LABEL_H__
 
-#include "JuceHeader.h"
-#include "common/widgets/generic_state_label.h"
+#include "FrutHeader.h"
 
 
 //==============================================================================

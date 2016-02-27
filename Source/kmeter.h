@@ -26,7 +26,7 @@
 #ifndef __KMETER_H__
 #define __KMETER_H__
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 #include "meter_ballistics.h"
 #include "meter_bar.h"
 #include "overflow_meter.h"
