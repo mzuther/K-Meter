@@ -29,13 +29,14 @@
 #include "common/widgets/generic_plugin_standalone.h"
 
 
-class KmeterStandalone : virtual public GenericPluginStandalone
+class KmeterStandalone :
+    virtual public GenericPluginStandalone
 {
 public:
-    KmeterStandalone();
+    // it's cold and empty here ...
 
 protected:
-    PropertiesFile::Options prepare_properties();
+    virtual void initialiseSettings(PropertiesFile::Options &settings);
 
 private:
     JUCE_LEAK_DETECTOR(KmeterStandalone);

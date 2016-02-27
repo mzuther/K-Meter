@@ -2,6 +2,8 @@ o [mzuther] rename internal "variables_" (get rid of "newVariable")
 
 o [mzuther] get rid of Hungarian notation
 
+o [mzuther] mark virtual functions as "virtual"
+
 o [mzuther] add const to methods variables
 
 o [mzuther] pretty-print and document code

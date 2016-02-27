@@ -25,24 +25,24 @@
 
 #include "standalone_application.h"
 
-KmeterStandalone::KmeterStandalone()
-{
-}
 
+/// Initialise settings of stand-alone.  This includes the directory
+/// in which the current state is to be stored.
+///
+/// @param settings settings to be initialised
+void KmeterStandalone::initialiseSettings(
+    PropertiesFile::Options &settings)
 
-PropertiesFile::Options KmeterStandalone::prepare_properties()
 {
-    PropertiesFile::Options options;
 #ifdef KMETER_SURROUND
-    options.applicationName     = "kmeter_surround";
+    settings.applicationName     = "kmeter_surround";
 #else
-    options.applicationName     = "kmeter_stereo";
+    settings.applicationName     = "kmeter_stereo";
 #endif
-    options.folderName          = ".config";
-    options.filenameSuffix      = "ini";
-    options.osxLibrarySubFolder = "Application Support";
 
-    return options;
+    settings.filenameSuffix      = "ini";
+    settings.folderName          = ".config";
+    settings.osxLibrarySubFolder = "Application Support";
 }
 
 
