@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   MZ common JUCE
+   ==============
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,47 +23,31 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __METER_BAR_H__
-#define __METER_BAR_H__
+#ifndef __GENERIC_METER_ORIENTATION_H__
+#define __GENERIC_METER_ORIENTATION_H__
 
 #include "JuceHeader.h"
-#include "common/widgets/generic_meter_bar.h"
 
 
-class MeterBar :
-    public GenericMeterBar
+/// Orientation for meter bars and meter segments.
+///
+enum GenericMeterOrientation
 {
-public:
-    virtual void create(int crestFactor,
-                        bool discreteMeter,
-                        bool isExpanded,
-                        GenericMeterOrientation orientation,
-                        int mainSegmentHeight,
-                        const Array<Colour> &segmentColours);
+    /// horizontal meter (bottom to top)
+    horizontal = 0,
 
-protected:
-    /// Colour ID selector for meter segments.
-    enum colourSelector  // protected namespace
-    {
-        /// reddish
-        red = 0,
+    /// inverted horizontal meter (top to bottom)
+    horizontalInverted,
 
-        /// yellowish
-        amber,
+    /// vertical meter (left to right)
+    vertical,
 
-        /// greenish
-        green,
-
-        /// colourish :)
-        nonLinear
-    };
-
-private:
-    JUCE_LEAK_DETECTOR(MeterBar);
+    /// inverted vertical meter (right to left)
+    verticalInverted
 };
 
 
-#endif  // __METER_BAR_H__
+#endif  // __GENERIC_METER_ORIENTATION_H__
 
 
 // Local Variables:

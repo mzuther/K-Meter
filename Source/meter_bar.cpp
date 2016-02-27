@@ -28,7 +28,7 @@
 
 void MeterBar::create(
     int crestFactor, bool discreteMeter, bool isExpanded,
-    Orientation orientation, int mainSegmentHeight,
+    GenericMeterOrientation orientation, int mainSegmentHeight,
     const Array<Colour> &segmentColours)
 
 {
