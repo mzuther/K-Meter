@@ -30,6 +30,7 @@
 /// in which the current state is to be stored.
 ///
 /// @param settings settings to be initialised
+///
 void KmeterStandalone::initialiseSettings(
     PropertiesFile::Options &settings)
 
