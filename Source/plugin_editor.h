@@ -31,7 +31,7 @@
 #include "kmeter.h"
 #include "skin.h"
 #include "window_validation_content.h"
-#include "common/widgets/generic_horizontal_meter.h"
+#include "common/widgets/generic_needle_meter.h"
 #include "common/widgets/generic_window_about_content.h"
 #include "common/widgets/generic_window_skin_content.h"
 
@@ -82,8 +82,8 @@ private:
 
     KmeterAudioProcessor *audioProcessor;
     Kmeter kmeter_;
-    ScopedPointer<GenericHorizontalMeter> stereoMeter;
-    ScopedPointer<GenericHorizontalMeter> phaseCorrelationMeter;
+    ScopedPointer<GenericNeedleMeter> stereoMeter;
+    ScopedPointer<GenericNeedleMeter> phaseCorrelationMeter;
 
     ImageButton ButtonK20;
     ImageButton ButtonK14;

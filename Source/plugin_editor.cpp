@@ -148,10 +148,10 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
 
     if (numberOfInputChannels_ <= 2)
     {
-        stereoMeter = new GenericHorizontalMeter();
+        stereoMeter = new GenericNeedleMeter();
         addAndMakeVisible(stereoMeter);
 
-        phaseCorrelationMeter = new GenericHorizontalMeter();
+        phaseCorrelationMeter = new GenericNeedleMeter();
         addAndMakeVisible(phaseCorrelationMeter);
     }
 
@@ -254,12 +254,14 @@ void KmeterAudioProcessorEditor::applySkin()
 
     if (stereoMeter != nullptr)
     {
-        skin.placeAndSkinHorizontalMeter(stereoMeter, "meter_stereo");
+        skin.placeAndSkinNeedleMeter(stereoMeter,
+                                     "meter_stereo");
     }
 
     if (phaseCorrelationMeter != nullptr)
     {
-        skin.placeAndSkinHorizontalMeter(phaseCorrelationMeter, "meter_phase_correlation");
+        skin.placeAndSkinNeedleMeter(phaseCorrelationMeter,
+                                     "meter_phase_correlation");
     }
 }
 

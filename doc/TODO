@@ -4,9 +4,15 @@ o [mzuther] get rid of Hungarian notation
 
 o [mzuther] mark virtual functions as "virtual"
 
+o [mzuther] use explicit casts: static_cast<type>
+
 o [mzuther] add const to methods variables
 
 o [mzuther] pretty-print and document code
+
+* use JUCE namespace explicitly
+
+* create namespace for Common Library
 
 * horizontal meter
 
