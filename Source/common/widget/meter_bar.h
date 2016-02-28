@@ -31,15 +31,15 @@
 /// be filled with meter segment widgets.  These can then be
 /// comfortably updated with a single function call.
 ///
-/// @see GenericMeterSegment
+/// @see MeterSegment
 ///
-class GenericMeterBar :
+class MeterBar :
     public Component
 {
 public:
     virtual void create();
 
-    virtual void addSegment(GenericMeterSegment *segment,
+    virtual void addSegment(widget::MeterSegment *segment,
                             int segmentHeight,
                             int spacingBefore);
 
@@ -59,8 +59,8 @@ public:
                                       const Colour &segmentColour,
                                       const Colour &colPeakMarker);
 
-    virtual GenericMeterOrientation getOrientation();
-    virtual void setOrientation(GenericMeterOrientation orientation);
+    virtual widget::Orientation getOrientation();
+    virtual void setOrientation(widget::Orientation orientation);
 
     virtual void invertMeter(bool invert);
     virtual bool isMeterInverted();
@@ -83,7 +83,7 @@ public:
     virtual void resized();
 
 private:
-    JUCE_LEAK_DETECTOR(GenericMeterBar);
+    JUCE_LEAK_DETECTOR(MeterBar);
 
     float normalLevel_;
     float normalLevelPeak_;
@@ -98,9 +98,9 @@ private:
     bool isVertical_;
     bool isInverted_;
 
-    GenericMeterOrientation orientation_;
+    widget::Orientation orientation_;
     Array<int> segmentSpacing_;
-    OwnedArray<GenericMeterSegment> meterSegments_;
+    OwnedArray<widget::MeterSegment> meterSegments_;
 };
 
 

@@ -23,38 +23,45 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __JUCE_WIDGET_PLUGIN_STANDALONE_H__
-#define __JUCE_WIDGET_PLUGIN_STANDALONE_H__
+#ifndef __FRUT_WIDGET_SIGNAL_LED_H__
+#define __FRUT_WIDGET_SIGNAL_LED_H__
 
 
-/// Stand-alone application for audio plug-ins.  When an instance of
-/// this class is created, the plug-in is instantiated and its GUI
-/// opened.
+/// Signal LED component.  This widget loads three images of the same
+/// size which will be displayed according to the meter's level.
 ///
-class GenericPluginStandalone :
-    public JUCEApplication
+/// | %Level     | %Display                            |
+/// | :--------: | ----------------------------------- |
+/// | <= 0.0     | *imageOff*                          |
+/// | in between | blend of *imageLow* and *imageHigh* |
+/// | >= 1.0     | *imageHigh*                         |
+///
+class SignalLed :
+    public Component
 {
 public:
-    virtual void initialise(const String &commandLineParameters);
-    virtual void shutdown();
+    SignalLed();
 
-    virtual const String getApplicationName();
-    virtual const String getApplicationVersion();
+    virtual void paint(Graphics &g);
+
+    void setLevel(float level);
+    void setImages(const Image &imageOff,
+                   const Image &imageLow,
+                   const Image &imageHigh);
 
 protected:
-    /// Initialise settings of stand-alone.  This includes the
-    /// directory in which the current state is to be stored.
-    ///
-    /// @param settings settings to be initialised
-    virtual void initialiseSettings(PropertiesFile::Options &settings) = 0;
+    float level_;
 
-    ScopedPointer<StandaloneFilterWindow> filterWindow_;
+    Image imageOff_;
+    Image imageLow_;
+    Image imageHigh_;
 
 private:
-    JUCE_LEAK_DETECTOR(GenericPluginStandalone);
+    JUCE_LEAK_DETECTOR(SignalLed);
 };
 
-#endif   // __JUCE_WIDGET_PLUGIN_STANDALONE_H__
+
+#endif  // __FRUT_WIDGET_SIGNAL_LED_H__
 
 
 // Local Variables:

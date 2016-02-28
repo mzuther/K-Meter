@@ -26,7 +26,7 @@
 
 /// Create a meter with a needle.
 ///
-GenericNeedleMeter::GenericNeedleMeter()
+NeedleMeter::NeedleMeter()
 {
     // this component does not have any transparent areas (increases
     // performance on redrawing)
@@ -51,7 +51,7 @@ GenericNeedleMeter::GenericNeedleMeter()
 ///
 /// @param g graphics context
 ///
-void GenericNeedleMeter::paint(
+void NeedleMeter::paint(
     Graphics &g)
 
 {
@@ -72,7 +72,7 @@ void GenericNeedleMeter::paint(
 
 /// Called when this component's size has been changed.
 ///
-void GenericNeedleMeter::resized()
+void NeedleMeter::resized()
 {
     // get component size
     int width = getWidth();
@@ -100,7 +100,7 @@ void GenericNeedleMeter::resized()
 ///
 /// @param value new value
 ///
-void GenericNeedleMeter::setValue(
+void NeedleMeter::setValue(
     float value)
 
 {
@@ -139,7 +139,7 @@ void GenericNeedleMeter::setValue(
 /// @param needleSpacingTop spacing between needle and top (or bottom)
 ///        image border
 ///
-void GenericNeedleMeter::setImages(
+void NeedleMeter::setImages(
     const Image &imageBackground,
     const Image &imageNeedle,
     int needleSpacingLeft,

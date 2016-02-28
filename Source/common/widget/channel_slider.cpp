@@ -23,29 +23,64 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_METER_ORIENTATION_H__
-#define __FRUT_WIDGET_METER_ORIENTATION_H__
 
-
-/// Orientation for meter bars and meter segments.
-///
-enum GenericMeterOrientation
+ChannelSlider::ChannelSlider()
 {
-    /// horizontal meter (bottom to top)
-    horizontal = 0,
+    setSliderStyle(Slider::IncDecButtons);
+    setTextBoxStyle(Slider::TextBoxLeft, true, 30, 20);
+    setIncDecButtonsMode(Slider::incDecButtonsNotDraggable);
 
-    /// inverted horizontal meter (top to bottom)
-    horizontalInverted,
-
-    /// vertical meter (left to right)
-    vertical,
-
-    /// inverted vertical meter (right to left)
-    verticalInverted
-};
+    setNumberOfChannels(0);
+}
 
 
-#endif  // __FRUT_WIDGET_METER_ORIENTATION_H__
+int ChannelSlider::getNumberOfChannels()
+{
+    return nNumberOfChannels;
+}
+
+
+void ChannelSlider::setNumberOfChannels(int nNumChannels)
+{
+    nNumberOfChannels = nNumChannels;
+
+    setRange(-1.0, nNumberOfChannels - 1, 1.0);
+    setValue(-1.0, sendNotificationAsync);
+}
+
+
+float ChannelSlider::getFloat()
+{
+    double dRange = getMaximum() - getMinimum();
+    double dValue = (getValue() - getMinimum()) / dRange;
+    return (float) dValue;
+}
+
+
+double ChannelSlider::getValueFromText(const String &strText)
+{
+    if (strText == "All")
+    {
+        return -1.0f;
+    }
+    else
+    {
+        return strText.getFloatValue() - 1.0f;
+    }
+}
+
+
+String ChannelSlider::getTextFromValue(double fValue)
+{
+    if (fValue < 0)
+    {
+        return String("All");
+    }
+    else
+    {
+        return String(int(fValue + 0.5f) + 1);
+    }
+}
 
 
 // Local Variables:

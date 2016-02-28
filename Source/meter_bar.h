@@ -30,13 +30,13 @@
 
 
 class MeterBar :
-    public frut::GenericMeterBar
+    public frut::widget::MeterBar
 {
 public:
     virtual void create(int crestFactor,
                         bool discreteMeter,
                         bool isExpanded,
-                        frut::GenericMeterOrientation orientation,
+                        frut::widget::Orientation orientation,
                         int mainSegmentHeight,
                         const Array<Colour> &segmentColours);
 

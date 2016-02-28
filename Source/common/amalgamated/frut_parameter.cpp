@@ -35,13 +35,13 @@ namespace frut
 namespace parameter
 {
 
-#include "../parameter/boolean.cpp"
-#include "../parameter/combined.cpp"
-#include "../parameter/continuous.cpp"
 #include "../parameter/juggler.cpp"
+#include "../parameter/par_boolean.cpp"
+#include "../parameter/par_combined.cpp"
+#include "../parameter/par_continuous.cpp"
+#include "../parameter/par_string.cpp"
+#include "../parameter/par_switch.cpp"
 #include "../parameter/parameter.cpp"
-#include "../parameter/string.cpp"
-#include "../parameter/switch.cpp"
 
 }
 }

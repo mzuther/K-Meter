@@ -32,7 +32,7 @@
 /// | :----: | ---------------------- |
 /// | 0      | window has been closed |
 ///
-GenericWindowSettingsContent::GenericWindowSettingsContent()
+WindowSettingsContent::WindowSettingsContent()
 {
 }
 
@@ -51,7 +51,7 @@ GenericWindowSettingsContent::GenericWindowSettingsContent()
 ///
 /// @return created dialog window
 ///
-DialogWindow *GenericWindowSettingsContent::createDialogWindow(
+DialogWindow *WindowSettingsContent::createDialogWindow(
     AudioProcessorEditor *pluginEditor,
     int componentWidth,
     int componentHeight,
@@ -62,8 +62,8 @@ DialogWindow *GenericWindowSettingsContent::createDialogWindow(
     DialogWindow::LaunchOptions windowSettingsLauncher;
 
     // create content component
-    GenericWindowSettingsContent *contentComponent =
-        new GenericWindowSettingsContent();
+    WindowSettingsContent *contentComponent =
+        new WindowSettingsContent();
 
     contentComponent->initialise(componentWidth,
                                  componentHeight,
@@ -97,7 +97,7 @@ DialogWindow *GenericWindowSettingsContent::createDialogWindow(
 /// @param pluginSettings string containing the formatted plug-in
 ///        settings
 ///
-void GenericWindowSettingsContent::initialise(
+void WindowSettingsContent::initialise(
     int componentWidth,
     int componentHeight,
     const String &pluginSettings)
@@ -139,7 +139,7 @@ void GenericWindowSettingsContent::initialise(
 
 /// Style and place the dialog window's components.
 ///
-void GenericWindowSettingsContent::applySkin()
+void WindowSettingsContent::applySkin()
 {
     // style text editor
     textEditor_.setColour(
@@ -185,7 +185,7 @@ void GenericWindowSettingsContent::applySkin()
 ///
 /// @param button clicked button
 ///
-void GenericWindowSettingsContent::buttonClicked(
+void WindowSettingsContent::buttonClicked(
     Button *button)
 
 {
@@ -203,7 +203,7 @@ void GenericWindowSettingsContent::buttonClicked(
 /// some other OS-specific key shortcut or OS menu for getting rid of
 /// a window.
 ///
-void GenericWindowSettingsContent::closeButtonPressed()
+void WindowSettingsContent::closeButtonPressed()
 {
     // get parent dialog window
     DialogWindow *dialogWindow = findParentComponentOfClass<DialogWindow>();

@@ -23,45 +23,38 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_SIGNAL_LED_H__
-#define __FRUT_WIDGET_SIGNAL_LED_H__
+#ifndef __JUCE_WIDGET_PLUGIN_STANDALONE_H__
+#define __JUCE_WIDGET_PLUGIN_STANDALONE_H__
 
 
-/// Signal LED component.  This widget loads three images of the same
-/// size which will be displayed according to the meter's level.
+/// Stand-alone application for audio plug-ins.  When an instance of
+/// this class is created, the plug-in is instantiated and its GUI
+/// opened.
 ///
-/// | %Level     | %Display                            |
-/// | :--------: | ----------------------------------- |
-/// | <= 0.0     | *imageOff*                          |
-/// | in between | blend of *imageLow* and *imageHigh* |
-/// | >= 1.0     | *imageHigh*                         |
-///
-class GenericSignalLed :
-    public Component
+class PluginStandalone :
+    public JUCEApplication
 {
 public:
-    GenericSignalLed();
+    virtual void initialise(const String &commandLineParameters);
+    virtual void shutdown();
 
-    virtual void paint(Graphics &g);
-
-    void setLevel(float level);
-    void setImages(const Image &imageOff,
-                   const Image &imageLow,
-                   const Image &imageHigh);
+    virtual const String getApplicationName();
+    virtual const String getApplicationVersion();
 
 protected:
-    float level_;
+    /// Initialise settings of stand-alone.  This includes the
+    /// directory in which the current state is to be stored.
+    ///
+    /// @param settings settings to be initialised
+    virtual void initialiseSettings(PropertiesFile::Options &settings) = 0;
 
-    Image imageOff_;
-    Image imageLow_;
-    Image imageHigh_;
+    ScopedPointer<StandaloneFilterWindow> filterWindow_;
 
 private:
-    JUCE_LEAK_DETECTOR(GenericSignalLed);
+    JUCE_LEAK_DETECTOR(PluginStandalone);
 };
 
-
-#endif  // __FRUT_WIDGET_SIGNAL_LED_H__
+#endif   // __JUCE_WIDGET_PLUGIN_STANDALONE_H__
 
 
 // Local Variables:

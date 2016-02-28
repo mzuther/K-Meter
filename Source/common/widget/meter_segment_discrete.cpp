@@ -57,7 +57,7 @@
 /// > segment's peak marker is lit when any level peak reaches or
 /// > exceeds the lower threshold.
 ///
-GenericMeterSegmentDiscrete::GenericMeterSegmentDiscrete()
+MeterSegmentDiscrete::MeterSegmentDiscrete()
 {
     // initialise segment's brightness modifier
     segmentBrightnessModifier_ = 0.0f;
@@ -90,7 +90,7 @@ GenericMeterSegmentDiscrete::GenericMeterSegmentDiscrete()
 /// @return return new upper threshold of segment (may be useful for
 ///         creating continuous meters)
 ///
-float GenericMeterSegmentDiscrete::setThresholdAndRange(
+float MeterSegmentDiscrete::setThresholdAndRange(
     float lowerThreshold, float thresholdRange, bool isTopmost)
 
 {
@@ -121,7 +121,7 @@ float GenericMeterSegmentDiscrete::setThresholdAndRange(
 ///
 /// @param peakMarkerColour colour of the peak marker
 ///
-void GenericMeterSegmentDiscrete::setColours(
+void MeterSegmentDiscrete::setColours(
     const Colour &segmentColour, const Colour &peakMarkerColour)
 
 {
@@ -141,7 +141,7 @@ void GenericMeterSegmentDiscrete::setColours(
 /// @param g the graphics context that must be used to do the drawing
 ///        operations
 ///
-void GenericMeterSegmentDiscrete::paint(
+void MeterSegmentDiscrete::paint(
     Graphics &g)
 
 {
@@ -185,7 +185,7 @@ void GenericMeterSegmentDiscrete::paint(
 /// If this function did not exist, the meter segment wouldn't be
 /// drawn until the first level change!
 ///
-void GenericMeterSegmentDiscrete::visibilityChanged()
+void MeterSegmentDiscrete::visibilityChanged()
 {
 }
 
@@ -200,7 +200,7 @@ void GenericMeterSegmentDiscrete::visibilityChanged()
 ///
 /// @param discreteLevelPeak new discrete peak level
 ///
-void GenericMeterSegmentDiscrete::setLevels(
+void MeterSegmentDiscrete::setLevels(
     float normalLevel, float normalLevelPeak,
     float discreteLevel, float discreteLevelPeak)
 

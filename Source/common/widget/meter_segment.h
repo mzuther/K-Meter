@@ -29,14 +29,14 @@
 
 /// Base class for meter segment components.
 ///
-/// @see GenericMeterBar
+/// @see MeterBar
 ///
-class GenericMeterSegment :
+class MeterSegment :
     public Component
 {
 public:
-    GenericMeterSegment();
-    virtual ~GenericMeterSegment();
+    MeterSegment();
+    virtual ~MeterSegment();
 
     virtual void setNormalLevels(float normalLevel,
                                  float normalLevelPeak);
@@ -59,11 +59,11 @@ public:
                            float discreteLevel,
                            float discreteLevelPeak) = 0 ;
 
-    virtual GenericMeterOrientation getOrientation();
-    virtual void setOrientation(GenericMeterOrientation orientation);
+    virtual widget::Orientation getOrientation();
+    virtual void setOrientation(widget::Orientation orientation);
 
 protected:
-    GenericMeterOrientation orientation_;
+    widget::Orientation orientation_;
 
 };
 

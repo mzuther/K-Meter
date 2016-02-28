@@ -23,46 +23,43 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_WINDOW_ABOUT_CONTENT_H__
-#define __FRUT_WIDGET_WINDOW_ABOUT_CONTENT_H__
+#ifndef __FRUT_WIDGET_NEEDLE_METER_H__
+#define __FRUT_WIDGET_NEEDLE_METER_H__
 
 
-/// Dialog window for displaying version, copyright, license and so
-/// on.
-///
-class GenericWindowAboutContent :
-    public Component,
-    public ButtonListener
+class NeedleMeter :
+    public Component
 {
 public:
-    GenericWindowAboutContent();
+    NeedleMeter();
 
-    static DialogWindow *createDialogWindow(AudioProcessorEditor *pluginEditor,
-                                            int componentWidth,
-                                            int componentHeight,
-                                            const StringPairArray &chapters);
+    void setImages(const Image &imageBackground,
+                   const Image &imageNeedle,
+                   int needleSpacingLeft,
+                   int needleSpacingTop);
 
-    virtual void buttonClicked(Button *button);
+    void setValue(float value);
 
-    virtual void applySkin();
-
-    virtual void initialise(int componentWidth,
-                            int componentHeight,
-                            const StringPairArray &chapters);
+    virtual void paint(Graphics &g);
+    virtual void resized();
 
 protected:
-    virtual void addChapters(const StringPairArray &chapters);
+    int needlePosition_;
+    int needleTravelPath_;
+    bool isVerticalMeter_;
 
-    TextEditor textEditor_;
-    TextButton buttonClose_;
-    ImageButton buttonLicense_;
+    int needleSpacingLeft_;
+    int needleSpacingTop_;
+
+    Image imageBackground_;
+    Image imageNeedle_;
 
 private:
-    JUCE_LEAK_DETECTOR(GenericWindowAboutContent);
+    JUCE_LEAK_DETECTOR(NeedleMeter);
 };
 
 
-#endif  // __FRUT_WIDGET_WINDOW_ABOUT_CONTENT_H__
+#endif  // __FRUT_WIDGET_NEEDLE_METER_H__
 
 
 // Local Variables:

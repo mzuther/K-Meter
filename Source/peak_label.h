@@ -33,7 +33,7 @@
 /**
 */
 class PeakLabel :
-    public frut::GenericStateLabel
+    public frut::widget::StateLabel
 {
 public:
     PeakLabel(int nCrestFactor);

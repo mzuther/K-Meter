@@ -36,13 +36,13 @@ namespace parameter
 #include "../parameter/parameter.h"
 
 // normal includes
-#include "../parameter/boolean.h"
-#include "../parameter/continuous.h"
-#include "../parameter/string.h"
-#include "../parameter/switch.h"
+#include "../parameter/par_boolean.h"
+#include "../parameter/par_continuous.h"
+#include "../parameter/par_string.h"
+#include "../parameter/par_switch.h"
 
 // post includes
-#include "../parameter/combined.h"
+#include "../parameter/par_combined.h"
 #include "../parameter/juggler.h"
 
 }

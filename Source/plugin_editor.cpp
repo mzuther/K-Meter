@@ -148,10 +148,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
 
     if (numberOfInputChannels_ <= 2)
     {
-        stereoMeter = new frut::GenericNeedleMeter();
         addAndMakeVisible(stereoMeter);
-
-        phaseCorrelationMeter = new frut::GenericNeedleMeter();
         addAndMakeVisible(phaseCorrelationMeter);
     }
 
@@ -252,15 +249,12 @@ void KmeterAudioProcessorEditor::applySkin()
         false,
         ButtonDisplayPeakMeter.getToggleState());
 
-    if (stereoMeter != nullptr)
+    if (numberOfInputChannels_ <= 2)
     {
-        skin.placeAndSkinNeedleMeter(stereoMeter,
+        skin.placeAndSkinNeedleMeter(&stereoMeter,
                                      "meter_stereo");
-    }
 
-    if (phaseCorrelationMeter != nullptr)
-    {
-        skin.placeAndSkinNeedleMeter(phaseCorrelationMeter,
+        skin.placeAndSkinNeedleMeter(&phaseCorrelationMeter,
                                      "meter_phase_correlation");
     }
 }
@@ -322,16 +316,13 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
         {
             kmeter_.setLevels(pMeterBallistics);
 
-            if (stereoMeter != nullptr)
+            if (numberOfInputChannels_ <= 2)
             {
                 float fStereo = pMeterBallistics->getStereoMeterValue();
-                stereoMeter->setValue(fStereo / 2.0f + 0.5f);
-            }
+                stereoMeter.setValue(fStereo / 2.0f + 0.5f);
 
-            if (phaseCorrelationMeter != nullptr)
-            {
                 float fPhase = pMeterBallistics->getPhaseCorrelation();
-                phaseCorrelationMeter->setValue(fPhase / 2.0f + 0.5f);
+                phaseCorrelationMeter.setValue(fPhase / 2.0f + 0.5f);
             }
         }
 
@@ -550,7 +541,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         button->setToggleState(true, dontSendNotification);
 
         // prepare and launch dialog window
-        DialogWindow *windowSkin = frut::GenericWindowSkinContent::createDialogWindow(
+        DialogWindow *windowSkin = frut::widget::WindowSkinContent::createDialogWindow(
                                        this, &currentSkinName, skinDirectory);
 
         // attach callback to dialog window
@@ -672,7 +663,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         int width = 270;
         int height = 540;
 
-        DialogWindow *windowAbout = frut::GenericWindowAboutContent::createDialogWindow(
+        DialogWindow *windowAbout = frut::widget::WindowAboutContent::createDialogWindow(
                                         this, width, height, arrChapters);
 
         // attach callback to dialog window

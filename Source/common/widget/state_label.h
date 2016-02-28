@@ -37,7 +37,7 @@
 /// | on     | overload(s) detected in the past    |
 /// | active | currently dectecting an overload    |
 ///
-class GenericStateLabel :
+class StateLabel :
     public Component
 {
 public:
@@ -55,7 +55,7 @@ public:
     };
 
 
-    GenericStateLabel();
+    StateLabel();
 
     virtual void resized();
     void setState(int state,
@@ -91,7 +91,7 @@ protected:
     Colour textColourActive_;
 
 private:
-    JUCE_LEAK_DETECTOR(GenericStateLabel);
+    JUCE_LEAK_DETECTOR(StateLabel);
 };
 
 

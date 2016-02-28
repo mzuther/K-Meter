@@ -27,7 +27,7 @@
 /// Create a new meter bar (and delete an existing one).  The meter
 /// bar can be filled using addSegment() and its cousins.
 ///
-void GenericMeterBar::create()
+void MeterBar::create()
 {
     // this component does not have any transparent areas (increases
     // performance on redrawing)
@@ -60,7 +60,7 @@ void GenericMeterBar::create()
     segmentSpacing_.clear();
 
     // set initial orientation
-    orientation_ = GenericMeterOrientation::vertical;
+    orientation_ = widget::Orientation::vertical;
     isVertical_ = true;
     isInverted_ = false;
 }
@@ -76,8 +76,8 @@ void GenericMeterBar::create()
 ///
 /// @param spacingBefore spacing before the segment (in pixels)
 ///
-void GenericMeterBar::addSegment(
-    GenericMeterSegment *segment,
+void MeterBar::addSegment(
+    widget::MeterSegment *segment,
     int segmentHeight,
     int spacingBefore)
 
@@ -87,10 +87,10 @@ void GenericMeterBar::addSegment(
                        discreteLevel_, discreteLevelPeak_);
 
     // store current orientation
-    GenericMeterOrientation orientationOld = orientation_;
+    widget::Orientation orientationOld = orientation_;
 
     // set to standard orientation to easily add a new meter segment
-    setOrientation(GenericMeterOrientation::vertical);
+    setOrientation(widget::Orientation::vertical);
 
     // add spacing to meter bar's height (no spacing before first
     // meter segment!)
@@ -146,7 +146,7 @@ void GenericMeterBar::addSegment(
 ///
 /// @param peakMarkerColour colour of the peak marker
 ///
-void GenericMeterBar::addDiscreteSegment(
+void MeterBar::addDiscreteSegment(
     float lowerThreshold,
     float thresholdRange,
     bool isTopmost,
@@ -158,8 +158,8 @@ void GenericMeterBar::addDiscreteSegment(
 {
     // create new discrete meter segment (will be deleted
     // automatically)
-    GenericMeterSegmentDiscrete *segment =
-        new GenericMeterSegmentDiscrete();
+    widget::MeterSegmentDiscrete *segment =
+        new widget::MeterSegmentDiscrete();
 
     // set segment's lower threshold and display range (both in
     // decibels) and whether it is the topmost segment
@@ -198,7 +198,7 @@ void GenericMeterBar::addDiscreteSegment(
 ///
 /// @param peakMarkerColour colour of the peak marker
 ///
-void GenericMeterBar::addContinuousSegment(
+void MeterBar::addContinuousSegment(
     float lowerThreshold,
     float thresholdRange,
     bool isTopmost,
@@ -210,8 +210,8 @@ void GenericMeterBar::addContinuousSegment(
 {
     // create new continuous meter segment (will be deleted
     // automatically)
-    GenericMeterSegmentContinuous *segment =
-        new GenericMeterSegmentContinuous();
+    widget::MeterSegmentContinuous *segment =
+        new widget::MeterSegmentContinuous();
 
     // set segment's lower threshold and display range (both in
     // decibels) and whether it is the topmost segment
@@ -244,7 +244,7 @@ void GenericMeterBar::addContinuousSegment(
 ///
 /// @return current orientation
 ///
-GenericMeterOrientation GenericMeterBar::getOrientation()
+widget::Orientation MeterBar::getOrientation()
 {
     return orientation_;
 }
@@ -256,8 +256,8 @@ GenericMeterOrientation GenericMeterBar::getOrientation()
 ///
 /// @param orientation new meter orientation
 ///
-void GenericMeterBar::setOrientation(
-    GenericMeterOrientation orientation)
+void MeterBar::setOrientation(
+    widget::Orientation orientation)
 
 {
     // fast-forward ...
@@ -275,7 +275,7 @@ void GenericMeterBar::setOrientation(
 
     switch (orientation_)
     {
-    case GenericMeterOrientation::vertical:
+    case widget::Orientation::vertical:
 
         // vertical meter
         isVertical_ = true;
@@ -285,7 +285,7 @@ void GenericMeterBar::setOrientation(
 
         break;
 
-    case GenericMeterOrientation::verticalInverted:
+    case widget::Orientation::verticalInverted:
 
         // vertical meter
         isVertical_ = true;
@@ -295,7 +295,7 @@ void GenericMeterBar::setOrientation(
 
         break;
 
-    case GenericMeterOrientation::horizontal:
+    case widget::Orientation::horizontal:
 
         // horizontal meter
         isVertical_ = false;
@@ -307,7 +307,7 @@ void GenericMeterBar::setOrientation(
 
         break;
 
-    case GenericMeterOrientation::horizontalInverted:
+    case widget::Orientation::horizontalInverted:
 
         // horizontal meter
         isVertical_ = false;
@@ -355,7 +355,7 @@ void GenericMeterBar::setOrientation(
         for (int index = 0; index < meterSegments_.size(); ++index)
         {
             // get current segment
-            GenericMeterSegment *segment = meterSegments_[index];
+            widget::MeterSegment *segment = meterSegments_[index];
 
             // get current segment height
             if (isVertical_)
@@ -427,7 +427,7 @@ void GenericMeterBar::setOrientation(
 /// @param invert **true** inverts the meter, **false** reverts to
 ///        normal orientation
 ///
-void GenericMeterBar::invertMeter(
+void MeterBar::invertMeter(
     bool invert)
 
 {
@@ -436,22 +436,22 @@ void GenericMeterBar::invertMeter(
     {
         if (invert)
         {
-            setOrientation(GenericMeterOrientation::verticalInverted);
+            setOrientation(widget::Orientation::verticalInverted);
         }
         else
         {
-            setOrientation(GenericMeterOrientation::vertical);
+            setOrientation(widget::Orientation::vertical);
         }
     }
     else
     {
         if (invert)
         {
-            setOrientation(GenericMeterOrientation::horizontalInverted);
+            setOrientation(widget::Orientation::horizontalInverted);
         }
         else
         {
-            setOrientation(GenericMeterOrientation::horizontal);
+            setOrientation(widget::Orientation::horizontal);
         }
     }
 }
@@ -462,7 +462,7 @@ void GenericMeterBar::invertMeter(
 /// @return **true** if meter is inverted, **false** if meter has
 ///         normal orientation
 ///
-bool GenericMeterBar::isMeterInverted()
+bool MeterBar::isMeterInverted()
 {
     return isInverted_;
 }
@@ -473,7 +473,7 @@ bool GenericMeterBar::isMeterInverted()
 /// @return segment width for vertical meters and segment height for
 ///         horizontal meters.
 ///
-int GenericMeterBar::getSegmentWidth()
+int MeterBar::getSegmentWidth()
 {
     return segmentWidth_;
 }
@@ -484,7 +484,7 @@ int GenericMeterBar::getSegmentWidth()
 ///
 /// @param segmentWidth new segment width (or height, see above)
 ///
-void GenericMeterBar::setSegmentWidth(
+void MeterBar::setSegmentWidth(
     int segmentWidth)
 
 {
@@ -518,7 +518,7 @@ void GenericMeterBar::setSegmentWidth(
 ///
 /// @param g graphics context
 ///
-void GenericMeterBar::paint(
+void MeterBar::paint(
     Graphics &g)
 
 {
@@ -530,7 +530,7 @@ void GenericMeterBar::paint(
 
 /// This function overrides the meter bar's dimensions!
 ///
-void GenericMeterBar::resized()
+void MeterBar::resized()
 {
     // override dimensions of meter bar
     if (isVertical_)
@@ -552,7 +552,7 @@ void GenericMeterBar::resized()
 ///
 /// @param normalLevelPeak new normal peak level
 ///
-void GenericMeterBar::setNormalLevels(
+void MeterBar::setNormalLevels(
     float normalLevel, float normalLevelPeak)
 
 {
@@ -581,7 +581,7 @@ void GenericMeterBar::setNormalLevels(
 ///
 /// @param discreteLevelPeak new discrete peak level
 ///
-void GenericMeterBar::setDiscreteLevels(
+void MeterBar::setDiscreteLevels(
     float discreteLevel, float discreteLevelPeak)
 
 {
@@ -613,7 +613,7 @@ void GenericMeterBar::setDiscreteLevels(
 ///
 /// @param discreteLevelPeak new discrete peak level
 ///
-void GenericMeterBar::setLevels(
+void MeterBar::setLevels(
     float normalLevel, float normalLevelPeak,
     float discreteLevel, float discreteLevelPeak)
 

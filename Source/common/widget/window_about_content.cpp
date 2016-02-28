@@ -34,7 +34,7 @@
 /// | 0      | window has been closed "by force" |
 /// | 1      | user wants to close the window    |
 ///
-GenericWindowAboutContent::GenericWindowAboutContent()
+WindowAboutContent::WindowAboutContent()
 {
 }
 
@@ -53,7 +53,7 @@ GenericWindowAboutContent::GenericWindowAboutContent()
 ///
 /// @return created dialog window
 ///
-DialogWindow *GenericWindowAboutContent::createDialogWindow(
+DialogWindow *WindowAboutContent::createDialogWindow(
     AudioProcessorEditor *pluginEditor,
     int componentWidth,
     int componentHeight,
@@ -64,8 +64,8 @@ DialogWindow *GenericWindowAboutContent::createDialogWindow(
     DialogWindow::LaunchOptions windowAboutLauncher;
 
     // create content component
-    GenericWindowAboutContent *contentComponent =
-        new GenericWindowAboutContent();
+    WindowAboutContent *contentComponent =
+        new WindowAboutContent();
 
     contentComponent->initialise(componentWidth,
                                  componentHeight,
@@ -101,7 +101,7 @@ DialogWindow *GenericWindowAboutContent::createDialogWindow(
 /// @param chapters dictionary containing chapter headlines and the
 ///        accompanying text
 ///
-void GenericWindowAboutContent::initialise(
+void WindowAboutContent::initialise(
     int componentWidth,
     int componentHeight,
     const StringPairArray &chapters)
@@ -160,7 +160,7 @@ void GenericWindowAboutContent::initialise(
 
 /// Style and place the dialog window's components.
 ///
-void GenericWindowAboutContent::applySkin()
+void WindowAboutContent::applySkin()
 {
     // style text editor component
     textEditor_.setColour(
@@ -205,7 +205,7 @@ void GenericWindowAboutContent::applySkin()
 /// @param chapters dictionary containing chapter headlines and the
 ///        accompanying text
 ///
-void GenericWindowAboutContent::addChapters(
+void WindowAboutContent::addChapters(
     const StringPairArray &chapters)
 
 {
@@ -252,7 +252,7 @@ void GenericWindowAboutContent::addChapters(
 ///
 /// @param button clicked button
 ///
-void GenericWindowAboutContent::buttonClicked(
+void WindowAboutContent::buttonClicked(
     Button *button)
 
 {

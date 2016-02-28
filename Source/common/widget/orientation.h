@@ -23,31 +23,29 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_CHANNEL_SLIDER_H__
-#define __FRUT_WIDGET_CHANNEL_SLIDER_H__
+#ifndef __FRUT_WIDGET_ORIENTATION_H__
+#define __FRUT_WIDGET_ORIENTATION_H__
 
 
-class GenericChannelSlider :
-    public Slider
+/// Orientation for widgets.
+///
+enum Orientation
 {
-public:
-    GenericChannelSlider();
+    /// horizontal widget (bottom to top)
+    horizontal = 0,
 
-    int getNumberOfChannels();
-    void setNumberOfChannels(int nNumChannels);
+    /// inverted horizontal widget (top to bottom)
+    horizontalInverted,
 
-    float getFloat();
-    double getValueFromText(const String &strText);
-    String getTextFromValue(double fValue);
+    /// vertical widget (left to right)
+    vertical,
 
-private:
-    JUCE_LEAK_DETECTOR(GenericChannelSlider);
-
-    int nNumberOfChannels;
+    /// inverted vertical widget (right to left)
+    verticalInverted
 };
 
 
-#endif  // __FRUT_WIDGET_CHANNEL_SLIDER_H__
+#endif  // __FRUT_WIDGET_ORIENTATION_H__
 
 
 // Local Variables:

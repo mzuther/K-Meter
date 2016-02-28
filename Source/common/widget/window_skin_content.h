@@ -29,7 +29,7 @@
 
 /// List box model that lists all available GUI skins.
 ///
-/// @see GenericWindowSkinContent
+/// @see WindowSkinContent
 ///
 class SkinListBoxModel :
     public ListBoxModel
@@ -68,12 +68,12 @@ private:
 ///
 /// @see SkinListBoxModel
 ///
-class GenericWindowSkinContent :
+class WindowSkinContent :
     public Component,
     public ButtonListener
 {
 public:
-    GenericWindowSkinContent();
+    WindowSkinContent();
 
     static DialogWindow *createDialogWindow(AudioProcessorEditor *pluginEditor,
                                             String *currentSkinName,
@@ -96,7 +96,7 @@ protected:
     String *currentSkinName_;
 
 private:
-    JUCE_LEAK_DETECTOR(GenericWindowSkinContent);
+    JUCE_LEAK_DETECTOR(WindowSkinContent);
 };
 
 

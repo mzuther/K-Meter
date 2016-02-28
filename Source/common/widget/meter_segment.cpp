@@ -26,15 +26,15 @@
 
 /// Create a new base meter segment.
 ///
-GenericMeterSegment::GenericMeterSegment()
+MeterSegment::MeterSegment()
 {
     // set initial orientation
-    setOrientation(GenericMeterOrientation::vertical);
+    setOrientation(widget::Orientation::vertical);
 }
 
 
 /// Destructor.
-GenericMeterSegment::~GenericMeterSegment()
+MeterSegment::~MeterSegment()
 {
 }
 
@@ -43,7 +43,7 @@ GenericMeterSegment::~GenericMeterSegment()
 ///
 /// @return current orientation
 ///
-GenericMeterOrientation GenericMeterSegment::getOrientation()
+widget::Orientation MeterSegment::getOrientation()
 {
     return orientation_;
 }
@@ -53,8 +53,8 @@ GenericMeterOrientation GenericMeterSegment::getOrientation()
 ///
 /// @param orientation new orientation
 ///
-void GenericMeterSegment::setOrientation(
-    GenericMeterOrientation orientation)
+void MeterSegment::setOrientation(
+    widget::Orientation orientation)
 
 {
     // update segment's orientation
@@ -72,7 +72,7 @@ void GenericMeterSegment::setOrientation(
 ///
 /// @param normalLevelPeak new normal peak level
 ///
-void GenericMeterSegment::setNormalLevels(
+void MeterSegment::setNormalLevels(
     float normalLevel, float normalLevelPeak)
 
 {
@@ -90,7 +90,7 @@ void GenericMeterSegment::setNormalLevels(
 ///
 /// @param discreteLevelPeak new discrete peak level
 ///
-void GenericMeterSegment::setDiscreteLevels(
+void MeterSegment::setDiscreteLevels(
     float discreteLevel, float discreteLevelPeak)
 
 {

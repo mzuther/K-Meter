@@ -32,13 +32,13 @@
 /// coloured rectangle (peak marker).  Both rectangles react to level
 /// changes with a change in colour or visibility.
 ///
-/// @see GenericMeterBar
+/// @see MeterBar
 ///
-class GenericMeterSegmentContinuous :
-    public GenericMeterSegment
+class MeterSegmentContinuous :
+    public MeterSegment
 {
 public:
-    GenericMeterSegmentContinuous();
+    MeterSegmentContinuous();
 
     virtual float setThresholdAndRange(float lowerThreshold,
                                        float thresholdRange,
@@ -87,7 +87,7 @@ protected:
     bool isTopmost_;
 
 private:
-    JUCE_LEAK_DETECTOR(GenericMeterSegmentContinuous);
+    JUCE_LEAK_DETECTOR(MeterSegmentContinuous);
 };
 
 

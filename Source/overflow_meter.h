@@ -34,7 +34,7 @@
 /**
 */
 class OverflowMeter :
-    public frut::GenericStateLabel
+    public frut::widget::StateLabel
 {
 public:
     OverflowMeter();

@@ -26,7 +26,7 @@
 
 /// Create a state label.
 ///
-GenericStateLabel::GenericStateLabel()
+StateLabel::StateLabel()
 {
     // this component blends in with the background
     setOpaque(false);
@@ -55,7 +55,7 @@ GenericStateLabel::GenericStateLabel()
 
 /// Called when this component's size has been changed.
 ///
-void GenericStateLabel::resized()
+void StateLabel::resized()
 {
     // call base method
     Component::resized();
@@ -73,11 +73,11 @@ void GenericStateLabel::resized()
 
 /// Set new state.
 ///
-/// @param state new state (see GenericStateLabel::Parameters)
+/// @param state new state (see StateLabel::Parameters)
 ///
 /// @param forceUpdate update state regardless of current state
 ///
-void GenericStateLabel::setState(
+void StateLabel::setState(
     int state,
     bool forceUpdate)
 
@@ -93,7 +93,7 @@ void GenericStateLabel::setState(
 /// Update background image and text colour according to current
 /// state.
 ///
-void GenericStateLabel::updateState()
+void StateLabel::updateState()
 {
     // "active" state
     if (state_ == State::active)
@@ -137,7 +137,7 @@ void GenericStateLabel::updateState()
 ///
 /// @param fontSize font size for text label
 ///
-void GenericStateLabel::setImages(
+void StateLabel::setImages(
     const Image &imageOff,
     const Image &imageOn,
     const Image &imageActive,
@@ -178,7 +178,7 @@ void GenericStateLabel::setImages(
 ///
 /// @param textColour new text colour
 ///
-void GenericStateLabel::setLabelColour(
+void StateLabel::setLabelColour(
     const Colour &textColour)
 
 {
@@ -190,7 +190,7 @@ void GenericStateLabel::setLabelColour(
 ///
 /// @param text new text string
 ///
-void GenericStateLabel::setLabelText(
+void StateLabel::setLabelText(
     const String &text)
 
 {

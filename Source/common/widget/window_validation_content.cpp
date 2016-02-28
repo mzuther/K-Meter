@@ -33,7 +33,7 @@
 /// | 0      | window has been closed "by force" or by using the "Cancel" button |
 /// | 1      | window has been closed to start validation     |
 ///
-GenericWindowValidationContent::GenericWindowValidationContent()
+WindowValidationContent::WindowValidationContent()
 {
 }
 
@@ -54,7 +54,7 @@ GenericWindowValidationContent::GenericWindowValidationContent()
 ///
 /// @param validationFile current audio file used for validation
 ///
-void GenericWindowValidationContent::initialise(
+void WindowValidationContent::initialise(
     int componentWidth,
     int componentHeight,
     int numberOfInputChannels,
@@ -119,7 +119,7 @@ void GenericWindowValidationContent::initialise(
 
 /// Style and place the dialog window's components.
 ///
-void GenericWindowValidationContent::applySkin()
+void WindowValidationContent::applySkin()
 {
     // style label that displays the name of the validation file
     labelFileSelection_.setMinimumHorizontalScale(1.0f);
@@ -167,15 +167,15 @@ void GenericWindowValidationContent::applySkin()
 
     // style label for displaying the current audio channel
     sliderSelectChannel_.setColour(
-        GenericChannelSlider::textBoxTextColourId,
+        widget::ChannelSlider::textBoxTextColourId,
         Colours::black);
 
     sliderSelectChannel_.setColour(
-        GenericChannelSlider::textBoxBackgroundColourId,
+        widget::ChannelSlider::textBoxBackgroundColourId,
         Colours::white.darker(0.15f));
 
     sliderSelectChannel_.setColour(
-        GenericChannelSlider::textBoxOutlineColourId,
+        widget::ChannelSlider::textBoxOutlineColourId,
         Colours::grey);
 
 
@@ -230,7 +230,7 @@ void GenericWindowValidationContent::applySkin()
 ///
 /// @param button clicked button
 ///
-void GenericWindowValidationContent::buttonClicked(
+void WindowValidationContent::buttonClicked(
     Button *button)
 
 {
@@ -274,7 +274,7 @@ void GenericWindowValidationContent::buttonClicked(
 /// some other OS-specific key shortcut or OS menu for getting rid of
 /// a window.
 ///
-void GenericWindowValidationContent::closeButtonPressed()
+void WindowValidationContent::closeButtonPressed()
 {
     // get parent dialog window
     DialogWindow *dialogWindow = findParentComponentOfClass<DialogWindow>();

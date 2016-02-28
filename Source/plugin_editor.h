@@ -79,8 +79,8 @@ private:
 
     KmeterAudioProcessor *audioProcessor;
     Kmeter kmeter_;
-    ScopedPointer<frut::GenericNeedleMeter> stereoMeter;
-    ScopedPointer<frut::GenericNeedleMeter> phaseCorrelationMeter;
+    frut::widget::NeedleMeter stereoMeter;
+    frut::widget::NeedleMeter phaseCorrelationMeter;
 
     ImageButton ButtonK20;
     ImageButton ButtonK14;

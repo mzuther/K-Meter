@@ -23,43 +23,31 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_NEEDLE_METER_H__
-#define __FRUT_WIDGET_NEEDLE_METER_H__
+#ifndef __FRUT_WIDGET_CHANNEL_SLIDER_H__
+#define __FRUT_WIDGET_CHANNEL_SLIDER_H__
 
 
-class GenericNeedleMeter :
-    public Component
+class ChannelSlider :
+    public Slider
 {
 public:
-    GenericNeedleMeter();
+    ChannelSlider();
 
-    void setImages(const Image &imageBackground,
-                   const Image &imageNeedle,
-                   int needleSpacingLeft,
-                   int needleSpacingTop);
+    int getNumberOfChannels();
+    void setNumberOfChannels(int nNumChannels);
 
-    void setValue(float value);
-
-    virtual void paint(Graphics &g);
-    virtual void resized();
-
-protected:
-    int needlePosition_;
-    int needleTravelPath_;
-    bool isVerticalMeter_;
-
-    int needleSpacingLeft_;
-    int needleSpacingTop_;
-
-    Image imageBackground_;
-    Image imageNeedle_;
+    float getFloat();
+    double getValueFromText(const String &strText);
+    String getTextFromValue(double fValue);
 
 private:
-    JUCE_LEAK_DETECTOR(GenericNeedleMeter);
+    JUCE_LEAK_DETECTOR(ChannelSlider);
+
+    int nNumberOfChannels;
 };
 
 
-#endif  // __FRUT_WIDGET_NEEDLE_METER_H__
+#endif  // __FRUT_WIDGET_CHANNEL_SLIDER_H__
 
 
 // Local Variables:

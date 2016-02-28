@@ -26,7 +26,7 @@
 
 /// Create a signal LED.
 ///
-GenericSignalLed::GenericSignalLed()
+SignalLed::SignalLed()
 {
     // this component blends in with the background
     setOpaque(false);
@@ -40,7 +40,7 @@ GenericSignalLed::GenericSignalLed()
 ///
 /// @param level new level (0.0 is dark, 1.0 is fully lit)
 ///
-void GenericSignalLed::setLevel(
+void SignalLed::setLevel(
     float level)
 
 {
@@ -62,7 +62,7 @@ void GenericSignalLed::setLevel(
 /// redrawing, either because the component's repaint() method has
 /// been called, or because something has happened on the screen that
 /// means a section of a window needs to be redrawn.
-void GenericSignalLed::paint(
+void SignalLed::paint(
     Graphics &g)
 
 {
@@ -102,7 +102,7 @@ void GenericSignalLed::paint(
 ///
 /// @param imageHigh image is displayed when the LED is fully lit
 ///
-void GenericSignalLed::setImages(
+void SignalLed::setImages(
     const Image &imageOff,
     const Image &imageLow,
     const Image &imageHigh)

@@ -26,7 +26,7 @@
 
 /// Create a new continuous meter segment, complete with peak marker.
 ///
-GenericMeterSegmentContinuous::GenericMeterSegmentContinuous()
+MeterSegmentContinuous::MeterSegmentContinuous()
 {
     // initialise maximum x and y position of component
     maximumX_ = -1;
@@ -65,7 +65,7 @@ GenericMeterSegmentContinuous::GenericMeterSegmentContinuous()
 /// @return return new upper threshold of segment (may be useful for
 ///         creating continuous meters)
 ///
-float GenericMeterSegmentContinuous::setThresholdAndRange(
+float MeterSegmentContinuous::setThresholdAndRange(
     float lowerThreshold, float thresholdRange, bool isTopmost)
 
 {
@@ -93,7 +93,7 @@ float GenericMeterSegmentContinuous::setThresholdAndRange(
 ///
 /// @param peakMarkerColour colour of the peak marker
 ///
-void GenericMeterSegmentContinuous::setColours(
+void MeterSegmentContinuous::setColours(
     const Colour &segmentColour, const Colour &peakMarkerColour)
 
 {
@@ -119,7 +119,7 @@ void GenericMeterSegmentContinuous::setColours(
 /// @param levelPosition level position (0.0 and below: hide bar; 1.0:
 ///        full bar)
 ///
-void GenericMeterSegmentContinuous::drawBar(
+void MeterSegmentContinuous::drawBar(
     Graphics &g, float levelPosition)
 
 {
@@ -136,14 +136,14 @@ void GenericMeterSegmentContinuous::drawBar(
     // respect orientation
     switch (orientation_)
     {
-    case GenericMeterOrientation::verticalInverted:
+    case widget::Orientation::verticalInverted:
 
         // invert level position
         levelPosition = 1.0f - levelPosition;
 
         // keep going ...
 
-    case GenericMeterOrientation::vertical:
+    case widget::Orientation::vertical:
 
         // initialise drawing points
         pos_1 = math::SimpleMath::round(maximumY_ * levelPosition);
@@ -152,7 +152,7 @@ void GenericMeterSegmentContinuous::drawBar(
         // make sure there is something to draw
         if (pos_2 > 0)
         {
-            if (orientation_ == GenericMeterOrientation::vertical)
+            if (orientation_ == widget::Orientation::vertical)
             {
                 // set background colour
                 g.setColour(backgroundColour_);
@@ -173,7 +173,7 @@ void GenericMeterSegmentContinuous::drawBar(
         // make sure there is something to draw
         if (pos_1 > 0)
         {
-            if (orientation_ == GenericMeterOrientation::vertical)
+            if (orientation_ == widget::Orientation::vertical)
             {
                 // set segment colour
                 g.setColour(segmentColour_);
@@ -193,14 +193,14 @@ void GenericMeterSegmentContinuous::drawBar(
 
         break;
 
-    case GenericMeterOrientation::horizontal:
+    case widget::Orientation::horizontal:
 
         // invert level position
         levelPosition = 1.0f - levelPosition;
 
         // keep going ...
 
-    case GenericMeterOrientation::horizontalInverted:
+    case widget::Orientation::horizontalInverted:
 
         // initialise drawing points
         pos_1 = math::SimpleMath::round(maximumX_ * levelPosition);
@@ -209,7 +209,7 @@ void GenericMeterSegmentContinuous::drawBar(
         // make sure there is something to draw
         if (pos_2 > 0)
         {
-            if (orientation_ == GenericMeterOrientation::horizontalInverted)
+            if (orientation_ == widget::Orientation::horizontalInverted)
             {
                 // set background colour
                 g.setColour(backgroundColour_);
@@ -230,7 +230,7 @@ void GenericMeterSegmentContinuous::drawBar(
         // make sure there is something to draw
         if (pos_1 > 0)
         {
-            if (orientation_ == GenericMeterOrientation::horizontalInverted)
+            if (orientation_ == widget::Orientation::horizontalInverted)
             {
                 // set segment colour
                 g.setColour(segmentColour_);
@@ -262,7 +262,7 @@ void GenericMeterSegmentContinuous::drawBar(
 /// @param levelPosition level position (0.0 and below: hide marker;
 ///        1.0: marker at top)
 ///
-void GenericMeterSegmentContinuous::drawMarker(
+void MeterSegmentContinuous::drawMarker(
     Graphics &g, const Colour &markerColour, float levelPosition)
 
 {
@@ -279,14 +279,14 @@ void GenericMeterSegmentContinuous::drawMarker(
     // respect orientation
     switch (orientation_)
     {
-    case GenericMeterOrientation::verticalInverted:
+    case widget::Orientation::verticalInverted:
 
         // invert level position
         levelPosition = 1.0f - levelPosition;
 
         // keep going ...
 
-    case GenericMeterOrientation::vertical:
+    case widget::Orientation::vertical:
 
         // initialise drawing points
         pos_1 = math::SimpleMath::roundDown((maximumY_ + 1) * levelPosition);
@@ -309,14 +309,14 @@ void GenericMeterSegmentContinuous::drawMarker(
 
         break;
 
-    case GenericMeterOrientation::horizontal:
+    case widget::Orientation::horizontal:
 
         // invert level position
         levelPosition = 1.0f - levelPosition;
 
         // keep going ...
 
-    case GenericMeterOrientation::horizontalInverted:
+    case widget::Orientation::horizontalInverted:
 
         // initialise drawing points
         pos_1 = math::SimpleMath::roundDown((maximumX_ + 1) * levelPosition);
@@ -347,7 +347,7 @@ void GenericMeterSegmentContinuous::drawMarker(
 /// @param g the graphics context that must be used to do the drawing
 ///        operations
 ///
-void GenericMeterSegmentContinuous::paint(
+void MeterSegmentContinuous::paint(
     Graphics &g)
 
 {
@@ -379,14 +379,14 @@ void GenericMeterSegmentContinuous::paint(
 /// If this function did not exist, the meter segment wouldn't be
 /// drawn until the first level change!
 ///
-void GenericMeterSegmentContinuous::visibilityChanged()
+void MeterSegmentContinuous::visibilityChanged()
 {
 }
 
 
 /// Called when this component's size has been changed.
 ///
-void GenericMeterSegmentContinuous::resized()
+void MeterSegmentContinuous::resized()
 {
     // update maximum x and y position of component
     maximumX_ = getWidth() - 1;
@@ -402,7 +402,7 @@ void GenericMeterSegmentContinuous::resized()
 ///
 /// @return new position of marker or bar
 ///
-float GenericMeterSegmentContinuous::calculateLevelPosition(
+float MeterSegmentContinuous::calculateLevelPosition(
     float level, bool isBar)
 
 {
@@ -457,7 +457,7 @@ float GenericMeterSegmentContinuous::calculateLevelPosition(
 ///
 /// @param discreteLevelPeak new discrete peak level
 ///
-void GenericMeterSegmentContinuous::setLevels(
+void MeterSegmentContinuous::setLevels(
     float normalLevel, float normalLevelPeak,
     float discreteLevel, float discreteLevelPeak)
 

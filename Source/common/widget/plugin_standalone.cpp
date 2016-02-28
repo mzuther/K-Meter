@@ -31,7 +31,7 @@
 ///        the parameters as an array, you can call
 ///        JUCEApplication::getCommandLineParameters().
 ///
-void GenericPluginStandalone::initialise(
+void PluginStandalone::initialise(
     const String &commandLineParameters)
 
 {
@@ -62,7 +62,7 @@ void GenericPluginStandalone::initialise(
 
 /// Called when the application shuts down.
 ///
-void GenericPluginStandalone::shutdown()
+void PluginStandalone::shutdown()
 {
     // save plug-in settings
     filterWindow_->pluginHolder->savePluginState();
@@ -76,7 +76,7 @@ void GenericPluginStandalone::shutdown()
 ///
 /// @return the application's name
 ///
-const String GenericPluginStandalone::getApplicationName()
+const String PluginStandalone::getApplicationName()
 {
     return JucePlugin_Name;
 }
@@ -86,7 +86,7 @@ const String GenericPluginStandalone::getApplicationName()
 ///
 /// @return the application's version number
 ///
-const String GenericPluginStandalone::getApplicationVersion()
+const String PluginStandalone::getApplicationVersion()
 {
     return JucePlugin_VersionString;
 }

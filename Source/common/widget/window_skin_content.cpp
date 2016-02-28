@@ -35,7 +35,7 @@
 /// | 1      | user has selected old skin        |
 /// | 2      | user has selected a new skin      |
 ///
-GenericWindowSkinContent::GenericWindowSkinContent()
+WindowSkinContent::WindowSkinContent()
 {
 }
 
@@ -52,7 +52,7 @@ GenericWindowSkinContent::GenericWindowSkinContent()
 ///
 /// @return created dialog window
 ///
-DialogWindow *GenericWindowSkinContent::createDialogWindow(
+DialogWindow *WindowSkinContent::createDialogWindow(
     AudioProcessorEditor *pluginEditor,
     String *currentSkinName,
     const File &skinDirectory)
@@ -62,8 +62,8 @@ DialogWindow *GenericWindowSkinContent::createDialogWindow(
     DialogWindow::LaunchOptions windowSkinLauncher;
 
     // create content component
-    GenericWindowSkinContent *contentComponent =
-        new GenericWindowSkinContent();
+    WindowSkinContent *contentComponent =
+        new WindowSkinContent();
 
     contentComponent->initialise(currentSkinName,
                                  skinDirectory);
@@ -94,7 +94,7 @@ DialogWindow *GenericWindowSkinContent::createDialogWindow(
 ///
 /// @param skinDirectory directory containing the skins
 ///
-void GenericWindowSkinContent::initialise(
+void WindowSkinContent::initialise(
     String *currentSkinName,
     const File &skinDirectory)
 
@@ -133,7 +133,7 @@ void GenericWindowSkinContent::initialise(
 
 /// Style and place the dialog window's components.
 ///
-void GenericWindowSkinContent::applySkin()
+void WindowSkinContent::applySkin()
 {
     // style list box
     skinList_.setOutlineThickness(1);
@@ -189,7 +189,7 @@ void GenericWindowSkinContent::applySkin()
 ///
 /// @param button clicked button
 ///
-void GenericWindowSkinContent::buttonClicked(
+void WindowSkinContent::buttonClicked(
     Button *button)
 
 {
@@ -239,7 +239,7 @@ void GenericWindowSkinContent::buttonClicked(
 }
 
 
-/// Create a list box model for a GenericWindowSkinContent.
+/// Create a list box model for a WindowSkinContent.
 ///
 SkinListBoxModel::SkinListBoxModel()
     : skinWildcard_("*.skin", String::empty, "Skin files"),

@@ -29,12 +29,12 @@
 
 /// Dialog window for validation settings.
 ///
-class GenericWindowValidationContent :
+class WindowValidationContent :
     public Component,
     public ButtonListener
 {
 public:
-    GenericWindowValidationContent();
+    WindowValidationContent();
 
     virtual void buttonClicked(Button *button);
     virtual void closeButtonPressed();
@@ -65,10 +65,10 @@ protected:
     TextButton buttonCancel_;
 
     Label labelSelectedChannel;
-    GenericChannelSlider sliderSelectChannel_;
+    widget::ChannelSlider sliderSelectChannel_;
 
 private:
-    JUCE_LEAK_DETECTOR(GenericWindowValidationContent);
+    JUCE_LEAK_DETECTOR(WindowValidationContent);
 };
 
 

@@ -33,32 +33,35 @@
 
 namespace frut
 {
+namespace widget
+{
 
 // pre includes
-#include "../widget/generic_meter_orientation.h"
+#include "../widget/orientation.h"
 #include "../widget/resources/resources.h"
 
 // normal includes
-#include "../widget/generic_channel_slider.h"
-#include "../widget/generic_meter_segment.h"
-#include "../widget/generic_meter_segment_continuous.h"
-#include "../widget/generic_meter_segment_discrete.h"
-#include "../widget/generic_needle_meter.h"
-#include "../widget/generic_plugin_standalone.h"
-#include "../widget/generic_signal_led.h"
-#include "../widget/generic_state_label.h"
-#include "../widget/generic_window_about_content.h"
-#include "../widget/generic_window_settings_content.h"
-#include "../widget/generic_window_skin_content.h"
-#include "../widget/generic_window_validation_content.h"
+#include "../widget/channel_slider.h"
+#include "../widget/meter_segment.h"
+#include "../widget/meter_segment_continuous.h"
+#include "../widget/meter_segment_discrete.h"
+#include "../widget/needle_meter.h"
+#include "../widget/plugin_standalone.h"
+#include "../widget/signal_led.h"
 #include "../widget/slider_combined.h"
 #include "../widget/slider_continuous.h"
 #include "../widget/slider_switch.h"
 #include "../widget/slider_switch_linear_bar.h"
+#include "../widget/state_label.h"
+#include "../widget/window_about_content.h"
+#include "../widget/window_settings_content.h"
+#include "../widget/window_skin_content.h"
+#include "../widget/window_validation_content.h"
 
 // post includes
-#include "../widget/generic_meter_bar.h"
+#include "../widget/meter_bar.h"
 
+}
 }
 
 

@@ -32,26 +32,29 @@
 
 namespace frut
 {
+namespace widget
+{
 
-#include "../widget/generic_channel_slider.cpp"
-#include "../widget/generic_meter_bar.cpp"
-#include "../widget/generic_meter_segment.cpp"
-#include "../widget/generic_meter_segment_continuous.cpp"
-#include "../widget/generic_meter_segment_discrete.cpp"
-#include "../widget/generic_needle_meter.cpp"
-#include "../widget/generic_plugin_standalone.cpp"
-#include "../widget/generic_signal_led.cpp"
-#include "../widget/generic_state_label.cpp"
-#include "../widget/generic_window_about_content.cpp"
-#include "../widget/generic_window_settings_content.cpp"
-#include "../widget/generic_window_skin_content.cpp"
-#include "../widget/generic_window_validation_content.cpp"
+#include "../widget/channel_slider.cpp"
+#include "../widget/meter_bar.cpp"
+#include "../widget/meter_segment.cpp"
+#include "../widget/meter_segment_continuous.cpp"
+#include "../widget/meter_segment_discrete.cpp"
+#include "../widget/needle_meter.cpp"
+#include "../widget/plugin_standalone.cpp"
 #include "../widget/resources/resources.cpp"
+#include "../widget/signal_led.cpp"
 #include "../widget/slider_combined.cpp"
 #include "../widget/slider_continuous.cpp"
 #include "../widget/slider_switch.cpp"
 #include "../widget/slider_switch_linear_bar.cpp"
+#include "../widget/state_label.cpp"
+#include "../widget/window_about_content.cpp"
+#include "../widget/window_settings_content.cpp"
+#include "../widget/window_skin_content.cpp"
+#include "../widget/window_validation_content.cpp"
 
+}
 }
 
 

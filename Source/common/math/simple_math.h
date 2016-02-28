@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_MATH_SIMPLE_H__
-#define __FRUT_MATH_SIMPLE_H__
+#ifndef __FRUT_MATH_SIMPLE_MATH_H__
+#define __FRUT_MATH_SIMPLE_MATH_H__
 
 
 /// Simple class for version info and common functions.
@@ -115,7 +115,7 @@ public:
 };
 
 
-#endif  // __FRUT_MATH_SIMPLE_H__
+#endif  // __FRUT_MATH_SIMPLE_MATH_H__
 
 
 // Local Variables:
