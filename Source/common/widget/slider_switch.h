@@ -23,44 +23,35 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_HEADER_H__
-#define __FRUT_HEADER_H__
+#ifndef __FRUT_WIDGET_SLIDER_SWITCH_H__
+#define __FRUT_WIDGET_SLIDER_SWITCH_H__
 
 
-// external includes
-#include "JuceHeader.h"
-
-
-namespace frut
-{
-
-class Common
+class SliderSwitch :
+    public Slider
 {
 public:
-    /// Get version number of Frut common classes.
-    ///
-    /// @return version number
-    ///
-    static const juce::String getVersion()
-    {
-        return "1.6.1";
-    }
+    SliderSwitch(parameter::Juggler *pParameters, int nParameterIndex);
+
+    void visibilityChanged();
+    void resized();
+    void setSliderColour(const Colour &colour);
+
+    float getRealFloat();
+    bool getBoolean();
+    int getRealInteger();
+
+    double getValueFromText(const String &strText);
+    String getTextFromValue(double dValue);
+private:
+    JUCE_LEAK_DETECTOR(SliderSwitch);
+
+    Colour colourRotary;
+    parameter::ParSwitch *pSwitch;
 };
 
-}
 
-
-// normal includes
-#include "amalgamated/frut_audio.h"
-#include "amalgamated/frut_math.h"
-#include "amalgamated/frut_parameter.h"
-#include "amalgamated/frut_widget.h"
-
-// post includes
-#include "amalgamated/frut_skin.h"
-
-
-#endif  // __FRUT_HEADER_H__
+#endif  // __FRUT_WIDGET_SLIDER_SWITCH_H__
 
 
 // Local Variables:

@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{D0E8968B-E883-167B-6381-1B529460B09D}</ProjectGuid>
+		<ProjectGuid>{53B663B5-283B-B83B-AF07-49729C329422}</ProjectGuid>
 		<RootNamespace>K-Meter VST (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -215,10 +215,10 @@
 	<ItemGroup>
 		<ClInclude Include="..\..\..\Source\common\FrutHeader.h" />
 		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_skin.h" />
-		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_widgets.h" />
 		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_math.h" />
-		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_parameters.h" />
+		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_widget.h" />
 		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_audio.h" />
+		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_parameter.h" />
 		<ClInclude Include="..\..\..\Source\window_validation_content.h" />
 		<ClInclude Include="..\..\..\Source\overflow_meter.h" />
 		<ClInclude Include="..\..\..\Source\peak_label.h" />
@@ -233,13 +233,13 @@
 		<ClInclude Include="..\..\..\Source\meter_bar.h" />
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_math.cpp">
+		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_widget.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_parameters.cpp">
+		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_math.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_skin.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_widgets.cpp">
+		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_parameter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_audio.cpp">
 		</ClCompile>

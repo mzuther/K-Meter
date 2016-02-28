@@ -23,41 +23,55 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_PARAMETER_BOOLEAN_H__
-#define __FRUT_PARAMETER_BOOLEAN_H__
+#ifndef __FRUT_PARAMETER_CONTINUOUS_H__
+#define __FRUT_PARAMETER_CONTINUOUS_H__
 
 
-/// Plug-in parameter for storing a Boolean value.
+/// Plug-in parameter for storing a floating-point value (continuous
+/// values with a given number of decimal places).
 ///
 /// The methods of this class may be called on the audio thread, so
 /// they are absolutely time-critical!
 ///
-class PluginParameterBoolean : virtual public PluginParameter
+class ParContinuous : virtual public Parameter
 {
 public:
-    PluginParameterBoolean(const String &state_true, const String &state_false, bool save_from_deletion = false);
+    ParContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places, bool save_from_deletion = false);
 
-    void toggleState();
+    int getNumberOfSteps();
+    float getStepSize();
 
     virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
-    void setDefaultBoolean(bool newValue, bool updateParameter);
 
     virtual void setFloat(float newValue) override;
     virtual void setRealFloat(float newRealValue) override;
-    void setBoolean(bool newValue);
+
+    void setSuffix(const String &newSuffix);
 
     virtual float getFloatFromText(const String &newValue) override;
     virtual const String getTextFromFloat(float newValue) override;
 
 private:
-    JUCE_LEAK_DETECTOR(PluginParameterBoolean);
+    JUCE_LEAK_DETECTOR(ParContinuous);
 
-    String labelTrue;
-    String labelFalse;
+    float toRealFloat(float newValue);
+    float toInternalFloat(float newRealValue);
+
+    float realMinimum;
+    float realMaximum;
+    float realRange;
+
+    int numberOfSteps;
+    int decimalPlaces;
+    String valueSuffix;
+
+    bool isNonlinear;
+    float scalingFactor;
+    float scalingConstantFactor;
 };
 
 
-#endif  // __FRUT_PARAMETER_BOOLEAN_H__
+#endif  // __FRUT_PARAMETER_CONTINUOUS_H__
 
 
 // Local Variables:

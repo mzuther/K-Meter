@@ -32,18 +32,18 @@
 /// The methods of this class may be called on the audio thread, so
 /// they are absolutely time-critical!
 ///
-class ParameterJuggler
+class Juggler
 {
 public:
-    ParameterJuggler(const String &settingsID, int completeParameters, int revealedParameters);
-    ~ParameterJuggler();
+    Juggler(const String &settingsID, int completeParameters, int revealedParameters);
+    ~Juggler();
 
-    PluginParameter *getPluginParameter(int index);
+    Parameter *getPluginParameter(int index);
     String toString();
 
-    void add(PluginParameter *parameter, int index);
-    void addProtected(PluginParameter *parameter, int index);
-    void addCombined(PluginParameterCombined *parameter, int switchIndex, int parameterIndex);
+    void add(Parameter *parameter, int index);
+    void addProtected(Parameter *parameter, int index);
+    void addCombined(parameter::ParCombined *parameter, int switchIndex, int parameterIndex);
     int getNumParameters(bool includeHiddenParameters);
 
     String getName(int index);
@@ -83,11 +83,11 @@ protected:
 
     String jugglerID;
 
-    Array<PluginParameter *> arrParameters;
+    Array<Parameter *> arrParameters;
     Array<bool> arrMayModify;
 
 private:
-    JUCE_LEAK_DETECTOR(ParameterJuggler);
+    JUCE_LEAK_DETECTOR(Juggler);
 };
 
 #endif  // __FRUT_PARAMETER_JUGGLER_H__

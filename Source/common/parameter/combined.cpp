@@ -28,12 +28,11 @@
 // they are absolutely time-critical!
 
 /// Create a parameter that can be switched between preset values
-/// (PluginParameterSwitch) and continuous values
-/// (PluginParameterContinuous).  **Real** values range from
-/// **real_minimum** to **real_maximum**, are quantised by
-/// **real_step_size**, and may be transformed to exponential or
-/// logarithmic scalings using **scaling_factor**.  **Internal**
-/// values simply range from 0.0 to 1.0.
+/// (ParSwitch) and continuous values (ParContinuous).  **Real**
+/// values range from **real_minimum** to **real_maximum**, are
+/// quantised by **real_step_size**, and may be transformed to
+/// exponential or logarithmic scalings using **scaling_factor**.
+/// **Internal** values simply range from 0.0 to 1.0.
 ///
 /// @param real_minimum **real** parameter minimum (may be less than
 ///        **real_maximum**)
@@ -59,7 +58,7 @@
 /// @param decimal_places number of decimal places for formatting the
 ///        real value
 ///
-PluginParameterCombined::PluginParameterCombined(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places) :
+ParCombined::ParCombined(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places) :
 
     // initialise parameter for switching between "presets" and
     // "continuous" mode (parameter is saved from deletion!)
@@ -94,10 +93,10 @@ PluginParameterCombined::PluginParameterCombined(float real_minimum, float real_
 ///
 /// @param newParameterName new parameter name
 ///
-void PluginParameterCombined::setName(const String &newParameterName)
+void ParCombined::setName(const String &newParameterName)
 {
     // call base class method
-    PluginParameter::setName(newParameterName);
+    Parameter::setName(newParameterName);
 
     // set name of mode switch
     modeSwitch.setName(newParameterName + " Mode");
@@ -112,7 +111,7 @@ void PluginParameterCombined::setName(const String &newParameterName)
 ///
 /// @param newLabel string representation
 ///
-void PluginParameterCombined::addPreset(const float newRealValue, const String &newLabel)
+void ParCombined::addPreset(const float newRealValue, const String &newLabel)
 {
     // add value to presets
     presetValues.addPreset(newRealValue, newLabel);
@@ -124,7 +123,7 @@ void PluginParameterCombined::addPreset(const float newRealValue, const String &
 /// @return **true** for preset values and **false** for continuous
 ///         values
 ///
-bool PluginParameterCombined::getMode()
+bool ParCombined::getMode()
 {
     return usePresets;
 }
@@ -135,7 +134,7 @@ bool PluginParameterCombined::getMode()
 /// @param use_presets **true** for preset values and **false** for
 ///        continuous values
 ///
-void PluginParameterCombined::setMode(bool use_presets)
+void ParCombined::setMode(bool use_presets)
 {
     // preset mode has changed
     if (use_presets != usePresets)
@@ -148,7 +147,7 @@ void PluginParameterCombined::setMode(bool use_presets)
 
 /// Toggle preset mode while retaining the current value.
 ///
-void PluginParameterCombined::toggleMode()
+void ParCombined::toggleMode()
 {
     // toggle mode switch
     modeSwitch.toggleState();
@@ -182,7 +181,7 @@ void PluginParameterCombined::toggleMode()
 ///
 /// @return pointer to mode switch
 ///
-PluginParameterBoolean *PluginParameterCombined::getModeSwitch()
+parameter::ParBoolean *ParCombined::getModeSwitch()
 {
     // this pointer must not be deleted outside of this class!
     return &modeSwitch;
@@ -193,7 +192,7 @@ PluginParameterBoolean *PluginParameterCombined::getModeSwitch()
 ///
 /// @return number of discrete parameter values
 ///
-int PluginParameterCombined::getNumberOfSteps()
+int ParCombined::getNumberOfSteps()
 {
     if (usePresets)
     {
@@ -210,7 +209,7 @@ int PluginParameterCombined::getNumberOfSteps()
 ///
 /// @return step size
 ///
-float PluginParameterCombined::getStepSize()
+float ParCombined::getStepSize()
 {
     if (usePresets)
     {
@@ -228,7 +227,7 @@ float PluginParameterCombined::getStepSize()
 ///
 /// @return internal default value (between 0.0 and 1.0)
 ///
-float PluginParameterCombined::getDefaultFloat()
+float ParCombined::getDefaultFloat()
 {
     if (usePresets)
     {
@@ -246,7 +245,7 @@ float PluginParameterCombined::getDefaultFloat()
 ///
 /// @return default value
 ///
-float PluginParameterCombined::getDefaultRealFloat()
+float ParCombined::getDefaultRealFloat()
 {
     if (usePresets)
     {
@@ -264,7 +263,7 @@ float PluginParameterCombined::getDefaultRealFloat()
 /// @return **false** if the default value is set to the parameter's
 ///         minimum, **true** otherwise
 ///
-bool PluginParameterCombined::getDefaultBoolean()
+bool ParCombined::getDefaultBoolean()
 {
     if (usePresets)
     {
@@ -283,7 +282,7 @@ bool PluginParameterCombined::getDefaultBoolean()
 ///
 /// @return default value
 ///
-int PluginParameterCombined::getDefaultRealInteger()
+int ParCombined::getDefaultRealInteger()
 {
     if (usePresets)
     {
@@ -304,7 +303,7 @@ int PluginParameterCombined::getDefaultRealInteger()
 /// @param updateParameter if this is true, the parameter's value will
 ///        be set to the new default value
 ///
-void PluginParameterCombined::setDefaultRealFloat(float newRealValue, bool updateParameter)
+void ParCombined::setDefaultRealFloat(float newRealValue, bool updateParameter)
 {
     if (usePresets)
     {
@@ -331,7 +330,7 @@ void PluginParameterCombined::setDefaultRealFloat(float newRealValue, bool updat
 ///
 /// @return current value (between 0.0 and 1.0)
 ///
-float PluginParameterCombined::getFloat()
+float ParCombined::getFloat()
 {
     if (usePresets)
     {
@@ -349,7 +348,7 @@ float PluginParameterCombined::getFloat()
 ///
 /// @param newValue new value (between 0.0 and 1.0)
 ///
-void PluginParameterCombined::setFloat(float newValue)
+void ParCombined::setFloat(float newValue)
 {
     if (usePresets)
     {
@@ -367,7 +366,7 @@ void PluginParameterCombined::setFloat(float newValue)
 ///
 /// @return current value
 ///
-float PluginParameterCombined::getRealFloat()
+float ParCombined::getRealFloat()
 {
     if (usePresets)
     {
@@ -385,7 +384,7 @@ float PluginParameterCombined::getRealFloat()
 ///
 /// @param newRealValue new value
 ///
-void PluginParameterCombined::setRealFloat(float newRealValue)
+void ParCombined::setRealFloat(float newRealValue)
 {
     if (usePresets)
     {
@@ -404,7 +403,7 @@ void PluginParameterCombined::setRealFloat(float newRealValue)
 ///
 /// @return current value
 ///
-int PluginParameterCombined::getRealInteger()
+int ParCombined::getRealInteger()
 {
     if (usePresets)
     {
@@ -422,7 +421,7 @@ int PluginParameterCombined::getRealInteger()
 ///
 /// @param newRealValue new value
 ///
-void PluginParameterCombined::setRealInteger(int newRealValue)
+void ParCombined::setRealInteger(int newRealValue)
 {
     if (usePresets)
     {
@@ -440,7 +439,7 @@ void PluginParameterCombined::setRealInteger(int newRealValue)
 /// @return **false** if current value is at its minimum, **true**
 ///         otherwise
 ///
-bool PluginParameterCombined::getBoolean()
+bool ParCombined::getBoolean()
 {
     if (usePresets)
     {
@@ -458,7 +457,7 @@ bool PluginParameterCombined::getBoolean()
 ///
 /// @param newSuffix new suffix (may be an empty string)
 ///
-void PluginParameterCombined::setSuffix(const String &newSuffix)
+void ParCombined::setSuffix(const String &newSuffix)
 {
     // update suffix
     continuousValues.setSuffix(newSuffix);
@@ -471,7 +470,7 @@ void PluginParameterCombined::setSuffix(const String &newSuffix)
 ///
 /// @return **internal** value
 ///
-float PluginParameterCombined::getFloatFromText(const String &newValue)
+float ParCombined::getFloatFromText(const String &newValue)
 {
     if (usePresets)
     {
@@ -490,7 +489,7 @@ float PluginParameterCombined::getFloatFromText(const String &newValue)
 ///
 /// @return formatted string
 ///
-const String PluginParameterCombined::getTextFromFloat(float newValue)
+const String ParCombined::getTextFromFloat(float newValue)
 {
     if (usePresets)
     {
@@ -508,7 +507,7 @@ const String PluginParameterCombined::getTextFromFloat(float newValue)
 ///
 /// @return change flag
 ///
-bool PluginParameterCombined::hasChanged()
+bool ParCombined::hasChanged()
 {
     bool changedPreset = presetValues.hasChanged();
     bool changedContinuous = continuousValues.hasChanged();
@@ -519,7 +518,7 @@ bool PluginParameterCombined::hasChanged()
 
 /// Mark parameter as unchanged.
 ///
-void PluginParameterCombined::clearChangeFlag()
+void ParCombined::clearChangeFlag()
 {
     presetValues.clearChangeFlag();
     continuousValues.clearChangeFlag();
@@ -528,7 +527,7 @@ void PluginParameterCombined::clearChangeFlag()
 
 /// Mark parameter as changed.
 ///
-void PluginParameterCombined::setChangeFlag()
+void ParCombined::setChangeFlag()
 {
     // do nothing till you hear from me ...
     jassert(false);
@@ -539,7 +538,7 @@ void PluginParameterCombined::setChangeFlag()
 ///
 /// @param xmlDocument XML document to load from
 ///
-void PluginParameterCombined::loadFromXml(XmlElement *xmlDocument)
+void ParCombined::loadFromXml(XmlElement *xmlDocument)
 {
     // get parameter's element from XML document
     XmlElement *xmlParameter = xmlDocument->getChildByName(getTagName());
@@ -568,7 +567,7 @@ void PluginParameterCombined::loadFromXml(XmlElement *xmlDocument)
 ///
 /// @param xmlDocument XML document to store in
 ///
-void PluginParameterCombined::storeAsXml(XmlElement *xmlDocument)
+void ParCombined::storeAsXml(XmlElement *xmlDocument)
 {
     // create new XML element with parameter's tag name (will be
     // deleted by XML document)

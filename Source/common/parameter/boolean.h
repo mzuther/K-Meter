@@ -23,28 +23,41 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_PARAMETERS_CPP__
-#define __FRUT_AMALGAMATED_PARAMETERS_CPP__
+#ifndef __FRUT_PARAMETER_BOOLEAN_H__
+#define __FRUT_PARAMETER_BOOLEAN_H__
 
 
-#include "../FrutHeader.h"
-
-
-namespace frut
+/// Plug-in parameter for storing a Boolean value.
+///
+/// The methods of this class may be called on the audio thread, so
+/// they are absolutely time-critical!
+///
+class ParBoolean : virtual public Parameter
 {
+public:
+    ParBoolean(const String &state_true, const String &state_false, bool save_from_deletion = false);
 
-#include "../parameters/parameter_juggler.cpp"
-#include "../parameters/plugin_parameter_boolean.cpp"
-#include "../parameters/plugin_parameter_combined.cpp"
-#include "../parameters/plugin_parameter_continuous.cpp"
-#include "../parameters/plugin_parameter.cpp"
-#include "../parameters/plugin_parameter_string.cpp"
-#include "../parameters/plugin_parameter_switch.cpp"
+    void toggleState();
 
-}
+    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
+    void setDefaultBoolean(bool newValue, bool updateParameter);
+
+    virtual void setFloat(float newValue) override;
+    virtual void setRealFloat(float newRealValue) override;
+    void setBoolean(bool newValue);
+
+    virtual float getFloatFromText(const String &newValue) override;
+    virtual const String getTextFromFloat(float newValue) override;
+
+private:
+    JUCE_LEAK_DETECTOR(ParBoolean);
+
+    String labelTrue;
+    String labelFalse;
+};
 
 
-#endif  // __FRUT_AMALGAMATED_PARAMETERS_CPP__
+#endif  // __FRUT_PARAMETER_BOOLEAN_H__
 
 
 // Local Variables:

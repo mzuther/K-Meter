@@ -23,19 +23,24 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_SLIDER_CONTINUOUS_H__
-#define __FRUT_WIDGET_SLIDER_CONTINUOUS_H__
+#ifndef __FRUT_WIDGET_SLIDER_COMBINED_H__
+#define __FRUT_WIDGET_SLIDER_COMBINED_H__
 
 
-class SliderContinuous :
+class SliderCombined :
     public Slider
 {
 public:
-    SliderContinuous(ParameterJuggler *pParameters, int nParameterIndex);
+    SliderCombined(parameter::Juggler *pParameters, int nParameterIndex, int nParameterIndexSwitch);
 
     void visibilityChanged();
     void resized();
     void setSliderColour(const Colour &colour);
+
+    void addButtonListener(Button::Listener *newListener);
+    void removeListener(Button::Listener *listener);
+
+    void updateMode();
 
     float getRealFloat();
     bool getBoolean();
@@ -44,14 +49,17 @@ public:
     double getValueFromText(const String &strText);
     String getTextFromValue(double dValue);
 private:
-    JUCE_LEAK_DETECTOR(SliderContinuous);
+    JUCE_LEAK_DETECTOR(SliderCombined);
 
+    ScopedPointer<DrawableButton> toggleButton;
     Colour colourRotary;
-    PluginParameterContinuous *pContinuous;
+
+    parameter::ParCombined *pCombined;
+    parameter::ParBoolean *pModeSwitch;
 };
 
 
-#endif  // __FRUT_WIDGET_SLIDER_CONTINUOUS_H__
+#endif  // __FRUT_WIDGET_SLIDER_COMBINED_H__
 
 
 // Local Variables:

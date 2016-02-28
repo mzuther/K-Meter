@@ -23,30 +23,35 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_PARAMETERS_H__
-#define __FRUT_AMALGAMATED_PARAMETERS_H__
+#ifndef __FRUT_WIDGET_SLIDER_CONTINUOUS_H__
+#define __FRUT_WIDGET_SLIDER_CONTINUOUS_H__
 
 
-namespace frut
+class SliderContinuous :
+    public Slider
 {
+public:
+    SliderContinuous(parameter::Juggler *pParameters, int nParameterIndex);
 
-// pre includes
-#include "../parameters/plugin_parameter.h"
+    void visibilityChanged();
+    void resized();
+    void setSliderColour(const Colour &colour);
 
-// normal includes
-#include "../parameters/plugin_parameter_boolean.h"
-#include "../parameters/plugin_parameter_continuous.h"
-#include "../parameters/plugin_parameter_string.h"
-#include "../parameters/plugin_parameter_switch.h"
+    float getRealFloat();
+    bool getBoolean();
+    int getRealInteger();
 
-// post includes
-#include "../parameters/plugin_parameter_combined.h"
-#include "../parameters/parameter_juggler.h"
+    double getValueFromText(const String &strText);
+    String getTextFromValue(double dValue);
+private:
+    JUCE_LEAK_DETECTOR(SliderContinuous);
 
-}
+    Colour colourRotary;
+    parameter::ParContinuous *pContinuous;
+};
 
 
-#endif  // __FRUT_AMALGAMATED_PARAMETERS_H__
+#endif  // __FRUT_WIDGET_SLIDER_CONTINUOUS_H__
 
 
 // Local Variables:

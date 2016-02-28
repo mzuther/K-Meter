@@ -24,9 +24,9 @@
 ---------------------------------------------------------------------------- */
 
 
-SliderContinuous::SliderContinuous(ParameterJuggler *pParameters, int nParameterIndex)
+SliderContinuous::SliderContinuous(parameter::Juggler *pParameters, int nParameterIndex)
 {
-    pContinuous = dynamic_cast<PluginParameterContinuous *>(pParameters->getPluginParameter(nParameterIndex));
+    pContinuous = dynamic_cast<parameter::ParContinuous *>(pParameters->getPluginParameter(nParameterIndex));
     jassert(pContinuous != nullptr);
 
     setRange(0.0f, 1.0f, pContinuous->getStepSize());

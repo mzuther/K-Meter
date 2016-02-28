@@ -24,9 +24,9 @@
 ---------------------------------------------------------------------------- */
 
 
-SliderSwitchLinearBar::SliderSwitchLinearBar(ParameterJuggler *pParameters, int nParameterIndex)
+SliderSwitchLinearBar::SliderSwitchLinearBar(parameter::Juggler *pParameters, int nParameterIndex)
 {
-    pSwitch = dynamic_cast<PluginParameterSwitch *>(pParameters->getPluginParameter(nParameterIndex));
+    pSwitch = dynamic_cast<parameter::ParSwitch *>(pParameters->getPluginParameter(nParameterIndex));
     jassert(pSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pSwitch->getStepSize());

@@ -35,7 +35,7 @@
 ///
 /// @param revealedParameters number of revealed parameters
 ///
-ParameterJuggler::ParameterJuggler(const String &settingsID, int completeParameters, int revealedParameters)
+Juggler::Juggler(const String &settingsID, int completeParameters, int revealedParameters)
 {
     // store parameter file ID
     jugglerID = settingsID;
@@ -48,13 +48,13 @@ ParameterJuggler::ParameterJuggler(const String &settingsID, int completeParamet
 
 /// Destructor.
 ///
-ParameterJuggler::~ParameterJuggler()
+Juggler::~Juggler()
 {
     // loop over plug-in parameters
     while (arrParameters.size())
     {
         // pop first parameter
-        PluginParameter *parameter = arrParameters.remove(0);
+        Parameter *parameter = arrParameters.remove(0);
 
         // do not delete elements of combined parameters!
         if (!parameter->saveFromDeletion())
@@ -79,7 +79,7 @@ ParameterJuggler::~ParameterJuggler()
 ///
 /// @param wantModification check whether the parameter may be modified
 ///
-void ParameterJuggler::assertParameter(int index, bool wantModification)
+void Juggler::assertParameter(int index, bool wantModification)
 {
     // check parameter index
     jassert(index >= 0);
@@ -97,9 +97,9 @@ void ParameterJuggler::assertParameter(int index, bool wantModification)
 ///
 /// @param index parameter index
 ///
-/// @return requested PluginParameter instance
+/// @return requested Parameter instance
 ///
-PluginParameter *ParameterJuggler::getPluginParameter(int index)
+Parameter *Juggler::getPluginParameter(int index)
 {
 #ifdef DEBUG
     assertParameter(index, false);
@@ -113,7 +113,7 @@ PluginParameter *ParameterJuggler::getPluginParameter(int index)
 ///
 /// @return String containing all plug-in parameters and their values
 ///
-String ParameterJuggler::toString()
+String Juggler::toString()
 {
     String strParameters;
 
@@ -138,7 +138,7 @@ String ParameterJuggler::toString()
 ///
 /// @return number of plug-in parameters
 ///
-int ParameterJuggler::getNumParameters(bool includeHiddenParameters)
+int Juggler::getNumParameters(bool includeHiddenParameters)
 {
     // check that all intended parameters have been added
     jassert(numberOfParameters == arrParameters.size());
@@ -161,7 +161,7 @@ int ParameterJuggler::getNumParameters(bool includeHiddenParameters)
 /// @param index parameter index (must point to the end of the array
 ///        and is used for sanity checking only)
 ///
-void ParameterJuggler::add(PluginParameter *parameter, int index)
+void Juggler::add(Parameter *parameter, int index)
 {
     // add parameter to container
     arrParameters.add(parameter);
@@ -181,7 +181,7 @@ void ParameterJuggler::add(PluginParameter *parameter, int index)
 /// @param index parameter index (must point to the end of the array
 ///        and is used for sanity checking only)
 ///
-void ParameterJuggler::addProtected(PluginParameter *parameter, int index)
+void Juggler::addProtected(Parameter *parameter, int index)
 {
     // add parameter to container
     add(parameter, index);
@@ -201,7 +201,7 @@ void ParameterJuggler::addProtected(PluginParameter *parameter, int index)
 /// @param parameterIndex index of parameter (must be **switchIndex** + 1
 ///        and is used for sanity checking only)
 ///
-void ParameterJuggler::addCombined(PluginParameterCombined *parameter, int switchIndex, int parameterIndex)
+void Juggler::addCombined(parameter::ParCombined *parameter, int switchIndex, int parameterIndex)
 {
     jassert(parameterIndex == (switchIndex + 1));
 
@@ -219,7 +219,7 @@ void ParameterJuggler::addCombined(PluginParameterCombined *parameter, int switc
 ///
 /// @return parameter name
 ///
-String ParameterJuggler::getName(int index)
+String Juggler::getName(int index)
 {
 #ifdef DEBUG
     assertParameter(index, false);
@@ -235,7 +235,7 @@ String ParameterJuggler::getName(int index)
 ///
 /// @param newParameterName new parameter name
 ///
-void ParameterJuggler::setName(int index, const String &newParameterName)
+void Juggler::setName(int index, const String &newParameterName)
 {
 #ifdef DEBUG
     assertParameter(index, true);
@@ -252,7 +252,7 @@ void ParameterJuggler::setName(int index, const String &newParameterName)
 ///
 /// @return internal default value (between 0.0 and 1.0)
 ///
-float ParameterJuggler::getDefaultFloat(int index)
+float Juggler::getDefaultFloat(int index)
 {
 #ifdef DEBUG
     assertParameter(index, false);
@@ -269,7 +269,7 @@ float ParameterJuggler::getDefaultFloat(int index)
 ///
 /// @return default value
 ///
-float ParameterJuggler::getDefaultRealFloat(int index)
+float Juggler::getDefaultRealFloat(int index)
 {
 #ifdef DEBUG
     assertParameter(index, false);
@@ -286,7 +286,7 @@ float ParameterJuggler::getDefaultRealFloat(int index)
 /// @return **false** if the default value is set to the parameter's
 ///         minimum, **true** otherwise
 ///
-bool ParameterJuggler::getDefaultBoolean(int index)
+bool Juggler::getDefaultBoolean(int index)
 {
 #ifdef DEBUG
     assertParameter(index, false);
@@ -304,7 +304,7 @@ bool ParameterJuggler::getDefaultBoolean(int index)
 ///
 /// @return default value
 ///
-int ParameterJuggler::getDefaultRealInteger(int index)
+int Juggler::getDefaultRealInteger(int index)
 {
 #ifdef DEBUG
     assertParameter(index, false);
@@ -324,7 +324,7 @@ int ParameterJuggler::getDefaultRealInteger(int index)
 /// @param updateParameter if this is true, the parameter's value will
 ///        be set to the new default value
 ///
-void ParameterJuggler::setDefaultRealFloat(int index, float newRealValue, bool updateParameter)
+void Juggler::setDefaultRealFloat(int index, float newRealValue, bool updateParameter)
 {
 #ifdef DEBUG
     assertParameter(index, true);
@@ -341,7 +341,7 @@ void ParameterJuggler::setDefaultRealFloat(int index, float newRealValue, bool u
 ///
 /// @return current value (between 0.0 and 1.0)
 ///
-float ParameterJuggler::getFloat(int index)
+float Juggler::getFloat(int index)
 {
 #ifdef DEBUG
     assertParameter(index, false);
@@ -358,7 +358,7 @@ float ParameterJuggler::getFloat(int index)
 ///
 /// @param newValue new value (between 0.0 and 1.0)
 ///
-void ParameterJuggler::setFloat(int index, float newValue)
+void Juggler::setFloat(int index, float newValue)
 {
 #ifdef DEBUG
     assertParameter(index, true);
@@ -375,7 +375,7 @@ void ParameterJuggler::setFloat(int index, float newValue)
 ///
 /// @return current value
 ///
-float ParameterJuggler::getRealFloat(int index)
+float Juggler::getRealFloat(int index)
 {
 #ifdef DEBUG
     assertParameter(index, false);
@@ -392,7 +392,7 @@ float ParameterJuggler::getRealFloat(int index)
 ///
 /// @param newRealValue new value
 ///
-void ParameterJuggler::setRealFloat(int index, float newRealValue)
+void Juggler::setRealFloat(int index, float newRealValue)
 {
 #ifdef DEBUG
     assertParameter(index, true);
@@ -410,7 +410,7 @@ void ParameterJuggler::setRealFloat(int index, float newRealValue)
 ///
 /// @return current value
 ///
-int ParameterJuggler::getRealInteger(int index)
+int Juggler::getRealInteger(int index)
 {
 #ifdef DEBUG
     assertParameter(index, false);
@@ -427,7 +427,7 @@ int ParameterJuggler::getRealInteger(int index)
 ///
 /// @param newRealValue new value
 ///
-void ParameterJuggler::setRealInteger(int index, int newRealValue)
+void Juggler::setRealInteger(int index, int newRealValue)
 {
 #ifdef DEBUG
     assertParameter(index, true);
@@ -444,7 +444,7 @@ void ParameterJuggler::setRealInteger(int index, int newRealValue)
 /// @return **false** if current value is at its minimum, **true**
 ///         otherwise
 ///
-bool ParameterJuggler::getBoolean(int index)
+bool Juggler::getBoolean(int index)
 {
 #ifdef DEBUG
     assertParameter(index, false);
@@ -460,7 +460,7 @@ bool ParameterJuggler::getBoolean(int index)
 ///
 /// @return current value
 ///
-String ParameterJuggler::getText(int index)
+String Juggler::getText(int index)
 {
 #ifdef DEBUG
     assertParameter(index, false);
@@ -476,7 +476,7 @@ String ParameterJuggler::getText(int index)
 ///
 /// @param newValue new value as formatted string
 ///
-void ParameterJuggler::setText(int index, const String &newValue)
+void Juggler::setText(int index, const String &newValue)
 {
 #ifdef DEBUG
     assertParameter(index, true);
@@ -493,7 +493,7 @@ void ParameterJuggler::setText(int index, const String &newValue)
 ///
 /// @return change flag
 ///
-bool ParameterJuggler::hasChanged(int index)
+bool Juggler::hasChanged(int index)
 {
 #ifdef DEBUG
     assertParameter(index, false);
@@ -507,7 +507,7 @@ bool ParameterJuggler::hasChanged(int index)
 ///
 /// @param index parameter index
 ///
-void ParameterJuggler::clearChangeFlag(int index)
+void Juggler::clearChangeFlag(int index)
 {
 #ifdef DEBUG
     assertParameter(index, false);
@@ -521,7 +521,7 @@ void ParameterJuggler::clearChangeFlag(int index)
 ///
 /// @param xmlDocument XML document to load from
 ///
-void ParameterJuggler::loadFromXml(XmlElement *xmlDocument)
+void Juggler::loadFromXml(XmlElement *xmlDocument)
 {
     // check ID of XML document
     if (xmlDocument && xmlDocument->hasTagName(jugglerID))
@@ -544,7 +544,7 @@ void ParameterJuggler::loadFromXml(XmlElement *xmlDocument)
 ///
 /// @param xmlDocument XML document to store in
 ///
-XmlElement ParameterJuggler::storeAsXml()
+XmlElement Juggler::storeAsXml()
 {
     // create XML document
     XmlElement xmlDocument(jugglerID);

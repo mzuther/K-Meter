@@ -29,7 +29,7 @@
 
 /// Constructor.
 ///
-PluginParameter::PluginParameter()
+Parameter::Parameter()
 {
     // initialise current value
     value = 0.0f;
@@ -54,7 +54,7 @@ PluginParameter::PluginParameter()
 ///
 /// @return parameter name
 ///
-String PluginParameter::getName()
+String Parameter::getName()
 {
     return parameterName;
 }
@@ -64,7 +64,7 @@ String PluginParameter::getName()
 ///
 /// @param newParameterName new parameter name
 ///
-void PluginParameter::setName(const String &newParameterName)
+void Parameter::setName(const String &newParameterName)
 {
     // set new parameter name
     parameterName = newParameterName;
@@ -94,7 +94,7 @@ void PluginParameter::setName(const String &newParameterName)
 ///
 /// @return XML tag name
 ///
-String PluginParameter::getTagName()
+String Parameter::getTagName()
 {
     return xmlTagName;
 }
@@ -105,7 +105,7 @@ String PluginParameter::getTagName()
 ///
 /// @return internal default value (between 0.0 and 1.0)
 ///
-float PluginParameter::getDefaultFloat()
+float Parameter::getDefaultFloat()
 {
     return defaultValue;
 }
@@ -116,7 +116,7 @@ float PluginParameter::getDefaultFloat()
 ///
 /// @return default value
 ///
-float PluginParameter::getDefaultRealFloat()
+float Parameter::getDefaultRealFloat()
 {
     return defaultRealValue;
 }
@@ -127,7 +127,7 @@ float PluginParameter::getDefaultRealFloat()
 /// @return **false** if the default value is set to the parameter's
 ///         minimum, **true** otherwise
 ///
-bool PluginParameter::getDefaultBoolean()
+bool Parameter::getDefaultBoolean()
 {
     return getDefaultFloat() != 0.0f;
 }
@@ -139,9 +139,9 @@ bool PluginParameter::getDefaultBoolean()
 ///
 /// @return default value
 ///
-int PluginParameter::getDefaultRealInteger()
+int Parameter::getDefaultRealInteger()
 {
-    return math::Simple::round(getDefaultRealFloat());
+    return math::SimpleMath::round(getDefaultRealFloat());
 }
 
 
@@ -150,7 +150,7 @@ int PluginParameter::getDefaultRealInteger()
 ///
 /// @return current value (between 0.0 and 1.0)
 ///
-float PluginParameter::getFloat()
+float Parameter::getFloat()
 {
     return value;
 }
@@ -161,7 +161,7 @@ float PluginParameter::getFloat()
 ///
 /// @return current value
 ///
-float PluginParameter::getRealFloat()
+float Parameter::getRealFloat()
 {
     return realValue;
 }
@@ -173,9 +173,9 @@ float PluginParameter::getRealFloat()
 ///
 /// @return current value
 ///
-int PluginParameter::getRealInteger()
+int Parameter::getRealInteger()
 {
-    return math::Simple::round(getRealFloat());
+    return math::SimpleMath::round(getRealFloat());
 }
 
 
@@ -184,7 +184,7 @@ int PluginParameter::getRealInteger()
 ///
 /// @param newRealValue new value
 ///
-void PluginParameter::setRealInteger(int newRealValue)
+void Parameter::setRealInteger(int newRealValue)
 {
     setRealFloat((float) newRealValue);
 }
@@ -195,7 +195,7 @@ void PluginParameter::setRealInteger(int newRealValue)
 /// @return **false** if current value is at its minimum, **true**
 ///         otherwise
 ///
-bool PluginParameter::getBoolean()
+bool Parameter::getBoolean()
 {
     return getFloat() != 0.0f;
 }
@@ -205,7 +205,7 @@ bool PluginParameter::getBoolean()
 ///
 /// @return current value
 ///
-const String PluginParameter::getText()
+const String Parameter::getText()
 {
     // transform internal value to string
     return getTextFromFloat(value);
@@ -216,7 +216,7 @@ const String PluginParameter::getText()
 ///
 /// @param newValue new value as formatted string
 ///
-void PluginParameter::setText(const String &newValue)
+void Parameter::setText(const String &newValue)
 {
     // transform string to internal value
     float newInternalValue = getFloatFromText(newValue);
@@ -231,7 +231,7 @@ void PluginParameter::setText(const String &newValue)
 ///
 /// @return change flag
 ///
-bool PluginParameter::hasChanged()
+bool Parameter::hasChanged()
 {
     return valueHasChanged;
 }
@@ -239,7 +239,7 @@ bool PluginParameter::hasChanged()
 
 /// Mark parameter as unchanged.
 ///
-void PluginParameter::clearChangeFlag()
+void Parameter::clearChangeFlag()
 {
     valueHasChanged = false;
 }
@@ -247,7 +247,7 @@ void PluginParameter::clearChangeFlag()
 
 /// Mark parameter as changed.
 ///
-void PluginParameter::setChangeFlag()
+void Parameter::setChangeFlag()
 {
     valueHasChanged = true;
 }
@@ -257,7 +257,7 @@ void PluginParameter::setChangeFlag()
 ///
 /// @param xmlDocument XML document to load from
 ///
-void PluginParameter::loadFromXml(XmlElement *xmlDocument)
+void Parameter::loadFromXml(XmlElement *xmlDocument)
 {
     float realValue;
 
@@ -287,7 +287,7 @@ void PluginParameter::loadFromXml(XmlElement *xmlDocument)
 ///
 /// @param xmlDocument XML document to store in
 ///
-void PluginParameter::storeAsXml(XmlElement *xmlDocument)
+void Parameter::storeAsXml(XmlElement *xmlDocument)
 {
     // create new XML element with parameter's tag name (will be
     // deleted by XML document)
@@ -309,15 +309,15 @@ void PluginParameter::storeAsXml(XmlElement *xmlDocument)
 
 
 /// Should parameter be spared from deletion in destructor of
-/// ParameterJuggler?
+/// Juggler?
 ///
 /// Sorry, I know this sort of method is *really* ugly, but I
-/// currently see no other way to implement PluginParameterCombined.
+/// currently see no other way to implement ParCombined.
 ///
 /// @return **true** if parameter should be spared, **false**
 ///         otherwise
 ///
-bool PluginParameter::saveFromDeletion()
+bool Parameter::saveFromDeletion()
 {
     return doNotDelete;
 }

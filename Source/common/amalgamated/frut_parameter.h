@@ -23,39 +23,33 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_WIDGETS_CPP__
-#define __FRUT_AMALGAMATED_WIDGETS_CPP__
-
-
-#include "../FrutHeader.h"
+#ifndef __FRUT_AMALGAMATED_PARAMETERS_H__
+#define __FRUT_AMALGAMATED_PARAMETERS_H__
 
 
 namespace frut
 {
+namespace parameter
+{
 
-#include "../widgets/generic_channel_slider.cpp"
-#include "../widgets/generic_meter_bar.cpp"
-#include "../widgets/generic_meter_segment.cpp"
-#include "../widgets/generic_meter_segment_continuous.cpp"
-#include "../widgets/generic_meter_segment_discrete.cpp"
-#include "../widgets/generic_needle_meter.cpp"
-#include "../widgets/generic_plugin_standalone.cpp"
-#include "../widgets/generic_signal_led.cpp"
-#include "../widgets/generic_state_label.cpp"
-#include "../widgets/generic_window_about_content.cpp"
-#include "../widgets/generic_window_settings_content.cpp"
-#include "../widgets/generic_window_skin_content.cpp"
-#include "../widgets/generic_window_validation_content.cpp"
-#include "../widgets/resources/resources.cpp"
-#include "../widgets/slider_combined.cpp"
-#include "../widgets/slider_continuous.cpp"
-#include "../widgets/slider_switch.cpp"
-#include "../widgets/slider_switch_linear_bar.cpp"
+// pre includes
+#include "../parameter/parameter.h"
 
+// normal includes
+#include "../parameter/boolean.h"
+#include "../parameter/continuous.h"
+#include "../parameter/string.h"
+#include "../parameter/switch.h"
+
+// post includes
+#include "../parameter/combined.h"
+#include "../parameter/juggler.h"
+
+}
 }
 
 
-#endif  // __FRUT_AMALGAMATED_WIDGETS_CPP__
+#endif  // __FRUT_AMALGAMATED_PARAMETERS_H__
 
 
 // Local Variables:

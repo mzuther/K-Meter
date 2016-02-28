@@ -32,7 +32,7 @@
 ///
 /// @param newValue intial value
 ///
-PluginParameterString::PluginParameterString(const String &newValue)
+ParString::ParString(const String &newValue)
 {
     // initialise value
     setText(newValue);
@@ -49,7 +49,7 @@ PluginParameterString::PluginParameterString(const String &newValue)
 ///
 /// @param updateParameter do not use
 ///
-void PluginParameterString::setDefaultRealFloat(float newRealValue, bool updateParameter)
+void ParString::setDefaultRealFloat(float newRealValue, bool updateParameter)
 {
     // do nothing till you hear from me ...
     jassert(false);
@@ -61,7 +61,7 @@ void PluginParameterString::setDefaultRealFloat(float newRealValue, bool updateP
 ///
 /// @param newValue do not use
 ///
-void PluginParameterString::setFloat(float newValue)
+void ParString::setFloat(float newValue)
 {
     // do nothing till you hear from me ...
     jassert(false);
@@ -73,7 +73,7 @@ void PluginParameterString::setFloat(float newValue)
 ///
 /// @param newRealValue do not use
 ///
-void PluginParameterString::setRealFloat(float newRealValue)
+void ParString::setRealFloat(float newRealValue)
 {
     // do nothing till you hear from me ...
     jassert(false);
@@ -84,7 +84,7 @@ void PluginParameterString::setRealFloat(float newRealValue)
 ///
 /// @return current value
 ///
-const String PluginParameterString::getText()
+const String ParString::getText()
 {
     return textValue;
 }
@@ -94,7 +94,7 @@ const String PluginParameterString::getText()
 ///
 /// @param newValue new parameter value
 ///
-void PluginParameterString::setText(const String &newValue)
+void ParString::setText(const String &newValue)
 {
     // mark parameter as changed if necessary
     if (textValue.compare(newValue) != 0)
@@ -114,7 +114,7 @@ void PluginParameterString::setText(const String &newValue)
 ///
 /// @return **internal** value
 ///
-float PluginParameterString::getFloatFromText(const String &newValue)
+float ParString::getFloatFromText(const String &newValue)
 {
     // do nothing till you hear from me ...
     jassert(false);
@@ -130,7 +130,7 @@ float PluginParameterString::getFloatFromText(const String &newValue)
 ///
 /// @return formatted string
 ///
-const String PluginParameterString::getTextFromFloat(float newValue)
+const String ParString::getTextFromFloat(float newValue)
 {
     // do nothing till you hear from me ...
     jassert(false);
@@ -143,7 +143,7 @@ const String PluginParameterString::getTextFromFloat(float newValue)
 ///
 /// @param xmlDocument XML document to load from
 ///
-void PluginParameterString::loadFromXml(XmlElement *xmlDocument)
+void ParString::loadFromXml(XmlElement *xmlDocument)
 {
     // get parameter's element from XML document
     XmlElement *xmlParameter = xmlDocument->getChildByName(getTagName());
@@ -164,7 +164,7 @@ void PluginParameterString::loadFromXml(XmlElement *xmlDocument)
 ///
 /// @param xmlDocument XML document to store in
 ///
-void PluginParameterString::storeAsXml(XmlElement *xmlDocument)
+void ParString::storeAsXml(XmlElement *xmlDocument)
 {
     // create new XML element with parameter's tag name (will be
     // deleted by XML document)

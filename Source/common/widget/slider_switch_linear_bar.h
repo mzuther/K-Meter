@@ -31,7 +31,7 @@ class SliderSwitchLinearBar :
     public Slider
 {
 public:
-    SliderSwitchLinearBar(ParameterJuggler *pParameters, int nParameterIndex);
+    SliderSwitchLinearBar(parameter::Juggler *pParameters, int nParameterIndex);
 
     void visibilityChanged();
     void setSliderColour(const Colour &colour);
@@ -46,7 +46,7 @@ private:
     JUCE_LEAK_DETECTOR(SliderSwitchLinearBar);
 
     Colour colourThumb;
-    PluginParameterSwitch *pSwitch;
+    parameter::ParSwitch *pSwitch;
 };
 
 

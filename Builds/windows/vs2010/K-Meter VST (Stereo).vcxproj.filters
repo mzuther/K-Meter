@@ -2,70 +2,70 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="Source">
-			<UniqueIdentifier>{C95337F9-4EF9-4D93-CD99-3340A8D217EA}</UniqueIdentifier>
+			<UniqueIdentifier>{7046243B-DF29-515C-D8F4-A3DDDFB003AF}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common">
-			<UniqueIdentifier>{C1968822-5108-7601-626D-006FBC434FAA}</UniqueIdentifier>
+			<UniqueIdentifier>{ECAFAE58-403C-0655-9B67-023E660B6771}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\amalgamated">
-			<UniqueIdentifier>{FC277A61-B97F-A3BC-F003-ABE0A5AD0495}</UniqueIdentifier>
+			<UniqueIdentifier>{E71CF094-8CE1-C303-399C-0C7963E9E1ED}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries">
-			<UniqueIdentifier>{BDCCD850-332B-42CD-E87B-8555E4701849}</UniqueIdentifier>
+			<UniqueIdentifier>{28E0449F-3B5B-E756-F63A-19ED73427729}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce">
-			<UniqueIdentifier>{54F41BB5-DD25-3A1F-8C22-64BA6A061D09}</UniqueIdentifier>
+			<UniqueIdentifier>{3E1E4436-C15C-34BA-EA8B-2778D3E01907}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules">
-			<UniqueIdentifier>{F5AAC717-62FF-95AC-5F16-648F85B491E5}</UniqueIdentifier>
+			<UniqueIdentifier>{D15B642E-4F73-0AA3-7B1F-013A4CCEC315}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_basics">
-			<UniqueIdentifier>{9B1CAFBE-FFCF-F12D-9003-D3B28F3F58C9}</UniqueIdentifier>
+			<UniqueIdentifier>{7C6C28DB-816A-A853-33CB-9A89588A8CFB}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_devices">
-			<UniqueIdentifier>{FF39794C-76E9-424C-9252-98FD694F55D6}</UniqueIdentifier>
+			<UniqueIdentifier>{205396E2-36EF-B733-6696-92B8580D6D45}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_formats">
-			<UniqueIdentifier>{0149AA70-9BA2-9DCA-79ED-46A305687D13}</UniqueIdentifier>
+			<UniqueIdentifier>{7CB934D8-735E-E332-1AFB-AD07ADCBDFE7}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_processors">
-			<UniqueIdentifier>{1161B628-395A-6D0A-4849-C47051B2ACC4}</UniqueIdentifier>
+			<UniqueIdentifier>{D14397FD-0D65-BEC0-7C8B-BDBCE4419866}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_utils">
-			<UniqueIdentifier>{99365FCD-471A-2797-102B-64E055260432}</UniqueIdentifier>
+			<UniqueIdentifier>{5128D2DB-66FC-25A7-6F52-73BB37AF2038}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_core">
-			<UniqueIdentifier>{E4AE9618-4C8D-2A40-5639-67D93474E9FE}</UniqueIdentifier>
+			<UniqueIdentifier>{DC1AAB30-7932-B9E0-D9DA-BB372B7F4A90}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_cryptography">
-			<UniqueIdentifier>{A3858551-1A9B-BA5C-ACCB-BDE7705E2EA8}</UniqueIdentifier>
+			<UniqueIdentifier>{2791DDF4-F327-71DE-3035-C83E907F1088}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_data_structures">
-			<UniqueIdentifier>{58C588DD-7B42-A1A1-FC0E-505ED11124A3}</UniqueIdentifier>
+			<UniqueIdentifier>{C2B71AE9-E82F-9B39-E727-B66492A68ED4}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_events">
-			<UniqueIdentifier>{84417774-E639-F795-3698-D193CBE7FDB1}</UniqueIdentifier>
+			<UniqueIdentifier>{22979C93-C100-C987-A3D2-1B9D87C2FCCE}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_graphics">
-			<UniqueIdentifier>{87629620-7AED-9601-ED96-53DABD1A10B2}</UniqueIdentifier>
+			<UniqueIdentifier>{3254FC20-AC19-8870-2B9D-79362810FB15}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_gui_basics">
-			<UniqueIdentifier>{D690F866-1EFD-4DEC-649D-CB93B2F7009C}</UniqueIdentifier>
+			<UniqueIdentifier>{BA2628BF-7CD8-FC80-9EE0-998B5B5A3292}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_gui_extra">
-			<UniqueIdentifier>{2FE91416-84BE-6946-4157-B3FC9F25A9E8}</UniqueIdentifier>
+			<UniqueIdentifier>{94EF9E86-EBF6-68D7-5E11-2122BD7BDCB0}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_video">
-			<UniqueIdentifier>{F6A9C933-A3AC-5B76-DE7A-D4D98E88D466}</UniqueIdentifier>
+			<UniqueIdentifier>{312CEBC7-932B-CEF5-B5A8-55C79AA2BD2A}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_plugin_client">
-			<UniqueIdentifier>{1BCD4D72-474B-6406-678E-ECBD078DBCBD}</UniqueIdentifier>
+			<UniqueIdentifier>{D4D05767-3EBB-4070-A5A7-D9AA390125EC}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_plugin_client\utility">
-			<UniqueIdentifier>{7FFB680C-BE00-3767-6F3B-05C14E3BF911}</UniqueIdentifier>
+			<UniqueIdentifier>{6C81AB15-6740-4287-D0A2-5402D0ABA651}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="libraries\juce\modules\juce_audio_plugin_client\VST">
-			<UniqueIdentifier>{7DE4D92D-E78C-F43E-04D7-B594B5018F02}</UniqueIdentifier>
+			<UniqueIdentifier>{E7840022-F445-B6AC-9D8B-22326FB6DC98}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -75,16 +75,16 @@
 		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_skin.h">
 			<Filter>Source\common\amalgamated</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_widgets.h">
-			<Filter>Source\common\amalgamated</Filter>
-		</ClInclude>
 		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_math.h">
 			<Filter>Source\common\amalgamated</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_parameters.h">
+		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_widget.h">
 			<Filter>Source\common\amalgamated</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_audio.h">
+			<Filter>Source\common\amalgamated</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_parameter.h">
 			<Filter>Source\common\amalgamated</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\Source\window_validation_content.h">
@@ -125,16 +125,16 @@
 		</ClInclude>
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_math.cpp">
+		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_widget.cpp">
 			<Filter>Source\common\amalgamated</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_parameters.cpp">
+		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_math.cpp">
 			<Filter>Source\common\amalgamated</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_skin.cpp">
 			<Filter>Source\common\amalgamated</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_widgets.cpp">
+		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_parameter.cpp">
 			<Filter>Source\common\amalgamated</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_audio.cpp">

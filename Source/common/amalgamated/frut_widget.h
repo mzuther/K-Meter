@@ -35,29 +35,29 @@ namespace frut
 {
 
 // pre includes
-#include "../widgets/generic_meter_orientation.h"
-#include "../widgets/resources/resources.h"
+#include "../widget/generic_meter_orientation.h"
+#include "../widget/resources/resources.h"
 
 // normal includes
-#include "../widgets/generic_channel_slider.h"
-#include "../widgets/generic_meter_segment.h"
-#include "../widgets/generic_meter_segment_continuous.h"
-#include "../widgets/generic_meter_segment_discrete.h"
-#include "../widgets/generic_needle_meter.h"
-#include "../widgets/generic_plugin_standalone.h"
-#include "../widgets/generic_signal_led.h"
-#include "../widgets/generic_state_label.h"
-#include "../widgets/generic_window_about_content.h"
-#include "../widgets/generic_window_settings_content.h"
-#include "../widgets/generic_window_skin_content.h"
-#include "../widgets/generic_window_validation_content.h"
-#include "../widgets/slider_combined.h"
-#include "../widgets/slider_continuous.h"
-#include "../widgets/slider_switch.h"
-#include "../widgets/slider_switch_linear_bar.h"
+#include "../widget/generic_channel_slider.h"
+#include "../widget/generic_meter_segment.h"
+#include "../widget/generic_meter_segment_continuous.h"
+#include "../widget/generic_meter_segment_discrete.h"
+#include "../widget/generic_needle_meter.h"
+#include "../widget/generic_plugin_standalone.h"
+#include "../widget/generic_signal_led.h"
+#include "../widget/generic_state_label.h"
+#include "../widget/generic_window_about_content.h"
+#include "../widget/generic_window_settings_content.h"
+#include "../widget/generic_window_skin_content.h"
+#include "../widget/generic_window_validation_content.h"
+#include "../widget/slider_combined.h"
+#include "../widget/slider_continuous.h"
+#include "../widget/slider_switch.h"
+#include "../widget/slider_switch_linear_bar.h"
 
 // post includes
-#include "../widgets/generic_meter_bar.h"
+#include "../widget/generic_meter_bar.h"
 
 }
 

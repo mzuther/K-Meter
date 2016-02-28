@@ -24,12 +24,12 @@
 ---------------------------------------------------------------------------- */
 
 
-SliderCombined::SliderCombined(ParameterJuggler *pParameters, int nParameterIndex, int nParameterIndexSwitch)
+SliderCombined::SliderCombined(parameter::Juggler *pParameters, int nParameterIndex, int nParameterIndexSwitch)
 {
-    pCombined = dynamic_cast<PluginParameterCombined *>(pParameters->getPluginParameter(nParameterIndex));
+    pCombined = dynamic_cast<parameter::ParCombined *>(pParameters->getPluginParameter(nParameterIndex));
     jassert(pCombined != nullptr);
 
-    pModeSwitch = dynamic_cast<PluginParameterBoolean *>(pParameters->getPluginParameter(nParameterIndexSwitch));
+    pModeSwitch = dynamic_cast<parameter::ParBoolean *>(pParameters->getPluginParameter(nParameterIndexSwitch));
     jassert(pModeSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pCombined->getStepSize());

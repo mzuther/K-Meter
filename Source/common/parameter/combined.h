@@ -33,17 +33,17 @@
 /// The methods of this class may be called on the audio thread, so
 /// they are absolutely time-critical!
 ///
-class PluginParameterCombined : virtual public PluginParameter
+class ParCombined : virtual public Parameter
 {
 public:
-    PluginParameterCombined(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places);
+    ParCombined(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places);
 
     virtual void setName(const String &newParameterName) override;
 
     bool getMode();
     void setMode(bool use_presets);
     void toggleMode();
-    PluginParameterBoolean *getModeSwitch();
+    parameter::ParBoolean *getModeSwitch();
 
     void addPreset(const float newRealValue, const String &newLabel);
     int getNumberOfSteps();
@@ -81,13 +81,13 @@ protected:
     virtual void setChangeFlag() override;
 
 private:
-    JUCE_LEAK_DETECTOR(PluginParameterCombined);
+    JUCE_LEAK_DETECTOR(ParCombined);
 
     bool usePresets;
 
-    PluginParameterBoolean modeSwitch;
-    PluginParameterSwitch presetValues;
-    PluginParameterContinuous continuousValues;
+    parameter::ParBoolean modeSwitch;
+    parameter::ParSwitch presetValues;
+    parameter::ParContinuous continuousValues;
 };
 
 

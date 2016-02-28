@@ -23,41 +23,31 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_PARAMETER_STRING_H__
-#define __FRUT_PARAMETER_STRING_H__
+#ifndef __FRUT_AMALGAMATED_PARAMETERS_CPP__
+#define __FRUT_AMALGAMATED_PARAMETERS_CPP__
 
 
-/// Plug-in parameter for storing a String value.
-///
-/// The methods of this class may be called on the audio thread, so
-/// they are absolutely time-critical!
-///
-class PluginParameterString : virtual public PluginParameter
+#include "../FrutHeader.h"
+
+
+namespace frut
 {
-public:
-    PluginParameterString(const String &newValue);
+namespace parameter
+{
 
-    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
-    virtual void setFloat(float newValue) override;
-    virtual void setRealFloat(float newRealValue) override;
+#include "../parameter/boolean.cpp"
+#include "../parameter/combined.cpp"
+#include "../parameter/continuous.cpp"
+#include "../parameter/juggler.cpp"
+#include "../parameter/parameter.cpp"
+#include "../parameter/string.cpp"
+#include "../parameter/switch.cpp"
 
-    virtual const String getText() override;
-    virtual void setText(const String &newValue) override;
-
-    virtual float getFloatFromText(const String &newValue) override;
-    virtual const String getTextFromFloat(float newValue) override;
-
-    virtual void loadFromXml(XmlElement *xmlDocument) override;
-    virtual void storeAsXml(XmlElement *xmlDocument) override;
-
-private:
-    JUCE_LEAK_DETECTOR(PluginParameterString);
-
-    String textValue;
-};
+}
+}
 
 
-#endif  // __FRUT_PARAMETER_STRING_H__
+#endif  // __FRUT_AMALGAMATED_PARAMETERS_CPP__
 
 
 // Local Variables:

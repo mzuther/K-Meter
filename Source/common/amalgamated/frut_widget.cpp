@@ -23,43 +23,39 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_SLIDER_COMBINED_H__
-#define __FRUT_WIDGET_SLIDER_COMBINED_H__
+#ifndef __FRUT_AMALGAMATED_WIDGETS_CPP__
+#define __FRUT_AMALGAMATED_WIDGETS_CPP__
 
 
-class SliderCombined :
-    public Slider
+#include "../FrutHeader.h"
+
+
+namespace frut
 {
-public:
-    SliderCombined(ParameterJuggler *pParameters, int nParameterIndex, int nParameterIndexSwitch);
 
-    void visibilityChanged();
-    void resized();
-    void setSliderColour(const Colour &colour);
+#include "../widget/generic_channel_slider.cpp"
+#include "../widget/generic_meter_bar.cpp"
+#include "../widget/generic_meter_segment.cpp"
+#include "../widget/generic_meter_segment_continuous.cpp"
+#include "../widget/generic_meter_segment_discrete.cpp"
+#include "../widget/generic_needle_meter.cpp"
+#include "../widget/generic_plugin_standalone.cpp"
+#include "../widget/generic_signal_led.cpp"
+#include "../widget/generic_state_label.cpp"
+#include "../widget/generic_window_about_content.cpp"
+#include "../widget/generic_window_settings_content.cpp"
+#include "../widget/generic_window_skin_content.cpp"
+#include "../widget/generic_window_validation_content.cpp"
+#include "../widget/resources/resources.cpp"
+#include "../widget/slider_combined.cpp"
+#include "../widget/slider_continuous.cpp"
+#include "../widget/slider_switch.cpp"
+#include "../widget/slider_switch_linear_bar.cpp"
 
-    void addButtonListener(Button::Listener *newListener);
-    void removeListener(Button::Listener *listener);
-
-    void updateMode();
-
-    float getRealFloat();
-    bool getBoolean();
-    int getRealInteger();
-
-    double getValueFromText(const String &strText);
-    String getTextFromValue(double dValue);
-private:
-    JUCE_LEAK_DETECTOR(SliderCombined);
-
-    ScopedPointer<DrawableButton> toggleButton;
-    Colour colourRotary;
-
-    PluginParameterCombined *pCombined;
-    PluginParameterBoolean *pModeSwitch;
-};
+}
 
 
-#endif  // __FRUT_WIDGET_SLIDER_COMBINED_H__
+#endif  // __FRUT_AMALGAMATED_WIDGETS_CPP__
 
 
 // Local Variables:

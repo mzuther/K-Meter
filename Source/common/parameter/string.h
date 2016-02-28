@@ -23,35 +23,41 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_SLIDER_SWITCH_H__
-#define __FRUT_WIDGET_SLIDER_SWITCH_H__
+#ifndef __FRUT_PARAMETER_STRING_H__
+#define __FRUT_PARAMETER_STRING_H__
 
 
-class SliderSwitch :
-    public Slider
+/// Plug-in parameter for storing a String value.
+///
+/// The methods of this class may be called on the audio thread, so
+/// they are absolutely time-critical!
+///
+class ParString : virtual public Parameter
 {
 public:
-    SliderSwitch(ParameterJuggler *pParameters, int nParameterIndex);
+    ParString(const String &newValue);
 
-    void visibilityChanged();
-    void resized();
-    void setSliderColour(const Colour &colour);
+    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
+    virtual void setFloat(float newValue) override;
+    virtual void setRealFloat(float newRealValue) override;
 
-    float getRealFloat();
-    bool getBoolean();
-    int getRealInteger();
+    virtual const String getText() override;
+    virtual void setText(const String &newValue) override;
 
-    double getValueFromText(const String &strText);
-    String getTextFromValue(double dValue);
+    virtual float getFloatFromText(const String &newValue) override;
+    virtual const String getTextFromFloat(float newValue) override;
+
+    virtual void loadFromXml(XmlElement *xmlDocument) override;
+    virtual void storeAsXml(XmlElement *xmlDocument) override;
+
 private:
-    JUCE_LEAK_DETECTOR(SliderSwitch);
+    JUCE_LEAK_DETECTOR(ParString);
 
-    Colour colourRotary;
-    PluginParameterSwitch *pSwitch;
+    String textValue;
 };
 
 
-#endif  // __FRUT_WIDGET_SLIDER_SWITCH_H__
+#endif  // __FRUT_PARAMETER_STRING_H__
 
 
 // Local Variables:

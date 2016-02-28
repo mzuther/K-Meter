@@ -33,10 +33,10 @@
 /// The methods of this class may be called on the audio thread, so
 /// they are absolutely time-critical!
 ///
-class PluginParameterSwitch : virtual public PluginParameter
+class ParSwitch : virtual public Parameter
 {
 public:
-    PluginParameterSwitch(bool save_from_deletion = false);
+    ParSwitch(bool save_from_deletion = false);
 
     void addPreset(const float newRealValue, const String &newLabel);
     int getNumberOfSteps();
@@ -54,7 +54,7 @@ public:
     virtual const String getTextFromFloat(float newValue) override;
 
 private:
-    JUCE_LEAK_DETECTOR(PluginParameterSwitch);
+    JUCE_LEAK_DETECTOR(ParSwitch);
 
     Array<float> arrRealValues;
     StringArray arrLabels;

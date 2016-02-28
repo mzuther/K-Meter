@@ -58,9 +58,9 @@
 ///        real value
 ///
 /// @param save_from_deletion should parameter be spared from deletion
-///        in destructor of ParameterJuggler?
+///        in destructor of Juggler?
 ///
-PluginParameterContinuous::PluginParameterContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places, bool save_from_deletion)
+ParContinuous::ParContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places, bool save_from_deletion)
 {
     // minimum and maximum real parameter value
     realMinimum = real_minimum;
@@ -123,7 +123,7 @@ PluginParameterContinuous::PluginParameterContinuous(float real_minimum, float r
 ///
 /// @return **real** parameter value
 ///
-float PluginParameterContinuous::toRealFloat(float newValue)
+float ParContinuous::toRealFloat(float newValue)
 {
     // confine new value to internal parameter range
     if (newValue < 0.0f)
@@ -156,7 +156,7 @@ float PluginParameterContinuous::toRealFloat(float newValue)
 ///
 /// @return **internal** parameter value
 ///
-float PluginParameterContinuous::toInternalFloat(float newRealValue)
+float ParContinuous::toInternalFloat(float newRealValue)
 {
     // confine new value to real parameter range
     if (newRealValue < realMinimum)
@@ -187,7 +187,7 @@ float PluginParameterContinuous::toInternalFloat(float newRealValue)
 ///
 /// @return number of discrete parameter values
 ///
-int PluginParameterContinuous::getNumberOfSteps()
+int ParContinuous::getNumberOfSteps()
 {
     return numberOfSteps;
 }
@@ -197,7 +197,7 @@ int PluginParameterContinuous::getNumberOfSteps()
 ///
 /// @return step size
 ///
-float PluginParameterContinuous::getStepSize()
+float ParContinuous::getStepSize()
 {
     return 1.0f / float(numberOfSteps - 1);
 }
@@ -211,7 +211,7 @@ float PluginParameterContinuous::getStepSize()
 /// @param updateParameter if this is true, the parameter's value will
 ///        be set to the new default value
 ///
-void PluginParameterContinuous::setDefaultRealFloat(float newRealValue, bool updateParameter)
+void ParContinuous::setDefaultRealFloat(float newRealValue, bool updateParameter)
 {
     // confine new default value to real parameter range
     if (newRealValue < realMinimum)
@@ -242,7 +242,7 @@ void PluginParameterContinuous::setDefaultRealFloat(float newRealValue, bool upd
 ///
 /// @param newValue new value (between 0.0 and 1.0)
 ///
-void PluginParameterContinuous::setFloat(float newValue)
+void ParContinuous::setFloat(float newValue)
 {
     // confine new value to internal parameter range
     if (newValue < 0.0f)
@@ -274,7 +274,7 @@ void PluginParameterContinuous::setFloat(float newValue)
 ///
 /// @param newRealValue new value
 ///
-void PluginParameterContinuous::setRealFloat(float newRealValue)
+void ParContinuous::setRealFloat(float newRealValue)
 {
     // transform real value to internal value
     float internalValue = toInternalFloat(newRealValue);
@@ -288,7 +288,7 @@ void PluginParameterContinuous::setRealFloat(float newRealValue)
 ///
 /// @param newSuffix new suffix (may be an empty string)
 ///
-void PluginParameterContinuous::setSuffix(const String &newSuffix)
+void ParContinuous::setSuffix(const String &newSuffix)
 {
     // set new suffix for text value
     valueSuffix = newSuffix;
@@ -301,7 +301,7 @@ void PluginParameterContinuous::setSuffix(const String &newSuffix)
 ///
 /// @return **internal** value
 ///
-float PluginParameterContinuous::getFloatFromText(const String &newValue)
+float ParContinuous::getFloatFromText(const String &newValue)
 {
     // removed suffix from string
     String cleanedTextValue = newValue.upToLastOccurrenceOf(valueSuffix, false, false);
@@ -320,7 +320,7 @@ float PluginParameterContinuous::getFloatFromText(const String &newValue)
 ///
 /// @return formatted string
 ///
-const String PluginParameterContinuous::getTextFromFloat(float newValue)
+const String ParContinuous::getTextFromFloat(float newValue)
 {
     // transform internal value to real value
     float newRealValue = toRealFloat(newValue);
@@ -336,7 +336,7 @@ const String PluginParameterContinuous::getTextFromFloat(float newValue)
     else
     {
         // round real parameter value
-        newRealValue = (float) math::Simple::round(newRealValue);
+        newRealValue = (float) math::SimpleMath::round(newRealValue);
 
         // format parameter value
         textValueNew = String(newRealValue);

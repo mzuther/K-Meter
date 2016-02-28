@@ -32,13 +32,13 @@
 /// The methods of this class may be called on the audio thread, so
 /// they are absolutely time-critical!
 ///
-class PluginParameter
+class Parameter
 {
 public:
-    PluginParameter();
+    Parameter();
 
     // Destructor.
-    virtual ~PluginParameter() {};
+    virtual ~Parameter() {};
 
     virtual String getName();
     virtual void setName(const String &newParameterName);

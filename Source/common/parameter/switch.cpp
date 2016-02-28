@@ -31,9 +31,9 @@
 /// preset values.  **Internal** values simply range from 0.0 to 1.0.
 ///
 /// @param save_from_deletion should parameter be spared from deletion
-///        in destructor of ParameterJuggler?
+///        in destructor of Juggler?
 ///
-PluginParameterSwitch::PluginParameterSwitch(bool save_from_deletion)
+ParSwitch::ParSwitch(bool save_from_deletion)
 {
     // initialise values (invalid because parameter contains no
     // values)
@@ -65,7 +65,7 @@ PluginParameterSwitch::PluginParameterSwitch(bool save_from_deletion)
 ///
 /// @param newLabel string representation
 ///
-void PluginParameterSwitch::addPreset(const float newRealValue, const String &newLabel)
+void ParSwitch::addPreset(const float newRealValue, const String &newLabel)
 {
     // store real value in array
     arrRealValues.add(newRealValue);
@@ -95,7 +95,7 @@ void PluginParameterSwitch::addPreset(const float newRealValue, const String &ne
 ///
 /// @return number of discrete parameter values
 ///
-int PluginParameterSwitch::getNumberOfSteps()
+int ParSwitch::getNumberOfSteps()
 {
     return arrLabels.size();
 }
@@ -105,7 +105,7 @@ int PluginParameterSwitch::getNumberOfSteps()
 ///
 /// @return step size
 ///
-float PluginParameterSwitch::getStepSize()
+float ParSwitch::getStepSize()
 {
     return 1.0f / float(getNumberOfSteps() - 1);
 }
@@ -117,7 +117,7 @@ float PluginParameterSwitch::getStepSize()
 ///
 /// @return **real** parameter value
 ///
-float PluginParameterSwitch::toRealFloat(float newValue)
+float ParSwitch::toRealFloat(float newValue)
 {
     // confine new value to internal parameter range
     if (newValue < 0.0f)
@@ -130,7 +130,7 @@ float PluginParameterSwitch::toRealFloat(float newValue)
     }
 
     // find matching index in array with real values
-    int selectedIndex = math::Simple::round(newValue / stepSize);
+    int selectedIndex = math::SimpleMath::round(newValue / stepSize);
 
     // return real value
     return arrRealValues[selectedIndex];
@@ -143,7 +143,7 @@ float PluginParameterSwitch::toRealFloat(float newValue)
 ///
 /// @return **internal** parameter value
 ///
-float PluginParameterSwitch::toInternalFloat(float newRealValue)
+float ParSwitch::toInternalFloat(float newRealValue)
 {
     // try to find new value in array
     int selectedIndex = arrRealValues.indexOf(newRealValue);
@@ -189,7 +189,7 @@ float PluginParameterSwitch::toInternalFloat(float newRealValue)
 /// @param updateParameter if this is true, the parameter's value will
 ///        be set to the new default value
 ///
-void PluginParameterSwitch::setDefaultRealFloat(float newRealValue, bool updateParameter)
+void ParSwitch::setDefaultRealFloat(float newRealValue, bool updateParameter)
 {
     // update internal default value
     defaultValue = toInternalFloat(newRealValue);
@@ -210,7 +210,7 @@ void PluginParameterSwitch::setDefaultRealFloat(float newRealValue, bool updateP
 ///
 /// @param newValue new value (between 0.0 and 1.0)
 ///
-void PluginParameterSwitch::setFloat(float newValue)
+void ParSwitch::setFloat(float newValue)
 {
     // calculate internal value
     float newRealValue = toRealFloat(newValue);
@@ -235,7 +235,7 @@ void PluginParameterSwitch::setFloat(float newValue)
 ///
 /// @param newRealValue new value
 ///
-void PluginParameterSwitch::setRealFloat(float newRealValue)
+void ParSwitch::setRealFloat(float newRealValue)
 {
     // transform real value to internal value
     float internalValue = toInternalFloat(newRealValue);
@@ -251,7 +251,7 @@ void PluginParameterSwitch::setRealFloat(float newRealValue)
 ///
 /// @return **internal** value
 ///
-float PluginParameterSwitch::getFloatFromText(const String &newValue)
+float ParSwitch::getFloatFromText(const String &newValue)
 {
     // try to find value in array
     int selectedIndex = arrLabels.indexOf(newValue);
@@ -278,7 +278,7 @@ float PluginParameterSwitch::getFloatFromText(const String &newValue)
 ///
 /// @return formatted string
 ///
-const String PluginParameterSwitch::getTextFromFloat(float newValue)
+const String ParSwitch::getTextFromFloat(float newValue)
 {
     // confine new value to internal parameter range
     if (newValue < 0.0f)
@@ -291,7 +291,7 @@ const String PluginParameterSwitch::getTextFromFloat(float newValue)
     }
 
     // find matching index in array with real values
-    int selectedIndex = math::Simple::round(newValue / stepSize);
+    int selectedIndex = math::SimpleMath::round(newValue / stepSize);
 
     // return label
     return arrLabels[selectedIndex];

@@ -36,9 +36,9 @@
 ///        **false**
 ///
 /// @param save_from_deletion should parameter be spared from deletion
-///        in destructor of ParameterJuggler?
+///        in destructor of Juggler?
 ///
-PluginParameterBoolean::PluginParameterBoolean(const String &state_true, const String &state_false, bool save_from_deletion)
+ParBoolean::ParBoolean(const String &state_true, const String &state_false, bool save_from_deletion)
 {
     // intialise string that is returned when the parameter is "true"
     labelTrue = state_true;
@@ -60,7 +60,7 @@ PluginParameterBoolean::PluginParameterBoolean(const String &state_true, const S
 
 /// Toggle parameter state from **true** to **false** and vice versa.
 ///
-void PluginParameterBoolean::toggleState()
+void ParBoolean::toggleState()
 {
     // value is "false"
     if (value == 0.0f)
@@ -85,7 +85,7 @@ void PluginParameterBoolean::toggleState()
 /// @param updateParameter if this is true, the parameter's value will
 ///        be set to the new default value
 ///
-void PluginParameterBoolean::setDefaultRealFloat(float newRealValue, bool updateParameter)
+void ParBoolean::setDefaultRealFloat(float newRealValue, bool updateParameter)
 {
     // confine to allowed values
     if (newRealValue != 0.0f)
@@ -112,7 +112,7 @@ void PluginParameterBoolean::setDefaultRealFloat(float newRealValue, bool update
 /// @param updateParameter if this is true, the parameter's value will
 ///        be set to the new default value
 ///
-void PluginParameterBoolean::setDefaultBoolean(bool newValue, bool updateParameter)
+void ParBoolean::setDefaultBoolean(bool newValue, bool updateParameter)
 {
     setDefaultRealFloat(newValue ? 1.0f : 0.0f, updateParameter);
 }
@@ -123,7 +123,7 @@ void PluginParameterBoolean::setDefaultBoolean(bool newValue, bool updateParamet
 ///
 /// @param newValue new value
 ///
-void PluginParameterBoolean::setFloat(float newValue)
+void ParBoolean::setFloat(float newValue)
 {
     // confine to allowed values
     if (newValue != 0.0f)
@@ -149,7 +149,7 @@ void PluginParameterBoolean::setFloat(float newValue)
 ///
 /// @param newRealValue new value
 ///
-void PluginParameterBoolean::setRealFloat(float newRealValue)
+void ParBoolean::setRealFloat(float newRealValue)
 {
     setFloat(newRealValue);
 }
@@ -159,7 +159,7 @@ void PluginParameterBoolean::setRealFloat(float newRealValue)
 ///
 /// @param newValue new value
 ///
-void PluginParameterBoolean::setBoolean(bool newValue)
+void ParBoolean::setBoolean(bool newValue)
 {
     setFloat(newValue ? 1.0f : 0.0f);
 }
@@ -171,7 +171,7 @@ void PluginParameterBoolean::setBoolean(bool newValue)
 ///
 /// @return **internal** value
 ///
-float PluginParameterBoolean::getFloatFromText(const String &newValue)
+float ParBoolean::getFloatFromText(const String &newValue)
 {
     // return "true" (1.0) if string matches "labelTrue"
     if (newValue.compare(labelTrue) == 0)
@@ -192,7 +192,7 @@ float PluginParameterBoolean::getFloatFromText(const String &newValue)
 ///
 /// @return formatted string
 ///
-const String PluginParameterBoolean::getTextFromFloat(float newValue)
+const String ParBoolean::getTextFromFloat(float newValue)
 {
     if (newValue == 0.0f)
     {
