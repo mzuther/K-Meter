@@ -49,7 +49,7 @@ KmeterAudioProcessor::KmeterAudioProcessor() :
     nTrakmeterBufferSize(1024)
 {
     Logger::outputDebugString(String("App  v") + JucePlugin_VersionString);
-    Logger::outputDebugString(String("Comm v") + MZ_Juce_Common::getVersion());
+    Logger::outputDebugString(String("Comm v") + Frut::getVersion());
     Logger::outputDebugString("");
 
     if (DEBUG_FILTER)
