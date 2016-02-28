@@ -37,7 +37,7 @@ class MeterBallistics;
 
 
 //============================================================================
-class KmeterAudioProcessor : public AudioProcessor, public ActionBroadcaster, virtual public AudioRingBufferProcessor
+class KmeterAudioProcessor : public AudioProcessor, public ActionBroadcaster, virtual public frut::AudioRingBufferProcessor
 {
 public:
     //==========================================================================
@@ -127,8 +127,8 @@ private:
 
     ScopedPointer<AudioFilePlayer> audioFilePlayer;
 
-    ScopedPointer<AudioRingBuffer> pRingBufferInput;
-    ScopedPointer<AudioRingBuffer> pRingBufferOutput;
+    ScopedPointer<frut::AudioRingBuffer> pRingBufferInput;
+    ScopedPointer<frut::AudioRingBuffer> pRingBufferOutput;
 
     ScopedPointer<AverageLevelFiltered> pAverageLevelFiltered;
     ScopedPointer<MeterBallistics> pMeterBallistics;
@@ -150,7 +150,7 @@ private:
 
     Array<int> arrOverflows;
 
-    int countOverflows(AudioRingBuffer *ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay);
+    int countOverflows(frut::AudioRingBuffer *ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay);
 };
 
 AudioProcessor *JUCE_CALLTYPE createPluginFilter();

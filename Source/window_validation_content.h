@@ -32,7 +32,8 @@
 
 /// Customized dialog window for validation settings.
 ///
-class WindowValidationContent : public GenericWindowValidationContent
+class WindowValidationContent :
+    public frut::GenericWindowValidationContent
 {
 public:
     WindowValidationContent(KmeterAudioProcessor *processor);

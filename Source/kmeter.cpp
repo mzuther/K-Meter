@@ -54,15 +54,15 @@ void Kmeter::applySkin(
 {
     displayPeakMeter_ = displayPeakMeter;
 
-    GenericMeterOrientation orientation;
+    frut::GenericMeterOrientation orientation;
 
     if (isHorizontal)
     {
-        orientation = GenericMeterOrientation::horizontal;
+        orientation = frut::GenericMeterOrientation::horizontal;
     }
     else
     {
-        orientation = GenericMeterOrientation::vertical;
+        orientation = frut::GenericMeterOrientation::vertical;
     }
 
     int segmentHeight = skin->getIntegerSetting(

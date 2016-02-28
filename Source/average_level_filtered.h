@@ -47,8 +47,8 @@ public:
     float getLevel(const int channel);
     int getAlgorithm();
     void setAlgorithm(const int average_algorithm);
-    void copyFromBuffer(AudioRingBuffer &ringBuffer, const unsigned int pre_delay, const int sample_rate);
-    void copyToBuffer(AudioRingBuffer &destination, const unsigned int sourceStartSample, const unsigned int numSamples);
+    void copyFromBuffer(frut::AudioRingBuffer &ringBuffer, const unsigned int pre_delay, const int sample_rate);
+    void copyToBuffer(frut::AudioRingBuffer &destination, const unsigned int sourceStartSample, const unsigned int numSamples);
     void copyToBuffer(AudioSampleBuffer &destination, const int channel, const int destStartSample, const int numSamples);
 
 private:
@@ -93,7 +93,7 @@ private:
 
     AudioSampleBuffer previousSamplesOutputTemp;
 
-    Dither dither;
+    frut::Dither dither;
 
     KmeterAudioProcessor *pProcessor;
     int nAverageAlgorithm;

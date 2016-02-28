@@ -32,7 +32,8 @@
 //==============================================================================
 /**
 */
-class PeakLabel : public GenericStateLabel
+class PeakLabel :
+    public frut::GenericStateLabel
 {
 public:
     PeakLabel(int nCrestFactor);

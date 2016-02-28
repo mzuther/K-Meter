@@ -566,7 +566,7 @@ float AverageLevelFiltered::getLevel(const int channel)
 }
 
 
-void AverageLevelFiltered::copyFromBuffer(AudioRingBuffer &ringBuffer, const unsigned int pre_delay, const int sample_rate)
+void AverageLevelFiltered::copyFromBuffer(frut::AudioRingBuffer &ringBuffer, const unsigned int pre_delay, const int sample_rate)
 {
     // recalculate filter kernel when sample rate changes
     if (nSampleRate != sample_rate)
@@ -580,7 +580,7 @@ void AverageLevelFiltered::copyFromBuffer(AudioRingBuffer &ringBuffer, const uns
 }
 
 
-void AverageLevelFiltered::copyToBuffer(AudioRingBuffer &destination, const unsigned int sourceStartSample, const unsigned int numSamples)
+void AverageLevelFiltered::copyToBuffer(frut::AudioRingBuffer &destination, const unsigned int sourceStartSample, const unsigned int numSamples)
 {
     // copy data from sample buffer to ring buffer
     destination.addSamples(sampleBuffer, sourceStartSample, numSamples);

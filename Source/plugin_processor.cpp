@@ -48,8 +48,8 @@ Flow of parameter processing:
 KmeterAudioProcessor::KmeterAudioProcessor() :
     nTrakmeterBufferSize(1024)
 {
+    Logger::outputDebugString(String("FRUT v") + frut::Common::getVersion());
     Logger::outputDebugString(String("App  v") + JucePlugin_VersionString);
-    Logger::outputDebugString(String("Comm v") + Frut::getVersion());
     Logger::outputDebugString("");
 
     if (DEBUG_FILTER)
@@ -449,10 +449,10 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     nSamplesInBuffer = 0;
     unsigned int uRingBufferSize = (samplesPerBlock > nTrakmeterBufferSize) ? samplesPerBlock : nTrakmeterBufferSize;
 
-    pRingBufferInput = new AudioRingBuffer("Input ring buffer", nNumInputChannels, uRingBufferSize, nTrakmeterBufferSize, nTrakmeterBufferSize);
+    pRingBufferInput = new frut::AudioRingBuffer("Input ring buffer", nNumInputChannels, uRingBufferSize, nTrakmeterBufferSize, nTrakmeterBufferSize);
     pRingBufferInput->setCallbackClass(this);
 
-    pRingBufferOutput = new AudioRingBuffer("Output ring buffer", nNumInputChannels, uRingBufferSize, nTrakmeterBufferSize, nTrakmeterBufferSize);
+    pRingBufferOutput = new frut::AudioRingBuffer("Output ring buffer", nNumInputChannels, uRingBufferSize, nTrakmeterBufferSize, nTrakmeterBufferSize);
 }
 
 
@@ -722,7 +722,7 @@ bool KmeterAudioProcessor::isValidating()
 }
 
 
-int KmeterAudioProcessor::countOverflows(AudioRingBuffer *ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay)
+int KmeterAudioProcessor::countOverflows(frut::AudioRingBuffer *ring_buffer, const unsigned int channel, const unsigned int length, const unsigned int pre_delay)
 {
     // initialise number of overflows in this buffer
     int nOverflows = 0;

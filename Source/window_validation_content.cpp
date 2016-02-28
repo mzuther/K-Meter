@@ -138,7 +138,7 @@ void WindowValidationContent::initialise(
 
 {
     // call method of super class
-    GenericWindowValidationContent::initialise(
+    frut::GenericWindowValidationContent::initialise(
         componentWidth,
         componentHeight,
         numberOfInputChannels,
@@ -232,7 +232,7 @@ void WindowValidationContent::initialise(
 void WindowValidationContent::applySkin()
 {
     // call method of super class
-    GenericWindowValidationContent::applySkin();
+    frut::GenericWindowValidationContent::applySkin();
 
 
     // style button for selecting the validation output format
@@ -386,7 +386,7 @@ void WindowValidationContent::buttonClicked(
     // otherwise, use handling of super class
     else
     {
-        GenericWindowValidationContent::buttonClicked(button);
+        frut::GenericWindowValidationContent::buttonClicked(button);
     }
 }
 

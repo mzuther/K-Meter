@@ -33,7 +33,8 @@
 //==============================================================================
 /**
 */
-class OverflowMeter : public GenericStateLabel
+class OverflowMeter :
+    public frut::GenericStateLabel
 {
 public:
     OverflowMeter();

@@ -35,7 +35,8 @@ KmeterPluginParameters::KmeterPluginParameters() :
 {
     // parameters created here will be deleted in "ParameterJuggler"!
 
-    PluginParameterSwitch *ParameterCrestFactor = new PluginParameterSwitch();
+    frut::PluginParameterSwitch *ParameterCrestFactor =
+        new frut::PluginParameterSwitch();
     ParameterCrestFactor->setName("Metering mode");
 
     ParameterCrestFactor->addPreset(0.0f,  "Normal");
@@ -47,7 +48,8 @@ KmeterPluginParameters::KmeterPluginParameters() :
     add(ParameterCrestFactor, selCrestFactor);
 
 
-    PluginParameterSwitch *ParameterAverageAlgorithm = new PluginParameterSwitch();
+    frut::PluginParameterSwitch *ParameterAverageAlgorithm =
+        new frut::PluginParameterSwitch();
     ParameterAverageAlgorithm->setName("Averaging algorithm");
 
     ParameterAverageAlgorithm->addPreset(selAlgorithmRms, "RMS");
@@ -57,42 +59,49 @@ KmeterPluginParameters::KmeterPluginParameters() :
     add(ParameterAverageAlgorithm, selAverageAlgorithm);
 
 
-    PluginParameterBoolean *ParameterExpanded = new PluginParameterBoolean("On", "Off");
+    frut::PluginParameterBoolean *ParameterExpanded =
+        new frut::PluginParameterBoolean("On", "Off");
     ParameterExpanded->setName("Expand meter");
     ParameterExpanded->setDefaultBoolean(false, true);
     add(ParameterExpanded, selExpanded);
 
 
-    PluginParameterBoolean *ParameterShowPeaks = new PluginParameterBoolean("On", "Off");
+    frut::PluginParameterBoolean *ParameterShowPeaks =
+        new frut::PluginParameterBoolean("On", "Off");
     ParameterShowPeaks->setName("Show peaks");
     ParameterShowPeaks->setDefaultBoolean(false, true);
     add(ParameterShowPeaks, selShowPeaks);
 
 
-    PluginParameterBoolean *ParameterInfinitePeakHold = new PluginParameterBoolean("On", "Off");
+    frut::PluginParameterBoolean *ParameterInfinitePeakHold =
+        new frut::PluginParameterBoolean("On", "Off");
     ParameterInfinitePeakHold->setName("Peak hold");
     ParameterInfinitePeakHold->setDefaultBoolean(false, true);
     add(ParameterInfinitePeakHold, selInfinitePeakHold);
 
 
-    PluginParameterBoolean *ParameterMono = new PluginParameterBoolean("On", "Off");
+    frut::PluginParameterBoolean *ParameterMono =
+        new frut::PluginParameterBoolean("On", "Off");
     ParameterMono->setName("Mono input");
     ParameterMono->setDefaultBoolean(false, true);
     add(ParameterMono, selMono);
 
 
-    PluginParameterBoolean *ParameterDiscreteMeter = new PluginParameterBoolean("On", "Off");
+    frut::PluginParameterBoolean *ParameterDiscreteMeter =
+        new frut::PluginParameterBoolean("On", "Off");
     ParameterDiscreteMeter->setName("Discrete meter");
     ParameterDiscreteMeter->setDefaultBoolean(false, true);
     add(ParameterDiscreteMeter, selDiscreteMeter);
 
 
-    PluginParameterString *ParameterValidationFileName = new PluginParameterString(String::empty);
+    frut::PluginParameterString *ParameterValidationFileName =
+        new frut::PluginParameterString(String::empty);
     ParameterValidationFileName->setName("Validation file");
     add(ParameterValidationFileName, selValidationFileName);
 
 
-    PluginParameterSwitch *ParameterValidationSelectedChannel = new PluginParameterSwitch();
+    frut::PluginParameterSwitch *ParameterValidationSelectedChannel =
+        new frut::PluginParameterSwitch();
     ParameterValidationSelectedChannel->setName("Validation audio channel");
 
     // values correspond to the channel index in AudioSampleBuffer
@@ -110,37 +119,43 @@ KmeterPluginParameters::KmeterPluginParameters() :
     add(ParameterValidationSelectedChannel, selValidationSelectedChannel);
 
 
-    PluginParameterBoolean *ParameterValidationAverageMeterLevel = new PluginParameterBoolean("On", "Off");
+    frut::PluginParameterBoolean *ParameterValidationAverageMeterLevel =
+        new frut::PluginParameterBoolean("On", "Off");
     ParameterValidationAverageMeterLevel->setName("Validate average meter level");
     ParameterValidationAverageMeterLevel->setDefaultBoolean(true, true);
     add(ParameterValidationAverageMeterLevel, selValidationAverageMeterLevel);
 
 
-    PluginParameterBoolean *ParameterValidationPeakMeterLevel = new PluginParameterBoolean("On", "Off");
+    frut::PluginParameterBoolean *ParameterValidationPeakMeterLevel =
+        new frut::PluginParameterBoolean("On", "Off");
     ParameterValidationPeakMeterLevel->setName("Validate peak meter level");
     ParameterValidationPeakMeterLevel->setDefaultBoolean(true, true);
     add(ParameterValidationPeakMeterLevel, selValidationPeakMeterLevel);
 
 
-    PluginParameterBoolean *ParameterValidationMaximumPeakLevel = new PluginParameterBoolean("On", "Off");
+    frut::PluginParameterBoolean *ParameterValidationMaximumPeakLevel =
+        new frut::PluginParameterBoolean("On", "Off");
     ParameterValidationMaximumPeakLevel->setName("Validate maximum peak level");
     ParameterValidationMaximumPeakLevel->setDefaultBoolean(true, true);
     add(ParameterValidationMaximumPeakLevel, selValidationMaximumPeakLevel);
 
 
-    PluginParameterBoolean *ParameterValidationStereoMeterValue = new PluginParameterBoolean("On", "Off");
+    frut::PluginParameterBoolean *ParameterValidationStereoMeterValue =
+        new frut::PluginParameterBoolean("On", "Off");
     ParameterValidationStereoMeterValue->setName("Validate stereo meter value");
     ParameterValidationStereoMeterValue->setDefaultBoolean(true, true);
     add(ParameterValidationStereoMeterValue, selValidationStereoMeterValue);
 
 
-    PluginParameterBoolean *ParameterValidationPhaseCorrelation = new PluginParameterBoolean("On", "Off");
+    frut::PluginParameterBoolean *ParameterValidationPhaseCorrelation =
+        new frut::PluginParameterBoolean("On", "Off");
     ParameterValidationPhaseCorrelation->setName("Validate phase correlation");
     ParameterValidationPhaseCorrelation->setDefaultBoolean(true, true);
     add(ParameterValidationPhaseCorrelation, selValidationPhaseCorrelation);
 
 
-    PluginParameterBoolean *ParameterValidationCSVFormat = new PluginParameterBoolean("CSV", "Full");
+    frut::PluginParameterBoolean *ParameterValidationCSVFormat =
+        new frut::PluginParameterBoolean("CSV", "Full");
     ParameterValidationCSVFormat->setName("Validation output format");
     ParameterValidationCSVFormat->setDefaultBoolean(false, true);
     add(ParameterValidationCSVFormat, selValidationCSVFormat);
@@ -166,7 +181,8 @@ KmeterPluginParameters::KmeterPluginParameters() :
     // load name of default skin from file
     String defaultSkinName = defaultSkinFile.loadFileAsString();
 
-    PluginParameterString *ParameterSkinName = new PluginParameterString(defaultSkinName);
+    frut::PluginParameterString *ParameterSkinName =
+        new frut::PluginParameterString(defaultSkinName);
     ParameterSkinName->setName("Skin");
     add(ParameterSkinName, selSkinName);
 }
