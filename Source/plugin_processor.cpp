@@ -48,7 +48,7 @@ Flow of parameter processing:
 KmeterAudioProcessor::KmeterAudioProcessor() :
     nTrakmeterBufferSize(1024)
 {
-    Logger::outputDebugString(String("FRUT v") + frut::Common::getVersion());
+    Logger::outputDebugString(String("FRUT v") + frut::Frut::getVersion());
     Logger::outputDebugString(String("App  v") + JucePlugin_VersionString);
     Logger::outputDebugString("");
 
