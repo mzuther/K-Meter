@@ -26,14 +26,12 @@
 #ifndef __SKIN_H__
 #define __SKIN_H__
 
-class Skin;
-
 #include "FrutHeader.h"
 #include "plugin_parameters.h"
 
 
 class Skin :
-    public frut::GenericSkin
+    public frut::skin::Skin
 {
 public:
     void loadSkin(File &skinFile,

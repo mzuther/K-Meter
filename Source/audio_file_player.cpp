@@ -49,8 +49,8 @@ AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBal
 
     for (int nChannel = 0; nChannel < nNumberOfChannels; ++nChannel)
     {
-        arrAverager_AverageMeterLevels.add(frut::Averager(nSamplesMovingAverage, fMeterMinimumDecibel));
-        arrAverager_PeakMeterLevels.add(frut::Averager(nSamplesMovingAverage, fMeterMinimumDecibel));
+        arrAverager_AverageMeterLevels.add(frut::math::Averager(nSamplesMovingAverage, fMeterMinimumDecibel));
+        arrAverager_PeakMeterLevels.add(frut::math::Averager(nSamplesMovingAverage, fMeterMinimumDecibel));
     }
 
     AudioFormatManager formatManager;
@@ -455,7 +455,7 @@ String AudioFilePlayer::formatValue(const float fValue)
 }
 
 
-void AudioFilePlayer::outputValue(const float fValue, frut::Averager &averager, const String &strPrefix, const String &strSuffix)
+void AudioFilePlayer::outputValue(const float fValue, frut::math::Averager &averager, const String &strPrefix, const String &strSuffix)
 {
     String strValue;
 

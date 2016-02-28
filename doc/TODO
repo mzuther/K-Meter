@@ -12,8 +12,6 @@ o [mzuther] pretty-print and document code
 
 * use JUCE namespace explicitly
 
-* create namespace for Common Library
-
 * horizontal meter
 
 * implement inter-sample peak meter (ITU BS.1770-1, Annex 2)
