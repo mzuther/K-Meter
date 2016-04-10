@@ -65,7 +65,7 @@
 #else
   #define JucePlugin_MaxNumInputChannels   2
   #define JucePlugin_MaxNumOutputChannels  2
-  #define JucePlugin_PreferredChannelConfigurations   {1, 1}, {2, 2}
+  #define JucePlugin_PreferredChannelConfigurations   {2, 2}
 #endif
 
 #define JUCE_USE_FLAC  1
@@ -340,13 +340,13 @@
  #define JucePlugin_EditorRequiresKeyboardFocus  0
 #endif
 #ifndef  JucePlugin_Version
- #define JucePlugin_Version                2.2.3
+ #define JucePlugin_Version                2.3.0
 #endif
 #ifndef  JucePlugin_VersionCode
- #define JucePlugin_VersionCode            0x20203
+ #define JucePlugin_VersionCode            0x20300
 #endif
 #ifndef  JucePlugin_VersionString
- #define JucePlugin_VersionString          "2.2.3"
+ #define JucePlugin_VersionString          "2.3.0"
 #endif
 #ifndef  JucePlugin_VSTUniqueID
  #define JucePlugin_VSTUniqueID            JucePlugin_PluginCode
@@ -412,7 +412,7 @@
  #define JucePlugin_MaxNumOutputChannels   2
 #endif
 #ifndef  JucePlugin_PreferredChannelConfigurations
- #define JucePlugin_PreferredChannelConfigurations  {1, 1}, {2, 2}
+ #define JucePlugin_PreferredChannelConfigurations  {2, 2}
 #endif
 
 #endif  // __JUCE_APPCONFIG_LEMWQ6__

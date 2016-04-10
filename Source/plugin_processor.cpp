@@ -298,30 +298,6 @@ void KmeterAudioProcessor::setParameterSkinName(const String &strSkinName)
 }
 
 
-const String KmeterAudioProcessor::getInputChannelName(int channelIndex) const
-{
-    return "Input " + String(channelIndex + 1);
-}
-
-
-const String KmeterAudioProcessor::getOutputChannelName(int channelIndex) const
-{
-    return "Output " + String(channelIndex + 1);
-}
-
-
-bool KmeterAudioProcessor::isInputChannelStereoPair(int nIndex) const
-{
-    return true;
-}
-
-
-bool KmeterAudioProcessor::isOutputChannelStereoPair(int nIndex) const
-{
-    return true;
-}
-
-
 bool KmeterAudioProcessor::acceptsMidi() const
 {
 #if JucePlugin_WantsMidiInput
