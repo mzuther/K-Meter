@@ -409,7 +409,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     }
 
     isSilent = false;
-    nNumInputChannels = getNumInputChannels();
+    nNumInputChannels = getMainBusNumInputChannels();
 
     if (nNumInputChannels <= 0)
     {
@@ -478,7 +478,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &m
 
     if (!bSampleRateIsValid)
     {
-        for (int nChannel = 0; nChannel < getNumOutputChannels(); ++nChannel)
+        for (int nChannel = 0; nChannel < getMainBusNumOutputChannels(); ++nChannel)
         {
             buffer.clear(nChannel, 0, nNumSamples);
         }
@@ -496,7 +496,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &m
     // output channels that didn't contain input data, because these
     // aren't guaranteed to be empty -- they may contain garbage.
 
-    for (int nChannel = nNumInputChannels; nChannel < getNumOutputChannels(); ++nChannel)
+    for (int nChannel = nNumInputChannels; nChannel < getMainBusNumOutputChannels(); ++nChannel)
     {
         buffer.clear(nChannel, 0, nNumSamples);
     }
