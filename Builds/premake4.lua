@@ -326,7 +326,7 @@ solution "kmeter"
 		}
 
 		includedirs {
-			"../libraries/vstsdk2.4"
+			"../libraries/vstsdk3.6.5"
 		}
 
 		files {
@@ -385,7 +385,7 @@ solution "kmeter"
 		}
 
 		includedirs {
-			"../libraries/vstsdk2.4"
+			"../libraries/vstsdk3.6.5"
 		}
 
 		files {
