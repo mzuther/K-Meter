@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{35258D6C-7E5E-CA0F-44F0-484258487AAD}</ProjectGuid>
+		<ProjectGuid>{AD57455E-4FE1-2449-2E65-8C894DC3B97D}</ProjectGuid>
 		<RootNamespace>K-Meter (Surround)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>

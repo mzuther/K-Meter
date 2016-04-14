@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="LEmwq6" name="K-Meter" projectType="audioplug" version="2.3.0"
+<JUCERPROJECT id="LEmwq6" name="K-Meter" projectType="audioplug" version="2.4.0"
               bundleIdentifier="de.mzuther.KMeter" buildVST="1" buildRTAS="0"
               buildAU="0" pluginName="K-Meter" pluginDesc="Implementation of a K-System meter according to Bob Katz' specifications"
               pluginManufacturer="Martin Zuther" pluginManufacturerCode="MZut"
@@ -8,11 +8,11 @@
               pluginWantsMidiIn="0" pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1"
               pluginTailLength="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="KMeterAU"
               pluginAUViewClass="KMeterAU_V1" pluginRTASCategory="ePlugInCategory_None"
-              jucerVersion="4.1.0" companyName="Martin Zuther" aaxIdentifier="de.mzuther.KMeter"
+              jucerVersion="4.2.0" companyName="Martin Zuther" aaxIdentifier="de.mzuther.KMeter"
               pluginAAXCategory="AAX_ePlugInCategory_None" includeBinaryInAppConfig="1"
               buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
               companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategAnalysis"
-              pluginIsMidiEffectPlugin="0">
+              pluginIsMidiEffectPlugin="0" buildAUv3="0">
   <EXPORTFORMATS>
     <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/SDKs/vstsdk2.4">
       <CONFIGURATIONS>
