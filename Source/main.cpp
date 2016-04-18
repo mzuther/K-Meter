@@ -23,8 +23,16 @@
 
 ---------------------------------------------------------------------------- */
 
+// build LV2 plug-in
+#ifdef JucePlugin_Build_LV2
+
+// do nothing till you hear from me...
+
+#endif
+
+
 // build stand-alone application for plugin
-#ifdef KMETER_STAND_ALONE
+#ifdef JucePlugin_Build_Standalone
 
 #include "standalone_application.h"
 
@@ -32,8 +40,9 @@ START_JUCE_APPLICATION(KmeterStandalone)
 
 #endif
 
-// build VST plugin
-#if defined (KMETER_VST_PLUGIN) || defined (KMETER_LV2_PLUGIN)
+
+// build VST plug-in
+#ifdef JucePlugin_Build_VST
 
 // do nothing till you hear from me...
 
