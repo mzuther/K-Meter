@@ -229,6 +229,7 @@ solution "kmeter"
 		}
 
 		excludes {
+			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}
@@ -285,6 +286,7 @@ solution "kmeter"
 		}
 
 		excludes {
+			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}

@@ -113,7 +113,6 @@ OBJECTS := \
 	$(OBJDIR)/frut_skin.o \
 	$(OBJDIR)/frut_parameter.o \
 	$(OBJDIR)/frut_audio.o \
-	$(OBJDIR)/main.o \
 	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/peak_label.o \
@@ -214,9 +213,6 @@ $(OBJDIR)/frut_parameter.o: ../../../Source/common/amalgamated/frut_parameter.cp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/frut_audio.o: ../../../Source/common/amalgamated/frut_audio.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/main.o: ../../../Source/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_editor.o: ../../../Source/plugin_editor.cpp

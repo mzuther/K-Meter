@@ -17,7 +17,7 @@
     <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/Documents/code/cpp/libraries/vstsdk3.6.5"
                 extraCompilerFlags="" cppLanguageStandard="-std=c++11" externalLibraries="dl&#10;freetype&#10;pthread&#10;rt&#10;X11&#10;Xext&#10;asound"
                 extraDefs="JucePlugin_Build_LV2=0&#10;JucePlugin_Build_Standalone=0&#10;JucePlugin_Build_VST=1&#10;JucePlugin_Build_VST3=0&#10;KMETER_STEREO=1&#10;LINUX=1"
-                userNotes="Remove &quot;Source/main.cpp&quot; for VST builds."
+                userNotes="Add &quot;Source/main.cpp&quot; when building the stand-alone."
                 extraLinkerFlags="../../libraries/fftw3/bin/linux/amd64/libfftw3f.a">
       <CONFIGURATIONS>
         <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="2"
