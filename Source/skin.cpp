@@ -26,7 +26,7 @@
 #include "skin.h"
 
 
-void Skin::loadSkin(File &skinFile,
+bool Skin::loadSkin(File &skinFile,
                     int numberOfChannels,
                     int crestFactor,
                     int averageAlgorithm,
@@ -40,7 +40,8 @@ void Skin::loadSkin(File &skinFile,
                isExpanded,
                displayPeakMeter);
 
-    loadFromXml(skinFile, "kmeter-skin");
+    // signal success or failure
+    return loadFromXml(skinFile, "kmeter-skin", "1.2");
 }
 
 

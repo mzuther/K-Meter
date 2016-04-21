@@ -24,18 +24,11 @@
 ---------------------------------------------------------------------------- */
 
 // build stand-alone application for plugin
-#ifdef KMETER_STAND_ALONE
+#ifdef JucePlugin_Build_Standalone
 
 #include "standalone_application.h"
 
 START_JUCE_APPLICATION(KmeterStandalone)
-
-#endif
-
-// build VST plugin
-#if defined (KMETER_VST_PLUGIN) || defined (KMETER_LV2_PLUGIN)
-
-// do nothing till you hear from me...
 
 #endif
 

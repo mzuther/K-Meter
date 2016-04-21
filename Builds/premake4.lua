@@ -74,6 +74,11 @@ solution "kmeter"
 		"../libraries/"
 	}
 
+	linkoptions {
+	   -- check for unresolved symbols in shared libraries
+		"-Wl,--no-undefined"
+	}
+
 	targetdir "../bin/"
 
 	configuration { "x32" }
@@ -119,9 +124,10 @@ solution "kmeter"
 		targetprefix ""
 
 		defines {
-			"KMETER_STAND_ALONE=1",
 			"KMETER_STEREO=1",
-			"JUCE_USE_VSTSDK_2_4=0"
+			"JucePlugin_Build_LV2=0",
+			"JucePlugin_Build_Standalone=1",
+			"JucePlugin_Build_VST=0"
 		}
 
 		files {
@@ -169,9 +175,10 @@ solution "kmeter"
 		targetprefix ""
 
 		defines {
-			"KMETER_STAND_ALONE=1",
 			"KMETER_SURROUND=1",
-			"JUCE_USE_VSTSDK_2_4=0"
+			"JucePlugin_Build_LV2=0",
+			"JucePlugin_Build_Standalone=1",
+			"JucePlugin_Build_VST=0"
 		}
 
 		files {
@@ -219,9 +226,10 @@ solution "kmeter"
 		targetprefix ""
 
 		defines {
-			"KMETER_LV2_PLUGIN=1",
 			"KMETER_STEREO=1",
-			"JUCE_USE_VSTSDK_2_4=0"
+			"JucePlugin_Build_LV2=1",
+			"JucePlugin_Build_Standalone=0",
+			"JucePlugin_Build_VST=0"
 		}
 
 		files {
@@ -229,6 +237,7 @@ solution "kmeter"
 		}
 
 		excludes {
+			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}
@@ -273,9 +282,10 @@ solution "kmeter"
 		targetprefix ""
 
 		defines {
-			"KMETER_LV2_PLUGIN=1",
 			"KMETER_SURROUND=1",
-			"JUCE_USE_VSTSDK_2_4=0"
+			"JucePlugin_Build_LV2=1",
+			"JucePlugin_Build_Standalone=0",
+			"JucePlugin_Build_VST=0"
 		}
 
 		files {
@@ -283,6 +293,7 @@ solution "kmeter"
 		}
 
 		excludes {
+			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}
@@ -327,9 +338,10 @@ solution "kmeter"
 		targetprefix ""
 
 		defines {
-			"KMETER_VST_PLUGIN=1",
 			"KMETER_STEREO=1",
-			"JUCE_USE_VSTSDK_2_4=1"
+			"JucePlugin_Build_LV2=0",
+			"JucePlugin_Build_Standalone=0",
+			"JucePlugin_Build_VST=1"
 		}
 
 		includedirs {
@@ -341,6 +353,7 @@ solution "kmeter"
 		}
 
 		excludes {
+			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}
@@ -385,9 +398,10 @@ solution "kmeter"
 		targetprefix ""
 
 		defines {
-			"KMETER_VST_PLUGIN=1",
 			"KMETER_SURROUND=1",
-			"JUCE_USE_VSTSDK_2_4=1"
+			"JucePlugin_Build_LV2=0",
+			"JucePlugin_Build_Standalone=0",
+			"JucePlugin_Build_VST=1"
 		}
 
 		includedirs {
@@ -399,6 +413,7 @@ solution "kmeter"
 		}
 
 		excludes {
+			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}

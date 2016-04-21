@@ -14,12 +14,18 @@
               companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategAnalysis"
               pluginIsMidiEffectPlugin="0" buildAUv3="0">
   <EXPORTFORMATS>
-    <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/SDKs/vstsdk2.4">
+    <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/Documents/code/cpp/libraries/vstsdk3.6.5"
+                extraCompilerFlags="" cppLanguageStandard="-std=c++11" externalLibraries="dl&#10;freetype&#10;pthread&#10;rt&#10;X11&#10;Xext&#10;asound"
+                extraDefs="JucePlugin_Build_LV2=0&#10;JucePlugin_Build_Standalone=0&#10;JucePlugin_Build_VST=1&#10;JucePlugin_Build_VST3=0&#10;KMETER_STEREO=1&#10;LINUX=1"
+                userNotes="Add &quot;Source/main.cpp&quot; when building the stand-alone."
+                extraLinkerFlags="../../libraries/fftw3/bin/linux/amd64/libfftw3f.a">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
-                       targetName="K-Meter"/>
         <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="2"
-                       targetName="K-Meter"/>
+                       targetName="K-Meter" defines="NDEBUG=1&#10;JUCE_CHECK_MEMORY_LEAKS=0"
+                       headerPath="../../JuceLibraryCode&#10;../../Source/common&#10;../../libraries&#10;/usr/include&#10;/usr/include/freetype2"/>
+        <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
+                       targetName="K-Meter" headerPath="../../JuceLibraryCode&#10;../../Source/common&#10;../../libraries&#10;/usr/include&#10;/usr/include/freetype2"
+                       defines="_DEBUG=1&#10;DEBUG=1&#10;JUCE_CHECK_MEMORY_LEAKS=1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="libraries/juce/modules"/>
@@ -71,7 +77,6 @@
             file="Source/average_level_filtered.h"/>
       <FILE id="ZCAGiz" name="kmeter.cpp" compile="1" resource="0" file="Source/kmeter.cpp"/>
       <FILE id="hOxRZg" name="kmeter.h" compile="0" resource="0" file="Source/kmeter.h"/>
-      <FILE id="J7C9rg" name="main.cpp" compile="1" resource="0" file="Source/main.cpp"/>
       <FILE id="ibyXSz" name="meter_ballistics.cpp" compile="1" resource="0"
             file="Source/meter_ballistics.cpp"/>
       <FILE id="Z2kYdS" name="meter_ballistics.h" compile="0" resource="0"
