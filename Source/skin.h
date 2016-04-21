@@ -34,7 +34,7 @@ class Skin :
     public frut::skin::Skin
 {
 public:
-    void loadSkin(File &skinFile,
+    bool loadSkin(File &skinFile,
                   int numberOfChannels,
                   int crestFactor,
                   int averageAlgorithm,
