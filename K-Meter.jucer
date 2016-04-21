@@ -8,7 +8,7 @@
               pluginWantsMidiIn="0" pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1"
               pluginTailLength="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="KMeterAU"
               pluginAUViewClass="KMeterAU_V1" pluginRTASCategory="ePlugInCategory_None"
-              jucerVersion="4.2.0" companyName="Martin Zuther" aaxIdentifier="de.mzuther.KMeter"
+              jucerVersion="4.2.1" companyName="Martin Zuther" aaxIdentifier="de.mzuther.KMeter"
               pluginAAXCategory="AAX_ePlugInCategory_None" includeBinaryInAppConfig="1"
               buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
               companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategAnalysis"
