@@ -55,6 +55,7 @@ solution "kmeter"
 		"../JuceLibraryCode/juce_audio_basics.cpp",
 		"../JuceLibraryCode/juce_audio_devices.cpp",
 		"../JuceLibraryCode/juce_audio_formats.cpp",
+		"../JuceLibraryCode/juce_audio_plugin_client_utils.cpp",
 		"../JuceLibraryCode/juce_audio_processors.cpp",
 		"../JuceLibraryCode/juce_audio_utils.cpp",
 		"../JuceLibraryCode/juce_core.cpp",
@@ -130,10 +131,6 @@ solution "kmeter"
 			"JucePlugin_Build_VST=0"
 		}
 
-		files {
-			  "../JuceLibraryCode/juce_audio_plugin_client_Standalone.cpp"
-		}
-
 		configuration {"linux"}
 			defines {
 				"LINUX=1",
@@ -179,10 +176,6 @@ solution "kmeter"
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=1",
 			"JucePlugin_Build_VST=0"
-		}
-
-		files {
-			  "../JuceLibraryCode/juce_audio_plugin_client_Standalone.cpp"
 		}
 
 		configuration {"linux"}
@@ -237,7 +230,6 @@ solution "kmeter"
 		}
 
 		excludes {
-			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}
@@ -293,7 +285,6 @@ solution "kmeter"
 		}
 
 		excludes {
-			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}
@@ -353,7 +344,6 @@ solution "kmeter"
 		}
 
 		excludes {
-			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}
@@ -413,7 +403,6 @@ solution "kmeter"
 		}
 
 		excludes {
-			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}

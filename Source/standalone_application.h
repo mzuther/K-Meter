@@ -26,17 +26,15 @@
 #ifndef __KMETER_STANDALONE_H__
 #define __KMETER_STANDALONE_H__
 
-#include "FrutHeader.h"
+#include "../JuceLibraryCode/juce_audio_plugin_client_Standalone.cpp"
 
 
 class KmeterStandalone :
-    virtual public frut::widget::PluginStandalone
+    virtual public StandaloneFilterApp
 {
 public:
-    // it's cold and empty here ...
-
-protected:
-    virtual void initialiseSettings(PropertiesFile::Options &settings);
+    virtual StandaloneFilterWindow *createWindow();
+    void shutdown() override;
 
 private:
     JUCE_LEAK_DETECTOR(KmeterStandalone);

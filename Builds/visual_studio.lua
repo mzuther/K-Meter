@@ -53,23 +53,25 @@ solution "K-Meter"
 		"../Source/*.h",
 		"../Source/*.cpp",
 
-		"../libraries/juce/modules/juce_audio_basics/juce_audio_basics.cpp",
-		"../libraries/juce/modules/juce_audio_devices/juce_audio_devices.cpp",
-		"../libraries/juce/modules/juce_audio_formats/juce_audio_formats.cpp",
-		"../libraries/juce/modules/juce_audio_processors/juce_audio_processors.cpp",
-		"../libraries/juce/modules/juce_audio_utils/juce_audio_utils.cpp",
-		"../libraries/juce/modules/juce_core/juce_core.cpp",
-		"../libraries/juce/modules/juce_cryptography/juce_cryptography.cpp",
-		"../libraries/juce/modules/juce_data_structures/juce_data_structures.cpp",
-		"../libraries/juce/modules/juce_events/juce_events.cpp",
-		"../libraries/juce/modules/juce_graphics/juce_graphics.cpp",
-		"../libraries/juce/modules/juce_gui_basics/juce_gui_basics.cpp",
-		"../libraries/juce/modules/juce_gui_extra/juce_gui_extra.cpp",
-		"../libraries/juce/modules/juce_video/juce_video.cpp"
+		"../JuceLibraryCode/juce_audio_basics.cpp",
+		"../JuceLibraryCode/juce_audio_devices.cpp",
+		"../JuceLibraryCode/juce_audio_formats.cpp",
+		"../JuceLibraryCode/juce_audio_plugin_client_utils.cpp",
+		"../JuceLibraryCode/juce_audio_processors.cpp",
+		"../JuceLibraryCode/juce_audio_utils.cpp",
+		"../JuceLibraryCode/juce_core.cpp",
+		"../JuceLibraryCode/juce_cryptography.cpp",
+		"../JuceLibraryCode/juce_data_structures.cpp",
+		"../JuceLibraryCode/juce_events.cpp",
+		"../JuceLibraryCode/juce_graphics.cpp",
+		"../JuceLibraryCode/juce_gui_basics.cpp",
+		"../JuceLibraryCode/juce_gui_extra.cpp",
+		"../JuceLibraryCode/juce_video.cpp"
 	}
 
 	includedirs {
 		"../JuceLibraryCode/",
+		"../libraries/juce/modules/",
 		"../Source/common/",
 		"../libraries/"
 	}
@@ -225,12 +227,10 @@ solution "K-Meter"
 		}
 
 		files {
-			  "../libraries/juce/modules/juce_audio_plugin_client/utility/juce_PluginUtilities.cpp",
-			  "../libraries/juce/modules/juce_audio_plugin_client/VST/juce_VST_Wrapper.cpp"
+			  "../JuceLibraryCode/juce_audio_plugin_client_VST2.cpp"
 		}
 
 		excludes {
-			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}
@@ -270,12 +270,10 @@ solution "K-Meter"
 		}
 
 		files {
-			  "../libraries/juce/modules/juce_audio_plugin_client/utility/juce_PluginUtilities.cpp",
-			  "../libraries/juce/modules/juce_audio_plugin_client/VST/juce_VST_Wrapper.cpp"
+			  "../JuceLibraryCode/juce_audio_plugin_client_VST2.cpp"
 		}
 
 		excludes {
-			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}

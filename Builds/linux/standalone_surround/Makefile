@@ -113,7 +113,6 @@ OBJECTS := \
 	$(OBJDIR)/frut_skin.o \
 	$(OBJDIR)/frut_parameter.o \
 	$(OBJDIR)/frut_audio.o \
-	$(OBJDIR)/main.o \
 	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/standalone_application.o \
 	$(OBJDIR)/plugin_processor.o \
@@ -130,6 +129,7 @@ OBJECTS := \
 	$(OBJDIR)/juce_audio_basics.o \
 	$(OBJDIR)/juce_audio_devices.o \
 	$(OBJDIR)/juce_audio_formats.o \
+	$(OBJDIR)/juce_audio_plugin_client_utils.o \
 	$(OBJDIR)/juce_audio_processors.o \
 	$(OBJDIR)/juce_audio_utils.o \
 	$(OBJDIR)/juce_core.o \
@@ -140,7 +140,6 @@ OBJECTS := \
 	$(OBJDIR)/juce_gui_basics.o \
 	$(OBJDIR)/juce_gui_extra.o \
 	$(OBJDIR)/juce_video.o \
-	$(OBJDIR)/juce_audio_plugin_client_Standalone.o \
 
 RESOURCES := \
 
@@ -216,9 +215,6 @@ $(OBJDIR)/frut_parameter.o: ../../../Source/common/amalgamated/frut_parameter.cp
 $(OBJDIR)/frut_audio.o: ../../../Source/common/amalgamated/frut_audio.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/main.o: ../../../Source/main.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_editor.o: ../../../Source/plugin_editor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -267,6 +263,9 @@ $(OBJDIR)/juce_audio_devices.o: ../../../JuceLibraryCode/juce_audio_devices.cpp
 $(OBJDIR)/juce_audio_formats.o: ../../../JuceLibraryCode/juce_audio_formats.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/juce_audio_plugin_client_utils.o: ../../../JuceLibraryCode/juce_audio_plugin_client_utils.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_audio_processors.o: ../../../JuceLibraryCode/juce_audio_processors.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -295,9 +294,6 @@ $(OBJDIR)/juce_gui_extra.o: ../../../JuceLibraryCode/juce_gui_extra.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_video.o: ../../../JuceLibraryCode/juce_video.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_audio_plugin_client_Standalone.o: ../../../JuceLibraryCode/juce_audio_plugin_client_Standalone.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
