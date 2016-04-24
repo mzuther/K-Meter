@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r"
-   sodipodi:docname="Slim_Buttons.svg"
+   sodipodi:docname="Slim Buttons.svg"
    inkscape:export-filename="/home/martin/Dokumente/code/cpp/kmeter/skins/Default/graduation_k20.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="999.37722"
-     inkscape:cy="351.02459"
+     inkscape:zoom="0.64105903"
+     inkscape:cx="1452"
+     inkscape:cy="599.49999"
      inkscape:document-units="px"
      inkscape:current-layer="webslicer-layer"
      showgrid="false"
@@ -2144,7 +2144,7 @@
     </g>
   </g>
   <g
-     style="display:inline"
+     style="display:none"
      inkscape:label="Scales (Background)"
      id="layer2"
      inkscape:groupmode="layer"
