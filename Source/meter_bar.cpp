@@ -158,14 +158,6 @@ void MeterBar::create(
             {
                 colourId = colourSelector::green;
             }
-            else if (lowerThreshold <= -220)
-            {
-                colourId = colourSelector::amber;
-            }
-            else if ((lowerThreshold > -160) && (lowerThreshold <= -100))
-            {
-                colourId = colourSelector::green;
-            }
             else if (lowerThreshold > limitRedBars)
             {
                 colourId = colourSelector::red;
