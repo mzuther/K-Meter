@@ -162,9 +162,8 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
 
     updateParameter(KmeterPluginParameters::selMono);
 
-    // the following may or may not work on Mac
-    File fileApplicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
-    skinDirectory = fileApplicationDirectory.getChildFile("./kmeter/skins/");
+    // locate directory containing the skins
+    skinDirectory = KmeterPluginParameters::getSkinDirectory();
 
     // force meter reload after initialisation
     isInitialising = false;
@@ -602,6 +601,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         arrChapters.set(
             "Contributors",
             L"Bob Katz\n"
+            L"Tod Gentille (Mac version)\n"
             L"Jan Kokemüller\n"
             L"Filipe Coelho\n"
             L"Bram de Jong\n");

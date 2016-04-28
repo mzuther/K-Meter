@@ -162,9 +162,8 @@ KmeterPluginParameters::KmeterPluginParameters() :
     add(ParameterValidationCSVFormat, selValidationCSVFormat);
 
 
-    // the following may or may not work on Mac
-    File applicationDirectory = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
-    File skinDirectory = applicationDirectory.getChildFile("./kmeter/skins/");
+    // locate directory containing the skins
+    File skinDirectory = getSkinDirectory();
 
     // locate file containing the default skin's name
     File defaultSkinFile = skinDirectory.getChildFile("default_skin.ini");
@@ -211,6 +210,35 @@ void KmeterPluginParameters::setValidationFile(const File &validationFile)
         String validationFileName = validationFile.getFullPathName();
         setText(selValidationFileName, validationFileName);
     }
+}
+
+
+const File KmeterPluginParameters::getSkinDirectory()
+{
+    // On all platforms we want the skins folder to be located with
+    // the executable.  On Mac, the executable is *not* the same as
+    // the application folder because what looks like an application
+    // is really a package (i.e. a folder) with the executable being
+    // buried inside.
+    //
+    // When deploying on a Mac, right-click on the build target and
+    // select "Show Package Contents".  Navigate through
+    // Contents/MacOS and you will find the K-Meter executable.  Put
+    // the kmeter folder here.
+    //
+    // Thanks to Tod Gentille!
+
+    File applicationDirectory;
+
+#ifdef __APPLE__
+    applicationDirectory = File::getSpecialLocation(
+                               File::currentExecutableFile).getParentDirectory();
+#else
+    applicationDirectory = File::getSpecialLocation(
+                               File::currentApplicationFile).getParentDirectory();
+#endif
+
+    return applicationDirectory.getChildFile("./kmeter/skins/");
 }
 
 

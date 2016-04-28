@@ -41,6 +41,7 @@ public:
     File getValidationFile();
     void setValidationFile(const File &fileValidation);
 
+    static const File getSkinDirectory();
     String getSkinName();
     void setSkinName(const String &strSkinName);
 
