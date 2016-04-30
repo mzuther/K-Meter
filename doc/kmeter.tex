@@ -484,7 +484,9 @@ levels!
 
 Begin by starting K-Meter.  If in a Bash shell, try this:
 
-\path{./kmeter_stereo 2>&1 | tee /tmp/validation.log}
+\begin{VerbatimBoth}
+  ./kmeter_stereo 2>&1 | tee /tmp/validate.log
+\end{VerbatimBoth}
 
 \begin{wrapfigure}{r}{0.32\linewidth}
 \includegraphics[scale=0.60,clip]{include/images/dialog_validation.png}
@@ -714,80 +716,101 @@ might save you a \textbf{lot} of trouble.  At the time of writing, I'm
 using Linux Mint 17, but the procedure should be similar on
 your distribution of choice.
 
-If you aim at generic \num{64}-bit compilation, simply change
-\texttt{i386} to \texttt{amd64} and \texttt{x32} to \texttt{x64}.  If
-you experience problems, try to change \texttt{stable} to a release
-name such as \texttt{wheezy}.
+Start by installing the necessary packages:
 
-To install the necessary packages and install the \texttt{chroot} base
-system, execute the following statements (please change
-\path{http://ftp.de.debian.org/debian/} to a
+\begin{VerbatimBoth}
+  sudo apt-get install debootstrap schroot
+\end{VerbatimBoth}
+
+Then install the \texttt{chroot} base system, execute the following
+statements (please change \path{http://ftp.de.debian.org/debian/} to a
 \href{http://www.debian.org/mirror/list}{mirror} close to you):
 
-\begin{verbatim}
-  sudo apt-get install debootstrap schroot
-
+\begin{Verbatim32}
   sudo debootstrap --variant=buildd \
     --arch i386 stable \
     /srv/chroot/stable_i386 \
     http://ftp.de.debian.org/debian/
-\end{verbatim}
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  sudo debootstrap --variant=buildd \
+    --arch amd64 stable \
+    /srv/chroot/stable_amd64 \
+    http://ftp.de.debian.org/debian/
+\end{Verbatim64}
 
 Running \path{debootstrap} will take some time.  Meanwhile, add the
 following lines to \path{/etc/schroot/schroot.conf} (make sure you
 remove all preceding white space so that each line begins in the first
 column):
 
-\begin{verbatim}
+\begin{VerbatimBoth}
   [stable-i386]
   description=Debian stable (i386)
   directory=/srv/chroot/stable_i386
+  personality=linux32
+  root-users=username
+  type=directory
+  users=username,another_user
+
+  [stable-amd64]
+  description=Debian stable (amd64)
+  directory=/srv/chroot/stable_amd64
   personality=linux
   root-users=username
   type=directory
   users=username,another_user
-\end{verbatim}
+\end{VerbatimBoth}
 
 Please make the necessary changes to \texttt{username}.  You may also
-add additional users, like \texttt{another\_user}.  In case you are
-setting up a \num{32}-bit \texttt{chroot} environment on a
-\num{64}-bit system, you'll also have to change \texttt{linux} to
-\texttt{linux32}.
+add additional users, like \texttt{another\_user}.  If you experience
+problems, try to change \texttt{stable} to a release name such as
+\texttt{wheezy}.
 
 When \path{debootstrap} is done, log in as superuser:
 
-\begin{verbatim}
+\begin{Verbatim32}
   schroot -c stable-i386 -u root
-\end{verbatim}
+\end{Verbatim32}
 
-to install a few packages.  The packages \path{less} and \path{vim}
+\begin{Verbatim64}
+  schroot -c stable-amd64 -u root
+\end{Verbatim64}
+
+You'll have to install a few packages -- \path{less} and \path{vim}
 are optional, but might come in handy:
 
-\begin{verbatim}
+\begin{VerbatimBoth}
   apt-get update
-  apt-get -y install bash-completion libasound2-dev \
-    libjack-jackd2-dev mesa-common-dev xorg-dev \
-    less vim
+  apt-get -y install bash-completion \
+    libasound2-dev libjack-jackd2-dev \
+    mesa-common-dev xorg-dev less vim
   apt-get clean
-\end{verbatim}
+\end{VerbatimBoth}
 
 If you like \path{bash} completion, you might also want to open the
 file \path{/etc/bash.bashrc} and unquote these lines:
 
-\begin{verbatim}
+\begin{VerbatimBoth}
   # enable bash completion in interactive shells
-  [a couple of lines...]
+  if [...]
+    [a couple of lines...]
   fi
-\end{verbatim}
+\end{VerbatimBoth}
 
 Finally, log out and log in as normal user:
 
-\begin{verbatim}
+\begin{Verbatim32}
   schroot -c stable-i386
-\end{verbatim}
+\end{Verbatim32}
 
-Congratulations -- after you have installed the dependencies (see
-below), you are ready to build K-Meter.
+\begin{Verbatim64}
+  schroot -c stable-amd64
+\end{Verbatim64}
+
+In this \path{chroot} shell, install the dependencies (see below).
+Congratulations -- you are now ready to build K-Meter!
 
 \section{Dependencies}
 
@@ -876,24 +899,38 @@ Simply extract the archive into the directory
 Extract the archive into the directory \path{libraries/fftw3}, change
 into this directory and run:
 
-\begin{verbatim}
+\begin{Verbatim32}
   ./configure --enable-float --with-pic
   make
   mkdir -p bin/linux/i386/
   mv .libs/* bin/linux/i386/
-\end{verbatim}
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  ./configure --enable-float --with-pic
+  make
+  mkdir -p bin/linux/amd64/
+  mv .libs/* bin/linux/amd64/
+\end{Verbatim64}
 
 \subsubsection{Installation on Mac OS X}
 
 Extract the archive into the directory \path{libraries/fftw3}, change
 into this directory and run:
 
-\begin{verbatim}
+\begin{Verbatim32}
   ./configure --enable-float --with-pic
   make
   mkdir -p bin/mac/x32/
   mv .libs/* bin/mac/x32/
-\end{verbatim}
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  ./configure --enable-float --with-pic
+  make
+  mkdir -p bin/mac/x64/
+  mv .libs/* bin/mac/x64/
+\end{Verbatim64}
 
 \subsubsection{Installation on Microsoft Windows}
 
@@ -954,10 +991,10 @@ platform, you should run \path{astyle} using the scripts
 After preparing the dependencies, start your \texttt{chroot}
 environment, change into the directory \path{build} and execute
 
-\begin{verbatim}
+\begin{VerbatimBoth}
   ./run_premake.sh
   make config=CFG TARGET
-\end{verbatim}
+\end{VerbatimBoth}
 
 where \application{CFG} is one of \application{debug32},
 \application{debug64}, \application{release32} and
@@ -971,9 +1008,9 @@ The compiled binaries will end up in the directory \path{bin}.
 After preparing the dependencies, change into the directory
 \path{build} and execute
 
-\begin{verbatim}
+\begin{VerbatimBoth}
   ./run_premake.bat
-\end{verbatim}
+\end{VerbatimBoth}
 
 Then change into the directory \path{Builds/windows/vs20xx}, open the
 project file with the corresponding version of Visual C++ and build

@@ -35,6 +35,7 @@
 \usepackage{array}
 \usepackage[british]{babel}
 \usepackage{bbding}
+\usepackage{fancyvrb}
 \usepackage{float}  % direct positioning of floats
 \usepackage{graphicx}
 \usepackage{ifpdf}
@@ -45,6 +46,7 @@
 \usepackage[hyphens,obeyspaces]{url}
 \usepackage{varioref}
 \usepackage{wrapfig}  % must be included after package "float"
+\usepackage[dvipsnames]{xcolor}
 
 %% Make sure "hyperref" comes last of your loaded packages, to give it
 %% a fighting chance of not being over-written, since its job is to
@@ -82,6 +84,13 @@
 \vfuzz
 \hfuzz
 \raggedbottom
+
+%% package "fancyvrb"
+\DefineVerbatimEnvironment{VerbatimBoth}{Verbatim}{gobble=2,samepage=true,frame=single,framerule=0.4mm,framesep=2mm,xleftmargin=4mm,xrightmargin=4mm,rulecolor=\color{BurntOrange},label=32 and 64 bit}
+
+\DefineVerbatimEnvironment{Verbatim32}{Verbatim}{gobble=2,samepage=true,frame=single,framerule=0.4mm,framesep=2mm,xleftmargin=4mm,xrightmargin=4mm,rulecolor=\color{OrangeRed},label=32 bit}
+
+\DefineVerbatimEnvironment{Verbatim64}{Verbatim}{gobble=2,samepage=true,frame=single,framerule=0.4mm,framesep=2mm,xleftmargin=4mm,xrightmargin=4mm,rulecolor=\color{Cerulean},label=64 bit}
 
 %% package "varioref"
 \labelformat{chapter}{chapter~#1}
