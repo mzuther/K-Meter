@@ -30,7 +30,7 @@
 
 
 @echo.
-@premake4 --file=visual_studio.lua --os=windows vs2010
+@premake4 --os=windows vs2010
 @"%python_path%\python.exe" visual_studio_fix.py "%visual_toolkit%"
 
 @echo.

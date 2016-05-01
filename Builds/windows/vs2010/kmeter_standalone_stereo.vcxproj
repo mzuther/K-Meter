@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{7BDD0EB4-6EDA-720C-5AD1-3362599F4B84}</ProjectGuid>
+		<ProjectGuid>{3D109C84-2F8D-ED70-9B6B-27463AE72154}</ProjectGuid>
 		<RootNamespace>kmeter_standalone_stereo</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
