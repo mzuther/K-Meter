@@ -160,6 +160,7 @@
 <!ENTITY % attrs_button
           "%attrs_image_position;
            image_on CDATA #REQUIRED
+           image_over CDATA #IMPLIED
            image_off CDATA #REQUIRED
 ">
 
