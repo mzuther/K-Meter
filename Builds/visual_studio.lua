@@ -37,13 +37,14 @@ else
 	print "Action not specified\n"
 end
 
-solution "K-Meter"
-	location ("windows/" .. _ACTION .. "/")
+solution "kmeter"
 	language "C++"
-
 	platforms { "x32", "x64" }
-
 	configurations { "Debug", "Release" }
+
+	location (os.get() .. "/" .. _ACTION .. "/")
+	targetdir "../bin/"
+	targetprefix ""
 
 	files {
 		"../Source/common/FrutHeader.h",
@@ -76,43 +77,19 @@ solution "K-Meter"
 		"../libraries/"
 	}
 
-	targetdir "../bin/"
-
-	flags {
-			"EnableSSE",
-			"EnableSSE2",
-			"NoMinimalRebuild",
-			"StaticRuntime",
-			"Unicode",
-			"WinMain"
-	}
-
-	configuration { "Debug*" }
-		defines { "_DEBUG=1", "DEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=1" }
-		flags { "Symbols" }
-		buildoptions { "" }
-
-	configuration { "Release*" }
-		defines { "NDEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=0" }
-		flags { "OptimizeSpeed", "NoFramePointer", "NoManifest" }
-		buildoptions { "/Zi" }
-
-	configuration { "Debug", "x32" }
-		targetsuffix ", Debug)"
-
-	configuration { "Debug", "x64" }
-		targetsuffix " x64, Debug)"
-
-	configuration { "Release", "x32" }
-		targetsuffix ")"
-
-	configuration { "Release", "x64" }
-		targetsuffix " x64)"
-
-	configuration {"windows" }
+	configuration { "windows" }
 		defines {
 			"_WINDOWS=1",
 			"_USE_MATH_DEFINES=1",
+		}
+
+		flags {
+				"EnableSSE",
+				"EnableSSE2",
+				"NoMinimalRebuild",
+				"StaticRuntime",
+				"Unicode",
+				"WinMain"
 		}
 
 		links {
@@ -130,22 +107,44 @@ solution "K-Meter"
 			"odbccp32"
 		 }
 
-	configuration {"windows", "x32" }
+	configuration { "windows", "x32" }
 		defines {
 			"WIN32=1",
 		}
 
-	configuration {"windows", "x64" }
+	configuration { "windows", "x64" }
 		defines {
 			"WIN64=1",
 		}
 
+	configuration { "Debug*" }
+		defines { "_DEBUG=1", "DEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=1" }
+		flags { "Symbols" }
+
+	configuration { "windows", "Debug", "x32" }
+		targetsuffix ", Debug)"
+
+	configuration { "windows", "Debug", "x64" }
+		targetsuffix " x64, Debug)"
+
+	configuration { "Release*" }
+		defines { "NDEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=0" }
+		flags { "OptimizeSpeed", "NoFramePointer" }
+
+	configuration { "windows", "Release*" }
+		flags { "NoManifest" }
+		buildoptions { "/Zi" }
+
+	configuration { "windows", "Release", "x32" }
+		targetsuffix ")"
+
+	configuration { "windows", "Release", "x64" }
+		targetsuffix " x64)"
+
 --------------------------------------------------------------------------------
 
-	project ("K-Meter (Stereo)")
+	project ("kmeter_standalone_stereo")
 		kind "WindowedApp"
-		targetname "K-Meter (Stereo"
-		targetprefix ""
 
 		defines {
 			"KMETER_STEREO=1",
@@ -154,18 +153,19 @@ solution "K-Meter"
 			"JucePlugin_Build_VST=0"
 		}
 
-		includedirs {
-			"../libraries/asiosdk2.3/common"
-		}
+		configuration { "windows" }
+			targetname "K-Meter (Stereo"
 
-		configuration {"windows"}
 			defines {
-				"JUCE_USE_XSHM=0",
 				"JUCE_ALSA=0",
 				"JUCE_JACK=0",
 				"JUCE_ASIO=1",
 				"JUCE_WASAPI=1",
 				"JUCE_DIRECTSOUND=1"
+			}
+
+			includedirs {
+				"../libraries/asiosdk2.3/common"
 			}
 
 		configuration "Debug"
@@ -176,10 +176,8 @@ solution "K-Meter"
 
 --------------------------------------------------------------------------------
 
-	project ("K-Meter (Surround)")
+	project ("kmeter_standalone_surround")
 		kind "WindowedApp"
-		targetname "K-Meter (Surround"
-		targetprefix ""
 
 		defines {
 			"KMETER_SURROUND=1",
@@ -188,18 +186,19 @@ solution "K-Meter"
 			"JucePlugin_Build_VST=0"
 		}
 
-		includedirs {
-			"../libraries/asiosdk2.3/common"
-		}
+		configuration { "windows" }
+			targetname "K-Meter (Surround"
 
-		configuration {"windows"}
 			defines {
-				"JUCE_USE_XSHM=0",
 				"JUCE_ALSA=0",
 				"JUCE_JACK=0",
 				"JUCE_ASIO=1",
 				"JUCE_WASAPI=1",
 				"JUCE_DIRECTSOUND=1"
+			}
+
+			includedirs {
+				"../libraries/asiosdk2.3/common"
 			}
 
 		configuration "Debug"
@@ -210,20 +209,17 @@ solution "K-Meter"
 
 --------------------------------------------------------------------------------
 
-	project ("K-Meter VST (Stereo)")
+	project ("kmeter_vst_stereo")
 		kind "SharedLib"
-		targetname "K-Meter (Stereo"
-		targetprefix ""
+
+		configuration { "windows" }
+			targetname "K-Meter (Stereo"
 
 		defines {
 			"KMETER_STEREO=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=0",
 			"JucePlugin_Build_VST=1"
-		}
-
-		includedirs {
-			"../libraries/vstsdk3.6.5"
 		}
 
 		files {
@@ -235,15 +231,17 @@ solution "K-Meter"
 			"../Source/standalone_application.cpp"
 		}
 
-		configuration {"windows"}
-			defines {
-				"JUCE_USE_XSHM=0",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0",
-				"JUCE_ASIO=0",
-				"JUCE_WASAPI=0",
-				"JUCE_DIRECTSOUND=0"
-			}
+		defines {
+			"JUCE_ALSA=0",
+			"JUCE_JACK=0",
+			"JUCE_ASIO=0",
+			"JUCE_WASAPI=0",
+			"JUCE_DIRECTSOUND=0"
+		}
+
+		includedirs {
+			"../libraries/vstsdk3.6.5"
+		}
 
 		configuration "Debug"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_debug")
@@ -253,20 +251,17 @@ solution "K-Meter"
 
 --------------------------------------------------------------------------------
 
-	project ("K-Meter VST (Surround)")
+	project ("kmeter_vst_surround")
 		kind "SharedLib"
-		targetname "K-Meter (Surround"
-		targetprefix ""
+
+		configuration { "windows" }
+			targetname "K-Meter (Surround"
 
 		defines {
 			"KMETER_SURROUND=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=0",
 			"JucePlugin_Build_VST=1"
-		}
-
-		includedirs {
-			"../libraries/vstsdk3.6.5"
 		}
 
 		files {
@@ -278,15 +273,17 @@ solution "K-Meter"
 			"../Source/standalone_application.cpp"
 		}
 
-		configuration {"windows"}
-			defines {
-				"JUCE_USE_XSHM=0",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0",
-				"JUCE_ASIO=0",
-				"JUCE_WASAPI=0",
-				"JUCE_DIRECTSOUND=0"
-			}
+		defines {
+			"JUCE_ALSA=0",
+			"JUCE_JACK=0",
+			"JUCE_ASIO=0",
+			"JUCE_WASAPI=0",
+			"JUCE_DIRECTSOUND=0"
+		}
+
+		includedirs {
+			"../libraries/vstsdk3.6.5"
+		}
 
 		configuration "Debug"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_surround_debug")

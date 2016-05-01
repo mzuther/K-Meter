@@ -20,16 +20,16 @@ ifndef AR
 endif
 
 ifeq ($(config),debug32)
-  OBJDIR     = ../../../bin/intermediate_linux/standalone_surround_debug/x32
+  OBJDIR     = ../../../bin/intermediate_linux/vst_surround_debug/x32
   TARGETDIR  = ../../../bin
-  TARGET     = $(TARGETDIR)/kmeter_surround_debug
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DKMETER_SURROUND=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
+  TARGET     = $(TARGETDIR)/kmeter_surround_vst_debug.so
+  DEFINES   += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DKMETER_SURROUND=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk3.6.5
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fno-inline -ggdb -std=c++11
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fPIC -fno-inline -ggdb -std=c++11
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -m32 -L/usr/lib32 -Wl,--no-undefined ../../../libraries/fftw3/bin/linux/i386/libfftw3f.a
-  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LDFLAGS   += -shared -m32 -L/usr/lib32 -Wl,--no-undefined ../../../libraries/fftw3/bin/linux/i386/libfftw3f.a
+  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -42,16 +42,16 @@ ifeq ($(config),debug32)
 endif
 
 ifeq ($(config),release32)
-  OBJDIR     = ../../../bin/intermediate_linux/standalone_surround_release/x32
+  OBJDIR     = ../../../bin/intermediate_linux/vst_surround_release/x32
   TARGETDIR  = ../../../bin
-  TARGET     = $(TARGETDIR)/kmeter_surround
-  DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DKMETER_SURROUND=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
+  TARGET     = $(TARGETDIR)/kmeter_surround_vst.so
+  DEFINES   += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DKMETER_SURROUND=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk3.6.5
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -fvisibility=hidden -pipe -std=c++11
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -fPIC -fvisibility=hidden -pipe -std=c++11
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -m32 -L/usr/lib32 -Wl,--no-undefined ../../../libraries/fftw3/bin/linux/i386/libfftw3f.a
-  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LDFLAGS   += -s -shared -m32 -L/usr/lib32 -Wl,--no-undefined ../../../libraries/fftw3/bin/linux/i386/libfftw3f.a
+  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -64,16 +64,16 @@ ifeq ($(config),release32)
 endif
 
 ifeq ($(config),debug64)
-  OBJDIR     = ../../../bin/intermediate_linux/standalone_surround_debug/x64
+  OBJDIR     = ../../../bin/intermediate_linux/vst_surround_debug/x64
   TARGETDIR  = ../../../bin
-  TARGET     = $(TARGETDIR)/kmeter_surround_debug_x64
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DKMETER_SURROUND=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
+  TARGET     = $(TARGETDIR)/kmeter_surround_vst_debug_x64.so
+  DEFINES   += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DKMETER_SURROUND=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk3.6.5
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m64 -fno-inline -ggdb -std=c++11
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m64 -fPIC -fno-inline -ggdb -std=c++11
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -m64 -L/usr/lib64 -Wl,--no-undefined ../../../libraries/fftw3/bin/linux/amd64/libfftw3f.a
-  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LDFLAGS   += -shared -m64 -L/usr/lib64 -Wl,--no-undefined ../../../libraries/fftw3/bin/linux/amd64/libfftw3f.a
+  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -86,16 +86,16 @@ ifeq ($(config),debug64)
 endif
 
 ifeq ($(config),release64)
-  OBJDIR     = ../../../bin/intermediate_linux/standalone_surround_release/x64
+  OBJDIR     = ../../../bin/intermediate_linux/vst_surround_release/x64
   TARGETDIR  = ../../../bin
-  TARGET     = $(TARGETDIR)/kmeter_surround_x64
-  DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DKMETER_SURROUND=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
+  TARGET     = $(TARGETDIR)/kmeter_surround_vst_x64.so
+  DEFINES   += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DKMETER_SURROUND=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk3.6.5
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m64 -fvisibility=hidden -pipe -std=c++11
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m64 -fPIC -fvisibility=hidden -pipe -std=c++11
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -m64 -L/usr/lib64 -Wl,--no-undefined ../../../libraries/fftw3/bin/linux/amd64/libfftw3f.a
-  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LDFLAGS   += -s -shared -m64 -L/usr/lib64 -Wl,--no-undefined ../../../libraries/fftw3/bin/linux/amd64/libfftw3f.a
+  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -114,7 +114,6 @@ OBJECTS := \
 	$(OBJDIR)/frut_parameter.o \
 	$(OBJDIR)/frut_audio.o \
 	$(OBJDIR)/plugin_editor.o \
-	$(OBJDIR)/standalone_application.o \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/peak_label.o \
 	$(OBJDIR)/kmeter.o \
@@ -140,6 +139,7 @@ OBJECTS := \
 	$(OBJDIR)/juce_gui_basics.o \
 	$(OBJDIR)/juce_gui_extra.o \
 	$(OBJDIR)/juce_video.o \
+	$(OBJDIR)/juce_audio_plugin_client_VST2.o \
 
 RESOURCES := \
 
@@ -157,7 +157,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking kmeter_standalone_surround
+	@echo Linking kmeter_vst_surround
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -178,7 +178,7 @@ else
 endif
 
 clean:
-	@echo Cleaning kmeter_standalone_surround
+	@echo Cleaning kmeter_vst_surround
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -216,9 +216,6 @@ $(OBJDIR)/frut_audio.o: ../../../Source/common/amalgamated/frut_audio.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_editor.o: ../../../Source/plugin_editor.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/standalone_application.o: ../../../Source/standalone_application.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_processor.o: ../../../Source/plugin_processor.cpp
@@ -294,6 +291,9 @@ $(OBJDIR)/juce_gui_extra.o: ../../../JuceLibraryCode/juce_gui_extra.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_video.o: ../../../JuceLibraryCode/juce_video.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/juce_audio_plugin_client_VST2.o: ../../../JuceLibraryCode/juce_audio_plugin_client_VST2.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 

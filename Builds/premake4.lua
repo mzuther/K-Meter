@@ -39,10 +39,12 @@ end
 
 solution "kmeter"
 	language "C++"
-
 	platforms { "x32", "x64" }
-
 	configurations { "Debug", "Release" }
+
+	location (os.get() .. "/" .. _ACTION .. "/")
+	targetdir "../bin/"
+	targetprefix ""
 
 	files {
 		"../Source/common/FrutHeader.h",
@@ -75,20 +77,37 @@ solution "kmeter"
 		"../libraries/"
 	}
 
-	linkoptions {
-	   -- check for unresolved symbols in shared libraries
-		"-Wl,--no-undefined"
-	}
+	configuration { "linux" }
+		defines {
+			"LINUX=1"
+		}
 
-	targetdir "../bin/"
+		includedirs {
+			"/usr/include",
+			"/usr/include/freetype2"
+		}
 
-	configuration { "x32" }
+		linkoptions {
+			-- check for unresolved symbols in shared libraries
+			"-Wl,--no-undefined"
+		}
+
+		links {
+			"dl",
+			"freetype",
+			"pthread",
+			"rt",
+			"X11",
+			"Xext"
+		}
+
+	configuration { "linux", "x32" }
 		linkoptions {
 			-- force static linking to FFTW
 			"../../../libraries/fftw3/bin/linux/i386/libfftw3f.a"
 		}
 
-	configuration { "x64" }
+	configuration { "linux", "x64" }
 		linkoptions {
 			-- force static linking to FFTW
 			"../../../libraries/fftw3/bin/linux/amd64/libfftw3f.a"
@@ -96,33 +115,36 @@ solution "kmeter"
 
 	configuration { "Debug*" }
 		defines { "_DEBUG=1", "DEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=1" }
-		flags { "Symbols", "ExtraWarnings" }
+		flags { "Symbols" }
+
+	configuration { "linux", "Debug*" }
+		flags { "ExtraWarnings" }
 		buildoptions { "-fno-inline", "-ggdb", "-std=c++11" }
+
+	configuration { "linux", "Debug", "x32" }
+		targetsuffix "_debug"
+
+	configuration { "linux", "Debug", "x64" }
+		targetsuffix "_debug_x64"
 
 	configuration { "Release*" }
 		defines { "NDEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=0" }
-		flags { "OptimizeSpeed", "NoFramePointer", "ExtraWarnings" }
+		flags { "OptimizeSpeed", "NoFramePointer" }
+
+	configuration { "linux", "Release*" }
+		flags { "ExtraWarnings" }
 		buildoptions { "-fvisibility=hidden", "-pipe", "-std=c++11" }
 
-	configuration { "Debug", "x32" }
-		targetsuffix "_debug"
-
-	configuration { "Debug", "x64" }
-		targetsuffix "_debug_x64"
-
-	configuration { "Release", "x32" }
+	configuration { "linux", "Release", "x32" }
 		targetsuffix ""
 
-	configuration { "Release", "x64" }
+	configuration { "linux", "Release", "x64" }
 		targetsuffix "_x64"
 
 --------------------------------------------------------------------------------
 
 	project ("kmeter_standalone_stereo")
 		kind "WindowedApp"
-		location (os.get() .. "/standalone_stereo")
-		targetname "kmeter_stereo"
-		targetprefix ""
 
 		defines {
 			"KMETER_STEREO=1",
@@ -131,10 +153,10 @@ solution "kmeter"
 			"JucePlugin_Build_VST=0"
 		}
 
-		configuration {"linux"}
+		configuration { "linux" }
+			targetname "kmeter_stereo"
+
 			defines {
-				"LINUX=1",
-				"JUCE_USE_XSHM=1",
 				"JUCE_ALSA=1",
 				"JUCE_JACK=1",
 				"JUCE_ASIO=0",
@@ -143,18 +165,7 @@ solution "kmeter"
 			}
 
 			links {
-				"dl",
-				"freetype",
-				"pthread",
-				"rt",
-				"X11",
-				"Xext",
 				"asound"
-			}
-
-			includedirs {
-				"/usr/include",
-				"/usr/include/freetype2"
 			}
 
 		configuration "Debug"
@@ -167,9 +178,6 @@ solution "kmeter"
 
 	project ("kmeter_standalone_surround")
 		kind "WindowedApp"
-		location (os.get() .. "/standalone_surround")
-		targetname "kmeter_surround"
-		targetprefix ""
 
 		defines {
 			"KMETER_SURROUND=1",
@@ -178,10 +186,10 @@ solution "kmeter"
 			"JucePlugin_Build_VST=0"
 		}
 
-		configuration {"linux"}
+		configuration { "linux" }
+			targetname "kmeter_surround"
+
 			defines {
-				"LINUX=1",
-				"JUCE_USE_XSHM=1",
 				"JUCE_ALSA=1",
 				"JUCE_JACK=1",
 				"JUCE_ASIO=0",
@@ -190,18 +198,7 @@ solution "kmeter"
 			}
 
 			links {
-				"dl",
-				"freetype",
-				"pthread",
-				"rt",
-				"X11",
-				"Xext",
 				"asound"
-			}
-
-			includedirs {
-				"/usr/include",
-				"/usr/include/freetype2"
 			}
 
 		configuration "Debug"
@@ -212,131 +209,17 @@ solution "kmeter"
 
 --------------------------------------------------------------------------------
 
-	project ("kmeter_lv2_stereo")
-		kind "SharedLib"
-		location (os.get() .. "/lv2_stereo")
-		targetname "kmeter_stereo_lv2"
-		targetprefix ""
-
-		defines {
-			"KMETER_STEREO=1",
-			"JucePlugin_Build_LV2=1",
-			"JucePlugin_Build_Standalone=0",
-			"JucePlugin_Build_VST=0"
-		}
-
-		files {
-			  "../JuceLibraryCode/juce_audio_plugin_client_LV2.cpp"
-		}
-
-		excludes {
-			"../Source/standalone_application.h",
-			"../Source/standalone_application.cpp"
-		}
-
-		configuration {"linux"}
-			defines {
-				"LINUX=1",
-				"JUCE_USE_XSHM=1",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0",
-				"JUCE_ASIO=0",
-				"JUCE_WASAPI=0",
-				"JUCE_DIRECTSOUND=0"
-			}
-
-			includedirs {
-				"/usr/include",
-				"/usr/include/freetype2"
-			}
-
-			links {
-				"dl",
-				"freetype",
-				"pthread",
-				"rt",
-				"X11",
-				"Xext"
-			}
-
-		configuration "Debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_stereo_debug")
-
-		configuration "Release"
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_stereo_release")
-
---------------------------------------------------------------------------------
-
-	project ("kmeter_lv2_surround")
-		kind "SharedLib"
-		location (os.get() .. "/lv2_surround")
-		targetname "kmeter_surround_lv2"
-		targetprefix ""
-
-		defines {
-			"KMETER_SURROUND=1",
-			"JucePlugin_Build_LV2=1",
-			"JucePlugin_Build_Standalone=0",
-			"JucePlugin_Build_VST=0"
-		}
-
-		files {
-			  "../JuceLibraryCode/juce_audio_plugin_client_LV2.cpp"
-		}
-
-		excludes {
-			"../Source/standalone_application.h",
-			"../Source/standalone_application.cpp"
-		}
-
-		configuration {"linux"}
-			defines {
-				"LINUX=1",
-				"JUCE_USE_XSHM=1",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0",
-				"JUCE_ASIO=0",
-				"JUCE_WASAPI=0",
-				"JUCE_DIRECTSOUND=0"
-			}
-
-			includedirs {
-				"/usr/include",
-				"/usr/include/freetype2"
-			}
-
-			links {
-				"dl",
-				"freetype",
-				"pthread",
-				"rt",
-				"X11",
-				"Xext"
-			}
-
-		configuration "Debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_surround_debug")
-
-		configuration "Release"
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_surround_release")
-
---------------------------------------------------------------------------------
-
 	project ("kmeter_vst_stereo")
 		kind "SharedLib"
-		location (os.get() .. "/vst_stereo")
-		targetname "kmeter_stereo_vst"
-		targetprefix ""
+
+		configuration { "linux" }
+			targetname "kmeter_stereo_vst"
 
 		defines {
 			"KMETER_STEREO=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=0",
 			"JucePlugin_Build_VST=1"
-		}
-
-		includedirs {
-			"../libraries/vstsdk3.6.5"
 		}
 
 		files {
@@ -348,30 +231,17 @@ solution "kmeter"
 			"../Source/standalone_application.cpp"
 		}
 
-		configuration {"linux"}
-			defines {
-				"LINUX=1",
-				"JUCE_USE_XSHM=1",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0",
-				"JUCE_ASIO=0",
-				"JUCE_WASAPI=0",
-				"JUCE_DIRECTSOUND=0"
-			}
+		defines {
+			"JUCE_ALSA=0",
+			"JUCE_JACK=0",
+			"JUCE_ASIO=0",
+			"JUCE_WASAPI=0",
+			"JUCE_DIRECTSOUND=0"
+		}
 
-			includedirs {
-				"/usr/include",
-				"/usr/include/freetype2"
-			}
-
-			links {
-				"dl",
-				"freetype",
-				"pthread",
-				"rt",
-				"X11",
-				"Xext"
-			}
+		includedirs {
+			"../libraries/vstsdk3.6.5"
+		}
 
 		configuration "Debug"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_debug")
@@ -383,19 +253,15 @@ solution "kmeter"
 
 	project ("kmeter_vst_surround")
 		kind "SharedLib"
-		location (os.get() .. "/vst_surround")
-		targetname "kmeter_surround_vst"
-		targetprefix ""
+
+		configuration { "linux" }
+			targetname "kmeter_surround_vst"
 
 		defines {
 			"KMETER_SURROUND=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=0",
 			"JucePlugin_Build_VST=1"
-		}
-
-		includedirs {
-			"../libraries/vstsdk3.6.5"
 		}
 
 		files {
@@ -407,33 +273,97 @@ solution "kmeter"
 			"../Source/standalone_application.cpp"
 		}
 
-		configuration {"linux"}
-			defines {
-				"LINUX=1",
-				"JUCE_USE_XSHM=1",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0",
-				"JUCE_ASIO=0",
-				"JUCE_WASAPI=0",
-				"JUCE_DIRECTSOUND=0"
-			}
+		defines {
+			"JUCE_ALSA=0",
+			"JUCE_JACK=0",
+			"JUCE_ASIO=0",
+			"JUCE_WASAPI=0",
+			"JUCE_DIRECTSOUND=0"
+		}
 
-			includedirs {
-				"/usr/include",
-				"/usr/include/freetype2"
-			}
-
-			links {
-				"dl",
-				"freetype",
-				"pthread",
-				"rt",
-				"X11",
-				"Xext"
-			}
+		includedirs {
+			"../libraries/vstsdk3.6.5"
+		}
 
 		configuration "Debug"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_surround_debug")
 
 		configuration "Release"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_surround_release")
+
+--------------------------------------------------------------------------------
+
+	project ("kmeter_lv2_stereo")
+		kind "SharedLib"
+
+		configuration { "linux" }
+			targetname "kmeter_stereo_lv2"
+
+		defines {
+			"KMETER_STEREO=1",
+			"JucePlugin_Build_LV2=1",
+			"JucePlugin_Build_Standalone=0",
+			"JucePlugin_Build_VST=0"
+		}
+
+		files {
+			  "../JuceLibraryCode/juce_audio_plugin_client_LV2.cpp"
+		}
+
+		excludes {
+			"../Source/standalone_application.h",
+			"../Source/standalone_application.cpp"
+		}
+
+		defines {
+			"JUCE_ALSA=0",
+			"JUCE_JACK=0",
+			"JUCE_ASIO=0",
+			"JUCE_WASAPI=0",
+			"JUCE_DIRECTSOUND=0"
+		}
+
+		configuration "Debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_stereo_debug")
+
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_stereo_release")
+
+--------------------------------------------------------------------------------
+
+	project ("kmeter_lv2_surround")
+		kind "SharedLib"
+
+		configuration { "linux" }
+			targetname "kmeter_surround_lv2"
+
+		defines {
+			"KMETER_SURROUND=1",
+			"JucePlugin_Build_LV2=1",
+			"JucePlugin_Build_Standalone=0",
+			"JucePlugin_Build_VST=0"
+		}
+
+		files {
+			  "../JuceLibraryCode/juce_audio_plugin_client_LV2.cpp"
+		}
+
+		excludes {
+			"../Source/standalone_application.h",
+			"../Source/standalone_application.cpp"
+		}
+
+		defines {
+			"JUCE_ALSA=0",
+			"JUCE_JACK=0",
+			"JUCE_ASIO=0",
+			"JUCE_WASAPI=0",
+			"JUCE_DIRECTSOUND=0"
+		}
+
+		configuration "Debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_surround_debug")
+
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_surround_release")
+
