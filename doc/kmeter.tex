@@ -24,11 +24,16 @@
 
 \date{\emph{Last edited on \today}}
 
-\dedication{ This documentation by
-  \href{http://www.mzuther.de/}{Martin Zuther} is licensed under a
+\dedication{
+  \includegraphics[scale=0.65,clip]{include/images/cc-by-sa.png}
+  \vspace{0.25em}
+
+  This documentation by \href{http://www.mzuther.de/}{Martin Zuther}
+  is licensed under a
   \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative
     Commons Attribution-ShareAlike 4.0 International License} with the
-  exception of the GPL, VST and ASIO logos.}
+  exception of the GPL, VST and ASIO logos.
+}
 
 \maketitle
 
@@ -134,14 +139,13 @@ on top of the meter's scale.
 \includegraphics[scale=0.60,clip]{include/images/kmeter_normal_scale.png}
 \end{wrapfigure}
 
-With its \emph{two} green areas, the \textbf{Normal} meter also looks
-a little different.  It has been designed for gain staging during
-recording: average levels should stay in the lower green area (centred
-to \textbf{\SI{-20}{\dBFS}}), while peak levels should not exceed the
-upper yellow bar (\textbf{\SI{-9}{\dBFS}}).  However, you may find my
-latency-free plug-in
-\href{http://code.mzuther.de/}{\textbf{traKmeter}} better suited for
-gain staging.
+The \textbf{Normal} scale looks a little different.  It has been
+designed for gain staging during recording: average levels should stay
+in the lower green area (and thus below \textbf{\SI{-18}{\dBFS}}),
+while peak levels should not exceed the upper yellow bar
+(\textbf{\SI{-9}{\dBFS}}).  However, you may find my latency-free
+plug-in \href{http://code.mzuther.de/}{\textbf{traKmeter}} better
+suited for gain staging.
 
 \newpage %% layout
 
@@ -167,8 +171,8 @@ as ``K-20/ITU-R''.
 \emph{\underline{Note:} K-Meter fully implements Annex 1 of the now
   superseded ITU-R BS.1770-1 standard ('K' frequency weighting, mean
   square calculation and channel-weighted summation), whereas the
-  gated loudness measurement specified in ITU-R BS.1770-2 is not (and
-  will not be) supported.}
+  gated loudness measurement specified in ITU-R BS.1770-4 is not
+  supported.}
 
 \section{Infinite peak hold}
 
@@ -222,8 +226,8 @@ analogue gear and the continuous meters typically found in DAWs.
 \end{wrapfigure}
 
 This button magnifies both average and peak level meters to
-\SI{0.1}{\dB} steps.  If switched on, the \SI{0}{\dB} mark is placed
-near the meter's bottom.
+\SI{0.1}{\dB} steps.  If switched on, the \SI{0}{\dB} mark (normal
+scale: \SI{-22}{\dB} mark) is placed near the meter's bottom.
 
 \newpage %% layout
 
@@ -253,7 +257,7 @@ surround version, the \textbf{mono} button is disabled.
 
 Click on this button to reset all meters.  You can also use it to get
 rid of graphical artefacts, because the current skin will be reloaded
-and the meters redrawn.
+and all meters redrawn.
 
 \section{Select a skin}
 
@@ -263,9 +267,10 @@ and the meters redrawn.
 \includegraphics[scale=\screenshotscale,clip]{include/images/button_skin_off.png}
 \end{wrapfigure}
 
-Click on this button to select the currently used K-Meter skin.  You
-can also set a default skin that will be loaded when new plug-ins are
-instantiated.
+Click on this button to select a new K-Meter skin.  You can also set a
+default skin that will be loaded when new plug-ins are instantiated.
+
+\newpage %% layout
 
 \section{Validation button}
 \label{sec:validation_button}
@@ -330,29 +335,31 @@ Please double-check whether this matches your host's channel order.
 
 \section{K-System meter}
 
-\begin{wrapfigure}{r}{0.20\linewidth}
-\includegraphics[scale=0.6,clip]{include/images/level_meter_combined.png}
+\begin{wrapfigure}{r}{0.19\linewidth}
+\includegraphics[scale=0.58,clip]{include/images/level_meter_itu_continuous.png}
+\newline \vspace{-0.55\baselineskip}
+\includegraphics[scale=0.58,clip]{include/images/level_meter_rms_discrete.png}
 \end{wrapfigure}
 
-The K-System meter consists of an average level meter (graphic on the
-right, contiguous lit segments) and an optional peak level meter
-(single lit segment on top).  The recommended K-20 meter has
-\SI{20}{\dB} of headroom above \SI{0}{\dB}, while the K-14 and K-12
-meters have \SI{14}{\dB} and \SI{12}{\dB} of headroom, respectively.
+The K-System meter consists of an average level meter (coloured bar)
+and an optional peak level meter (single coloured segment).  The
+recommended K-20 scale has \SI{20}{\dB} of headroom above \SI{0}{\dB},
+while the K-14 and K-12 scales have \SI{14}{\dB} and \SI{12}{\dB} of
+headroom, respectively.
 
-Each level meter is divided into segments of \SI{1}{\dB}, with the
-exception of the top \SI{2}{\dB} (segments of \SI{0.5}{\dB}) and the
-non-linear bottom end.  Magnified level meters are divided into
-segments of \SI{0.1}{\dB}.
+Each level meter is divided into steps of \SI{1}{\dB}, with the
+exception of the top \SI{2}{\dB} (steps of \SI{0.5}{\dB}) and the
+non-linear bottom end.  Magnified level meters are divided into steps
+of \SI{0.1}{\dB}.
 
 \emph{\underline{Note:} In ITU-R mode, the average level meter is
   graded in \emph{\si{\LK}} which stands for \emph{Loudness, K
     weighted} and is by all means equivalent to \si{\dB}.}
 
-Recent maximum levels are displayed by white rectangles around the
-corresponding meter segments.  Unless ``Infinite peak hold'' is
-switched on, maximum levels are held for \SI{10}{\second} and then
-start falling with a fall time of \SI{8.67}{\dB\per\second}.
+Recent maximum levels are displayed by white bars.  Unless ``Infinite
+peak hold'' is switched on, maximum levels are held for
+\SI{10}{\second} and then start falling with a fall time of
+\SI{8.67}{\dB\per\second}.
 
 Both stand-alone application and the plug-in only work at sampling
 rates between \SI{44.1}{\kilo\hertz} and \SI{192}{\kilo\hertz} and
@@ -409,9 +416,7 @@ one sample and a fall time of \SI{8.67}{\dB\per\second}.
 The overload counter displays the number of samples that have reached
 or exceeded digital full scale (to be exact, the counter registers
 levels above \SI{-0.001}{\dBFS} to address the granularity of
-\num{16}-bit floating-point numbers).  This is a very conservative
-approach to estimate overloads -- but I'd rather have an excess
-warning than have my audio files clip.
+\num{16}-bit floating-point numbers).
 
 \emph{Please note that this counter does not register inter-sample
   peaks.}
@@ -488,8 +493,8 @@ Begin by starting K-Meter.  If in a Bash shell, try this:
   ./kmeter_stereo 2>&1 | tee /tmp/validate.log
 \end{VerbatimBoth}
 
-\begin{wrapfigure}{r}{0.32\linewidth}
-\includegraphics[scale=0.60,clip]{include/images/dialog_validation.png}
+\begin{wrapfigure}{r}{0.25\linewidth}
+\includegraphics[scale=0.50,clip]{include/images/dialog_validation.png}
 \end{wrapfigure}
 
 After opening the \textbf{validation window} (see
@@ -504,8 +509,9 @@ Check \textbf{CSV} if you want to feed the output to a parser.
 
 Finally, click on the \textbf{validate} button to reset all meters and
 start playback of the selected audio file.  All audio input will be
-discarded during playback and for an additional ten seconds.  To stop
-playback early, simply click on the \textbf{validate} button again.
+discarded during playback and for an additional twenty seconds.  To
+stop playback early, simply click on the \textbf{validate} button
+again.
 
 In case you want to calibrate your monitor system, locate the file
 \path{pink_noise_bandlimited.flac} in the directory \path{validation},
@@ -677,7 +683,7 @@ suggestions and bug reports.  Finally, I want to thank the
 Although coding K-Meter has been a lot of fun, it has also been a lot
 of work.  So if you like K-Meter, why not send me a short email and
 tell me so?  Write a few words about yourself, send suggestions for
-future updates or volunteer to create a nice theme.  I also really
+future updates or volunteer to create a nice skin.  I also really
 enjoy listening to music that you may have produced using my
 software\dots
 
@@ -839,8 +845,8 @@ platform, you should run \path{premake} using the scripts
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 4.1.0 \\
-  License:     \> ISC and GPL v2 (among others) \\
+  Version:     \> 4.2.1 \\
+  License:     \> ISC and GPL v3 (among others) \\
   Homepage:    \> \href{http://www.juce.com/}{www.juce.com}
 \end{tabbing}
 
