@@ -43,6 +43,7 @@
             x="127"
             y="11"
             image_on="buttons/button_k20_on.png"
+            image_over="buttons/button_k20_over.png"
             image_off="buttons/button_k20_off.png"
         />
 
@@ -50,6 +51,7 @@
             x="127"
             y="36"
             image_on="buttons/button_k14_on.png"
+            image_over="buttons/button_k14_over.png"
             image_off="buttons/button_k14_off.png"
         />
 
@@ -57,6 +59,7 @@
             x="127"
             y="61"
             image_on="buttons/button_k12_on.png"
+            image_over="buttons/button_k12_over.png"
             image_off="buttons/button_k12_off.png"
         />
 
@@ -64,6 +67,7 @@
             x="127"
             y="86"
             image_on="buttons/button_normal_on.png"
+            image_over="buttons/button_normal_over.png"
             image_off="buttons/button_normal_off.png"
         />
 
@@ -71,6 +75,7 @@
             x="127"
             y="126"
             image_on="buttons/button_itu_on.png"
+            image_over="buttons/button_itu_over.png"
             image_off="buttons/button_itu_off.png"
         />
 
@@ -78,6 +83,7 @@
             x="127"
             y="151"
             image_on="buttons/button_rms_on.png"
+            image_over="buttons/button_rms_over.png"
             image_off="buttons/button_rms_off.png"
         />
 
@@ -85,6 +91,7 @@
             x="127"
             y="191"
             image_on="buttons/button_hold_on.png"
+            image_over="buttons/button_hold_over.png"
             image_off="buttons/button_hold_off.png"
         />
 
@@ -92,6 +99,7 @@
             x="127"
             y="216"
             image_on="buttons/button_peaks_on.png"
+            image_over="buttons/button_peaks_over.png"
             image_off="buttons/button_peaks_off.png"
         />
 
@@ -99,6 +107,7 @@
             x="127"
             y="241"
             image_on="buttons/button_expand_on.png"
+            image_over="buttons/button_expand_over.png"
             image_off="buttons/button_expand_off.png"
         />
 
@@ -106,6 +115,7 @@
             x="127"
             y="281"
             image_on="buttons/button_discrete_on.png"
+            image_over="buttons/button_discrete_over.png"
             image_off="buttons/button_discrete_off.png"
         />
 
@@ -113,6 +123,7 @@
             x="127"
             y="306"
             image_on="buttons/button_skin_on.png"
+            image_over="buttons/button_skin_over.png"
             image_off="buttons/button_skin_off.png"
         />
 
@@ -120,6 +131,7 @@
             x="127"
             y="346"
             image_on="buttons/button_mono_on.png"
+            image_over="buttons/button_mono_over.png"
             image_off="buttons/button_mono_off.png"
         />
 
@@ -127,6 +139,7 @@
             x="127"
             y="371"
             image_on="buttons/button_reset_on.png"
+            image_over="buttons/button_reset_over.png"
             image_off="buttons/button_reset_off.png"
         />
 
@@ -134,6 +147,7 @@
             x="127"
             y="584"
             image_on="buttons/button_validate_on.png"
+            image_over="buttons/button_validate_over.png"
             image_off="buttons/button_validate_off.png"
         />
 
@@ -141,6 +155,7 @@
             x="127"
             y="609"
             image_on="buttons/button_about_on.png"
+            image_over="buttons/button_about_over.png"
             image_off="buttons/button_about_off.png"
         />
 
@@ -514,6 +529,7 @@
             x="127"
             y="564"
             image_on="buttons/button_validate_on.png"
+            image_over="buttons/button_validate_over.png"
             image_off="buttons/button_validate_off.png"
         />
 
@@ -521,6 +537,7 @@
             x="127"
             y="589"
             image_on="buttons/button_about_on.png"
+            image_over="buttons/button_about_over.png"
             image_off="buttons/button_about_off.png"
         />
 
@@ -666,6 +683,7 @@
             x="351"
             y="11"
             image_on="buttons/button_k20_on.png"
+            image_over="buttons/button_k20_over.png"
             image_off="buttons/button_k20_off.png"
         />
 
@@ -673,6 +691,7 @@
             x="351"
             y="36"
             image_on="buttons/button_k14_on.png"
+            image_over="buttons/button_k14_over.png"
             image_off="buttons/button_k14_off.png"
         />
 
@@ -680,6 +699,7 @@
             x="351"
             y="61"
             image_on="buttons/button_k12_on.png"
+            image_over="buttons/button_k12_over.png"
             image_off="buttons/button_k12_off.png"
         />
 
@@ -687,6 +707,7 @@
             x="351"
             y="86"
             image_on="buttons/button_normal_on.png"
+            image_over="buttons/button_normal_over.png"
             image_off="buttons/button_normal_off.png"
         />
 
@@ -694,6 +715,7 @@
             x="351"
             y="126"
             image_on="buttons/button_itu_on.png"
+            image_over="buttons/button_itu_over.png"
             image_off="buttons/button_itu_off.png"
         />
 
@@ -701,6 +723,7 @@
             x="351"
             y="151"
             image_on="buttons/button_rms_on.png"
+            image_over="buttons/button_rms_over.png"
             image_off="buttons/button_rms_off.png"
         />
 
@@ -708,6 +731,7 @@
             x="351"
             y="191"
             image_on="buttons/button_hold_on.png"
+            image_over="buttons/button_hold_over.png"
             image_off="buttons/button_hold_off.png"
         />
 
@@ -715,6 +739,7 @@
             x="351"
             y="216"
             image_on="buttons/button_peaks_on.png"
+            image_over="buttons/button_peaks_over.png"
             image_off="buttons/button_peaks_off.png"
         />
 
@@ -722,6 +747,7 @@
             x="351"
             y="241"
             image_on="buttons/button_expand_on.png"
+            image_over="buttons/button_expand_over.png"
             image_off="buttons/button_expand_off.png"
         />
 
@@ -729,6 +755,7 @@
             x="351"
             y="281"
             image_on="buttons/button_discrete_on.png"
+            image_over="buttons/button_discrete_over.png"
             image_off="buttons/button_discrete_off.png"
         />
 
@@ -736,6 +763,7 @@
             x="351"
             y="306"
             image_on="buttons/button_skin_on.png"
+            image_over="buttons/button_skin_over.png"
             image_off="buttons/button_skin_off.png"
         />
 
@@ -743,6 +771,7 @@
             x="351"
             y="346"
             image_on="buttons/button_mono_on.png"
+            image_over="buttons/button_mono_over.png"
             image_off="buttons/button_mono_off.png"
         />
 
@@ -750,6 +779,7 @@
             x="351"
             y="371"
             image_on="buttons/button_reset_on.png"
+            image_over="buttons/button_reset_over.png"
             image_off="buttons/button_reset_off.png"
         />
 
@@ -757,6 +787,7 @@
             x="351"
             y="564"
             image_on="buttons/button_validate_on.png"
+            image_over="buttons/button_validate_over.png"
             image_off="buttons/button_validate_off.png"
         />
 
@@ -764,6 +795,7 @@
             x="351"
             y="589"
             image_on="buttons/button_about_on.png"
+            image_over="buttons/button_about_over.png"
             image_off="buttons/button_about_off.png"
         />
 
