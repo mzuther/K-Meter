@@ -1,9 +1,61 @@
 Git HEAD
 ========
 
+v2.4.0 (2016-05-01)
+===================
+
+* fully passed validation
+
+* Ardour file for validation of R-REP-BS.2217-1
+
+* simplified "normal" meter scale
+
+* updated skins
+
+* check version of skin files
+
+* added (optional) button overlay images to skins
+
+* updated framework to JUCE v4.2.1
+
+* updated documentation
+
+* licensed various files under CC-BY-SA 4.0
+
+
+
+v2.2.3 (2016-04-10)
+===================
+
+* updated framework to JUCE v4.1.0
+
+* updated libraries (ASIO 2.3, VST 3.6.5)
+
+* re-factored and documented code
+
+
+
+v2.2.2 (2016-02-28)
+===================
+
+* continuous meter segments
+
+* simplified skin creation
+
+* new skin "Slim Buttons", removed "Legacy" skin
+
+* changed meter scales and added subdivisions to skins
+
+* fixed drawing error in meter bars
+
+* fixed peak to average level correction
+
+* re-factored and documented code
+
+
 
 v2.2.0 (2015-12-20)
-==================
+===================
 
 * completely changed parameter handling
 
@@ -26,7 +78,7 @@ v2.2.0 (2015-12-20)
 
 
 v2.1.0 (2015-02-28)
-==================
+===================
 
 * lots of internal changes
 
