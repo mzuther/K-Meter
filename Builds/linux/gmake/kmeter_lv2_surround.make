@@ -28,7 +28,7 @@ ifeq ($(config),debug32)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fPIC -fno-inline -ggdb -std=c++11
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -shared -m32 -L/usr/lib32 -Wl,--no-undefined ../../../libraries/fftw3/bin/linux/i386/libfftw3f.a
+  LDFLAGS   += -shared -m32 -L/usr/lib32 ../../../libraries/fftw3/bin/linux/i386/libfftw3f.a -Wl,--no-undefined
   LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
@@ -50,7 +50,7 @@ ifeq ($(config),release32)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -fPIC -fvisibility=hidden -pipe -std=c++11
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -shared -m32 -L/usr/lib32 -Wl,--no-undefined ../../../libraries/fftw3/bin/linux/i386/libfftw3f.a
+  LDFLAGS   += -s -shared -m32 -L/usr/lib32 ../../../libraries/fftw3/bin/linux/i386/libfftw3f.a -Wl,--no-undefined
   LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
@@ -72,7 +72,7 @@ ifeq ($(config),debug64)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m64 -fPIC -fno-inline -ggdb -std=c++11
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -shared -m64 -L/usr/lib64 -Wl,--no-undefined ../../../libraries/fftw3/bin/linux/amd64/libfftw3f.a
+  LDFLAGS   += -shared -m64 -L/usr/lib64 ../../../libraries/fftw3/bin/linux/amd64/libfftw3f.a -Wl,--no-undefined
   LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
@@ -94,7 +94,7 @@ ifeq ($(config),release64)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m64 -fPIC -fvisibility=hidden -pipe -std=c++11
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -shared -m64 -L/usr/lib64 -Wl,--no-undefined ../../../libraries/fftw3/bin/linux/amd64/libfftw3f.a
+  LDFLAGS   += -s -shared -m64 -L/usr/lib64 ../../../libraries/fftw3/bin/linux/amd64/libfftw3f.a -Wl,--no-undefined
   LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
