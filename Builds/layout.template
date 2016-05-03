@@ -25,7 +25,14 @@
 
 {% import 'premake4.template' as render %}
 
-{% set addition_solution %}
+{% set name = {'real': 'K-Meter', 'short': 'kmeter'} -%}
+
+{% set variants = ({'real': 'Stereo', 'short': 'stereo'},
+                   {'real': 'Surround', 'short': 'surround'}) -%}
+
+
+
+{% set additions_solution %}
 
 	configuration { "linux", "x32" }
 		linkoptions {
@@ -40,30 +47,34 @@
 		}
 {% endset -%}
 
+{{ render.solution(name, additions_solution) -}}
 
-{{ render.solution('K-Meter', 'kmeter', addition_solution) }}
 
---------------------------------------------------------------------------------
 
-{{ render.standalone('K-Meter', 'kmeter', 'Stereo', 'stereo') }}
-
---------------------------------------------------------------------------------
-
-{{ render.standalone('K-Meter', 'kmeter', 'Surround', 'surround') }}
+{% for variant in variants %}
 
 --------------------------------------------------------------------------------
 
-{{ render.vst('K-Meter', 'kmeter', 'Stereo', 'stereo') }}
+{{ render.standalone(name, variant) -}}
+
+{% endfor -%}
+
+
+
+{% for variant in variants %}
 
 --------------------------------------------------------------------------------
 
-{{ render.vst('K-Meter', 'kmeter', 'Surround', 'surround') }}
+{{ render.vst(name, variant) -}}
+
+{% endfor -%}
+
+
+
+{% for variant in variants %}
 
 --------------------------------------------------------------------------------
 
-{{ render.lv2('K-Meter', 'kmeter', 'Stereo', 'stereo') }}
+{{ render.lv2(name, variant) -}}
 
---------------------------------------------------------------------------------
-
-{{ render.lv2('K-Meter', 'kmeter', 'Surround', 'surround') }}
-
+{% endfor -%}
