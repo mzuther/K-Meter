@@ -38,38 +38,39 @@ class TruePeakMeter;
 class TruePeakMeter
 {
 public:
-    TruePeakMeter(const int channels, const int buffer_size);
+    TruePeakMeter(const int channels, const int bufferSize);
     ~TruePeakMeter();
 
     float getLevel(const int channel);
-    void copyFromBuffer(frut::audio::RingBuffer &ringBuffer, const unsigned int pre_delay);
+    void copyFromBuffer(frut::audio::RingBuffer &ringBuffer,
+                        const unsigned int preDelay);
 
 private:
     JUCE_LEAK_DETECTOR(TruePeakMeter);
 
     void calculateFilterKernel();
-    void FilterSamples(int passNumber);
-    void FilterWorker(const int channel);
+    void filterSamples(const int passNumber);
+    void filterWorker(const int channel);
 
-    Array<double> arrTruePeakLevels;
+    Array<double> truePeakLevels;
 
-    float *arrFilterKernel_TD;
-    fftwf_complex *arrFilterKernel_FD;
+    float *filterKernel_TD;
+    fftwf_complex *filterKernel_FD;
     fftwf_plan planFilterKernel_DFT;
 
-    float *arrAudioSamples_TD;
-    fftwf_complex *arrAudioSamples_FD;
+    float *audioSamples_TD;
+    fftwf_complex *audioSamples_FD;
     fftwf_plan planAudioSamples_DFT;
     fftwf_plan planAudioSamples_IDFT;
 
-    int nNumberOfChannels;
-    int nOversamplingRate;
+    int numberOfChannels_;
+    int oversamplingRate_;
 
-    int nBufferSizeOriginal;
-    int nBufferSizeOriginalHalf;
-    int nBufferSizeOversampled;
-    int nFftSize;
-    int nHalfFftSize;
+    int bufferSizeOriginal_;
+    int bufferSizeOriginalHalf_;
+    int bufferSizeOversampled_;
+    int fftSize_;
+    int halfFftSize_;
 
     AudioSampleBuffer sampleBufferOriginal;
     AudioSampleBuffer sampleBufferCurrent;
@@ -77,8 +78,6 @@ private:
     AudioSampleBuffer sampleBufferOversampled;
 
 #if (defined (_WIN32) || defined (_WIN64))
-    DynamicLibrary *pDynamicLibraryFFTW;
-
     float *(*fftwf_alloc_real)(size_t);
     fftwf_complex *(*fftwf_alloc_complex)(size_t);
     void (*fftwf_free)(void *);
