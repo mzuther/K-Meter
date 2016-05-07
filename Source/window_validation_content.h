@@ -62,7 +62,9 @@ private:
     ToggleButton buttonDumpCSV_;
     ToggleButton buttonDumpAverageLevel_;
     ToggleButton buttonDumpPeakLevel_;
+    ToggleButton buttonDumpTruePeakLevel_;
     ToggleButton buttonDumpMaximumPeakLevel_;
+    ToggleButton buttonDumpMaximumTruePeakLevel_;
     ToggleButton buttonDumpStereoMeter_;
     ToggleButton buttonDumpPhaseCorrelation_;
 };

@@ -2,16 +2,16 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="Source">
-			<UniqueIdentifier>{ACCAD072-0208-E2CE-9A44-C219D994EF0A}</UniqueIdentifier>
+			<UniqueIdentifier>{118A4854-8B15-ECA7-DB9E-E3C7171FC658}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common">
-			<UniqueIdentifier>{015677F7-C1EE-C56C-C64D-6A7EC567AC89}</UniqueIdentifier>
+			<UniqueIdentifier>{3027A621-57F5-6B03-2422-5D874ECE76BB}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\amalgamated">
-			<UniqueIdentifier>{EDB09BE8-1D52-BDD7-F9AF-9CC4B4A4C4A7}</UniqueIdentifier>
+			<UniqueIdentifier>{9C0576D4-89F9-D695-EAAF-0B6C357FF4D6}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="JuceLibraryCode">
-			<UniqueIdentifier>{18FB85CD-726F-1ECC-61A0-562E132C7002}</UniqueIdentifier>
+			<UniqueIdentifier>{E06F6E5E-EACA-0009-3B9D-03CD287D7D99}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -49,6 +49,9 @@
 			<Filter>Source</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\Source\plugin_editor.h">
+			<Filter>Source</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\Source\true_peak_meter.h">
 			<Filter>Source</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\Source\audio_file_player.h">
@@ -102,6 +105,9 @@
 			<Filter>Source</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\average_level_filtered.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\true_peak_meter.cpp">
 			<Filter>Source</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">

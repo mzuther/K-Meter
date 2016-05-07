@@ -34,9 +34,6 @@
 #include "skin.h"
 
 
-//==============================================================================
-/**
-*/
 class Kmeter :
     public Component
 {
@@ -61,6 +58,7 @@ protected:
     OwnedArray<MeterBar> levelMeters_;
     OwnedArray<OverflowMeter> overflowMeters_;
     OwnedArray<PeakLabel> maximumPeakLabels_;
+    OwnedArray<PeakLabel> maximumTruePeakLabels_;
 
     int numberOfInputChannels_;
     bool displayPeakMeter_;

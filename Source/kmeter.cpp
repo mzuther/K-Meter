@@ -36,6 +36,7 @@ void Kmeter::create(
     levelMeters_.clear();
     overflowMeters_.clear();
     maximumPeakLabels_.clear();
+    maximumTruePeakLabels_.clear();
 
     numberOfInputChannels_ = numberOfInputChannels;
     displayPeakMeter_ = false;
@@ -96,6 +97,7 @@ void Kmeter::applySkin(
     levelMeters_.clear();
     overflowMeters_.clear();
     maximumPeakLabels_.clear();
+    maximumTruePeakLabels_.clear();
 
     for (int channel = 0; channel < numberOfInputChannels_; ++channel)
     {
@@ -118,6 +120,11 @@ void Kmeter::applySkin(
                                    new PeakLabel(crestFactor));
 
         addAndMakeVisible(peakLabel);
+
+        PeakLabel *truePeakLabel = maximumTruePeakLabels_.add(
+                                       new PeakLabel(crestFactor));
+
+        addAndMakeVisible(truePeakLabel);
     }
 
     if (numberOfInputChannels_ == 1)
@@ -128,6 +135,8 @@ void Kmeter::applySkin(
                                      "label_over");
         skin->placeAndSkinStateLabel(maximumPeakLabels_[0],
                                      "label_peak");
+        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[0],
+                                     "label_true_peak");
     }
     else if (numberOfInputChannels_ == 2)
     {
@@ -137,6 +146,8 @@ void Kmeter::applySkin(
                                      "label_over_left");
         skin->placeAndSkinStateLabel(maximumPeakLabels_[0],
                                      "label_peak_left");
+        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[0],
+                                     "label_true_peak_left");
 
         skin->placeMeterBar(levelMeters_[1],
                             "meter_kmeter_right");
@@ -144,6 +155,8 @@ void Kmeter::applySkin(
                                      "label_over_right");
         skin->placeAndSkinStateLabel(maximumPeakLabels_[1],
                                      "label_peak_right");
+        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[1],
+                                     "label_true_peak_right");
     }
     else if (numberOfInputChannels_ == 6)
     {
@@ -153,6 +166,8 @@ void Kmeter::applySkin(
                                      "label_over_left");
         skin->placeAndSkinStateLabel(maximumPeakLabels_[0],
                                      "label_peak_left");
+        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[0],
+                                     "label_true_peak_left");
 
         skin->placeMeterBar(levelMeters_[1],
                             "meter_kmeter_right");
@@ -160,6 +175,8 @@ void Kmeter::applySkin(
                                      "label_over_right");
         skin->placeAndSkinStateLabel(maximumPeakLabels_[1],
                                      "label_peak_right");
+        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[1],
+                                     "label_true_peak_right");
 
         skin->placeMeterBar(levelMeters_[2],
                             "meter_kmeter_center");
@@ -167,6 +184,8 @@ void Kmeter::applySkin(
                                      "label_over_center");
         skin->placeAndSkinStateLabel(maximumPeakLabels_[2],
                                      "label_peak_center");
+        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[2],
+                                     "label_true_peak_center");
 
         skin->placeMeterBar(levelMeters_[3],
                             "meter_kmeter_lfe");
@@ -174,6 +193,8 @@ void Kmeter::applySkin(
                                      "label_over_lfe");
         skin->placeAndSkinStateLabel(maximumPeakLabels_[3],
                                      "label_peak_lfe");
+        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[3],
+                                     "label_true_peak_lfe");
 
         skin->placeMeterBar(levelMeters_[4],
                             "meter_kmeter_ls");
@@ -181,6 +202,8 @@ void Kmeter::applySkin(
                                      "label_over_ls");
         skin->placeAndSkinStateLabel(maximumPeakLabels_[4],
                                      "label_peak_ls");
+        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[4],
+                                     "label_true_peak_ls");
 
         skin->placeMeterBar(levelMeters_[5],
                             "meter_kmeter_rs");
@@ -188,6 +211,8 @@ void Kmeter::applySkin(
                                      "label_over_rs");
         skin->placeAndSkinStateLabel(maximumPeakLabels_[5],
                                      "label_peak_rs");
+        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[5],
+                                     "label_true_peak_rs");
     }
     else
     {
@@ -233,6 +258,9 @@ void Kmeter::setLevels(
 
         maximumPeakLabels_[channel]->updateLevel(
             meterBallistics->getMaximumPeakLevel(channel));
+
+        maximumTruePeakLabels_[channel]->updateLevel(
+            meterBallistics->getMaximumTruePeakLevel(channel));
 
         overflowMeters_[channel]->setOverflows(
             meterBallistics->getNumberOfOverflows(channel));

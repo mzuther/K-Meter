@@ -70,14 +70,17 @@
 
 <!ENTITY % itu_components
           "label_over,
-           label_peak
+           label_peak,
+           label_true_peak
 ">
 
 <!ENTITY % rms_components_stereo
           "label_over_left,
            label_over_right,
            label_peak_left,
-           label_peak_right
+           label_peak_right,
+           label_true_peak_left,
+           label_true_peak_right
 ">
 
 <!ENTITY % rms_components_surround
@@ -92,19 +95,28 @@
            label_peak_center,
            label_peak_lfe,
            label_peak_ls,
-           label_peak_rs
+           label_peak_rs,
+           label_true_peak_left,
+           label_true_peak_right,
+           label_true_peak_center,
+           label_true_peak_lfe,
+           label_true_peak_ls,
+           label_true_peak_rs
 ">
 
 <!ENTITY % itu_components_optional
           "label_over?,
-           label_peak?
+           label_peak?,
+           label_true_peak?
 ">
 
 <!ENTITY % rms_components_stereo_optional
           "label_over_left?,
            label_over_right?,
            label_peak_left?,
-           label_peak_right?
+           label_peak_right?,
+           label_true_peak_left?,
+           label_true_peak_right?
 ">
 
 <!ENTITY % rms_components_surround_optional
@@ -119,7 +131,13 @@
            label_peak_center?,
            label_peak_lfe?,
            label_peak_ls?,
-           label_peak_rs?
+           label_peak_rs?,
+           label_true_peak_left?,
+           label_true_peak_right?,
+           label_true_peak_center?,
+           label_true_peak_lfe?,
+           label_true_peak_ls?,
+           label_true_peak_rs?
 ">
 
 <!ENTITY % attrs_colour_hsba
@@ -174,6 +192,7 @@
            %attrs_image_spacing;
            %attrs_font;
            colour_on CDATA #IMPLIED
+           colour_off CDATA #IMPLIED
            image_on CDATA #REQUIRED
            image_off CDATA #REQUIRED
 ">
@@ -347,6 +366,27 @@
 
         <!ELEMENT label_peak_rs (#PCDATA)>
             <!ATTLIST label_peak_rs %attrs_state_label;>
+
+        <!ELEMENT label_true_peak (#PCDATA)>
+            <!ATTLIST label_true_peak %attrs_state_label;>
+
+        <!ELEMENT label_true_peak_left (#PCDATA)>
+            <!ATTLIST label_true_peak_left %attrs_state_label;>
+
+        <!ELEMENT label_true_peak_right (#PCDATA)>
+            <!ATTLIST label_true_peak_right %attrs_state_label;>
+
+        <!ELEMENT label_true_peak_center (#PCDATA)>
+            <!ATTLIST label_true_peak_center %attrs_state_label;>
+
+        <!ELEMENT label_true_peak_lfe (#PCDATA)>
+            <!ATTLIST label_true_peak_lfe %attrs_state_label;>
+
+        <!ELEMENT label_true_peak_ls (#PCDATA)>
+            <!ATTLIST label_true_peak_ls %attrs_state_label;>
+
+        <!ELEMENT label_true_peak_rs (#PCDATA)>
+            <!ATTLIST label_true_peak_rs %attrs_state_label;>
 
         <!ELEMENT meter_kmeter (#PCDATA)>
             <!ATTLIST meter_kmeter %attrs_meter;>

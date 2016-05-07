@@ -404,6 +404,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     arrPeakLevels.clear();
     arrRmsLevels.clear();
     arrAverageLevelsFiltered.clear();
+    arrTruePeakLevels.clear();
 
     arrOverflows.clear();
 
@@ -412,11 +413,14 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
         arrPeakLevels.add(0.0f);
         arrRmsLevels.add(0.0f);
         arrAverageLevelsFiltered.add(MeterBallistics::getMeterMinimumDecibel());
+        arrTruePeakLevels.add(0.0f);
 
         arrOverflows.add(0);
     }
 
     pAverageLevelFiltered = new AverageLevelFiltered(this, nNumInputChannels, (int) sampleRate, nTrakmeterBufferSize, nAverageAlgorithm);
+
+    pTruePeakMeter = new TruePeakMeter(nNumInputChannels, nTrakmeterBufferSize);
 
     // make sure that ring buffer can hold at least nTrakmeterBufferSize
     // samples and is large enough to receive a full block of audio
@@ -440,6 +444,7 @@ void KmeterAudioProcessor::releaseResources()
 
     pMeterBallistics = nullptr;
     pAverageLevelFiltered = nullptr;
+    pTruePeakMeter = nullptr;
 }
 
 
@@ -524,6 +529,9 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const u
     // adds delay of (uChunkSize / 2) samples)
     pAverageLevelFiltered->copyFromBuffer(*pRingBufferInput, 0, (int) getSampleRate());
 
+    // copy ring buffer to determine true peak level (use pre-delay)
+    pTruePeakMeter->copyFromBuffer(*pRingBufferInput, uPreDelay);
+
     for (int nChannel = 0; nChannel < nNumInputChannels; ++nChannel)
     {
         if (bMono && (nChannel == 1))
@@ -531,6 +539,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const u
             arrPeakLevels.set(nChannel, arrPeakLevels[0]);
             arrRmsLevels.set(nChannel, arrRmsLevels[0]);
             arrAverageLevelsFiltered.set(nChannel, arrAverageLevelsFiltered[0]);
+            arrTruePeakLevels.set(nChannel, arrTruePeakLevels[0]);
 
             arrOverflows.set(nChannel, arrOverflows[0]);
         }
@@ -547,13 +556,17 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const u
             // to decibels!)
             arrAverageLevelsFiltered.set(nChannel, pAverageLevelFiltered->getLevel(nChannel));
 
+            // determine true peak level for uChunkSize samples (uses
+            // pre-delay)
+            arrTruePeakLevels.set(nChannel, pTruePeakMeter->getLevel(nChannel));
+
             // determine overflows for uChunkSize samples (use pre-delay)
             arrOverflows.set(nChannel, countOverflows(pRingBufferInput, nChannel, uChunkSize, uPreDelay));
         }
 
         // apply meter ballistics and store values so that the editor
         // can access them
-        pMeterBallistics->updateChannel(nChannel, fProcessedSeconds, arrPeakLevels[nChannel], arrRmsLevels[nChannel], arrAverageLevelsFiltered[nChannel], arrOverflows[nChannel]);
+        pMeterBallistics->updateChannel(nChannel, fProcessedSeconds, arrPeakLevels[nChannel], arrTruePeakLevels[nChannel], arrRmsLevels[nChannel], arrAverageLevelsFiltered[nChannel], arrOverflows[nChannel]);
     }
 
     // phase correlation is only defined for stereo signals
@@ -646,7 +659,7 @@ void KmeterAudioProcessor::silenceInput(bool isSilentNew)
 }
 
 
-void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel, bool bReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation)
+void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel, bool bReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bTruePeakMeterLevel, bool bMaximumTruePeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation)
 {
     // reset all meters before we start the validation
     pMeterBallistics->reset();
@@ -655,7 +668,7 @@ void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel,
 
     int nCrestFactor = getRealInteger(KmeterPluginParameters::selCrestFactor);
     audioFilePlayer = new AudioFilePlayer(fileAudio, (int) getSampleRate(), pMeterBallistics, nCrestFactor);
-    audioFilePlayer->setReporters(nSelectedChannel, bReportCSV, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bStereoMeterValue, bPhaseCorrelation);
+    audioFilePlayer->setReporters(nSelectedChannel, bReportCSV, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bTruePeakMeterLevel, bMaximumTruePeakLevel, bStereoMeterValue, bPhaseCorrelation);
 
     // refresh editor; "V+" --> validation started
     sendActionMessage("V+");

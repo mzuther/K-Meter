@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{DA23846D-08E3-C166-D47A-27531B612580}</ProjectGuid>
+		<ProjectGuid>{DC4FC13C-7A0F-704A-E815-C4F075639873}</ProjectGuid>
 		<RootNamespace>kmeter_vst_stereo</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -223,6 +223,7 @@
 		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\Source\average_level_filtered.h" />
 		<ClInclude Include="..\..\..\Source\plugin_editor.h" />
+		<ClInclude Include="..\..\..\Source\true_peak_meter.h" />
 		<ClInclude Include="..\..\..\Source\audio_file_player.h" />
 		<ClInclude Include="..\..\..\Source\kmeter.h" />
 		<ClInclude Include="..\..\..\Source\plugin_processor.h" />
@@ -252,6 +253,8 @@
 		<ClCompile Include="..\..\..\Source\meter_ballistics.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\average_level_filtered.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\true_peak_meter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
 		</ClCompile>

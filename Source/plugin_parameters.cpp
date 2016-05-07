@@ -137,21 +137,35 @@ KmeterPluginParameters::KmeterPluginParameters() :
     frut::parameter::ParBoolean *ParameterValidationMaximumPeakLevel =
         new frut::parameter::ParBoolean("On", "Off");
     ParameterValidationMaximumPeakLevel->setName("Validate maximum peak level");
-    ParameterValidationMaximumPeakLevel->setDefaultBoolean(true, true);
+    ParameterValidationMaximumPeakLevel->setDefaultBoolean(false, true);
     add(ParameterValidationMaximumPeakLevel, selValidationMaximumPeakLevel);
+
+
+    frut::parameter::ParBoolean *ParameterValidationTruePeakMeterLevel =
+        new frut::parameter::ParBoolean("On", "Off");
+    ParameterValidationTruePeakMeterLevel->setName("Validate true peak meter level");
+    ParameterValidationTruePeakMeterLevel->setDefaultBoolean(false, true);
+    add(ParameterValidationTruePeakMeterLevel, selValidationTruePeakMeterLevel);
+
+
+    frut::parameter::ParBoolean *ParameterValidationMaximumTruePeakLevel =
+        new frut::parameter::ParBoolean("On", "Off");
+    ParameterValidationMaximumTruePeakLevel->setName("Validate maximum true peak level");
+    ParameterValidationMaximumTruePeakLevel->setDefaultBoolean(false, true);
+    add(ParameterValidationMaximumTruePeakLevel, selValidationMaximumTruePeakLevel);
 
 
     frut::parameter::ParBoolean *ParameterValidationStereoMeterValue =
         new frut::parameter::ParBoolean("On", "Off");
     ParameterValidationStereoMeterValue->setName("Validate stereo meter value");
-    ParameterValidationStereoMeterValue->setDefaultBoolean(true, true);
+    ParameterValidationStereoMeterValue->setDefaultBoolean(false, true);
     add(ParameterValidationStereoMeterValue, selValidationStereoMeterValue);
 
 
     frut::parameter::ParBoolean *ParameterValidationPhaseCorrelation =
         new frut::parameter::ParBoolean("On", "Off");
     ParameterValidationPhaseCorrelation->setName("Validate phase correlation");
-    ParameterValidationPhaseCorrelation->setDefaultBoolean(true, true);
+    ParameterValidationPhaseCorrelation->setDefaultBoolean(false, true);
     add(ParameterValidationPhaseCorrelation, selValidationPhaseCorrelation);
 
 

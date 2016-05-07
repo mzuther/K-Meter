@@ -35,6 +35,8 @@ AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBal
     bReportAverageMeterLevel = false;
     bReportPeakMeterLevel = false;
     bReportMaximumPeakLevel = false;
+    bReportTruePeakMeterLevel = false;
+    bReportMaximumTruePeakLevel = false;
     bReportStereoMeterValue = false;
     bReportPhaseCorrelation = false;
 
@@ -51,6 +53,7 @@ AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBal
     {
         arrAverager_AverageMeterLevels.add(frut::math::Averager(nSamplesMovingAverage, fMeterMinimumDecibel));
         arrAverager_PeakMeterLevels.add(frut::math::Averager(nSamplesMovingAverage, fMeterMinimumDecibel));
+        arrAverager_TruePeakMeterLevels.add(frut::math::Averager(nSamplesMovingAverage, fMeterMinimumDecibel));
     }
 
     AudioFormatManager formatManager;
@@ -125,7 +128,7 @@ void AudioFilePlayer::setCrestFactor(int crest_factor)
 }
 
 
-void AudioFilePlayer::setReporters(int nChannel, bool ReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation)
+void AudioFilePlayer::setReporters(int nChannel, bool ReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bTruePeakMeterLevel, bool bMaximumTruePeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation)
 {
     bReportCSV = ReportCSV;
 
@@ -133,10 +136,12 @@ void AudioFilePlayer::setReporters(int nChannel, bool ReportCSV, bool bAverageMe
     bReportAverageMeterLevel = bAverageMeterLevel;
     bReportPeakMeterLevel = bPeakMeterLevel;
     bReportMaximumPeakLevel = bMaximumPeakLevel;
+    bReportTruePeakMeterLevel = bTruePeakMeterLevel;
+    bReportMaximumTruePeakLevel = bMaximumTruePeakLevel;
     bReportStereoMeterValue = bStereoMeterValue;
     bReportPhaseCorrelation = bPhaseCorrelation;
 
-    bReports = bReportAverageMeterLevel || bReportPeakMeterLevel || bReportMaximumPeakLevel || bReportStereoMeterValue || bReportPhaseCorrelation;
+    bReports = bReportAverageMeterLevel || bReportPeakMeterLevel || bReportMaximumPeakLevel || bReportTruePeakMeterLevel || bReportMaximumTruePeakLevel || bReportStereoMeterValue || bReportPhaseCorrelation;
 }
 
 
@@ -236,6 +241,27 @@ void AudioFilePlayer::outputReportPlain(void)
         }
     }
 
+    if (bReportTruePeakMeterLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; ++nChannel)
+            {
+                float fTruePeakMeterLevel = fCrestFactor + pMeterBallistics->getTruePeakMeterLevel(nChannel);
+                String strPrefix = strCrestFactor + " true peak (ch. " + String(nChannel + 1) + "):  ";
+                String strSuffix = " dB";
+                outputValue(fTruePeakMeterLevel, arrAverager_TruePeakMeterLevels.getReference(nChannel), strPrefix, strSuffix);
+            }
+        }
+        else
+        {
+            float fTruePeakMeterLevel = fCrestFactor + pMeterBallistics->getTruePeakMeterLevel(nReportChannel);
+            String strPrefix = strCrestFactor + " true peak (ch. " + String(nReportChannel + 1) + "):  ";
+            String strSuffix = " dB";
+            outputValue(fTruePeakMeterLevel, arrAverager_TruePeakMeterLevels.getReference(nReportChannel), strPrefix, strSuffix);
+        }
+    }
+
     if (bReportMaximumPeakLevel)
     {
         if (nReportChannel < 0)
@@ -254,6 +280,27 @@ void AudioFilePlayer::outputReportPlain(void)
             String strPrefix = strCrestFactor + " maximum (ch. " + String(nReportChannel + 1) + "):    ";
             String strSuffix = " dB";
             outputValue(fMaximumPeakLevel, nullAverager, strPrefix, strSuffix);
+        }
+    }
+
+    if (bReportMaximumTruePeakLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; ++nChannel)
+            {
+                float fMaximumTruePeakLevel = fCrestFactor + pMeterBallistics->getMaximumTruePeakLevel(nChannel);
+                String strPrefix = strCrestFactor + " true max. (ch. " + String(nChannel + 1) + "):  ";
+                String strSuffix = " dB";
+                outputValue(fMaximumTruePeakLevel, nullAverager, strPrefix, strSuffix);
+            }
+        }
+        else
+        {
+            float fMaximumTruePeakLevel = fCrestFactor + pMeterBallistics->getMaximumTruePeakLevel(nReportChannel);
+            String strPrefix = strCrestFactor + " true max. (ch. " + String(nReportChannel + 1) + "):  ";
+            String strSuffix = " dB";
+            outputValue(fMaximumTruePeakLevel, nullAverager, strPrefix, strSuffix);
         }
     }
 
@@ -312,6 +359,21 @@ void AudioFilePlayer::outputReportCSVHeader(void)
         }
     }
 
+    if (bReportTruePeakMeterLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; ++nChannel)
+            {
+                strOutput += "\"tru_" + String(nChannel + 1) + "\"\t";
+            }
+        }
+        else
+        {
+            strOutput += "\"tru_" + String(nReportChannel + 1) + "\"\t";
+        }
+    }
+
     if (bReportMaximumPeakLevel)
     {
         if (nReportChannel < 0)
@@ -324,6 +386,21 @@ void AudioFilePlayer::outputReportCSVHeader(void)
         else
         {
             strOutput += "\"max_" + String(nReportChannel + 1) + "\"\t";
+        }
+    }
+
+    if (bReportMaximumTruePeakLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; ++nChannel)
+            {
+                strOutput += "\"mxt_" + String(nChannel + 1) + "\"\t";
+            }
+        }
+        else
+        {
+            strOutput += "\"mxt_" + String(nReportChannel + 1) + "\"\t";
         }
     }
 
@@ -384,6 +461,23 @@ void AudioFilePlayer::outputReportCSVLine(void)
         }
     }
 
+    if (bReportTruePeakMeterLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; ++nChannel)
+            {
+                float fTruePeakMeterLevel = fCrestFactor + pMeterBallistics->getTruePeakMeterLevel(nChannel);
+                strOutput += formatValue(fTruePeakMeterLevel);
+            }
+        }
+        else
+        {
+            float fTruePeakMeterLevel = fCrestFactor + pMeterBallistics->getTruePeakMeterLevel(nReportChannel);
+            strOutput += formatValue(fTruePeakMeterLevel);
+        }
+    }
+
     if (bReportMaximumPeakLevel)
     {
         if (nReportChannel < 0)
@@ -398,6 +492,23 @@ void AudioFilePlayer::outputReportCSVLine(void)
         {
             float fMaximumPeakLevel = fCrestFactor + pMeterBallistics->getMaximumPeakLevel(nReportChannel);
             strOutput += formatValue(fMaximumPeakLevel);
+        }
+    }
+
+    if (bReportMaximumTruePeakLevel)
+    {
+        if (nReportChannel < 0)
+        {
+            for (int nChannel = 0; nChannel < nNumberOfChannels; ++nChannel)
+            {
+                float fMaximumTruePeakLevel = fCrestFactor + pMeterBallistics->getMaximumTruePeakLevel(nChannel);
+                strOutput += formatValue(fMaximumTruePeakLevel);
+            }
+        }
+        else
+        {
+            float fMaximumTruePeakLevel = fCrestFactor + pMeterBallistics->getMaximumTruePeakLevel(nReportChannel);
+            strOutput += formatValue(fMaximumTruePeakLevel);
         }
     }
 

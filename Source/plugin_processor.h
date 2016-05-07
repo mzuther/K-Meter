@@ -34,6 +34,7 @@ class MeterBallistics;
 #include "average_level_filtered.h"
 #include "meter_ballistics.h"
 #include "plugin_parameters.h"
+#include "true_peak_meter.h"
 
 
 //============================================================================
@@ -52,7 +53,7 @@ public:
     void processBlock(AudioSampleBuffer &buffer, MidiBuffer &midiMessages);
 
     void silenceInput(bool isSilentNew);
-    void startValidation(File fileAudio, int nSelectedChannel, bool bReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
+    void startValidation(File fileAudio, int nSelectedChannel, bool bReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bTruePeakMeterLevel, bool bMaximumTruePeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
     void stopValidation();
     bool isValidating();
 
@@ -125,6 +126,7 @@ private:
     ScopedPointer<frut::audio::RingBuffer> pRingBufferOutput;
 
     ScopedPointer<AverageLevelFiltered> pAverageLevelFiltered;
+    ScopedPointer<TruePeakMeter> pTruePeakMeter;
     ScopedPointer<MeterBallistics> pMeterBallistics;
 
     KmeterPluginParameters pluginParameters;
@@ -141,6 +143,7 @@ private:
     Array<float> arrPeakLevels;
     Array<float> arrRmsLevels;
     Array<float> arrAverageLevelsFiltered;
+    Array<float> arrTruePeakLevels;
 
     Array<int> arrOverflows;
 

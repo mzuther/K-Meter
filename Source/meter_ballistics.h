@@ -48,10 +48,14 @@ public:
     float getPeakMeterLevel(int nChannel);
     float getPeakMeterPeakLevel(int nChannel);
 
+    float getTruePeakMeterLevel(int nChannel);
+    float getTruePeakMeterPeakLevel(int nChannel);
+
     float getAverageMeterLevel(int nChannel);
     float getAverageMeterPeakLevel(int nChannel);
 
     float getMaximumPeakLevel(int nChannel);
+    float getMaximumTruePeakLevel(int nChannel);
     int getNumberOfOverflows(int nChannel);
 
     float getStereoMeterValue();
@@ -60,7 +64,7 @@ public:
     float getPhaseCorrelation();
     void setPhaseCorrelation(float fTimePassed, float fPhaseCorrelationNew);
 
-    void updateChannel(int nChannel, float fTimePassed, float fPeak, float fRms, float fAverageFiltered, int nOverflows);
+    void updateChannel(int nChannel, float fTimePassed, float fPeak, float fTruePeak, float fRms, float fAverageFiltered, int nOverflows);
 
     static float level2decibel(float fLevel);
     static float decibel2level(float fDecibels);
@@ -77,13 +81,18 @@ private:
     Array<float> arrPeakMeterLevels;
     Array<float> arrPeakMeterPeakLevels;
 
+    Array<float> arrTruePeakMeterLevels;
+    Array<float> arrTruePeakMeterPeakLevels;
+
     Array<float> arrAverageMeterLevels;
     Array<float> arrAverageMeterPeakLevels;
 
     Array<float> arrMaximumPeakLevels;
+    Array<float> arrMaximumTruePeakLevels;
     Array<int> arrNumberOfOverflows;
 
     Array<float> arrPeakMeterPeakLastChanged;
+    Array<float> arrTruePeakMeterPeakLastChanged;
     Array<float> arrAverageMeterPeakLastChanged;
 
     float fStereoMeterValue;

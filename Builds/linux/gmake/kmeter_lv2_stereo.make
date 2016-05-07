@@ -119,6 +119,7 @@ OBJECTS := \
 	$(OBJDIR)/kmeter.o \
 	$(OBJDIR)/meter_ballistics.o \
 	$(OBJDIR)/average_level_filtered.o \
+	$(OBJDIR)/true_peak_meter.o \
 	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/overflow_meter.o \
 	$(OBJDIR)/audio_file_player.o \
@@ -231,6 +232,9 @@ $(OBJDIR)/meter_ballistics.o: ../../../Source/meter_ballistics.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/average_level_filtered.o: ../../../Source/average_level_filtered.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/true_peak_meter.o: ../../../Source/true_peak_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp

@@ -41,7 +41,7 @@ public:
     bool isPlaying();
     void fillBufferChunk(AudioSampleBuffer *buffer);
     void setCrestFactor(int crest_factor);
-    void setReporters(int nChannel, bool ReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
+    void setReporters(int nChannel, bool ReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bTruePeakMeterLevel, bool bMaximumTruePeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
 
 private:
     JUCE_LEAK_DETECTOR(AudioFilePlayer);
@@ -62,12 +62,15 @@ private:
     bool bReportAverageMeterLevel;
     bool bReportPeakMeterLevel;
     bool bReportMaximumPeakLevel;
+    bool bReportTruePeakMeterLevel;
+    bool bReportMaximumTruePeakLevel;
     bool bReportStereoMeterValue;
     bool bReportPhaseCorrelation;
 
     frut::math::Averager nullAverager;
     Array<frut::math::Averager> arrAverager_AverageMeterLevels;
     Array<frut::math::Averager> arrAverager_PeakMeterLevels;
+    Array<frut::math::Averager> arrAverager_TruePeakMeterLevels;
 
     ScopedPointer<AudioFormatReaderSource> audioFileSource;
     MeterBallistics *pMeterBallistics;

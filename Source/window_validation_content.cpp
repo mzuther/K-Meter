@@ -43,7 +43,7 @@ WindowValidationContent::WindowValidationContent(
 {
     // dimensions of content component
     int componentWidth = 170;
-    int componentHeight = 250;
+    int componentHeight = 290;
 
     // store handle to audio plug-in processor (used for getting and
     // setting plug-in parameters)
@@ -189,6 +189,17 @@ void WindowValidationContent::initialise(
     addAndMakeVisible(buttonDumpPeakLevel_);
 
 
+    // initialise button for true peak level logging
+    buttonDumpTruePeakLevel_.setButtonText("True peak meter level");
+
+    buttonDumpTruePeakLevel_.setToggleState(
+        audioProcessor->getBoolean(
+            KmeterPluginParameters::selValidationTruePeakMeterLevel),
+        dontSendNotification);
+
+    addAndMakeVisible(buttonDumpTruePeakLevel_);
+
+
     // initialise button for maximum peak level logging
     buttonDumpMaximumPeakLevel_.setButtonText("Maximum peak level");
 
@@ -198,6 +209,17 @@ void WindowValidationContent::initialise(
         dontSendNotification);
 
     addAndMakeVisible(buttonDumpMaximumPeakLevel_);
+
+
+    // initialise button for maximum true peak level logging
+    buttonDumpMaximumTruePeakLevel_.setButtonText("Max. true peak level");
+
+    buttonDumpMaximumTruePeakLevel_.setToggleState(
+        audioProcessor->getBoolean(
+            KmeterPluginParameters::selValidationMaximumTruePeakLevel),
+        dontSendNotification);
+
+    addAndMakeVisible(buttonDumpMaximumTruePeakLevel_);
 
 
     // initialise button for stereo meter logging
@@ -253,8 +275,20 @@ void WindowValidationContent::applySkin()
         Colours::black);
 
 
+    // style button for true peak level logging
+    buttonDumpTruePeakLevel_.setColour(
+        ToggleButton::textColourId,
+        Colours::black);
+
+
     // style button for maximum peak level logging
     buttonDumpMaximumPeakLevel_.setColour(
+        ToggleButton::textColourId,
+        Colours::black);
+
+
+    // style button for maximum true peak level logging
+    buttonDumpMaximumTruePeakLevel_.setColour(
         ToggleButton::textColourId,
         Colours::black);
 
@@ -278,10 +312,16 @@ void WindowValidationContent::applySkin()
     buttonDumpPeakLevel_.setBounds(positionX, positionY, 180, 20);
 
     positionY += 20;
+    buttonDumpTruePeakLevel_.setBounds(positionX, positionY, 180, 20);
+
+    positionY += 20;
     buttonDumpAverageLevel_.setBounds(positionX, positionY, 180, 20);
 
     positionY += 20;
     buttonDumpMaximumPeakLevel_.setBounds(positionX, positionY, 180, 20);
+
+    positionY += 20;
+    buttonDumpMaximumTruePeakLevel_.setBounds(positionX, positionY, 180, 20);
 
     positionY += 20;
     buttonDumpStereoMeter_.setBounds(positionX, positionY, 180, 20);
@@ -356,6 +396,18 @@ void WindowValidationContent::buttonClicked(
             KmeterPluginParameters::selValidationMaximumPeakLevel,
             logMaximumPeakLevel ? 1.0f : 0.0f);
 
+        // get true peak level log setting and update parameter
+        bool logTruePeakLevel = buttonDumpTruePeakLevel_.getToggleState();
+        audioProcessor->setParameter(
+            KmeterPluginParameters::selValidationTruePeakMeterLevel,
+            logTruePeakLevel ? 1.0f : 0.0f);
+
+        // get maximum true peak level log setting and update parameter
+        bool logMaximumTruePeakLevel = buttonDumpMaximumTruePeakLevel_.getToggleState();
+        audioProcessor->setParameter(
+            KmeterPluginParameters::selValidationMaximumTruePeakLevel,
+            logMaximumTruePeakLevel ? 1.0f : 0.0f);
+
         // get stereo meter log setting and update parameter
         bool logStereoMeter = buttonDumpStereoMeter_.getToggleState();
         audioProcessor->setParameter(
@@ -372,6 +424,7 @@ void WindowValidationContent::buttonClicked(
         audioProcessor->startValidation(
             validationFile_, selectedChannel, reportCSV,
             logAverageLevel, logPeakLevel, logMaximumPeakLevel,
+            logTruePeakLevel, logMaximumTruePeakLevel,
             logStereoMeter, logPhaseCorrelation);
 
         // get parent dialog window
