@@ -48,7 +48,8 @@ private:
     JUCE_LEAK_DETECTOR(TruePeakMeter);
 
     void calculateFilterKernel();
-    void FilterSamples(const int channel);
+    void FilterSamples(int passNumber);
+    void FilterWorker(const int channel);
 
     Array<double> arrTruePeakLevels;
 
@@ -65,11 +66,14 @@ private:
     int nOversamplingRate;
 
     int nBufferSizeOriginal;
+    int nBufferSizeOriginalHalf;
     int nBufferSizeOversampled;
     int nFftSize;
     int nHalfFftSize;
 
     AudioSampleBuffer sampleBufferOriginal;
+    AudioSampleBuffer sampleBufferCurrent;
+    AudioSampleBuffer sampleBufferOld;
     AudioSampleBuffer sampleBufferOversampled;
 
 #if (defined (_WIN32) || defined (_WIN64))

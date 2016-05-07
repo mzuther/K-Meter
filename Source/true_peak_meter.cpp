@@ -32,10 +32,13 @@ TruePeakMeter::TruePeakMeter(const int channels, const int buffer_size) :
     // sampling rate, see Annex 2 of ITU-R BS.1770-4)
     nOversamplingRate(8),
     nBufferSizeOriginal(buffer_size),
+    nBufferSizeOriginalHalf(nBufferSizeOriginal / 2),
     nBufferSizeOversampled(nBufferSizeOriginal *nOversamplingRate),
     nFftSize(nBufferSizeOversampled * 2),
     nHalfFftSize(nFftSize / 2 + 1),
     sampleBufferOriginal(nNumberOfChannels, nBufferSizeOriginal),
+    sampleBufferCurrent(nNumberOfChannels, nBufferSizeOriginalHalf),
+    sampleBufferOld(nNumberOfChannels, nBufferSizeOriginalHalf),
     sampleBufferOversampled(nNumberOfChannels, nBufferSizeOversampled)
 {
     jassert(channels > 0);
@@ -108,6 +111,8 @@ TruePeakMeter::~TruePeakMeter()
 void TruePeakMeter::calculateFilterKernel()
 {
     sampleBufferOriginal.clear();
+    sampleBufferCurrent.clear();
+    sampleBufferOld.clear();
     sampleBufferOversampled.clear();
 
     // reset levels
@@ -164,7 +169,58 @@ void TruePeakMeter::calculateFilterKernel()
 }
 
 
-void TruePeakMeter::FilterSamples(const int channel)
+void TruePeakMeter::FilterSamples(int passNumber)
+{
+    // oversample input sample buffer by clearing it and filling every
+    // "nOversamplingRate" sample with the original sample values
+    sampleBufferOversampled.clear();
+
+    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+    {
+        int nSampleOversampledOld = 0;
+        int nSampleOversampledCurrent = nBufferSizeOriginalHalf * nOversamplingRate;
+
+        for (int nSample = 0; nSample < nBufferSizeOriginalHalf; nSample++)
+        {
+            // fill the first half with old samples
+            sampleBufferOversampled.copyFrom(
+                nChannel, nSampleOversampledOld, sampleBufferOld,
+                nChannel, nSample, 1);
+
+            // fill the second half with current samples
+            sampleBufferOversampled.copyFrom(
+                nChannel, nSampleOversampledCurrent, sampleBufferCurrent,
+                nChannel, nSample, 1);
+
+            nSampleOversampledOld += nOversamplingRate;
+            nSampleOversampledCurrent += nOversamplingRate;
+        }
+    }
+
+    // filter audio data (overwrites contents of sample buffer)
+    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+    {
+        FilterWorker(nChannel);
+
+        // evaluate true peak level
+        float truePeakLevel = sampleBufferOversampled.getMagnitude(nChannel, 0, nBufferSizeOversampled);
+
+        if (passNumber == 1)
+        {
+            arrTruePeakLevels.set(nChannel, truePeakLevel);
+        }
+        else
+        {
+            if (truePeakLevel > arrTruePeakLevels[nChannel])
+            {
+                arrTruePeakLevels.set(nChannel, truePeakLevel);
+            }
+        }
+    }
+}
+
+
+void TruePeakMeter::FilterWorker(const int channel)
 {
     jassert(channel >= 0);
     jassert(channel < nNumberOfChannels);
@@ -208,9 +264,6 @@ void TruePeakMeter::FilterSamples(const int channel)
 
     // copy data from temporary buffer back to sample buffer
     sampleBufferOversampled.copyFrom(channel, 0, arrAudioSamples_TD, nBufferSizeOversampled);
-
-    // evaluate true peak level
-    arrTruePeakLevels.set(channel, sampleBufferOversampled.getMagnitude(channel, 0, nBufferSizeOversampled));
 }
 
 
@@ -228,25 +281,40 @@ void TruePeakMeter::copyFromBuffer(frut::audio::RingBuffer &ringBuffer, const un
     // copy data from ring buffer to sample buffer
     ringBuffer.copyToBuffer(sampleBufferOriginal, 0, nBufferSizeOriginal, pre_delay);
 
-    // oversample input sample buffer by clearing it and filling every
-    // "nOversamplingRate" sample with the original sample values
-    sampleBufferOversampled.clear();
-
-    for (int nSample = 0; nSample < nBufferSizeOriginal; nSample++)
-    {
-        int nSampleOversampled = nSample * nOversamplingRate;
-
-        for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
-        {
-            sampleBufferOversampled.copyFrom(nChannel, nSampleOversampled, sampleBufferOriginal, nChannel, nSample, 1);
-        }
-    }
-
+    // copy samples (first pass)
     for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
     {
-        // filter audio data (overwrites contents of sample buffer)
-        FilterSamples(nChannel);
+        // copy second half of old sample buffer (sampleBufferCurrent
+        // hasn't been changed yet!)
+        sampleBufferOld.copyFrom(
+            nChannel, 0, sampleBufferCurrent,
+            nChannel, 0, nBufferSizeOriginalHalf);
+
+        // copy first half of current sample buffer
+        sampleBufferCurrent.copyFrom(
+            nChannel, 0, sampleBufferOriginal,
+            nChannel, 0, nBufferSizeOriginalHalf);
     }
+
+    // filter samples (first pass)
+    FilterSamples(1);
+
+    // copy samples (second pass)
+    for (int nChannel = 0; nChannel < nNumberOfChannels; nChannel++)
+    {
+        // copy first half of current sample buffer
+        sampleBufferOld.copyFrom(
+            nChannel, 0, sampleBufferOriginal,
+            nChannel, 0, nBufferSizeOriginalHalf);
+
+        // copy second half of current sample buffer
+        sampleBufferCurrent.copyFrom(
+            nChannel, 0, sampleBufferOriginal,
+            nChannel, nBufferSizeOriginalHalf, nBufferSizeOriginalHalf);
+    }
+
+    // filter samples (second pass)
+    FilterSamples(2);
 }
 
 
