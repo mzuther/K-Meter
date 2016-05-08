@@ -72,10 +72,10 @@ private:
     int fftSize_;
     int halfFftSize_;
 
-    AudioSampleBuffer sampleBufferOriginal;
-    AudioSampleBuffer sampleBufferCurrent;
-    AudioSampleBuffer sampleBufferOld;
-    AudioSampleBuffer sampleBufferOversampled;
+    AudioBuffer<float> sampleBufferOriginal;
+    AudioBuffer<float> sampleBufferCurrent;
+    AudioBuffer<float> sampleBufferOld;
+    AudioBuffer<float> sampleBufferOversampled;
 
 #if (defined (_WIN32) || defined (_WIN64))
     float *(*fftwf_alloc_real)(size_t);

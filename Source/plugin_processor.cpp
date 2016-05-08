@@ -448,7 +448,7 @@ void KmeterAudioProcessor::releaseResources()
 }
 
 
-void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &midiMessages)
+void KmeterAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer &midiMessages)
 {
     // This is the place where you'd normally do the guts of your
     // plug-in's audio processing...
@@ -509,7 +509,7 @@ void KmeterAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &m
 }
 
 
-void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
+void KmeterAudioProcessor::processBufferChunk(AudioBuffer<float> &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
     // silence input if validation window is open
     if (isSilent)
@@ -646,7 +646,7 @@ void KmeterAudioProcessor::processBufferChunk(AudioSampleBuffer &buffer, const u
     }
     else
     {
-        AudioSampleBuffer TempAudioBuffer = AudioSampleBuffer(nNumInputChannels, uChunkSize);
+        AudioBuffer<float> TempAudioBuffer(nNumInputChannels, uChunkSize);
         pRingBufferInput->copyToBuffer(TempAudioBuffer, 0, uChunkSize, 0);
         pRingBufferOutput->addSamples(TempAudioBuffer, 0, uChunkSize);
     }

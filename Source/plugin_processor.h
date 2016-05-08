@@ -50,7 +50,7 @@ public:
     void prepareToPlay(double sampleRate, int samplesPerBlock);
     void releaseResources();
 
-    void processBlock(AudioSampleBuffer &buffer, MidiBuffer &midiMessages);
+    void processBlock(AudioBuffer<float> &buffer, MidiBuffer &midiMessages);
 
     void silenceInput(bool isSilentNew);
     void startValidation(File fileAudio, int nSelectedChannel, bool bReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bTruePeakMeterLevel, bool bMaximumTruePeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
@@ -93,7 +93,7 @@ public:
     double getTailLengthSeconds() const;
 
     MeterBallistics *getLevels();
-    virtual void processBufferChunk(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
+    virtual void processBufferChunk(AudioBuffer<float> &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
     int getAverageAlgorithm();
     void setAverageAlgorithm(const int average_algorithm);

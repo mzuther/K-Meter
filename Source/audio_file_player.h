@@ -39,7 +39,7 @@ public:
     ~AudioFilePlayer();
 
     bool isPlaying();
-    void fillBufferChunk(AudioSampleBuffer *buffer);
+    void fillBufferChunk(AudioBuffer<float> *buffer);
     void setCrestFactor(int crest_factor);
     void setReporters(int nChannel, bool ReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bTruePeakMeterLevel, bool bMaximumTruePeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
 

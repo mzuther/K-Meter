@@ -49,7 +49,7 @@ public:
     void setAlgorithm(const int average_algorithm);
     void copyFromBuffer(frut::audio::RingBuffer &ringBuffer, const unsigned int pre_delay, const int sample_rate);
     void copyToBuffer(frut::audio::RingBuffer &destination, const unsigned int sourceStartSample, const unsigned int numSamples);
-    void copyToBuffer(AudioSampleBuffer &destination, const int channel, const int destStartSample, const int numSamples);
+    void copyToBuffer(AudioBuffer<float> &destination, const int channel, const int destStartSample, const int numSamples);
 
 private:
     JUCE_LEAK_DETECTOR(AverageLevelFiltered);
@@ -82,16 +82,16 @@ private:
     Array<double> arrWeightingFilterInputCoefficients;
     Array<double> arrWeightingFilterOutputCoefficients;
 
-    AudioSampleBuffer sampleBuffer;
-    AudioSampleBuffer overlapAddSamples;
+    AudioBuffer<float> sampleBuffer;
+    AudioBuffer<float> overlapAddSamples;
 
-    AudioSampleBuffer previousSamplesPreFilterInput;
-    AudioSampleBuffer previousSamplesPreFilterOutput;
+    AudioBuffer<float> previousSamplesPreFilterInput;
+    AudioBuffer<float> previousSamplesPreFilterOutput;
 
-    AudioSampleBuffer previousSamplesWeightingFilterInput;
-    AudioSampleBuffer previousSamplesWeightingFilterOutput;
+    AudioBuffer<float> previousSamplesWeightingFilterInput;
+    AudioBuffer<float> previousSamplesWeightingFilterOutput;
 
-    AudioSampleBuffer previousSamplesOutputTemp;
+    AudioBuffer<float> previousSamplesOutputTemp;
 
     frut::audio::Dither dither;
 

@@ -155,12 +155,12 @@ void TruePeakMeter::calculateFilterKernel()
         if (i == samplesHalf)
         {
             filterKernel_TD[i] = static_cast<float>(
-                                        2.0 * M_PI * nRelativeCutoffFrequency);
+                                     2.0 * M_PI * nRelativeCutoffFrequency);
         }
         else
         {
             filterKernel_TD[i] = static_cast<float>(
-                                        sin(2.0 * M_PI * nRelativeCutoffFrequency * (i - samplesHalf)) / (i - samplesHalf) * (0.42 - 0.5 * cos(2.0 * static_cast<float>(M_PI) * i / samples) + 0.08 * cos(4.0 * static_cast<float>(M_PI) * i / samples)));
+                                     sin(2.0 * M_PI * nRelativeCutoffFrequency * (i - samplesHalf)) / (i - samplesHalf) * (0.42 - 0.5 * cos(2.0 * static_cast<float>(M_PI) * i / samples) + 0.08 * cos(4.0 * static_cast<float>(M_PI) * i / samples)));
         }
     }
 

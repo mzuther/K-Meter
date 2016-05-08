@@ -587,7 +587,7 @@ void AverageLevelFiltered::copyToBuffer(frut::audio::RingBuffer &destination, co
 }
 
 
-void AverageLevelFiltered::copyToBuffer(AudioSampleBuffer &destination, const int channel, const int destStartSample, const int numSamples)
+void AverageLevelFiltered::copyToBuffer(AudioBuffer<float> &destination, const int channel, const int destStartSample, const int numSamples)
 {
     jassert(channel >= 0);
     jassert(channel < nNumberOfChannels);
