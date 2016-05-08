@@ -39,29 +39,29 @@ TruePeakMeter::TruePeakMeter(
     bufferSizeOversampled_(bufferSizeOriginal_ *oversamplingRate_),
     fftSize_(bufferSizeOversampled_ * 2),
     halfFftSize_(fftSize_ / 2 + 1),
-    sampleBufferOriginal(numberOfChannels_, bufferSizeOriginal_),
-    sampleBufferCurrent(numberOfChannels_, bufferSizeOriginalHalf_),
-    sampleBufferOld(numberOfChannels_, bufferSizeOriginalHalf_),
-    sampleBufferOversampled(numberOfChannels_, bufferSizeOversampled_)
+    sampleBufferOriginal_(numberOfChannels_, bufferSizeOriginal_),
+    sampleBufferCurrent_(numberOfChannels_, bufferSizeOriginalHalf_),
+    sampleBufferOld_(numberOfChannels_, bufferSizeOriginalHalf_),
+    sampleBufferOversampled_(numberOfChannels_, bufferSizeOversampled_)
 
 {
     jassert(channels > 0);
 
 #if (defined (_WIN32) || defined (_WIN64))
-    File fileCurrentExecutable = File::getSpecialLocation(
+    File currentExecutableFile = File::getSpecialLocation(
                                      File::currentExecutableFile);
 
 #ifdef _WIN64
-    File fileDynamicLibraryFFTW = fileCurrentExecutable.getSiblingFile(
+    File dynamicLibraryFftwFile = currentExecutableFile.getSiblingFile(
                                       "kmeter/fftw/libfftw3f-3_x64.dll");
 #else
-    File fileDynamicLibraryFFTW = fileCurrentExecutable.getSiblingFile(
+    File dynamicLibraryFftwFile = currentExecutableFile.getSiblingFile(
                                       "kmeter/fftw/libfftw3f-3.dll");
 #endif
 
-    String strDynamicLibraryFFTW = fileDynamicLibraryFFTW.getFullPathName();
+    String dynamicLibraryFftwPath = dynamicLibraryFftwFile.getFullPathName();
 
-    dynamicLibraryFFTW.open(strDynamicLibraryFFTW);
+    dynamicLibraryFFTW.open(dynamicLibraryFftwPath);
     jassert(dynamicLibraryFFTW.getNativeHandle() != nullptr);
 
     fftwf_alloc_real = (float * ( *)(size_t)) dynamicLibraryFFTW.getFunction(
@@ -82,19 +82,19 @@ TruePeakMeter::TruePeakMeter(
                         "fftwf_execute");
 #endif
 
-    filterKernel_TD = fftwf_alloc_real(fftSize_);
-    filterKernel_FD = fftwf_alloc_complex(halfFftSize_);
+    filterKernel_TD_ = fftwf_alloc_real(fftSize_);
+    filterKernel_FD_ = fftwf_alloc_complex(halfFftSize_);
 
-    planFilterKernel_DFT = fftwf_plan_dft_r2c_1d(
-                               fftSize_, filterKernel_TD, filterKernel_FD, FFTW_MEASURE);
+    filterKernelPlan_DFT_ = fftwf_plan_dft_r2c_1d(
+                                fftSize_, filterKernel_TD_, filterKernel_FD_, FFTW_MEASURE);
 
-    audioSamples_TD = fftwf_alloc_real(fftSize_);
-    audioSamples_FD = fftwf_alloc_complex(halfFftSize_);
+    audioSamples_TD_ = fftwf_alloc_real(fftSize_);
+    audioSamples_FD_ = fftwf_alloc_complex(halfFftSize_);
 
-    planAudioSamples_DFT = fftwf_plan_dft_r2c_1d(
-                               fftSize_, audioSamples_TD, audioSamples_FD, FFTW_MEASURE);
-    planAudioSamples_IDFT = fftwf_plan_dft_c2r_1d(
-                                fftSize_, audioSamples_FD, audioSamples_TD, FFTW_MEASURE);
+    audioSamplesPlan_DFT_ = fftwf_plan_dft_r2c_1d(
+                                fftSize_, audioSamples_TD_, audioSamples_FD_, FFTW_MEASURE);
+    audioSamplesPlan_IDFT_ = fftwf_plan_dft_c2r_1d(
+                                 fftSize_, audioSamples_FD_, audioSamples_TD_, FFTW_MEASURE);
 
     calculateFilterKernel();
 }
@@ -102,14 +102,14 @@ TruePeakMeter::TruePeakMeter(
 
 TruePeakMeter::~TruePeakMeter()
 {
-    fftwf_destroy_plan(planFilterKernel_DFT);
-    fftwf_free(filterKernel_TD);
-    fftwf_free(filterKernel_FD);
+    fftwf_destroy_plan(filterKernelPlan_DFT_);
+    fftwf_free(filterKernel_TD_);
+    fftwf_free(filterKernel_FD_);
 
-    fftwf_destroy_plan(planAudioSamples_DFT);
-    fftwf_destroy_plan(planAudioSamples_IDFT);
-    fftwf_free(audioSamples_TD);
-    fftwf_free(audioSamples_FD);
+    fftwf_destroy_plan(audioSamplesPlan_DFT_);
+    fftwf_destroy_plan(audioSamplesPlan_IDFT_);
+    fftwf_free(audioSamples_TD_);
+    fftwf_free(audioSamples_FD_);
 
 #if (defined (_WIN32) || defined (_WIN64))
     fftwf_alloc_real = nullptr;
@@ -127,24 +127,24 @@ TruePeakMeter::~TruePeakMeter()
 
 void TruePeakMeter::calculateFilterKernel()
 {
-    sampleBufferOriginal.clear();
-    sampleBufferCurrent.clear();
-    sampleBufferOld.clear();
-    sampleBufferOversampled.clear();
+    sampleBufferOriginal_.clear();
+    sampleBufferCurrent_.clear();
+    sampleBufferOld_.clear();
+    sampleBufferOversampled_.clear();
 
     // reset levels
-    truePeakLevels.clear();
+    truePeakLevels_.clear();
 
     for (int channel = 0; channel < numberOfChannels_; ++channel)
     {
-        truePeakLevels.add(0.0);
+        truePeakLevels_.add(0.0);
     }
 
     // interpolation filter; removes all frequencies above *original*
     // Nyquist frequency from resampled audio (the approximated filter
     // bandwidth is 21.5 Hz for a buffer size of 1024 samples and a
     // sampling rate of 44100 Hz with 8x oversampling)
-    float nRelativeCutoffFrequency = 0.5f / oversamplingRate_;
+    float relativeCutoffFrequency = 0.5f / oversamplingRate_;
 
     int samples = bufferSizeOversampled_ + 1;
     float samplesHalf = samples / 2.0f;
@@ -154,37 +154,37 @@ void TruePeakMeter::calculateFilterKernel()
     {
         if (i == samplesHalf)
         {
-            filterKernel_TD[i] = static_cast<float>(
-                                     2.0 * M_PI * nRelativeCutoffFrequency);
+            filterKernel_TD_[i] = static_cast<float>(
+                                      2.0 * M_PI * relativeCutoffFrequency);
         }
         else
         {
-            filterKernel_TD[i] = static_cast<float>(
-                                     sin(2.0 * M_PI * nRelativeCutoffFrequency * (i - samplesHalf)) / (i - samplesHalf) * (0.42 - 0.5 * cos(2.0 * static_cast<float>(M_PI) * i / samples) + 0.08 * cos(4.0 * static_cast<float>(M_PI) * i / samples)));
+            filterKernel_TD_[i] = static_cast<float>(
+                                      sin(2.0 * M_PI * relativeCutoffFrequency * (i - samplesHalf)) / (i - samplesHalf) * (0.42 - 0.5 * cos(2.0 * static_cast<float>(M_PI) * i / samples) + 0.08 * cos(4.0 * static_cast<float>(M_PI) * i / samples)));
         }
     }
 
     // normalise filter kernel for unity gain at DC
-    float nSumKernel = 0.0;
+    float kernelSum = 0.0;
 
     for (int i = 0; i < samples; ++i)
     {
-        nSumKernel += filterKernel_TD[i];
+        kernelSum += filterKernel_TD_[i];
     }
 
     for (int i = 0; i < samples; ++i)
     {
-        filterKernel_TD[i] = filterKernel_TD[i] / nSumKernel;
+        filterKernel_TD_[i] = filterKernel_TD_[i] / kernelSum;
     }
 
     // pad filter kernel with zeros
     for (int i = samples; i < fftSize_; ++i)
     {
-        filterKernel_TD[i] = 0.0f;
+        filterKernel_TD_[i] = 0.0f;
     }
 
     // calculate DFT of filter kernel
-    fftwf_execute(planFilterKernel_DFT);
+    fftwf_execute(filterKernelPlan_DFT_);
 }
 
 
@@ -194,7 +194,7 @@ void TruePeakMeter::filterSamples(
 {
     // oversample input sample buffer by clearing it and filling every
     // "oversamplingRate_" sample with the original sample values
-    sampleBufferOversampled.clear();
+    sampleBufferOversampled_.clear();
 
     for (int channel = 0; channel < numberOfChannels_; ++channel)
     {
@@ -205,13 +205,13 @@ void TruePeakMeter::filterSamples(
         for (int sample = 0; sample < bufferSizeOriginalHalf_; ++sample)
         {
             // fill the first half with old samples
-            sampleBufferOversampled.copyFrom(
-                channel, sampleOversampledOld, sampleBufferOld,
+            sampleBufferOversampled_.copyFrom(
+                channel, sampleOversampledOld, sampleBufferOld_,
                 channel, sample, 1);
 
             // fill the second half with current samples
-            sampleBufferOversampled.copyFrom(
-                channel, sampleOversampledCurrent, sampleBufferCurrent,
+            sampleBufferOversampled_.copyFrom(
+                channel, sampleOversampledCurrent, sampleBufferCurrent_,
                 channel, sample, 1);
 
             sampleOversampledOld += oversamplingRate_;
@@ -225,18 +225,18 @@ void TruePeakMeter::filterSamples(
         filterWorker(channel);
 
         // evaluate true peak level
-        float truePeakLevel = sampleBufferOversampled.getMagnitude(
+        float truePeakLevel = sampleBufferOversampled_.getMagnitude(
                                   channel, 0, bufferSizeOversampled_);
 
         if (passNumber == 1)
         {
-            truePeakLevels.set(channel, truePeakLevel);
+            truePeakLevels_.set(channel, truePeakLevel);
         }
         else
         {
-            if (truePeakLevel > truePeakLevels[channel])
+            if (truePeakLevel > truePeakLevels_[channel])
             {
-                truePeakLevels.set(channel, truePeakLevel);
+                truePeakLevels_.set(channel, truePeakLevel);
             }
         }
     }
@@ -252,49 +252,49 @@ void TruePeakMeter::filterWorker(
 
     // copy audio data to temporary buffer as the sample buffer is not
     // optimised for MME
-    memcpy(audioSamples_TD,
-           sampleBufferOversampled.getReadPointer(channel),
+    memcpy(audioSamples_TD_,
+           sampleBufferOversampled_.getReadPointer(channel),
            bufferSizeOversampled_ * sizeof(float));
 
     // pad audio data with zeros
     for (int sample = bufferSizeOversampled_; sample < fftSize_; ++sample)
     {
-        audioSamples_TD[sample] = 0.0f;
+        audioSamples_TD_[sample] = 0.0f;
     }
 
     // calculate DFT of audio data
-    fftwf_execute(planAudioSamples_DFT);
+    fftwf_execute(audioSamplesPlan_DFT_);
 
     // convolve audio data with filter kernel
     for (int i = 0; i < halfFftSize_; ++i)
     {
         // multiplication of complex numbers: index 0 contains the real
         // part, index 1 the imaginary part
-        float realPart = audioSamples_FD[i][0] * filterKernel_FD[i][0] -
-                         audioSamples_FD[i][1] * filterKernel_FD[i][1];
-        float imagPart = audioSamples_FD[i][1] * filterKernel_FD[i][0] +
-                         audioSamples_FD[i][0] * filterKernel_FD[i][1];
+        float realPart = audioSamples_FD_[i][0] * filterKernel_FD_[i][0] -
+                         audioSamples_FD_[i][1] * filterKernel_FD_[i][1];
+        float imagPart = audioSamples_FD_[i][1] * filterKernel_FD_[i][0] +
+                         audioSamples_FD_[i][0] * filterKernel_FD_[i][1];
 
-        audioSamples_FD[i][0] = realPart;
-        audioSamples_FD[i][1] = imagPart;
+        audioSamples_FD_[i][0] = realPart;
+        audioSamples_FD_[i][1] = imagPart;
     }
 
     // synthesise audio data from frequency spectrum (this destroys the
-    // contents of "audioSamples_FD"!!!)
-    fftwf_execute(planAudioSamples_IDFT);
+    // contents of "audioSamples_FD_"!!!)
+    fftwf_execute(audioSamplesPlan_IDFT_);
 
     // normalise synthesised audio data
-    float fNorm = float(fftSize_ / oversamplingRate_);
+    float normaliser = float(fftSize_ / oversamplingRate_);
 
     for (int i = 0; i < fftSize_; ++i)
     {
-        audioSamples_TD[i] = audioSamples_TD[i] / fNorm;
+        audioSamples_TD_[i] = audioSamples_TD_[i] / normaliser;
     }
 
     // copy data from temporary buffer back to sample buffer
-    sampleBufferOversampled.copyFrom(
+    sampleBufferOversampled_.copyFrom(
         channel, 0,
-        audioSamples_TD, bufferSizeOversampled_);
+        audioSamples_TD_, bufferSizeOversampled_);
 }
 
 
@@ -305,7 +305,7 @@ float TruePeakMeter::getLevel(
     jassert(channel >= 0);
     jassert(channel < numberOfChannels_);
 
-    return truePeakLevels[channel];
+    return truePeakLevels_[channel];
 }
 
 
@@ -315,21 +315,21 @@ void TruePeakMeter::copyFromBuffer(
 
 {
     // copy data from ring buffer to sample buffer
-    ringBuffer.copyToBuffer(sampleBufferOriginal, 0,
+    ringBuffer.copyToBuffer(sampleBufferOriginal_, 0,
                             bufferSizeOriginal_, preDelay);
 
     // copy samples (first pass)
     for (int channel = 0; channel < numberOfChannels_; ++channel)
     {
-        // copy second half of old sample buffer (sampleBufferCurrent
+        // copy second half of old sample buffer (sampleBufferCurrent_
         // hasn't been changed yet!)
-        sampleBufferOld.copyFrom(
-            channel, 0, sampleBufferCurrent,
+        sampleBufferOld_.copyFrom(
+            channel, 0, sampleBufferCurrent_,
             channel, 0, bufferSizeOriginalHalf_);
 
         // copy first half of current sample buffer
-        sampleBufferCurrent.copyFrom(
-            channel, 0, sampleBufferOriginal,
+        sampleBufferCurrent_.copyFrom(
+            channel, 0, sampleBufferOriginal_,
             channel, 0, bufferSizeOriginalHalf_);
     }
 
@@ -340,13 +340,13 @@ void TruePeakMeter::copyFromBuffer(
     for (int channel = 0; channel < numberOfChannels_; ++channel)
     {
         // copy first half of current sample buffer
-        sampleBufferOld.copyFrom(
-            channel, 0, sampleBufferOriginal,
+        sampleBufferOld_.copyFrom(
+            channel, 0, sampleBufferOriginal_,
             channel, 0, bufferSizeOriginalHalf_);
 
         // copy second half of current sample buffer
-        sampleBufferCurrent.copyFrom(
-            channel, 0, sampleBufferOriginal,
+        sampleBufferCurrent_.copyFrom(
+            channel, 0, sampleBufferOriginal_,
             channel, bufferSizeOriginalHalf_, bufferSizeOriginalHalf_);
     }
 

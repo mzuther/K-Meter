@@ -32,9 +32,6 @@ class TruePeakMeter;
 #include "meter_ballistics.h"
 #include "fftw3/api/fftw3.h"
 
-//==============================================================================
-/**
-*/
 class TruePeakMeter
 {
 public:
@@ -52,16 +49,14 @@ private:
     void filterSamples(const int passNumber);
     void filterWorker(const int channel);
 
-    Array<double> truePeakLevels;
+    float *filterKernel_TD_;
+    fftwf_complex *filterKernel_FD_;
+    fftwf_plan filterKernelPlan_DFT_;
 
-    float *filterKernel_TD;
-    fftwf_complex *filterKernel_FD;
-    fftwf_plan planFilterKernel_DFT;
-
-    float *audioSamples_TD;
-    fftwf_complex *audioSamples_FD;
-    fftwf_plan planAudioSamples_DFT;
-    fftwf_plan planAudioSamples_IDFT;
+    float *audioSamples_TD_;
+    fftwf_complex *audioSamples_FD_;
+    fftwf_plan audioSamplesPlan_DFT_;
+    fftwf_plan audioSamplesPlan_IDFT_;
 
     int numberOfChannels_;
     int oversamplingRate_;
@@ -72,10 +67,12 @@ private:
     int fftSize_;
     int halfFftSize_;
 
-    AudioBuffer<float> sampleBufferOriginal;
-    AudioBuffer<float> sampleBufferCurrent;
-    AudioBuffer<float> sampleBufferOld;
-    AudioBuffer<float> sampleBufferOversampled;
+    Array<double> truePeakLevels_;
+
+    AudioBuffer<float> sampleBufferOriginal_;
+    AudioBuffer<float> sampleBufferCurrent_;
+    AudioBuffer<float> sampleBufferOld_;
+    AudioBuffer<float> sampleBufferOversampled_;
 
 #if (defined (_WIN32) || defined (_WIN64))
     float *(*fftwf_alloc_real)(size_t);

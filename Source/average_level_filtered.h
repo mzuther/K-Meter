@@ -33,23 +33,33 @@ class AverageLevelFiltered;
 #include "plugin_processor.h"
 #include "fftw3/api/fftw3.h"
 
-//==============================================================================
-/**
-*/
+
 class AverageLevelFiltered
 {
 public:
     static const int KMETER_MAXIMUM_FILTER_STAGES = 3;
 
-    AverageLevelFiltered(KmeterAudioProcessor *processor, const int channels, const int sample_rate, const int buffer_size, const int average_algorithm);
+    AverageLevelFiltered(KmeterAudioProcessor *processor,
+                         const int channels,
+                         const int sampleRate,
+                         const int bufferSize,
+                         const int averageAlgorithm);
     ~AverageLevelFiltered();
 
     float getLevel(const int channel);
     int getAlgorithm();
-    void setAlgorithm(const int average_algorithm);
-    void copyFromBuffer(frut::audio::RingBuffer &ringBuffer, const unsigned int pre_delay, const int sample_rate);
-    void copyToBuffer(frut::audio::RingBuffer &destination, const unsigned int sourceStartSample, const unsigned int numSamples);
-    void copyToBuffer(AudioBuffer<float> &destination, const int channel, const int destStartSample, const int numSamples);
+    void setAlgorithm(const int averageAlgorithm);
+
+    void copyFromBuffer(frut::audio::RingBuffer &ringBuffer,
+                        const unsigned int preDelay,
+                        const int sampleRate);
+    void copyToBuffer(frut::audio::RingBuffer &destination,
+                      const unsigned int sourceStartSample,
+                      const unsigned int numSamples);
+    void copyToBuffer(AudioBuffer<float> &destination,
+                      const int channel,
+                      const int destStartSample,
+                      const int numSamples);
 
 private:
     JUCE_LEAK_DETECTOR(AverageLevelFiltered);
@@ -58,54 +68,51 @@ private:
     void calculateFilterKernel_Rms();
     void calculateFilterKernel_ItuBs1770();
 
-    void FilterSamples_Rms(const int channel);
-    void FilterSamples_ItuBs1770();
+    void filterSamples_Rms(const int channel);
+    void filterSamples_ItuBs1770();
 
-    void setPeakToAverageCorrection(float peak_to_average_correction);
+    void setPeakToAverageCorrection(float peakToAverageCorrection);
 
-    float *arrFilterKernel_TD;
-    fftwf_complex *arrFilterKernel_FD;
-    fftwf_plan planFilterKernel_DFT;
+    float *filterKernel_TD_;
+    fftwf_complex *filterKernel_FD_;
+    fftwf_plan filterKernelPlan_DFT_;
 
-    float *arrAudioSamples_TD;
-    fftwf_complex *arrAudioSamples_FD;
-    fftwf_plan planAudioSamples_DFT;
-    fftwf_plan planAudioSamples_IDFT;
+    float *audioSamples_TD_;
+    fftwf_complex *audioSamples_FD_;
+    fftwf_plan audioSamplesPlan_DFT_;
+    fftwf_plan audioSamplesPlan_IDFT_;
 
-    int nNumberOfChannels;
-    int nSampleRate;
-    int nBufferSize;
+    int numberOfChannels_;
+    int sampleRate_;
+    int bufferSize_;
 
-    Array<double> arrPreFilterInputCoefficients;
-    Array<double> arrPreFilterOutputCoefficients;
+    int fftSize_;
+    int halfFftSize_;
 
-    Array<double> arrWeightingFilterInputCoefficients;
-    Array<double> arrWeightingFilterOutputCoefficients;
+    Array<double> preFilterInputCoefficients_;
+    Array<double> preFilterOutputCoefficients_;
 
-    AudioBuffer<float> sampleBuffer;
-    AudioBuffer<float> overlapAddSamples;
+    Array<double> weightingFilterInputCoefficients_;
+    Array<double> weightingFilterOutputCoefficients_;
 
-    AudioBuffer<float> previousSamplesPreFilterInput;
-    AudioBuffer<float> previousSamplesPreFilterOutput;
+    AudioBuffer<float> sampleBuffer_;
+    AudioBuffer<float> overlapAddSamples_;
 
-    AudioBuffer<float> previousSamplesWeightingFilterInput;
-    AudioBuffer<float> previousSamplesWeightingFilterOutput;
+    AudioBuffer<float> previousSamplesPreFilterInput_;
+    AudioBuffer<float> previousSamplesPreFilterOutput_;
 
-    AudioBuffer<float> previousSamplesOutputTemp;
+    AudioBuffer<float> previousSamplesWeightingFilterInput_;
+    AudioBuffer<float> previousSamplesWeightingFilterOutput_;
 
-    frut::audio::Dither dither;
+    AudioBuffer<float> previousSamplesOutputTemp_;
 
-    KmeterAudioProcessor *pProcessor;
-    int nAverageAlgorithm;
-    int nFftSize;
-    int nHalfFftSize;
+    frut::audio::Dither dither_;
 
-    float fAverageLevelItuBs1770;
-    float fPeakToAverageCorrection;
+    KmeterAudioProcessor *processor_;
+    int averageAlgorithm_;
+    float peakToAverageCorrection_;
 
 #if (defined (_WIN32) || defined (_WIN64))
-    DynamicLibrary dynamicLibraryFFTW;
-
     float *(*fftwf_alloc_real)(size_t);
     fftwf_complex *(*fftwf_alloc_complex)(size_t);
     void (*fftwf_free)(void *);
