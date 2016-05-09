@@ -126,6 +126,7 @@ OBJECTS := \
 	$(OBJDIR)/meter_bar.o \
 	$(OBJDIR)/skin.o \
 	$(OBJDIR)/window_validation_content.o \
+	$(OBJDIR)/fftw_runner.o \
 	$(OBJDIR)/juce_audio_basics.o \
 	$(OBJDIR)/juce_audio_devices.o \
 	$(OBJDIR)/juce_audio_formats.o \
@@ -253,6 +254,9 @@ $(OBJDIR)/skin.o: ../../../Source/skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/window_validation_content.o: ../../../Source/window_validation_content.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/fftw_runner.o: ../../../Source/fftw_runner.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_audio_basics.o: ../../../JuceLibraryCode/juce_audio_basics.cpp

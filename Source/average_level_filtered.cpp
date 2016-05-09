@@ -33,13 +33,8 @@ AverageLevelFiltered::AverageLevelFiltered(
     const int bufferSize,
     const int averageAlgorithm) :
 
-    numberOfChannels_(channels),
+    FftwRunner(channels, bufferSize),
     sampleRate_(sampleRate),
-    bufferSize_(bufferSize),
-    fftSize_(bufferSize_ * 2),
-    halfFftSize_(fftSize_ / 2 + 1),
-    sampleBuffer_(numberOfChannels_, bufferSize_),
-    overlapAddSamples_(numberOfChannels_, bufferSize_),
     previousSamplesPreFilterInput_(
         numberOfChannels_, KMETER_MAXIMUM_FILTER_STAGES - 1),
     previousSamplesPreFilterOutput_(
@@ -48,97 +43,17 @@ AverageLevelFiltered::AverageLevelFiltered(
         numberOfChannels_, KMETER_MAXIMUM_FILTER_STAGES - 1),
     previousSamplesWeightingFilterOutput_(
         numberOfChannels_, KMETER_MAXIMUM_FILTER_STAGES - 1),
-    previousSamplesOutputTemp_(1, bufferSize_),
+    previousSamplesOutputTemp_(1, fftBufferSize_),
     dither_(24)
 
 {
-    jassert(channels > 0);
-
-#if (defined (_WIN32) || defined (_WIN64))
-    File currentExecutableFile = File::getSpecialLocation(
-                                     File::currentExecutableFile);
-
-#ifdef _WIN64
-    File dynamicLibraryFftwFile = currentExecutableFile.getSiblingFile(
-                                      "kmeter/fftw/libfftw3f-3_x64.dll");
-#else
-    File dynamicLibraryFftwFile = currentExecutableFile.getSiblingFile(
-                                      "kmeter/fftw/libfftw3f-3.dll");
-#endif
-
-    String dynamicLibraryFftwPath = dynamicLibraryFftwFile.getFullPathName();
-
-    dynamicLibraryFFTW.open(dynamicLibraryFftwPath);
-    jassert(dynamicLibraryFFTW.getNativeHandle() != nullptr);
-
-    fftwf_alloc_real = (
-                           float * ( *)(size_t)) dynamicLibraryFFTW.getFunction(
-                           "fftwf_alloc_real");
-    fftwf_alloc_complex = (fftwf_complex * ( *)(size_t)) dynamicLibraryFFTW.getFunction(
-                              "fftwf_alloc_complex");
-    fftwf_free = (void ( *)(void *)) dynamicLibraryFFTW.getFunction(
-                     "fftwf_free");
-
-    fftwf_plan_dft_r2c_1d = (fftwf_plan( *)(int, float *, fftwf_complex *, unsigned)) dynamicLibraryFFTW.getFunction(
-                                "fftwf_plan_dft_r2c_1d");
-    fftwf_plan_dft_c2r_1d = (fftwf_plan( *)(int, fftwf_complex *, float *, unsigned)) dynamicLibraryFFTW.getFunction(
-                                "fftwf_plan_dft_c2r_1d");
-    fftwf_destroy_plan = (void ( *)(fftwf_plan)) dynamicLibraryFFTW.getFunction(
-                             "fftwf_destroy_plan");
-
-    fftwf_execute = (void ( *)(const fftwf_plan)) dynamicLibraryFFTW.getFunction(
-                        "fftwf_execute");
-#endif
-
     processor_ = processor;
     peakToAverageCorrection_ = 0.0f;
-
-    filterKernel_TD_ = fftwf_alloc_real(fftSize_);
-    filterKernel_FD_ = fftwf_alloc_complex(halfFftSize_);
-
-    filterKernelPlan_DFT_ = fftwf_plan_dft_r2c_1d(
-                                fftSize_, filterKernel_TD_, filterKernel_FD_,
-                                FFTW_MEASURE);
-
-    audioSamples_TD_ = fftwf_alloc_real(fftSize_);
-    audioSamples_FD_ = fftwf_alloc_complex(halfFftSize_);
-
-    audioSamplesPlan_DFT_ = fftwf_plan_dft_r2c_1d(
-                                fftSize_, audioSamples_TD_, audioSamples_FD_,
-                                FFTW_MEASURE);
-    audioSamplesPlan_IDFT_ = fftwf_plan_dft_c2r_1d(
-                                 fftSize_, audioSamples_FD_, audioSamples_TD_,
-                                 FFTW_MEASURE);
 
     averageAlgorithm_ = -1;
 
     // also calculates filter kernel
     setAlgorithm(averageAlgorithm);
-}
-
-
-AverageLevelFiltered::~AverageLevelFiltered()
-{
-    fftwf_destroy_plan(filterKernelPlan_DFT_);
-    fftwf_free(filterKernel_TD_);
-    fftwf_free(filterKernel_FD_);
-
-    fftwf_destroy_plan(audioSamplesPlan_DFT_);
-    fftwf_destroy_plan(audioSamplesPlan_IDFT_);
-    fftwf_free(audioSamples_TD_);
-    fftwf_free(audioSamples_FD_);
-
-#if (defined (_WIN32) || defined (_WIN64))
-    fftwf_alloc_real = nullptr;
-    fftwf_alloc_complex = nullptr;
-    fftwf_free = nullptr;
-
-    fftwf_plan_dft_r2c_1d = nullptr;
-    fftwf_plan_dft_c2r_1d = nullptr;
-    fftwf_destroy_plan = nullptr;
-
-    fftwf_execute = nullptr;
-#endif
 }
 
 
@@ -201,8 +116,8 @@ void AverageLevelFiltered::calculateFilterKernel()
     previousSamplesWeightingFilterOutput_.clear();
 
     // make sure there's no overlap yet
-    sampleBuffer_.clear();
-    overlapAddSamples_.clear();
+    fftSampleBuffer_.clear();
+    fftOverlapAddSamples_.clear();
 
     if (averageAlgorithm_ == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
@@ -244,7 +159,7 @@ void AverageLevelFiltered::calculateFilterKernel_Rms()
     float cutoffFrequency = 21000.0f;
     float relativeCutoffFrequency = cutoffFrequency / sampleRate_;
 
-    int samples = bufferSize_ + 1;
+    int samples = fftBufferSize_ + 1;
     float samplesHalf = samples / 2.0f;
 
     // calculate filter kernel
@@ -252,25 +167,27 @@ void AverageLevelFiltered::calculateFilterKernel_Rms()
     {
         if (i == samplesHalf)
         {
-            filterKernel_TD_[i] = float(2.0 * M_PI * relativeCutoffFrequency);
+            filterKernel_TD_[i] = static_cast<float>(
+                                      2.0 * M_PI * relativeCutoffFrequency);
         }
         else
         {
-            filterKernel_TD_[i] = float(sin(2.0 * M_PI * relativeCutoffFrequency * (i - samplesHalf)) / (i - samplesHalf) * (0.42 - 0.5 * cos(2.0 * (float) M_PI * i / samples) + 0.08 * cos(4.0 * (float) M_PI * i / samples)));
+            filterKernel_TD_[i] = static_cast<float>(
+                                      sin(2.0 * M_PI * relativeCutoffFrequency * (i - samplesHalf)) / (i - samplesHalf) * (0.42 - 0.5 * cos(2.0 * static_cast<float>(M_PI) * i / samples) + 0.08 * cos(4.0 * static_cast<float>(M_PI) * i / samples)));
         }
     }
 
     // normalise filter kernel for unity gain at DC
-    float nSumKernel = 0.0;
+    float kernelSum = 0.0;
 
     for (int i = 0; i < samples; ++i)
     {
-        nSumKernel += filterKernel_TD_[i];
+        kernelSum += filterKernel_TD_[i];
     }
 
     for (int i = 0; i < samples; ++i)
     {
-        filterKernel_TD_[i] = filterKernel_TD_[i] / nSumKernel;
+        filterKernel_TD_[i] = filterKernel_TD_[i] / kernelSum;
     }
 
     // pad filter kernel with zeros
@@ -347,11 +264,11 @@ void AverageLevelFiltered::filterSamples_Rms(
     // copy audio data to temporary buffer as the sample buffer is not
     // optimised for MME
     memcpy(audioSamples_TD_,
-           sampleBuffer_.getReadPointer(channel),
-           bufferSize_ * sizeof(float));
+           fftSampleBuffer_.getReadPointer(channel),
+           fftBufferSize_ * sizeof(float));
 
     // pad audio data with zeros
-    for (int sample = bufferSize_; sample < fftSize_; ++sample)
+    for (int sample = fftBufferSize_; sample < fftSize_; ++sample)
     {
         audioSamples_TD_[sample] = 0.0f;
     }
@@ -386,16 +303,16 @@ void AverageLevelFiltered::filterSamples_Rms(
     }
 
     // copy data from temporary buffer back to sample buffer
-    sampleBuffer_.copyFrom(channel, 0, audioSamples_TD_,
-                           bufferSize_);
+    fftSampleBuffer_.copyFrom(channel, 0, audioSamples_TD_,
+                              fftBufferSize_);
 
     // add old overlapping samples
-    sampleBuffer_.addFrom(channel, 0, overlapAddSamples_,
-                          channel, 0, bufferSize_);
+    fftSampleBuffer_.addFrom(channel, 0, fftOverlapAddSamples_,
+                             channel, 0, fftBufferSize_);
 
     // store new overlapping samples
-    overlapAddSamples_.copyFrom(channel, 0, audioSamples_TD_ + bufferSize_,
-                                bufferSize_);
+    fftOverlapAddSamples_.copyFrom(channel, 0, audioSamples_TD_ + fftBufferSize_,
+                                   fftBufferSize_);
 }
 
 
@@ -405,7 +322,7 @@ void AverageLevelFiltered::filterSamples_ItuBs1770()
     {
         // pre-filter
         previousSamplesOutputTemp_.clear();
-        const float *samplesInput = sampleBuffer_.getReadPointer(channel);
+        const float *samplesInput = fftSampleBuffer_.getReadPointer(channel);
 
         // temporary buffer with only one channel
         float *samplesOutput = previousSamplesOutputTemp_.getWritePointer(0);
@@ -413,7 +330,7 @@ void AverageLevelFiltered::filterSamples_ItuBs1770()
         const float *samplesInputOld_1 = previousSamplesPreFilterInput_.getReadPointer(channel);
         const float *samplesOutputOld_1 = previousSamplesPreFilterOutput_.getReadPointer(channel);
 
-        for (int sample = 0; sample < bufferSize_; ++sample)
+        for (int sample = 0; sample < fftBufferSize_; ++sample)
         {
             double outputSum;
 
@@ -459,16 +376,16 @@ void AverageLevelFiltered::filterSamples_ItuBs1770()
         }
 
         previousSamplesPreFilterInput_.copyFrom(
-            channel, 0, sampleBuffer_,
-            channel, bufferSize_ - 2, 2);
+            channel, 0, fftSampleBuffer_,
+            channel, fftBufferSize_ - 2, 2);
 
         previousSamplesPreFilterOutput_.copyFrom(
             channel, 0, previousSamplesOutputTemp_,
-            0, bufferSize_ - 2, 2);
+            0, fftBufferSize_ - 2, 2);
 
-        sampleBuffer_.copyFrom(
+        fftSampleBuffer_.copyFrom(
             channel, 0, previousSamplesOutputTemp_,
-            0, 0, bufferSize_);
+            0, 0, fftBufferSize_);
 
         // RLB weighting filter
         previousSamplesOutputTemp_.clear();
@@ -480,7 +397,7 @@ void AverageLevelFiltered::filterSamples_ItuBs1770()
         const float *samplesInputOld_2 = previousSamplesWeightingFilterInput_.getReadPointer(channel);
         const float *samplesOutputOld_2 = previousSamplesWeightingFilterOutput_.getReadPointer(channel);
 
-        for (int sample = 0; sample < bufferSize_; ++sample)
+        for (int sample = 0; sample < fftBufferSize_; ++sample)
         {
             double outputSum;
 
@@ -525,10 +442,10 @@ void AverageLevelFiltered::filterSamples_ItuBs1770()
             }
         }
 
-        previousSamplesWeightingFilterInput_.copyFrom(channel, 0, sampleBuffer_, channel, bufferSize_ - 2, 2);
-        previousSamplesWeightingFilterOutput_.copyFrom(channel, 0, previousSamplesOutputTemp_, 0, bufferSize_ - 2, 2);
+        previousSamplesWeightingFilterInput_.copyFrom(channel, 0, fftSampleBuffer_, channel, fftBufferSize_ - 2, 2);
+        previousSamplesWeightingFilterOutput_.copyFrom(channel, 0, previousSamplesOutputTemp_, 0, fftBufferSize_ - 2, 2);
 
-        sampleBuffer_.copyFrom(channel, 0, previousSamplesOutputTemp_, 0, 0, bufferSize_);
+        fftSampleBuffer_.copyFrom(channel, 0, previousSamplesOutputTemp_, 0, 0, fftBufferSize_);
 
         filterSamples_Rms(channel);
     }
@@ -557,15 +474,15 @@ float AverageLevelFiltered::getLevel(
             for (int channel = 0; channel < numberOfChannels_; ++channel)
             {
                 float averageLevelChannel = 0.0f;
-                const float *sampleData = sampleBuffer_.getReadPointer(channel);
+                const float *sampleData = fftSampleBuffer_.getReadPointer(channel);
 
                 // calculate mean square of the filtered input signal
-                for (int n = 0; n < bufferSize_; ++n)
+                for (int n = 0; n < fftBufferSize_; ++n)
                 {
                     averageLevelChannel += (sampleData[n] * sampleData[n]);
                 }
 
-                averageLevelChannel /= float(bufferSize_);
+                averageLevelChannel /= float(fftBufferSize_);
 
                 // apply weighting factor and sum channels
                 //
@@ -610,8 +527,8 @@ float AverageLevelFiltered::getLevel(
         filterSamples_Rms(channel);
 
         float averageLevel = MeterBallistics::level2decibel(
-                                 sampleBuffer_.getRMSLevel(
-                                     channel, 0, bufferSize_));
+                                 fftSampleBuffer_.getRMSLevel(
+                                     channel, 0, fftBufferSize_));
 
         // apply peak-to-average gain correction so that sine waves
         // read the same on peak and average meters
@@ -634,7 +551,7 @@ void AverageLevelFiltered::copyFromBuffer(
     }
 
     // copy data from ring buffer to sample buffer
-    ringBuffer.copyToBuffer(sampleBuffer_, 0, bufferSize_, preDelay);
+    ringBuffer.copyToBuffer(fftSampleBuffer_, 0, fftBufferSize_, preDelay);
 }
 
 
@@ -645,7 +562,7 @@ void AverageLevelFiltered::copyToBuffer(
 
 {
     // copy data from sample buffer to ring buffer
-    destination.addSamples(sampleBuffer_, sourceStartSample, numSamples);
+    destination.addSamples(fftSampleBuffer_, sourceStartSample, numSamples);
 }
 
 
@@ -661,7 +578,7 @@ void AverageLevelFiltered::copyToBuffer(
     jassert((destStartSample + numSamples) <= destination.getNumSamples());
 
     memcpy(destination.getWritePointer(channel, destStartSample),
-           sampleBuffer_.getReadPointer(channel),
+           fftSampleBuffer_.getReadPointer(channel),
            numSamples * sizeof(float));
 }
 

@@ -2,16 +2,16 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="Source">
-			<UniqueIdentifier>{0B42D915-55A6-4FD0-3EF2-B0A8C169D5E3}</UniqueIdentifier>
+			<UniqueIdentifier>{2A57A258-9475-7438-87FE-63C1503FE972}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common">
-			<UniqueIdentifier>{3D294243-E2A3-C395-AD74-80F464886023}</UniqueIdentifier>
+			<UniqueIdentifier>{2AC94B2C-2F05-8283-2176-1307F2DB1675}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\amalgamated">
-			<UniqueIdentifier>{838BB767-8047-D538-BF72-1F86EB4C4764}</UniqueIdentifier>
+			<UniqueIdentifier>{80C0DAB1-44FB-98D7-7383-55BAAC3B8D66}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="JuceLibraryCode">
-			<UniqueIdentifier>{4B3520BA-DF78-2757-83C6-8EB190C91AED}</UniqueIdentifier>
+			<UniqueIdentifier>{29173193-D766-A941-B196-4F2F1A8505AC}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -75,6 +75,9 @@
 		<ClInclude Include="..\..\..\Source\meter_bar.h">
 			<Filter>Source</Filter>
 		</ClInclude>
+		<ClInclude Include="..\..\..\Source\fftw_runner.h">
+			<Filter>Source</Filter>
+		</ClInclude>
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_widget.cpp">
@@ -132,6 +135,9 @@
 			<Filter>Source</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\window_validation_content.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\fftw_runner.cpp">
 			<Filter>Source</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_basics.cpp">

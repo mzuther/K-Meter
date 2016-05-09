@@ -170,6 +170,8 @@
           file="Source/average_level_filtered.cpp"/>
     <FILE id="KQvkgv" name="average_level_filtered.h" compile="0" resource="0"
           file="Source/average_level_filtered.h"/>
+    <FILE id="am0M8g" name="fftw_runner.cpp" compile="1" resource="0" file="Source/fftw_runner.cpp"/>
+    <FILE id="WlJkl5" name="fftw_runner.h" compile="0" resource="0" file="Source/fftw_runner.h"/>
     <FILE id="nKORdd" name="kmeter.cpp" compile="1" resource="0" file="Source/kmeter.cpp"/>
     <FILE id="VGjQty" name="kmeter.h" compile="0" resource="0" file="Source/kmeter.h"/>
     <FILE id="bMh0p2" name="meter_ballistics.cpp" compile="1" resource="0"

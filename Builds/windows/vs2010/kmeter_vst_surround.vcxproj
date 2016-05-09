@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{261BA76B-FB43-56A8-E697-E5D8FBB2BFEC}</ProjectGuid>
+		<ProjectGuid>{A5AEE0E3-D243-0852-5736-976D32457E4E}</ProjectGuid>
 		<RootNamespace>kmeter_vst_surround</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -230,6 +230,7 @@
 		<ClInclude Include="..\..\..\Source\meter_ballistics.h" />
 		<ClInclude Include="..\..\..\Source\skin.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar.h" />
+		<ClInclude Include="..\..\..\Source\fftw_runner.h" />
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_widget.cpp">
@@ -267,6 +268,8 @@
 		<ClCompile Include="..\..\..\Source\skin.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\window_validation_content.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\fftw_runner.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_basics.cpp">
 		</ClCompile>

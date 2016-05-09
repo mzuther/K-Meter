@@ -26,17 +26,15 @@
 #ifndef __TRUE_PEAK_METER_H__
 #define __TRUE_PEAK_METER_H__
 
-class TruePeakMeter;
-
 #include "FrutHeader.h"
+#include "fftw_runner.h"
 #include "meter_ballistics.h"
-#include "fftw3/api/fftw3.h"
 
-class TruePeakMeter
+class TruePeakMeter :
+    public FftwRunner
 {
 public:
     TruePeakMeter(const int channels, const int bufferSize);
-    ~TruePeakMeter();
 
     float getLevel(const int channel);
     void copyFromBuffer(frut::audio::RingBuffer &ringBuffer,
@@ -49,42 +47,17 @@ private:
     void filterSamples(const int passNumber);
     void filterWorker(const int channel);
 
-    float *filterKernel_TD_;
-    fftwf_complex *filterKernel_FD_;
-    fftwf_plan filterKernelPlan_DFT_;
-
-    float *audioSamples_TD_;
-    fftwf_complex *audioSamples_FD_;
-    fftwf_plan audioSamplesPlan_DFT_;
-    fftwf_plan audioSamplesPlan_IDFT_;
-
-    int numberOfChannels_;
     int oversamplingRate_;
 
     int bufferSizeOriginal_;
     int bufferSizeOriginalHalf_;
     int bufferSizeOversampled_;
-    int fftSize_;
-    int halfFftSize_;
 
     Array<double> truePeakLevels_;
 
     AudioBuffer<float> sampleBufferOriginal_;
     AudioBuffer<float> sampleBufferCurrent_;
     AudioBuffer<float> sampleBufferOld_;
-    AudioBuffer<float> sampleBufferOversampled_;
-
-#if (defined (_WIN32) || defined (_WIN64))
-    float *(*fftwf_alloc_real)(size_t);
-    fftwf_complex *(*fftwf_alloc_complex)(size_t);
-    void (*fftwf_free)(void *);
-
-    fftwf_plan(*fftwf_plan_dft_r2c_1d)(int, float *, fftwf_complex *, unsigned);
-    fftwf_plan(*fftwf_plan_dft_c2r_1d)(int, fftwf_complex *, float *, unsigned);
-    void (*fftwf_destroy_plan)(fftwf_plan);
-
-    void (*fftwf_execute)(const fftwf_plan);
-#endif
 };
 
 
