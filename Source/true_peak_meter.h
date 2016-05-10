@@ -28,7 +28,6 @@
 
 #include "FrutHeader.h"
 #include "fftw_runner.h"
-#include "meter_ballistics.h"
 
 class TruePeakMeter :
     public FftwRunner
@@ -44,20 +43,15 @@ private:
     JUCE_LEAK_DETECTOR(TruePeakMeter);
 
     void calculateFilterKernel();
-    void filterSamples(const int passNumber);
+    void filterSamples();
     void filterWorker(const int channel);
 
     int oversamplingRate_;
-
     int bufferSizeOriginal_;
-    int bufferSizeOriginalHalf_;
-    int bufferSizeOversampled_;
 
     Array<double> truePeakLevels_;
 
     AudioBuffer<float> sampleBufferOriginal_;
-    AudioBuffer<float> sampleBufferCurrent_;
-    AudioBuffer<float> sampleBufferOld_;
 };
 
 

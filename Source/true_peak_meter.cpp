@@ -30,15 +30,12 @@ TruePeakMeter::TruePeakMeter(
     const int channels,
     const int bufferSize) :
 
-    FftwRunner(channels, 8 * bufferSize),
     // 8x oversampling (maximum under-read is 0.169 dB at half the
     // sampling rate, see Annex 2 of ITU-R BS.1770-4)
+    FftwRunner(channels, 8 * bufferSize),
     oversamplingRate_(8),
     bufferSizeOriginal_(bufferSize),
-    bufferSizeOriginalHalf_(bufferSizeOriginal_ / 2),
-    sampleBufferOriginal_(numberOfChannels_, bufferSizeOriginal_),
-    sampleBufferCurrent_(numberOfChannels_, bufferSizeOriginalHalf_),
-    sampleBufferOld_(numberOfChannels_, bufferSizeOriginalHalf_)
+    sampleBufferOriginal_(numberOfChannels_, bufferSizeOriginal_)
 
 {
     calculateFilterKernel();
@@ -48,9 +45,8 @@ TruePeakMeter::TruePeakMeter(
 void TruePeakMeter::calculateFilterKernel()
 {
     sampleBufferOriginal_.clear();
-    sampleBufferCurrent_.clear();
-    sampleBufferOld_.clear();
     fftSampleBuffer_.clear();
+    fftOverlapAddSamples_.clear();
 
     // reset levels
     truePeakLevels_.clear();
@@ -61,9 +57,9 @@ void TruePeakMeter::calculateFilterKernel()
     }
 
     // interpolation filter; removes all frequencies above *original*
-    // Nyquist frequency from resampled audio (the approximated filter
-    // bandwidth is 21.5 Hz for a buffer size of 1024 samples and a
-    // sampling rate of 44100 Hz with 8x oversampling)
+    // Nyquist frequency from resampled audio; the approximated filter
+    // transition is 22 Hz for a final buffer size of 8192 samples
+    // (8 * 1024) and an initial sampling rate of 44100 Hz
     float relativeCutoffFrequency = 0.5f / oversamplingRate_;
 
     int samples = fftBufferSize_ + 1;
@@ -108,9 +104,7 @@ void TruePeakMeter::calculateFilterKernel()
 }
 
 
-void TruePeakMeter::filterSamples(
-    const int passNumber)
-
+void TruePeakMeter::filterSamples()
 {
     // oversample input sample buffer by clearing it and filling every
     // "oversamplingRate_" sample with the original sample values
@@ -118,24 +112,15 @@ void TruePeakMeter::filterSamples(
 
     for (int channel = 0; channel < numberOfChannels_; ++channel)
     {
-        int sampleOversampledOld = 0;
-        int sampleOversampledCurrent = bufferSizeOriginalHalf_ *
-                                       oversamplingRate_;
+        int sampleOversampled = 0;
 
-        for (int sample = 0; sample < bufferSizeOriginalHalf_; ++sample)
+        for (int sample = 0; sample < bufferSizeOriginal_; ++sample)
         {
-            // fill the first half with old samples
             fftSampleBuffer_.copyFrom(
-                channel, sampleOversampledOld, sampleBufferOld_,
+                channel, sampleOversampled, sampleBufferOriginal_,
                 channel, sample, 1);
 
-            // fill the second half with current samples
-            fftSampleBuffer_.copyFrom(
-                channel, sampleOversampledCurrent, sampleBufferCurrent_,
-                channel, sample, 1);
-
-            sampleOversampledOld += oversamplingRate_;
-            sampleOversampledCurrent += oversamplingRate_;
+            sampleOversampled += oversamplingRate_;
         }
     }
 
@@ -148,17 +133,7 @@ void TruePeakMeter::filterSamples(
         float truePeakLevel = fftSampleBuffer_.getMagnitude(
                                   channel, 0, fftBufferSize_);
 
-        if (passNumber == 1)
-        {
-            truePeakLevels_.set(channel, truePeakLevel);
-        }
-        else
-        {
-            if (truePeakLevel > truePeakLevels_[channel])
-            {
-                truePeakLevels_.set(channel, truePeakLevel);
-            }
-        }
+        truePeakLevels_.set(channel, truePeakLevel);
     }
 }
 
@@ -213,8 +188,16 @@ void TruePeakMeter::filterWorker(
 
     // copy data from temporary buffer back to sample buffer
     fftSampleBuffer_.copyFrom(
-        channel, 0,
-        audioSamples_TD_, fftBufferSize_);
+        channel, 0, audioSamples_TD_,
+        fftBufferSize_);
+
+    // add old overlapping samples
+    fftSampleBuffer_.addFrom(channel, 0, fftOverlapAddSamples_,
+                             channel, 0, fftBufferSize_);
+
+    // store new overlapping samples
+    fftOverlapAddSamples_.copyFrom(channel, 0, audioSamples_TD_ + fftBufferSize_,
+                                   fftBufferSize_);
 }
 
 
@@ -238,40 +221,8 @@ void TruePeakMeter::copyFromBuffer(
     ringBuffer.copyToBuffer(sampleBufferOriginal_, 0,
                             bufferSizeOriginal_, preDelay);
 
-    // copy samples (first pass)
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
-    {
-        // copy second half of old sample buffer (sampleBufferCurrent_
-        // hasn't been changed yet!)
-        sampleBufferOld_.copyFrom(
-            channel, 0, sampleBufferCurrent_,
-            channel, 0, bufferSizeOriginalHalf_);
-
-        // copy first half of current sample buffer
-        sampleBufferCurrent_.copyFrom(
-            channel, 0, sampleBufferOriginal_,
-            channel, 0, bufferSizeOriginalHalf_);
-    }
-
-    // filter samples (first pass)
-    filterSamples(1);
-
-    // copy samples (second pass)
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
-    {
-        // copy first half of current sample buffer
-        sampleBufferOld_.copyFrom(
-            channel, 0, sampleBufferOriginal_,
-            channel, 0, bufferSizeOriginalHalf_);
-
-        // copy second half of current sample buffer
-        sampleBufferCurrent_.copyFrom(
-            channel, 0, sampleBufferOriginal_,
-            channel, bufferSizeOriginalHalf_, bufferSizeOriginalHalf_);
-    }
-
-    // filter samples (second pass)
-    filterSamples(2);
+    // filter samples
+    filterSamples();
 }
 
 

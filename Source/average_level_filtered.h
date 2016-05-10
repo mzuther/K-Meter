@@ -30,7 +30,6 @@ class AverageLevelFiltered;
 
 #include "FrutHeader.h"
 #include "fftw_runner.h"
-#include "meter_ballistics.h"
 #include "plugin_processor.h"
 
 
