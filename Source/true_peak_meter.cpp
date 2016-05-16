@@ -27,13 +27,12 @@
 
 
 TruePeakMeter::TruePeakMeter(
+    const int oversamplingRate,
     const int channels,
     const int bufferSize) :
 
-    // 8x oversampling (maximum under-read is 0.169 dB at half the
-    // sampling rate, see Annex 2 of ITU-R BS.1770-4)
-    FftwRunner(channels, 8 * bufferSize),
-    oversamplingRate_(8),
+    FftwRunner(channels, oversamplingRate *bufferSize),
+    oversamplingRate_(oversamplingRate),
     bufferSizeOriginal_(bufferSize),
     sampleBufferOriginal_(numberOfChannels_, bufferSizeOriginal_)
 

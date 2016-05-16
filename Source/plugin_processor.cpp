@@ -420,7 +420,22 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 
     pAverageLevelFiltered = new AverageLevelFiltered(this, nNumInputChannels, (int) sampleRate, nTrakmeterBufferSize, nAverageAlgorithm);
 
-    pTruePeakMeter = new TruePeakMeter(nNumInputChannels, nTrakmeterBufferSize);
+    // maximum under-read of true peak measurement is 0.169 dB (see
+    // Annex 2 of ITU-R BS.1770-4)
+    int nOversamplingRate = 8;
+
+    if (sampleRate >= 176400)
+    {
+        nOversamplingRate /= 4;
+    }
+    else if (sampleRate >= 88200)
+    {
+        nOversamplingRate /= 2;
+    }
+
+    pTruePeakMeter = new TruePeakMeter(nOversamplingRate,
+                                       nNumInputChannels,
+                                       nTrakmeterBufferSize);
 
     // make sure that ring buffer can hold at least nTrakmeterBufferSize
     // samples and is large enough to receive a full block of audio

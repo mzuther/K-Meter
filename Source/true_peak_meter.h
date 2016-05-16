@@ -33,7 +33,9 @@ class TruePeakMeter :
     public FftwRunner
 {
 public:
-    TruePeakMeter(const int channels, const int bufferSize);
+    TruePeakMeter(const int oversamplingRate,
+                  const int channels,
+                  const int bufferSize);
 
     float getLevel(const int channel);
     void copyFromBuffer(frut::audio::RingBuffer &ringBuffer,
