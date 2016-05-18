@@ -37,6 +37,10 @@ public:
                const int bufferSize);
     ~FftwRunner();
 
+    void calculateKernelWindowedSincLPF(const float relativeCutoffFrequency);
+    void convolveWithKernel(const int channel,
+                            const float oversamplingRate = 1.0f);
+
 protected:
     float *filterKernel_TD_;
     fftwf_complex *filterKernel_FD_;

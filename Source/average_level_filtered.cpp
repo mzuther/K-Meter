@@ -119,13 +119,16 @@ void AverageLevelFiltered::calculateFilterKernel()
     fftSampleBuffer_.clear();
     fftOverlapAddSamples_.clear();
 
+    // set peak-to-average gain correction, the gain to add to average
+    // levels so that sine waves read the same on peak and average
+    // meters
     if (averageAlgorithm_ == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
         calculateFilterKernel_ItuBs1770();
 
         // ITU-R BS.1770-1 provides its own peak-to-average gain
         // correction, so we don't need to apply any!
-        setPeakToAverageCorrection(0.0f);
+        peakToAverageCorrection_ = 0.0f;
     }
     else
     {
@@ -134,21 +137,8 @@ void AverageLevelFiltered::calculateFilterKernel()
         // RMS peak-to-average gain correction; this is simply the
         // level difference between the peak and RMS level of a sine
         // wave: RMS / A = sqrt(2) = +3.0103 dB
-        setPeakToAverageCorrection(+3.0103f);
+        peakToAverageCorrection_ = +3.0103f;
     }
-}
-
-
-/*  Set peak-to-average gain correction.
-
-    peakToAverageCorrection: gain to add to average levels so that
-	sine waves read the same on peak and average meters
-*/
-void AverageLevelFiltered::setPeakToAverageCorrection(
-    float peakToAverageCorrection)
-
-{
-    peakToAverageCorrection_ = peakToAverageCorrection;
 }
 
 
@@ -159,45 +149,7 @@ void AverageLevelFiltered::calculateFilterKernel_Rms()
     float cutoffFrequency = 21000.0f;
     float relativeCutoffFrequency = cutoffFrequency / sampleRate_;
 
-    int samples = fftBufferSize_ + 1;
-    float samplesHalf = samples / 2.0f;
-
-    // calculate filter kernel
-    for (int i = 0; i < samples; ++i)
-    {
-        if (i == samplesHalf)
-        {
-            filterKernel_TD_[i] = static_cast<float>(
-                                      2.0 * M_PI * relativeCutoffFrequency);
-        }
-        else
-        {
-            filterKernel_TD_[i] = static_cast<float>(
-                                      sin(2.0 * M_PI * relativeCutoffFrequency * (i - samplesHalf)) / (i - samplesHalf) * (0.42 - 0.5 * cos(2.0 * static_cast<float>(M_PI) * i / samples) + 0.08 * cos(4.0 * static_cast<float>(M_PI) * i / samples)));
-        }
-    }
-
-    // normalise filter kernel for unity gain at DC
-    float kernelSum = 0.0;
-
-    for (int i = 0; i < samples; ++i)
-    {
-        kernelSum += filterKernel_TD_[i];
-    }
-
-    for (int i = 0; i < samples; ++i)
-    {
-        filterKernel_TD_[i] = filterKernel_TD_[i] / kernelSum;
-    }
-
-    // pad filter kernel with zeros
-    for (int i = samples; i < fftSize_; ++i)
-    {
-        filterKernel_TD_[i] = 0.0f;
-    }
-
-    // calculate DFT of filter kernel
-    fftwf_execute(filterKernelPlan_DFT_);
+    calculateKernelWindowedSincLPF(relativeCutoffFrequency);
 }
 
 
@@ -258,61 +210,7 @@ void AverageLevelFiltered::filterSamples_Rms(
     const int channel)
 
 {
-    jassert(channel >= 0);
-    jassert(channel < numberOfChannels_);
-
-    // copy audio data to temporary buffer as the sample buffer is not
-    // optimised for MME
-    memcpy(audioSamples_TD_,
-           fftSampleBuffer_.getReadPointer(channel),
-           fftBufferSize_ * sizeof(float));
-
-    // pad audio data with zeros
-    for (int sample = fftBufferSize_; sample < fftSize_; ++sample)
-    {
-        audioSamples_TD_[sample] = 0.0f;
-    }
-
-    // calculate DFT of audio data
-    fftwf_execute(audioSamplesPlan_DFT_);
-
-    // convolve audio data with filter kernel
-    for (int i = 0; i < halfFftSize_; ++i)
-    {
-        // multiplication of complex numbers: index 0 contains the real
-        // part, index 1 the imaginary part
-        float realPart = audioSamples_FD_[i][0] * filterKernel_FD_[i][0] -
-                         audioSamples_FD_[i][1] * filterKernel_FD_[i][1];
-        float imagPart = audioSamples_FD_[i][1] * filterKernel_FD_[i][0] +
-                         audioSamples_FD_[i][0] * filterKernel_FD_[i][1];
-
-        audioSamples_FD_[i][0] = realPart;
-        audioSamples_FD_[i][1] = imagPart;
-    }
-
-    // synthesise audio data from frequency spectrum (this destroys the
-    // contents of "audioSamples_FD_"!!!)
-    fftwf_execute(audioSamplesPlan_IDFT_);
-
-    // normalise synthesised audio data
-    float normaliser = float(fftSize_);
-
-    for (int i = 0; i < fftSize_; ++i)
-    {
-        audioSamples_TD_[i] = audioSamples_TD_[i] / normaliser;
-    }
-
-    // copy data from temporary buffer back to sample buffer
-    fftSampleBuffer_.copyFrom(channel, 0, audioSamples_TD_,
-                              fftBufferSize_);
-
-    // add old overlapping samples
-    fftSampleBuffer_.addFrom(channel, 0, fftOverlapAddSamples_,
-                             channel, 0, fftBufferSize_);
-
-    // store new overlapping samples
-    fftOverlapAddSamples_.copyFrom(channel, 0, audioSamples_TD_ + fftBufferSize_,
-                                   fftBufferSize_);
+    convolveWithKernel(channel);
 }
 
 
@@ -447,7 +345,7 @@ void AverageLevelFiltered::filterSamples_ItuBs1770()
 
         fftSampleBuffer_.copyFrom(channel, 0, previousSamplesOutputTemp_, 0, 0, fftBufferSize_);
 
-        filterSamples_Rms(channel);
+        convolveWithKernel(channel);
     }
 }
 

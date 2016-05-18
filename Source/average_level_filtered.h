@@ -71,7 +71,6 @@ private:
     void filterSamples_ItuBs1770();
 
     int sampleRate_;
-    void setPeakToAverageCorrection(float peakToAverageCorrection);
 
     Array<double> preFilterInputCoefficients_;
     Array<double> preFilterOutputCoefficients_;

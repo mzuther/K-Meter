@@ -46,7 +46,6 @@ private:
 
     void calculateFilterKernel();
     void filterSamples();
-    void filterWorker(const int channel);
 
     int oversamplingRate_;
     int bufferSizeOriginal_;
