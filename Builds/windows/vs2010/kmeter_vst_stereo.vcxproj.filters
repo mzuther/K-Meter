@@ -2,16 +2,16 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="Source">
-			<UniqueIdentifier>{00D7D424-91A6-2CB9-4023-CE70767E3A75}</UniqueIdentifier>
+			<UniqueIdentifier>{5D36A104-6633-297C-552E-33ADE0607EF5}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common">
-			<UniqueIdentifier>{AC725C80-9305-A1CA-7153-2C7A5A6FBE36}</UniqueIdentifier>
+			<UniqueIdentifier>{73C33A60-7451-3997-F30F-F66532A4D8C3}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\amalgamated">
-			<UniqueIdentifier>{EEFFB67A-3173-0F6B-586F-4FE75CAB2C79}</UniqueIdentifier>
+			<UniqueIdentifier>{ABA93746-6754-05B7-550D-AB58212522AB}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="JuceLibraryCode">
-			<UniqueIdentifier>{D7056DBF-1B65-F10E-F4C8-3378AE2A34B1}</UniqueIdentifier>
+			<UniqueIdentifier>{18D6CC0A-192B-4AA2-2B28-01A86806A57A}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -54,6 +54,9 @@
 		<ClInclude Include="..\..\..\Source\true_peak_meter.h">
 			<Filter>Source</Filter>
 		</ClInclude>
+		<ClInclude Include="..\..\..\Source\rate_converter.h">
+			<Filter>Source</Filter>
+		</ClInclude>
 		<ClInclude Include="..\..\..\Source\audio_file_player.h">
 			<Filter>Source</Filter>
 		</ClInclude>
@@ -93,6 +96,9 @@
 			<Filter>Source\common\amalgamated</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_editor.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\rate_converter.cpp">
 			<Filter>Source</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_processor.cpp">

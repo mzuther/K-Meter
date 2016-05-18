@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="LEmwq6" name="K-Meter" projectType="audioplug" version="2.4.1"
+<JUCERPROJECT id="LEmwq6" name="K-Meter" projectType="audioplug" version="2.4.2"
               bundleIdentifier="de.mzuther.KMeter" buildVST="1" buildRTAS="0"
               buildAU="0" pluginName="K-Meter" pluginDesc="Implementation of a K-System meter according to Bob Katz' specifications"
               pluginManufacturer="Martin Zuther" pluginManufacturerCode="MZut"
@@ -197,6 +197,10 @@
           file="Source/plugin_processor.cpp"/>
     <FILE id="Ix9pV2" name="plugin_processor.h" compile="0" resource="0"
           file="Source/plugin_processor.h"/>
+    <FILE id="kH6IJI" name="rate_converter.cpp" compile="1" resource="0"
+          file="Source/rate_converter.cpp"/>
+    <FILE id="Hz3oXB" name="rate_converter.h" compile="0" resource="0"
+          file="Source/rate_converter.h"/>
     <FILE id="yYoVRt" name="skin.cpp" compile="1" resource="0" file="Source/skin.cpp"/>
     <FILE id="Ck4xEP" name="skin.h" compile="0" resource="0" file="Source/skin.h"/>
     <FILE id="GNnMJo" name="standalone_application.cpp" compile="1" resource="0"

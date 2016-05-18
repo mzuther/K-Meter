@@ -114,6 +114,7 @@ OBJECTS := \
 	$(OBJDIR)/frut_parameter.o \
 	$(OBJDIR)/frut_audio.o \
 	$(OBJDIR)/plugin_editor.o \
+	$(OBJDIR)/rate_converter.o \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/peak_label.o \
 	$(OBJDIR)/kmeter.o \
@@ -218,6 +219,9 @@ $(OBJDIR)/frut_audio.o: ../../../Source/common/amalgamated/frut_audio.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_editor.o: ../../../Source/plugin_editor.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/rate_converter.o: ../../../Source/rate_converter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_processor.o: ../../../Source/plugin_processor.cpp

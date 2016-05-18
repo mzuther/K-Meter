@@ -23,52 +23,35 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "true_peak_meter.h"
+#ifndef __RATE_CONVERTER_H__
+#define __RATE_CONVERTER_H__
 
+#include "FrutHeader.h"
+#include "fftw_runner.h"
 
-TruePeakMeter::TruePeakMeter(
-    const int upsamplingRate,
-    const int channels,
-    const int bufferSize) :
-
-    RateConverter(upsamplingRate, channels, bufferSize)
-
+class RateConverter :
+    public FftwRunner
 {
-}
+public:
+    RateConverter(const int upsamplingRate,
+                  const int channels,
+                  const int bufferSize);
+
+protected:
+    void calculateFilterKernel();
+    void upsample();
+
+    int upsamplingRate_;
+    int bufferSizeOriginal_;
+
+    AudioBuffer<float> sampleBufferOriginal_;
+
+private:
+    JUCE_LEAK_DETECTOR(RateConverter);
+};
 
 
-float TruePeakMeter::getLevel(
-    const int channel)
-
-{
-    jassert(channel >= 0);
-    jassert(channel < numberOfChannels_);
-
-    return truePeakLevels_[channel];
-}
-
-
-void TruePeakMeter::copyFromBuffer(
-    frut::audio::RingBuffer &ringBuffer,
-    const unsigned int preDelay)
-
-{
-    // copy data from ring buffer to sample buffer
-    ringBuffer.copyToBuffer(sampleBufferOriginal_, 0,
-                            bufferSizeOriginal_, preDelay);
-
-    // upsample buffer (overwrites contents of sample buffer)
-    upsample();
-
-    // evaluate true peak level
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
-    {
-        float truePeakLevel = fftSampleBuffer_.getMagnitude(
-                                  channel, 0, fftBufferSize_);
-
-        truePeakLevels_.set(channel, truePeakLevel);
-    }
-}
+#endif  // __RATE_CONVERTER_H__
 
 
 // Local Variables:

@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{CBD98F48-5656-BF1D-1B9F-255E9DE55F15}</ProjectGuid>
+		<ProjectGuid>{0EF219F7-43B0-C87D-CD53-A57BFE4FC116}</ProjectGuid>
 		<RootNamespace>kmeter_standalone_surround</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -216,6 +216,7 @@
 		<ClInclude Include="..\..\..\Source\average_level_filtered.h" />
 		<ClInclude Include="..\..\..\Source\plugin_editor.h" />
 		<ClInclude Include="..\..\..\Source\true_peak_meter.h" />
+		<ClInclude Include="..\..\..\Source\rate_converter.h" />
 		<ClInclude Include="..\..\..\Source\audio_file_player.h" />
 		<ClInclude Include="..\..\..\Source\kmeter.h" />
 		<ClInclude Include="..\..\..\Source\plugin_processor.h" />
@@ -237,6 +238,8 @@
 		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_audio.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_editor.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\rate_converter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\standalone_application.cpp">
 		</ClCompile>

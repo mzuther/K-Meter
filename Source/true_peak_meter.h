@@ -27,13 +27,13 @@
 #define __TRUE_PEAK_METER_H__
 
 #include "FrutHeader.h"
-#include "fftw_runner.h"
+#include "rate_converter.h"
 
 class TruePeakMeter :
-    public FftwRunner
+    public RateConverter
 {
 public:
-    TruePeakMeter(const int oversamplingRate,
+    TruePeakMeter(const int upsamplingRate,
                   const int channels,
                   const int bufferSize);
 
@@ -41,18 +41,11 @@ public:
     void copyFromBuffer(frut::audio::RingBuffer &ringBuffer,
                         const unsigned int preDelay);
 
-private:
-    JUCE_LEAK_DETECTOR(TruePeakMeter);
-
-    void calculateFilterKernel();
-    void filterSamples();
-
-    int oversamplingRate_;
-    int bufferSizeOriginal_;
-
+protected:
     Array<double> truePeakLevels_;
 
-    AudioBuffer<float> sampleBufferOriginal_;
+private:
+    JUCE_LEAK_DETECTOR(TruePeakMeter);
 };
 
 
