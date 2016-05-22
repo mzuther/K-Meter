@@ -50,7 +50,7 @@ WindowValidationContent::WindowValidationContent(
     audioProcessor = processor;
 
     // get current number of audio input channels
-    int numberOfInputChannels = audioProcessor->getNumChannels();
+    int numberOfInputChannels = audioProcessor->getMainBusNumInputChannels();
 
     // get current audio sample rate
     int sampleRate = static_cast<int>(audioProcessor->getSampleRate());

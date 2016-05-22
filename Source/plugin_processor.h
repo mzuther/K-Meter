@@ -101,7 +101,6 @@ public:
 
     //==========================================================================
     int getNumPrograms();
-    int getNumChannels();
 
     int getCurrentProgram();
     void setCurrentProgram(int nIndex);
@@ -131,7 +130,6 @@ private:
 
     KmeterPluginParameters pluginParameters;
 
-    int nNumInputChannels;
     bool isStereo;
     bool bSampleRateIsValid;
     bool isSilent;
