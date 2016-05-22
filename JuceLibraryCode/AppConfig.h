@@ -45,12 +45,16 @@
 ---------------------------------------------------------------------------- */
 
 #ifdef KMETER_SURROUND
+  #define JucePlugin_PluginCode             'kmeS'
+
   #ifdef DEBUG
     #define JucePlugin_Name                 "K-Meter (Surround, Debug)"
   #else
     #define JucePlugin_Name                 "K-Meter (Surround)"
   #endif
 #else
+  #define JucePlugin_PluginCode             'kmet'
+
   #ifdef DEBUG
     #define JucePlugin_Name                 "K-Meter (Stereo, Debug)"
   #else
