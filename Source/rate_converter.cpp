@@ -31,7 +31,7 @@ RateConverter::RateConverter(
     const int channels,
     const int bufferSize) :
 
-    FftwRunner(channels, upsamplingRate *bufferSize),
+    FftwRunner(channels, upsamplingRate * bufferSize),
     upsamplingRate_(upsamplingRate),
     bufferSizeOriginal_(bufferSize),
     sampleBufferOriginal_(numberOfChannels_, bufferSizeOriginal_)

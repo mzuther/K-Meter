@@ -57,21 +57,21 @@ FftwRunner::FftwRunner(
     dynamicLibraryFFTW.open(dynamicLibraryFftwPath);
     jassert(dynamicLibraryFFTW.getNativeHandle() != nullptr);
 
-    fftwf_alloc_real = (float * ( *)(size_t)) dynamicLibraryFFTW.getFunction(
+    fftwf_alloc_real = (float * (*)(size_t)) dynamicLibraryFFTW.getFunction(
                            "fftwf_alloc_real");
-    fftwf_alloc_complex = (fftwf_complex * ( *)(size_t)) dynamicLibraryFFTW.getFunction(
+    fftwf_alloc_complex = (fftwf_complex * (*)(size_t)) dynamicLibraryFFTW.getFunction(
                               "fftwf_alloc_complex");
-    fftwf_free = (void ( *)(void *)) dynamicLibraryFFTW.getFunction(
+    fftwf_free = (void (*)(void *)) dynamicLibraryFFTW.getFunction(
                      "fftwf_free");
 
-    fftwf_plan_dft_r2c_1d = (fftwf_plan( *)(int, float *, fftwf_complex *, unsigned)) dynamicLibraryFFTW.getFunction(
+    fftwf_plan_dft_r2c_1d = (fftwf_plan(*)(int, float *, fftwf_complex *, unsigned)) dynamicLibraryFFTW.getFunction(
                                 "fftwf_plan_dft_r2c_1d");
-    fftwf_plan_dft_c2r_1d = (fftwf_plan( *)(int, fftwf_complex *, float *, unsigned)) dynamicLibraryFFTW.getFunction(
+    fftwf_plan_dft_c2r_1d = (fftwf_plan(*)(int, fftwf_complex *, float *, unsigned)) dynamicLibraryFFTW.getFunction(
                                 "fftwf_plan_dft_c2r_1d");
-    fftwf_destroy_plan = (void ( *)(fftwf_plan)) dynamicLibraryFFTW.getFunction(
+    fftwf_destroy_plan = (void (*)(fftwf_plan)) dynamicLibraryFFTW.getFunction(
                              "fftwf_destroy_plan");
 
-    fftwf_execute = (void ( *)(const fftwf_plan)) dynamicLibraryFFTW.getFunction(
+    fftwf_execute = (void (*)(const fftwf_plan)) dynamicLibraryFFTW.getFunction(
                         "fftwf_execute");
 #endif
 
