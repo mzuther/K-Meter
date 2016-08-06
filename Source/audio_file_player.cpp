@@ -27,7 +27,7 @@
 
 
 AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBallistics *meter_ballistics, int crest_factor) :
-    nullAverager(1, 0.0f)
+    nullAverager(3, 0.0f)
 {
     nReportChannel = -1;
     bReports = false;
