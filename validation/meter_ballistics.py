@@ -28,44 +28,50 @@
 
 # see "MeterBallistics::fMeterMinimumDecibel"
 lowestLevel = -90.01
-peakToAverageCorrection = 3.0103
-meterMinimumDecibel = lowestLevel - peakToAverageCorrection
+meterMinimumDecibel = lowestLevel - 20.0
 
 print()
-print('Lowest measurable level:   {:+6.2f} dB'.format(lowestLevel))
-print('Peak to avg correction:    {:+6.2f} dB'.format(peakToAverageCorrection))
-print('Meter minimum decibel:     {:+6.2f} dB'.format(meterMinimumDecibel))
+print('Lowest measurable level:   {:+7.2f} dB'.format(lowestLevel))
+print('Meter minimum decibel:     {:+7.2f} dB'.format(meterMinimumDecibel))
 
 result = meterMinimumDecibel * 0.99
 
 print()
-print('Fall time average (K-20):  {:+6.2f} dB'.format(20 + result))
-print('Fall time average (K-14):  {:+6.2f} dB'.format(14 + result))
-print('Fall time average (K-12):  {:+6.2f} dB'.format(12 + result))
-print('Fall time average (Norm):  {:+6.2f} dB'.format(result))
+print('Position 00:12.600')
+print('==================')
+print('Fall time average (K-20):  {:+7.2f} dB'.format(20 + result))
+print('Fall time average (K-14):  {:+7.2f} dB'.format(14 + result))
+print('Fall time average (K-12):  {:+7.2f} dB'.format(12 + result))
+print('Fall time average (Norm):  {:+7.2f} dB'.format(result))
 
 result = meterMinimumDecibel * 0.01
 
 print()
-print('Rise time average (K-20):  {:+6.2f} dB'.format(20 + result))
-print('Rise time average (K-14):  {:+6.2f} dB'.format(14 + result))
-print('Rise time average (K-12):  {:+6.2f} dB'.format(12 + result))
-print('Rise time average (Norm):  {:+6.2f} dB'.format(result))
+print('Position 00:25.200')
+print('==================')
+print('Rise time average (K-20):  {:+7.2f} dB'.format(20 + result))
+print('Rise time average (K-14):  {:+7.2f} dB'.format(14 + result))
+print('Rise time average (K-12):  {:+7.2f} dB'.format(12 + result))
+print('Rise time average (Norm):  {:+7.2f} dB'.format(result))
 
 result = -26.0
 
 print()
-print('Fall time peak (K-20):  {:+6.2f} dB'.format(20 + result))
-print('Fall time peak (K-14):  {:+6.2f} dB'.format(14 + result))
-print('Fall time peak (K-12):  {:+6.2f} dB'.format(12 + result))
-print('Fall time peak (Norm):  {:+6.2f} dB'.format(result))
+print('Position 00:40.200')
+print('==================')
+print('Fall time peaking (K-20):  {:+7.2f} dB'.format(20 + result))
+print('Fall time peaking (K-14):  {:+7.2f} dB'.format(14 + result))
+print('Fall time peaking (K-12):  {:+7.2f} dB'.format(12 + result))
+print('Fall time peaking (Norm):  {:+7.2f} dB'.format(result))
 
 result = 0.0
 
 print()
-print('Rise time peak (K-20):  {:+6.2f} dB'.format(20 + result))
-print('Rise time peak (K-14):  {:+6.2f} dB'.format(14 + result))
-print('Rise time peak (K-12):  {:+6.2f} dB'.format(12 + result))
-print('Rise time peak (Norm):  {:+6.2f} dB'.format(result))
+print('Position 00:40.200')
+print('==================')
+print('Rise time peaking (K-20):  {:+7.2f} dB'.format(20 + result))
+print('Rise time peaking (K-14):  {:+7.2f} dB'.format(14 + result))
+print('Rise time peaking (K-12):  {:+7.2f} dB'.format(12 + result))
+print('Rise time peaking (Norm):  {:+7.2f} dB'.format(result))
 
 print()
