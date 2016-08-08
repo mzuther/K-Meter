@@ -39,6 +39,8 @@ public:
     ~AudioFilePlayer();
 
     bool isPlaying();
+    bool matchingSampleRates();
+
     void fillBufferChunk(AudioBuffer<float> *buffer);
     void setCrestFactor(int crest_factor);
     void setReporters(int nChannel, bool ReportCSV, bool bAverageMeterLevel, bool bPeakMeterLevel, bool bMaximumPeakLevel, bool bTruePeakMeterLevel, bool bMaximumTruePeakLevel, bool bStereoMeterValue, bool bPhaseCorrelation);
@@ -47,7 +49,9 @@ private:
     JUCE_LEAK_DETECTOR(AudioFilePlayer);
 
     bool bIsPlaying;
+    bool bSampleRatesMatch;
     bool bHeaderIsWritten;
+
     int nSamplesMovingAverage;
     int64 nNumberOfSamples;
     float fSampleRate;

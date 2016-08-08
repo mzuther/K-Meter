@@ -667,10 +667,23 @@ void KmeterAudioProcessor::startValidation(File fileAudio, int nSelectedChannel,
 
     int nCrestFactor = getRealInteger(KmeterPluginParameters::selCrestFactor);
     audioFilePlayer = new AudioFilePlayer(fileAudio, (int) getSampleRate(), pMeterBallistics, nCrestFactor);
-    audioFilePlayer->setReporters(nSelectedChannel, bReportCSV, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bTruePeakMeterLevel, bMaximumTruePeakLevel, bStereoMeterValue, bPhaseCorrelation);
 
-    // refresh editor; "V+" --> validation started
-    sendActionMessage("V+");
+    if (audioFilePlayer->matchingSampleRates())
+    {
+        audioFilePlayer->setReporters(nSelectedChannel, bReportCSV, bAverageMeterLevel, bPeakMeterLevel, bMaximumPeakLevel, bTruePeakMeterLevel, bMaximumTruePeakLevel, bStereoMeterValue, bPhaseCorrelation);
+
+        // refresh editor; "V+" --> validation started
+        sendActionMessage("V+");
+    }
+    else
+    {
+        stopValidation();
+
+        AlertWindow::showMessageBoxAsync(
+            AlertWindow::WarningIcon,
+            "Validation error",
+            "Sample rates of host and validation file do not match.");
+    }
 }
 
 

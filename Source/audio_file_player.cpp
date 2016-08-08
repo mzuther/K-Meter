@@ -40,6 +40,7 @@ AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBal
     bReportStereoMeterValue = false;
     bReportPhaseCorrelation = false;
 
+    bSampleRatesMatch = true;
     bHeaderIsWritten = false;
     setCrestFactor(crest_factor);
 
@@ -78,6 +79,8 @@ AudioFilePlayer::AudioFilePlayer(const File audioFile, int sample_rate, MeterBal
 
         if (formatReader->sampleRate != sample_rate)
         {
+            bSampleRatesMatch = false;
+
             outputMessage(String::empty);
             outputMessage("WARNING: sample rate mismatch (host: " + String(sample_rate) + " Hz)!");
             outputMessage(String::empty);
@@ -166,6 +169,12 @@ bool AudioFilePlayer::isPlaying()
     {
         return false;
     }
+}
+
+
+bool AudioFilePlayer::matchingSampleRates()
+{
+    return bSampleRatesMatch;
 }
 
 
