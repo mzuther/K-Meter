@@ -315,12 +315,6 @@ bool KmeterAudioProcessor::producesMidi() const
 }
 
 
-bool KmeterAudioProcessor::silenceInProducesSilenceOut() const
-{
-    return true;
-}
-
-
 double KmeterAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
