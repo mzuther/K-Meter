@@ -341,17 +341,22 @@ int KmeterAudioProcessor::getCurrentProgram()
 
 void KmeterAudioProcessor::setCurrentProgram(int nIndex)
 {
+    UNUSED(nIndex);
 }
 
 
 const String KmeterAudioProcessor::getProgramName(int nIndex)
 {
+    UNUSED(nIndex);
+
     return String::empty;
 }
 
 
 void KmeterAudioProcessor::changeProgramName(int nIndex, const String &newName)
 {
+    UNUSED(nIndex);
+    UNUSED(newName);
 }
 
 
@@ -449,6 +454,8 @@ void KmeterAudioProcessor::releaseResources()
 
 void KmeterAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer &midiMessages)
 {
+    UNUSED(midiMessages);
+
     // This is the place where you'd normally do the guts of your
     // plug-in's audio processing...
 
@@ -510,6 +517,9 @@ void KmeterAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer &
 
 void KmeterAudioProcessor::processBufferChunk(AudioBuffer<float> &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
+    UNUSED(uBufferPosition);
+    UNUSED(uProcessedSamples);
+
     // silence input if validation window is open
     if (isSilent)
     {

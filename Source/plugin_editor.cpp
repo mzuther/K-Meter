@@ -261,6 +261,8 @@ void KmeterAudioProcessorEditor::applySkin()
 
 void KmeterAudioProcessorEditor::windowAboutCallback(int modalResult)
 {
+    UNUSED(modalResult);
+
     // manually deactivate about button
     ButtonAbout.setToggleState(false, dontSendNotification);
 }
@@ -282,6 +284,8 @@ void KmeterAudioProcessorEditor::windowSkinCallback(int modalResult)
 
 void KmeterAudioProcessorEditor::windowValidationCallback(int modalResult)
 {
+    UNUSED(modalResult);
+
     audioProcessor->silenceInput(false);
     validationDialogOpen = false;
 
