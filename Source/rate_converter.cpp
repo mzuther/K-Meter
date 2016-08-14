@@ -80,7 +80,7 @@ void RateConverter::upsample()
     // filter audio data (overwrites contents of sample buffer)
     for (int channel = 0; channel < numberOfChannels_; ++channel)
     {
-        convolveWithKernel(channel, upsamplingRate_);
+        convolveWithKernel(channel, static_cast<float>(upsamplingRate_));
     }
 }
 

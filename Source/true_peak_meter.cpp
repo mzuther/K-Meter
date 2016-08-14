@@ -44,7 +44,7 @@ float TruePeakMeter::getLevel(
     jassert(channel >= 0);
     jassert(channel < numberOfChannels_);
 
-    return truePeakLevels_[channel];
+    return static_cast<float>(truePeakLevels_[channel]);
 }
 
 
