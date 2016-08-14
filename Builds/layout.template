@@ -23,7 +23,7 @@
 --
 --------------------------------------------------------------------------------
 
-{% import 'premake4.template' as render %}
+{% import 'premake5.template' as render %}
 
 {% set name = {'real': 'K-Meter', 'short': 'kmeter'} -%}
 
@@ -34,13 +34,13 @@
 
 {% set additions_solution %}
 
-	configuration { "linux", "x32" }
+	filter { "system:linux", "platforms:x32" }
 		linkoptions {
 			-- force static linking to FFTW
 			"../../../libraries/fftw3/bin/linux/i386/libfftw3f.a"
 		}
 
-	configuration { "linux", "x64" }
+	filter { "system:linux", "platforms:x64" }
 		linkoptions {
 			-- force static linking to FFTW
 			"../../../libraries/fftw3/bin/linux/amd64/libfftw3f.a"
