@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Session version="3001" name="KmeterItuTest" sample-rate="48000" id-counter="40356" event-counter="360">
+<Session version="3001" name="KmeterItuTest" sample-rate="48000" id-counter="47396" event-counter="368">
   <MIDIPorts>
     <Port name="MIDI Clock in" direction="input"/>
     <Port name="MIDI Clock out" direction="output"/>
@@ -27,7 +27,7 @@
     <Option name="subframes-per-frame" value="100"/>
     <Option name="timecode-format" value="8"/>
     <Option name="raid-path" value=""/>
-    <Option name="audio-search-path" value="/home/martin/Private/shared/Documents/code/cpp/kmeter/validation/R-REP-BS.2217-1/mono:/home/martin/Private/shared/Documents/code/cpp/kmeter/validation/R-REP-BS.2217-1/stereo:/home/martin/Private/shared/Documents/code/cpp/kmeter/validation/R-REP-BS.2217-1/surround"/>
+    <Option name="audio-search-path" value="/home/martin/Documents/code/cpp/kmeter/validation/R-REP-BS.2217-1/mono:/home/martin/Documents/code/cpp/kmeter/validation/R-REP-BS.2217-1/stereo:/home/martin:/home/martin/Documents/code/cpp/kmeter/validation/R-REP-BS.2217-1/surround"/>
     <Option name="midi-search-path" value=""/>
     <Option name="track-name-number" value="0"/>
     <Option name="track-name-take" value="0"/>
@@ -5962,6 +5962,69 @@
   </Locations>
   <Bundles/>
   <Routes>
+    <Route id="47299" name="Monitor" default-type="audio" flags="MonitorOut" active="yes" phase-invert="000000" denormal-protection="no" meter-point="MeterPostFader" meter-type="MeterPeak" order-key="6" self-solo="no" soloed-by-upstream="0" soloed-by-downstream="0" solo-isolated="no" solo-safe="no">
+      <IO name="Monitor" id="47311" direction="Input" default-type="audio" user-latency="0">
+        <Port type="audio" name="Monitor/audio_in 1">
+          <Connection other="Master/audio_out 1"/>
+          <Connection other="auditioner/audio_out 1"/>
+        </Port>
+        <Port type="audio" name="Monitor/audio_in 2">
+          <Connection other="Master/audio_out 2"/>
+          <Connection other="auditioner/audio_out 2"/>
+        </Port>
+        <Port type="audio" name="Monitor/audio_in 3">
+          <Connection other="Master/audio_out 3"/>
+        </Port>
+        <Port type="audio" name="Monitor/audio_in 4">
+          <Connection other="Master/audio_out 4"/>
+        </Port>
+        <Port type="audio" name="Monitor/audio_in 5">
+          <Connection other="Master/audio_out 5"/>
+        </Port>
+        <Port type="audio" name="Monitor/audio_in 6">
+          <Connection other="Master/audio_out 6"/>
+        </Port>
+      </IO>
+      <IO name="Monitor" id="47312" direction="Output" default-type="audio" user-latency="0">
+        <Port type="audio" name="Monitor/audio_out 1">
+          <Connection other="system:playback_1"/>
+        </Port>
+        <Port type="audio" name="Monitor/audio_out 2">
+          <Connection other="system:playback_2"/>
+        </Port>
+        <Port type="audio" name="Monitor/audio_out 3">
+          <Connection other="system:playback_3"/>
+        </Port>
+        <Port type="audio" name="Monitor/audio_out 4">
+          <Connection other="system:playback_4"/>
+        </Port>
+        <Port type="audio" name="Monitor/audio_out 5">
+          <Connection other="system:playback_5"/>
+        </Port>
+        <Port type="audio" name="Monitor/audio_out 6">
+          <Connection other="system:playback_6"/>
+        </Port>
+      </IO>
+      <Controllable name="solo" id="47301" flags="Toggle" value="0.000000000000"/>
+      <Controllable name="mute" id="47303" flags="Toggle" value="0.000000000000"/>
+      <MuteMaster mute-point="PostFader,Listen,Main" muted="no"/>
+      <Automation/>
+      <RemoteControl id="0"/>
+      <Processor id="47321" name="return 1" active="yes" user-latency="0" own-input="yes" own-output="yes" type="intreturn" bitslot="0"/>
+      <Processor id="47326" name="MonitorOut" active="yes" user-latency="0" type="monitor" dim-level="0.251188635826" solo-boost-level="1" cut-all="no" dim-all="no" mono="no" channels="6">
+        <Channel id="0" cut="no" invert="no" dim="no" solo="no"/>
+        <Channel id="1" cut="no" invert="no" dim="no" solo="no"/>
+        <Channel id="2" cut="no" invert="no" dim="no" solo="no"/>
+        <Channel id="3" cut="no" invert="no" dim="no" solo="no"/>
+        <Channel id="4" cut="no" invert="no" dim="no" solo="no"/>
+        <Channel id="5" cut="no" invert="no" dim="no" solo="no"/>
+      </Processor>
+      <Processor id="47315" name="Amp" active="yes" user-latency="0" type="amp">
+        <Controllable name="gaincontrol" id="47314" flags="" value="1.000000000000"/>
+      </Processor>
+      <Processor id="47319" name="meter-Monitor" active="yes" user-latency="0" type="meter"/>
+      <Processor id="47320" name="Monitor" active="yes" user-latency="0" own-input="yes" own-output="no" output="Monitor" type="main-outs" role="Main"/>
+    </Route>
     <Route id="28" name="Master" default-type="audio" flags="MasterOut" active="yes" phase-invert="000000" denormal-protection="no" meter-point="MeterPostFader" meter-type="MeterK20" order-key="0" self-solo="no" soloed-by-upstream="0" soloed-by-downstream="0" solo-isolated="no" solo-safe="no">
       <IO name="Master" id="51" direction="Input" default-type="audio" user-latency="0">
         <Port type="audio" name="Master/audio_in 1">
@@ -6009,22 +6072,22 @@
       </IO>
       <IO name="Master" id="52" direction="Output" default-type="audio" user-latency="0">
         <Port type="audio" name="Master/audio_out 1">
-          <Connection other="system:playback_1"/>
+          <Connection other="Monitor/audio_in 1"/>
         </Port>
         <Port type="audio" name="Master/audio_out 2">
-          <Connection other="system:playback_2"/>
+          <Connection other="Monitor/audio_in 2"/>
         </Port>
         <Port type="audio" name="Master/audio_out 3">
-          <Connection other="system:playback_3"/>
+          <Connection other="Monitor/audio_in 3"/>
         </Port>
         <Port type="audio" name="Master/audio_out 4">
-          <Connection other="system:playback_4"/>
+          <Connection other="Monitor/audio_in 4"/>
         </Port>
         <Port type="audio" name="Master/audio_out 5">
-          <Connection other="system:playback_5"/>
+          <Connection other="Monitor/audio_in 5"/>
         </Port>
         <Port type="audio" name="Master/audio_out 6">
-          <Connection other="system:playback_6"/>
+          <Connection other="Monitor/audio_in 6"/>
         </Port>
       </IO>
       <Controllable name="solo" id="30" flags="Toggle" value="0.000000000000"/>
@@ -6046,7 +6109,7 @@
       <Processor id="55" name="Amp" active="yes" user-latency="0" type="amp">
         <Controllable name="gaincontrol" id="54" flags="" value="1.000000000000"/>
       </Processor>
-      <Processor id="40339" name="K-Meter (Surround)" active="yes" user-latency="0" type="lv2" unique-id="http://code.mzuther.de/kmeter/surround" count="1">
+      <Processor id="43822" name="K-Meter (Surround)" active="yes" user-latency="0" type="lv2" unique-id="http://code.mzuther.de/kmeter/surround" count="1">
         <ConfiguredInput>
           <Channels type="audio" count="6"/>
         </ConfiguredInput>
@@ -6063,14 +6126,14 @@
           <Port symbol="mono_input" value="+0.000000"/>
           <Port symbol="discrete_meter" value="+0.000000"/>
         </lv2>
-        <Controllable name="Freewheel" id="40341" flags="Toggle" value="0.000000000000" parameter="0" symbol="lv2_freewheel"/>
-        <Controllable name="Metering mode" id="40343" flags="" value="1.000000000000" parameter="14" symbol="metering_mode"/>
-        <Controllable name="Averaging algorithm" id="40345" flags="" value="1.000000000000" parameter="15" symbol="averaging_algorithm"/>
-        <Controllable name="Expand meter" id="40347" flags="Toggle" value="0.000000000000" parameter="16" symbol="expand_meter"/>
-        <Controllable name="Show peaks" id="40349" flags="Toggle" value="0.000000000000" parameter="17" symbol="show_peaks"/>
-        <Controllable name="Peak hold" id="40351" flags="Toggle" value="0.000000000000" parameter="18" symbol="peak_hold"/>
-        <Controllable name="Mono input" id="40353" flags="Toggle" value="0.000000000000" parameter="19" symbol="mono_input"/>
-        <Controllable name="Discrete meter" id="40355" flags="Toggle" value="0.000000000000" parameter="20" symbol="discrete_meter"/>
+        <Controllable name="Freewheel" id="43824" flags="Toggle" value="0.000000000000" parameter="0" symbol="lv2_freewheel"/>
+        <Controllable name="Metering mode" id="43826" flags="" value="1.000000000000" parameter="14" symbol="metering_mode"/>
+        <Controllable name="Averaging algorithm" id="43828" flags="" value="1.000000000000" parameter="15" symbol="averaging_algorithm"/>
+        <Controllable name="Expand meter" id="43830" flags="Toggle" value="0.000000000000" parameter="16" symbol="expand_meter"/>
+        <Controllable name="Show peaks" id="43832" flags="Toggle" value="0.000000000000" parameter="17" symbol="show_peaks"/>
+        <Controllable name="Peak hold" id="43834" flags="Toggle" value="0.000000000000" parameter="18" symbol="peak_hold"/>
+        <Controllable name="Mono input" id="43836" flags="Toggle" value="0.000000000000" parameter="19" symbol="mono_input"/>
+        <Controllable name="Discrete meter" id="43838" flags="Toggle" value="0.000000000000" parameter="20" symbol="discrete_meter"/>
       </Processor>
       <Processor id="59" name="meter-Master" active="yes" user-latency="0" type="meter"/>
       <Processor id="60" name="Master" active="yes" user-latency="0" own-input="yes" own-output="no" output="Master" type="main-outs" role="Main">
@@ -6157,6 +6220,20 @@
           <Automation/>
         </Pannable>
       </Processor>
+      <Processor id="47356" name="Monitor" active="no" user-latency="0" own-input="yes" own-output="yes" type="intsend" role="Listen" target="47299">
+        <PannerShell bypassed="no" user-panner="" linked-to-route="yes"/>
+        <Pannable>
+          <Controllable name="pan-azimuth" id="130" flags="" value="0.500000000000"/>
+          <Controllable name="pan-width" id="134" flags="" value="1.000000000000"/>
+          <Controllable name="pan-elevation" id="132" flags="" value="0.000000000000"/>
+          <Controllable name="pan-frontback" id="136" flags="" value="0.000000000000"/>
+          <Controllable name="pan-lfe" id="138" flags="" value="0.000000000000"/>
+          <Automation/>
+        </Pannable>
+        <Processor id="47360" name="Amp" active="no" user-latency="0" type="amp">
+          <Controllable name="gaincontrol" id="47359" flags="" value="1.000000000000"/>
+        </Processor>
+      </Processor>
       <Controllable name="recenable" id="150" flags="Toggle" value="0.000000000000"/>
       <Diskstream flags="Recordable" playlist="Mono.1" name="Mono" id="154" speed="1.000000" capture-alignment="Automatic" record-safe="no" channels="6"/>
     </Route>
@@ -6231,6 +6308,20 @@
           <Controllable name="pan-lfe" id="254" flags="" value="0.000000000000"/>
           <Automation/>
         </Pannable>
+      </Processor>
+      <Processor id="47364" name="Monitor" active="no" user-latency="0" own-input="yes" own-output="yes" type="intsend" role="Listen" target="47299">
+        <PannerShell bypassed="no" user-panner="" linked-to-route="yes"/>
+        <Pannable>
+          <Controllable name="pan-azimuth" id="250" flags="" value="0.500000000000"/>
+          <Controllable name="pan-width" id="251" flags="" value="1.000000000000"/>
+          <Controllable name="pan-elevation" id="252" flags="" value="0.000000000000"/>
+          <Controllable name="pan-frontback" id="253" flags="" value="0.000000000000"/>
+          <Controllable name="pan-lfe" id="254" flags="" value="0.000000000000"/>
+          <Automation/>
+        </Pannable>
+        <Processor id="47368" name="Amp" active="no" user-latency="0" type="amp">
+          <Controllable name="gaincontrol" id="47367" flags="" value="1.000000000000"/>
+        </Processor>
       </Processor>
       <Controllable name="recenable" id="273" flags="Toggle" value="0.000000000000"/>
       <Diskstream flags="Recordable" playlist="Mono 1.2" name="Mono 1" id="258" speed="1.000000" capture-alignment="Automatic" record-safe="no" channels="6"/>
@@ -6307,6 +6398,20 @@
           <Automation/>
         </Pannable>
       </Processor>
+      <Processor id="47372" name="Monitor" active="no" user-latency="0" own-input="yes" own-output="yes" type="intsend" role="Listen" target="47299">
+        <PannerShell bypassed="no" user-panner="" linked-to-route="yes"/>
+        <Pannable>
+          <Controllable name="pan-azimuth" id="344" flags="" value="0.500000000000"/>
+          <Controllable name="pan-width" id="345" flags="" value="1.000000000000"/>
+          <Controllable name="pan-elevation" id="346" flags="" value="0.000000000000"/>
+          <Controllable name="pan-frontback" id="347" flags="" value="0.000000000000"/>
+          <Controllable name="pan-lfe" id="348" flags="" value="0.000000000000"/>
+          <Automation/>
+        </Pannable>
+        <Processor id="47376" name="Amp" active="no" user-latency="0" type="amp">
+          <Controllable name="gaincontrol" id="47375" flags="" value="1.000000000000"/>
+        </Processor>
+      </Processor>
       <Controllable name="recenable" id="367" flags="Toggle" value="0.000000000000"/>
       <Diskstream flags="Recordable" playlist="Mono 2.2" name="Mono 2" id="352" speed="1.000000" capture-alignment="Automatic" record-safe="no" channels="6"/>
     </Route>
@@ -6382,6 +6487,20 @@
           <Automation/>
         </Pannable>
       </Processor>
+      <Processor id="47380" name="Monitor" active="no" user-latency="0" own-input="yes" own-output="yes" type="intsend" role="Listen" target="47299">
+        <PannerShell bypassed="no" user-panner="" linked-to-route="yes"/>
+        <Pannable>
+          <Controllable name="pan-azimuth" id="1001" flags="" value="0.500000000000"/>
+          <Controllable name="pan-width" id="1005" flags="" value="1.000000000000"/>
+          <Controllable name="pan-elevation" id="1003" flags="" value="0.000000000000"/>
+          <Controllable name="pan-frontback" id="1007" flags="" value="0.000000000000"/>
+          <Controllable name="pan-lfe" id="1009" flags="" value="0.000000000000"/>
+          <Automation/>
+        </Pannable>
+        <Processor id="47384" name="Amp" active="no" user-latency="0" type="amp">
+          <Controllable name="gaincontrol" id="47383" flags="" value="1.000000000000"/>
+        </Processor>
+      </Processor>
       <Controllable name="recenable" id="1021" flags="Toggle" value="0.000000000000"/>
       <Diskstream flags="Recordable" playlist="Surround (23 LKFS)" name="Surround (23 LKFS)" id="1025" speed="1.000000" capture-alignment="Automatic" record-safe="no" channels="6"/>
     </Route>
@@ -6456,6 +6575,20 @@
           <Controllable name="pan-lfe" id="1064" flags="" value="0.000000000000"/>
           <Automation/>
         </Pannable>
+      </Processor>
+      <Processor id="47388" name="Monitor" active="no" user-latency="0" own-input="yes" own-output="yes" type="intsend" role="Listen" target="47299">
+        <PannerShell bypassed="no" user-panner="" linked-to-route="yes"/>
+        <Pannable>
+          <Controllable name="pan-azimuth" id="1056" flags="" value="0.500000000000"/>
+          <Controllable name="pan-width" id="1060" flags="" value="1.000000000000"/>
+          <Controllable name="pan-elevation" id="1058" flags="" value="0.000000000000"/>
+          <Controllable name="pan-frontback" id="1062" flags="" value="0.000000000000"/>
+          <Controllable name="pan-lfe" id="1064" flags="" value="0.000000000000"/>
+          <Automation/>
+        </Pannable>
+        <Processor id="47392" name="Amp" active="no" user-latency="0" type="amp">
+          <Controllable name="gaincontrol" id="47391" flags="" value="1.000000000000"/>
+        </Processor>
       </Processor>
       <Controllable name="recenable" id="1076" flags="Toggle" value="0.000000000000"/>
       <Diskstream flags="Recordable" playlist="Surround (24 LKFS)" name="Surround (24 LKFS)" id="1080" speed="1.000000" capture-alignment="Automatic" record-safe="no" channels="6"/>
@@ -6664,16 +6797,16 @@
     <Meter start="1|1|0" note-type="4.000000" divisions-per-bar="4.000000" movable="no"/>
   </TempoMap>
   <ControlProtocols>
-    <Protocol name="Open Sound Control (OSC)" active="no"/>
-    <Protocol name="PreSonus FaderPort" active="no"/>
     <Protocol name="Generic MIDI" active="no"/>
+    <Protocol name="PreSonus FaderPort" active="no"/>
+    <Protocol name="Open Sound Control (OSC)" active="no"/>
     <Protocol name="Mackie" active="no"/>
   </ControlProtocols>
   <Extra>
     <UI>
       <Window name="key-editor" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
       <Window name="rc-options-editor" visible="no" x-off="422" y-off="173" x-size="743" y-size="675"/>
-      <Window name="session-options-editor" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
+      <Window name="session-options-editor" visible="no" x-off="0" y-off="255" x-size="612" y-size="359"/>
       <Window name="speaker-config" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
       <Window name="about" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
       <Window name="add-routes" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
@@ -6688,6 +6821,7 @@
       <Window name="midi-connection-manager" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
       <Window name="P-28-58" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="no"/>
       <Window name="P-28-55" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="no"/>
+      <Window name="P-28-43822" visible="yes" x-off="214" y-off="224" x-size="433" y-size="692" custom-ui="yes"/>
       <Window name="P-28-59" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="no"/>
       <Window name="P-28-60" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="no"/>
       <Window name="P-116-146" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="no"/>
@@ -6710,7 +6844,11 @@
       <Window name="P-1042-1069" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="no"/>
       <Window name="P-1042-1073" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="no"/>
       <Window name="P-1042-1074" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="no"/>
-      <Window name="P-28-40339" visible="no" x-off="477" y-off="262" x-size="433" y-size="673" custom-ui="yes"/>
+      <Window name="P-47299-47321" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="no"/>
+      <Window name="P-47299-47326" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="no"/>
+      <Window name="P-47299-47315" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="no"/>
+      <Window name="P-47299-47319" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="no"/>
+      <Window name="P-47299-47320" visible="no" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="no"/>
       <GUIObjectState>
         <Object id="route 28" color="58981:43462:37819"/>
         <Object id="rtav 28" height="64" visible="1"/>
@@ -6723,6 +6861,7 @@
           <Object id="processor 55"/>
           <Object id="processor 177"/>
           <Object id="processor 40339"/>
+          <Object id="processor 43822"/>
         </Object>
         <Object id="route 116" color="58981:57508:57281"/>
         <Object id="rtav 116" height="64" visible="1"/>
