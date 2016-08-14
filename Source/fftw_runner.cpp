@@ -54,7 +54,7 @@ FftwRunner::FftwRunner(
 
     String dynamicLibraryFftwPath = dynamicLibraryFftwFile.getFullPathName();
 
-    DynamicLibrary dynamicLibraryFFTW(dynamicLibraryFftwPath);
+    dynamicLibraryFFTW.open(dynamicLibraryFftwPath);
     jassert(dynamicLibraryFFTW.getNativeHandle() != nullptr);
 
     fftwf_alloc_real = (float * (*)(size_t)) dynamicLibraryFFTW.getFunction(

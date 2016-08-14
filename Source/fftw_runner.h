@@ -42,6 +42,8 @@ public:
                             const float oversamplingRate = 1.0f);
 
 protected:
+    DynamicLibrary dynamicLibraryFFTW;
+
     float *filterKernel_TD_;
     fftwf_complex *filterKernel_FD_;
     fftwf_plan filterKernelPlan_DFT_;
