@@ -37,13 +37,13 @@
 	filter { "system:linux", "platforms:x32" }
 		linkoptions {
 			-- force static linking to FFTW
-			"../../../libraries/fftw3/bin/linux/i386/libfftw3f.a"
+			"../../../libraries/fftw/bin/linux/i386/libfftw3f.a"
 		}
 
 	filter { "system:linux", "platforms:x64" }
 		linkoptions {
 			-- force static linking to FFTW
-			"../../../libraries/fftw3/bin/linux/amd64/libfftw3f.a"
+			"../../../libraries/fftw/bin/linux/amd64/libfftw3f.a"
 		}
 {% endset -%}
 

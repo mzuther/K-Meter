@@ -27,7 +27,7 @@
 #define __FFTW_RUNNER_H__
 
 #include "FrutHeader.h"
-#include "fftw3/api/fftw3.h"
+#include "fftw/api/fftw3.h"
 
 
 class FftwRunner

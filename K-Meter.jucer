@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="LEmwq6" name="K-Meter" projectType="audioplug" version="2.4.2"
+<JUCERPROJECT id="LEmwq6" name="K-Meter" projectType="audioplug" version="2.5.0"
               bundleIdentifier="de.mzuther.KMeter" buildVST="1" buildRTAS="0"
               buildAU="0" pluginName="K-Meter" pluginDesc="Implementation of a K-System meter according to Bob Katz' specifications"
               pluginManufacturer="Martin Zuther" pluginManufacturerCode="MZut"
@@ -8,17 +8,17 @@
               pluginWantsMidiIn="0" pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1"
               pluginTailLength="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="KMeterAU"
               pluginAUViewClass="KMeterAU_V1" pluginRTASCategory="ePlugInCategory_None"
-              jucerVersion="4.2.1" companyName="Martin Zuther" aaxIdentifier="de.mzuther.KMeter"
+              jucerVersion="4.2.3" companyName="Martin Zuther" aaxIdentifier="de.mzuther.KMeter"
               pluginAAXCategory="AAX_ePlugInCategory_None" includeBinaryInAppConfig="1"
               buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
               companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategAnalysis"
               pluginIsMidiEffectPlugin="0" buildAUv3="0">
   <EXPORTFORMATS>
-    <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/Documents/code/cpp/libraries/vstsdk3.6.5"
+    <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/Documents/code/cpp/kmeter/libraries/vst"
                 extraCompilerFlags="" cppLanguageStandard="-std=c++11" externalLibraries="dl&#10;freetype&#10;pthread&#10;rt&#10;X11&#10;Xext&#10;asound"
                 extraDefs="JucePlugin_Build_LV2=0&#10;JucePlugin_Build_Standalone=0&#10;JucePlugin_Build_VST=1&#10;JucePlugin_Build_VST3=0&#10;KMETER_STEREO=1&#10;LINUX=1"
                 userNotes="Add &quot;Source/standalone_application.*&quot; when building the stand-alone."
-                extraLinkerFlags="../../libraries/fftw3/bin/linux/amd64/libfftw3f.a">
+                extraLinkerFlags="../../libraries/fftw/bin/linux/amd64/libfftw3f.a">
       <CONFIGURATIONS>
         <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="2"
                        targetName="K-Meter" defines="NDEBUG=1&#10;JUCE_CHECK_MEMORY_LEAKS=0"

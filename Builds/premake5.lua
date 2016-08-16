@@ -82,13 +82,13 @@ workspace "kmeter"
 	filter { "system:linux", "platforms:x32" }
 		linkoptions {
 			-- force static linking to FFTW
-			"../../../libraries/fftw3/bin/linux/i386/libfftw3f.a"
+			"../../../libraries/fftw/bin/linux/i386/libfftw3f.a"
 		}
 
 	filter { "system:linux", "platforms:x64" }
 		linkoptions {
 			-- force static linking to FFTW
-			"../../../libraries/fftw3/bin/linux/amd64/libfftw3f.a"
+			"../../../libraries/fftw/bin/linux/amd64/libfftw3f.a"
 		}
 
 	filter { "system:linux" }
@@ -249,7 +249,7 @@ workspace "kmeter"
 			}
 
 			includedirs {
-				"../libraries/asiosdk2.3/common"
+				"../libraries/asio/common"
 			}
 
 		filter { "configurations:Debug" }
@@ -297,7 +297,7 @@ workspace "kmeter"
 			}
 
 			includedirs {
-				"../libraries/asiosdk2.3/common"
+				"../libraries/asio/common"
 			}
 
 		filter { "configurations:Debug" }
@@ -336,7 +336,7 @@ workspace "kmeter"
 		}
 
 		includedirs {
-			"../libraries/vstsdk3.6.5"
+			"../libraries/vst"
 		}
 
 		filter { "system:linux" }
@@ -381,7 +381,7 @@ workspace "kmeter"
 		}
 
 		includedirs {
-			"../libraries/vstsdk3.6.5"
+			"../libraries/vst"
 		}
 
 		filter { "system:linux" }

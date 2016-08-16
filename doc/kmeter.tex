@@ -724,8 +724,8 @@ Thanks for using free software.  I hope you'll enjoy it!
 To build K-Meter yourself, I recommend setting up a \texttt{chroot}
 environment.  This is fast and easy to do on Debian-based systems and
 might save you a \textbf{lot} of trouble.  At the time of writing, I'm
-using Linux Mint 17, but the procedure should be similar on
-your distribution of choice.
+using Linux Mint 18, but the procedure should be similar on your
+distribution of choice.
 
 Start by installing the necessary packages:
 
@@ -734,21 +734,20 @@ Start by installing the necessary packages:
 \end{VerbatimBoth}
 
 Then install the \texttt{chroot} base system, execute the following
-statements (please change \path{http://ftp.de.debian.org/debian/} to a
-\href{http://www.debian.org/mirror/list}{mirror} close to you):
+statements:
 
 \begin{Verbatim32}
   sudo debootstrap --variant=buildd \
     --arch i386 stable \
     /srv/chroot/stable_i386 \
-    http://ftp.de.debian.org/debian/
+    http://httpredir.debian.org/debian
 \end{Verbatim32}
 
 \begin{Verbatim64}
   sudo debootstrap --variant=buildd \
     --arch amd64 stable \
     /srv/chroot/stable_amd64 \
-    http://ftp.de.debian.org/debian/
+    http://httpredir.debian.org/debian
 \end{Verbatim64}
 
 Running \path{debootstrap} will take some time.  Meanwhile, add the
@@ -760,24 +759,23 @@ column):
   [stable-i386]
   description=Debian stable (i386)
   directory=/srv/chroot/stable_i386
+  profile=default
   personality=linux32
-  root-users=username
   type=directory
-  users=username,another_user
+  users=username
 
   [stable-amd64]
   description=Debian stable (amd64)
   directory=/srv/chroot/stable_amd64
+  profile=default
   personality=linux
-  root-users=username
   type=directory
-  users=username,another_user
+  users=username
 \end{VerbatimBoth}
 
-Please make the necessary changes to \texttt{username}.  You may also
-add additional users, like \texttt{another\_user}.  If you experience
-problems, try to change \texttt{stable} to a release name such as
-\texttt{wheezy}.
+Please make the necessary changes to \texttt{username}.  If you
+experience problems, you can try to change \texttt{stable} to a
+release name such as \texttt{wheezy}.
 
 When \path{debootstrap} is done, log in as superuser:
 
@@ -855,7 +853,7 @@ the necessary dependencies and run the Python script
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 4.2.2 \\
+  Version:     \> 4.2.3 \\
   License:     \> ISC and GPL v3 (among others) \\
   Homepage:    \> \href{http://www.juce.com/}{www.juce.com}
 \end{tabbing}
@@ -873,7 +871,7 @@ If you want to build the LV2 plug-in, please extract the archive
   \hspace*{6em}\=\=\kill
 
   Importance:  \> optional \\
-  Version:     \> 3.6.5 \\
+  Version:     \> 3.6.6 \\
   License:     \> proprietary \\
   Homepage:    \> \href{http://ygrabit.steinberg.de/}{ygrabit.steinberg.de}
 \end{tabbing}
@@ -881,7 +879,7 @@ If you want to build the LV2 plug-in, please extract the archive
 \subsubsection{Installation}
 
 Just extract the archive into the directory
-\path{libraries/vstsdk3.6.5}.
+\path{libraries/vst}.
 
 \subsection{Audio Streaming Input Output SDK}
 
@@ -897,7 +895,7 @@ Just extract the archive into the directory
 \subsubsection{Installation}
 
 Simply extract the archive into the directory
-\path{libraries/asiosdk2.3}.
+\path{libraries/asio}.
 
 \subsection{Fastest Fourier Transform in the West}
 
@@ -905,25 +903,27 @@ Simply extract the archive into the directory
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 3.3.4 \\
+  Version:     \> 3.3.5 \\
   License:     \> GPL v2 \\
   Homepage:    \> \href{http://www.fftw.org/}{www.fftw.org}
 \end{tabbing}
 
 \subsubsection{Installation on GNU/Linux}
 
-Extract the archive into the directory \path{libraries/fftw3}, change
+Extract the archive into the directory \path{libraries/fftw}, change
 into this directory and run:
 
 \begin{Verbatim32}
-  ./configure --enable-float --with-pic
+  ./configure --enable-float --with-pic \
+    --enable-sse2 --enable-avx
   make
   mkdir -p bin/linux/i386/
   mv .libs/* bin/linux/i386/
 \end{Verbatim32}
 
 \begin{Verbatim64}
-  ./configure --enable-float --with-pic
+  ./configure --enable-float --with-pic \
+    --enable-sse2 --enable-avx
   make
   mkdir -p bin/linux/amd64/
   mv .libs/* bin/linux/amd64/
@@ -931,18 +931,20 @@ into this directory and run:
 
 \subsubsection{Installation on Mac OS X}
 
-Extract the archive into the directory \path{libraries/fftw3}, change
+Extract the archive into the directory \path{libraries/fftw}, change
 into this directory and run:
 
 \begin{Verbatim32}
-  ./configure --enable-float --with-pic
+  ./configure --enable-float --with-pic \
+    --enable-sse2 --enable-avx
   make
   mkdir -p bin/mac/x32/
   mv .libs/* bin/mac/x32/
 \end{Verbatim32}
 
 \begin{Verbatim64}
-  ./configure --enable-float --with-pic
+  ./configure --enable-float --with-pic \
+    --enable-sse2 --enable-avx
   make
   mkdir -p bin/mac/x64/
   mv .libs/* bin/mac/x64/
@@ -951,8 +953,8 @@ into this directory and run:
 \subsubsection{Installation on Microsoft Windows}
 
 Extract the source code archive into the directory
-\path{libraries/fftw3} and the archive containing the pre-compiled
-binaries into the directory \path{libraries/fftw3/bin}.
+\path{libraries/fftw} and the archive containing the pre-compiled
+binaries into the directory \path{libraries/fftw/bin}.
 
 Please note that in order to run K-Meter on Windows, the directory
 \path{kmeter} containing the FFTW libraries (and skins) \textbf{must}
@@ -972,15 +974,11 @@ directory in \path{bin} and \path{bin/final}.
 \end{tabbing}
 
 You'll only need Python if you want to change the premake file (see
-\ref{sec:dependencies_premake}) using Jinja templates or for building
-\num{64}-bit versions of K-Meter using Visual Studio Express.
+\ref{sec:dependencies_premake}) using Jinja templates.
 
 \subsubsection{Installation (Windows)}
 
-You can download an installer from the website.  Please also install
-the \href{http://msdn.microsoft.com/windows/bb980924.aspx}{Windows
-  SDK} and change \path{run_premake.bat} to reflect the SDK's version
-number.
+You can download an installer from the website.
 
 \subsection{Jinja}
 
