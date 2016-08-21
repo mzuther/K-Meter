@@ -115,7 +115,7 @@ capabilities on start-up so that FFT calculations will run at maximum
 speed.  Depending on your computer, this little wait in the beginning
 may well result in lower resource usage later.
 
-Should the standalone version ever fail to start, you can reset its
+Should the stand-alone version ever fail to start, you can reset its
 settings by deleting the file \path{kmeter_stereo.ini} or
 \path{kmeter_surround.ini}.  These files are located in
 \path{~/.config} (GNU/Linux) or \path{%appdata%\.config\} (Windows).
@@ -291,11 +291,11 @@ light up and clicking it will stop validation early.
   into your DAW of choice and use a K-Meter plug-in.}
 
 On Linux, dumped data will be written to \path{stderr}, so just start
-the K-Meter standalone or your VST host from the shell and watch the
-output coming.  On other systems, have a look at your VST host's log
-files (I have successfully used Ableton Live for this).  If that
-doesn't work, you might have to start either the K-Meter standalone or
-your VST host from a debugger.
+the K-Meter stand-alone or your VST host from the shell and watch the
+output coming.  On Windows, you can also use DebugView by Sysinternals
+(stand-alone) or have a look at Ableton Live's log files (VST
+plug-in).  If none of that works, you might have to start either the
+stand-alone or your VST host from a debugger.
 
 As a side note, \textbf{SMA(50)} designates the simple moving average
 of 50 values, a neat way to emphasise trends and eliminate short-term
@@ -958,7 +958,7 @@ binaries into the directory \path{libraries/fftw/bin}.
 
 Please note that in order to run K-Meter on Windows, the directory
 \path{kmeter} containing the FFTW libraries (and skins) \textbf{must}
-be located in the same directory as the standalone or plug-in.  To
+be located in the same directory as the stand-alone or plug-in.  To
 make things a little easier for you, I have already placed this
 directory in \path{bin} and \path{bin/final}.
 
