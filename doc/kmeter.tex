@@ -112,8 +112,8 @@ to move the extracted files to your respective plug-in folder
 
 Loading K-Meter may take a few seconds: it checks your computer's
 capabilities on start-up so that FFT calculations will run at maximum
-speed.  Depending on your computer, this little wait in the beginning
-may well result in lower resource usage later.
+speed.  Be patient -- this little wait in the beginning may well result in
+lower resource usage later.
 
 Should the stand-alone version ever fail to start, you can reset its
 settings by deleting the file \path{kmeter_stereo.ini} or
@@ -347,18 +347,18 @@ recommended K-20 scale has \SI{20}{\dB} of headroom above \SI{0}{\dB},
 while the K-14 and K-12 scales have \SI{14}{\dB} and \SI{12}{\dB} of
 headroom, respectively.
 
-Each level meter is divided into steps of \SI{1}{\dB}, with the
-exception of the top \SI{2}{\dB} (steps of \SI{0.5}{\dB}) and the
-non-linear bottom end.  Magnified level meters are divided into steps
-of \SI{0.1}{\dB}.
+The discrete level meters are divided into steps of \SI{1}{\dB}, with
+the exception of the top \SI{2}{\dB} (steps of \SI{0.5}{\dB}) and the
+non-linear bottom end.  Magnified discrete level meters are divided
+into steps of \SI{0.1}{\dB}.
 
 \emph{\underline{Note:} In ITU-R mode, the average level meter is
   graded in \emph{\si{\LK}} which stands for \emph{Loudness, K
     weighted} and is by all means equivalent to \si{\dB}.}
 
-Recent maximum levels are displayed by white bars.  Unless ``Infinite
-peak hold'' is switched on, maximum levels are held for
-\SI{10}{\second} and then start falling with a fall time of
+Recent maximum levels are displayed by white bars or rectangles.
+Unless ``Infinite peak hold'' is switched on, maximum levels are held
+for \SI{10}{\second} and then start falling with a fall time of
 \SI{8.67}{\dB\per\second}.
 
 Both stand-alone application and the plug-in only work at sampling
@@ -402,9 +402,6 @@ The peak level meter displays the unfiltered peak level and thus
 possesses a completely flat frequency response.  It has a rise time of
 one sample and a fall time of \SI{8.67}{\dB\per\second}.
 
-\emph{Please note that this meter does not register inter-sample
-  peaks.}
-
 \section{Overload counter}
 
 \begin{wrapfigure}{r}{0.23\linewidth}
@@ -421,6 +418,24 @@ levels above \SI{-0.001}{\dBFS} to address the granularity of
 \emph{Please note that this counter does not register inter-sample
   peaks.}
 
+\section{Maximum true peak display}
+
+\begin{wrapfigure}{r}{0.23\linewidth}
+\includegraphics[scale=\screenshotscale,clip]{include/images/maximum_true_peak_normal.png}
+\newline
+\includegraphics[scale=\screenshotscale,clip]{include/images/maximum_true_peak_clipped.png}
+\end{wrapfigure}
+
+This meter displays the maximum inter-sample peak level encountered so
+far in \si{\dB}.  True peak level is measured according to Annex 2 of
+ITU-R BS.1770-4.
+
+In case the level exceeds \SI{-0.20}{\dBFS}, the meter will turn blue.
+The meter has an expected under-read of \SI{0.17}{\dB} at half the
+original sampling rate.  So you should be able to avoid clipping
+during digital-to-analogue-conversion by keeping the meter out of the
+blue.
+
 \section{Maximum peak display}
 
 \begin{wrapfigure}{r}{0.23\linewidth}
@@ -432,9 +447,6 @@ levels above \SI{-0.001}{\dBFS} to address the granularity of
 This meter displays the maximum peak level encountered so far in
 \si{\dB}.  In case the level exceeds \SI{-0.2}{\dBFS}, the meter will
 turn red.
-
-\emph{Please note that this display does not register inter-sample
-  peaks.}
 
 \section{Phase correlation meter}
 
@@ -493,15 +505,13 @@ Begin by starting K-Meter.  If in a Bash shell, try this:
   ./kmeter_stereo 2>&1 | tee /tmp/validate.log
 \end{VerbatimBoth}
 
-\begin{wrapfigure}{r}{0.25\linewidth}
-\includegraphics[scale=0.50,clip]{include/images/dialog_validation.png}
+\begin{wrapfigure}{r}{0.24\linewidth}
+\includegraphics[scale=0.45,clip]{include/images/dialog_validation.png}
 \end{wrapfigure}
 
 After opening the \textbf{validation window} (see
 \ref{sec:validation_button}), click on the ellipsis button (the one
 with the dots) to select an audio file for playback through K-Meter.
-Please make sure that the sample rates of your host (\textbf{Host SR})
-and the audio file match, otherwise the results will not be correct.
 
 Now, select which \textbf{variables} (if any) should be dumped.  You
 may also restrict dumped data to a specific audio \textbf{channel}.
@@ -512,6 +522,10 @@ start playback of the selected audio file.  All audio input will be
 discarded during playback and for an additional twenty seconds.  To
 stop playback early, simply click on the \textbf{validate} button
 again.
+
+Should the sample rates of your host (\textbf{Host SR}) and the audio
+file not match, you will get a warning and validation will stop.  This
+will keep you from getting incorrect results.
 
 In case you want to calibrate your monitor system, locate the file
 \path{pink_noise_bandlimited.flac} in the directory \path{validation},
@@ -598,7 +612,7 @@ mixers are set to the correct levels.
 \section{Frequency and phase response}
 
 Frequency and phase response have been determined using Christan
-Budde's fantastic
+Budde's great
 \href{http://www.pcjv.de/applications/measurement-programs/}{VST
   Plugin Analyser} with a sample rate of \SI{192}{\kilo\hertz} and a
 log sine sweep as input signal (set using Ctrl-Shift-F).
@@ -733,8 +747,8 @@ Start by installing the necessary packages:
   sudo apt-get install debootstrap schroot
 \end{VerbatimBoth}
 
-Then install the \texttt{chroot} base system, execute the following
-statements:
+Then install the \texttt{chroot} base system by executing the
+following statements:
 
 \begin{Verbatim32}
   sudo debootstrap --variant=buildd \
@@ -1025,10 +1039,10 @@ environment, change into the directory \path{build} and execute
   make config=CFG TARGET
 \end{VerbatimBoth}
 
-where \application{CFG} is one of \application{debug32},
-\application{debug64}, \application{release32} and
-\application{release64}, and \application{TARGET} is the version you
-want to compile, such as \application{linux\_standalone\_stereo}.
+where \application{CFG} is one of \application{debug\_x32},
+\application{debug\_x64}, \application{release\_x32} and
+\application{release\_x64}, and \application{TARGET} is the version
+you want to compile, such as \application{linux\_standalone\_stereo}.
 
 The compiled binaries will end up in the directory \path{bin}.
 
