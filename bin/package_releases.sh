@@ -25,22 +25,11 @@
 #
 # ----------------------------------------------------------------------------
 
-version="2.2.0"
+version="2.5.0"
 
 executable_dir="final"
 include_dir="kmeter"
 release_dir="releases"
-
-
-function finalise_executable
-{
-	filename=$1
-
-	if [ -f "./$filename" ]; then
-		echo "  Finalising: $filename"
-		mv "./$filename" "./$executable_dir"
-	fi
-}
 
 
 function archive_create
@@ -145,44 +134,7 @@ function archive_store
 
 # ----- General -----
 
-echo
-echo "  === Finalising executables ==="
-echo
-
-finalise_executable "kmeter_stereo"
-finalise_executable "kmeter_surround"
-
-finalise_executable "kmeter_stereo_lv2.so"
-finalise_executable "kmeter_surround_lv2.so"
-
-finalise_executable "kmeter_stereo_vst.so"
-finalise_executable "kmeter_surround_vst.so"
-
-finalise_executable "kmeter_stereo_x64"
-finalise_executable "kmeter_surround_x64"
-
-finalise_executable "kmeter_stereo_lv2_x64.so"
-finalise_executable "kmeter_surround_lv2_x64.so"
-
-finalise_executable "kmeter_stereo_vst_x64.so"
-finalise_executable "kmeter_surround_vst_x64.so"
-
-finalise_executable "K-Meter (Stereo).exe"
-finalise_executable "K-Meter (Surround).exe"
-
-finalise_executable "K-Meter (Stereo).dll"
-finalise_executable "K-Meter (Surround).dll"
-
-finalise_executable "K-Meter (Stereo x64).exe"
-finalise_executable "K-Meter (Surround x64).exe"
-
-finalise_executable "K-Meter (Stereo x64).dll"
-finalise_executable "K-Meter (Surround x64).dll"
-
-echo "  Done."
-echo
-echo
-
+./finalise_executables
 
 # ----- GNU/Linux Standalone (32 bit) -----
 
