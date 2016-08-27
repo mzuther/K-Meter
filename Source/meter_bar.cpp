@@ -117,10 +117,17 @@ void MeterBar::create(
     // bar K-Meter level (in 0.1 dB)
     int lowerThreshold = trueLowerThreshold + crestFactor;
 
+    // initialise bar level range (in 0.1 dB)
+    int segmentRange = 0;
+
+    // initialise segment height (in pixels)
+    int segmentHeight = 0;
+
     for (int n = 0; n < numberOfBars; ++n)
     {
-        // bar level range (in 0.1 dB)
-        int segmentRange;
+        // store previous bar level range and segment height
+        int oldSegmentRange = segmentRange;
+        int oldSegmentHeight = segmentHeight;
 
         if (isExpanded)
         {
@@ -190,8 +197,6 @@ void MeterBar::create(
                 colourId = colourSelector::nonLinear;
             }
         }
-
-        int segmentHeight;
 
         if (isExpanded)
         {
@@ -269,6 +274,7 @@ void MeterBar::create(
             addContinuousSegment(
                 trueLowerThreshold * 0.1f,
                 segmentRange * 0.1f,
+                (oldSegmentRange * 0.1f) / oldSegmentHeight,
                 hasHighestLevel,
                 segmentHeight,
                 spacingBefore,
