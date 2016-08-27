@@ -1,6 +1,34 @@
 Git HEAD
 ========
 
+v2.5.0 (2016-08-27)
+===================
+
+* maximum true peak measurement
+
+* changed plug-in ID for surround mode
+
+  Sorry for this at this point of time, but some hosts definitely need
+  this...
+
+* fully passed validation
+
+* validation: show a warning on sample rate mismatch
+
+* tested Windows 64-bit builds
+
+* updated framework to JUCE v4.2.3
+
+* updated libraries (FFTW 3.3.5, VST 3.6.6)
+
+* updated documentation
+
+* beautified code
+
+* automatic creation of premake file
+
+
+
 v2.4.0 (2016-05-01)
 ===================
 
