@@ -611,8 +611,9 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
             L"Bram de Jong\n");
 
         arrChapters.set(
-            "Beta testing",
-            L"Rickard (Interfearing Sounds)\n");
+            "Beta testing and ideas",
+            L"Rickard (Interfearing Sounds)\n"
+            L"David Tkaczuk\n");
 
         arrChapters.set(
             "Thanks",
