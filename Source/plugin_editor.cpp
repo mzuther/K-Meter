@@ -476,6 +476,9 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
 
     case KmeterPluginParameters::selDim:
         ButtonDim.setToggleState(nValue != 0, dontSendNotification);
+
+        // will also apply skin to plug-in editor
+        needsMeterReload = true;
         break;
     }
 
@@ -502,6 +505,7 @@ void KmeterAudioProcessorEditor::reloadMeters()
         }
 
         kmeter_.create(numberOfInputChannels);
+        kmeter_.setEnabled(!ButtonDim.getToggleState());
 
         // moves background image to the back of the editor's z-plane
         applySkin();

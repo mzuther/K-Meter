@@ -76,6 +76,7 @@ protected:
     Colour segmentColour_;
     Colour backgroundColour_;
     Colour peakMarkerColour_;
+    Colour dimmedColour_;
 
     int maximumX_;
     int maximumY_;

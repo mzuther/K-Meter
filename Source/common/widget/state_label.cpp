@@ -26,7 +26,9 @@
 
 /// Create a state label.
 ///
-StateLabel::StateLabel()
+StateLabel::StateLabel() :
+    dimmedColour_(Colours::black.brighter(0.15f).withAlpha(0.6f))
+
 {
     // this component blends in with the background
     setOpaque(false);
@@ -169,6 +171,22 @@ void StateLabel::setImages(
     imageOff_ = imageOff.createCopy();
     imageOn_ = imageOn.createCopy();
     imageActive_ = imageActive.createCopy();
+
+    // fade colours if label is disabled
+    if (!isEnabled())
+    {
+        Graphics g1(imageOff_);
+        g1.setColour(dimmedColour_);
+        g1.fillAll();
+
+        Graphics g2(imageOn_);
+        g2.setColour(dimmedColour_);
+        g2.fillAll();
+
+        Graphics g3(imageActive_);
+        g3.setColour(dimmedColour_);
+        g3.fillAll();
+    }
 
     // assert that all images have the same size
     jassert(imageOff_.getBounds() == imageOn_.getBounds());

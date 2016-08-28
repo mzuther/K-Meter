@@ -88,6 +88,7 @@ protected:
     Image imageOn_;
     Image imageActive_;
 
+    Colour dimmedColour_;
     Colour textColourOff_;
     Colour textColourOn_;
     Colour textColourActive_;

@@ -52,7 +52,7 @@ public:
     ///
     static const juce::String getVersion()
     {
-        return "1.6.9";
+        return "1.7.0";
     }
 
 

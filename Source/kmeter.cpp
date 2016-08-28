@@ -110,6 +110,8 @@ void Kmeter::applySkin(
                          segmentHeight,
                          segmentColours);
 
+        meterBar->setEnabled(isEnabled());
+
         addAndMakeVisible(meterBar);
 
         OverflowMeter *overflowMeter = overflowMeters_.add(
