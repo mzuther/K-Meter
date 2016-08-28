@@ -118,6 +118,11 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     ButtonDiscreteMeter.addListener(this);
     addAndMakeVisible(ButtonDiscreteMeter);
 
+    if (nNumChannels != 2)
+    {
+        ButtonMono.setEnabled(false);
+    }
+
     ButtonMono.addListener(this);
     addAndMakeVisible(ButtonMono);
 
