@@ -132,11 +132,11 @@ private:
     bool isStereo;
     bool bSampleRateIsValid;
     bool isSilent;
-    bool isDimmed;
 
     int nAverageAlgorithm;
     int nSamplesInBuffer;
     float fProcessedSeconds;
+    float attenuationLevel_;
 
     Array<float> arrPeakLevels;
     Array<float> arrRmsLevels;

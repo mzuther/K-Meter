@@ -375,7 +375,7 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     }
 
     isSilent = false;
-    isDimmed = getBoolean(KmeterPluginParameters::selDim);
+    attenuationLevel_ = getBoolean(KmeterPluginParameters::selDim) ? 0.1f : 1.0f;
 
     int numInputChannels = getMainBusNumInputChannels();
 
@@ -509,30 +509,13 @@ void KmeterAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer &
 
     pRingBufferOutput->copyToBuffer(buffer, 0, nNumSamples, nTrakmeterBufferSize - nSamplesInBuffer);
 
-    // dim button has been (de-)pressed, so let's slowly change the
-    // attenuation
-    if (getBoolean(KmeterPluginParameters::selDim) != isDimmed)
-    {
-        isDimmed = !isDimmed;
+    // fade output attenuation from old to new value (JUCE takes care
+    // of any optimizations)
+    float oldAttenuationLevel = attenuationLevel_;
+    attenuationLevel_ = getBoolean(KmeterPluginParameters::selDim) ? 0.1f : 1.0f;
 
-        // dim button has been pressed
-        if (isDimmed)
-        {
-            // change output attenuation from 0 dB to 20 dB
-            buffer.applyGainRamp(0, buffer.getNumSamples(), 1.0f, 0.1f);
-        }
-        // dim button has been de-pressed
-        else
-        {
-            // change output attenuation from 20 dB to 0 dB
-            buffer.applyGainRamp(0, buffer.getNumSamples(), 0.1f, 1.0f);
-        }
-    }
-    else if (isDimmed)
-    {
-        // attenuate output by 20 dB
-        buffer.applyGain(0.1f);
-    }
+    buffer.applyGainRamp(0, buffer.getNumSamples(),
+                         oldAttenuationLevel, attenuationLevel_);
 }
 
 

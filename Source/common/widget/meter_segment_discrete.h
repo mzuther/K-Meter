@@ -62,7 +62,7 @@ protected:
 
     Colour segmentColour_;
     Colour peakMarkerColour_;
-    Colour dimmedColour_;
+    Colour attenuatedColour_;
 
     float segmentBrightnessModifier_;
     float outlineBrightnessModifier_;

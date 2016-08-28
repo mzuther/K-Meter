@@ -58,7 +58,7 @@
 /// > exceeds the lower threshold.
 ///
 MeterSegmentDiscrete::MeterSegmentDiscrete() :
-    dimmedColour_(Colours::black.brighter(0.15f).withAlpha(0.6f))
+    attenuatedColour_(Colours::black.brighter(0.15f).withAlpha(0.6f))
 
 {
     // initialise segment's brightness modifier
@@ -180,10 +180,10 @@ void MeterSegmentDiscrete::paint(
         g.drawRect(0, 0, width, height);
     }
 
-    // fade colours if segment is disabled
+    // attenuate colours if segment is disabled
     if (!isEnabled())
     {
-        g.setColour(dimmedColour_);
+        g.setColour(attenuatedColour_);
         g.fillAll();
     }
 }

@@ -27,7 +27,7 @@
 /// Create a new continuous meter segment, complete with peak marker.
 ///
 MeterSegmentContinuous::MeterSegmentContinuous() :
-    dimmedColour_(Colours::black.brighter(0.15f).withAlpha(0.6f))
+    attenuatedColour_(Colours::black.brighter(0.15f).withAlpha(0.6f))
 
 {
     // initialise maximum x and y position of component
@@ -399,10 +399,10 @@ void MeterSegmentContinuous::paint(
         drawMarker(g, peakMarkerColour_, discretePeakPosition_);
     }
 
-    // fade colours if segment is disabled
+    // attenuate colours if segment is disabled
     if (!isEnabled())
     {
-        g.setColour(dimmedColour_);
+        g.setColour(attenuatedColour_);
         g.fillAll();
     }
 }

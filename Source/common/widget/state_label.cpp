@@ -27,7 +27,7 @@
 /// Create a state label.
 ///
 StateLabel::StateLabel() :
-    dimmedColour_(Colours::black.brighter(0.15f).withAlpha(0.6f))
+    attenuatedColour_(Colours::black.brighter(0.15f).withAlpha(0.6f))
 
 {
     // this component blends in with the background
@@ -172,19 +172,19 @@ void StateLabel::setImages(
     imageOn_ = imageOn.createCopy();
     imageActive_ = imageActive.createCopy();
 
-    // fade colours if label is disabled
+    // attenuate colours if label is disabled
     if (!isEnabled())
     {
         Graphics g1(imageOff_);
-        g1.setColour(dimmedColour_);
+        g1.setColour(attenuatedColour_);
         g1.fillAll();
 
         Graphics g2(imageOn_);
-        g2.setColour(dimmedColour_);
+        g2.setColour(attenuatedColour_);
         g2.fillAll();
 
         Graphics g3(imageActive_);
-        g3.setColour(dimmedColour_);
+        g3.setColour(attenuatedColour_);
         g3.fillAll();
     }
 
