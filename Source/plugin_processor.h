@@ -132,6 +132,7 @@ private:
     bool isStereo;
     bool bSampleRateIsValid;
     bool isSilent;
+    bool isDimmed;
 
     int nAverageAlgorithm;
     int nSamplesInBuffer;

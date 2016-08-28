@@ -375,6 +375,8 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     }
 
     isSilent = false;
+    isDimmed = getBoolean(KmeterPluginParameters::selDim);
+
     int numInputChannels = getMainBusNumInputChannels();
 
     Logger::outputDebugString("[K-Meter] number of input channels: " + String(numInputChannels));
@@ -507,9 +509,26 @@ void KmeterAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer &
 
     pRingBufferOutput->copyToBuffer(buffer, 0, nNumSamples, nTrakmeterBufferSize - nSamplesInBuffer);
 
-    bool isDimmed = getBoolean(KmeterPluginParameters::selDim);
+    // dim button has been (de-)pressed, so let's slowly change the
+    // attenuation
+    if (getBoolean(KmeterPluginParameters::selDim) != isDimmed)
+    {
+        isDimmed = !isDimmed;
 
-    if (isDimmed)
+        // dim button has been pressed
+        if (isDimmed)
+        {
+            // change output attenuation from 0 dB to 20 dB
+            buffer.applyGainRamp(0, buffer.getNumSamples(), 1.0f, 0.1f);
+        }
+        // dim button has been de-pressed
+        else
+        {
+            // change output attenuation from 20 dB to 0 dB
+            buffer.applyGainRamp(0, buffer.getNumSamples(), 0.1f, 1.0f);
+        }
+    }
+    else if (isDimmed)
     {
         // attenuate output by 20 dB
         buffer.applyGain(0.1f);
