@@ -132,6 +132,9 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     ButtonMute.addListener(this);
     addAndMakeVisible(ButtonMute);
 
+    ButtonFlip.addListener(this);
+    addAndMakeVisible(ButtonFlip);
+
     ButtonReset.addListener(this);
     addAndMakeVisible(ButtonReset);
 
@@ -174,6 +177,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     updateParameter(KmeterPluginParameters::selMono);
     updateParameter(KmeterPluginParameters::selDim);
     updateParameter(KmeterPluginParameters::selMute);
+    updateParameter(KmeterPluginParameters::selFlip);
 
     // locate directory containing the skins
     skinDirectory = KmeterPluginParameters::getSkinDirectory();
@@ -245,6 +249,7 @@ void KmeterAudioProcessorEditor::applySkin()
     skin.placeAndSkinButton(&ButtonMono, "button_mono");
     skin.placeAndSkinButton(&ButtonDim, "button_dim");
     skin.placeAndSkinButton(&ButtonMute, "button_mute");
+    skin.placeAndSkinButton(&ButtonFlip, "button_flip");
 
     skin.placeAndSkinButton(&ButtonReset, "button_reset");
     skin.placeAndSkinButton(&ButtonSkin, "button_skin");
@@ -492,6 +497,10 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
         // will also apply skin to plug-in editor
         needsMeterReload = true;
         break;
+
+    case KmeterPluginParameters::selFlip:
+        ButtonFlip.setToggleState(nValue != 0, dontSendNotification);
+        break;
     }
 
     // prevent meter reload during initialisation
@@ -611,6 +620,10 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
     else if (button == &ButtonMute)
     {
         audioProcessor->changeParameter(KmeterPluginParameters::selMute, button->getToggleState() ? 0.0f : 1.0f);
+    }
+    else if (button == &ButtonFlip)
+    {
+        audioProcessor->changeParameter(KmeterPluginParameters::selFlip, button->getToggleState() ? 0.0f : 1.0f);
     }
     else if (button == &ButtonAbout)
     {

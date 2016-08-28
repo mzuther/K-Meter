@@ -11,6 +11,7 @@
            button_discrete,
            button_skin,
            button_mono,
+           button_flip,
            button_dim,
            button_mute,
            button_reset,
@@ -37,6 +38,7 @@
            button_discrete?,
            button_skin?,
            button_mono?,
+           button_flip?,
            button_dim?,
            button_mute?,
            button_reset?,
@@ -316,6 +318,9 @@
 
         <!ELEMENT button_mono (#PCDATA)>
             <!ATTLIST button_mono %attrs_button;>
+
+        <!ELEMENT button_flip (#PCDATA)>
+            <!ATTLIST button_flip %attrs_button;>
 
         <!ELEMENT button_dim (#PCDATA)>
             <!ATTLIST button_dim %attrs_button;>

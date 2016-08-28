@@ -99,6 +99,7 @@ private:
     ImageButton ButtonMono;
     ImageButton ButtonDim;
     ImageButton ButtonMute;
+    ImageButton ButtonFlip;
     ImageButton ButtonReset;
 
     ImageButton ButtonValidation;

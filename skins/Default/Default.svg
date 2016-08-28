@@ -20032,7 +20032,7 @@
        transform="translate(0.015625,0)"
        id="g3769" />
     <g
-       transform="translate(70,-50)"
+       transform="translate(70,-75)"
        id="g4144">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -20057,7 +20057,7 @@
            y="621.25623">K-20</tspan></text>
     </g>
     <g
-       transform="translate(70,-50)"
+       transform="translate(70,-75)"
        id="g4149">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -20082,7 +20082,7 @@
            y="646.25623">K-14</tspan></text>
     </g>
     <g
-       transform="translate(70,-50)"
+       transform="translate(70,-75)"
        id="g4154">
       <rect
          ry="9"
@@ -20107,7 +20107,7 @@
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#999999;fill-opacity:1">K-12</tspan></text>
     </g>
     <g
-       transform="translate(70,-50)"
+       transform="translate(70,-75)"
        id="g4159">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -20132,7 +20132,7 @@
            y="696.25623">Normal</tspan></text>
     </g>
     <g
-       transform="translate(-71,143)"
+       transform="translate(-71,118)"
        id="g3299">
       <rect
          ry="9"
@@ -20166,7 +20166,7 @@
          rx="8" />
     </g>
     <g
-       transform="translate(-71,143)"
+       transform="translate(-71,118)"
        id="g3310">
       <rect
          ry="9"
@@ -20200,7 +20200,7 @@
          rx="8" />
     </g>
     <g
-       transform="translate(-71,143)"
+       transform="translate(-71,118)"
        id="g3321">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffff00;fill-opacity:1;stroke:#ffff00;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
@@ -20234,7 +20234,7 @@
          rx="8" />
     </g>
     <g
-       transform="translate(-71,143)"
+       transform="translate(-71,118)"
        id="g3332">
       <rect
          ry="9"
@@ -20268,7 +20268,7 @@
          rx="8" />
     </g>
     <g
-       transform="translate(70,-50)"
+       transform="translate(70,-75)"
        id="g4164">
       <rect
          ry="9"
@@ -20293,7 +20293,7 @@
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#999999;fill-opacity:1">ITU-R</tspan></text>
     </g>
     <g
-       transform="translate(70,-50)"
+       transform="translate(70,-75)"
        id="g4169">
       <rect
          ry="9"
@@ -20319,7 +20319,7 @@
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#999999;fill-opacity:1">RMS</tspan></text>
     </g>
     <g
-       transform="translate(-71,144)"
+       transform="translate(-71,119)"
        id="g3343">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#00ff00;fill-opacity:1;fill-rule:nonzero;stroke:#00ff00;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
@@ -20353,7 +20353,7 @@
          rx="8" />
     </g>
     <g
-       transform="translate(-71,144)"
+       transform="translate(-71,119)"
        id="g3354">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffff00;fill-opacity:1;stroke:#ffff00;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
@@ -20387,7 +20387,7 @@
          rx="8" />
     </g>
     <g
-       transform="translate(70,-50)"
+       transform="translate(70,-75)"
        id="g4174">
       <rect
          ry="9"
@@ -20412,7 +20412,7 @@
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#999999;fill-opacity:1">Hold</tspan></text>
     </g>
     <g
-       transform="translate(70,-50)"
+       transform="translate(70,-75)"
        id="g4179">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -20437,7 +20437,7 @@
            y="826.25623">Peaks</tspan></text>
     </g>
     <g
-       transform="translate(-71,144)"
+       transform="translate(-71,119)"
        id="g3365">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#00b4ff;fill-opacity:1;stroke:#00b4ff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
@@ -20471,7 +20471,7 @@
          rx="8" />
     </g>
     <g
-       transform="translate(-71,144)"
+       transform="translate(-71,119)"
        id="g3376">
       <rect
          ry="9"
@@ -20506,7 +20506,7 @@
     </g>
     <g
        id="g4184"
-       transform="translate(70,-25)">
+       transform="translate(70,-50)">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
          id="rect3200"
@@ -20531,7 +20531,7 @@
     </g>
     <g
        id="g4189"
-       transform="translate(70,-25)">
+       transform="translate(70,-50)">
       <rect
          ry="9"
          y="863.36218"
@@ -20555,7 +20555,7 @@
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#999999;fill-opacity:1">Skin</tspan></text>
     </g>
     <g
-       transform="translate(-71,169)"
+       transform="translate(-71,144)"
        id="g3387">
       <rect
          ry="9"
@@ -20589,7 +20589,7 @@
          rx="8" />
     </g>
     <g
-       transform="translate(-71,169)"
+       transform="translate(-71,144)"
        id="g3398">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffff00;fill-opacity:1;stroke:#ffff00;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
@@ -20710,7 +20710,7 @@
        transform="translate(-71,219)"
        id="g3409">
       <rect
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#ffff00;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
          id="rect3246"
          width="58"
          height="18"
@@ -20861,17 +20861,17 @@
     <text
        sodipodi:linespacing="125%"
        id="text3284"
-       y="544.25623"
+       y="519.25623"
        x="329.9859"
        style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ff0000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
-         y="544.25623"
+         y="519.25623"
          x="329.9859"
          id="tspan3286"
          sodipodi:role="line"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000">DEBUG</tspan></text>
     <g
-       transform="translate(0,-70)"
+       transform="translate(0,-95)"
        id="g5081">
       <rect
          ry="0"
@@ -20942,7 +20942,7 @@
          y="511.36218" />
     </g>
     <g
-       transform="translate(0,-70)"
+       transform="translate(0,-95)"
        id="g5052">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#282828;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;enable-background:accumulate"
@@ -21016,7 +21016,7 @@
          y="493.36218" />
     </g>
     <g
-       transform="translate(63,20.99998)"
+       transform="translate(63,-4.00002)"
        id="g5108">
       <path
          sodipodi:nodetypes="cc"
@@ -21037,7 +21037,7 @@
          ry="0.5" />
     </g>
     <g
-       transform="translate(40,-30)"
+       transform="translate(40,-55)"
        id="g4160">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#282828;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;enable-background:accumulate"
@@ -21067,7 +21067,7 @@
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#0055d4;fill-opacity:1;fill-rule:nonzero;stroke:#0044aa;stroke-width:0.99999988;stroke-opacity:1;marker:none;enable-background:accumulate" />
     </g>
     <g
-       transform="translate(0,-30.000003)"
+       transform="translate(0,-55.000003)"
        id="g6131"
        style="display:inline">
       <rect
@@ -21100,7 +21100,7 @@
     <g
        style="display:inline"
        id="g10878"
-       transform="translate(0,-50.000003)">
+       transform="translate(0,-75.000003)">
       <rect
          ry="0"
          y="535.36218"
@@ -21130,7 +21130,7 @@
     </g>
     <g
        id="g10886"
-       transform="translate(40,-50)">
+       transform="translate(40,-75)">
       <rect
          ry="0"
          y="535.36218"
@@ -21160,7 +21160,7 @@
     </g>
     <g
        id="g4557"
-       transform="translate(63,38.99998)">
+       transform="translate(63,13.99998)">
       <path
          style="display:inline;fill:none;stroke:#ff0000;stroke-width:0.99999994px;stroke-linecap:square;stroke-linejoin:miter;stroke-opacity:1"
          d="m 358.5,402.36214 0,10.00006"
@@ -21181,7 +21181,7 @@
     </g>
     <g
        id="g6181"
-       transform="translate(70,0)">
+       transform="translate(70,-25)">
       <rect
          rx="9"
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -21206,7 +21206,7 @@
     </g>
     <g
        id="g6189"
-       transform="translate(-71,194)">
+       transform="translate(-71,169)">
       <rect
          rx="9"
          ry="9"
@@ -21240,7 +21240,7 @@
     </g>
     <g
        id="g7195"
-       transform="translate(-1,143)">
+       transform="translate(-1,118)">
       <rect
          rx="9"
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#00a000;fill-opacity:1;fill-rule:nonzero;stroke:#00a000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -21274,7 +21274,7 @@
     </g>
     <g
        id="g7205"
-       transform="translate(-1,143)">
+       transform="translate(-1,118)">
       <rect
          rx="9"
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#a0a000;fill-opacity:1;fill-rule:nonzero;stroke:#a0a000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -21308,7 +21308,7 @@
     </g>
     <g
        id="g7215"
-       transform="translate(-1,143)">
+       transform="translate(-1,118)">
       <rect
          rx="9"
          ry="9"
@@ -21342,7 +21342,7 @@
     </g>
     <g
        id="g7225"
-       transform="translate(-1,143)">
+       transform="translate(-1,118)">
       <rect
          rx="9"
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#a00000;fill-opacity:1;stroke:#a00000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
@@ -21376,7 +21376,7 @@
     </g>
     <g
        id="g7235"
-       transform="translate(-1,144)">
+       transform="translate(-1,119)">
       <rect
          rx="9"
          ry="9"
@@ -21410,7 +21410,7 @@
     </g>
     <g
        id="g7245"
-       transform="translate(-1,144)">
+       transform="translate(-1,119)">
       <rect
          rx="9"
          ry="9"
@@ -21444,7 +21444,7 @@
     </g>
     <g
        id="g7255"
-       transform="translate(-1,144)">
+       transform="translate(-1,119)">
       <rect
          rx="9"
          ry="9"
@@ -21478,7 +21478,7 @@
     </g>
     <g
        id="g7265"
-       transform="translate(-1,144)">
+       transform="translate(-1,119)">
       <rect
          rx="9"
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#0071a0;fill-opacity:1;fill-rule:nonzero;stroke:#0071a0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -21512,7 +21512,7 @@
     </g>
     <g
        id="g7275"
-       transform="translate(-1,169)">
+       transform="translate(-1,144)">
       <rect
          rx="9"
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#0071a0;fill-opacity:1;fill-rule:nonzero;stroke:#0071a0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -21546,7 +21546,7 @@
     </g>
     <g
        id="g7285"
-       transform="translate(-1,169)">
+       transform="translate(-1,144)">
       <rect
          rx="9"
          ry="9"
@@ -21623,7 +21623,7 @@
          height="18"
          width="58"
          id="rect7307"
-         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#a00000;fill-opacity:1;fill-rule:nonzero;stroke:#a00000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#a0a000;fill-opacity:1;fill-rule:nonzero;stroke:#a0a000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
       <text
          sodipodi:linespacing="125%"
          id="text7309"
@@ -21715,7 +21715,7 @@
          ry="8" />
     </g>
     <g
-       transform="translate(-1,194)"
+       transform="translate(-1,169)"
        id="g7335">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#0071a0;fill-opacity:1;fill-rule:nonzero;stroke:#0071a0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -21749,7 +21749,7 @@
          rx="8" />
     </g>
     <g
-       transform="translate(0,-70.000003)"
+       transform="translate(0,-95.000003)"
        id="g8994"
        style="display:inline">
       <rect
@@ -21780,7 +21780,7 @@
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#400000;fill-opacity:1;fill-rule:nonzero;stroke:#540000;stroke-width:0.99999994;stroke-opacity:1;marker:none;enable-background:accumulate" />
     </g>
     <g
-       transform="translate(40,-70)"
+       transform="translate(40,-95)"
        id="g9002">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#282828;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;enable-background:accumulate"
@@ -21845,7 +21845,7 @@
          height="18"
          width="58"
          id="rect8084"
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate" />
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#ffff00;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
       <text
          sodipodi:linespacing="125%"
          id="text8086"
@@ -21872,7 +21872,7 @@
        transform="translate(-1,194)"
        id="g8092">
       <rect
-         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#a00000;fill-opacity:1;fill-rule:nonzero;stroke:#a00000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#a0a000;fill-opacity:1;fill-rule:nonzero;stroke:#a0a000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
          id="rect8094"
          width="58"
          height="18"
@@ -21904,7 +21904,7 @@
     </g>
     <g
        id="g8102"
-       transform="translate(70,-25)">
+       transform="translate(70,-50)">
       <rect
          ry="9"
          y="903.36218"
@@ -21928,7 +21928,7 @@
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#999999;fill-opacity:1">Mono</tspan></text>
     </g>
     <g
-       transform="translate(-71,169)"
+       transform="translate(-71,144)"
        id="g8110">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
@@ -21963,7 +21963,7 @@
     </g>
     <g
        id="g8120"
-       transform="translate(-1,169)">
+       transform="translate(-1,144)">
       <rect
          rx="9"
          ry="9"
@@ -21995,6 +21995,99 @@
          id="rect8128"
          style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.6;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate" />
     </g>
+    <g
+       transform="translate(70,-25)"
+       id="g8114">
+      <rect
+         rx="9"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         id="rect8116"
+         width="58"
+         height="18"
+         x="371"
+         y="903.36218"
+         ry="9" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#999999;fill-opacity:1;stroke:none"
+         x="399.81198"
+         y="916.25623"
+         id="text8118"
+         sodipodi:linespacing="125%"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#999999;fill-opacity:1"
+           sodipodi:role="line"
+           id="tspan8120"
+           x="399.81198"
+           y="916.25623">Flip</tspan></text>
+    </g>
+    <g
+       id="g8122"
+       transform="translate(-71,169)">
+      <rect
+         rx="9"
+         ry="9"
+         y="709.36218"
+         x="372"
+         height="18"
+         width="58"
+         id="rect8124"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text8126"
+         y="722.25623"
+         x="400.81198"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           y="722.25623"
+           x="400.81198"
+           id="tspan8128"
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000">Flip</tspan></text>
+      <rect
+         rx="8"
+         ry="8"
+         y="710.36218"
+         x="373"
+         height="16"
+         width="56"
+         id="rect8130"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.6;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate" />
+    </g>
+    <g
+       transform="translate(-1,169)"
+       id="g8132">
+      <rect
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#a00000;fill-opacity:1;fill-rule:nonzero;stroke:#a00000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         id="rect8134"
+         width="58"
+         height="18"
+         x="372"
+         y="709.36218"
+         ry="9"
+         rx="9" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+         x="400.81198"
+         y="722.25623"
+         id="text8136"
+         sodipodi:linespacing="125%"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000"
+           sodipodi:role="line"
+           id="tspan8138"
+           x="400.81198"
+           y="722.25623">Flip</tspan></text>
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.6;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+         id="rect8140"
+         width="56"
+         height="16"
+         x="373"
+         y="710.36218"
+         ry="8"
+         rx="8" />
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -22019,7 +22112,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="20"
        width="60"
-       y="412"
+       y="387"
        x="300"
        id="button_discrete_on"
        style="opacity:0.5;fill:#ff0000">
@@ -22032,7 +22125,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="20"
        width="60"
-       y="437"
+       y="412"
        x="300"
        id="button_expand_on"
        style="opacity:0.5;fill:#ff0000">
@@ -22046,7 +22139,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_hold_on"
        x="300"
-       y="362"
+       y="337"
        width="60"
        height="20">
       <desc
@@ -22058,7 +22151,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="20"
        width="60"
-       y="297"
+       y="272"
        x="300"
        id="button_itu_on"
        style="opacity:0.5;fill:#ff0000"
@@ -22073,7 +22166,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_k12_on"
        x="300"
-       y="232"
+       y="207"
        width="60"
        height="20">
       <desc
@@ -22086,7 +22179,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_k14_on"
        x="300"
-       y="207"
+       y="182"
        width="60"
        height="20">
       <desc
@@ -22098,7 +22191,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="20"
        width="60"
-       y="182"
+       y="157"
        x="300"
        id="button_k20_on"
        style="opacity:0.5;fill:#ff0000"
@@ -22125,7 +22218,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="20"
        width="60"
-       y="257"
+       y="232"
        x="300"
        id="button_normal_on"
        style="opacity:0.5;fill:#ff0000">
@@ -22138,7 +22231,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="20"
        width="60"
-       y="387"
+       y="362"
        x="300"
        id="button_peaks_on"
        style="opacity:0.5;fill:#ff0000">
@@ -22165,7 +22258,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_rms_on"
        x="300"
-       y="322"
+       y="297"
        width="60"
        height="20">
       <desc
@@ -22178,7 +22271,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_skin_on"
        x="300"
-       y="462"
+       y="437"
        width="60"
        height="20">
       <desc
@@ -22205,7 +22298,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="label_over_off"
        x="300"
-       y="90"
+       y="65"
        width="32"
        height="17">
       <desc
@@ -22217,7 +22310,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="17"
        width="32"
-       y="110"
+       y="85"
        x="300"
        id="label_peak_off"
        style="opacity:0.5;fill:#ff0000"
@@ -22233,7 +22326,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="label_true_peak_off"
        x="300"
-       y="130"
+       y="105"
        width="32"
        height="17">
       <desc
@@ -22245,7 +22338,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="16"
        width="107"
-       y="45"
+       y="20"
        x="300"
        id="meter_phase_correlation"
        style="opacity:0.5;fill:#ff0000"
@@ -22261,7 +22354,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="meter_stereo"
        x="300"
-       y="63"
+       y="38"
        width="107"
        height="16">
       <desc
@@ -22274,7 +22367,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#label_debug"
        height="10"
        width="40"
-       y="160.00005"
+       y="135.00005"
        x="310"
        id="label_debug"
        style="opacity:0.5;fill:#ff0000">
@@ -22287,7 +22380,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="17"
        width="32"
-       y="90"
+       y="65"
        x="340"
        id="label_over_on"
        style="opacity:0.5;fill:#ff0000"
@@ -22303,7 +22396,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="label_peak_on"
        x="340"
-       y="110"
+       y="85"
        width="32"
        height="17">
       <desc
@@ -22315,7 +22408,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="17"
        width="32"
-       y="130"
+       y="105"
        x="340"
        id="label_true_peak_on"
        style="opacity:0.5;fill:#ff0000"
@@ -22344,7 +22437,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_discrete_over"
        height="20"
        width="60"
-       y="412"
+       y="387"
        x="370"
        id="button_discrete_over"
        style="opacity:0.5;fill:#ff0000">
@@ -22358,7 +22451,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_expand_over"
        height="20"
        width="60"
-       y="437"
+       y="412"
        x="370"
        id="button_expand_over"
        style="opacity:0.5;fill:#ff0000">
@@ -22372,7 +22465,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_hold_over"
        x="370"
-       y="362"
+       y="337"
        width="60"
        height="20"
        inkscape:label="#button_hold_over">
@@ -22386,7 +22479,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_itu_over"
        height="20"
        width="60"
-       y="297"
+       y="272"
        x="370"
        id="button_itu_over"
        style="opacity:0.5;fill:#ff0000">
@@ -22400,7 +22493,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_k12_over"
        x="370"
-       y="232"
+       y="207"
        width="60"
        height="20"
        inkscape:label="#button_k12_over">
@@ -22414,7 +22507,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_k14_over"
        x="370"
-       y="207"
+       y="182"
        width="60"
        height="20"
        inkscape:label="#button_k14_over">
@@ -22428,7 +22521,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_k20_over"
        height="20"
        width="60"
-       y="182"
+       y="157"
        x="370"
        id="button_k20_over"
        style="opacity:0.5;fill:#ff0000">
@@ -22456,7 +22549,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_normal_over"
        height="20"
        width="60"
-       y="257"
+       y="232"
        x="370"
        id="button_normal_over"
        style="opacity:0.5;fill:#ff0000">
@@ -22470,7 +22563,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_peaks_over"
        height="20"
        width="60"
-       y="387"
+       y="362"
        x="370"
        id="button_peaks_over"
        style="opacity:0.5;fill:#ff0000">
@@ -22498,7 +22591,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_rms_over"
        x="370"
-       y="322"
+       y="297"
        width="60"
        height="20"
        inkscape:label="#button_rms_over">
@@ -22512,7 +22605,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_skin_over"
        x="370"
-       y="462"
+       y="437"
        width="60"
        height="20"
        inkscape:label="#button_skin_over">
@@ -22541,7 +22634,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="meter_phase_correlation_needle"
        x="420"
-       y="47"
+       y="22"
        width="3"
        height="12">
       <desc
@@ -22553,7 +22646,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="12"
        width="3"
-       y="65"
+       y="40"
        x="420"
        id="meter_stereo_needle"
        style="opacity:0.5;fill:#ff0000"
@@ -22582,7 +22675,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_discrete_off"
        x="440"
-       y="412"
+       y="387"
        width="60"
        height="20"
        inkscape:label="#button_discrete_off">
@@ -22596,7 +22689,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_expand_off"
        x="440"
-       y="437"
+       y="412"
        width="60"
        height="20"
        inkscape:label="#button_expand_off">
@@ -22610,7 +22703,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_hold_off"
        height="20"
        width="60"
-       y="362"
+       y="337"
        x="440"
        id="button_hold_off"
        style="opacity:0.5;fill:#ff0000">
@@ -22624,7 +22717,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_itu_off"
        x="440"
-       y="297"
+       y="272"
        width="60"
        height="20"
        inkscape:label="#button_itu_off">
@@ -22638,7 +22731,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_k12_off"
        height="20"
        width="60"
-       y="232"
+       y="207"
        x="440"
        id="button_k12_off"
        style="opacity:0.5;fill:#ff0000">
@@ -22652,7 +22745,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_k14_off"
        height="20"
        width="60"
-       y="207"
+       y="182"
        x="440"
        id="button_k14_off"
        style="opacity:0.5;fill:#ff0000">
@@ -22666,7 +22759,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_k20_off"
        x="440"
-       y="182"
+       y="157"
        width="60"
        height="20"
        inkscape:label="#button_k20_off">
@@ -22694,7 +22787,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_normal_off"
        x="440"
-       y="257"
+       y="232"
        width="60"
        height="20"
        inkscape:label="#button_normal_off">
@@ -22708,7 +22801,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_peaks_off"
        x="440"
-       y="387"
+       y="362"
        width="60"
        height="20"
        inkscape:label="#button_peaks_off">
@@ -22736,7 +22829,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_rms_off"
        height="20"
        width="60"
-       y="322"
+       y="297"
        x="440"
        id="button_rms_off"
        style="opacity:0.5;fill:#ff0000">
@@ -22750,7 +22843,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_skin_off"
        height="20"
        width="60"
-       y="462"
+       y="437"
        x="440"
        id="button_skin_off"
        style="opacity:0.5;fill:#ff0000">
@@ -23134,7 +23227,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_mono_on"
        x="300"
-       y="502"
+       y="477"
        width="60"
        height="20">
       <desc
@@ -23147,7 +23240,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_mono_over"
        x="370"
-       y="502"
+       y="477"
        width="60"
        height="20"
        inkscape:label="#button_mono_over">
@@ -23161,12 +23254,53 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_mono_off"
        height="20"
        width="60"
-       y="502"
+       y="477"
        x="440"
        id="button_mono_off"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc8152">format: png
+dpi: 90
+layout-disposition: bg-el-norepeat
+layout-position-anchor: tl</desc>
+    </rect>
+    <rect
+       height="20"
+       width="60"
+       y="502"
+       x="300"
+       id="button_flip_on"
+       style="opacity:0.5;fill:#ff0000">
+      <desc
+         id="desc8145">format: png
+dpi: 90
+layout-disposition: bg-el-norepeat
+layout-position-anchor: tl</desc>
+    </rect>
+    <rect
+       inkscape:label="#button_flip_over"
+       height="20"
+       width="60"
+       y="502"
+       x="370"
+       id="button_flip_over"
+       style="opacity:0.5;fill:#ff0000">
+      <desc
+         id="desc8149">format: png
+dpi: 90
+layout-disposition: bg-el-norepeat
+layout-position-anchor: tl</desc>
+    </rect>
+    <rect
+       style="opacity:0.5;fill:#ff0000"
+       id="button_flip_off"
+       x="440"
+       y="502"
+       width="60"
+       height="20"
+       inkscape:label="#button_flip_off">
+      <desc
+         id="desc8153">format: png
 dpi: 90
 layout-disposition: bg-el-norepeat
 layout-position-anchor: tl</desc>

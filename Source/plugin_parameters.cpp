@@ -109,6 +109,13 @@ KmeterPluginParameters::KmeterPluginParameters() :
     add(ParameterMute, selMute);
 
 
+    frut::parameter::ParBoolean *ParameterFlip =
+        new frut::parameter::ParBoolean("On", "Off");
+    ParameterFlip->setName("Flip channels");
+    ParameterFlip->setDefaultBoolean(false, true);
+    add(ParameterFlip, selFlip);
+
+
     frut::parameter::ParString *ParameterValidationFileName =
         new frut::parameter::ParString(String::empty);
     ParameterValidationFileName->setName("Validation file");

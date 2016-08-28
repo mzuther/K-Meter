@@ -135,9 +135,17 @@
             image_off="buttons/button_mono_off.png"
         />
 
-        <button_dim
+        <button_flip
             x="130"
             y="538"
+            image_on="buttons/button_flip_on.png"
+            image_over="buttons/button_flip_over.png"
+            image_off="buttons/button_flip_off.png"
+        />
+
+        <button_dim
+            x="130"
+            y="488"
             image_on="buttons/button_dim_on.png"
             image_over="buttons/button_dim_over.png"
             image_off="buttons/button_dim_off.png"
@@ -177,7 +185,7 @@
 
         <label_debug
             x="140"
-            y="487"
+            y="462"
             image="labels/label_debug.png"
         />
     </default>
@@ -591,9 +599,17 @@
             image_off="buttons/button_mono_off.png"
         />
 
-        <button_dim
+        <button_flip
             x="130"
             y="518"
+            image_on="buttons/button_flip_on.png"
+            image_over="buttons/button_flip_over.png"
+            image_off="buttons/button_flip_off.png"
+        />
+
+        <button_dim
+            x="130"
+            y="468"
             image_on="buttons/button_dim_on.png"
             image_over="buttons/button_dim_over.png"
             image_off="buttons/button_dim_off.png"
@@ -625,7 +641,7 @@
 
         <label_debug
             x="140"
-            y="467"
+            y="441"
             image="labels/label_debug.png"
         />
 
@@ -871,9 +887,17 @@
             image_off="buttons/button_mono_off.png"
         />
 
-        <button_dim
+        <button_flip
             x="354"
             y="518"
+            image_on="buttons/button_flip_on.png"
+            image_over="buttons/button_flip_over.png"
+            image_off="buttons/button_flip_off.png"
+        />
+
+        <button_dim
+            x="354"
+            y="468"
             image_on="buttons/button_dim_on.png"
             image_over="buttons/button_dim_over.png"
             image_off="buttons/button_dim_off.png"
@@ -913,7 +937,7 @@
 
         <label_debug
             x="364"
-            y="467"
+            y="441"
             image="labels/label_debug.png"
         />
 

@@ -56,6 +56,7 @@ public:
         selMono,
         selDim,
         selMute,
+        selFlip,
 
         numberOfParametersRevealed,
 

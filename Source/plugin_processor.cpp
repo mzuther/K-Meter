@@ -499,18 +499,31 @@ void KmeterAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer &
         audioFilePlayer->fillBufferChunk(&buffer);
     }
 
-    bool bMono = getBoolean(KmeterPluginParameters::selMono);
-
-    // convert stereo input to mono if "Mono" button has been pressed
-    if (isStereo && bMono)
+    // process two channels only
+    if (isStereo)
     {
-        float *output_left = buffer.getWritePointer(0);
-        float *output_right = buffer.getWritePointer(1);
+        float *inputLeft = buffer.getWritePointer(0);
+        float *inputRight = buffer.getWritePointer(1);
 
-        for (int i = 0; i < nNumSamples; ++i)
+        // "Mono" button has been pressed
+        if (getBoolean(KmeterPluginParameters::selMono))
         {
-            output_left[i] = 0.5f * (output_left[i] + output_right[i]);
-            output_right[i] = output_left[i];
+            for (int i = 0; i < nNumSamples; ++i)
+            {
+                inputLeft[i] = 0.5f * (inputLeft[i] + inputRight[i]);
+                inputRight[i] = inputLeft[i];
+            }
+        }
+        // "Flip" button has been pressed
+        else if (getBoolean(KmeterPluginParameters::selFlip))
+        {
+            for (int i = 0; i < nNumSamples; ++i)
+            {
+                float oldInputLeft = inputLeft[i];
+
+                inputLeft[i] = inputRight[i];
+                inputRight[i] = oldInputLeft;
+            }
         }
     }
 
