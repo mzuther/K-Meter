@@ -55,6 +55,7 @@ public:
         selDiscreteMeter,
         selMono,
         selDim,
+        selMute,
 
         numberOfParametersRevealed,
 

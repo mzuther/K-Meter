@@ -375,7 +375,19 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     }
 
     isSilent = false;
-    attenuationLevel_ = getBoolean(KmeterPluginParameters::selDim) ? 0.1f : 1.0f;
+
+    if (getBoolean(KmeterPluginParameters::selMute))
+    {
+        attenuationLevel_ = 0.0f;
+    }
+    else if (getBoolean(KmeterPluginParameters::selDim))
+    {
+        attenuationLevel_ = 0.1f;
+    }
+    else
+    {
+        attenuationLevel_ = 1.0f;
+    }
 
     int numInputChannels = getMainBusNumInputChannels();
 
@@ -512,7 +524,19 @@ void KmeterAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer &
     // fade output attenuation from old to new value (JUCE takes care
     // of any optimizations)
     float oldAttenuationLevel = attenuationLevel_;
-    attenuationLevel_ = getBoolean(KmeterPluginParameters::selDim) ? 0.1f : 1.0f;
+
+    if (getBoolean(KmeterPluginParameters::selMute))
+    {
+        attenuationLevel_ = 0.0f;
+    }
+    else if (getBoolean(KmeterPluginParameters::selDim))
+    {
+        attenuationLevel_ = 0.1f;
+    }
+    else
+    {
+        attenuationLevel_ = 1.0f;
+    }
 
     buffer.applyGainRamp(0, buffer.getNumSamples(),
                          oldAttenuationLevel, attenuationLevel_);

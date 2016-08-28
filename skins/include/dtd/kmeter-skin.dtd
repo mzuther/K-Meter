@@ -12,6 +12,7 @@
            button_skin,
            button_mono,
            button_dim,
+           button_mute,
            button_reset,
            button_validate,
            button_about,
@@ -37,6 +38,7 @@
            button_skin?,
            button_mono?,
            button_dim?,
+           button_mute?,
            button_reset?,
            button_validate?,
            button_about?,
@@ -317,6 +319,9 @@
 
         <!ELEMENT button_dim (#PCDATA)>
             <!ATTLIST button_dim %attrs_button;>
+
+        <!ELEMENT button_mute (#PCDATA)>
+            <!ATTLIST button_mute %attrs_button;>
 
         <!ELEMENT button_reset (#PCDATA)>
             <!ATTLIST button_reset %attrs_button;>

@@ -97,9 +97,16 @@ KmeterPluginParameters::KmeterPluginParameters() :
 
     frut::parameter::ParBoolean *ParameterDim =
         new frut::parameter::ParBoolean("On", "Off");
-    ParameterDim->setName("Dim input");
+    ParameterDim->setName("Dim output");
     ParameterDim->setDefaultBoolean(false, true);
     add(ParameterDim, selDim);
+
+
+    frut::parameter::ParBoolean *ParameterMute =
+        new frut::parameter::ParBoolean("On", "Off");
+    ParameterMute->setName("Mute output");
+    ParameterMute->setDefaultBoolean(false, true);
+    add(ParameterMute, selMute);
 
 
     frut::parameter::ParString *ParameterValidationFileName =
