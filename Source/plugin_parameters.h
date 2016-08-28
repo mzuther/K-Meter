@@ -52,8 +52,9 @@ public:
         selExpanded,
         selShowPeaks,
         selInfinitePeakHold,
-        selMono,
         selDiscreteMeter,
+        selMono,
+        selDim,
 
         numberOfParametersRevealed,
 

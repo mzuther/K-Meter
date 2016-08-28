@@ -6,7 +6,7 @@
     name="Default"
     orientation="vertical"
     path="Default"
-    version="1.2">
+    version="1.3">
 
     <settings>
         <kmeter_segment
@@ -135,9 +135,17 @@
             image_off="buttons/button_mono_off.png"
         />
 
-        <button_reset
+        <button_dim
             x="130"
             y="371"
+            image_on="buttons/button_dim_on.png"
+            image_over="buttons/button_dim_over.png"
+            image_off="buttons/button_dim_off.png"
+        />
+
+        <button_reset
+            x="130"
+            y="411"
             image_on="buttons/button_reset_on.png"
             image_over="buttons/button_reset_over.png"
             image_off="buttons/button_reset_off.png"
@@ -831,9 +839,17 @@
             image_off="buttons/button_mono_off.png"
         />
 
-        <button_reset
+        <button_dim
             x="354"
             y="371"
+            image_on="buttons/button_dim_on.png"
+            image_over="buttons/button_dim_over.png"
+            image_off="buttons/button_dim_off.png"
+        />
+
+        <button_reset
+            x="354"
+            y="411"
             image_on="buttons/button_reset_on.png"
             image_over="buttons/button_reset_over.png"
             image_off="buttons/button_reset_off.png"

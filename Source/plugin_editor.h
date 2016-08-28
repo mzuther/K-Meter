@@ -95,9 +95,11 @@ private:
     ImageButton ButtonDisplayPeakMeter;
     ImageButton ButtonInfinitePeakHold;
     ImageButton ButtonDiscreteMeter;
-    ImageButton ButtonReset;
 
     ImageButton ButtonMono;
+    ImageButton ButtonDim;
+    ImageButton ButtonReset;
+
     ImageButton ButtonValidation;
     ImageButton ButtonAbout;
 

@@ -81,6 +81,13 @@ KmeterPluginParameters::KmeterPluginParameters() :
     add(ParameterInfinitePeakHold, selInfinitePeakHold);
 
 
+    frut::parameter::ParBoolean *ParameterDiscreteMeter =
+        new frut::parameter::ParBoolean("On", "Off");
+    ParameterDiscreteMeter->setName("Discrete meter");
+    ParameterDiscreteMeter->setDefaultBoolean(false, true);
+    add(ParameterDiscreteMeter, selDiscreteMeter);
+
+
     frut::parameter::ParBoolean *ParameterMono =
         new frut::parameter::ParBoolean("On", "Off");
     ParameterMono->setName("Mono input");
@@ -88,11 +95,11 @@ KmeterPluginParameters::KmeterPluginParameters() :
     add(ParameterMono, selMono);
 
 
-    frut::parameter::ParBoolean *ParameterDiscreteMeter =
+    frut::parameter::ParBoolean *ParameterDim =
         new frut::parameter::ParBoolean("On", "Off");
-    ParameterDiscreteMeter->setName("Discrete meter");
-    ParameterDiscreteMeter->setDefaultBoolean(false, true);
-    add(ParameterDiscreteMeter, selDiscreteMeter);
+    ParameterDim->setName("Dim input");
+    ParameterDim->setDefaultBoolean(false, true);
+    add(ParameterDim, selDim);
 
 
     frut::parameter::ParString *ParameterValidationFileName =

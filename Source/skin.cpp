@@ -41,7 +41,7 @@ bool Skin::loadSkin(File &skinFile,
                displayPeakMeter);
 
     // signal success or failure
-    return loadFromXml(skinFile, "kmeter-skin", "1.2");
+    return loadFromXml(skinFile, "kmeter-skin", "1.3");
 }
 
 

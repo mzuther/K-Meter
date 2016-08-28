@@ -11,6 +11,7 @@
            button_discrete,
            button_skin,
            button_mono,
+           button_dim,
            button_reset,
            button_validate,
            button_about,
@@ -35,6 +36,7 @@
            button_discrete?,
            button_skin?,
            button_mono?,
+           button_dim?,
            button_reset?,
            button_validate?,
            button_about?,
@@ -223,7 +225,7 @@
               name CDATA #REQUIRED
               orientation (vertical | horizontal) #REQUIRED
               path CDATA #REQUIRED
-              version CDATA "1.2"
+              version CDATA "1.3"
     >
 
     <!ELEMENT settings (kmeter_segment, kmeter_colour_red, kmeter_colour_amber, kmeter_colour_green,
@@ -312,6 +314,9 @@
 
         <!ELEMENT button_mono (#PCDATA)>
             <!ATTLIST button_mono %attrs_button;>
+
+        <!ELEMENT button_dim (#PCDATA)>
+            <!ATTLIST button_dim %attrs_button;>
 
         <!ELEMENT button_reset (#PCDATA)>
             <!ATTLIST button_reset %attrs_button;>

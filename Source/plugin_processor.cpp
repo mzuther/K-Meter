@@ -506,6 +506,14 @@ void KmeterAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer &
     nSamplesInBuffer %= nTrakmeterBufferSize;
 
     pRingBufferOutput->copyToBuffer(buffer, 0, nNumSamples, nTrakmeterBufferSize - nSamplesInBuffer);
+
+    bool isDimmed = getBoolean(KmeterPluginParameters::selDim);
+
+    if (isDimmed)
+    {
+        // attenuate output by 20 dB
+        buffer.applyGain(0.1f);
+    }
 }
 
 
