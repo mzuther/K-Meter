@@ -6,7 +6,7 @@
     name="Slim Buttons"
     orientation="vertical"
     path="Slim Buttons"
-    version="1.2">
+    version="1.3">
 
     <settings>
         <kmeter_segment
@@ -113,7 +113,7 @@
 
         <button_discrete
             x="127"
-            y="281"
+            y="266"
             image_on="buttons/button_discrete_on.png"
             image_over="buttons/button_discrete_over.png"
             image_off="buttons/button_discrete_off.png"
@@ -129,15 +129,39 @@
 
         <button_mono
             x="127"
-            y="346"
+            y="563"
             image_on="buttons/button_mono_on.png"
             image_over="buttons/button_mono_over.png"
             image_off="buttons/button_mono_off.png"
         />
 
+        <button_flip
+            x="127"
+            y="538"
+            image_on="buttons/button_flip_on.png"
+            image_over="buttons/button_flip_over.png"
+            image_off="buttons/button_flip_off.png"
+        />
+
+        <button_dim
+            x="127"
+            y="488"
+            image_on="buttons/button_dim_on.png"
+            image_over="buttons/button_dim_over.png"
+            image_off="buttons/button_dim_off.png"
+        />
+
+        <button_mute
+            x="127"
+            y="513"
+            image_on="buttons/button_mute_on.png"
+            image_over="buttons/button_mute_over.png"
+            image_off="buttons/button_mute_off.png"
+        />
+
         <button_reset
             x="127"
-            y="371"
+            y="331"
             image_on="buttons/button_reset_on.png"
             image_over="buttons/button_reset_over.png"
             image_off="buttons/button_reset_off.png"
@@ -161,7 +185,7 @@
 
         <label_debug
             x="127"
-            y="577"
+            y="462"
             image="labels/label_debug.png"
         />
     </default>
@@ -567,6 +591,38 @@
     </stereo_rms_normal>
 
     <surround_itu>
+        <button_mono
+            x="127"
+            y="543"
+            image_on="buttons/button_mono_on.png"
+            image_over="buttons/button_mono_over.png"
+            image_off="buttons/button_mono_off.png"
+        />
+
+        <button_flip
+            x="127"
+            y="518"
+            image_on="buttons/button_flip_on.png"
+            image_over="buttons/button_flip_over.png"
+            image_off="buttons/button_flip_off.png"
+        />
+
+        <button_dim
+            x="127"
+            y="468"
+            image_on="buttons/button_dim_on.png"
+            image_over="buttons/button_dim_over.png"
+            image_off="buttons/button_dim_off.png"
+        />
+
+        <button_mute
+            x="127"
+            y="493"
+            image_on="buttons/button_mute_on.png"
+            image_over="buttons/button_mute_over.png"
+            image_off="buttons/button_mute_off.png"
+        />
+
         <button_validate
             x="127"
             y="583"
@@ -585,7 +641,7 @@
 
         <label_debug
             x="127"
-            y="557"
+            y="441"
             image="labels/label_debug.png"
         />
 
@@ -809,7 +865,7 @@
 
         <button_discrete
             x="351"
-            y="281"
+            y="266"
             image_on="buttons/button_discrete_on.png"
             image_over="buttons/button_discrete_over.png"
             image_off="buttons/button_discrete_off.png"
@@ -825,15 +881,39 @@
 
         <button_mono
             x="351"
-            y="346"
+            y="543"
             image_on="buttons/button_mono_on.png"
             image_over="buttons/button_mono_over.png"
             image_off="buttons/button_mono_off.png"
         />
 
+        <button_flip
+            x="351"
+            y="518"
+            image_on="buttons/button_flip_on.png"
+            image_over="buttons/button_flip_over.png"
+            image_off="buttons/button_flip_off.png"
+        />
+
+        <button_dim
+            x="351"
+            y="468"
+            image_on="buttons/button_dim_on.png"
+            image_over="buttons/button_dim_over.png"
+            image_off="buttons/button_dim_off.png"
+        />
+
+        <button_mute
+            x="351"
+            y="493"
+            image_on="buttons/button_mute_on.png"
+            image_over="buttons/button_mute_over.png"
+            image_off="buttons/button_mute_off.png"
+        />
+
         <button_reset
             x="351"
-            y="371"
+            y="331"
             image_on="buttons/button_reset_on.png"
             image_over="buttons/button_reset_over.png"
             image_off="buttons/button_reset_off.png"
@@ -857,7 +937,7 @@
 
         <label_debug
             x="351"
-            y="557"
+            y="441"
             image="labels/label_debug.png"
         />
 

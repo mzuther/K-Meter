@@ -14,7 +14,7 @@
    height="650"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="Slim Buttons.svg"
    inkscape:export-filename="/home/martin/Dokumente/code/cpp/kmeter/skins/Default/graduation_k20.png"
    inkscape:export-xdpi="90"
@@ -26,11 +26,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.64105903"
+     inkscape:zoom="0.65131577"
      inkscape:cx="1452"
-     inkscape:cy="608.99998"
+     inkscape:cy="608.99999"
      inkscape:document-units="px"
-     inkscape:current-layer="layer5"
+     inkscape:current-layer="svg2"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1030"
@@ -20026,7 +20026,7 @@
        transform="translate(0.015625,0)"
        id="g3769" />
     <g
-       transform="translate(0,-20)"
+       transform="translate(0,-95)"
        id="g5081">
       <rect
          ry="0"
@@ -20097,7 +20097,7 @@
          y="511.36218" />
     </g>
     <g
-       transform="translate(0,-20)"
+       transform="translate(0,-95)"
        id="g5052">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#282828;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;enable-background:accumulate"
@@ -20171,7 +20171,7 @@
          y="493.36218" />
     </g>
     <g
-       transform="translate(63,70.99998)"
+       transform="translate(63,-4.00002)"
        id="g5108">
       <path
          sodipodi:nodetypes="cc"
@@ -20192,7 +20192,7 @@
          ry="0.5" />
     </g>
     <g
-       transform="translate(40,0)"
+       transform="translate(40,-75)"
        id="g4160">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#282828;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;enable-background:accumulate"
@@ -20222,7 +20222,7 @@
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#d40000;fill-opacity:1;fill-rule:nonzero;stroke:#aa0000;stroke-width:0.99999988;stroke-opacity:1;marker:none;enable-background:accumulate" />
     </g>
     <g
-       transform="translate(0,-2.9999999e-6)"
+       transform="translate(0,-75)"
        id="g6131"
        style="display:inline">
       <rect
@@ -20255,7 +20255,7 @@
     <g
        style="display:inline"
        id="g10878"
-       transform="translate(0,-20.000003)">
+       transform="translate(0,-95)">
       <rect
          ry="0"
          y="535.36218"
@@ -20285,7 +20285,7 @@
     </g>
     <g
        id="g10886"
-       transform="translate(40,-20)">
+       transform="translate(40,-95)">
       <rect
          ry="0"
          y="535.36218"
@@ -20315,7 +20315,7 @@
     </g>
     <g
        id="g4557"
-       transform="translate(63,88.99998)">
+       transform="translate(63,13.99998)">
       <path
          style="display:inline;fill:none;stroke:#ff0000;stroke-width:0.99999994px;stroke-linecap:square;stroke-linejoin:miter;stroke-opacity:1"
          d="m 358.5,402.36214 0,10.00006"
@@ -20340,17 +20340,18 @@
     <text
        sodipodi:linespacing="125%"
        id="text3284"
-       y="594.25616"
+       y="519.25616"
        x="310.52701"
        style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
-         y="594.25616"
+         y="519.25616"
          x="310.52701"
          id="tspan3286"
          sodipodi:role="line"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:start;text-anchor:start;fill:#ff0000">dbg</tspan></text>
     <g
-       id="g8249">
+       id="g8249"
+       transform="translate(0,-75)">
       <rect
          transform="translate(0,402.36218)"
          ry="2"
@@ -20376,7 +20377,7 @@
     </g>
     <g
        id="g5380"
-       transform="translate(0,25)">
+       transform="translate(0,-50)">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#646400;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
          id="rect5382"
@@ -20401,8 +20402,8 @@
            y="621.25616">14</tspan></text>
     </g>
     <g
-       transform="translate(0,50)"
-       id="g6196">
+       id="g6196"
+       transform="translate(0,-25)">
       <rect
          transform="translate(0,402.36218)"
          ry="2"
@@ -20427,8 +20428,7 @@
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000">12</tspan></text>
     </g>
     <g
-       id="g6222"
-       transform="translate(0,75)">
+       id="g6222">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:#640000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
          id="rect6224"
@@ -20454,7 +20454,7 @@
     </g>
     <g
        id="g8226"
-       transform="translate(0,115)">
+       transform="translate(0,40)">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#00ff00;fill-opacity:1;fill-rule:nonzero;stroke:#006400;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
          id="rect8228"
@@ -20479,7 +20479,7 @@
            y="621.25616">I</tspan></text>
     </g>
     <g
-       transform="translate(0,140)"
+       transform="translate(0,65)"
        id="g8234">
       <rect
          transform="translate(0,402.36218)"
@@ -20505,7 +20505,7 @@
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000">R</tspan></text>
     </g>
     <g
-       transform="translate(0,255)"
+       transform="translate(0,180)"
        id="g8259">
       <rect
          transform="translate(0,402.36218)"
@@ -20532,7 +20532,7 @@
     </g>
     <g
        id="g8267"
-       transform="translate(0,280)">
+       transform="translate(0,205)">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#646400;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
          id="rect8269"
@@ -20558,7 +20558,7 @@
     </g>
     <g
        id="g8291"
-       transform="translate(0,180)">
+       transform="translate(0,105)">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#00b4ff;fill-opacity:1;fill-rule:nonzero;stroke:#004764;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
          id="rect8293"
@@ -20583,7 +20583,7 @@
            y="621.25616">H</tspan></text>
     </g>
     <g
-       transform="translate(0,205)"
+       transform="translate(0,130)"
        id="g8307">
       <rect
          transform="translate(0,402.36218)"
@@ -20714,7 +20714,7 @@
     </g>
     <g
        id="g6154"
-       transform="translate(0,230)">
+       transform="translate(0,155)">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#00b4ff;fill-opacity:1;fill-rule:nonzero;stroke:#004764;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
          id="rect6156"
@@ -20741,7 +20741,7 @@
     <g
        style="display:inline"
        id="g8260"
-       transform="translate(-10,402.36218)">
+       transform="translate(-10,327.36218)">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
          id="rect8246"
@@ -20768,7 +20768,7 @@
     <g
        style="display:inline"
        id="g5388"
-       transform="translate(-10,427.36218)">
+       transform="translate(-10,352.36218)">
       <rect
          ry="2"
          rx="2"
@@ -20793,7 +20793,7 @@
     </g>
     <g
        style="display:inline"
-       transform="translate(-10,452.36218)"
+       transform="translate(-10,377.36218)"
        id="g6204">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -20820,7 +20820,7 @@
     <g
        style="display:inline"
        id="g6230"
-       transform="translate(-10,477.36218)">
+       transform="translate(-10,402.36218)">
       <rect
          ry="2"
          rx="2"
@@ -20846,7 +20846,7 @@
     <g
        style="display:inline"
        id="g8243"
-       transform="translate(-10,517.36218)">
+       transform="translate(-10,442.36218)">
       <rect
          ry="2"
          rx="2"
@@ -20871,7 +20871,7 @@
     </g>
     <g
        style="display:inline"
-       transform="translate(-10,542.36218)"
+       transform="translate(-10,467.36218)"
        id="g8251">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -20897,7 +20897,7 @@
     </g>
     <g
        style="display:inline"
-       transform="translate(-10,657.36218)"
+       transform="translate(-10,582.36218)"
        id="g8275">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -20924,7 +20924,7 @@
     <g
        style="display:inline"
        id="g8283"
-       transform="translate(-10,682.36218)">
+       transform="translate(-10,607.36218)">
       <rect
          ry="2"
          rx="2"
@@ -20950,7 +20950,7 @@
     <g
        style="display:inline"
        id="g8299"
-       transform="translate(-10,582.36218)">
+       transform="translate(-10,507.36218)">
       <rect
          ry="2"
          rx="2"
@@ -20975,7 +20975,7 @@
     </g>
     <g
        style="display:inline"
-       transform="translate(-10,607.36218)"
+       transform="translate(-10,532.36218)"
        id="g8315">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -21106,7 +21106,7 @@
     <g
        style="display:inline"
        id="g6162"
-       transform="translate(-10,632.36218)">
+       transform="translate(-10,557.36218)">
       <rect
          ry="2"
          rx="2"
@@ -21131,7 +21131,7 @@
     </g>
     <g
        id="g7891"
-       transform="translate(30,0)">
+       transform="translate(30,-75)">
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#00a000;fill-opacity:1;fill-rule:nonzero;stroke:#005000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
          id="rect7893"
@@ -21156,7 +21156,7 @@
            y="621.25616">20</tspan></text>
     </g>
     <g
-       transform="translate(30,25)"
+       transform="translate(30,-50)"
        id="g7899">
       <rect
          transform="translate(0,402.36218)"
@@ -21183,7 +21183,7 @@
     </g>
     <g
        id="g7907"
-       transform="translate(30,50)">
+       transform="translate(30,-25)">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#a0a000;fill-opacity:1;fill-rule:nonzero;stroke:#505000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
          id="rect7909"
@@ -21208,7 +21208,7 @@
            y="621.25616">12</tspan></text>
     </g>
     <g
-       transform="translate(30,75)"
+       transform="translate(30,0)"
        id="g7915">
       <rect
          transform="translate(0,402.36218)"
@@ -21234,7 +21234,7 @@
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000">N</tspan></text>
     </g>
     <g
-       transform="translate(30,115)"
+       transform="translate(30,40)"
        id="g7923">
       <rect
          transform="translate(0,402.36218)"
@@ -21261,7 +21261,7 @@
     </g>
     <g
        id="g7931"
-       transform="translate(30,140)">
+       transform="translate(30,65)">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#a0a000;fill-opacity:1;fill-rule:nonzero;stroke:#505000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
          id="rect7933"
@@ -21287,7 +21287,7 @@
     </g>
     <g
        id="g7939"
-       transform="translate(30,255)">
+       transform="translate(30,180)">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#0071a0;fill-opacity:1;fill-rule:nonzero;stroke:#003950;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
          id="rect7941"
@@ -21312,7 +21312,7 @@
            y="621.25616">E</tspan></text>
     </g>
     <g
-       transform="translate(30,280)"
+       transform="translate(30,205)"
        id="g7947">
       <rect
          transform="translate(0,402.36218)"
@@ -21338,7 +21338,7 @@
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000">S</tspan></text>
     </g>
     <g
-       transform="translate(30,180)"
+       transform="translate(30,105)"
        id="g7955">
       <rect
          transform="translate(0,402.36218)"
@@ -21365,7 +21365,7 @@
     </g>
     <g
        id="g7963"
-       transform="translate(30,205)">
+       transform="translate(30,130)">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#0071a0;fill-opacity:1;fill-rule:nonzero;stroke:#003950;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
          id="rect7965"
@@ -21494,7 +21494,7 @@
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000">V</tspan></text>
     </g>
     <g
-       transform="translate(30,230)"
+       transform="translate(30,155)"
        id="g8003">
       <rect
          transform="translate(0,402.36218)"
@@ -21521,7 +21521,7 @@
     </g>
     <g
        id="g7981"
-       transform="translate(40,20)">
+       transform="translate(40,-55)">
       <rect
          ry="0"
          y="535.36218"
@@ -21552,7 +21552,7 @@
     <g
        style="display:inline"
        id="g7989"
-       transform="translate(0,19.999997)">
+       transform="translate(0,-55.000003)">
       <rect
          ry="0"
          y="535.36218"
@@ -21580,6 +21580,240 @@
          rx="1"
          ry="0.99999994" />
     </g>
+    <g
+       id="g8045"
+       transform="translate(0,295)">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:#640000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+         id="rect8047"
+         width="18"
+         height="18"
+         x="301"
+         y="206"
+         rx="2"
+         ry="2"
+         transform="translate(0,402.36218)" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+         x="309.77597"
+         y="621.25616"
+         id="text8049"
+         sodipodi:linespacing="125%"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000"
+           sodipodi:role="line"
+           id="tspan8051"
+           x="309.77597"
+           y="621.25616">F</tspan></text>
+    </g>
+    <g
+       id="g8053"
+       transform="translate(-10,697.36218)"
+       style="display:inline">
+      <rect
+         ry="2"
+         rx="2"
+         y="206"
+         x="371"
+         height="18"
+         width="18"
+         id="rect8055"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text8057"
+         y="218.89398"
+         x="379.77597"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#999999;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           y="218.89398"
+           x="379.77597"
+           id="tspan8059"
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#999999;fill-opacity:1">F</tspan></text>
+    </g>
+    <g
+       transform="translate(30,295)"
+       id="g8061">
+      <rect
+         transform="translate(0,402.36218)"
+         ry="2"
+         rx="2"
+         y="206"
+         x="301"
+         height="18"
+         width="18"
+         id="rect8063"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#a00000;fill-opacity:1;fill-rule:nonzero;stroke:#500000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text8065"
+         y="621.25616"
+         x="309.77597"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           y="621.25616"
+           x="309.77597"
+           id="tspan8067"
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000">F</tspan></text>
+    </g>
+    <g
+       id="g8117"
+       transform="translate(0,245)">
+      <rect
+         transform="translate(0,402.36218)"
+         ry="2"
+         rx="2"
+         y="206"
+         x="301"
+         height="18"
+         width="18"
+         id="rect8119"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#646400;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text8121"
+         y="621.25616"
+         x="309.86456"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           y="621.25616"
+           x="309.86456"
+           id="tspan8123"
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000">d</tspan></text>
+    </g>
+    <g
+       transform="translate(0,270)"
+       id="g8125">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#646400;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+         id="rect8127"
+         width="18"
+         height="18"
+         x="301"
+         y="206"
+         rx="2"
+         ry="2"
+         transform="translate(0,402.36218)" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+         x="309.98145"
+         y="621.25616"
+         id="text8129"
+         sodipodi:linespacing="125%"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000"
+           sodipodi:role="line"
+           id="tspan8131"
+           x="309.98145"
+           y="621.25616">m</tspan></text>
+    </g>
+    <g
+       transform="translate(-10,647.36218)"
+       id="g8133"
+       style="display:inline">
+      <rect
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         id="rect8135"
+         width="18"
+         height="18"
+         x="371"
+         y="206"
+         rx="2"
+         ry="2" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#999999;fill-opacity:1;stroke:none"
+         x="379.86456"
+         y="218.89398"
+         id="text8137"
+         sodipodi:linespacing="125%"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#999999;fill-opacity:1"
+           sodipodi:role="line"
+           id="tspan8139"
+           x="379.86456"
+           y="218.89398">d</tspan></text>
+    </g>
+    <g
+       id="g8141"
+       transform="translate(-10,672.36218)"
+       style="display:inline">
+      <rect
+         ry="2"
+         rx="2"
+         y="206"
+         x="371"
+         height="18"
+         width="18"
+         id="rect8143"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#505050;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text8145"
+         y="218.89398"
+         x="379.98145"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#999999;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           y="218.89398"
+           x="379.98145"
+           id="tspan8147"
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#999999;fill-opacity:1">m</tspan></text>
+    </g>
+    <g
+       id="g8149"
+       transform="translate(30,245)">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#a0a000;fill-opacity:1;fill-rule:nonzero;stroke:#505000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+         id="rect8151"
+         width="18"
+         height="18"
+         x="301"
+         y="206"
+         rx="2"
+         ry="2"
+         transform="translate(0,402.36218)" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+         x="309.86456"
+         y="621.25616"
+         id="text8153"
+         sodipodi:linespacing="125%"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000"
+           sodipodi:role="line"
+           id="tspan8155"
+           x="309.86456"
+           y="621.25616">d</tspan></text>
+    </g>
+    <g
+       transform="translate(30,270)"
+       id="g8157">
+      <rect
+         transform="translate(0,402.36218)"
+         ry="2"
+         rx="2"
+         y="206"
+         x="301"
+         height="18"
+         width="18"
+         id="rect8159"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#a0a000;fill-opacity:1;fill-rule:nonzero;stroke:#505000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text8161"
+         y="621.25616"
+         x="309.98145"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           y="621.25616"
+           x="309.98145"
+           id="tspan8163"
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000">m</tspan></text>
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -21604,7 +21838,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="20"
        width="20"
-       y="462"
+       y="387"
        x="300"
        id="button_discrete_on"
        style="opacity:0.5;fill:#ff0000">
@@ -21617,7 +21851,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="20"
        width="20"
-       y="487"
+       y="412"
        x="300"
        id="button_expand_on"
        style="opacity:0.5;fill:#ff0000">
@@ -21631,7 +21865,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_hold_on"
        x="300"
-       y="412"
+       y="337"
        width="20"
        height="20">
       <desc
@@ -21643,7 +21877,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="20"
        width="20"
-       y="347"
+       y="272"
        x="300"
        id="button_itu_on"
        style="opacity:0.5;fill:#ff0000"
@@ -21658,7 +21892,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_k12_on"
        x="300"
-       y="282"
+       y="207"
        width="20"
        height="20">
       <desc
@@ -21671,7 +21905,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_k14_on"
        x="300"
-       y="257"
+       y="182"
        width="20"
        height="20">
       <desc
@@ -21683,7 +21917,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="20"
        width="20"
-       y="232"
+       y="157"
        x="300"
        id="button_k20_on"
        style="opacity:0.5;fill:#ff0000"
@@ -21710,7 +21944,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="20"
        width="20"
-       y="307"
+       y="232"
        x="300"
        id="button_normal_on"
        style="opacity:0.5;fill:#ff0000">
@@ -21723,7 +21957,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="20"
        width="20"
-       y="437"
+       y="362"
        x="300"
        id="button_peaks_on"
        style="opacity:0.5;fill:#ff0000">
@@ -21750,7 +21984,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_rms_on"
        x="300"
-       y="372"
+       y="297"
        width="20"
        height="20">
       <desc
@@ -21763,7 +21997,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_skin_on"
        x="300"
-       y="512"
+       y="437"
        width="20"
        height="20">
       <desc
@@ -21790,7 +22024,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="label_over_off"
        x="300"
-       y="140"
+       y="65"
        width="32"
        height="17">
       <desc
@@ -21802,7 +22036,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="17"
        width="32"
-       y="160"
+       y="85"
        x="300"
        id="label_peak_off"
        style="opacity:0.5;fill:#ff0000"
@@ -21818,7 +22052,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="label_true_peak_off"
        x="300"
-       y="180"
+       y="105"
        width="32"
        height="17">
       <desc
@@ -21830,7 +22064,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="16"
        width="107"
-       y="95"
+       y="20"
        x="300"
        id="meter_phase_correlation"
        style="opacity:0.5;fill:#ff0000"
@@ -21846,7 +22080,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="meter_stereo"
        x="300"
-       y="113"
+       y="38"
        width="107"
        height="16">
       <desc
@@ -21859,7 +22093,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#label_debug"
        height="12"
        width="22"
-       y="210.00005"
+       y="135.00005"
        x="310"
        id="label_debug"
        style="opacity:0.5;fill:#ff0000">
@@ -21887,7 +22121,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_discrete_over"
        height="20"
        width="20"
-       y="462"
+       y="387"
        x="330"
        id="button_discrete_over"
        style="opacity:0.5;fill:#ff0000">
@@ -21901,7 +22135,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_expand_over"
        height="20"
        width="20"
-       y="487"
+       y="412"
        x="330"
        id="button_expand_over"
        style="opacity:0.5;fill:#ff0000">
@@ -21915,7 +22149,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_hold_over"
        x="330"
-       y="412"
+       y="337"
        width="20"
        height="20"
        inkscape:label="#button_hold_over">
@@ -21929,7 +22163,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_itu_over"
        height="20"
        width="20"
-       y="347"
+       y="272"
        x="330"
        id="button_itu_over"
        style="opacity:0.5;fill:#ff0000">
@@ -21943,7 +22177,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_k12_over"
        x="330"
-       y="282"
+       y="207"
        width="20"
        height="20"
        inkscape:label="#button_k12_over">
@@ -21957,7 +22191,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_k14_over"
        x="330"
-       y="257"
+       y="182"
        width="20"
        height="20"
        inkscape:label="#button_k14_over">
@@ -21971,7 +22205,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_k20_over"
        height="20"
        width="20"
-       y="232"
+       y="157"
        x="330"
        id="button_k20_over"
        style="opacity:0.5;fill:#ff0000">
@@ -21999,7 +22233,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_normal_over"
        height="20"
        width="20"
-       y="307"
+       y="232"
        x="330"
        id="button_normal_over"
        style="opacity:0.5;fill:#ff0000">
@@ -22013,7 +22247,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_peaks_over"
        height="20"
        width="20"
-       y="437"
+       y="362"
        x="330"
        id="button_peaks_over"
        style="opacity:0.5;fill:#ff0000">
@@ -22041,7 +22275,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_rms_over"
        x="330"
-       y="372"
+       y="297"
        width="20"
        height="20"
        inkscape:label="#button_rms_over">
@@ -22055,7 +22289,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_skin_over"
        x="330"
-       y="512"
+       y="437"
        width="20"
        height="20"
        inkscape:label="#button_skin_over">
@@ -22082,7 +22316,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="17"
        width="32"
-       y="140"
+       y="65"
        x="340"
        id="label_over_on"
        style="opacity:0.5;fill:#ff0000"
@@ -22098,7 +22332,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="label_peak_on"
        x="340"
-       y="160"
+       y="85"
        width="32"
        height="17">
       <desc
@@ -22110,7 +22344,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="17"
        width="32"
-       y="180"
+       y="105"
        x="340"
        id="label_true_peak_on"
        style="opacity:0.5;fill:#ff0000"
@@ -22139,7 +22373,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_discrete_off"
        x="360"
-       y="462"
+       y="387"
        width="20"
        height="20"
        inkscape:label="#button_discrete_off">
@@ -22153,7 +22387,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_expand_off"
        x="360"
-       y="487"
+       y="412"
        width="20"
        height="20"
        inkscape:label="#button_expand_off">
@@ -22167,7 +22401,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_hold_off"
        height="20"
        width="20"
-       y="412"
+       y="337"
        x="360"
        id="button_hold_off"
        style="opacity:0.5;fill:#ff0000">
@@ -22181,7 +22415,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_itu_off"
        x="360"
-       y="347"
+       y="272"
        width="20"
        height="20"
        inkscape:label="#button_itu_off">
@@ -22195,7 +22429,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_k12_off"
        height="20"
        width="20"
-       y="282"
+       y="207"
        x="360"
        id="button_k12_off"
        style="opacity:0.5;fill:#ff0000">
@@ -22209,7 +22443,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_k14_off"
        height="20"
        width="20"
-       y="257"
+       y="182"
        x="360"
        id="button_k14_off"
        style="opacity:0.5;fill:#ff0000">
@@ -22223,7 +22457,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_k20_off"
        x="360"
-       y="232"
+       y="157"
        width="20"
        height="20"
        inkscape:label="#button_k20_off">
@@ -22251,7 +22485,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_normal_off"
        x="360"
-       y="307"
+       y="232"
        width="20"
        height="20"
        inkscape:label="#button_normal_off">
@@ -22265,7 +22499,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="button_peaks_off"
        x="360"
-       y="437"
+       y="362"
        width="20"
        height="20"
        inkscape:label="#button_peaks_off">
@@ -22293,7 +22527,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_rms_off"
        height="20"
        width="20"
-       y="372"
+       y="297"
        x="360"
        id="button_rms_off"
        style="opacity:0.5;fill:#ff0000">
@@ -22307,7 +22541,7 @@ layout-position-anchor: tl</desc>
        inkscape:label="#button_skin_off"
        height="20"
        width="20"
-       y="512"
+       y="437"
        x="360"
        id="button_skin_off"
        style="opacity:0.5;fill:#ff0000">
@@ -22336,7 +22570,7 @@ layout-position-anchor: tl</desc>
        style="opacity:0.5;fill:#ff0000"
        id="meter_phase_correlation_needle"
        x="420"
-       y="97"
+       y="22"
        width="3"
        height="12">
       <desc
@@ -22348,7 +22582,7 @@ layout-position-anchor: tl</desc>
     <rect
        height="12"
        width="3"
-       y="115"
+       y="40"
        x="420"
        id="meter_stereo_needle"
        style="opacity:0.5;fill:#ff0000"
@@ -22670,6 +22904,129 @@ layout-position-anchor: tl</desc>
        height="639">
       <desc
          id="desc9240">format: png
+dpi: 90
+layout-disposition: bg-el-norepeat
+layout-position-anchor: tl</desc>
+    </rect>
+    <rect
+       height="20"
+       width="20"
+       y="527"
+       x="300"
+       id="button_flip_on"
+       style="opacity:0.5;fill:#ff0000">
+      <desc
+         id="desc12120">format: png
+dpi: 90
+layout-disposition: bg-el-norepeat
+layout-position-anchor: tl</desc>
+    </rect>
+    <rect
+       inkscape:label="#button_flip_over"
+       height="20"
+       width="20"
+       y="527"
+       x="330"
+       id="button_flip_over"
+       style="opacity:0.5;fill:#ff0000">
+      <desc
+         id="desc12124">format: png
+dpi: 90
+layout-disposition: bg-el-norepeat
+layout-position-anchor: tl</desc>
+    </rect>
+    <rect
+       style="opacity:0.5;fill:#ff0000"
+       id="button_flip_off"
+       x="360"
+       y="527"
+       width="20"
+       height="20"
+       inkscape:label="#button_flip_off">
+      <desc
+         id="desc12128">format: png
+dpi: 90
+layout-disposition: bg-el-norepeat
+layout-position-anchor: tl</desc>
+    </rect>
+    <rect
+       style="opacity:0.5;fill:#ff0000"
+       id="button_mute_on"
+       x="300"
+       y="502"
+       width="20"
+       height="20">
+      <desc
+         id="desc12132">format: png
+dpi: 90
+layout-disposition: bg-el-norepeat
+layout-position-anchor: tl</desc>
+    </rect>
+    <rect
+       style="opacity:0.5;fill:#ff0000"
+       id="button_mute_over"
+       x="330"
+       y="502"
+       width="20"
+       height="20"
+       inkscape:label="#button_mute_over">
+      <desc
+         id="desc12136">format: png
+dpi: 90
+layout-disposition: bg-el-norepeat
+layout-position-anchor: tl</desc>
+    </rect>
+    <rect
+       inkscape:label="#button_mute_off"
+       height="20"
+       width="20"
+       y="502"
+       x="360"
+       id="button_mute_off"
+       style="opacity:0.5;fill:#ff0000">
+      <desc
+         id="desc12140">format: png
+dpi: 90
+layout-disposition: bg-el-norepeat
+layout-position-anchor: tl</desc>
+    </rect>
+    <rect
+       height="20"
+       width="20"
+       y="477"
+       x="300"
+       id="button_dim_on"
+       style="opacity:0.5;fill:#ff0000">
+      <desc
+         id="desc12144">format: png
+dpi: 90
+layout-disposition: bg-el-norepeat
+layout-position-anchor: tl</desc>
+    </rect>
+    <rect
+       inkscape:label="#button_dim_over"
+       height="20"
+       width="20"
+       y="477"
+       x="330"
+       id="button_dim_over"
+       style="opacity:0.5;fill:#ff0000">
+      <desc
+         id="desc12148">format: png
+dpi: 90
+layout-disposition: bg-el-norepeat
+layout-position-anchor: tl</desc>
+    </rect>
+    <rect
+       style="opacity:0.5;fill:#ff0000"
+       id="button_dim_off"
+       x="360"
+       y="477"
+       width="20"
+       height="20"
+       inkscape:label="#button_dim_off">
+      <desc
+         id="desc12152">format: png
 dpi: 90
 layout-disposition: bg-el-norepeat
 layout-position-anchor: tl</desc>
