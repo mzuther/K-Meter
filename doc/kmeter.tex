@@ -231,7 +231,49 @@ scale: \SI{-22}{\dB} mark) is placed near the meter's bottom.
 
 \newpage %% layout
 
-\section{Mono mode}
+\section{Monitoring section}
+
+\subsection{Dim outputs}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_dim_on.png}
+\newline \vspace{-0.9\baselineskip}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_dim_off.png}
+\end{wrapfigure}
+
+Clicking on this button attenuates K-Meter's output level by
+\SI{-20}{\dB}.  Click again to restore the original loudness.
+
+\subsection{Mute outputs}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_mute_on.png}
+\newline \vspace{-0.9\baselineskip}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_mute_off.png}
+\end{wrapfigure}
+
+Clicking on this button mutes K-Meter's outputs.  Click again to
+restore the output signal.  Simple enough \dots
+
+\subsection{Stereo flip}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_flip_on.png}
+\newline \vspace{-0.9\baselineskip}
+\includegraphics[scale=\screenshotscale,clip]{include/images/button_flip_off.png}
+\end{wrapfigure}
+
+Clicking this button will flip the left and right channels.  This is
+great to check if your ears or your room are playing any tricks on
+you.
+
+\emph{\underline{Note:} This button does not work in the surround
+  version yet.  I have an idea how to implement it, but I can't test
+  it due to the lack of a surround system.}
+
+\newpage %% layout
+
+\subsection{Mono}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
 \includegraphics[scale=\screenshotscale,clip]{include/images/button_mono_on.png}
@@ -240,12 +282,12 @@ scale: \SI{-22}{\dB} mark) is placed near the meter's bottom.
 \end{wrapfigure}
 
 Click this button to easily check the mono compatibility of your
-stereo mix or master.  In \textbf{mono} mode, audio channels will be
-down-mixed to mono and the meters will be linked.
+stereo mix or master.  The audio channels will be down-mixed to mono
+and the meters will be linked.
 
-If you insert the stereo plug-in into a mono channel strip,
-\textbf{mono} mode will be selected and cannot be toggled.  In the
-surround version, the \textbf{mono} button is disabled.
+\emph{\underline{Note:} If you insert the stereo plug-in into a mono
+  channel strip, the \textbf{mono} button will be selected and cannot
+  be toggled.  In the surround version, this button is disabled.}
 
 \section{Reset button}
 
@@ -694,10 +736,11 @@ checking this document for technical errors.  I'd further like to
 thank \textbf{Tod Gentille} for creating the Mac binaries,
 \textbf{bram@smartelectronix} for his code to calculate logarithmic
 rise and fall times, and \textbf{Raiden} for working out the ITU-R
-BS.1770-1 filter specifications.  I must also thank the \textbf{beta
-  testers} and \textbf{users of K-Meter} for sending kind words,
-suggestions and bug reports.  Finally, I want to thank the
-\textbf{open source community} for making all of this possible.
+BS.1770-1 filter specifications.  \textbf{David Tkaczuk} suggested
+some great improvements.  I must also thank the \textbf{beta testers}
+and \textbf{users of K-Meter} for sending kind words, suggestions and
+bug reports.  Finally, I want to thank the \textbf{open source
+  community} for making all of this possible.
 
 Although coding K-Meter has been a lot of fun, it has also been a lot
 of work.  So if you like K-Meter, why not send me a short email and

@@ -1,6 +1,15 @@
 Git HEAD
 ========
 
+v2.6.0 (2016-09-09)
+===================
+
+* added small monitoring section (dim, mute and stereo flip)
+
+* thicker peak marks on continuous meter
+
+
+
 v2.5.0 (2016-08-27)
 ===================
 
