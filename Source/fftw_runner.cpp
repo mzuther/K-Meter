@@ -53,9 +53,16 @@ FftwRunner::FftwRunner(
 #endif
 
     String dynamicLibraryFftwPath = dynamicLibraryFftwFile.getFullPathName();
-
     dynamicLibraryFFTW.open(dynamicLibraryFftwPath);
-    jassert(dynamicLibraryFFTW.getNativeHandle() != nullptr);
+
+    if (!dynamicLibraryFFTW.getNativeHandle())
+    {
+        NativeMessageBox::showMessageBox(
+            AlertWindow::WarningIcon,
+            "Missing library",
+            "Could not find the FFTW library at\n" + dynamicLibraryFftwPath,
+            nullptr);
+    }
 
     fftwf_alloc_real = (float * (*)(size_t)) dynamicLibraryFFTW.getFunction(
                            "fftwf_alloc_real");
