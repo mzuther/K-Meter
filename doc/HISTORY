@@ -1,6 +1,16 @@
 Git HEAD
 ========
 
+
+v2.6.1 (2016-10-07)
+===================
+
+* Windows: display warning if FFTW DLL is not found
+
+* fixed drawing issues in continuous meter segments
+
+
+
 v2.6.0 (2016-09-09)
 ===================
 
