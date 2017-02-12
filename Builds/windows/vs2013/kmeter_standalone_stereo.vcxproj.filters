@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="JuceLibraryCode">
+      <UniqueIdentifier>{FC7F2A2C-680B-98F0-711C-1BE5DD26F4F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{56EB95D1-428D-C0A7-2B48-D4FB178947F8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\common">
+      <UniqueIdentifier>{EE2F7375-5AF0-EEAB-232B-38298FAA3388}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\common\amalgamated">
+      <UniqueIdentifier>{EB332666-57F6-59F0-A0A6-E87C0CA832CE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Source\audio_file_player.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\average_level_filtered.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\common\FrutHeader.h">
+      <Filter>Source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_audio.h">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_math.h">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_parameter.h">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_skin.h">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_widget.h">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\fftw_runner.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\kmeter.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\meter_ballistics.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\meter_bar.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\overflow_meter.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\peak_label.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\plugin_editor.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\plugin_parameters.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\plugin_processor.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\rate_converter.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\skin.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\standalone_application.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\true_peak_meter.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\window_validation_content.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_basics.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_devices.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_formats.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_plugin_client_utils.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_processors.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_utils.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_core.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_cryptography.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_data_structures.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_events.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_graphics.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_gui_basics.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_gui_extra.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\juce_video.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\audio_file_player.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\average_level_filtered.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_audio.cpp">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_math.cpp">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_parameter.cpp">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_skin.cpp">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_widget.cpp">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\fftw_runner.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\kmeter.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\meter_ballistics.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\meter_bar.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\overflow_meter.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\peak_label.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\plugin_editor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\plugin_processor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\rate_converter.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\skin.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\standalone_application.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\true_peak_meter.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\window_validation_content.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -128,10 +128,10 @@ workspace "kmeter"
 		flags {
 			"NoMinimalRebuild",
 			"StaticRuntime",
-			"Unicode",
 			"WinMain"
 		}
 
+		characterset "Unicode"
 		vectorextensions "AVX"
 
 		links {
@@ -167,7 +167,7 @@ workspace "kmeter"
 
 	filter { "configurations:Debug" }
 		defines { "_DEBUG=1", "DEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=1" }
-		flags { "Symbols" }
+		symbols "On"
 
 	filter { "system:linux", "configurations:Debug" }
 		warnings "Extra"

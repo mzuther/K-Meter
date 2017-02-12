@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
+# Visual Studio 2013
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kmeter_standalone_stereo", "kmeter_standalone_stereo.vcxproj", "{86BC1C02-72E1-6B82-9B2C-511287B06AA0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kmeter_standalone_surround", "kmeter_standalone_surround.vcxproj", "{D6E69067-C2F6-3C38-2BB0-A15617DF2BD1}"
