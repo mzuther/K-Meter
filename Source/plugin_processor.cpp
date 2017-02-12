@@ -45,8 +45,27 @@ Flow of parameter processing:
 
 ==============================================================================*/
 
+#ifdef KMETER_SURROUND
+
 KmeterAudioProcessor::KmeterAudioProcessor() :
+    AudioProcessor(BusesProperties()
+                   .withInput("Main In",
+                              AudioChannelSet::create5point1())
+                   .withOutput("Main Out",
+                               AudioChannelSet::create5point1())),
     nTrakmeterBufferSize(1024)
+
+#else
+
+KmeterAudioProcessor::KmeterAudioProcessor() :
+    AudioProcessor(BusesProperties()
+                   .withInput("Main In",
+                              AudioChannelSet::stereo())
+                   .withOutput("Main Out",
+                               AudioChannelSet::stereo())),
+    nTrakmeterBufferSize(1024)
+
+#endif
 {
     frut::Frut::printVersionNumbers();
 
@@ -75,6 +94,61 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
 
 
 //==============================================================================
+
+bool KmeterAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts) const
+{
+    // main bus: do not allow differing input and output layouts
+    if (layouts.getMainInputChannelSet() != layouts.getMainOutputChannelSet())
+    {
+        return false;
+    }
+
+    // main bus: do not allow disabling channels
+    if (layouts.getMainInputChannelSet().isDisabled())
+    {
+        return false;
+    }
+
+#ifdef KMETER_SURROUND
+
+    // main bus with stereo input --> okay
+    if (layouts.getMainInputChannelSet() == AudioChannelSet::stereo())
+    {
+        return true;
+    }
+
+    // main bus with 5.0 input --> okay
+    if (layouts.getMainInputChannelSet() == AudioChannelSet::create5point0())
+    {
+        return true;
+    }
+
+    // main bus with 5.1 input --> okay
+    if (layouts.getMainInputChannelSet() == AudioChannelSet::create5point1())
+    {
+        return true;
+    }
+
+#else
+
+    // main bus with mono input --> okay
+    if (layouts.getMainInputChannelSet() == AudioChannelSet::mono())
+    {
+        return true;
+    }
+
+    // main bus with stereo input --> okay
+    if (layouts.getMainInputChannelSet() == AudioChannelSet::stereo())
+    {
+        return true;
+    }
+
+#endif
+
+    // current channel layout is not allowed
+    return false;
+}
+
 
 const String KmeterAudioProcessor::getName() const
 {
