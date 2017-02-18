@@ -137,6 +137,7 @@ OBJECTS := \
 	$(OBJDIR)/audio_file_player.o \
 	$(OBJDIR)/average_level_filtered.o \
 	$(OBJDIR)/frut_audio.o \
+	$(OBJDIR)/frut_dsp.o \
 	$(OBJDIR)/frut_math.o \
 	$(OBJDIR)/frut_parameter.o \
 	$(OBJDIR)/frut_skin.o \
@@ -263,6 +264,9 @@ $(OBJDIR)/average_level_filtered.o: ../../../Source/average_level_filtered.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/frut_audio.o: ../../../Source/common/amalgamated/frut_audio.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/frut_dsp.o: ../../../Source/common/amalgamated/frut_dsp.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/frut_math.o: ../../../Source/common/amalgamated/frut_math.cpp

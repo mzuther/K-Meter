@@ -86,7 +86,7 @@ private:
 
     AudioBuffer<float> previousSamplesOutputTemp_;
 
-    frut::audio::Dither dither_;
+    frut::dsp::Dither dither_;
 
     KmeterAudioProcessor *processor_;
     int averageAlgorithm_;

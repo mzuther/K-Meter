@@ -182,6 +182,7 @@
     <ClInclude Include="..\..\..\Source\average_level_filtered.h" />
     <ClInclude Include="..\..\..\Source\common\FrutHeader.h" />
     <ClInclude Include="..\..\..\Source\common\amalgamated\frut_audio.h" />
+    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_dsp.h" />
     <ClInclude Include="..\..\..\Source\common\amalgamated\frut_math.h" />
     <ClInclude Include="..\..\..\Source\common\amalgamated\frut_parameter.h" />
     <ClInclude Include="..\..\..\Source\common\amalgamated\frut_skin.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="..\..\..\Source\audio_file_player.cpp" />
     <ClCompile Include="..\..\..\Source\average_level_filtered.cpp" />
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_audio.cpp" />
+    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_dsp.cpp" />
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_math.cpp" />
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_parameter.cpp" />
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_skin.cpp" />

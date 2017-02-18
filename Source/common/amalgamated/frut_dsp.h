@@ -23,23 +23,30 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_AUDIO_H__
-#define __FRUT_AMALGAMATED_AUDIO_H__
+#ifndef __FRUT_AMALGAMATED_DSP_H__
+#define __FRUT_AMALGAMATED_DSP_H__
 
 
 namespace frut
 {
-namespace audio
+namespace dsp
 {
 
+// special includes
+#include <float.h>
+
 // normal includes
-#include "../audio/ring_buffer.h"
+#include "../dsp/dither.h"
+#include "../dsp/filter_chebyshev_stage.h"
+
+// post includes
+#include "../dsp/filter_chebyshev.h"
 
 }
 }
 
 
-#endif  // __FRUT_AMALGAMATED_AUDIO_H__
+#endif  // __FRUT_AMALGAMATED_DSP_H__
 
 
 // Local Variables:

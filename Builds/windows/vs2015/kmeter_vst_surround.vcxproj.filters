@@ -27,6 +27,9 @@
     <ClInclude Include="..\..\..\Source\common\amalgamated\frut_audio.h">
       <Filter>Source\common\amalgamated</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_dsp.h">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Source\common\amalgamated\frut_math.h">
       <Filter>Source\common\amalgamated</Filter>
     </ClInclude>
@@ -132,6 +135,9 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_audio.cpp">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_dsp.cpp">
       <Filter>Source\common\amalgamated</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_math.cpp">
