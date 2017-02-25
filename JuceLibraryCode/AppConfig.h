@@ -86,6 +86,18 @@
 #define JucePlugin_WantsLV2Presets         0
 #define JucePlugin_WantsLV2TimePos         0
 
+#if JucePlugin_Build_LV2
+  #ifdef KMETER_SURROUND
+    #define JucePlugin_MaxNumInputChannels   6
+    #define JucePlugin_MaxNumOutputChannels  6
+    #define JucePlugin_PreferredChannelConfigurations   {6, 6}
+  #else
+    #define JucePlugin_MaxNumInputChannels  2
+    #define JucePlugin_MaxNumOutputChannels 2
+    #define JucePlugin_PreferredChannelConfigurations   {2, 2}
+  #endif
+#endif
+
 // [END_USER_CODE_SECTION]
 
 //==============================================================================

@@ -48,21 +48,25 @@ Flow of parameter processing:
 #ifdef KMETER_SURROUND
 
 KmeterAudioProcessor::KmeterAudioProcessor() :
+#ifndef JucePlugin_PreferredChannelConfigurations
     AudioProcessor(BusesProperties()
                    .withInput("Main In",
                               AudioChannelSet::create5point1())
                    .withOutput("Main Out",
                                AudioChannelSet::create5point1())),
+#endif
     nTrakmeterBufferSize(1024)
 
 #else
 
 KmeterAudioProcessor::KmeterAudioProcessor() :
+#ifndef JucePlugin_PreferredChannelConfigurations
     AudioProcessor(BusesProperties()
                    .withInput("Main In",
                               AudioChannelSet::stereo())
                    .withOutput("Main Out",
                                AudioChannelSet::stereo())),
+#endif
     nTrakmeterBufferSize(1024)
 
 #endif
@@ -95,6 +99,7 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
 
 //==============================================================================
 
+#ifndef JucePlugin_PreferredChannelConfigurations
 bool KmeterAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts) const
 {
     // main bus: do not allow differing input and output layouts
@@ -148,6 +153,7 @@ bool KmeterAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts) co
     // current channel layout is not allowed
     return false;
 }
+#endif
 
 
 const String KmeterAudioProcessor::getName() const

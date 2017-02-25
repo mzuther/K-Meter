@@ -47,7 +47,9 @@ public:
     ~KmeterAudioProcessor();
 
     //==========================================================================
+#ifndef JucePlugin_PreferredChannelConfigurations
     bool isBusesLayoutSupported(const BusesLayout &layouts) const override;
+#endif
 
     void prepareToPlay(double sampleRate, int samplesPerBlock);
     void releaseResources();
