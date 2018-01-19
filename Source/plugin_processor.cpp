@@ -936,15 +936,28 @@ bool KmeterAudioProcessor::hasEditor() const
 
 void KmeterAudioProcessor::getStateInformation(MemoryBlock &destData)
 {
-    copyXmlToBinary(pluginParameters.storeAsXml(), destData);
+    XmlElement xmlParameters = pluginParameters.storeAsXml();
+
+    DBG("[K-Meter]");
+    DBG("[K-Meter] storing plug-in parameters:");
+    DBG("[K-Meter]");
+    DBG(String("[K-Meter]   ") + xmlParameters.createDocument("").replace(
+            "\n", "\n[K-Meter]   "));
+
+    copyXmlToBinary(xmlParameters, destData);
 }
 
 
 void KmeterAudioProcessor::setStateInformation(const void *data, int sizeInBytes)
 {
-    ScopedPointer<XmlElement> xmlDocument(getXmlFromBinary(data, sizeInBytes));
-    pluginParameters.loadFromXml(xmlDocument);
+    ScopedPointer<XmlElement> xmlParameters(getXmlFromBinary(data, sizeInBytes));
 
+    DBG("[K-Meter] loading plug-in parameters:");
+    DBG("[K-Meter]");
+    DBG(String("[K-Meter]   ") + xmlParameters->createDocument("").replace(
+            "\n", "\n[K-Meter]   "));
+
+    pluginParameters.loadFromXml(xmlParameters);
     updateParameters(true);
 }
 
