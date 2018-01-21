@@ -30,57 +30,71 @@
 class Skin
 {
 public:
-    bool loadFromXml(File &skinFile,
+    bool loadFromXml(const File &skinFile,
                      const String &rootName,
                      const String &assumedVersionNumber);
 
-    int getIntegerSetting(const String &tagName,
-                          const String &attributeName,
-                          int defaultValue = 0);
+    XmlElement *getSetting(const String &tagName);
 
-    float getFloatSetting(
-        const String &tagName,
-        const String &attributeName,
-        float defaultValue = 0.0f);
+    XmlElement *getComponent(const String &tagName);
 
-    const String getStringSetting(
-        const String &tagName,
-        const String &attributeName,
-        const String &defaultValue = "");
+    bool getBoolean(const XmlElement *xmlComponent,
+                    const String &attributeName,
+                    const bool defaultValue = false);
 
-    const Colour getColourSetting(
-        const String &tagName,
-        float defaultHue = 0.0f);
+    int getInteger(const XmlElement *xmlComponent,
+                   const String &attributeName,
+                   const int defaultValue = 0);
 
-    void placeComponent(Component *component,
-                        const String &tagName);
+    float getFloat(const XmlElement *xmlComponent,
+                   const String &attributeName,
+                   const float defaultValue = 0.0f);
 
-    void placeMeterBar(widget::MeterBar *meterBar,
-                       const String &tagName);
+    const String getString(const XmlElement *xmlComponent,
+                           const String &attributeName,
+                           const String &defaultValue = "");
 
-    void placeAndSkinButton(ImageButton *button,
-                            const String &tagName);
+    const Colour getColour(const XmlElement *xmlComponent,
+                           const float defaultHue = 0.0f);
 
-    void placeAndSkinNeedleMeter(widget::NeedleMeter *meter,
-                                 const String &tagName);
-
-    void placeAndSkinLabel(ImageComponent *label,
-                           const String &tagName);
-
-    void placeAndSkinSignalLed(widget::SignalLed *label,
-                               const String &tagName);
-
-    void placeAndSkinStateLabel(widget::StateLabel *label,
-                                const String &tagName);
+    void loadImage(const String &strFilename,
+                   Image &image);
 
     void setBackgroundImage(ImageComponent *background,
                             AudioProcessorEditor *editor);
 
+    Point<int> getPosition(const XmlElement *xmlComponent,
+                           const int componentHeight = 0);
+
+    Rectangle<int> getBounds(const XmlElement *xmlComponent,
+                             int width = -1,
+                             int height = -1);
+
+    void placeComponent(const XmlElement *xmlComponent,
+                        Component *component);
+
+    void placeMeterBar(const String &tagName,
+                       widget::MeterBar *meterBar);
+
+    void placeAndSkinButton(const String &tagName,
+                            ImageButton *button);
+
+    void placeAndSkinSlider(const String &tagName,
+                            widget::SliderCombined *slider);
+
+    void placeAndSkinNeedleMeter(const String &tagName,
+                                 widget::NeedleMeter *meter);
+
+    void placeAndSkinLabel(const String &tagName,
+                           ImageComponent *label);
+
+    void placeAndSkinSignalLed(const String &tagName,
+                               widget::SignalLed *label);
+
+    void placeAndSkinStateLabel(const String &tagName,
+                                widget::StateLabel *label);
+
 protected:
-    XmlElement *getComponentFromXml(const String &tagName);
-
-    XmlElement *getSetting(const String &tagName);
-
     ScopedPointer<XmlElement> document_;
     XmlElement *settingsGroup_;
     XmlElement *skinGroup_;
@@ -92,6 +106,11 @@ protected:
     String currentBackgroundName_;
     String currentGroupName_;
     String currentFallbackName_;
+
+    bool originOfYIsBottom_;
+
+    int backgroundWidth_;
+    int backgroundHeight_;
 
 private:
     JUCE_LEAK_DETECTOR(Skin);

@@ -24,16 +24,27 @@
 ---------------------------------------------------------------------------- */
 
 
+// The following class members are initialized in the derived class:
+//
+// * currentBackgroundName_
+// * currentFallbackName_
+// * currentGroupName_
+// * skinGroup_
+// * skinFallback_1_
+// * skinFallback_2_
+//
 bool Skin::loadFromXml(
-    File &skinFile,
+    const File &skinFile,
     const String &rootName,
     const String &assumedVersionNumber)
-
 {
     settingsGroup_ = nullptr;
     skinGroup_ = nullptr;
     skinFallback_1_ = nullptr;
     skinFallback_2_ = nullptr;
+
+    backgroundWidth_ = 0;
+    backgroundHeight_ = 0;
 
     Logger::outputDebugString(
         String("[Skin] loading file \"") +
@@ -51,7 +62,7 @@ bool Skin::loadFromXml(
         return false;
     }
 
-    String skinVersion = document_->getStringAttribute("version");
+    String skinVersion = getString(document_, "version");
 
     if (skinVersion.compare(assumedVersionNumber) != 0)
     {
@@ -83,7 +94,7 @@ bool Skin::loadFromXml(
         skinGroup_ = document_->getChildByName(currentGroupName_);
         skinFallback_1_ = document_->getChildByName(currentFallbackName_);
 
-        String resourcePathName = document_->getStringAttribute("path");
+        String resourcePathName = getString(document_, "path");
         resourcePath_ = File(skinFile.getSiblingFile(resourcePathName));
 
         if (!resourcePath_.isDirectory())
@@ -99,18 +110,20 @@ bool Skin::loadFromXml(
         }
     }
 
+    String originOfY = getString(document_, "origin_of_y", "top");
+    originOfYIsBottom_ = originOfY.compare("bottom") == 0;
+
     return true;
 }
 
 
 XmlElement *Skin::getSetting(
     const String &tagName)
-
 {
     if (settingsGroup_ == nullptr)
     {
         Logger::outputDebugString(
-            String("[Skin] XML element \"settings\" not found"));
+            String("[Skin] settings group not found"));
 
         return nullptr;
     }
@@ -122,7 +135,7 @@ XmlElement *Skin::getSetting(
         Logger::outputDebugString(
             String("[Skin] XML element \"") +
             tagName +
-            "\" not found");
+            "\" not found in settings");
 
         return nullptr;
     }
@@ -131,95 +144,8 @@ XmlElement *Skin::getSetting(
 }
 
 
-int Skin::getIntegerSetting(
-    const String &tagName,
-    const String &attributeName,
-    int defaultValue)
-
-{
-    XmlElement *xmlSetting = getSetting(tagName);
-
-    if (xmlSetting == nullptr)
-    {
-        return defaultValue;
-    }
-    else
-    {
-        return xmlSetting->getIntAttribute(attributeName, defaultValue);
-    }
-}
-
-
-float Skin::getFloatSetting(
-    const String &tagName,
-    const String &attributeName,
-    float defaultValue)
-
-{
-    XmlElement *xmlSetting = getSetting(tagName);
-
-    if (xmlSetting == nullptr)
-    {
-        return defaultValue;
-    }
-    else
-    {
-        double result = xmlSetting->getDoubleAttribute(
-                            attributeName, defaultValue);
-
-        return static_cast<float>(result);
-    }
-}
-
-
-const String Skin::getStringSetting(
-    const String &tagName,
-    const String &attributeName,
-    const String &defaultValue)
-
-{
-    XmlElement *xmlSetting = getSetting(tagName);
-
-    if (xmlSetting == nullptr)
-    {
-        return defaultValue;
-    }
-    else
-    {
-        return xmlSetting->getStringAttribute(attributeName, defaultValue);
-    }
-}
-
-
-const Colour Skin::getColourSetting(
-    const String &tagName,
-    float defaultHue)
-
-{
-    float hue = getFloatSetting(tagName,
-                                "hue",
-                                defaultHue);
-
-    float saturation = getFloatSetting(tagName,
-                                       "saturation",
-                                       1.00f);
-
-    float brightness = getFloatSetting(tagName,
-                                       "brightness",
-                                       1.00f);
-
-    float alpha = getFloatSetting(tagName,
-                                  "alpha",
-                                  1.00f);
-
-    // initialise HSBA colour
-    return Colour(hue, saturation, brightness, alpha);
-}
-
-
-XmlElement *Skin::getComponentFromXml(
+XmlElement *Skin::getComponent(
     const String &tagName)
-
 {
     XmlElement *xmlComponent;
 
@@ -257,459 +183,258 @@ XmlElement *Skin::getComponentFromXml(
 }
 
 
-void Skin::placeAndSkinButton(
-    ImageButton *button,
-    const String &tagName)
-
+bool Skin::getBoolean(
+    const XmlElement *xmlComponent,
+    const String &attributeName,
+    const bool defaultValue)
 {
-    jassert(button != nullptr);
-
-    XmlElement *xmlButton = getComponentFromXml(tagName);
-
-    if (xmlButton != nullptr)
+    if (xmlComponent == nullptr)
     {
-        int x = xmlButton->getIntAttribute("x", -1);
-        int y = xmlButton->getIntAttribute("y", -1);
-
-        String strImageOn = xmlButton->getStringAttribute("image_on");
-        File fileImageOn = resourcePath_.getChildFile(strImageOn);
-        Image imageOn;
-
-        if (!fileImageOn.existsAsFile())
-        {
-            Logger::outputDebugString(
-                String("[Skin] image file \"") +
-                fileImageOn.getFullPathName() +
-                "\" not found");
-
-            imageOn = Image();
-        }
-        else
-        {
-            imageOn = ImageFileFormat::loadFrom(fileImageOn);
-        }
-
-        String strImageOff = xmlButton->getStringAttribute("image_off");
-        File fileImageOff = resourcePath_.getChildFile(strImageOff);
-        Image imageOff;
-
-        if (!fileImageOff.existsAsFile())
-        {
-            Logger::outputDebugString(
-                String("[Skin] image file \"") +
-                fileImageOff.getFullPathName() +
-                "\" not found");
-
-            imageOff = Image();
-        }
-        else
-        {
-            imageOff = ImageFileFormat::loadFrom(fileImageOff);
-        }
-
-        Image imageOver;
-
-        if (xmlButton->hasAttribute("image_over"))
-        {
-            String strImageOver = xmlButton->getStringAttribute("image_over");
-            File fileImageOver = resourcePath_.getChildFile(strImageOver);
-
-            if (!fileImageOver.existsAsFile())
-            {
-                Logger::outputDebugString(
-                    String("[Skin] image file \"") +
-                    fileImageOver.getFullPathName() +
-                    "\" not found");
-
-                imageOver = Image();
-            }
-            else
-            {
-                imageOver = ImageFileFormat::loadFrom(fileImageOver);
-            }
-        }
-        else
-        {
-            imageOver = imageOn.createCopy();
-            imageOver.multiplyAllAlphas(0.5f);
-        }
-
-        button->setImages(true, true, true,
-                          imageOff, 1.0f, Colour(),
-                          imageOver, 1.0f, Colour(),
-                          imageOn, 1.0f, Colour(),
-                          0.3f);
-        button->setTopLeftPosition(x, y);
+        return defaultValue;
+    }
+    else
+    {
+        return xmlComponent->getBoolAttribute(attributeName, defaultValue);
     }
 }
 
 
-void Skin::placeAndSkinNeedleMeter(
-    widget::NeedleMeter *meter,
-    const String &tagName)
-
+int Skin::getInteger(
+    const XmlElement *xmlComponent,
+    const String &attributeName,
+    const int defaultValue)
 {
-    jassert(meter != nullptr);
-
-    XmlElement *xmlMeter = getComponentFromXml(tagName);
-
-    if (xmlMeter != nullptr)
+    if (xmlComponent == nullptr)
     {
-        int x = xmlMeter->getIntAttribute("x", -1);
-        int y = xmlMeter->getIntAttribute("y", -1);
+        return defaultValue;
+    }
+    else
+    {
+        return xmlComponent->getIntAttribute(attributeName, defaultValue);
+    }
+}
 
-        int spacing_left = xmlMeter->getIntAttribute("spacing_left", 0);
-        int spacing_top = xmlMeter->getIntAttribute("spacing_top", 0);
 
-        String strImageBackground = xmlMeter->getStringAttribute("image");
-        File fileImageBackground = resourcePath_.getChildFile(
-                                       strImageBackground);
+float Skin::getFloat(
+    const XmlElement *xmlComponent,
+    const String &attributeName,
+    const float defaultValue)
+{
+    if (xmlComponent == nullptr)
+    {
+        return defaultValue;
+    }
+    else
+    {
+        double result = xmlComponent->getDoubleAttribute(
+                            attributeName, defaultValue);
+
+        return static_cast<float>(result);
+    }
+}
+
+
+const String Skin::getString(
+    const XmlElement *xmlComponent,
+    const String &attributeName,
+    const String &defaultValue)
+{
+    if (xmlComponent == nullptr)
+    {
+        return defaultValue;
+    }
+    else
+    {
+        return xmlComponent->getStringAttribute(attributeName, defaultValue);
+    }
+}
+
+
+const Colour Skin::getColour(
+    const XmlElement *xmlComponent,
+    const float defaultHue)
+{
+    float hue = getFloat(xmlComponent,
+                         "hue",
+                         defaultHue);
+
+    float saturation = getFloat(xmlComponent,
+                                "saturation",
+                                1.00f);
+
+    float brightness = getFloat(xmlComponent,
+                                "brightness",
+                                1.00f);
+
+    float alpha = getFloat(xmlComponent,
+                           "alpha",
+                           1.00f);
+
+    // initialise HSBA colour
+    return Colour(hue, saturation, brightness, alpha);
+}
+
+
+void Skin::loadImage(
+    const String &strFilename,
+    Image &image)
+{
+    File fileImage = resourcePath_.getChildFile(strFilename);
+
+    if (fileImage.existsAsFile())
+    {
+        image = ImageFileFormat::loadFrom(fileImage);
+    }
+    else
+    {
+        Logger::outputDebugString(
+            String("[Skin] image file \"") +
+            fileImage.getFullPathName() +
+            "\" not found");
+
+        image = Image();
+    }
+}
+
+
+void Skin::setBackgroundImage(
+    ImageComponent *background,
+    AudioProcessorEditor *editor)
+{
+    if (skinGroup_ != nullptr)
+    {
         Image imageBackground;
 
-        if (!fileImageBackground.existsAsFile())
+        XmlElement *xmlBackground = skinGroup_->getChildByName("background");
+
+        if (xmlBackground == nullptr)
         {
             Logger::outputDebugString(
-                String("[Skin] image file \"") +
-                fileImageBackground.getFullPathName() +
-                "\" not found");
+                String("[Skin] XML element \"") +
+                currentGroupName_ +
+                "\" specifies no background image");
 
             imageBackground = Image();
         }
         else
         {
-            imageBackground = ImageFileFormat::loadFrom(fileImageBackground);
+            String strImageFilename = getString(xmlBackground,
+                                                currentBackgroundName_);
+
+            loadImage(strImageFilename, imageBackground);
         }
 
-        String strImageNeedle = xmlMeter->getStringAttribute("image_needle");
-        File fileImageNeedle = resourcePath_.getChildFile(strImageNeedle);
-        Image imageNeedle;
+        backgroundWidth_ = imageBackground.getWidth();
+        backgroundHeight_ = imageBackground.getHeight();
 
-        if (!fileImageNeedle.existsAsFile())
+        XmlElement *xmlMeterGraduation = nullptr;
+
+        // get rid of the "unused variable" warning
+        (void) xmlMeterGraduation;
+
+        forEachXmlChildElementWithTagName(*skinGroup_,
+                                          xmlMeterGraduation,
+                                          "meter_graduation")
         {
-            Logger::outputDebugString(
-                String("[Skin] image file \"") +
-                fileImageNeedle.getFullPathName() +
-                "\" not found");
+            Image imageMeterGraduation;
+            String strImageFilename = getString(xmlMeterGraduation,
+                                                currentBackgroundName_);
 
-            imageNeedle = Image();
+            loadImage(strImageFilename, imageMeterGraduation);
+
+            if (imageMeterGraduation.isValid())
+            {
+                int height = imageMeterGraduation.getHeight();
+                Point<int> position = getPosition(xmlMeterGraduation, height);
+
+                Graphics g(imageBackground);
+                g.drawImageAt(imageMeterGraduation,
+                              position.getX(), position.getY(),
+                              false);
+            }
         }
-        else
-        {
-            imageNeedle = ImageFileFormat::loadFrom(fileImageNeedle);
-        }
 
-        int width = imageBackground.getWidth();
-        int height = imageBackground.getHeight();
+        background->setImage(imageBackground);
+        background->setBounds(0, 0, backgroundWidth_, backgroundHeight_);
 
-        meter->setImages(imageBackground,
-                         imageNeedle,
-                         spacing_left,
-                         spacing_top);
+        // moves background image to the back of the editor's z-plane
+        // so that it doesn't overlay (and thus block) any other
+        // components
+        background->toBack();
 
-        meter->setBounds(x, y, width, height);
+        editor->setSize(backgroundWidth_, backgroundHeight_);
     }
 }
 
 
-void Skin::placeAndSkinLabel(
-    ImageComponent *label,
-    const String &tagName)
-
+Point<int> Skin::getPosition(
+    const XmlElement *xmlComponent,
+    const int componentHeight)
 {
-    jassert(label != nullptr);
+    jassert(backgroundHeight_ != 0);
 
-    XmlElement *xmlLabel = getComponentFromXml(tagName);
+    int x = getInteger(xmlComponent, "x", 0);
+    int y = getInteger(xmlComponent, "y", 0);
 
-    if (xmlLabel != nullptr)
+    if (originOfYIsBottom_)
     {
-        int x = xmlLabel->getIntAttribute("x", -1);
-        int y = xmlLabel->getIntAttribute("y", -1);
-
-        String strImage = xmlLabel->getStringAttribute("image");
-        File fileImage = resourcePath_.getChildFile(strImage);
-        Image imageLabel;
-
-        if (!fileImage.existsAsFile())
-        {
-            Logger::outputDebugString(
-                String("[Skin] image file \"") +
-                fileImage.getFullPathName() +
-                "\" not found");
-
-            imageLabel = Image();
-        }
-        else
-        {
-            imageLabel = ImageFileFormat::loadFrom(fileImage);
-        }
-
-        int width = imageLabel.getWidth();
-        int height = imageLabel.getHeight();
-
-        label->setImage(imageLabel);
-        label->setBounds(x, y, width, height);
+        y = backgroundHeight_ - (y + componentHeight);
     }
+
+    return Point<int>(x, y);
 }
 
 
-void Skin::placeAndSkinSignalLed(
-    widget::SignalLed *label,
-    const String &tagName)
-
+Rectangle<int> Skin::getBounds(
+    const XmlElement *xmlComponent,
+    int width,
+    int height)
 {
-    jassert(label != nullptr);
-
-    XmlElement *xmlLabel = getComponentFromXml(tagName);
-
-    if (xmlLabel != nullptr)
+    if (width < 0)
     {
-        int x = xmlLabel->getIntAttribute("x", -1);
-        int y = xmlLabel->getIntAttribute("y", -1);
-
-        String strImageOff = xmlLabel->getStringAttribute("image_off");
-        File fileImageOff = resourcePath_.getChildFile(strImageOff);
-        Image imageOff;
-
-        if (!fileImageOff.existsAsFile())
-        {
-            Logger::outputDebugString(
-                String("[Skin] image file \"") +
-                fileImageOff.getFullPathName() +
-                "\" not found");
-
-            imageOff = Image();
-        }
-        else
-        {
-            imageOff = ImageFileFormat::loadFrom(fileImageOff);
-        }
-
-        String strImageLow = xmlLabel->getStringAttribute("image_low");
-        File fileImageLow = resourcePath_.getChildFile(strImageLow);
-        Image imageLow;
-
-        if (!fileImageLow.existsAsFile())
-        {
-            Logger::outputDebugString(
-                String("[Skin] image file \"") +
-                fileImageLow.getFullPathName() +
-                "\" not found");
-
-            imageLow = Image();
-        }
-        else
-        {
-            imageLow = ImageFileFormat::loadFrom(fileImageLow);
-        }
-
-        String strImageHigh = xmlLabel->getStringAttribute("image_high");
-        File fileImageHigh = resourcePath_.getChildFile(strImageHigh);
-        Image imageHigh;
-
-        if (!fileImageHigh.existsAsFile())
-        {
-            Logger::outputDebugString(
-                String("[Skin] image file \"") +
-                fileImageHigh.getFullPathName() +
-                "\" not found");
-
-            imageHigh = Image();
-        }
-        else
-        {
-            imageHigh = ImageFileFormat::loadFrom(fileImageHigh);
-        }
-
-        int width = imageOff.getWidth();
-
-        if ((width != imageLow.getWidth()) ||
-                (width != imageHigh.getWidth()))
-        {
-            Logger::outputDebugString(
-                String("[Skin] width of image files for \"") +
-                tagName +
-                "\" differs");
-        }
-
-        int height = imageOff.getHeight();
-
-        if ((height != imageLow.getHeight()) ||
-                (height != imageHigh.getHeight()))
-        {
-            Logger::outputDebugString(
-                String("[Skin] height of image files for \"") +
-                tagName +
-                "\" differs");
-        }
-
-        label->setImages(imageOff, imageLow, imageHigh);
-        label->setBounds(x, y, width, height);
+        width = getInteger(xmlComponent, "width", 0);
     }
-}
 
-
-void Skin::placeAndSkinStateLabel(
-    widget::StateLabel *label,
-    const String &tagName)
-
-{
-    jassert(label != nullptr);
-
-    XmlElement *xmlLabel = getComponentFromXml(tagName);
-
-    if (xmlLabel != nullptr)
+    if (height < 0)
     {
-        int x = xmlLabel->getIntAttribute("x", -1);
-        int y = xmlLabel->getIntAttribute("y", -1);
-
-        int spacing_left = xmlLabel->getIntAttribute("spacing_left", 0);
-        int spacing_top = xmlLabel->getIntAttribute("spacing_top", 0);
-        int font_size = xmlLabel->getIntAttribute("font_size", 12);
-
-        String strColourOff = xmlLabel->getStringAttribute(
-                                  "colour_off",
-                                  "ffffff");
-
-        String strColourOn = xmlLabel->getStringAttribute(
-                                 "colour_on",
-                                 "ffffff");
-
-        String strColourActive = xmlLabel->getStringAttribute(
-                                     "colour_active",
-                                     "ffffff");
-
-        String strImageOff = xmlLabel->getStringAttribute("image_off");
-        File fileImageOff = resourcePath_.getChildFile(strImageOff);
-        Image imageOff;
-
-        if (!fileImageOff.existsAsFile())
-        {
-            Logger::outputDebugString(
-                String("[Skin] image file \"") +
-                fileImageOff.getFullPathName() +
-                "\" not found");
-
-            imageOff = Image();
-        }
-        else
-        {
-            imageOff = ImageFileFormat::loadFrom(fileImageOff);
-        }
-
-        String strImageOn = xmlLabel->getStringAttribute("image_on");
-        File fileImageOn = resourcePath_.getChildFile(strImageOn);
-        Image imageOn;
-
-        if (!fileImageOn.existsAsFile())
-        {
-            Logger::outputDebugString(
-                String("[Skin] image file \"") +
-                fileImageOn.getFullPathName() +
-                "\" not found");
-
-            imageOn = Image();
-        }
-        else
-        {
-            imageOn = ImageFileFormat::loadFrom(fileImageOn);
-        }
-
-        // will use "image_on" if "image_active" does not exist
-        String strImageActive = xmlLabel->getStringAttribute(
-                                    "image_active",
-                                    strImageOn);
-
-        File fileImageActive = resourcePath_.getChildFile(strImageActive);
-        Image imageActive;
-
-        if (!fileImageActive.existsAsFile())
-        {
-            Logger::outputDebugString(
-                String("[Skin] image file \"") +
-                fileImageActive.getFullPathName() +
-                "\" not found");
-
-            imageActive = Image();
-        }
-        else
-        {
-            imageActive = ImageFileFormat::loadFrom(fileImageActive);
-        }
-
-        int width = imageOff.getWidth();
-
-        if (width != imageActive.getWidth())
-        {
-            Logger::outputDebugString(
-                String("[Skin] width of image files for \"") +
-                tagName +
-                "\" differs");
-        }
-
-        int height = imageOff.getHeight();
-
-        if (height != imageActive.getHeight())
-        {
-            Logger::outputDebugString(
-                String("[Skin] height of image files for \"") +
-                tagName +
-                "\" differs");
-        }
-
-        label->setImages(imageOff,
-                         imageOn,
-                         imageActive,
-                         strColourOff,
-                         strColourOn,
-                         strColourActive,
-                         spacing_left,
-                         spacing_top,
-                         (float) font_size);
-
-        label->setBounds(x, y, width, height);
+        height = getInteger(xmlComponent, "height", 0);
     }
+
+    Point<int> position = getPosition(xmlComponent, height);
+    Point<int> extends = position.translated(width, height);
+
+    return Rectangle<int>(position, extends);
 }
 
 
 void Skin::placeComponent(
-    Component *component,
-    const String &tagName)
-
+    const XmlElement *xmlComponent,
+    Component *component)
 {
     jassert(component != nullptr);
 
-    XmlElement *xmlComponent = getComponentFromXml(tagName);
-
-    if (xmlComponent != nullptr)
-    {
-        int x = xmlComponent->getIntAttribute("x", -1);
-        int y = xmlComponent->getIntAttribute("y", -1);
-        int width = xmlComponent->getIntAttribute("width", -1);
-        int height = xmlComponent->getIntAttribute("height", -1);
-
-        component->setBounds(x, y, width, height);
-    }
+    Rectangle<int> bounds = getBounds(xmlComponent);
+    component->setBounds(bounds);
 }
 
 
 void Skin::placeMeterBar(
-    widget::MeterBar *meterBar,
-    const String &tagName)
-
+    const String &tagName,
+    widget::MeterBar *meterBar)
 {
     jassert(meterBar != nullptr);
 
-    XmlElement *xmlComponent = getComponentFromXml(tagName);
+    XmlElement *xmlComponent = getComponent(tagName);
 
     if (xmlComponent != nullptr)
     {
-        int x = xmlComponent->getIntAttribute("x", -1);
-        int y = xmlComponent->getIntAttribute("y", -1);
+        int height = meterBar->getHeight();
+        Point<int> position = getPosition(xmlComponent, height);
 
-        meterBar->setTopLeftPosition(x, y);
+        meterBar->setTopLeftPosition(position);
 
-        int segment_width = xmlComponent->getIntAttribute("segment_width", -1);
-        bool isVertical = xmlComponent->getBoolAttribute("vertical", true);
+        int segment_width = getInteger(xmlComponent, "segment_width", 0);
+        bool isVertical = getBoolean(xmlComponent, "vertical", true);
 
         if (segment_width < 4)
         {
@@ -737,92 +462,256 @@ void Skin::placeMeterBar(
 }
 
 
-void Skin::setBackgroundImage(
-    ImageComponent *background,
-    AudioProcessorEditor *editor)
-
+void Skin::placeAndSkinButton(
+    const String &tagName,
+    ImageButton *button)
 {
-    if (skinGroup_ != nullptr)
+    jassert(button != nullptr);
+
+    XmlElement *xmlComponent = getComponent(tagName);
+
+    if (xmlComponent != nullptr)
     {
-        Image imageBackground;
+        Image imageOn;
+        String strImageFilenameOn = getString(xmlComponent, "image_on");
 
-        XmlElement *xmlBackground = skinGroup_->getChildByName("background");
+        loadImage(strImageFilenameOn, imageOn);
 
-        if (xmlBackground == nullptr)
+        Image imageOff;
+        String strImageFilenameOff = getString(xmlComponent, "image_off");
+
+        loadImage(strImageFilenameOff, imageOff);
+
+        Image imageOver;
+        String strImageFilenameOver = getString(xmlComponent, "image_over");
+
+        // use "image_on" if "image_over" does not exist
+        if (!strImageFilenameOver.isEmpty())
         {
-            Logger::outputDebugString(
-                String("[Skin] XML element \"") +
-                currentGroupName_ +
-                "\" specifies no background image");
-
-            imageBackground = Image();
+            loadImage(strImageFilenameOver, imageOver);
         }
         else
         {
-            String strImage = xmlBackground->getStringAttribute(
-                                  currentBackgroundName_);
-            File fileImage = resourcePath_.getChildFile(strImage);
-
-            if (!fileImage.existsAsFile())
-            {
-                Logger::outputDebugString(
-                    String("[Skin] image file \"") +
-                    fileImage.getFullPathName() +
-                    "\" not found");
-
-                imageBackground = Image();
-            }
-            else
-            {
-                imageBackground = ImageFileFormat::loadFrom(fileImage);
-            }
+            imageOver = imageOn.createCopy();
+            imageOver.multiplyAllAlphas(0.5f);
         }
 
-        XmlElement *xmlMeterGraduation = nullptr;
+        button->setImages(true, true, true,
+                          imageOff, 1.0f, Colour(),
+                          imageOver, 1.0f, Colour(),
+                          imageOn, 1.0f, Colour(),
+                          0.3f);
 
-        // get rid of the "unused variable" warning
-        (void) xmlMeterGraduation;
+        int height = imageOn.getHeight();
 
-        forEachXmlChildElementWithTagName(*skinGroup_,
-                                          xmlMeterGraduation,
-                                          "meter_graduation")
+        Point<int> position = getPosition(xmlComponent, height);
+        button->setTopLeftPosition(position);
+    }
+}
+
+
+void Skin::placeAndSkinSlider(
+    const String &tagName,
+    widget::SliderCombined *slider)
+{
+    XmlElement *xmlComponent = getComponent(tagName);
+    Colour sliderColour = getColour(xmlComponent, 0.0f);
+
+    placeComponent(xmlComponent, slider);
+    slider->setSliderColour(sliderColour);
+}
+
+
+void Skin::placeAndSkinNeedleMeter(
+    const String &tagName,
+    widget::NeedleMeter *meter)
+{
+    jassert(meter != nullptr);
+
+    XmlElement *xmlComponent = getComponent(tagName);
+
+    if (xmlComponent != nullptr)
+    {
+        Image imageBackground;
+        String strImageFilenameBackground = getString(xmlComponent, "image");
+
+        loadImage(strImageFilenameBackground, imageBackground);
+
+        Image imageNeedle;
+        String strImageFilenameNeedle = getString(xmlComponent, "image_needle");
+
+        loadImage(strImageFilenameNeedle, imageNeedle);
+
+        int spacing_left = getInteger(xmlComponent, "spacing_left", 0);
+        int spacing_top = getInteger(xmlComponent, "spacing_top", 0);
+
+        meter->setImages(imageBackground,
+                         imageNeedle,
+                         spacing_left,
+                         spacing_top);
+
+        int width = imageBackground.getWidth();
+        int height = imageBackground.getHeight();
+
+        Rectangle<int> bounds = getBounds(xmlComponent, width, height);
+        meter->setBounds(bounds);
+    }
+}
+
+
+void Skin::placeAndSkinLabel(
+    const String &tagName,
+    ImageComponent *label)
+{
+    jassert(label != nullptr);
+
+    XmlElement *xmlComponent = getComponent(tagName);
+
+    if (xmlComponent != nullptr)
+    {
+        Image imageLabel;
+        String strImageFilenameLabel = getString(xmlComponent, "image");
+
+        loadImage(strImageFilenameLabel, imageLabel);
+        label->setImage(imageLabel);
+
+        int width = imageLabel.getWidth();
+        int height = imageLabel.getHeight();
+
+        Rectangle<int> bounds = getBounds(xmlComponent, width, height);
+        label->setBounds(bounds);
+    }
+}
+
+
+void Skin::placeAndSkinSignalLed(
+    const String &tagName,
+    widget::SignalLed *label)
+{
+    jassert(label != nullptr);
+
+    XmlElement *xmlComponent = getComponent(tagName);
+
+    if (xmlComponent != nullptr)
+    {
+        Image imageOff;
+        String strImageFilenameOff = getString(xmlComponent, "image_off");
+
+        loadImage(strImageFilenameOff, imageOff);
+
+        Image imageLow;
+        String strImageFilenameLow = getString(xmlComponent, "image_low");
+
+        loadImage(strImageFilenameLow, imageLow);
+
+        Image imageHigh;
+        String strImageFilenameHigh = getString(xmlComponent, "image_high");
+
+        loadImage(strImageFilenameHigh, imageHigh);
+
+        label->setImages(imageOff, imageLow, imageHigh);
+
+        int width = imageOff.getWidth();
+
+        if ((width != imageLow.getWidth()) ||
+                (width != imageHigh.getWidth()))
         {
-            String strImage = xmlMeterGraduation->getStringAttribute(
-                                  currentBackgroundName_);
-            File fileImage = resourcePath_.getChildFile(strImage);
-
-            if (!fileImage.existsAsFile())
-            {
-                Logger::outputDebugString(
-                    String("[Skin] image file \"") +
-                    fileImage.getFullPathName() +
-                    "\" not found");
-            }
-            else
-            {
-                Image imageMeterGraduation = ImageFileFormat::loadFrom(
-                                                 fileImage);
-
-                int x = xmlMeterGraduation->getIntAttribute("x", -1);
-                int y = xmlMeterGraduation->getIntAttribute("y", -1);
-
-                Graphics g(imageBackground);
-                g.drawImageAt(imageMeterGraduation, x, y, false);
-            }
+            Logger::outputDebugString(
+                String("[Skin] width of image files for \"") +
+                tagName +
+                "\" differs");
         }
 
-        int nBackgroundWidth = imageBackground.getWidth();
-        int nBackgroundHeight = imageBackground.getHeight();
+        int height = imageOff.getHeight();
 
-        background->setImage(imageBackground);
-        background->setBounds(0, 0, nBackgroundWidth, nBackgroundHeight);
+        if ((height != imageLow.getHeight()) ||
+                (height != imageHigh.getHeight()))
+        {
+            Logger::outputDebugString(
+                String("[Skin] height of image files for \"") +
+                tagName +
+                "\" differs");
+        }
 
-        // moves background image to the back of the editor's z-plane
-        // so that it doesn't overlay (and thus block) any other
-        // components
-        background->toBack();
+        Rectangle<int> bounds = getBounds(xmlComponent, width, height);
+        label->setBounds(bounds);
+    }
+}
 
-        editor->setSize(nBackgroundWidth, nBackgroundHeight);
+
+void Skin::placeAndSkinStateLabel(
+    const String &tagName,
+    widget::StateLabel *label)
+{
+    jassert(label != nullptr);
+
+    XmlElement *xmlComponent = getComponent(tagName);
+
+    if (xmlComponent != nullptr)
+    {
+        Image imageOff;
+        String strImageFilenameOff = getString(xmlComponent, "image_off");
+
+        loadImage(strImageFilenameOff, imageOff);
+
+        Image imageOn;
+        String strImageFilenameOn = getString(xmlComponent, "image_on");
+
+        loadImage(strImageFilenameOn, imageOn);
+
+        Image imageActive;
+        String strImageFilenameActive = getString(xmlComponent, "image_active");
+
+        // use "image_on" if "image_active" does not exist
+        if (!strImageFilenameActive.isEmpty())
+        {
+            loadImage(strImageFilenameActive, imageActive);
+        }
+        else
+        {
+            imageActive = imageOn.createCopy();
+        }
+
+        int spacing_left = getInteger(xmlComponent, "spacing_left", 0);
+        int spacing_top = getInteger(xmlComponent, "spacing_top", 0);
+        int font_size = getInteger(xmlComponent, "font_size", 12);
+
+        String strColourOff = getString(xmlComponent, "colour_off", "ffffff");
+        String strColourOn = getString(xmlComponent, "colour_on", "ffffff");
+        String strColourActive = getString(xmlComponent, "colour_active", "ffffff");
+
+        label->setImages(imageOff,
+                         imageOn,
+                         imageActive,
+                         strColourOff,
+                         strColourOn,
+                         strColourActive,
+                         spacing_left,
+                         spacing_top,
+                         static_cast<float>(font_size));
+
+        int width = imageOff.getWidth();
+
+        if (width != imageActive.getWidth())
+        {
+            Logger::outputDebugString(
+                String("[Skin] width of image files for \"") +
+                tagName +
+                "\" differs");
+        }
+
+        int height = imageOff.getHeight();
+
+        if (height != imageActive.getHeight())
+        {
+            Logger::outputDebugString(
+                String("[Skin] height of image files for \"") +
+                tagName +
+                "\" differs");
+        }
+
+        Rectangle<int> bounds = getBounds(xmlComponent, width, height);
+        label->setBounds(bounds);
     }
 }
 

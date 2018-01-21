@@ -228,8 +228,9 @@
     <!ATTLIST kmeter-skin
               name CDATA #REQUIRED
               orientation (vertical | horizontal) #REQUIRED
+              origin_of_y (top| bottom) #REQUIRED
               path CDATA #REQUIRED
-              version CDATA "1.3"
+              version CDATA "1.4"
     >
 
     <!ELEMENT settings (kmeter_segment, kmeter_colour_red, kmeter_colour_amber, kmeter_colour_green,

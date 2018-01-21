@@ -66,26 +66,26 @@ void Kmeter::applySkin(
         orientation = frut::widget::Orientation::vertical;
     }
 
-    int segmentHeight = skin->getIntegerSetting(
-                            "kmeter_segment",
-                            "height",
-                            5);
+    XmlElement *xmlSetting = skin->getSetting("kmeter_segment");
+    int segmentHeight = skin->getInteger(xmlSetting,
+                                         "height",
+                                         5);
 
-    Colour segmentRed = skin->getColourSetting(
-                            "kmeter_colour_red",
-                            0.00f);
+    xmlSetting = skin->getSetting("kmeter_colour_red");
+    Colour segmentRed = skin->getColour(xmlSetting,
+                                        0.00f);
 
-    Colour segmentAmber = skin->getColourSetting(
-                              "kmeter_colour_amber",
-                              0.18f);
+    xmlSetting = skin->getSetting("kmeter_colour_amber");
+    Colour segmentAmber = skin->getColour(xmlSetting,
+                                          0.18f);
 
-    Colour segmentGreen = skin->getColourSetting(
-                              "kmeter_colour_green",
+    xmlSetting = skin->getSetting("kmeter_colour_green");
+    Colour segmentGreen = skin->getColour(xmlSetting,
+                                          0.30f);
+
+    xmlSetting = skin->getSetting("kmeter_colour_nonlinear");
+    Colour segmentNonLinear = skin->getColour(xmlSetting,
                               0.30f);
-
-    Colour segmentNonLinear = skin->getColourSetting(
-                                  "kmeter_colour_nonlinear",
-                                  0.30f);
 
     Array<Colour> segmentColours;
 
@@ -131,90 +131,90 @@ void Kmeter::applySkin(
 
     if (numberOfInputChannels_ == 1)
     {
-        skin->placeMeterBar(levelMeters_[0],
-                            "meter_kmeter");
-        skin->placeAndSkinStateLabel(overflowMeters_[0],
-                                     "label_over");
-        skin->placeAndSkinStateLabel(maximumPeakLabels_[0],
-                                     "label_peak");
-        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[0],
-                                     "label_true_peak");
+        skin->placeMeterBar("meter_kmeter",
+                            levelMeters_[0]);
+        skin->placeAndSkinStateLabel("label_over",
+                                     overflowMeters_[0]);
+        skin->placeAndSkinStateLabel("label_peak",
+                                     maximumPeakLabels_[0]);
+        skin->placeAndSkinStateLabel("label_true_peak",
+                                     maximumTruePeakLabels_[0]);
     }
     else if (numberOfInputChannels_ == 2)
     {
-        skin->placeMeterBar(levelMeters_[0],
-                            "meter_kmeter_left");
-        skin->placeAndSkinStateLabel(overflowMeters_[0],
-                                     "label_over_left");
-        skin->placeAndSkinStateLabel(maximumPeakLabels_[0],
-                                     "label_peak_left");
-        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[0],
-                                     "label_true_peak_left");
+        skin->placeMeterBar("meter_kmeter_left",
+                            levelMeters_[0]);
+        skin->placeAndSkinStateLabel("label_over_left",
+                                     overflowMeters_[0]);
+        skin->placeAndSkinStateLabel("label_peak_left",
+                                     maximumPeakLabels_[0]);
+        skin->placeAndSkinStateLabel("label_true_peak_left",
+                                     maximumTruePeakLabels_[0]);
 
-        skin->placeMeterBar(levelMeters_[1],
-                            "meter_kmeter_right");
-        skin->placeAndSkinStateLabel(overflowMeters_[1],
-                                     "label_over_right");
-        skin->placeAndSkinStateLabel(maximumPeakLabels_[1],
-                                     "label_peak_right");
-        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[1],
-                                     "label_true_peak_right");
+        skin->placeMeterBar("meter_kmeter_right",
+                            levelMeters_[1]);
+        skin->placeAndSkinStateLabel("label_over_right",
+                                     overflowMeters_[1]);
+        skin->placeAndSkinStateLabel("label_peak_right",
+                                     maximumPeakLabels_[1]);
+        skin->placeAndSkinStateLabel("label_true_peak_right",
+                                     maximumTruePeakLabels_[1]);
     }
     else if (numberOfInputChannels_ == 6)
     {
-        skin->placeMeterBar(levelMeters_[0],
-                            "meter_kmeter_left");
-        skin->placeAndSkinStateLabel(overflowMeters_[0],
-                                     "label_over_left");
-        skin->placeAndSkinStateLabel(maximumPeakLabels_[0],
-                                     "label_peak_left");
-        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[0],
-                                     "label_true_peak_left");
+        skin->placeMeterBar("meter_kmeter_left",
+                            levelMeters_[0]);
+        skin->placeAndSkinStateLabel("label_over_left",
+                                     overflowMeters_[0]);
+        skin->placeAndSkinStateLabel("label_peak_left",
+                                     maximumPeakLabels_[0]);
+        skin->placeAndSkinStateLabel("label_true_peak_left",
+                                     maximumTruePeakLabels_[0]);
 
-        skin->placeMeterBar(levelMeters_[1],
-                            "meter_kmeter_right");
-        skin->placeAndSkinStateLabel(overflowMeters_[1],
-                                     "label_over_right");
-        skin->placeAndSkinStateLabel(maximumPeakLabels_[1],
-                                     "label_peak_right");
-        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[1],
-                                     "label_true_peak_right");
+        skin->placeMeterBar("meter_kmeter_right",
+                            levelMeters_[1]);
+        skin->placeAndSkinStateLabel("label_over_right",
+                                     overflowMeters_[1]);
+        skin->placeAndSkinStateLabel("label_peak_right",
+                                     maximumPeakLabels_[1]);
+        skin->placeAndSkinStateLabel("label_true_peak_right",
+                                     maximumTruePeakLabels_[1]);
 
-        skin->placeMeterBar(levelMeters_[2],
-                            "meter_kmeter_center");
-        skin->placeAndSkinStateLabel(overflowMeters_[2],
-                                     "label_over_center");
-        skin->placeAndSkinStateLabel(maximumPeakLabels_[2],
-                                     "label_peak_center");
-        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[2],
-                                     "label_true_peak_center");
+        skin->placeMeterBar("meter_kmeter_center",
+                            levelMeters_[2]);
+        skin->placeAndSkinStateLabel("label_over_center",
+                                     overflowMeters_[2]);
+        skin->placeAndSkinStateLabel("label_peak_center",
+                                     maximumPeakLabels_[2]);
+        skin->placeAndSkinStateLabel("label_true_peak_center",
+                                     maximumTruePeakLabels_[2]);
 
-        skin->placeMeterBar(levelMeters_[3],
-                            "meter_kmeter_lfe");
-        skin->placeAndSkinStateLabel(overflowMeters_[3],
-                                     "label_over_lfe");
-        skin->placeAndSkinStateLabel(maximumPeakLabels_[3],
-                                     "label_peak_lfe");
-        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[3],
-                                     "label_true_peak_lfe");
+        skin->placeMeterBar("meter_kmeter_lfe",
+                            levelMeters_[3]);
+        skin->placeAndSkinStateLabel("label_over_lfe",
+                                     overflowMeters_[3]);
+        skin->placeAndSkinStateLabel("label_peak_lfe",
+                                     maximumPeakLabels_[3]);
+        skin->placeAndSkinStateLabel("label_true_peak_lfe",
+                                     maximumTruePeakLabels_[3]);
 
-        skin->placeMeterBar(levelMeters_[4],
-                            "meter_kmeter_ls");
-        skin->placeAndSkinStateLabel(overflowMeters_[4],
-                                     "label_over_ls");
-        skin->placeAndSkinStateLabel(maximumPeakLabels_[4],
-                                     "label_peak_ls");
-        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[4],
-                                     "label_true_peak_ls");
+        skin->placeMeterBar("meter_kmeter_ls",
+                            levelMeters_[4]);
+        skin->placeAndSkinStateLabel("label_over_ls",
+                                     overflowMeters_[4]);
+        skin->placeAndSkinStateLabel("label_peak_ls",
+                                     maximumPeakLabels_[4]);
+        skin->placeAndSkinStateLabel("label_true_peak_ls",
+                                     maximumTruePeakLabels_[4]);
 
-        skin->placeMeterBar(levelMeters_[5],
-                            "meter_kmeter_rs");
-        skin->placeAndSkinStateLabel(overflowMeters_[5],
-                                     "label_over_rs");
-        skin->placeAndSkinStateLabel(maximumPeakLabels_[5],
-                                     "label_peak_rs");
-        skin->placeAndSkinStateLabel(maximumTruePeakLabels_[5],
-                                     "label_true_peak_rs");
+        skin->placeMeterBar("meter_kmeter_rs",
+                            levelMeters_[5]);
+        skin->placeAndSkinStateLabel("label_over_rs",
+                                     overflowMeters_[5]);
+        skin->placeAndSkinStateLabel("label_peak_rs",
+                                     maximumPeakLabels_[5]);
+        skin->placeAndSkinStateLabel("label_true_peak_rs",
+                                     maximumTruePeakLabels_[5]);
     }
     else
     {

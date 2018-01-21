@@ -4,9 +4,10 @@
 
 <kmeter-skin
     name="Default"
-    orientation="vertical"
     path="Default"
-    version="1.3">
+    orientation="vertical"
+    origin_of_y="bottom"
+    version="1.4">
 
     <settings>
         <kmeter_segment
@@ -41,7 +42,7 @@
     <default>
         <button_k20
             x="130"
-            y="11"
+            y="626"
             image_on="buttons/button_k20_on.png"
             image_over="buttons/button_k20_over.png"
             image_off="buttons/button_k20_off.png"
@@ -49,7 +50,7 @@
 
         <button_k14
             x="130"
-            y="36"
+            y="601"
             image_on="buttons/button_k14_on.png"
             image_over="buttons/button_k14_over.png"
             image_off="buttons/button_k14_off.png"
@@ -57,7 +58,7 @@
 
         <button_k12
             x="130"
-            y="61"
+            y="576"
             image_on="buttons/button_k12_on.png"
             image_over="buttons/button_k12_over.png"
             image_off="buttons/button_k12_off.png"
@@ -65,7 +66,7 @@
 
         <button_normal
             x="130"
-            y="86"
+            y="551"
             image_on="buttons/button_normal_on.png"
             image_over="buttons/button_normal_over.png"
             image_off="buttons/button_normal_off.png"
@@ -73,7 +74,7 @@
 
         <button_itu
             x="130"
-            y="126"
+            y="511"
             image_on="buttons/button_itu_on.png"
             image_over="buttons/button_itu_over.png"
             image_off="buttons/button_itu_off.png"
@@ -81,7 +82,7 @@
 
         <button_rms
             x="130"
-            y="151"
+            y="486"
             image_on="buttons/button_rms_on.png"
             image_over="buttons/button_rms_over.png"
             image_off="buttons/button_rms_off.png"
@@ -89,7 +90,7 @@
 
         <button_hold
             x="130"
-            y="191"
+            y="446"
             image_on="buttons/button_hold_on.png"
             image_over="buttons/button_hold_over.png"
             image_off="buttons/button_hold_off.png"
@@ -97,7 +98,7 @@
 
         <button_peaks
             x="130"
-            y="216"
+            y="421"
             image_on="buttons/button_peaks_on.png"
             image_over="buttons/button_peaks_over.png"
             image_off="buttons/button_peaks_off.png"
@@ -105,7 +106,7 @@
 
         <button_expand
             x="130"
-            y="241"
+            y="396"
             image_on="buttons/button_expand_on.png"
             image_over="buttons/button_expand_over.png"
             image_off="buttons/button_expand_off.png"
@@ -113,7 +114,7 @@
 
         <button_discrete
             x="130"
-            y="266"
+            y="371"
             image_on="buttons/button_discrete_on.png"
             image_over="buttons/button_discrete_over.png"
             image_off="buttons/button_discrete_off.png"
@@ -121,7 +122,7 @@
 
         <button_skin
             x="130"
-            y="306"
+            y="331"
             image_on="buttons/button_skin_on.png"
             image_over="buttons/button_skin_over.png"
             image_off="buttons/button_skin_off.png"
@@ -129,7 +130,7 @@
 
         <button_mono
             x="130"
-            y="563"
+            y="74"
             image_on="buttons/button_mono_on.png"
             image_over="buttons/button_mono_over.png"
             image_off="buttons/button_mono_off.png"
@@ -137,7 +138,7 @@
 
         <button_flip
             x="130"
-            y="538"
+            y="99"
             image_on="buttons/button_flip_on.png"
             image_over="buttons/button_flip_over.png"
             image_off="buttons/button_flip_off.png"
@@ -145,7 +146,7 @@
 
         <button_dim
             x="130"
-            y="488"
+            y="149"
             image_on="buttons/button_dim_on.png"
             image_over="buttons/button_dim_over.png"
             image_off="buttons/button_dim_off.png"
@@ -153,7 +154,7 @@
 
         <button_mute
             x="130"
-            y="513"
+            y="124"
             image_on="buttons/button_mute_on.png"
             image_over="buttons/button_mute_over.png"
             image_off="buttons/button_mute_off.png"
@@ -161,7 +162,7 @@
 
         <button_reset
             x="130"
-            y="331"
+            y="306"
             image_on="buttons/button_reset_on.png"
             image_over="buttons/button_reset_over.png"
             image_off="buttons/button_reset_off.png"
@@ -169,7 +170,7 @@
 
         <button_validate
             x="130"
-            y="603"
+            y="34"
             image_on="buttons/button_validate_on.png"
             image_over="buttons/button_validate_over.png"
             image_off="buttons/button_validate_off.png"
@@ -177,7 +178,7 @@
 
         <button_about
             x="130"
-            y="628"
+            y="9"
             image_on="buttons/button_about_on.png"
             image_over="buttons/button_about_over.png"
             image_off="buttons/button_about_off.png"
@@ -185,7 +186,7 @@
 
         <label_debug
             x="140"
-            y="462"
+            y="185"
             image="labels/label_debug.png"
         />
     </default>
@@ -193,7 +194,7 @@
     <stereo_itu>
         <meter_phase_correlation
             x="10"
-            y="633"
+            y="8"
             spacing_left="6"
             spacing_top="2"
             image="meters/meter_phase_correlation.png"
@@ -202,7 +203,7 @@
 
         <meter_stereo
             x="10"
-            y="614"
+            y="27"
             spacing_left="6"
             spacing_top="2"
             image="meters/meter_stereo.png"
@@ -211,7 +212,7 @@
 
         <label_over
             x="48"
-            y="16"
+            y="624"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -223,7 +224,7 @@
 
         <label_peak
             x="48"
-            y="54"
+            y="586"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -235,7 +236,7 @@
 
         <label_true_peak
             x="48"
-            y="35"
+            y="605"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -256,7 +257,7 @@
 
         <meter_graduation
             x="13"
-            y="74"
+            y="66"
             image_no_peaks="backgrounds/itu/graduation_itu_k20.png"
             image_peaks="backgrounds/itu/graduation_itu_k20.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_k20_expanded.png"
@@ -265,7 +266,7 @@
 
         <meter_kmeter
             x="52"
-            y="79"
+            y="58"
             segment_width="24"
             vertical="true"
             image="meters/meter_kmeter_itu_k20.png"
@@ -283,7 +284,7 @@
 
         <meter_graduation
             x="13"
-            y="74"
+            y="66"
             image_no_peaks="backgrounds/itu/graduation_itu_k14.png"
             image_peaks="backgrounds/itu/graduation_itu_k14.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_k14_expanded.png"
@@ -292,7 +293,7 @@
 
         <meter_kmeter
             x="52"
-            y="79"
+            y="58"
             segment_width="24"
             vertical="true"
             image="meters/meter_kmeter_itu_k14.png"
@@ -310,7 +311,7 @@
 
         <meter_graduation
             x="13"
-            y="74"
+            y="66"
             image_no_peaks="backgrounds/itu/graduation_itu_k12.png"
             image_peaks="backgrounds/itu/graduation_itu_k12.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_k12_expanded.png"
@@ -319,7 +320,7 @@
 
         <meter_kmeter
             x="52"
-            y="79"
+            y="58"
             segment_width="24"
             vertical="true"
             image="meters/meter_kmeter_itu_k12.png"
@@ -337,7 +338,7 @@
 
         <meter_graduation
             x="13"
-            y="74"
+            y="66"
             image_no_peaks="backgrounds/itu/graduation_itu_normal.png"
             image_peaks="backgrounds/itu/graduation_itu_normal.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_normal_expanded.png"
@@ -346,7 +347,7 @@
 
         <meter_kmeter
             x="52"
-            y="79"
+            y="58"
             segment_width="24"
             vertical="true"
             image="meters/meter_kmeter_itu_normal.png"
@@ -357,7 +358,7 @@
     <stereo_rms>
         <meter_phase_correlation
             x="10"
-            y="633"
+            y="8"
             spacing_left="6"
             spacing_top="2"
             image="meters/meter_phase_correlation.png"
@@ -366,7 +367,7 @@
 
         <meter_stereo
             x="10"
-            y="614"
+            y="27"
             spacing_left="6"
             spacing_top="2"
             image="meters/meter_stereo.png"
@@ -375,7 +376,7 @@
 
         <label_over_left
             x="15"
-            y="16"
+            y="624"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -387,7 +388,7 @@
 
         <label_over_right
             x="80"
-            y="16"
+            y="624"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -399,7 +400,7 @@
 
         <label_peak_left
             x="15"
-            y="54"
+            y="586"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -411,7 +412,7 @@
 
         <label_peak_right
             x="80"
-            y="54"
+            y="586"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -423,7 +424,7 @@
 
         <label_true_peak_left
             x="15"
-            y="35"
+            y="605"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -435,7 +436,7 @@
 
         <label_true_peak_right
             x="80"
-            y="35"
+            y="605"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -456,7 +457,7 @@
 
         <meter_graduation
             x="41"
-            y="74"
+            y="66"
             image_no_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k20_expanded.png"
@@ -465,7 +466,7 @@
 
         <meter_kmeter_left
             x="19"
-            y="79"
+            y="58"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k20.png"
@@ -474,7 +475,7 @@
 
         <meter_kmeter_right
             x="89"
-            y="79"
+            y="58"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k20.png"
@@ -492,7 +493,7 @@
 
         <meter_graduation
             x="41"
-            y="74"
+            y="66"
             image_no_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k14_expanded.png"
@@ -501,7 +502,7 @@
 
         <meter_kmeter_left
             x="19"
-            y="79"
+            y="58"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k14.png"
@@ -510,7 +511,7 @@
 
         <meter_kmeter_right
             x="89"
-            y="79"
+            y="58"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k14.png"
@@ -528,7 +529,7 @@
 
         <meter_graduation
             x="41"
-            y="74"
+            y="66"
             image_no_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k12_expanded.png"
@@ -537,7 +538,7 @@
 
         <meter_kmeter_left
             x="19"
-            y="79"
+            y="58"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k12.png"
@@ -546,7 +547,7 @@
 
         <meter_kmeter_right
             x="89"
-            y="79"
+            y="58"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k12.png"
@@ -564,7 +565,7 @@
 
         <meter_graduation
             x="41"
-            y="74"
+            y="66"
             image_no_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_normal_expanded.png"
@@ -573,7 +574,7 @@
 
         <meter_kmeter_left
             x="19"
-            y="79"
+            y="58"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_normal.png"
@@ -582,7 +583,7 @@
 
         <meter_kmeter_right
             x="89"
-            y="79"
+            y="58"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_normal.png"
@@ -591,9 +592,97 @@
     </stereo_rms_normal>
 
     <surround_itu>
+        <button_k20
+            x="130"
+            y="609"
+            image_on="buttons/button_k20_on.png"
+            image_over="buttons/button_k20_over.png"
+            image_off="buttons/button_k20_off.png"
+        />
+
+        <button_k14
+            x="130"
+            y="583"
+            image_on="buttons/button_k14_on.png"
+            image_over="buttons/button_k14_over.png"
+            image_off="buttons/button_k14_off.png"
+        />
+
+        <button_k12
+            x="130"
+            y="558"
+            image_on="buttons/button_k12_on.png"
+            image_over="buttons/button_k12_over.png"
+            image_off="buttons/button_k12_off.png"
+        />
+
+        <button_normal
+            x="130"
+            y="533"
+            image_on="buttons/button_normal_on.png"
+            image_over="buttons/button_normal_over.png"
+            image_off="buttons/button_normal_off.png"
+        />
+
+        <button_itu
+            x="130"
+            y="493"
+            image_on="buttons/button_itu_on.png"
+            image_over="buttons/button_itu_over.png"
+            image_off="buttons/button_itu_off.png"
+        />
+
+        <button_rms
+            x="130"
+            y="468"
+            image_on="buttons/button_rms_on.png"
+            image_over="buttons/button_rms_over.png"
+            image_off="buttons/button_rms_off.png"
+        />
+
+        <button_hold
+            x="130"
+            y="428"
+            image_on="buttons/button_hold_on.png"
+            image_over="buttons/button_hold_over.png"
+            image_off="buttons/button_hold_off.png"
+        />
+
+        <button_peaks
+            x="130"
+            y="403"
+            image_on="buttons/button_peaks_on.png"
+            image_over="buttons/button_peaks_over.png"
+            image_off="buttons/button_peaks_off.png"
+        />
+
+        <button_expand
+            x="130"
+            y="378"
+            image_on="buttons/button_expand_on.png"
+            image_over="buttons/button_expand_over.png"
+            image_off="buttons/button_expand_off.png"
+        />
+
+        <button_discrete
+            x="130"
+            y="353"
+            image_on="buttons/button_discrete_on.png"
+            image_over="buttons/button_discrete_over.png"
+            image_off="buttons/button_discrete_off.png"
+        />
+
+        <button_skin
+            x="130"
+            y="313"
+            image_on="buttons/button_skin_on.png"
+            image_over="buttons/button_skin_over.png"
+            image_off="buttons/button_skin_off.png"
+        />
+
         <button_mono
             x="130"
-            y="543"
+            y="76"
             image_on="buttons/button_mono_on.png"
             image_over="buttons/button_mono_over.png"
             image_off="buttons/button_mono_off.png"
@@ -601,7 +690,7 @@
 
         <button_flip
             x="130"
-            y="518"
+            y="101"
             image_on="buttons/button_flip_on.png"
             image_over="buttons/button_flip_over.png"
             image_off="buttons/button_flip_off.png"
@@ -609,7 +698,7 @@
 
         <button_dim
             x="130"
-            y="468"
+            y="151"
             image_on="buttons/button_dim_on.png"
             image_over="buttons/button_dim_over.png"
             image_off="buttons/button_dim_off.png"
@@ -617,15 +706,23 @@
 
         <button_mute
             x="130"
-            y="493"
+            y="126"
             image_on="buttons/button_mute_on.png"
             image_over="buttons/button_mute_over.png"
             image_off="buttons/button_mute_off.png"
         />
 
+        <button_reset
+            x="130"
+            y="288"
+            image_on="buttons/button_reset_on.png"
+            image_over="buttons/button_reset_over.png"
+            image_off="buttons/button_reset_off.png"
+        />
+
         <button_validate
             x="130"
-            y="583"
+            y="36"
             image_on="buttons/button_validate_on.png"
             image_over="buttons/button_validate_over.png"
             image_off="buttons/button_validate_off.png"
@@ -633,7 +730,7 @@
 
         <button_about
             x="130"
-            y="608"
+            y="11"
             image_on="buttons/button_about_on.png"
             image_over="buttons/button_about_over.png"
             image_off="buttons/button_about_off.png"
@@ -641,13 +738,13 @@
 
         <label_debug
             x="140"
-            y="441"
+            y="188"
             image="labels/label_debug.png"
         />
 
         <label_over
             x="48"
-            y="38"
+            y="584"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -659,7 +756,7 @@
 
         <label_peak
             x="48"
-            y="76"
+            y="546"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -671,7 +768,7 @@
 
         <label_true_peak
             x="48"
-            y="57"
+            y="565"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -692,7 +789,7 @@
 
         <meter_graduation
             x="13"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/itu/graduation_itu_k20.png"
             image_peaks="backgrounds/itu/graduation_itu_k20.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_k20_expanded.png"
@@ -701,7 +798,7 @@
 
         <meter_kmeter
             x="52"
-            y="101"
+            y="18"
             segment_width="24"
             vertical="true"
             image="meters/meter_kmeter_itu_k20.png"
@@ -719,7 +816,7 @@
 
         <meter_graduation
             x="13"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/itu/graduation_itu_k14.png"
             image_peaks="backgrounds/itu/graduation_itu_k14.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_k14_expanded.png"
@@ -728,7 +825,7 @@
 
         <meter_kmeter
             x="52"
-            y="101"
+            y="18"
             segment_width="24"
             vertical="true"
             image="meters/meter_kmeter_itu_k14.png"
@@ -746,7 +843,7 @@
 
         <meter_graduation
             x="13"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/itu/graduation_itu_k12.png"
             image_peaks="backgrounds/itu/graduation_itu_k12.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_k12_expanded.png"
@@ -755,7 +852,7 @@
 
         <meter_kmeter
             x="52"
-            y="101"
+            y="18"
             segment_width="24"
             vertical="true"
             image="meters/meter_kmeter_itu_k12.png"
@@ -773,7 +870,7 @@
 
         <meter_graduation
             x="13"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/itu/graduation_itu_normal.png"
             image_peaks="backgrounds/itu/graduation_itu_normal.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_normal_expanded.png"
@@ -782,7 +879,7 @@
 
         <meter_kmeter
             x="52"
-            y="101"
+            y="18"
             segment_width="24"
             vertical="true"
             image="meters/meter_kmeter_itu_normal.png"
@@ -793,7 +890,7 @@
     <surround_rms>
         <button_k20
             x="354"
-            y="11"
+            y="609"
             image_on="buttons/button_k20_on.png"
             image_over="buttons/button_k20_over.png"
             image_off="buttons/button_k20_off.png"
@@ -801,7 +898,7 @@
 
         <button_k14
             x="354"
-            y="36"
+            y="583"
             image_on="buttons/button_k14_on.png"
             image_over="buttons/button_k14_over.png"
             image_off="buttons/button_k14_off.png"
@@ -809,7 +906,7 @@
 
         <button_k12
             x="354"
-            y="61"
+            y="558"
             image_on="buttons/button_k12_on.png"
             image_over="buttons/button_k12_over.png"
             image_off="buttons/button_k12_off.png"
@@ -817,7 +914,7 @@
 
         <button_normal
             x="354"
-            y="86"
+            y="533"
             image_on="buttons/button_normal_on.png"
             image_over="buttons/button_normal_over.png"
             image_off="buttons/button_normal_off.png"
@@ -825,7 +922,7 @@
 
         <button_itu
             x="354"
-            y="126"
+            y="493"
             image_on="buttons/button_itu_on.png"
             image_over="buttons/button_itu_over.png"
             image_off="buttons/button_itu_off.png"
@@ -833,7 +930,7 @@
 
         <button_rms
             x="354"
-            y="151"
+            y="468"
             image_on="buttons/button_rms_on.png"
             image_over="buttons/button_rms_over.png"
             image_off="buttons/button_rms_off.png"
@@ -841,7 +938,7 @@
 
         <button_hold
             x="354"
-            y="191"
+            y="428"
             image_on="buttons/button_hold_on.png"
             image_over="buttons/button_hold_over.png"
             image_off="buttons/button_hold_off.png"
@@ -849,7 +946,7 @@
 
         <button_peaks
             x="354"
-            y="216"
+            y="403"
             image_on="buttons/button_peaks_on.png"
             image_over="buttons/button_peaks_over.png"
             image_off="buttons/button_peaks_off.png"
@@ -857,7 +954,7 @@
 
         <button_expand
             x="354"
-            y="241"
+            y="378"
             image_on="buttons/button_expand_on.png"
             image_over="buttons/button_expand_over.png"
             image_off="buttons/button_expand_off.png"
@@ -865,7 +962,7 @@
 
         <button_discrete
             x="354"
-            y="266"
+            y="353"
             image_on="buttons/button_discrete_on.png"
             image_over="buttons/button_discrete_over.png"
             image_off="buttons/button_discrete_off.png"
@@ -873,7 +970,7 @@
 
         <button_skin
             x="354"
-            y="306"
+            y="313"
             image_on="buttons/button_skin_on.png"
             image_over="buttons/button_skin_over.png"
             image_off="buttons/button_skin_off.png"
@@ -881,7 +978,7 @@
 
         <button_mono
             x="354"
-            y="543"
+            y="76"
             image_on="buttons/button_mono_on.png"
             image_over="buttons/button_mono_over.png"
             image_off="buttons/button_mono_off.png"
@@ -889,7 +986,7 @@
 
         <button_flip
             x="354"
-            y="518"
+            y="101"
             image_on="buttons/button_flip_on.png"
             image_over="buttons/button_flip_over.png"
             image_off="buttons/button_flip_off.png"
@@ -897,7 +994,7 @@
 
         <button_dim
             x="354"
-            y="468"
+            y="151"
             image_on="buttons/button_dim_on.png"
             image_over="buttons/button_dim_over.png"
             image_off="buttons/button_dim_off.png"
@@ -905,7 +1002,7 @@
 
         <button_mute
             x="354"
-            y="493"
+            y="126"
             image_on="buttons/button_mute_on.png"
             image_over="buttons/button_mute_over.png"
             image_off="buttons/button_mute_off.png"
@@ -913,7 +1010,7 @@
 
         <button_reset
             x="354"
-            y="331"
+            y="288"
             image_on="buttons/button_reset_on.png"
             image_over="buttons/button_reset_over.png"
             image_off="buttons/button_reset_off.png"
@@ -921,7 +1018,7 @@
 
         <button_validate
             x="354"
-            y="583"
+            y="36"
             image_on="buttons/button_validate_on.png"
             image_over="buttons/button_validate_over.png"
             image_off="buttons/button_validate_off.png"
@@ -929,7 +1026,7 @@
 
         <button_about
             x="354"
-            y="608"
+            y="11"
             image_on="buttons/button_about_on.png"
             image_over="buttons/button_about_over.png"
             image_off="buttons/button_about_off.png"
@@ -937,13 +1034,13 @@
 
         <label_debug
             x="364"
-            y="441"
+            y="188"
             image="labels/label_debug.png"
         />
 
         <label_over_left
             x="13"
-            y="38"
+            y="584"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -955,7 +1052,7 @@
 
         <label_over_right
             x="78"
-            y="38"
+            y="584"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -967,7 +1064,7 @@
 
         <label_over_center
             x="126"
-            y="38"
+            y="584"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -979,7 +1076,7 @@
 
         <label_over_lfe
             x="191"
-            y="38"
+            y="584"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -991,7 +1088,7 @@
 
         <label_over_ls
             x="239"
-            y="38"
+            y="584"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1003,7 +1100,7 @@
 
         <label_over_rs
             x="304"
-            y="38"
+            y="584"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1015,7 +1112,7 @@
 
         <label_peak_left
             x="13"
-            y="76"
+            y="546"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1027,7 +1124,7 @@
 
         <label_peak_right
             x="78"
-            y="76"
+            y="546"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1039,7 +1136,7 @@
 
         <label_peak_center
             x="126"
-            y="76"
+            y="546"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1051,7 +1148,7 @@
 
         <label_peak_lfe
             x="191"
-            y="76"
+            y="546"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1063,7 +1160,7 @@
 
         <label_peak_ls
             x="239"
-            y="76"
+            y="546"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1075,7 +1172,7 @@
 
         <label_peak_rs
             x="304"
-            y="76"
+            y="546"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1087,7 +1184,7 @@
 
         <label_true_peak_left
             x="13"
-            y="57"
+            y="565"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1099,7 +1196,7 @@
 
         <label_true_peak_right
             x="78"
-            y="57"
+            y="565"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1111,7 +1208,7 @@
 
         <label_true_peak_center
             x="126"
-            y="57"
+            y="565"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1123,7 +1220,7 @@
 
         <label_true_peak_lfe
             x="191"
-            y="57"
+            y="565"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1135,7 +1232,7 @@
 
         <label_true_peak_ls
             x="239"
-            y="57"
+            y="565"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1147,7 +1244,7 @@
 
         <label_true_peak_rs
             x="304"
-            y="57"
+            y="565"
             spacing_left="4"
             spacing_top="3"
             font_size="11"
@@ -1168,7 +1265,7 @@
 
         <meter_graduation
             x="39"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k20_expanded.png"
@@ -1177,7 +1274,7 @@
 
         <meter_graduation
             x="152"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k20_expanded.png"
@@ -1186,7 +1283,7 @@
 
         <meter_graduation
             x="265"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k20_expanded.png"
@@ -1195,7 +1292,7 @@
 
         <meter_kmeter_left
             x="17"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k20.png"
@@ -1204,7 +1301,7 @@
 
         <meter_kmeter_right
             x="87"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k20.png"
@@ -1213,7 +1310,7 @@
 
         <meter_kmeter_center
             x="130"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k20.png"
@@ -1222,7 +1319,7 @@
 
         <meter_kmeter_lfe
             x="200"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k20.png"
@@ -1231,7 +1328,7 @@
 
         <meter_kmeter_ls
             x="243"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k20.png"
@@ -1240,7 +1337,7 @@
 
         <meter_kmeter_rs
             x="313"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k20.png"
@@ -1258,7 +1355,7 @@
 
         <meter_graduation
             x="39"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k14_expanded.png"
@@ -1267,7 +1364,7 @@
 
         <meter_graduation
             x="152"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k14_expanded.png"
@@ -1276,7 +1373,7 @@
 
         <meter_graduation
             x="265"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k14_expanded.png"
@@ -1285,7 +1382,7 @@
 
         <meter_kmeter_left
             x="17"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k14.png"
@@ -1294,7 +1391,7 @@
 
         <meter_kmeter_right
             x="87"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k14.png"
@@ -1303,7 +1400,7 @@
 
         <meter_kmeter_center
             x="130"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k14.png"
@@ -1312,7 +1409,7 @@
 
         <meter_kmeter_lfe
             x="200"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k14.png"
@@ -1321,7 +1418,7 @@
 
         <meter_kmeter_ls
             x="243"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k14.png"
@@ -1330,7 +1427,7 @@
 
         <meter_kmeter_rs
             x="313"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k14.png"
@@ -1348,7 +1445,7 @@
 
         <meter_graduation
             x="39"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k12_expanded.png"
@@ -1357,7 +1454,7 @@
 
         <meter_graduation
             x="152"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k12_expanded.png"
@@ -1366,7 +1463,7 @@
 
         <meter_graduation
             x="265"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k12_expanded.png"
@@ -1375,7 +1472,7 @@
 
         <meter_kmeter_left
             x="17"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k12.png"
@@ -1384,7 +1481,7 @@
 
         <meter_kmeter_right
             x="87"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k12.png"
@@ -1393,7 +1490,7 @@
 
         <meter_kmeter_center
             x="130"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k12.png"
@@ -1402,7 +1499,7 @@
 
         <meter_kmeter_lfe
             x="200"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k12.png"
@@ -1411,7 +1508,7 @@
 
         <meter_kmeter_ls
             x="243"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k12.png"
@@ -1420,7 +1517,7 @@
 
         <meter_kmeter_rs
             x="313"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_k12.png"
@@ -1438,7 +1535,7 @@
 
         <meter_graduation
             x="39"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_normal_expanded.png"
@@ -1447,7 +1544,7 @@
 
         <meter_graduation
             x="152"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_normal_expanded.png"
@@ -1456,7 +1553,7 @@
 
         <meter_graduation
             x="265"
-            y="96"
+            y="26"
             image_no_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_normal_expanded.png"
@@ -1465,7 +1562,7 @@
 
         <meter_kmeter_left
             x="17"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_normal.png"
@@ -1474,7 +1571,7 @@
 
         <meter_kmeter_right
             x="87"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_normal.png"
@@ -1483,7 +1580,7 @@
 
         <meter_kmeter_center
             x="130"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_normal.png"
@@ -1492,7 +1589,7 @@
 
         <meter_kmeter_lfe
             x="200"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_normal.png"
@@ -1501,7 +1598,7 @@
 
         <meter_kmeter_ls
             x="243"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_normal.png"
@@ -1510,7 +1607,7 @@
 
         <meter_kmeter_rs
             x="313"
-            y="101"
+            y="18"
             segment_width="20"
             vertical="true"
             image="meters/meter_kmeter_rms_normal.png"

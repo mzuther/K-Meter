@@ -233,32 +233,51 @@ void KmeterAudioProcessorEditor::applySkin()
     // will also resize plug-in editor
     skin.setBackgroundImage(&BackgroundImage, this);
 
-    skin.placeAndSkinButton(&ButtonK20, "button_k20");
-    skin.placeAndSkinButton(&ButtonK14, "button_k14");
-    skin.placeAndSkinButton(&ButtonK12, "button_k12");
-    skin.placeAndSkinButton(&ButtonNormal, "button_normal");
+    skin.placeAndSkinButton("button_k20",
+                            &ButtonK20);
+    skin.placeAndSkinButton("button_k14",
+                            &ButtonK14);
+    skin.placeAndSkinButton("button_k12",
+                            &ButtonK12);
+    skin.placeAndSkinButton("button_normal",
+                            &ButtonNormal);
 
-    skin.placeAndSkinButton(&ButtonItuBs1770, "button_itu");
-    skin.placeAndSkinButton(&ButtonRms, "button_rms");
+    skin.placeAndSkinButton("button_itu",
+                            &ButtonItuBs1770);
+    skin.placeAndSkinButton("button_rms",
+                            &ButtonRms);
 
-    skin.placeAndSkinButton(&ButtonExpanded, "button_expand");
-    skin.placeAndSkinButton(&ButtonDisplayPeakMeter, "button_peaks");
-    skin.placeAndSkinButton(&ButtonInfinitePeakHold, "button_hold");
-    skin.placeAndSkinButton(&ButtonDiscreteMeter, "button_discrete");
+    skin.placeAndSkinButton("button_expand",
+                            &ButtonExpanded);
+    skin.placeAndSkinButton("button_peaks",
+                            &ButtonDisplayPeakMeter);
+    skin.placeAndSkinButton("button_hold",
+                            &ButtonInfinitePeakHold);
+    skin.placeAndSkinButton("button_discrete",
+                            &ButtonDiscreteMeter);
 
-    skin.placeAndSkinButton(&ButtonMono, "button_mono");
-    skin.placeAndSkinButton(&ButtonDim, "button_dim");
-    skin.placeAndSkinButton(&ButtonMute, "button_mute");
-    skin.placeAndSkinButton(&ButtonFlip, "button_flip");
+    skin.placeAndSkinButton("button_mono",
+                            &ButtonMono);
+    skin.placeAndSkinButton("button_dim",
+                            &ButtonDim);
+    skin.placeAndSkinButton("button_mute",
+                            &ButtonMute);
+    skin.placeAndSkinButton("button_flip",
+                            &ButtonFlip);
 
-    skin.placeAndSkinButton(&ButtonReset, "button_reset");
-    skin.placeAndSkinButton(&ButtonSkin, "button_skin");
+    skin.placeAndSkinButton("button_reset",
+                            &ButtonReset);
+    skin.placeAndSkinButton("button_skin",
+                            &ButtonSkin);
 
-    skin.placeAndSkinButton(&ButtonValidation, "button_validate");
-    skin.placeAndSkinButton(&ButtonAbout, "button_about");
+    skin.placeAndSkinButton("button_validate",
+                            &ButtonValidation);
+    skin.placeAndSkinButton("button_about",
+                            &ButtonAbout);
 
 #ifdef DEBUG
-    skin.placeAndSkinLabel(&LabelDebug, "label_debug");
+    skin.placeAndSkinLabel("label_debug",
+                           &LabelDebug);
 #endif
 
     kmeter_.applySkin(
@@ -271,11 +290,11 @@ void KmeterAudioProcessorEditor::applySkin()
 
     if (numberOfInputChannels_ <= 2)
     {
-        skin.placeAndSkinNeedleMeter(&stereoMeter,
-                                     "meter_stereo");
+        skin.placeAndSkinNeedleMeter("meter_stereo",
+                                     &stereoMeter);
 
-        skin.placeAndSkinNeedleMeter(&phaseCorrelationMeter,
-                                     "meter_phase_correlation");
+        skin.placeAndSkinNeedleMeter("meter_phase_correlation",
+                                     &phaseCorrelationMeter);
     }
 }
 
