@@ -328,10 +328,6 @@ Click on this button to open the \textbf{validation window} (see
 K-Meter and dump internal data.  During validation, the button will
 light up and clicking it will stop validation early.
 
-\emph{Unfortunately, the underlying JUCE library does not seem to
-  support multi-channel audio files.  You may load such audio files
-  into your DAW of choice and use a K-Meter plug-in.}
-
 On Linux, dumped data will be written to \path{stderr}, so just start
 the K-Meter stand-alone or your VST host from the shell and watch the
 output coming.  On Windows, you can also use DebugView by Sysinternals
@@ -910,7 +906,7 @@ the necessary dependencies and run the Python script
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 4.3.1 \\
+  Version:     \> 5.1.2 \\
   License:     \> ISC and GPL v3 (among others) \\
   Homepage:    \> \href{http://www.juce.com/}{www.juce.com}
 \end{tabbing}
@@ -920,7 +916,7 @@ the necessary dependencies and run the Python script
 Extract the archive into the directory \path{libraries/juce}.
 
 If you want to build the LV2 plug-in, please extract the archive
-\path{distrho_lv2-xxxxxxxxxx.tar.gz} into the same directory.
+\path{distrho_lv2-xxxxxxxx.tar.gz} into the same directory.
 
 \subsection{Virtual Studio Technology SDK}
 
@@ -928,8 +924,8 @@ If you want to build the LV2 plug-in, please extract the archive
   \hspace*{6em}\=\=\kill
 
   Importance:  \> optional \\
-  Version:     \> 3.6.6 \\
-  License:     \> proprietary \\
+  Version:     \> 3.6.7 \\
+  License:     \> GPL v3 (yay!) \\
   Homepage:    \> \href{http://ygrabit.steinberg.de/}{ygrabit.steinberg.de}
 \end{tabbing}
 
@@ -1045,7 +1041,7 @@ You can download an installer from the website.
   Importance:  \> optional \\
   Version:     \> 2.8 (or higher) \\
   License:     \> BSD \\
-  Homepage:    \> \href{http://http://jinja.pocoo.org/}{jinja.pocoo.org}
+  Homepage:    \> \href{http://jinja.pocoo.org/}{jinja.pocoo.org}
 \end{tabbing}
 
 You'll only need Jinja if you want to change the premake file using
@@ -1057,7 +1053,7 @@ templates (see \ref{sec:dependencies_premake}).
   \hspace*{6em}\=\=\kill
 
   Importance:  \> optional \\
-  Version:     \> 2.05 \\
+  Version:     \> 2.05.1 \\
   License:     \> LGPL v3 \\
   Homepage:    \> \href{http://astyle.sourceforge.net/}{astyle.sourceforge.net}
 \end{tabbing}

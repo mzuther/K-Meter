@@ -10,8 +10,7 @@
 
 */
 
-#ifndef __APPHEADERFILE_LEMWQ6__
-#define __APPHEADERFILE_LEMWQ6__
+#pragma once
 
 #include "AppConfig.h"
 
@@ -45,5 +44,3 @@ namespace ProjectInfo
     const int          versionNumber  = 0x20602;
 }
 #endif
-
-#endif   // __APPHEADERFILE_LEMWQ6__

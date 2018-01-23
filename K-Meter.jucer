@@ -8,11 +8,13 @@
               pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1" pluginTailLength="0"
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="KMeterAU"
               pluginAUViewClass="KMeterAU_V1" pluginRTASCategory="ePlugInCategory_None"
-              jucerVersion="4.3.1" companyName="Martin Zuther" aaxIdentifier="de.mzuther.KMeter"
+              jucerVersion="5.1.2" companyName="Martin Zuther" aaxIdentifier="de.mzuther.KMeter"
               pluginAAXCategory="AAX_ePlugInCategory_None" includeBinaryInAppConfig="1"
               buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
               companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategAnalysis"
-              pluginIsMidiEffectPlugin="0" buildAUv3="0">
+              pluginIsMidiEffectPlugin="0" buildAUv3="0" displaySplashScreen="0"
+              reportAppUsage="0" splashScreenColour="Dark" buildStandalone="0"
+              enableIAA="0" cppLanguageStandard="11" companyCopyright="Martin Zuther">
   <EXPORTFORMATS>
     <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/Documents/code/cpp/kmeter/libraries/vst"
                 extraCompilerFlags="" cppLanguageStandard="-std=c++11" externalLibraries="dl&#10;freetype&#10;pthread&#10;rt&#10;X11&#10;Xext&#10;asound"
@@ -203,10 +205,6 @@
           file="Source/rate_converter.h"/>
     <FILE id="yYoVRt" name="skin.cpp" compile="1" resource="0" file="Source/skin.cpp"/>
     <FILE id="Ck4xEP" name="skin.h" compile="0" resource="0" file="Source/skin.h"/>
-    <FILE id="GNnMJo" name="standalone_application.cpp" compile="1" resource="0"
-          file="Source/standalone_application.cpp"/>
-    <FILE id="LF1mNA" name="standalone_application.h" compile="0" resource="0"
-          file="Source/standalone_application.h"/>
     <FILE id="KIUyv0" name="true_peak_meter.cpp" compile="1" resource="0"
           file="Source/true_peak_meter.cpp"/>
     <FILE id="gA5JQP" name="true_peak_meter.h" compile="0" resource="0"
