@@ -44,11 +44,11 @@
 ---------------------------------------------------------------------------- */
 
 #ifdef KMETER_SURROUND
-  #define JucePlugin_PluginCode             'kmeS'
-  #define JucePlugin_Name                 "K-Meter (Surround)"
+  #define JucePlugin_PluginCode  'kmeS'
+  #define JucePlugin_Name        "K-Meter (Surround)"
 #else
-  #define JucePlugin_PluginCode             'kmet'
-  #define JucePlugin_Name                 "K-Meter (Stereo)"
+  #define JucePlugin_PluginCode  'kmet'
+  #define JucePlugin_Name        "K-Meter (Stereo)"
 #endif
 
 #define JUCE_USE_FLAC  1

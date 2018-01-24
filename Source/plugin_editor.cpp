@@ -57,6 +57,10 @@ static void window_validation_callback(int modalResult, KmeterAudioProcessorEdit
 KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *ownerFilter, int nNumChannels)
     : AudioProcessorEditor(ownerFilter)
 {
+    // load look and feel
+    currentLookAndFeel_ = new frut::skin::LookAndFeel_Frut_V3;
+    setLookAndFeel(currentLookAndFeel_);
+
     // the editor window does not have any transparent areas
     // (increases performance on redrawing)
     setOpaque(true);
