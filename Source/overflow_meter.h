@@ -23,16 +23,11 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __OVERFLOW_METER_H__
-#define __OVERFLOW_METER_H__
+#pragma once
 
 #include "FrutHeader.h"
 
 
-
-//==============================================================================
-/**
-*/
 class OverflowMeter :
     public frut::widget::StateLabel
 {
@@ -46,9 +41,6 @@ private:
 
     int nOverflows;
 };
-
-
-#endif  // __OVERFLOW_METER_H__
 
 
 // Local Variables:

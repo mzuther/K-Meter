@@ -23,11 +23,11 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __RATE_CONVERTER_H__
-#define __RATE_CONVERTER_H__
+#pragma once
 
 #include "FrutHeader.h"
 #include "fftw_runner.h"
+
 
 class RateConverter :
     public FftwRunner
@@ -49,9 +49,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(RateConverter);
 };
-
-
-#endif  // __RATE_CONVERTER_H__
 
 
 // Local Variables:

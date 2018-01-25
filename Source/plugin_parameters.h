@@ -23,19 +23,15 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGIN_PARAMETERS_KMETER_H__
-#define __PLUGIN_PARAMETERS_KMETER_H__
+#pragma once
 
 #include "FrutHeader.h"
 
 
-//============================================================================
 class KmeterPluginParameters :
     public frut::parameter::Juggler
 {
 public:
-    //==========================================================================
-
     KmeterPluginParameters();
 
     File getValidationFile();
@@ -90,8 +86,6 @@ public:
 private:
     JUCE_LEAK_DETECTOR(KmeterPluginParameters);
 };
-
-#endif  // __PLUGIN_PARAMETERS_KMETER_H__
 
 
 // Local Variables:

@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __KMETER_PLUGINPROCESSOR_H__
-#define __KMETER_PLUGINPROCESSOR_H__
+#pragma once
 
 class KmeterAudioProcessor;
 class MeterBallistics;
@@ -37,16 +36,12 @@ class MeterBallistics;
 #include "true_peak_meter.h"
 
 
-//============================================================================
 class KmeterAudioProcessor : public AudioProcessor, public ActionBroadcaster, virtual public frut::audio::RingBufferProcessor
 {
 public:
-    //==========================================================================
-
     KmeterAudioProcessor();
     ~KmeterAudioProcessor();
 
-    //==========================================================================
 #ifndef JucePlugin_PreferredChannelConfigurations
     bool isBusesLayoutSupported(const BusesLayout &layouts) const override;
 #endif
@@ -61,11 +56,9 @@ public:
     void stopValidation();
     bool isValidating();
 
-    //==========================================================================
     AudioProcessorEditor *createEditor();
     bool hasEditor() const;
 
-    //==========================================================================
     int getNumParameters();
     const String getParameterName(int nIndex);
     const String getParameterText(int nIndex);
@@ -87,7 +80,6 @@ public:
     bool getBoolean(int nIndex);
     int getRealInteger(int nIndex);
 
-    //==========================================================================
     const String getName() const;
 
     bool acceptsMidi() const;
@@ -102,7 +94,6 @@ public:
     void setAverageAlgorithm(const int average_algorithm);
     void setAverageAlgorithmFinal(const int average_algorithm);
 
-    //==========================================================================
     int getNumPrograms();
 
     int getCurrentProgram();
@@ -111,11 +102,8 @@ public:
     const String getProgramName(int nIndex);
     void changeProgramName(int nIndex, const String &newName);
 
-    //==========================================================================
     void getStateInformation(MemoryBlock &destData);
     void setStateInformation(const void *data, int sizeInBytes);
-
-    //==========================================================================
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(KmeterAudioProcessor);
@@ -153,8 +141,6 @@ private:
 };
 
 AudioProcessor *JUCE_CALLTYPE createPluginFilter();
-
-#endif  // __KMETER_PLUGINPROCESSOR_H__
 
 
 // Local Variables:

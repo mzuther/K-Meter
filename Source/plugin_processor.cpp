@@ -97,8 +97,6 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
 }
 
 
-//==============================================================================
-
 #ifndef JucePlugin_PreferredChannelConfigurations
 bool KmeterAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts) const
 {
@@ -432,8 +430,6 @@ void KmeterAudioProcessor::changeProgramName(int nIndex, const String &newName)
     ignoreUnused(nIndex, newName);
 }
 
-
-//==============================================================================
 
 void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
@@ -918,7 +914,6 @@ void KmeterAudioProcessor::setAverageAlgorithmFinal(const int average_algorithm)
     sendActionMessage("AC");
 }
 
-//==============================================================================
 
 AudioProcessorEditor *KmeterAudioProcessor::createEditor()
 {
@@ -931,8 +926,6 @@ bool KmeterAudioProcessor::hasEditor() const
     return true;
 }
 
-
-//==============================================================================
 
 void KmeterAudioProcessor::getStateInformation(MemoryBlock &destData)
 {
@@ -961,7 +954,6 @@ void KmeterAudioProcessor::setStateInformation(const void *data, int sizeInBytes
     updateParameters(true);
 }
 
-//==============================================================================
 
 // This creates new instances of the plug-in.
 AudioProcessor *JUCE_CALLTYPE createPluginFilter()

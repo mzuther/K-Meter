@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FFTW_RUNNER_H__
-#define __FFTW_RUNNER_H__
+#pragma once
 
 #include "FrutHeader.h"
 #include "fftw/api/fftw3.h"
@@ -77,9 +76,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(FftwRunner);
 };
-
-
-#endif  // __FFTW_RUNNER_H__
 
 
 // Local Variables:

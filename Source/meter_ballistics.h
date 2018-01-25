@@ -23,16 +23,12 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __METER_BALLISTICS_H__
-#define __METER_BALLISTICS_H__
+#pragma once
 
 #include "FrutHeader.h"
 #include "plugin_parameters.h"
 
 
-//==============================================================================
-/**
-*/
 class MeterBallistics
 {
 public:
@@ -110,9 +106,6 @@ private:
 
     void LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float &fReadout);
 };
-
-
-#endif  // __METER_BALLISTICS_H__
 
 
 // Local Variables:

@@ -53,7 +53,6 @@ static void window_validation_callback(int modalResult, KmeterAudioProcessorEdit
 }
 
 
-//==============================================================================
 KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *ownerFilter, int nNumChannels)
     : AudioProcessorEditor(ownerFilter)
 {
@@ -559,11 +558,12 @@ void KmeterAudioProcessorEditor::reloadMeters()
     }
 }
 
-//==============================================================================
+
 void KmeterAudioProcessorEditor::paint(Graphics &g)
 {
     g.fillAll(Colours::black);
 }
+
 
 void KmeterAudioProcessorEditor::buttonClicked(Button *button)
 {

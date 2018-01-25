@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __AVERAGE_LEVEL_FILTERED_H__
-#define __AVERAGE_LEVEL_FILTERED_H__
+#pragma once
 
 class AverageLevelFiltered;
 
@@ -92,9 +91,6 @@ private:
     int averageAlgorithm_;
     float peakToAverageCorrection_;
 };
-
-
-#endif  // __AVERAGE_LEVEL_FILTERED_H__
 
 
 // Local Variables:

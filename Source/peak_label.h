@@ -23,15 +23,11 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PEAK_LABEL_H__
-#define __PEAK_LABEL_H__
+#pragma once
 
 #include "FrutHeader.h"
 
 
-//==============================================================================
-/**
-*/
 class PeakLabel :
     public frut::widget::StateLabel
 {
@@ -47,9 +43,6 @@ private:
     int nMeterCrestFactor;
     float fMaximumLevel;
 };
-
-
-#endif  // __PEAK_LABEL_H__
 
 
 // Local Variables:

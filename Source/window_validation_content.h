@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WINDOW_VALIDATION_CONTENT_H__
-#define __WINDOW_VALIDATION_CONTENT_H__
+#pragma once
 
 #include "FrutHeader.h"
 #include "plugin_processor.h"
@@ -68,9 +67,6 @@ private:
     ToggleButton buttonDumpStereoMeter_;
     ToggleButton buttonDumpPhaseCorrelation_;
 };
-
-
-#endif  // __WINDOW_VALIDATION_CONTENT_H__
 
 
 // Local Variables:

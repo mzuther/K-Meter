@@ -23,11 +23,11 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __TRUE_PEAK_METER_H__
-#define __TRUE_PEAK_METER_H__
+#pragma once
 
 #include "FrutHeader.h"
 #include "rate_converter.h"
+
 
 class TruePeakMeter :
     public RateConverter
@@ -47,9 +47,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(TruePeakMeter);
 };
-
-
-#endif  // __TRUE_PEAK_METER_H__
 
 
 // Local Variables:

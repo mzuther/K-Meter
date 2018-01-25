@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGINEDITOR_KMETER_H__
-#define __PLUGINEDITOR_KMETER_H__
+#pragma once
 
 #include "FrutHeader.h"
 #include "plugin_processor.h"
@@ -33,9 +32,6 @@
 #include "window_validation_content.h"
 
 
-//==============================================================================
-/**
-*/
 class KmeterAudioProcessorEditor : public AudioProcessorEditor, public ButtonListener, public ActionListener
 {
 public:
@@ -50,7 +46,6 @@ public:
     void windowSkinCallback(int modalResult);
     void windowValidationCallback(int modalResult);
 
-    //==============================================================================
     // This is just a standard Juce paint method...
     void paint(Graphics &g);
     void resized();
@@ -113,9 +108,6 @@ private:
 
     ImageComponent BackgroundImage;
 };
-
-
-#endif  // __PLUGINEDITOR_KMETER_H__
 
 
 // Local Variables:
