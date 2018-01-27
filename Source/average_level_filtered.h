@@ -48,10 +48,10 @@ public:
     int getAlgorithm();
     void setAlgorithm(const int averageAlgorithm);
 
-    void copyFromBuffer(frut::audio::RingBuffer &ringBuffer,
+    void copyFromBuffer(frut::audio::RingBuffer<float> &ringBuffer,
                         const unsigned int preDelay,
                         const int sampleRate);
-    void copyToBuffer(frut::audio::RingBuffer &destination,
+    void copyToBuffer(frut::audio::RingBuffer<float> &destination,
                       const unsigned int sourceStartSample,
                       const unsigned int numSamples);
     void copyToBuffer(AudioBuffer<float> &destination,

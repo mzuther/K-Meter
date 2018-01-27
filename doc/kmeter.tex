@@ -924,7 +924,7 @@ If you want to build the LV2 plug-in, please extract the archive
   \hspace*{6em}\=\=\kill
 
   Importance:  \> optional \\
-  Version:     \> 3.6.7 \\
+  Version:     \> 3.6.8 \\
   License:     \> GPL v3 (yay!) \\
   Homepage:    \> \href{http://ygrabit.steinberg.de/}{ygrabit.steinberg.de}
 \end{tabbing}
@@ -972,6 +972,7 @@ into this directory and run:
   make
   mkdir -p bin/linux/i386/
   mv .libs/* bin/linux/i386/
+  make clean
 \end{Verbatim32}
 
 \begin{Verbatim64}
@@ -980,6 +981,7 @@ into this directory and run:
   make
   mkdir -p bin/linux/amd64/
   mv .libs/* bin/linux/amd64/
+  make clean
 \end{Verbatim64}
 
 \subsubsection{Installation on Mac OS X}
@@ -993,6 +995,7 @@ into this directory and run:
   make
   mkdir -p bin/mac/x32/
   mv .libs/* bin/mac/x32/
+  make clean
 \end{Verbatim32}
 
 \begin{Verbatim64}
@@ -1001,6 +1004,7 @@ into this directory and run:
   make
   mkdir -p bin/mac/x64/
   mv .libs/* bin/mac/x64/
+  make clean
 \end{Verbatim64}
 
 \subsubsection{Installation on Microsoft Windows}

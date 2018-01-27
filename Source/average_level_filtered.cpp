@@ -43,11 +43,11 @@ AverageLevelFiltered::AverageLevelFiltered(
         numberOfChannels_, KMETER_MAXIMUM_FILTER_STAGES - 1),
     previousSamplesWeightingFilterOutput_(
         numberOfChannels_, KMETER_MAXIMUM_FILTER_STAGES - 1),
-    previousSamplesOutputTemp_(1, fftBufferSize_),
-    dither_(24)
-
+    previousSamplesOutputTemp_(1, fftBufferSize_)
 {
     processor_ = processor;
+    dither_.initialise(channels, 24);
+
     peakToAverageCorrection_ = 0.0f;
 
     averageAlgorithm_ = -1;
@@ -264,7 +264,7 @@ void AverageLevelFiltered::filterSamples_ItuBs1770()
             }
 
             // dither output to float
-            samplesOutput[sample] = dither_.dither(outputSum);
+            samplesOutput[sample] = dither_.ditherSample(channel, outputSum);
 
             // avoid underflows (1e-20f corresponds to -400 dBFS)
             if (fabs(samplesOutput[sample]) < 1e-20f)
@@ -331,7 +331,7 @@ void AverageLevelFiltered::filterSamples_ItuBs1770()
             }
 
             // dither output to float
-            samplesOutput[sample] = dither_.dither(outputSum);
+            samplesOutput[sample] = dither_.ditherSample(channel, outputSum);
 
             // avoid underflows (1e-20f corresponds to -400 dBFS)
             if (fabs(samplesOutput[sample]) < 1e-20f)
@@ -436,7 +436,7 @@ float AverageLevelFiltered::getLevel(
 
 
 void AverageLevelFiltered::copyFromBuffer(
-    frut::audio::RingBuffer &ringBuffer,
+    frut::audio::RingBuffer<float> &ringBuffer,
     const unsigned int preDelay,
     const int sampleRate)
 
@@ -454,7 +454,7 @@ void AverageLevelFiltered::copyFromBuffer(
 
 
 void AverageLevelFiltered::copyToBuffer(
-    frut::audio::RingBuffer &destination,
+    frut::audio::RingBuffer<float> &destination,
     const unsigned int sourceStartSample,
     const unsigned int numSamples)
 

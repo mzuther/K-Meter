@@ -49,7 +49,7 @@ float TruePeakMeter::getLevel(
 
 
 void TruePeakMeter::copyFromBuffer(
-    frut::audio::RingBuffer &ringBuffer,
+    frut::audio::RingBuffer<float> &ringBuffer,
     const unsigned int preDelay)
 
 {

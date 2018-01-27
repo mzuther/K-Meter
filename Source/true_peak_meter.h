@@ -38,7 +38,7 @@ public:
                   const int bufferSize);
 
     float getLevel(const int channel);
-    void copyFromBuffer(frut::audio::RingBuffer &ringBuffer,
+    void copyFromBuffer(frut::audio::RingBuffer<float> &ringBuffer,
                         const unsigned int preDelay);
 
 protected:
