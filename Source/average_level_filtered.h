@@ -28,20 +28,19 @@
 class AverageLevelFiltered;
 
 #include "FrutHeader.h"
-#include "fftw_runner.h"
 #include "plugin_processor.h"
 
 
 class AverageLevelFiltered :
-    public FftwRunner
+    public frut::dsp::FIRFilterBox
 {
 public:
     static const int KMETER_MAXIMUM_FILTER_STAGES = 3;
 
     AverageLevelFiltered(KmeterAudioProcessor *processor,
-                         const int channels,
-                         const int sampleRate,
-                         const int bufferSize,
+                         const int numberOfChannels,
+                         const double sampleRate,
+                         const int fftBufferSize,
                          const int averageAlgorithm);
 
     float getLevel(const int channel);
@@ -50,10 +49,12 @@ public:
 
     void copyFromBuffer(frut::audio::RingBuffer<float> &ringBuffer,
                         const unsigned int preDelay,
-                        const int sampleRate);
+                        const double sampleRate);
+
     void copyToBuffer(frut::audio::RingBuffer<float> &destination,
                       const unsigned int sourceStartSample,
                       const unsigned int numSamples);
+
     void copyToBuffer(AudioBuffer<float> &destination,
                       const int channel,
                       const int destStartSample,
@@ -69,7 +70,7 @@ private:
     void filterSamples_Rms(const int channel);
     void filterSamples_ItuBs1770();
 
-    int sampleRate_;
+    double sampleRate_;
 
     Array<double> preFilterInputCoefficients_;
     Array<double> preFilterOutputCoefficients_;

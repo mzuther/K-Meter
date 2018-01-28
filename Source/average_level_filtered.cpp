@@ -28,12 +28,12 @@
 
 AverageLevelFiltered::AverageLevelFiltered(
     KmeterAudioProcessor *processor,
-    const int channels,
-    const int sampleRate,
-    const int bufferSize,
+    const int numberOfChannels,
+    const double sampleRate,
+    const int fftBufferSize,
     const int averageAlgorithm) :
 
-    FftwRunner(channels, bufferSize),
+    frut::dsp::FIRFilterBox(numberOfChannels, fftBufferSize),
     sampleRate_(sampleRate),
     previousSamplesPreFilterInput_(
         numberOfChannels_, KMETER_MAXIMUM_FILTER_STAGES - 1),
@@ -46,10 +46,9 @@ AverageLevelFiltered::AverageLevelFiltered(
     previousSamplesOutputTemp_(1, fftBufferSize_)
 {
     processor_ = processor;
-    dither_.initialise(channels, 24);
+    dither_.initialise(numberOfChannels_, 24);
 
     peakToAverageCorrection_ = 0.0f;
-
     averageAlgorithm_ = -1;
 
     // also calculates filter kernel
@@ -146,8 +145,8 @@ void AverageLevelFiltered::calculateFilterKernel()
 // at 21.0 kHz)
 void AverageLevelFiltered::calculateFilterKernel_Rms()
 {
-    float cutoffFrequency = 21000.0f;
-    float relativeCutoffFrequency = cutoffFrequency / sampleRate_;
+    double cutoffFrequency = 21000.0;
+    double relativeCutoffFrequency = cutoffFrequency / sampleRate_;
 
     calculateKernelWindowedSincLPF(relativeCutoffFrequency);
 }
@@ -168,7 +167,7 @@ void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
     double pf_vl = 1.0;
     double pf_q = 0.7071752369554196;
     double pf_cutoff = 1681.974450955533;
-    double pf_omega = tan(M_PI * pf_cutoff / double(sampleRate_));
+    double pf_omega = tan(M_PI * pf_cutoff / sampleRate_);
     double pf_omega_2 = pow(pf_omega, 2.0);
     double pf_omega_q = pf_omega / pf_q;
     double pf_div = (pf_omega_2 + pf_omega_q + 1.0);
@@ -187,7 +186,7 @@ void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
     double rlb_vl = 0.0;
     double rlb_q = 0.5003270373238773;
     double rlb_cutoff = 38.13547087602444;
-    double rlb_omega = tan(M_PI * rlb_cutoff / double(sampleRate_));
+    double rlb_omega = tan(M_PI * rlb_cutoff / sampleRate_);
     double rlb_omega_2 = pow(rlb_omega, 2.0);
     double rlb_omega_q = rlb_omega / rlb_q;
     double rlb_div_1 = (rlb_vl * rlb_omega_2 + rlb_vb * rlb_omega_q + rlb_vh);
@@ -438,7 +437,7 @@ float AverageLevelFiltered::getLevel(
 void AverageLevelFiltered::copyFromBuffer(
     frut::audio::RingBuffer<float> &ringBuffer,
     const unsigned int preDelay,
-    const int sampleRate)
+    const double sampleRate)
 
 {
     // recalculate filter kernel when sample rate changes

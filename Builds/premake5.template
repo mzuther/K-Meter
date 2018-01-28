@@ -73,6 +73,10 @@ workspace "{{ name.short }}"
 		"../Source/common/",
 		"../libraries/"
 	}
+
+	defines {
+		"FRUT_DSP_USE_FFTW=1"
+	}
 {{ additions }}
 	filter { "system:linux" }
 		defines {

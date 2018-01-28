@@ -33,7 +33,6 @@ class MeterBallistics;
 #include "average_level_filtered.h"
 #include "meter_ballistics.h"
 #include "plugin_parameters.h"
-#include "true_peak_meter.h"
 
 
 class KmeterAudioProcessor :
@@ -125,15 +124,13 @@ private:
 
     static BusesProperties getBusesProperties();
 
-    frut::dsp::Dither dither_;
-
     ScopedPointer<AudioFilePlayer> audioFilePlayer;
 
     ScopedPointer<frut::audio::RingBuffer<float>> ringBufferInput_;
     ScopedPointer<frut::audio::RingBuffer<float>> ringBufferOutput_;
 
     ScopedPointer<AverageLevelFiltered> pAverageLevelFiltered;
-    ScopedPointer<TruePeakMeter> pTruePeakMeter;
+    ScopedPointer<frut::dsp::TruePeakMeter> pTruePeakMeter;
     ScopedPointer<MeterBallistics> pMeterBallistics;
 
     KmeterPluginParameters pluginParameters;

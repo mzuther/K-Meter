@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   FrutJUCE
+   ========
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2018 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,22 +23,20 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "fftw_runner.h"
-
 
 FftwRunner::FftwRunner(
-    const int channels,
-    const int bufferSize) :
+    const int numberOfChannels,
+    const int fftBufferSize) :
 
-    numberOfChannels_(channels),
-    fftBufferSize_(bufferSize),
+    numberOfChannels_(numberOfChannels),
+    fftBufferSize_(fftBufferSize),
     fftSize_(fftBufferSize_ * 2),
-    halfFftSize_(fftSize_ / 2 + 1),
+    halfFftSizePlusOne_(fftSize_ / 2 + 1),
     fftSampleBuffer_(numberOfChannels_, fftBufferSize_),
     fftOverlapAddSamples_(numberOfChannels_, fftBufferSize_)
 
 {
-    jassert(channels > 0);
+    jassert(numberOfChannels_ > 0);
 
 #if (defined (_WIN32) || defined (_WIN64))
     File currentExecutableFile = File::getSpecialLocation(
@@ -83,14 +81,14 @@ FftwRunner::FftwRunner(
 #endif
 
     filterKernel_TD_ = fftwf_alloc_real(fftSize_);
-    filterKernel_FD_ = fftwf_alloc_complex(halfFftSize_);
+    filterKernel_FD_ = fftwf_alloc_complex(halfFftSizePlusOne_);
 
     filterKernelPlan_DFT_ = fftwf_plan_dft_r2c_1d(
                                 fftSize_, filterKernel_TD_, filterKernel_FD_,
                                 FFTW_MEASURE);
 
     audioSamples_TD_ = fftwf_alloc_real(fftSize_);
-    audioSamples_FD_ = fftwf_alloc_complex(halfFftSize_);
+    audioSamples_FD_ = fftwf_alloc_complex(halfFftSizePlusOne_);
 
     audioSamplesPlan_DFT_ = fftwf_plan_dft_r2c_1d(
                                 fftSize_, audioSamples_TD_, audioSamples_FD_,
@@ -126,53 +124,6 @@ FftwRunner::~FftwRunner()
 }
 
 
-// calculate filter kernel for windowed-sinc low-pass filter
-void FftwRunner::calculateKernelWindowedSincLPF(
-    const float relativeCutoffFrequency)
-
-{
-    int samples = fftBufferSize_ + 1;
-    float samplesHalf = samples / 2.0f;
-
-    // calculate filter kernel
-    for (int i = 0; i < samples; ++i)
-    {
-        if (i == samplesHalf)
-        {
-            filterKernel_TD_[i] = static_cast<float>(
-                                      2.0 * M_PI * relativeCutoffFrequency);
-        }
-        else
-        {
-            filterKernel_TD_[i] = static_cast<float>(
-                                      sin(2.0 * M_PI * relativeCutoffFrequency * (i - samplesHalf)) / (i - samplesHalf) * (0.42 - 0.5 * cos(2.0 * static_cast<float>(M_PI) * i / samples) + 0.08 * cos(4.0 * static_cast<float>(M_PI) * i / samples)));
-        }
-    }
-
-    // normalise filter kernel for unity gain at DC
-    float kernelSum = 0.0;
-
-    for (int i = 0; i < samples; ++i)
-    {
-        kernelSum += filterKernel_TD_[i];
-    }
-
-    for (int i = 0; i < samples; ++i)
-    {
-        filterKernel_TD_[i] = filterKernel_TD_[i] / kernelSum;
-    }
-
-    // pad filter kernel with zeros
-    for (int i = samples; i < fftSize_; ++i)
-    {
-        filterKernel_TD_[i] = 0.0f;
-    }
-
-    // calculate DFT of filter kernel
-    fftwf_execute(filterKernelPlan_DFT_);
-}
-
-
 // "oversamplingRate" is needed for normalising the synthesised audio
 // data during oversampling only and should be left alone in any other
 // case
@@ -200,7 +151,7 @@ void FftwRunner::convolveWithKernel(
     fftwf_execute(audioSamplesPlan_DFT_);
 
     // convolve audio data with filter kernel
-    for (int i = 0; i < halfFftSize_; ++i)
+    for (int i = 0; i < halfFftSizePlusOne_; ++i)
     {
         // multiplication of complex numbers: index 0 contains the real
         // part, index 1 the imaginary part

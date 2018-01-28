@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   FrutJUCE
+   ========
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2018 Martin Zuther (http://www.mzuther.de/)
 
@@ -25,29 +25,21 @@
 
 #pragma once
 
-#include "FrutHeader.h"
-#include "fftw_runner.h"
 
-
-class RateConverter :
+class FIRFilterBox :
     public FftwRunner
 {
 public:
-    RateConverter(const int upsamplingRate,
-                  const int channels,
-                  const int bufferSize);
+    FIRFilterBox(const int numberOfChannels,
+                 const int fftBufferSize);
 
-protected:
-    void calculateFilterKernel();
-    void upsample();
+    ~FIRFilterBox();
 
-    int upsamplingRate_;
-    int bufferSizeOriginal_;
-
-    AudioBuffer<float> sampleBufferOriginal_;
+    void calculateKernelWindowedSincLPF(
+        const double relativeCutoffFrequency);
 
 private:
-    JUCE_LEAK_DETECTOR(RateConverter);
+    JUCE_LEAK_DETECTOR(FIRFilterBox);
 };
 
 

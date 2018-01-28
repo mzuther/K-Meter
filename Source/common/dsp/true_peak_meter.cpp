@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   FrutJUCE
+   ========
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2018 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,39 +23,36 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "true_peak_meter.h"
-
 
 TruePeakMeter::TruePeakMeter(
-    const int upsamplingRate,
-    const int channels,
-    const int bufferSize) :
+    const int numberOfChannels,
+    const int originalFftBufferSize,
+    const int upsamplingFactor) :
 
-    RateConverter(upsamplingRate, channels, bufferSize)
-
+    frut::dsp::RateConverter(numberOfChannels,
+                             originalFftBufferSize,
+                             upsamplingFactor)
 {
 }
 
 
 float TruePeakMeter::getLevel(
     const int channel)
-
 {
     jassert(channel >= 0);
     jassert(channel < numberOfChannels_);
 
-    return static_cast<float>(truePeakLevels_[channel]);
+    return truePeakLevels_[channel];
 }
 
 
 void TruePeakMeter::copyFromBuffer(
     frut::audio::RingBuffer<float> &ringBuffer,
     const unsigned int preDelay)
-
 {
     // copy data from ring buffer to sample buffer
     ringBuffer.copyToBuffer(sampleBufferOriginal_, 0,
-                            bufferSizeOriginal_, preDelay);
+                            originalFftBufferSize_, preDelay);
 
     // upsample buffer (overwrites contents of sample buffer)
     upsample();

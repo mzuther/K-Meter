@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   FrutJUCE
+   ========
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2018 Martin Zuther (http://www.mzuther.de/)
 
@@ -25,18 +25,15 @@
 
 #pragma once
 
-#include "FrutHeader.h"
-#include "fftw/api/fftw3.h"
-
 
 class FftwRunner
 {
 public:
-    FftwRunner(const int channels,
-               const int bufferSize);
+    FftwRunner(const int numberOfChannels,
+               const int fftBufferSize);
+
     ~FftwRunner();
 
-    void calculateKernelWindowedSincLPF(const float relativeCutoffFrequency);
     void convolveWithKernel(const int channel,
                             const float oversamplingRate = 1.0f);
 
@@ -56,7 +53,7 @@ protected:
     int fftBufferSize_;
 
     int fftSize_;
-    int halfFftSize_;
+    int halfFftSizePlusOne_;
 
     AudioBuffer<float> fftSampleBuffer_;
     AudioBuffer<float> fftOverlapAddSamples_;

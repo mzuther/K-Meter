@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   FrutJUCE
+   ========
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2018 Martin Zuther (http://www.mzuther.de/)
 
@@ -25,24 +25,22 @@
 
 #pragma once
 
-#include "FrutHeader.h"
-#include "rate_converter.h"
-
 
 class TruePeakMeter :
-    public RateConverter
+    public frut::dsp::RateConverter
 {
 public:
-    TruePeakMeter(const int upsamplingRate,
-                  const int channels,
-                  const int bufferSize);
+    TruePeakMeter(const int numberOfChannels,
+                  const int originalFftBufferSize,
+                  const int upsamplingFactor);
 
     float getLevel(const int channel);
+
     void copyFromBuffer(frut::audio::RingBuffer<float> &ringBuffer,
                         const unsigned int preDelay);
 
 protected:
-    Array<double> truePeakLevels_;
+    Array<float> truePeakLevels_;
 
 private:
     JUCE_LEAK_DETECTOR(TruePeakMeter);

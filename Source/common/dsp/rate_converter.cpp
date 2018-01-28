@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   FrutJUCE
+   ========
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2018 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,18 +23,17 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "rate_converter.h"
-
 
 RateConverter::RateConverter(
-    const int upsamplingRate,
-    const int channels,
-    const int bufferSize) :
+    const int numberOfChannels,
+    const int originalFftBufferSize,
+    const int upsamplingFactor) :
 
-    FftwRunner(channels, upsamplingRate * bufferSize),
-    upsamplingRate_(upsamplingRate),
-    bufferSizeOriginal_(bufferSize),
-    sampleBufferOriginal_(numberOfChannels_, bufferSizeOriginal_)
+    frut::dsp::FIRFilterBox(
+        numberOfChannels, upsamplingFactor * originalFftBufferSize),
+    upsamplingFactor_(upsamplingFactor),
+    originalFftBufferSize_(originalFftBufferSize),
+    sampleBufferOriginal_(numberOfChannels_, originalFftBufferSize_)
 
 {
     calculateFilterKernel();
@@ -51,7 +50,7 @@ void RateConverter::calculateFilterKernel()
     // Nyquist frequency from resampled audio; the approximated filter
     // transition is 22 Hz for a final buffer size of 8192 samples
     // (8 * 1024) and an initial sampling rate of 44100 Hz
-    float relativeCutoffFrequency = 0.5f / upsamplingRate_;
+    double relativeCutoffFrequency = 0.5 / upsamplingFactor_;
 
     calculateKernelWindowedSincLPF(relativeCutoffFrequency);
 }
@@ -60,27 +59,27 @@ void RateConverter::calculateFilterKernel()
 void RateConverter::upsample()
 {
     // upsample input sample buffer by clearing it and filling every
-    // "upsamplingRate_" sample with the original sample values
+    // "upsamplingFactor_" sample with the original sample values
     fftSampleBuffer_.clear();
 
     for (int channel = 0; channel < numberOfChannels_; ++channel)
     {
         int sampleUpsampled = 0;
 
-        for (int sample = 0; sample < bufferSizeOriginal_; ++sample)
+        for (int sample = 0; sample < originalFftBufferSize_; ++sample)
         {
             fftSampleBuffer_.copyFrom(
                 channel, sampleUpsampled, sampleBufferOriginal_,
                 channel, sample, 1);
 
-            sampleUpsampled += upsamplingRate_;
+            sampleUpsampled += upsamplingFactor_;
         }
     }
 
     // filter audio data (overwrites contents of sample buffer)
     for (int channel = 0; channel < numberOfChannels_; ++channel)
     {
-        convolveWithKernel(channel, static_cast<float>(upsamplingRate_));
+        convolveWithKernel(channel, static_cast<float>(upsamplingFactor_));
     }
 }
 

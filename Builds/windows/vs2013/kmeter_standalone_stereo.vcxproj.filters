@@ -42,9 +42,6 @@
     <ClInclude Include="..\..\..\Source\common\amalgamated\include_frut_widget.h">
       <Filter>Source\common\amalgamated</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\fftw_runner.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Source\kmeter.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -69,13 +66,7 @@
     <ClInclude Include="..\..\..\Source\plugin_processor.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\rate_converter.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Source\skin.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\true_peak_meter.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\window_validation_content.h">
@@ -152,9 +143,6 @@
     <ClCompile Include="..\..\..\Source\common\amalgamated\include_frut_widget.cpp">
       <Filter>Source\common\amalgamated</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\fftw_runner.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\kmeter.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -179,13 +167,7 @@
     <ClCompile Include="..\..\..\Source\plugin_processor.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\rate_converter.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\skin.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\true_peak_meter.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\window_validation_content.cpp">

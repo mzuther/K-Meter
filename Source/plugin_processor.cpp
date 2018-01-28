@@ -472,7 +472,6 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     Logger::outputDebugString("[K-Meter] number of output channels: " + String(getMainBusNumOutputChannels()));
 
     isStereo = (numInputChannels == 2);
-    dither_.initialise(numInputChannels, 24);
 
     pMeterBallistics = new MeterBallistics(numInputChannels, nAverageAlgorithm, false, false);
 
@@ -497,20 +496,19 @@ void KmeterAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 
     // maximum under-read of true peak measurement is 0.169 dB (see
     // Annex 2 of ITU-R BS.1770-4)
-    int nOversamplingRate = 8;
+    int oversamplingFactor = 8;
 
     if (sampleRate >= 176400)
     {
-        nOversamplingRate /= 4;
+        oversamplingFactor /= 4;
     }
     else if (sampleRate >= 88200)
     {
-        nOversamplingRate /= 2;
+        oversamplingFactor /= 2;
     }
 
-    pTruePeakMeter = new TruePeakMeter(nOversamplingRate,
-                                       numInputChannels,
-                                       nTrakmeterBufferSize);
+    pTruePeakMeter = new frut::dsp::TruePeakMeter(
+        numInputChannels, nTrakmeterBufferSize, oversamplingFactor);
 
     // make sure that ring buffer can hold at least nTrakmeterBufferSize
     // samples and is large enough to receive a full block of audio
