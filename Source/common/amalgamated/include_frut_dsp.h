@@ -40,7 +40,7 @@ namespace dsp
 #include <float.h>
 #include <math.h>
 
-#ifdef FRUT_DSP_USE_FFTW
+#if FRUT_DSP_USE_FFTW
 #include "fftw/api/fftw3.h"
 #endif
 
@@ -50,7 +50,7 @@ namespace dsp
 #include "../dsp/filter_chebyshev_stage.h"
 #include "../dsp/iir_filter_box.h"
 
-#ifdef FRUT_DSP_USE_FFTW
+#if FRUT_DSP_USE_FFTW
 
 #include "../dsp/fftw_runner.h"
 #include "../dsp/fir_filter_box.h"

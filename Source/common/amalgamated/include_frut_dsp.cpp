@@ -37,7 +37,7 @@ namespace dsp
 #include "../dsp/filter_chebyshev_stage.cpp"
 #include "../dsp/iir_filter_box.cpp"
 
-#ifdef FRUT_DSP_USE_FFTW
+#if FRUT_DSP_USE_FFTW
 
 #include "../dsp/fftw_runner.cpp"
 #include "../dsp/fir_filter_box.cpp"
