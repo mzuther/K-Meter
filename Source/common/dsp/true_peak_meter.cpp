@@ -49,7 +49,7 @@ float TruePeakMeter::getLevel(
 
 void TruePeakMeter::setSamples(
     const frut::audio::RingBuffer<float> &source,
-    const unsigned int preDelay)
+    const int preDelay)
 {
     // copy data from ring buffer to sample buffer
     source.getSamples(sampleBufferOriginal_, 0,
@@ -62,7 +62,7 @@ void TruePeakMeter::setSamples(
 
 void TruePeakMeter::setSamples(
     const frut::audio::RingBuffer<double> &source,
-    const unsigned int preDelay)
+    const int preDelay)
 {
     int NumberOfChannels = source.getNumberOfChannels();
     int NumberOfSamples = source.getNumberOfSamples();

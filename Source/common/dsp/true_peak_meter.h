@@ -37,10 +37,10 @@ public:
     float getLevel(const int channel);
 
     void setSamples(const frut::audio::RingBuffer<float> &source,
-                    const unsigned int preDelay);
+                    const int preDelay);
 
     void setSamples(const frut::audio::RingBuffer<double> &source,
-                    const unsigned int preDelay);
+                    const int preDelay);
 
 protected:
     void processInput();
