@@ -756,21 +756,21 @@ void KmeterAudioProcessor::processBufferChunk(
         else
         {
             // determine peak level for chunkSize samples (use pre-delay)
-            peakLevels_.set(nChannel,
-                            ringBufferInput_->getMagnitude(
-                                nChannel, chunkSize, preDelay));
+            peakLevels_.set(nChannel, static_cast<float>(
+                                ringBufferInput_->getMagnitude(
+                                    nChannel, chunkSize, preDelay)));
 
             // determine peak level for chunkSize samples (use pre-delay)
-            rmsLevels_.set(nChannel,
-                           ringBufferInput_->getRMSLevel(
-                               nChannel, chunkSize, preDelay));
+            rmsLevels_.set(nChannel, static_cast<float>(
+                               ringBufferInput_->getRMSLevel(
+                                   nChannel, chunkSize, preDelay)));
 
             // determine filtered average level for chunkSize samples
             // (please note that this level has already been converted
             // to decibels!)
-            averageLevelsFiltered_.set(nChannel,
-                                       averageLevelFiltered_->getLevel(
-                                           nChannel));
+            averageLevelsFiltered_.set(nChannel, static_cast<float>(
+                                           averageLevelFiltered_->getLevel(
+                                               nChannel)));
 
             // determine true peak level for chunkSize samples (uses
             // pre-delay)
@@ -816,10 +816,13 @@ void KmeterAudioProcessor::processBufferChunk(
             // determine correlation for chunkSize samples (use pre-delay)
             for (int sample = 0; sample < chunkSize; ++sample)
             {
-                float ringbuffer_left = ringBufferInput_->getSample(
-                                            0, sample, preDelay);
-                float ringbuffer_right = ringBufferInput_->getSample(
-                                             1, sample, preDelay);
+                float ringbuffer_left = static_cast<float>(
+                                            ringBufferInput_->getSample(
+                                                0, sample, preDelay));
+
+                float ringbuffer_right = static_cast<float>(
+                                             ringBufferInput_->getSample(
+                                                 1, sample, preDelay));
 
                 sum_of_product += ringbuffer_left * ringbuffer_right;
                 sum_of_squares_left += ringbuffer_left * ringbuffer_left;
