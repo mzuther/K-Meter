@@ -32,6 +32,7 @@ class MeterBar :
     public frut::widget::MeterBar
 {
 public:
+    using frut::widget::MeterBar::create;
     virtual void create(int crestFactor,
                         bool discreteMeter,
                         bool isExpanded,

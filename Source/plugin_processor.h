@@ -38,7 +38,7 @@ class MeterBallistics;
 class KmeterAudioProcessor :
     public AudioProcessor,
     public ActionBroadcaster,
-    virtual public frut::audio::RingBufferProcessor<float>
+    virtual public frut::audio::RingBufferProcessor<double>
 {
 public:
     KmeterAudioProcessor();
@@ -54,6 +54,9 @@ public:
 
     void processBlock(AudioBuffer<float> &buffer,
                       MidiBuffer &midiMessages) override;
+    void processBlock(AudioBuffer<double> &buffer,
+                      MidiBuffer &midiMessages) override;
+    void process(AudioBuffer<double> &buffer);
 
     void silenceInput(bool isSilentNew);
 
@@ -73,9 +76,9 @@ public:
     const String getParameterName(int nIndex) override;
     const String getParameterText(int nIndex) override;
 
-    float getParameter(int nIndex);
+    float getParameter(int nIndex) override;
     void changeParameter(int nIndex, float fValue);
-    void setParameter(int nIndex, float fValue);
+    void setParameter(int nIndex, float fValue) override;
 
     void clearChangeFlag(int nIndex);
     bool hasChanged(int nIndex);
@@ -98,14 +101,13 @@ public:
     double getTailLengthSeconds() const override;
 
     MeterBallistics *getLevels();
-    virtual void processBufferChunk(AudioBuffer<float> &buffer,
-                                    const unsigned int uChunkSize,
-                                    const unsigned int uBufferPosition,
-                                    const unsigned int uProcessedSamples);
+    virtual void processBufferChunk(const int chunkSize,
+                                    const int bufferPosition,
+                                    const int processedSamples) override;
 
     int getAverageAlgorithm();
-    void setAverageAlgorithm(const int average_algorithm);
-    void setAverageAlgorithmFinal(const int average_algorithm);
+    void setAverageAlgorithm(const int averageAlgorithm);
+    void setAverageAlgorithmFinal(const int averageAlgorithm);
 
     int getNumPrograms() override;
 
@@ -124,39 +126,41 @@ private:
 
     static BusesProperties getBusesProperties();
 
-    ScopedPointer<AudioFilePlayer> audioFilePlayer;
+    int countOverflows(frut::audio::RingBuffer<double> *ring_buffer,
+                       const int channel,
+                       const int length,
+                       const int preDelay);
 
-    ScopedPointer<frut::audio::RingBuffer<float>> ringBufferInput_;
-    ScopedPointer<frut::audio::RingBuffer<float>> ringBufferOutput_;
+    ScopedPointer<AudioFilePlayer> audioFilePlayer_;
 
-    ScopedPointer<AverageLevelFiltered> pAverageLevelFiltered;
-    ScopedPointer<frut::dsp::TruePeakMeter> pTruePeakMeter;
-    ScopedPointer<MeterBallistics> pMeterBallistics;
+    ScopedPointer<frut::audio::RingBuffer<double>> ringBufferInput_;
+    ScopedPointer<frut::audio::RingBuffer<double>> ringBufferOutput_;
 
-    KmeterPluginParameters pluginParameters;
+    ScopedPointer<AverageLevelFiltered> averageLevelFiltered_;
+    ScopedPointer<frut::dsp::TruePeakMeter> truePeakMeter_;
+    ScopedPointer<MeterBallistics> meterBallistics_;
 
-    const int nTrakmeterBufferSize;
+    KmeterPluginParameters pluginParameters_;
 
-    bool isStereo;
-    bool bSampleRateIsValid;
-    bool isSilent;
+    const int trakmeterBufferSize_;
 
-    int nAverageAlgorithm;
-    int nSamplesInBuffer;
-    float fProcessedSeconds;
-    float attenuationLevel_;
+    bool isStereo_;
+    bool sampleRateIsValid_;
+    bool isSilent_;
 
-    Array<float> arrPeakLevels;
-    Array<float> arrRmsLevels;
-    Array<float> arrAverageLevelsFiltered;
-    Array<float> arrTruePeakLevels;
+    int averageAlgorithmId_;
+    int samplesInBuffer_;
+    float processedSeconds_;
+    double attenuationLevel_;
 
-    Array<int> arrOverflows;
+    Array<float> peakLevels_;
+    Array<float> rmsLevels_;
+    Array<float> averageLevelsFiltered_;
+    Array<float> truePeakLevels_;
 
-    int countOverflows(frut::audio::RingBuffer<float> *ring_buffer,
-                       const unsigned int channel,
-                       const unsigned int length,
-                       const unsigned int pre_delay);
+    Array<int> overflowCounts_;
+
+    frut::dsp::Dither dither_;
 };
 
 AudioProcessor *JUCE_CALLTYPE createPluginFilter();

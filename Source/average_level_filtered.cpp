@@ -56,7 +56,7 @@ AverageLevelFiltered::AverageLevelFiltered(
 }
 
 
-int AverageLevelFiltered::getAlgorithm()
+int AverageLevelFiltered::getAlgorithm() const
 {
     return averageAlgorithm_;
 }
@@ -64,7 +64,6 @@ int AverageLevelFiltered::getAlgorithm()
 
 void AverageLevelFiltered::setAlgorithm(
     const int averageAlgorithm)
-
 {
     if (averageAlgorithm == averageAlgorithm_)
     {
@@ -207,7 +206,6 @@ void AverageLevelFiltered::calculateFilterKernel_ItuBs1770()
 // apply windowed-sinc low-pass filter (cutoff at 21.0 kHz) to samples
 void AverageLevelFiltered::filterSamples_Rms(
     const int channel)
-
 {
     convolveWithKernel(channel);
 }
@@ -351,7 +349,6 @@ void AverageLevelFiltered::filterSamples_ItuBs1770()
 
 float AverageLevelFiltered::getLevel(
     const int channel)
-
 {
     jassert(channel >= 0);
     jassert(channel < numberOfChannels_);
@@ -434,12 +431,60 @@ float AverageLevelFiltered::getLevel(
 }
 
 
-void AverageLevelFiltered::copyFromBuffer(
-    frut::audio::RingBuffer<float> &ringBuffer,
-    const unsigned int preDelay,
-    const double sampleRate)
-
+// copy data from internal audio buffer to external audio buffer
+void AverageLevelFiltered::getSamples(
+    AudioBuffer<float> &destination,
+    const int startSample,
+    const int numberOfSamples)
 {
+    jassert(fftSampleBuffer_.getNumChannels() ==
+            destination.getNumChannels());
+    jassert(fftSampleBuffer_.getNumSamples() >=
+            (startSample + numberOfSamples));
+    jassert(destination.getNumSamples() >=
+            (startSample + numberOfSamples));
+
+    int numberOfChannels = fftSampleBuffer_.getNumChannels();
+
+    // copy data
+    for (int channel = 0; channel < numberOfChannels; ++channel)
+    {
+        destination.copyFrom(channel, startSample,
+                             fftSampleBuffer_,
+                             channel, startSample,
+                             numberOfSamples);
+    }
+}
+
+
+// copy data from internal audio buffer to external ring buffer
+void AverageLevelFiltered::getSamples(
+    frut::audio::RingBuffer<float> &destination,
+    const int sourceStartSample,
+    const int numberOfSamples)
+{
+    jassert(fftSampleBuffer_.getNumChannels() ==
+            destination.getNumberOfChannels());
+    jassert(fftSampleBuffer_.getNumSamples() ==
+            destination.getNumberOfSamples());
+
+    // copy data from audio buffer to ring buffer
+    destination.addSamples(fftSampleBuffer_,
+                           sourceStartSample,
+                           numberOfSamples);
+}
+
+
+// copy data from external audio buffer to internal audio buffer
+void AverageLevelFiltered::setSamples(
+    const AudioBuffer<float> &source,
+    const double sampleRate)
+{
+    jassert(fftSampleBuffer_.getNumChannels() ==
+            source.getNumChannels());
+    jassert(fftSampleBuffer_.getNumSamples() ==
+            source.getNumSamples());
+
     // recalculate filter kernel when sample rate changes
     if (sampleRate_ != sampleRate)
     {
@@ -447,36 +492,72 @@ void AverageLevelFiltered::copyFromBuffer(
         calculateFilterKernel();
     }
 
-    // copy data from ring buffer to sample buffer
-    ringBuffer.copyToBuffer(fftSampleBuffer_, 0, fftBufferSize_, preDelay);
+    int numberOfChannels = fftSampleBuffer_.getNumChannels();
+    int numberOfSamples = fftSampleBuffer_.getNumSamples();
+
+    // copy data
+    for (int channel = 0; channel < numberOfChannels; ++channel)
+    {
+        fftSampleBuffer_.copyFrom(channel, 0,
+                                  source,
+                                  channel, 0,
+                                  numberOfSamples);
+    }
 }
 
 
-void AverageLevelFiltered::copyToBuffer(
-    frut::audio::RingBuffer<float> &destination,
-    const unsigned int sourceStartSample,
-    const unsigned int numSamples)
-
+// copy data from external ring buffer to internal audio buffer
+void AverageLevelFiltered::setSamples(
+    const frut::audio::RingBuffer<float> &source,
+    const int preDelay,
+    const double sampleRate)
 {
-    // copy data from sample buffer to ring buffer
-    destination.addSamples(fftSampleBuffer_, sourceStartSample, numSamples);
+    jassert(fftSampleBuffer_.getNumChannels() ==
+            source.getNumberOfChannels());
+    jassert(fftSampleBuffer_.getNumSamples() ==
+            source.getNumberOfSamples());
+
+    // recalculate filter kernel when sample rate changes
+    if (sampleRate_ != sampleRate)
+    {
+        sampleRate_ = sampleRate;
+        calculateFilterKernel();
+    }
+
+    // copy data from ring buffer to audio buffer
+    source.getSamples(fftSampleBuffer_, 0, fftBufferSize_, preDelay);
 }
 
 
-void AverageLevelFiltered::copyToBuffer(
-    AudioBuffer<float> &destination,
-    const int channel,
-    const int destStartSample,
-    const int numSamples)
-
+// copy data from external ring buffer to internal audio buffer
+void AverageLevelFiltered::setSamples(
+    const frut::audio::RingBuffer<double> &source,
+    const int preDelay,
+    const double sampleRate)
 {
-    jassert(channel >= 0);
-    jassert(channel < numberOfChannels_);
-    jassert((destStartSample + numSamples) <= destination.getNumSamples());
+    jassert(fftSampleBuffer_.getNumChannels() ==
+            source.getNumberOfChannels());
+    jassert(fftSampleBuffer_.getNumSamples() ==
+            source.getNumberOfSamples());
 
-    memcpy(destination.getWritePointer(channel, destStartSample),
-           fftSampleBuffer_.getReadPointer(channel),
-           numSamples * sizeof(float));
+    // recalculate filter kernel when sample rate changes
+    if (sampleRate_ != sampleRate)
+    {
+        sampleRate_ = sampleRate;
+        calculateFilterKernel();
+    }
+
+    int NumberOfChannels = source.getNumberOfChannels();
+    int NumberOfSamples = source.getNumberOfSamples();
+
+    AudioBuffer<double> processBuffer(NumberOfChannels, NumberOfSamples);
+
+    // copy data from ring buffer to audio buffer
+    source.getSamples(processBuffer, 0,
+                      fftBufferSize_, preDelay);
+
+    // dither output to float and store in internal audio buffer
+    dither_.ditherToFloat(processBuffer, fftSampleBuffer_);
 }
 
 

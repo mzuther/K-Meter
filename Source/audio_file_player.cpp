@@ -193,7 +193,7 @@ bool AudioFilePlayer::matchingSampleRates()
 
 
 void AudioFilePlayer::fillBufferChunk(
-    AudioBuffer<float> *buffer)
+    AudioBuffer<float> &buffer)
 {
     // report old meter readings
     if (bReports)
@@ -211,13 +211,25 @@ void AudioFilePlayer::fillBufferChunk(
     if (isPlaying())
     {
         AudioSourceChannelInfo channelInfo;
-        channelInfo.buffer = buffer;
+        channelInfo.buffer = &buffer;
         channelInfo.startSample = 0;
-        channelInfo.numSamples = buffer->getNumSamples();
+        channelInfo.numSamples = buffer.getNumSamples();
 
         channelInfo.clearActiveBufferRegion();
         audioFileSource->getNextAudioBlock(channelInfo);
     }
+}
+
+
+void AudioFilePlayer::fillBufferChunk(
+    AudioBuffer<double> &buffer)
+{
+    int NumberOfChannels = buffer.getNumChannels();
+    int NumberOfSamples = buffer.getNumSamples();
+    AudioBuffer<float> processBuffer(NumberOfChannels, NumberOfSamples);
+
+    fillBufferChunk(processBuffer);
+    dither_.convertToDouble(processBuffer, buffer);
 }
 
 

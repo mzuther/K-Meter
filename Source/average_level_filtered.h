@@ -43,22 +43,29 @@ public:
                          const int fftBufferSize,
                          const int averageAlgorithm);
 
-    float getLevel(const int channel);
-    int getAlgorithm();
+    int getAlgorithm() const;
     void setAlgorithm(const int averageAlgorithm);
 
-    void copyFromBuffer(frut::audio::RingBuffer<float> &ringBuffer,
-                        const unsigned int preDelay,
-                        const double sampleRate);
+    float getLevel(const int channel);
 
-    void copyToBuffer(frut::audio::RingBuffer<float> &destination,
-                      const unsigned int sourceStartSample,
-                      const unsigned int numSamples);
+    void getSamples(AudioBuffer<float> &destination,
+                    const int sourceStartSample,
+                    const int numberOfSamples);
 
-    void copyToBuffer(AudioBuffer<float> &destination,
-                      const int channel,
-                      const int destStartSample,
-                      const int numSamples);
+    void getSamples(frut::audio::RingBuffer<float> &destination,
+                    const int sourceStartSample,
+                    const int numberOfSamples);
+
+    void setSamples(const AudioBuffer<float> &source,
+                    const double sampleRate);
+
+    void setSamples(const frut::audio::RingBuffer<float> &source,
+                    const int preDelay,
+                    const double sampleRate);
+
+    void setSamples(const frut::audio::RingBuffer<double> &source,
+                    const int preDelay,
+                    const double sampleRate);
 
 private:
     JUCE_LEAK_DETECTOR(AverageLevelFiltered);
