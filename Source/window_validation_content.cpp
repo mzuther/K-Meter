@@ -42,7 +42,7 @@ WindowValidationContent::WindowValidationContent(
 
 {
     // dimensions of content component
-    int componentWidth = 170;
+    int componentWidth = 175;
     int componentHeight = 290;
 
     // store handle to audio plug-in processor (used for getting and
@@ -258,51 +258,28 @@ void WindowValidationContent::applySkin()
 
 
     // style button for selecting the validation output format
-    buttonDumpCSV_.setColour(
-        ToggleButton::textColourId,
-        Colours::black);
-
+    styleButton(buttonDumpCSV_);
 
     // style button for average level logging
-    buttonDumpAverageLevel_.setColour(
-        ToggleButton::textColourId,
-        Colours::black);
-
+    styleButton(buttonDumpAverageLevel_);
 
     // style button for peak level logging
-    buttonDumpPeakLevel_.setColour(
-        ToggleButton::textColourId,
-        Colours::black);
-
+    styleButton(buttonDumpPeakLevel_);
 
     // style button for true peak level logging
-    buttonDumpTruePeakLevel_.setColour(
-        ToggleButton::textColourId,
-        Colours::black);
-
+    styleButton(buttonDumpTruePeakLevel_);
 
     // style button for maximum peak level logging
-    buttonDumpMaximumPeakLevel_.setColour(
-        ToggleButton::textColourId,
-        Colours::black);
-
+    styleButton(buttonDumpMaximumPeakLevel_);
 
     // style button for maximum true peak level logging
-    buttonDumpMaximumTruePeakLevel_.setColour(
-        ToggleButton::textColourId,
-        Colours::black);
-
+    styleButton(buttonDumpMaximumTruePeakLevel_);
 
     // style button for stereo meter logging
-    buttonDumpStereoMeter_.setColour(
-        ToggleButton::textColourId,
-        Colours::black);
-
+    styleButton(buttonDumpStereoMeter_);
 
     // style button for phase correlation logging
-    buttonDumpPhaseCorrelation_.setColour(
-        ToggleButton::textColourId,
-        Colours::black);
+    styleButton(buttonDumpPhaseCorrelation_);
 
 
     // place the components
