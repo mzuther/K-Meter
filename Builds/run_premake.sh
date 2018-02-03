@@ -38,8 +38,6 @@ premake5 --os=windows vs2015
 echo
 premake5 --os=windows vs2017
 
-# python3 visual_studio_fix.py "$visual_toolkit"
-
 echo
 premake5 --cc=clang --os=linux gmake
 
