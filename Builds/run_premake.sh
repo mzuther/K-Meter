@@ -25,10 +25,12 @@
 #
 # ----------------------------------------------------------------------------
 
-visual_toolkit="Windows7.1SDK"
+windows_sdk="10.0.16299.0"
 
 
 cd $(dirname $0)
+
+python3 create_premake.py $windows_sdk
 
 echo
 premake5 --os=windows vs2015

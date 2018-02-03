@@ -47,7 +47,7 @@
 		}
 {% endset -%}
 
-{{ render.solution(name, additions_solution) -}}
+{{ render.solution(name, additions_solution, windows_sdk) -}}
 
 
 

@@ -8,6 +8,7 @@
 *.vcproj.*.user
 *.vcxproj.user
 
+.vs
 .Rhistory
 
 bin/*.dll
