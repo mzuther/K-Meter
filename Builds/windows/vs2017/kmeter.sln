@@ -9,6 +9,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kmeter_vst_stereo", "kmeter
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kmeter_vst_surround", "kmeter_vst_surround.vcxproj", "{2A625322-96C3-3030-1F31-77E28B9167EF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kmeter_vst3_stereo", "kmeter_vst3_stereo.vcxproj", "{CDB480E1-B998-4137-22F9-3B8A0EFC2BB9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kmeter_vst3_surround", "kmeter_vst3_surround.vcxproj", "{DD0CD4AF-C99B-5D79-72BA-71745E286E1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -49,6 +53,22 @@ Global
 		{2A625322-96C3-3030-1F31-77E28B9167EF}.Release|Win32.Build.0 = Release|Win32
 		{2A625322-96C3-3030-1F31-77E28B9167EF}.Release|x64.ActiveCfg = Release|x64
 		{2A625322-96C3-3030-1F31-77E28B9167EF}.Release|x64.Build.0 = Release|x64
+		{CDB480E1-B998-4137-22F9-3B8A0EFC2BB9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CDB480E1-B998-4137-22F9-3B8A0EFC2BB9}.Debug|Win32.Build.0 = Debug|Win32
+		{CDB480E1-B998-4137-22F9-3B8A0EFC2BB9}.Debug|x64.ActiveCfg = Debug|x64
+		{CDB480E1-B998-4137-22F9-3B8A0EFC2BB9}.Debug|x64.Build.0 = Debug|x64
+		{CDB480E1-B998-4137-22F9-3B8A0EFC2BB9}.Release|Win32.ActiveCfg = Release|Win32
+		{CDB480E1-B998-4137-22F9-3B8A0EFC2BB9}.Release|Win32.Build.0 = Release|Win32
+		{CDB480E1-B998-4137-22F9-3B8A0EFC2BB9}.Release|x64.ActiveCfg = Release|x64
+		{CDB480E1-B998-4137-22F9-3B8A0EFC2BB9}.Release|x64.Build.0 = Release|x64
+		{DD0CD4AF-C99B-5D79-72BA-71745E286E1F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DD0CD4AF-C99B-5D79-72BA-71745E286E1F}.Debug|Win32.Build.0 = Debug|Win32
+		{DD0CD4AF-C99B-5D79-72BA-71745E286E1F}.Debug|x64.ActiveCfg = Debug|x64
+		{DD0CD4AF-C99B-5D79-72BA-71745E286E1F}.Debug|x64.Build.0 = Debug|x64
+		{DD0CD4AF-C99B-5D79-72BA-71745E286E1F}.Release|Win32.ActiveCfg = Release|Win32
+		{DD0CD4AF-C99B-5D79-72BA-71745E286E1F}.Release|Win32.Build.0 = Release|Win32
+		{DD0CD4AF-C99B-5D79-72BA-71745E286E1F}.Release|x64.ActiveCfg = Release|x64
+		{DD0CD4AF-C99B-5D79-72BA-71745E286E1F}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

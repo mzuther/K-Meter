@@ -672,6 +672,10 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         pluginNameAndVersion += " (VST)";
 #endif
 
+#if JucePlugin_Build_VST3
+        pluginNameAndVersion += " (VST3)";
+#endif
+
         arrChapters.set(
             pluginNameAndVersion,
             String(JucePlugin_Desc) + ".\n");
@@ -704,6 +708,9 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
 #ifdef LINUX
             L"ALSA\n"
 #endif
+#if JUCE_ASIO
+            L"ASIO\n"
+#endif
             L"FFTW\n"
 #ifdef LINUX
             L"FreeType\n"
@@ -715,12 +722,17 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
 #endif
 #ifdef LINUX
             L"POSIX Threads\n"
+#endif
+#if JucePlugin_Build_VST || JucePlugin_Build_VST3
+            L"VST\n"
+#endif
+#ifdef LINUX
             L"Xlib\n"
             L"Xext\n"
 #endif
         );
 
-#if JucePlugin_Build_VST
+#if JucePlugin_Build_VST || JucePlugin_Build_VST3
         // display trademarks (but only when necessary)
         arrChapters.set(
             "Trademarks",
