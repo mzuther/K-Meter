@@ -60,11 +60,9 @@ public:
                     const double sampleRate);
 
     void setSamples(const frut::audio::RingBuffer<float> &source,
-                    const int preDelay,
                     const double sampleRate);
 
     void setSamples(const frut::audio::RingBuffer<double> &source,
-                    const int preDelay,
                     const double sampleRate);
 
 private:

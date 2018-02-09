@@ -101,9 +101,8 @@ public:
     double getTailLengthSeconds() const override;
 
     MeterBallistics *getLevels();
-    virtual void processBufferChunk(const int chunkSize,
-                                    const int bufferPosition,
-                                    const int processedSamples) override;
+    virtual void processBufferChunk(frut::audio::RingBuffer<double> *ringBuffer,
+                                    const int chunkSize) override;
 
     int getAverageAlgorithm();
     void setAverageAlgorithm(const int averageAlgorithm);
@@ -128,8 +127,7 @@ private:
 
     int countOverflows(frut::audio::RingBuffer<double> *ring_buffer,
                        const int channel,
-                       const int length,
-                       const int preDelay);
+                       const int length);
 
     ScopedPointer<AudioFilePlayer> audioFilePlayer_;
 

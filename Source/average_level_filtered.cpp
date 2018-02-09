@@ -509,7 +509,6 @@ void AverageLevelFiltered::setSamples(
 // copy data from external ring buffer to internal audio buffer
 void AverageLevelFiltered::setSamples(
     const frut::audio::RingBuffer<float> &source,
-    const int preDelay,
     const double sampleRate)
 {
     jassert(fftSampleBuffer_.getNumChannels() ==
@@ -525,14 +524,13 @@ void AverageLevelFiltered::setSamples(
     }
 
     // copy data from ring buffer to audio buffer
-    source.getSamples(fftSampleBuffer_, 0, fftBufferSize_, preDelay);
+    source.getSamples(fftSampleBuffer_, 0, fftBufferSize_, true);
 }
 
 
 // copy data from external ring buffer to internal audio buffer
 void AverageLevelFiltered::setSamples(
     const frut::audio::RingBuffer<double> &source,
-    const int preDelay,
     const double sampleRate)
 {
     jassert(fftSampleBuffer_.getNumChannels() ==
@@ -553,8 +551,7 @@ void AverageLevelFiltered::setSamples(
     AudioBuffer<double> processBuffer(NumberOfChannels, NumberOfSamples);
 
     // copy data from ring buffer to audio buffer
-    source.getSamples(processBuffer, 0,
-                      fftBufferSize_, preDelay);
+    source.getSamples(processBuffer, 0, fftBufferSize_, true);
 
     // dither output to float and store in internal audio buffer
     dither_.ditherToFloat(processBuffer, fftSampleBuffer_);
