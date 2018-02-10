@@ -49,7 +49,7 @@ KmeterAudioProcessor::KmeterAudioProcessor() :
 #ifndef JucePlugin_PreferredChannelConfigurations
     AudioProcessor(getBusesProperties()),
 #endif
-    trakmeterBufferSize_(1024)
+    kmeterBufferSize_(1024)
 {
     frut::Frut::printVersionNumbers();
 
@@ -62,7 +62,7 @@ KmeterAudioProcessor::KmeterAudioProcessor() :
 
     sampleRateIsValid_ = false;
 
-    setLatencySamples(trakmeterBufferSize_);
+    setLatencySamples(kmeterBufferSize_);
 
     // depends on "KmeterPluginParameters"!
     averageAlgorithmId_ = getRealInteger(
@@ -523,7 +523,7 @@ void KmeterAudioProcessor::prepareToPlay(
     }
 
     averageLevelFiltered_ = new AverageLevelFiltered(
-        this, numInputChannels, (int) sampleRate, trakmeterBufferSize_,
+        this, numInputChannels, (int) sampleRate, kmeterBufferSize_,
         averageAlgorithmId_);
 
     // maximum under-read of true peak measurement is 0.169 dB (see
@@ -540,15 +540,15 @@ void KmeterAudioProcessor::prepareToPlay(
     }
 
     truePeakMeter_ = new frut::dsp::TruePeakMeter(
-        numInputChannels, trakmeterBufferSize_, oversamplingFactor);
+        numInputChannels, kmeterBufferSize_, oversamplingFactor);
 
-    // make sure that ring buffer can hold at least trakmeterBufferSize_
+    // make sure that ring buffer can hold at least kmeterBufferSize_
     // samples and is large enough to receive a full block of audio
     samplesInBuffer_ = 0;
-    int ringBufferSize = (samplesPerBlock > trakmeterBufferSize_) ? samplesPerBlock : trakmeterBufferSize_;
+    int ringBufferSize = jmax(samplesPerBlock, kmeterBufferSize_);
 
-    int preDelay = trakmeterBufferSize_;
-    int chunkSize = trakmeterBufferSize_;
+    int preDelay = kmeterBufferSize_;
+    int chunkSize = kmeterBufferSize_;
 
     ringBufferInput_ = new frut::audio::RingBuffer<double>(
         numInputChannels,
@@ -691,7 +691,7 @@ void KmeterAudioProcessor::process(
     }
 
     samplesInBuffer_ += NumberOfSamples;
-    samplesInBuffer_ %= trakmeterBufferSize_;
+    samplesInBuffer_ %= kmeterBufferSize_;
 
     ringBufferInput_->addSamples(buffer, 0, NumberOfSamples);
 

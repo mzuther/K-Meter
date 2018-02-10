@@ -140,7 +140,7 @@ private:
 
     KmeterPluginParameters pluginParameters_;
 
-    const int trakmeterBufferSize_;
+    const int kmeterBufferSize_;
 
     bool isStereo_;
     bool sampleRateIsValid_;
