@@ -735,11 +735,10 @@ void KmeterAudioProcessor::processBufferChunk(
 
     // copy ring buffer to determine average level (FIR filter already
     // adds delay of (chunkSize / 2) samples)
-    averageLevelFiltered_->setSamples(
-        *ringBufferInput_, (int) getSampleRate());
+    averageLevelFiltered_->setSamples(*ringBufferInput_, chunkSize);
 
     // copy ring buffer to determine true peak level
-    truePeakMeter_->setSamples(*ringBufferInput_);
+    truePeakMeter_->setSamples(*ringBufferInput_, chunkSize);
 
     for (int nChannel = 0; nChannel < getMainBusNumInputChannels(); ++nChannel)
     {
@@ -775,9 +774,10 @@ void KmeterAudioProcessor::processBufferChunk(
             truePeakLevels_.set(
                 nChannel, truePeakMeter_->getLevel(nChannel));
 
-            // determine overflows for chunkSize samples
-            overflowCounts_.set(nChannel, countOverflows(ringBufferInput_,
-                                nChannel, chunkSize));
+            // determine overflows for chunkSize samples; treat all
+            // samples above -0.001 dBFS as overflow
+            overflowCounts_.set(nChannel, ringBufferInput_->countOverflows(
+                                    nChannel, chunkSize, 0.99885));
         }
 
         // apply meter ballistics and store values so that the editor
@@ -988,32 +988,6 @@ bool KmeterAudioProcessor::isValidating()
             return false;
         }
     }
-}
-
-
-int KmeterAudioProcessor::countOverflows(
-    frut::audio::RingBuffer<double> *ring_buffer,
-    const int channel,
-    const int length)
-{
-    // initialise number of overflows in this buffer
-    int nOverflows = 0;
-
-    // loop through samples of buffer
-    for (int sample = 0; sample < length; ++sample)
-    {
-        // get current sample value
-        double sampleValue = ring_buffer->getSample(channel, sample, true);
-
-        // count all samples above -0.001 dBFS as overflow
-        if (fabs(sampleValue) > 0.99885)
-        {
-            ++nOverflows;
-        }
-    }
-
-    // return number of overflows in this buffer
-    return nOverflows;
 }
 
 

@@ -56,14 +56,13 @@ public:
                     const int sourceStartSample,
                     const int numberOfSamples);
 
-    void setSamples(const AudioBuffer<float> &source,
-                    const double sampleRate);
+    void setSamples(const AudioBuffer<float> &source);
 
     void setSamples(const frut::audio::RingBuffer<float> &source,
-                    const double sampleRate);
+                    const int numberOfSamples);
 
     void setSamples(const frut::audio::RingBuffer<double> &source,
-                    const double sampleRate);
+                    const int numberOfSamples);
 
 private:
     JUCE_LEAK_DETECTOR(AverageLevelFiltered);

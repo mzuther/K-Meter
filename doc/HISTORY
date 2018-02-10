@@ -2,6 +2,40 @@ Git HEAD
 ========
 
 
+HEAD
+====
+
+* VST3 plug-in
+
+* support 64-bit signal chains
+
+* optimized dithering
+
+* updated documentation
+
+* re-factored code
+
+* updated JUCE framework to 5.1.2
+
+* updated VST library to 3.6.7
+
+* use Clang on Linux (C++14)
+
+* support Visual Studio 2017
+
+
+
+v2.6.2 (2017-02-12)
+===================
+
+* moved to JUCE's new multi-bus API
+
+* updated JUCE framework to 4.3.1
+
+* support for Visual C++ 2013
+
+
+
 v2.6.1 (2016-10-07)
 ===================
 
