@@ -45,7 +45,6 @@ workspace "kmeter"
     configurations { "Debug", "Release" }
 
     location (os.target() .. "/" .. _ACTION .. "/")
-    targetdir "../bin/"
     targetprefix ""
 
     files {
@@ -173,11 +172,9 @@ workspace "kmeter"
         systemversion "10.0.16299.0"
 
         flags {
-            "NoMinimalRebuild",
             "StaticRuntime"
         }
 
-        characterset "Unicode"
         vectorextensions "AVX"
 
         links {
@@ -217,11 +214,7 @@ workspace "kmeter"
 
     filter { "system:linux", "configurations:Debug" }
         warnings "Extra"
-        buildoptions { "-fmessage-length=78" }
-
-    filter { "system:linux", "configurations:Debug" }
-        warnings "Extra"
-        buildoptions { "-fno-inline", "-ggdb" }
+        buildoptions { "-fmessage-length=78", "-fno-inline", "-ggdb" }
 
     filter { "system:linux", "configurations:Debug", "platforms:x32" }
         targetsuffix "_debug"
@@ -253,10 +246,6 @@ workspace "kmeter"
     filter { "system:linux", "configurations:Release", "platforms:x64" }
         targetsuffix "_x64"
 
-    filter { "system:windows", "configurations:Release" }
-        flags { "NoManifest" }
-        buildoptions { "/Zi" }
-
     filter { "system:windows", "configurations:Release", "platforms:x32" }
         targetsuffix ")"
 
@@ -267,6 +256,7 @@ workspace "kmeter"
 
     project ("kmeter_standalone_stereo")
         kind "WindowedApp"
+        targetdir "../bin/standalone/"
 
         defines {
             "KMETER_STEREO=1",
@@ -323,6 +313,7 @@ workspace "kmeter"
 
     project ("kmeter_standalone_surround")
         kind "WindowedApp"
+        targetdir "../bin/standalone/"
 
         defines {
             "KMETER_SURROUND=1",
@@ -379,6 +370,7 @@ workspace "kmeter"
 
     project ("kmeter_vst_stereo")
         kind "SharedLib"
+        targetdir "../bin/vst/"
 
         defines {
             "KMETER_STEREO=1",
@@ -421,6 +413,7 @@ workspace "kmeter"
 
     project ("kmeter_vst_surround")
         kind "SharedLib"
+        targetdir "../bin/vst/"
 
         defines {
             "KMETER_SURROUND=1",
@@ -466,6 +459,7 @@ if os.target() == "windows" then
 
     project ("kmeter_vst3_stereo")
         kind "SharedLib"
+        targetdir "../bin/vst3/"
 
         defines {
             "KMETER_STEREO=1",
@@ -511,6 +505,7 @@ if os.target() == "windows" then
 
     project ("kmeter_vst3_surround")
         kind "SharedLib"
+        targetdir "../bin/vst3/"
 
         defines {
             "KMETER_SURROUND=1",
@@ -556,6 +551,7 @@ if os.target() == "linux" then
 
     project ("kmeter_lv2_stereo")
         kind "SharedLib"
+        targetdir "../bin/lv2/"
 
         defines {
             "KMETER_STEREO=1",
@@ -596,6 +592,7 @@ if os.target() == "linux" then
 
     project ("kmeter_lv2_surround")
         kind "SharedLib"
+        targetdir "../bin/lv2/"
 
         defines {
             "KMETER_SURROUND=1",

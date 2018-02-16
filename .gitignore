@@ -11,14 +11,18 @@
 .vs
 .Rhistory
 
-bin/*.dll
-bin/*.exe
-bin/*.so
-bin/*.vst3
-bin/kmeter/skins/default_skin.ini
-bin/kmeter_stereo_*
-bin/kmeter_surround_*
 bin/intermediate_*
+
+bin/lv2/kmeter_*.so
+
+bin/standalone/K-Meter*.exe
+bin/standalone/kmeter_*
+
+bin/vst/K-Meter*.dll
+bin/vst/kmeter_*.so
+
+bin/vst3/K-Meter*.vst3
+bin/vst3/kmeter_*.so
 
 skins/default_skin.ini
 
