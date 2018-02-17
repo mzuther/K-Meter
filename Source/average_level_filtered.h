@@ -25,10 +25,8 @@
 
 #pragma once
 
-class AverageLevelFiltered;
-
 #include "FrutHeader.h"
-#include "plugin_processor.h"
+#include "meter_ballistics.h"
 
 
 class AverageLevelFiltered :
@@ -37,8 +35,7 @@ class AverageLevelFiltered :
 public:
     static const int KMETER_MAXIMUM_FILTER_STAGES = 3;
 
-    AverageLevelFiltered(KmeterAudioProcessor *processor,
-                         const int numberOfChannels,
+    AverageLevelFiltered(const int numberOfChannels,
                          const double sampleRate,
                          const int fftBufferSize,
                          const int averageAlgorithm);
@@ -92,7 +89,6 @@ private:
 
     frut::dsp::Dither dither_;
 
-    KmeterAudioProcessor *processor_;
     int averageAlgorithm_;
     float peakToAverageCorrection_;
 };

@@ -523,7 +523,7 @@ void KmeterAudioProcessor::prepareToPlay(
     }
 
     averageLevelFiltered_ = new AverageLevelFiltered(
-        this, numInputChannels, (int) sampleRate, kmeterBufferSize_,
+        numInputChannels, (int) sampleRate, kmeterBufferSize_,
         averageAlgorithmId_);
 
     // maximum under-read of true peak measurement is 0.169 dB (see
@@ -1011,6 +1011,7 @@ void KmeterAudioProcessor::setAverageAlgorithm(
         if (averageLevelFiltered_ != nullptr)
         {
             averageLevelFiltered_->setAlgorithm(averageAlgorithm);
+            setAverageAlgorithmFinal(averageLevelFiltered_->getAlgorithm());
         }
         else
         {

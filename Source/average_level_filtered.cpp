@@ -27,7 +27,6 @@
 
 
 AverageLevelFiltered::AverageLevelFiltered(
-    KmeterAudioProcessor *processor,
     const int numberOfChannels,
     const double sampleRate,
     const int fftBufferSize,
@@ -45,7 +44,6 @@ AverageLevelFiltered::AverageLevelFiltered(
         numberOfChannels_, KMETER_MAXIMUM_FILTER_STAGES - 1),
     previousSamplesOutputTemp_(1, fftBufferSize_)
 {
-    processor_ = processor;
     dither_.initialise(numberOfChannels_, 24);
 
     peakToAverageCorrection_ = 0.0f;
@@ -85,7 +83,6 @@ void AverageLevelFiltered::setAlgorithm(
     }
 
     calculateFilterKernel();
-    processor_->setAverageAlgorithmFinal(averageAlgorithm_);
 }
 
 

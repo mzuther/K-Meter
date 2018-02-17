@@ -25,9 +25,6 @@
 
 #pragma once
 
-class KmeterAudioProcessor;
-class MeterBallistics;
-
 #include "FrutHeader.h"
 #include "audio_file_player.h"
 #include "average_level_filtered.h"

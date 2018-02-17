@@ -25,8 +25,6 @@
 
 #pragma once
 
-class AudioFilePlayer;
-
 #include "FrutHeader.h"
 #include "meter_ballistics.h"
 
