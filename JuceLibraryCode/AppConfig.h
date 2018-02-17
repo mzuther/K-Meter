@@ -43,6 +43,8 @@
 
 ---------------------------------------------------------------------------- */
 
+#define FRUT_DSP_USE_FFTW 1
+
 #ifdef KMETER_SURROUND
   #define JucePlugin_PluginCode  'kmeS'
   #define JucePlugin_Name        "K-Meter (Surround)"

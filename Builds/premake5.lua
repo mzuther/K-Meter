@@ -78,10 +78,6 @@ workspace "kmeter"
         "../libraries/"
     }
 
-    defines {
-        "FRUT_DSP_USE_FFTW=1"
-    }
-
     cppdialect "C++14"
 
 	filter { "system:linux", "platforms:x32" }
