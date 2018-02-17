@@ -60,8 +60,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(MeterBar);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

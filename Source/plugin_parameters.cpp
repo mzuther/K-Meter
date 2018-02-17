@@ -287,8 +287,3 @@ void KmeterPluginParameters::setSkinName(const String &strSkinName)
 {
     setText(selSkinName, strSkinName);
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

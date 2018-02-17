@@ -998,8 +998,3 @@ void MeterBallistics::LogMeterBallistics(float fMeterInertia, float fTimePassed,
         fReadout = fAttackReleaseCoef * (fReadout - fLevel) + fLevel;
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

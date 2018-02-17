@@ -440,8 +440,3 @@ void WindowValidationContent::selectValidationFile(
         validationFile_.getFileName(),
         dontSendNotification);
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

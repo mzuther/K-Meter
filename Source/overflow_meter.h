@@ -41,8 +41,3 @@ private:
 
     int nOverflows;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

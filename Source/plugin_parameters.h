@@ -86,8 +86,3 @@ public:
 private:
     JUCE_LEAK_DETECTOR(KmeterPluginParameters);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

@@ -826,8 +826,3 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
 void KmeterAudioProcessorEditor::resized()
 {
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

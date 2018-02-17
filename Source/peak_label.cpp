@@ -76,8 +76,3 @@ void PeakLabel::updateLevel(float newLevel)
         setState(true);
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

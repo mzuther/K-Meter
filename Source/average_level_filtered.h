@@ -96,8 +96,3 @@ private:
     int averageAlgorithm_;
     float peakToAverageCorrection_;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

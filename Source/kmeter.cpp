@@ -268,8 +268,3 @@ void Kmeter::setLevels(
             meterBallistics->getNumberOfOverflows(channel));
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

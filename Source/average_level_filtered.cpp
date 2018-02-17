@@ -538,8 +538,3 @@ void AverageLevelFiltered::setSamples(
     // dither output to float and store in internal audio buffer
     dither_.ditherToFloat(processBuffer, fftSampleBuffer_);
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

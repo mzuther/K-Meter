@@ -43,8 +43,3 @@ private:
     int nMeterCrestFactor;
     float fMaximumLevel;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

@@ -65,8 +65,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(Kmeter);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

@@ -54,8 +54,3 @@ void OverflowMeter::setOverflows(int Overflows)
         }
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:
