@@ -46,11 +46,11 @@ void OverflowMeter::setOverflows(int Overflows)
 
         if (nOverflows == 0)
         {
-            setState(frut::widget::StateLabel::State::off);
+            setState(frut::widgets::StateLabel::State::off);
         }
         else
         {
-            setState(frut::widget::StateLabel::State::on);
+            setState(frut::widgets::StateLabel::State::on);
         }
     }
 }

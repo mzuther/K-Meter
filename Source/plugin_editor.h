@@ -74,8 +74,8 @@ private:
 
     KmeterAudioProcessor *audioProcessor;
     Kmeter kmeter_;
-    frut::widget::NeedleMeter stereoMeter;
-    frut::widget::NeedleMeter phaseCorrelationMeter;
+    frut::widgets::NeedleMeter stereoMeter;
+    frut::widgets::NeedleMeter phaseCorrelationMeter;
 
     ScopedPointer<juce::LookAndFeel> currentLookAndFeel_;
 

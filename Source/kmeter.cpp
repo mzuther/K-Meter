@@ -55,15 +55,15 @@ void Kmeter::applySkin(
 {
     displayPeakMeter_ = displayPeakMeter;
 
-    frut::widget::Orientation orientation;
+    frut::widgets::Orientation orientation;
 
     if (isHorizontal)
     {
-        orientation = frut::widget::Orientation::horizontal;
+        orientation = frut::widgets::Orientation::horizontal;
     }
     else
     {
-        orientation = frut::widget::Orientation::vertical;
+        orientation = frut::widgets::Orientation::vertical;
     }
 
     XmlElement *xmlSetting = skin->getSetting("kmeter_segment");

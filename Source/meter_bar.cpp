@@ -28,11 +28,11 @@
 
 void MeterBar::create(
     int crestFactor, bool discreteMeter, bool isExpanded,
-    frut::widget::Orientation orientation, int mainSegmentHeight,
+    frut::widgets::Orientation orientation, int mainSegmentHeight,
     const Array<Colour> &segmentColours)
 
 {
-    frut::widget::MeterBar::create();
+    frut::widgets::MeterBar::create();
 
     crestFactor *= 10;
     int numberOfBars;

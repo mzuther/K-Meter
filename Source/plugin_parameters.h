@@ -29,7 +29,7 @@
 
 
 class KmeterPluginParameters :
-    public frut::parameter::Juggler
+    public frut::parameters::Juggler
 {
 public:
     KmeterPluginParameters();
