@@ -7,17 +7,22 @@
 			"folder_exclude_patterns":
 			[
 				"bin",
-				"Builds/linux", "Builds/windows",
+				"Builds/linux",
+				"Builds/windows",
+				"doc/auto",
+				"doc/licensing",
+				"doc/specifications",
 				"ignore",
 				"libraries",
-				"doc/auto", "doc/licensing", "doc/specifications",
 				"Source/api",
-				"validation"
+				"validation",
 			],
 
 			"file_exclude_patterns":
 			[
-				"JuceLibraryCode/include_*", "JuceLibraryCode/ReadMe.txt"
+				"*~",
+				"JuceLibraryCode/include_*",
+				"JuceLibraryCode/ReadMe.txt",
 			]
 		}
 	],
@@ -28,7 +33,8 @@
 			"clang": {
 				"args":
 				[
-					"-std=c++14"
+					"-std=c++14",
+					"-Wno-pragma-once-outside-header",
 				],
 				"include_dirs":
 				[
