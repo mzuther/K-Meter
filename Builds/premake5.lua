@@ -171,7 +171,7 @@ workspace "kmeter"
             "StaticRuntime"
         }
 
-        vectorextensions "AVX"
+        vectorextensions "SSE2"
 
         links {
             "kernel32",
@@ -224,6 +224,7 @@ workspace "kmeter"
 
     filter { "system:windows", "configurations:Debug" }
        symbols "Full"
+       buildoptions { "/bigobj" }
 
     filter { "system:windows", "configurations:Debug", "platforms:x32" }
         targetsuffix ", Debug)"
