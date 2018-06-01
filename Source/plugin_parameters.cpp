@@ -117,7 +117,7 @@ KmeterPluginParameters::KmeterPluginParameters() :
 
 
     frut::parameters::ParString *ParameterValidationFileName =
-        new frut::parameters::ParString(String::empty);
+        new frut::parameters::ParString("");
     ParameterValidationFileName->setName("Validation file");
     add(ParameterValidationFileName, selValidationFileName);
 
@@ -233,7 +233,7 @@ File KmeterPluginParameters::getValidationFile()
     }
     else
     {
-        return File::nonexistent;
+        return File();
     }
 }
 

@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="LEmwq6" name="K-Meter" projectType="audioplug" version="2.6.3"
+<JUCERPROJECT id="LEmwq6" name="K-Meter" projectType="audioplug" version="2.6.4"
               bundleIdentifier="de.mzuther.KMeter" buildVST="1" buildRTAS="0"
               buildAU="0" pluginName="K-Meter" pluginDesc="Implementation of a K-System meter according to Bob Katz' specifications"
               pluginManufacturer="Martin Zuther" pluginManufacturerCode="MZut"
               pluginCode="kmet" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="0"
               pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1" pluginTailLength="0"
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="KMeterAU"
-              pluginAUViewClass="KMeterAU_V1" pluginRTASCategory="ePlugInCategory_None"
-              jucerVersion="5.1.2" companyName="Martin Zuther" aaxIdentifier="de.mzuther.KMeter"
-              pluginAAXCategory="AAX_ePlugInCategory_None" includeBinaryInAppConfig="1"
-              buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
+              pluginAUViewClass="KMeterAU_V1" pluginRTASCategory="0" jucerVersion="5.3.2"
+              companyName="Martin Zuther" aaxIdentifier="de.mzuther.KMeter"
+              pluginAAXCategory="0" includeBinaryInAppConfig="1" buildVST3="0"
+              buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
               companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategAnalysis"
               pluginIsMidiEffectPlugin="0" buildAUv3="0" displaySplashScreen="0"
               reportAppUsage="0" splashScreenColour="Dark" buildStandalone="0"
-              enableIAA="0" cppLanguageStandard="11" companyCopyright="Martin Zuther">
+              enableIAA="0" cppLanguageStandard="11" companyCopyright="Martin Zuther"
+              pluginFormats="buildVST" pluginVST3Category="Analyzer">
   <EXPORTFORMATS>
     <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/Documents/code/cpp/kmeter/libraries/vst"
                 extraCompilerFlags="" cppLanguageStandard="-std=c++11" externalLibraries="dl&#10;freetype&#10;pthread&#10;rt&#10;X11&#10;Xext&#10;asound"
@@ -51,201 +52,73 @@
     </LINUX_MAKE>
   </EXPORTFORMATS>
   <MAINGROUP id="icjBJ4" name="K-Meter">
-    <GROUP id="{92CE01CA-B210-5217-4B8E-D3955FE4CBC3}" name="common">
-      <GROUP id="{47A11F0E-2BE0-F9CE-4AD7-42D09DA160FB}" name="amalgamated">
-        <FILE id="OJpCDT" name="include_frut_audio.cpp" compile="1" resource="0"
-              file="Source/common/amalgamated/include_frut_audio.cpp"/>
-        <FILE id="QWEsZh" name="include_frut_audio.h" compile="0" resource="0"
-              file="Source/common/amalgamated/include_frut_audio.h"/>
-        <FILE id="NdfYvp" name="include_frut_dsp.cpp" compile="1" resource="0"
-              file="Source/common/amalgamated/include_frut_dsp.cpp"/>
-        <FILE id="rlhuxx" name="include_frut_dsp.h" compile="0" resource="0"
-              file="Source/common/amalgamated/include_frut_dsp.h"/>
-        <FILE id="daKCjk" name="include_frut_math.cpp" compile="1" resource="0"
-              file="Source/common/amalgamated/include_frut_math.cpp"/>
-        <FILE id="kGmfKM" name="include_frut_math.h" compile="0" resource="0"
-              file="Source/common/amalgamated/include_frut_math.h"/>
-        <FILE id="iCDZcX" name="include_frut_parameter.cpp" compile="1" resource="0"
-              file="Source/common/amalgamated/include_frut_parameter.cpp"/>
-        <FILE id="BvAlLM" name="include_frut_parameter.h" compile="0" resource="0"
-              file="Source/common/amalgamated/include_frut_parameter.h"/>
-        <FILE id="hlDhiA" name="include_frut_skin.cpp" compile="1" resource="0"
-              file="Source/common/amalgamated/include_frut_skin.cpp"/>
-        <FILE id="vlhdqP" name="include_frut_skin.h" compile="0" resource="0"
-              file="Source/common/amalgamated/include_frut_skin.h"/>
-        <FILE id="gi3PmL" name="include_frut_widget.cpp" compile="1" resource="0"
-              file="Source/common/amalgamated/include_frut_widget.cpp"/>
-        <FILE id="YXAfN3" name="include_frut_widget.h" compile="0" resource="0"
-              file="Source/common/amalgamated/include_frut_widget.h"/>
+    <GROUP id="{C83C9976-89C9-4B41-4406-148D884C8357}" name="frut">
+      <GROUP id="{3525DB53-F782-DF21-ED66-537C64006191}" name="amalgamated">
+        <FILE id="cJO6ye" name="include_frut_audio.cpp" compile="1" resource="0"
+              file="Source/frut/amalgamated/include_frut_audio.cpp"/>
+        <FILE id="BXT5Fc" name="include_frut_audio.h" compile="0" resource="0"
+              file="Source/frut/amalgamated/include_frut_audio.h"/>
+        <FILE id="j0m6Mm" name="include_frut_dsp.cpp" compile="1" resource="0"
+              file="Source/frut/amalgamated/include_frut_dsp.cpp"/>
+        <FILE id="K7pPs8" name="include_frut_dsp.h" compile="0" resource="0"
+              file="Source/frut/amalgamated/include_frut_dsp.h"/>
+        <FILE id="UPywuA" name="include_frut_math.cpp" compile="1" resource="0"
+              file="Source/frut/amalgamated/include_frut_math.cpp"/>
+        <FILE id="b0XfxZ" name="include_frut_math.h" compile="0" resource="0"
+              file="Source/frut/amalgamated/include_frut_math.h"/>
+        <FILE id="F4A0FD" name="include_frut_parameters.cpp" compile="1" resource="0"
+              file="Source/frut/amalgamated/include_frut_parameters.cpp"/>
+        <FILE id="Qxgxbl" name="include_frut_parameters.h" compile="0" resource="0"
+              file="Source/frut/amalgamated/include_frut_parameters.h"/>
+        <FILE id="jg0xdK" name="include_frut_skin.cpp" compile="1" resource="0"
+              file="Source/frut/amalgamated/include_frut_skin.cpp"/>
+        <FILE id="E8SviB" name="include_frut_skin.h" compile="0" resource="0"
+              file="Source/frut/amalgamated/include_frut_skin.h"/>
+        <FILE id="na2Xv7" name="include_frut_widgets.cpp" compile="1" resource="0"
+              file="Source/frut/amalgamated/include_frut_widgets.cpp"/>
+        <FILE id="o4VJyt" name="include_frut_widgets.h" compile="0" resource="0"
+              file="Source/frut/amalgamated/include_frut_widgets.h"/>
       </GROUP>
-      <GROUP id="{E219B857-09B5-87E8-E5BA-4CDE1E56D884}" name="audio">
-        <FILE id="fwqQ9R" name="ring_buffer.cpp" compile="1" resource="0" file="Source/common/audio/ring_buffer.cpp"/>
-        <FILE id="O927fO" name="ring_buffer.h" compile="0" resource="0" file="Source/common/audio/ring_buffer.h"/>
-      </GROUP>
-      <GROUP id="{3F777700-DDEE-5DE5-335F-C899B9AEE450}" name="dsp">
-        <FILE id="tPeExt" name="biquad_filter.cpp" compile="1" resource="0"
-              file="Source/common/dsp/biquad_filter.cpp"/>
-        <FILE id="M98pJZ" name="biquad_filter.h" compile="0" resource="0" file="Source/common/dsp/biquad_filter.h"/>
-        <FILE id="WME23g" name="dither.cpp" compile="1" resource="0" file="Source/common/dsp/dither.cpp"/>
-        <FILE id="ZFFAWc" name="dither.h" compile="0" resource="0" file="Source/common/dsp/dither.h"/>
-        <FILE id="Sexnft" name="fftw_runner.cpp" compile="1" resource="0" file="Source/common/dsp/fftw_runner.cpp"/>
-        <FILE id="iL6Wbe" name="fftw_runner.h" compile="0" resource="0" file="Source/common/dsp/fftw_runner.h"/>
-        <FILE id="UQElKb" name="filter_chebyshev.cpp" compile="1" resource="0"
-              file="Source/common/dsp/filter_chebyshev.cpp"/>
-        <FILE id="WH2Qqh" name="filter_chebyshev.h" compile="0" resource="0"
-              file="Source/common/dsp/filter_chebyshev.h"/>
-        <FILE id="pVTTC7" name="filter_chebyshev_stage.cpp" compile="1" resource="0"
-              file="Source/common/dsp/filter_chebyshev_stage.cpp"/>
-        <FILE id="vwU1ql" name="filter_chebyshev_stage.h" compile="0" resource="0"
-              file="Source/common/dsp/filter_chebyshev_stage.h"/>
-        <FILE id="ZoOY3c" name="fir_filter_box.cpp" compile="1" resource="0"
-              file="Source/common/dsp/fir_filter_box.cpp"/>
-        <FILE id="O85hcR" name="fir_filter_box.h" compile="0" resource="0"
-              file="Source/common/dsp/fir_filter_box.h"/>
-        <FILE id="nyA0Vh" name="iir_filter_box.cpp" compile="1" resource="0"
-              file="Source/common/dsp/iir_filter_box.cpp"/>
-        <FILE id="SH3LF2" name="iir_filter_box.h" compile="0" resource="0"
-              file="Source/common/dsp/iir_filter_box.h"/>
-        <FILE id="Ajx0eM" name="rate_converter.cpp" compile="1" resource="0"
-              file="Source/common/dsp/rate_converter.cpp"/>
-        <FILE id="F2oB7u" name="rate_converter.h" compile="0" resource="0"
-              file="Source/common/dsp/rate_converter.h"/>
-        <FILE id="uZcjL8" name="true_peak_meter.cpp" compile="1" resource="0"
-              file="Source/common/dsp/true_peak_meter.cpp"/>
-        <FILE id="HF1ktN" name="true_peak_meter.h" compile="0" resource="0"
-              file="Source/common/dsp/true_peak_meter.h"/>
-      </GROUP>
-      <GROUP id="{D985465F-F337-B2FC-0F04-9AA19E8A8B53}" name="math">
-        <FILE id="qmZfrf" name="averager.cpp" compile="1" resource="0" file="Source/common/math/averager.cpp"/>
-        <FILE id="BoE3DY" name="averager.h" compile="0" resource="0" file="Source/common/math/averager.h"/>
-        <FILE id="zz567b" name="simple_math.h" compile="0" resource="0" file="Source/common/math/simple_math.h"/>
-      </GROUP>
-      <GROUP id="{64F9F83A-07B9-3388-C25A-0443442D3043}" name="parameter">
-        <FILE id="I5avN7" name="juggler.cpp" compile="1" resource="0" file="Source/common/parameter/juggler.cpp"/>
-        <FILE id="jlNpTn" name="juggler.h" compile="0" resource="0" file="Source/common/parameter/juggler.h"/>
-        <FILE id="hY4JWF" name="par_boolean.cpp" compile="1" resource="0" file="Source/common/parameter/par_boolean.cpp"/>
-        <FILE id="sERmKC" name="par_boolean.h" compile="0" resource="0" file="Source/common/parameter/par_boolean.h"/>
-        <FILE id="ORw52V" name="par_combined.cpp" compile="1" resource="0"
-              file="Source/common/parameter/par_combined.cpp"/>
-        <FILE id="tRIFNV" name="par_combined.h" compile="0" resource="0" file="Source/common/parameter/par_combined.h"/>
-        <FILE id="f1VziT" name="par_continuous.cpp" compile="1" resource="0"
-              file="Source/common/parameter/par_continuous.cpp"/>
-        <FILE id="IxfCYE" name="par_continuous.h" compile="0" resource="0"
-              file="Source/common/parameter/par_continuous.h"/>
-        <FILE id="aJ1x4U" name="par_string.cpp" compile="1" resource="0" file="Source/common/parameter/par_string.cpp"/>
-        <FILE id="ziCJv1" name="par_string.h" compile="0" resource="0" file="Source/common/parameter/par_string.h"/>
-        <FILE id="iEwKBu" name="par_switch.cpp" compile="1" resource="0" file="Source/common/parameter/par_switch.cpp"/>
-        <FILE id="ND16Tz" name="par_switch.h" compile="0" resource="0" file="Source/common/parameter/par_switch.h"/>
-        <FILE id="iEaand" name="parameter.cpp" compile="1" resource="0" file="Source/common/parameter/parameter.cpp"/>
-        <FILE id="NUGT9W" name="parameter.h" compile="0" resource="0" file="Source/common/parameter/parameter.h"/>
-      </GROUP>
-      <GROUP id="{0BB1452A-C15C-A2FB-1DB6-0B4A88BB5922}" name="skin">
-        <FILE id="YXtBEy" name="look_and_feel_v3.cpp" compile="1" resource="0"
-              file="Source/common/skin/look_and_feel_v3.cpp"/>
-        <FILE id="f27qax" name="look_and_feel_v3.h" compile="0" resource="0"
-              file="Source/common/skin/look_and_feel_v3.h"/>
-        <FILE id="RxLP74" name="skin.cpp" compile="1" resource="0" file="Source/common/skin/skin.cpp"/>
-        <FILE id="xJHXV1" name="skin.h" compile="0" resource="0" file="Source/common/skin/skin.h"/>
-      </GROUP>
-      <GROUP id="{C67FF236-08E2-0C13-CEAD-AD6D4FA5EA37}" name="widget">
-        <FILE id="Mr7fTb" name="channel_slider.cpp" compile="1" resource="0"
-              file="Source/common/widget/channel_slider.cpp"/>
-        <FILE id="GUuSxD" name="channel_slider.h" compile="0" resource="0"
-              file="Source/common/widget/channel_slider.h"/>
-        <FILE id="hSWaGI" name="meter_bar.cpp" compile="1" resource="0" file="Source/common/widget/meter_bar.cpp"/>
-        <FILE id="k27eMT" name="meter_bar.h" compile="0" resource="0" file="Source/common/widget/meter_bar.h"/>
-        <FILE id="u960oo" name="meter_segment.cpp" compile="1" resource="0"
-              file="Source/common/widget/meter_segment.cpp"/>
-        <FILE id="P8vDOh" name="meter_segment.h" compile="0" resource="0" file="Source/common/widget/meter_segment.h"/>
-        <FILE id="t5FyrV" name="meter_segment_continuous.cpp" compile="1" resource="0"
-              file="Source/common/widget/meter_segment_continuous.cpp"/>
-        <FILE id="Ywa8CP" name="meter_segment_continuous.h" compile="0" resource="0"
-              file="Source/common/widget/meter_segment_continuous.h"/>
-        <FILE id="eDWT8e" name="meter_segment_discrete.cpp" compile="1" resource="0"
-              file="Source/common/widget/meter_segment_discrete.cpp"/>
-        <FILE id="GcvRgq" name="meter_segment_discrete.h" compile="0" resource="0"
-              file="Source/common/widget/meter_segment_discrete.h"/>
-        <FILE id="sbQz47" name="needle_meter.cpp" compile="1" resource="0"
-              file="Source/common/widget/needle_meter.cpp"/>
-        <FILE id="ZhVg2j" name="needle_meter.h" compile="0" resource="0" file="Source/common/widget/needle_meter.h"/>
-        <FILE id="sTg8Xw" name="orientation.h" compile="0" resource="0" file="Source/common/widget/orientation.h"/>
-        <FILE id="G2e4VF" name="signal_led.cpp" compile="1" resource="0" file="Source/common/widget/signal_led.cpp"/>
-        <FILE id="t4yrnC" name="signal_led.h" compile="0" resource="0" file="Source/common/widget/signal_led.h"/>
-        <FILE id="VyBt9p" name="slider.h" compile="0" resource="0" file="Source/common/widget/slider.h"/>
-        <FILE id="Rat9Nm" name="slider_combined.cpp" compile="1" resource="0"
-              file="Source/common/widget/slider_combined.cpp"/>
-        <FILE id="tkv4o4" name="slider_combined.h" compile="0" resource="0"
-              file="Source/common/widget/slider_combined.h"/>
-        <FILE id="v4TWOq" name="slider_continuous.cpp" compile="1" resource="0"
-              file="Source/common/widget/slider_continuous.cpp"/>
-        <FILE id="Nd4rdr" name="slider_continuous.h" compile="0" resource="0"
-              file="Source/common/widget/slider_continuous.h"/>
-        <FILE id="o844DO" name="slider_switch.cpp" compile="1" resource="0"
-              file="Source/common/widget/slider_switch.cpp"/>
-        <FILE id="dAK2Ok" name="slider_switch.h" compile="0" resource="0" file="Source/common/widget/slider_switch.h"/>
-        <FILE id="QuIhlY" name="slider_switch_linear_bar.cpp" compile="1" resource="0"
-              file="Source/common/widget/slider_switch_linear_bar.cpp"/>
-        <FILE id="XPHOON" name="slider_switch_linear_bar.h" compile="0" resource="0"
-              file="Source/common/widget/slider_switch_linear_bar.h"/>
-        <FILE id="ZMkiKq" name="state_label.cpp" compile="1" resource="0" file="Source/common/widget/state_label.cpp"/>
-        <FILE id="tdQPRQ" name="state_label.h" compile="0" resource="0" file="Source/common/widget/state_label.h"/>
-        <FILE id="dQOFTI" name="window_about_content.cpp" compile="1" resource="0"
-              file="Source/common/widget/window_about_content.cpp"/>
-        <FILE id="kVnK0l" name="window_about_content.h" compile="0" resource="0"
-              file="Source/common/widget/window_about_content.h"/>
-        <FILE id="yOJGEg" name="window_settings_content.cpp" compile="1" resource="0"
-              file="Source/common/widget/window_settings_content.cpp"/>
-        <FILE id="QwYHPB" name="window_settings_content.h" compile="0" resource="0"
-              file="Source/common/widget/window_settings_content.h"/>
-        <FILE id="Oh3QPl" name="window_skin_content.cpp" compile="1" resource="0"
-              file="Source/common/widget/window_skin_content.cpp"/>
-        <FILE id="Pj5ThM" name="window_skin_content.h" compile="0" resource="0"
-              file="Source/common/widget/window_skin_content.h"/>
-        <FILE id="SkRCDG" name="window_validation_content.cpp" compile="1"
-              resource="0" file="Source/common/widget/window_validation_content.cpp"/>
-        <FILE id="RlFFF3" name="window_validation_content.h" compile="0" resource="0"
-              file="Source/common/widget/window_validation_content.h"/>
-      </GROUP>
-      <FILE id="RtHHqA" name="FrutHeader.h" compile="0" resource="0" file="Source/common/FrutHeader.h"/>
+      <FILE id="KC18vm" name="FrutHeader.h" compile="0" resource="0" file="Source/frut/FrutHeader.h"/>
     </GROUP>
-    <FILE id="YMMTfe" name="audio_file_player.cpp" compile="1" resource="0"
+    <FILE id="Rd2feO" name="audio_file_player.cpp" compile="1" resource="0"
           file="Source/audio_file_player.cpp"/>
-    <FILE id="Ihdgdg" name="audio_file_player.h" compile="0" resource="0"
+    <FILE id="PqGaNa" name="audio_file_player.h" compile="0" resource="0"
           file="Source/audio_file_player.h"/>
-    <FILE id="YfxO6z" name="average_level_filtered.cpp" compile="1" resource="0"
+    <FILE id="OqC5oH" name="average_level_filtered.cpp" compile="1" resource="0"
           file="Source/average_level_filtered.cpp"/>
-    <FILE id="KQvkgv" name="average_level_filtered.h" compile="0" resource="0"
+    <FILE id="lTqGJM" name="average_level_filtered.h" compile="0" resource="0"
           file="Source/average_level_filtered.h"/>
-    <FILE id="nKORdd" name="kmeter.cpp" compile="1" resource="0" file="Source/kmeter.cpp"/>
-    <FILE id="VGjQty" name="kmeter.h" compile="0" resource="0" file="Source/kmeter.h"/>
-    <FILE id="bMh0p2" name="meter_ballistics.cpp" compile="1" resource="0"
+    <FILE id="y8pkAD" name="kmeter.cpp" compile="1" resource="0" file="Source/kmeter.cpp"/>
+    <FILE id="iTDXr9" name="kmeter.h" compile="0" resource="0" file="Source/kmeter.h"/>
+    <FILE id="aLfFmU" name="meter_ballistics.cpp" compile="1" resource="0"
           file="Source/meter_ballistics.cpp"/>
-    <FILE id="d5UTd9" name="meter_ballistics.h" compile="0" resource="0"
+    <FILE id="j7S9YU" name="meter_ballistics.h" compile="0" resource="0"
           file="Source/meter_ballistics.h"/>
-    <FILE id="QX0U4i" name="meter_bar.cpp" compile="1" resource="0" file="Source/meter_bar.cpp"/>
-    <FILE id="c6BnuS" name="meter_bar.h" compile="0" resource="0" file="Source/meter_bar.h"/>
-    <FILE id="mkuB6s" name="overflow_meter.cpp" compile="1" resource="0"
+    <FILE id="LMSpKg" name="meter_bar.cpp" compile="1" resource="0" file="Source/meter_bar.cpp"/>
+    <FILE id="aarA6r" name="meter_bar.h" compile="0" resource="0" file="Source/meter_bar.h"/>
+    <FILE id="pYOvqc" name="overflow_meter.cpp" compile="1" resource="0"
           file="Source/overflow_meter.cpp"/>
-    <FILE id="hkSKlw" name="overflow_meter.h" compile="0" resource="0"
+    <FILE id="gzve6K" name="overflow_meter.h" compile="0" resource="0"
           file="Source/overflow_meter.h"/>
-    <FILE id="c1vnwE" name="peak_label.cpp" compile="1" resource="0" file="Source/peak_label.cpp"/>
-    <FILE id="Fh3bWo" name="peak_label.h" compile="0" resource="0" file="Source/peak_label.h"/>
-    <FILE id="nvA5S8" name="plugin_editor.cpp" compile="1" resource="0"
+    <FILE id="fxWEmg" name="peak_label.cpp" compile="1" resource="0" file="Source/peak_label.cpp"/>
+    <FILE id="BoZ5Lv" name="peak_label.h" compile="0" resource="0" file="Source/peak_label.h"/>
+    <FILE id="JTWyO0" name="plugin_editor.cpp" compile="1" resource="0"
           file="Source/plugin_editor.cpp"/>
-    <FILE id="cslgkn" name="plugin_editor.h" compile="0" resource="0" file="Source/plugin_editor.h"/>
-    <FILE id="J8X3pG" name="plugin_parameters.cpp" compile="1" resource="0"
+    <FILE id="ifsaCI" name="plugin_editor.h" compile="0" resource="0" file="Source/plugin_editor.h"/>
+    <FILE id="B9HkHt" name="plugin_parameters.cpp" compile="1" resource="0"
           file="Source/plugin_parameters.cpp"/>
-    <FILE id="Git5Gf" name="plugin_parameters.h" compile="0" resource="0"
+    <FILE id="TDjR9t" name="plugin_parameters.h" compile="0" resource="0"
           file="Source/plugin_parameters.h"/>
-    <FILE id="lmPQHC" name="plugin_processor.cpp" compile="1" resource="0"
+    <FILE id="HwaheW" name="plugin_processor.cpp" compile="1" resource="0"
           file="Source/plugin_processor.cpp"/>
-    <FILE id="Ix9pV2" name="plugin_processor.h" compile="0" resource="0"
+    <FILE id="dMZgML" name="plugin_processor.h" compile="0" resource="0"
           file="Source/plugin_processor.h"/>
-    <FILE id="yYoVRt" name="skin.cpp" compile="1" resource="0" file="Source/skin.cpp"/>
-    <FILE id="Ck4xEP" name="skin.h" compile="0" resource="0" file="Source/skin.h"/>
-    <FILE id="Dup3B8" name="window_validation_content.cpp" compile="1"
+    <FILE id="yutsAz" name="skin.cpp" compile="1" resource="0" file="Source/skin.cpp"/>
+    <FILE id="M4fZ3F" name="skin.h" compile="0" resource="0" file="Source/skin.h"/>
+    <FILE id="PbfNVo" name="window_validation_content.cpp" compile="1"
           resource="0" file="Source/window_validation_content.cpp"/>
-    <FILE id="BCv8wW" name="window_validation_content.h" compile="0" resource="0"
+    <FILE id="g4MJd1" name="window_validation_content.h" compile="0" resource="0"
           file="Source/window_validation_content.h"/>
   </MAINGROUP>
   <MODULES>
@@ -265,4 +138,7 @@
     <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
   <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
+  <LIVE_SETTINGS>
+    <LINUX/>
+  </LIVE_SETTINGS>
 </JUCERPROJECT>

@@ -441,7 +441,7 @@ const String KmeterAudioProcessor::getProgramName(
 {
     ignoreUnused(nIndex);
 
-    return String::empty;
+    return "";
 }
 
 

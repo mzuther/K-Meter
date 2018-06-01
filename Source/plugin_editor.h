@@ -32,7 +32,10 @@
 #include "window_validation_content.h"
 
 
-class KmeterAudioProcessorEditor : public AudioProcessorEditor, public ButtonListener, public ActionListener
+class KmeterAudioProcessorEditor :
+    public AudioProcessorEditor,
+    public Button::Listener,
+    public ActionListener
 {
 public:
     KmeterAudioProcessorEditor(KmeterAudioProcessor *ownerFilter, int nNumChannels);

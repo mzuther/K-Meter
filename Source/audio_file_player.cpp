@@ -85,14 +85,14 @@ AudioFilePlayer::AudioFilePlayer(
         {
             bSampleRatesMatch = false;
 
-            outputMessage(String::empty);
+            outputMessage("");
             outputMessage("WARNING: sample rate mismatch (host: " + String(sample_rate) + " Hz)!");
-            outputMessage(String::empty);
+            outputMessage("");
         }
 
-        outputMessage(String::empty);
+        outputMessage("");
         outputMessage("Starting validation ...");
-        outputMessage(String::empty);
+        outputMessage("");
     }
     else
     {
@@ -344,19 +344,17 @@ void AudioFilePlayer::outputReportPlain()
     {
         float fStereoMeterValue = pMeterBallistics->getStereoMeterValue();
         String strPrefix = "Stereo meter value:      ";
-        String strSuffix = String::empty;
-        outputValue(fStereoMeterValue, nullAverager, strPrefix, strSuffix);
+        outputValue(fStereoMeterValue, nullAverager, strPrefix, "");
     }
 
     if (bReportPhaseCorrelation)
     {
         float fPhaseCorrelation = pMeterBallistics->getPhaseCorrelation();
         String strPrefix = "Phase correlation:       ";
-        String strSuffix = String::empty;
-        outputValue(fPhaseCorrelation, nullAverager, strPrefix, strSuffix);
+        outputValue(fPhaseCorrelation, nullAverager, strPrefix, "");
     }
 
-    outputMessage(String::empty);
+    outputMessage("");
 }
 
 
