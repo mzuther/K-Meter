@@ -167,10 +167,6 @@ workspace "kmeter"
 
         systemversion "10.0.16299.0"
 
-        flags {
-            "StaticRuntime"
-        }
-
         vectorextensions "SSE2"
 
         links {

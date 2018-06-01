@@ -150,10 +150,6 @@ workspace "{{ name.short }}"
 
         systemversion "{{ windows_sdk }}"
 
-        flags {
-            "StaticRuntime"
-        }
-
         vectorextensions "SSE2"
 
         links {
