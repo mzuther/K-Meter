@@ -441,7 +441,7 @@ const String KmeterAudioProcessor::getProgramName(
 {
     ignoreUnused(nIndex);
 
-    return "";
+    return String();
 }
 
 
@@ -544,7 +544,6 @@ void KmeterAudioProcessor::prepareToPlay(
 
     // make sure that ring buffer can hold at least kmeterBufferSize_
     // samples and is large enough to receive a full block of audio
-    samplesInBuffer_ = 0;
     int ringBufferSize = jmax(samplesPerBlock, kmeterBufferSize_);
 
     int preDelay = kmeterBufferSize_;
@@ -577,6 +576,9 @@ void KmeterAudioProcessor::releaseResources()
     meterBallistics_ = nullptr;
     averageLevelFiltered_ = nullptr;
     truePeakMeter_ = nullptr;
+
+    ringBufferInput_ = nullptr;
+    ringBufferOutput_ = nullptr;
 }
 
 
@@ -690,9 +692,6 @@ void KmeterAudioProcessor::process(
         }
     }
 
-    samplesInBuffer_ += NumberOfSamples;
-    samplesInBuffer_ %= kmeterBufferSize_;
-
     ringBufferInput_->addSamples(buffer, 0, NumberOfSamples);
 
     // copy output ring buffer to output buffer; apply latency by
@@ -725,8 +724,6 @@ void KmeterAudioProcessor::processBufferChunk(
     frut::audio::RingBuffer<double> *ringBuffer,
     const int chunkSize)
 {
-    ignoreUnused(ringBuffer);
-
     bool isMono = getBoolean(KmeterPluginParameters::selMono);
 
     // length of buffer chunk in fractional seconds
@@ -735,10 +732,10 @@ void KmeterAudioProcessor::processBufferChunk(
 
     // copy ring buffer to determine average level (FIR filter already
     // adds delay of (chunkSize / 2) samples)
-    averageLevelFiltered_->setSamples(*ringBufferInput_, chunkSize);
+    averageLevelFiltered_->setSamples(*ringBuffer, chunkSize);
 
     // copy ring buffer to determine true peak level
-    truePeakMeter_->setSamples(*ringBufferInput_, chunkSize);
+    truePeakMeter_->setSamples(*ringBuffer, chunkSize);
 
     for (int nChannel = 0; nChannel < getMainBusNumInputChannels(); ++nChannel)
     {
@@ -755,12 +752,12 @@ void KmeterAudioProcessor::processBufferChunk(
         {
             // determine peak level for chunkSize samples
             peakLevels_.set(nChannel, static_cast<float>(
-                                ringBufferInput_->getMagnitude(
+                                ringBuffer->getMagnitude(
                                     nChannel, chunkSize)));
 
             // determine peak level for chunkSize samples
             rmsLevels_.set(nChannel, static_cast<float>(
-                               ringBufferInput_->getRMSLevel(
+                               ringBuffer->getRMSLevel(
                                    nChannel, chunkSize)));
 
             // determine filtered average level for chunkSize samples
@@ -776,7 +773,7 @@ void KmeterAudioProcessor::processBufferChunk(
 
             // determine overflows for chunkSize samples; treat all
             // samples above -0.001 dBFS as overflow
-            overflowCounts_.set(nChannel, ringBufferInput_->countOverflows(
+            overflowCounts_.set(nChannel, ringBuffer->countOverflows(
                                     nChannel, chunkSize, 0.99885));
         }
 
@@ -812,11 +809,11 @@ void KmeterAudioProcessor::processBufferChunk(
             for (int sample = 0; sample < chunkSize; ++sample)
             {
                 float ringbuffer_left = static_cast<float>(
-                                            ringBufferInput_->getSample(
+                                            ringBuffer->getSample(
                                                 0, sample, true));
 
                 float ringbuffer_right = static_cast<float>(
-                                             ringBufferInput_->getSample(
+                                             ringBuffer->getSample(
                                                  1, sample, true));
 
                 sum_of_product += ringbuffer_left * ringbuffer_right;
@@ -892,7 +889,7 @@ void KmeterAudioProcessor::processBufferChunk(
 
         // copy input ring buffer to output ring buffer; do not delay
         // output by pre-delay!
-        ringBufferInput_->getSamples(
+        ringBuffer->getSamples(
             TempAudioBuffer, 0, chunkSize, false);
         ringBufferOutput_->addSamples(
             TempAudioBuffer, 0, chunkSize);

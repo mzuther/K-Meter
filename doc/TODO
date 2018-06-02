@@ -1,3 +1,6 @@
+
+o [mzuther] fix running with small audio buffers
+
 o [mzuther] rename internal "variables_" (get rid of "newVariable")
 
 o [mzuther] get rid of Hungarian notation

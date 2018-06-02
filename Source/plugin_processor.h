@@ -140,7 +140,6 @@ private:
     bool isSilent_;
 
     int averageAlgorithmId_;
-    int samplesInBuffer_;
     float processedSeconds_;
     double attenuationLevel_;
 
