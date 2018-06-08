@@ -41,10 +41,10 @@ public:
 
     float getLevel(const int channel);
 
-    void setSamples(const frut::audio::RingBuffer<float> &source,
+    void setSamples(const AudioBuffer<float> &source,
                     const int numberOfSamples);
 
-    void setSamples(const frut::audio::RingBuffer<double> &source,
+    void setSamples(const AudioBuffer<double> &source,
                     const int numberOfSamples);
 
 protected:

@@ -35,8 +35,9 @@ template <typename Type>
 class RingBufferProcessor;
 
 
-/// Audio ring buffer with pre-delay.  Can call a callback function
-/// every time a certain number of samples have been added.
+/// Audio ring buffer.  This ring buffer supports delaying the input
+/// samples by a defined pre-delay.  It can also call a callback
+/// function every time a certain number of samples have been added.
 ///
 template <typename Type>
 class RingBuffer
@@ -51,50 +52,123 @@ public:
     void setCallbackClass(RingBufferProcessor<Type> *callbackClass);
 
     int getNumberOfChannels() const;
-    int getCurrentPosition() const;
     int getNumberOfSamples() const;
     int getPreDelay() const;
 
-    void addSamples(const AudioBuffer<Type> &source,
-                    const int startSample,
-                    const int numberOfSamples);
 
-    Type getSample(const int channel,
-                   const int offset,
-                   const bool applyPreDelay) const;
+    /// Store audio samples in this ring buffer by copying from an
+    /// AudioBuffer.  **This function will call the callback function
+    /// every time the total number of samples added to this buffer
+    /// (now or before) exceeds the "chunk" size.  The write position
+    /// will be moved.**
+    ///
+    /// @param source source buffer
+    ///
+    /// @param sourceStartSample the index in the source buffer to
+    ///        start reading from
+    ///
+    /// @param numberOfSamples number of samples to copy
+    ///
+    inline void queue(
+        const AudioBuffer<Type> &source,
+        const int sourceStartSample,
+        const int numberOfSamples)
+    {
+        bool updatePosition = true;
+        store(updatePosition,
+              source, sourceStartSample,
+              numberOfSamples);
+    }
 
-    void getSamples(AudioBuffer<Type> &destination,
-                    const int destStartSample,
-                    const int numberOfSamples,
-                    const bool applyPreDelay) const;
 
-    Type getMagnitude(const int channel,
-                      const int numberOfSamples) const;
+    /// Overwrite audio samples in this ring buffer by copying from an
+    /// AudioBuffer.  **This function will not call the callback
+    /// function and leave the write position alone.**
+    ///
+    /// @param source source buffer
+    ///
+    /// @param sourceStartSample the index in the source buffer to
+    ///        start reading from
+    ///
+    /// @param numberOfSamples number of samples to copy
+    ///
+    inline void overwrite(
+        const AudioBuffer<Type> &source,
+        const int sourceStartSample,
+        const int numberOfSamples)
+    {
+        bool updatePosition = false;
+        store(updatePosition,
+              source, sourceStartSample,
+              numberOfSamples);
+    }
 
-    Type getRMSLevel(const int channel,
-                     const int numberOfSamples) const;
 
-    int countOverflows(
-        const int channel,
-        const int numberOfSamples,
-        const Type limitOverflow) const;
+    /// Retrieve audio samples from this ring buffer by copying to an
+    /// AudioBuffer.  **The read position will be moved.**
+    ///
+    /// @param destination destination buffer
+    ///
+    /// @param destStartSample the index in the destination buffer to
+    ///        start writing to
+    ///
+    /// @param numberOfSamples number of samples to copy
+    ///
+    inline void dequeue(
+        AudioBuffer<Type> &destination,
+        const int destStartSample,
+        const int numberOfSamples)
+    {
+        bool updatePosition = true;
+        retrieve(updatePosition,
+                 destination, destStartSample,
+                 numberOfSamples);
+    }
+
+
+    /// Copy audio samples from this ring buffer by copying to an
+    /// AudioBuffer.  **This function will leave the read position
+    /// alone.**
+    ///
+    /// @param destination destination buffer
+    ///
+    /// @param destStartSample the index in the destination buffer to
+    ///        start writing to
+    ///
+    /// @param numberOfSamples number of samples to copy
+    ///
+    inline void copy(
+        AudioBuffer<Type> &destination,
+        const int destStartSample,
+        const int numberOfSamples)
+    {
+        bool updatePosition = false;
+        retrieve(updatePosition,
+                 destination, destStartSample,
+                 numberOfSamples);
+    }
+
 
 protected:
+    void store(const bool updatePosition,
+               const AudioBuffer<Type> &source,
+               const int sourceStartSample,
+               const int numberOfSamples);
+
+    void retrieve(const bool updatePosition,
+                  AudioBuffer<Type> &destination,
+                  const int destStartSample,
+                  const int numberOfSamples);
+
     RingBufferProcessor<Type> *callbackClass_;
+    BufferPosition bufferPosition_;
 
     Array<int> channelOffsets_;
     HeapBlock<Type> audioData_;
 
     int numberOfChannels_;
-    int numberOfSamples_;
-
-    int currentPosition_;
-    int totalLength_;
-
     int chunkSize_;
     int samplesToFilledChunk_;
-
-    int preDelay_;
 
 private:
     JUCE_LEAK_DETECTOR(RingBuffer);
@@ -113,12 +187,12 @@ public:
     /// Called every time a certain number of samples have been added
     /// to a RingBuffer.
     ///
-    /// @param ringBuffer ring buffer with filled "chunk"
+    /// @param buffer audio buffer with filled "chunk"
     ///
-    /// @param chunkSize number of samples in the "chunk"
+    /// @return determines whether the audio buffer's contents should
+    ///         be copied back to the original RingBuffer.
     ///
-    virtual void processBufferChunk(RingBuffer<Type> *ringBuffer,
-                                    const int chunkSize) = 0;
+    virtual bool processBufferChunk(AudioBuffer<Type> &buffer) = 0;
 };
 
 }

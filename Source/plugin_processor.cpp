@@ -549,19 +549,13 @@ void KmeterAudioProcessor::prepareToPlay(
     int preDelay = kmeterBufferSize_;
     int chunkSize = kmeterBufferSize_;
 
-    ringBufferInput_ = new frut::audio::RingBuffer<double>(
+    ringBuffer_ = new frut::audio::RingBuffer<double>(
         numInputChannels,
         ringBufferSize,
         preDelay,
         chunkSize);
 
-    ringBufferInput_->setCallbackClass(this);
-
-    ringBufferOutput_ = new frut::audio::RingBuffer<double>(
-        numInputChannels,
-        ringBufferSize,
-        preDelay,
-        chunkSize);
+    ringBuffer_->setCallbackClass(this);
 }
 
 
@@ -577,8 +571,7 @@ void KmeterAudioProcessor::releaseResources()
     averageLevelFiltered_ = nullptr;
     truePeakMeter_ = nullptr;
 
-    ringBufferInput_ = nullptr;
-    ringBufferOutput_ = nullptr;
+    ringBuffer_ = nullptr;
 }
 
 
@@ -597,10 +590,10 @@ void KmeterAudioProcessor::processBlock(
     jassert(!isUsingDoublePrecision());
     ignoreUnused(midiMessages);
 
-    int NumberOfChannels = buffer.getNumChannels();
-    int NumberOfSamples = buffer.getNumSamples();
+    int numberOfChannels = buffer.getNumChannels();
+    int numberOfSamples = buffer.getNumSamples();
 
-    AudioBuffer<double> processBuffer(NumberOfChannels, NumberOfSamples);
+    AudioBuffer<double> processBuffer(numberOfChannels, numberOfSamples);
 
     // convert input to float and de-normalize samples
     dither_.denormalizeToDouble(buffer, processBuffer);
@@ -631,7 +624,7 @@ void KmeterAudioProcessor::processBlock(
 void KmeterAudioProcessor::process(
     AudioBuffer<double> &buffer)
 {
-    int NumberOfSamples = buffer.getNumSamples();
+    int numberOfSamples = buffer.getNumSamples();
 
     if (!sampleRateIsValid_)
     {
@@ -651,7 +644,7 @@ void KmeterAudioProcessor::process(
 
     for (int nChannel = getMainBusNumInputChannels(); nChannel < getMainBusNumOutputChannels(); ++nChannel)
     {
-        buffer.clear(nChannel, 0, NumberOfSamples);
+        buffer.clear(nChannel, 0, numberOfSamples);
     }
 
     if (audioFilePlayer_)
@@ -673,7 +666,7 @@ void KmeterAudioProcessor::process(
         // "Mono" button has been pressed
         if (getBoolean(KmeterPluginParameters::selMono))
         {
-            for (int i = 0; i < NumberOfSamples; ++i)
+            for (int i = 0; i < numberOfSamples; ++i)
             {
                 inputLeft[i] = 0.5 * (inputLeft[i] + inputRight[i]);
                 inputRight[i] = inputLeft[i];
@@ -682,7 +675,7 @@ void KmeterAudioProcessor::process(
         // "Flip" button has been pressed
         else if (getBoolean(KmeterPluginParameters::selFlip))
         {
-            for (int i = 0; i < NumberOfSamples; ++i)
+            for (int i = 0; i < numberOfSamples; ++i)
             {
                 double oldInputLeft = inputLeft[i];
 
@@ -692,11 +685,13 @@ void KmeterAudioProcessor::process(
         }
     }
 
-    ringBufferInput_->addSamples(buffer, 0, NumberOfSamples);
+    // copy input buffer to ring buffer; calls "processBufferChunk"
+    // each time chunkSize samples have been added; also applies
+    // latency by delaying the input (pre-delay)!
+    ringBuffer_->queue(buffer, 0, numberOfSamples);
 
-    // copy output ring buffer to output buffer; apply latency by
-    // delaying the output by pre-delay!
-    ringBufferOutput_->getSamples(buffer, 0, NumberOfSamples, true);
+    // copy ring buffer to output buffer
+    ringBuffer_->dequeue(buffer, 0, numberOfSamples);
 
     // fade output attenuation from old to new value (JUCE takes care
     // of any optimizations)
@@ -720,22 +715,29 @@ void KmeterAudioProcessor::process(
 }
 
 
-void KmeterAudioProcessor::processBufferChunk(
-    frut::audio::RingBuffer<double> *ringBuffer,
-    const int chunkSize)
+/// Called every time a certain number of samples have been added to a
+/// RingBuffer.
+///
+/// @param buffer audio buffer with filled "chunk"
+///
+/// @return determines whether the audio buffer's contents should be
+///         copied back to the original RingBuffer.
+///
+bool KmeterAudioProcessor::processBufferChunk(
+    AudioBuffer<double> &buffer)
 {
+    int chunkSize = buffer.getNumSamples();
     bool isMono = getBoolean(KmeterPluginParameters::selMono);
 
     // length of buffer chunk in fractional seconds
     // (1024 samples / 44100 samples/s = 23.2 ms)
     processedSeconds_ = (float) chunkSize / (float) getSampleRate();
 
-    // copy ring buffer to determine average level (FIR filter already
-    // adds delay of (chunkSize / 2) samples)
-    averageLevelFiltered_->setSamples(*ringBuffer, chunkSize);
+    // copy buffer to determine average level
+    averageLevelFiltered_->setSamples(buffer, chunkSize);
 
-    // copy ring buffer to determine true peak level
-    truePeakMeter_->setSamples(*ringBuffer, chunkSize);
+    // copy buffer to determine true peak level
+    truePeakMeter_->setSamples(buffer, chunkSize);
 
     for (int nChannel = 0; nChannel < getMainBusNumInputChannels(); ++nChannel)
     {
@@ -751,30 +753,35 @@ void KmeterAudioProcessor::processBufferChunk(
         else
         {
             // determine peak level for chunkSize samples
-            peakLevels_.set(nChannel, static_cast<float>(
-                                ringBuffer->getMagnitude(
-                                    nChannel, chunkSize)));
+            peakLevels_.set(
+                nChannel,
+                static_cast<float>(
+                    buffer.getMagnitude(nChannel, 0, chunkSize)));
 
             // determine peak level for chunkSize samples
-            rmsLevels_.set(nChannel, static_cast<float>(
-                               ringBuffer->getRMSLevel(
-                                   nChannel, chunkSize)));
+            rmsLevels_.set(
+                nChannel,
+                static_cast<float>(
+                    buffer.getRMSLevel(nChannel, 0, chunkSize)));
 
             // determine filtered average level for chunkSize samples
             // (please note that this level has already been converted
             // to decibels!)
-            averageLevelsFiltered_.set(nChannel, static_cast<float>(
-                                           averageLevelFiltered_->getLevel(
-                                               nChannel)));
+            averageLevelsFiltered_.set(
+                nChannel,
+                static_cast<float>(
+                    averageLevelFiltered_->getLevel(nChannel)));
 
             // determine true peak level for chunkSize samples
             truePeakLevels_.set(
-                nChannel, truePeakMeter_->getLevel(nChannel));
+                nChannel,
+                truePeakMeter_->getLevel(nChannel));
 
             // determine overflows for chunkSize samples; treat all
             // samples above -0.001 dBFS as overflow
-            overflowCounts_.set(nChannel, ringBuffer->countOverflows(
-                                    nChannel, chunkSize, 0.99885));
+            overflowCounts_.set(
+                nChannel,
+                countOverflows(buffer, nChannel, chunkSize, 0.99885));
         }
 
         // apply meter ballistics and store values so that the editor
@@ -791,73 +798,68 @@ void KmeterAudioProcessor::processBufferChunk(
     // phase correlation is only defined for stereo signals
     if (isStereo_)
     {
-        float fPhaseCorrelation = 1.0f;
+        double dPhaseCorrelation = 1.0;
 
         // check whether the stereo signal has been mixed down to mono
         if (isMono)
         {
-            fPhaseCorrelation = 1.0f;
+            dPhaseCorrelation = 1.0;
         }
         // otherwise, process only levels at or above -80 dB
         else if ((rmsLevels_[0] >= 0.0001f) || (rmsLevels_[1] >= 0.0001f))
         {
-            float sum_of_product = 0.0f;
-            float sum_of_squares_left = 0.0f;
-            float sum_of_squares_right = 0.0f;
+            double sum_of_product = 0.0;
+            double sum_of_squares_left = 0.0;
+            double sum_of_squares_right = 0.0;
 
             // determine correlation for chunkSize samples
             for (int sample = 0; sample < chunkSize; ++sample)
             {
-                float ringbuffer_left = static_cast<float>(
-                                            ringBuffer->getSample(
-                                                0, sample, true));
-
-                float ringbuffer_right = static_cast<float>(
-                                             ringBuffer->getSample(
-                                                 1, sample, true));
+                double ringbuffer_left = buffer.getSample(0, sample);
+                double ringbuffer_right = buffer.getSample(1, sample);
 
                 sum_of_product += ringbuffer_left * ringbuffer_right;
                 sum_of_squares_left += ringbuffer_left * ringbuffer_left;
                 sum_of_squares_right += ringbuffer_right * ringbuffer_right;
             }
 
-            float fSumsOfSquares = sum_of_squares_left * sum_of_squares_right;
+            double dSumsOfSquares = sum_of_squares_left * sum_of_squares_right;
 
             // prevent division by zero and taking the square root of
             // a negative number
-            if (fSumsOfSquares > 0.0f)
+            if (dSumsOfSquares > 0.0)
             {
-                fPhaseCorrelation = sum_of_product / sqrt(fSumsOfSquares);
+                dPhaseCorrelation = sum_of_product / sqrt(dSumsOfSquares);
             }
             else
             {
                 // this is mathematically incorrect, but "musically"
                 // correct (i.e. signal is mono-compatible)
-                fPhaseCorrelation = 1.0f;
+                dPhaseCorrelation = 1.0;
             }
         }
 
-        meterBallistics_->setPhaseCorrelation(processedSeconds_,
-                                              fPhaseCorrelation);
+        meterBallistics_->setPhaseCorrelation(
+            processedSeconds_, static_cast<float>(dPhaseCorrelation));
 
-        float fStereoMeterValue = 0.0f;
+        double dStereoMeterValue = 0.0;
 
         // do not process levels below -80 dB
         if ((rmsLevels_[0] < 0.0001f) && (rmsLevels_[1] < 0.0001f))
         {
-            fStereoMeterValue = 0.0f;
+            dStereoMeterValue = 0.0;
         }
         else if (rmsLevels_[1] >= rmsLevels_[0])
         {
-            fStereoMeterValue = 1.0f - rmsLevels_[0] / rmsLevels_[1];
+            dStereoMeterValue = 1.0 - rmsLevels_[0] / rmsLevels_[1];
         }
         else
         {
-            fStereoMeterValue = rmsLevels_[1] / rmsLevels_[0] - 1.0f;
+            dStereoMeterValue = rmsLevels_[1] / rmsLevels_[0] - 1.0;
         }
 
-        meterBallistics_->setStereoMeterValue(processedSeconds_,
-                                              fStereoMeterValue);
+        meterBallistics_->setStereoMeterValue(
+            processedSeconds_, static_cast<float>(dStereoMeterValue));
     }
 
     // "UM" --> update meters
@@ -868,32 +870,71 @@ void KmeterAudioProcessor::processBufferChunk(
     // variable to "false" before committing your changes.
     if (DEBUG_FILTER)
     {
-        AudioBuffer<float> TempAudioBufferFloat(
-            getMainBusNumInputChannels(), chunkSize);
+        AudioBuffer<float> processBuffer(
+            buffer.getNumChannels(), chunkSize);
 
-        AudioBuffer<double> TempAudioBufferDouble(
-            getMainBusNumInputChannels(), chunkSize);
+        averageLevelFiltered_->getSamples(processBuffer, chunkSize);
 
-        averageLevelFiltered_->getSamples(
-            TempAudioBufferFloat, 0, chunkSize);
+        dither_.convertToDouble(processBuffer, buffer);
 
-        dither_.convertToDouble(TempAudioBufferFloat, TempAudioBufferDouble);
-
-        ringBufferOutput_->addSamples(
-            TempAudioBufferDouble, 0, chunkSize);
+        // overwrite ring buffer contents
+        return true;
     }
     else
     {
-        AudioBuffer<double> TempAudioBuffer(
-            getMainBusNumInputChannels(), chunkSize);
-
-        // copy input ring buffer to output ring buffer; do not delay
-        // output by pre-delay!
-        ringBuffer->getSamples(
-            TempAudioBuffer, 0, chunkSize, false);
-        ringBufferOutput_->addSamples(
-            TempAudioBuffer, 0, chunkSize);
+        // keep ring buffer contents
+        return false;
     }
+}
+
+
+/// Count the number of overflows within a channel.
+///
+/// @param buffer audio buffer to process
+///
+/// @param channel audio channel to process
+///
+/// @param numberOfSamples number of samples to process, starting from
+///        the **beginning** of the buffer
+///
+/// @param limitOverflow sample amplitude that does just *not* count as
+///        an overflow (absolute value)
+///
+/// @return number of overflows
+///
+int KmeterAudioProcessor::countOverflows(
+    const AudioBuffer<double> &buffer,
+    const int channel,
+    const int numberOfSamples,
+    const double limitOverflow) const
+{
+    jassert(isPositiveAndBelow(channel, buffer.getNumChannels()));
+    jassert(isPositiveAndNotGreaterThan(numberOfSamples,
+                                        buffer.getNumSamples()));
+
+    const double *audioData = buffer.getReadPointer(channel);
+    int overflows = 0;
+
+    for (int sample = 0; sample < numberOfSamples; ++sample)
+    {
+        // get sample value
+        double amplitude = audioData[sample];
+
+        // convert sample value to amplitude
+        if (amplitude < 0)
+        {
+            amplitude = -amplitude;
+        }
+
+        // an overflow has occurred if the amplitude lies above the
+        // overflow limit
+        if (amplitude > limitOverflow)
+        {
+            ++overflows;
+        }
+    }
+
+    return overflows;
 }
 
 

@@ -1,6 +1,4 @@
 
-o [mzuther] fix running with small audio buffers
-
 o [mzuther] rename internal "variables_" (get rid of "newVariable")
 
 o [mzuther] get rid of Hungarian notation
@@ -12,6 +10,8 @@ o [mzuther] use explicit casts: static_cast<type>
 o [mzuther] add const to methods variables
 
 o [mzuther] pretty-print and document code
+
+* single-order HP filter for DC removal
 
 * use JUCE namespace explicitly
 
