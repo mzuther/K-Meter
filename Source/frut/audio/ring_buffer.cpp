@@ -183,10 +183,9 @@ int RingBuffer<Type>::getPreDelay() const
 }
 
 
-/// Store audio samples in this ring buffer by copying from an
-/// AudioBuffer.  **This function will call the callback function
-/// every time the total number of samples added to this buffer (now
-/// or before) exceeds the "chunk" size.**
+/// Import audio samples from an AudioBuffer.  **This function will
+/// call the callback function every time the total number of samples
+/// added to this buffer (now or before) exceeds the "chunk" size.**
 ///
 /// @param updatePosition when true, the buffer's write position will
 ///        be updated
@@ -199,7 +198,7 @@ int RingBuffer<Type>::getPreDelay() const
 /// @param numberOfSamples number of samples to copy
 ///
 template <typename Type>
-void RingBuffer<Type>::store(
+void RingBuffer<Type>::importFrom(
     const bool updatePosition,
     const AudioBuffer<Type> &source,
     const int sourceStartSample,
@@ -312,14 +311,14 @@ void RingBuffer<Type>::store(
             {
                 AudioBuffer<Type> buffer(numberOfChannels_, chunkSize_);
 
-                copy(buffer, 0, chunkSize_);
+                copyTo(buffer, 0, chunkSize_);
 
                 // process buffer chunk
                 bool writeBack = callbackClass_->processBufferChunk(buffer);
 
                 if (writeBack)
                 {
-                    overwrite(buffer, 0, chunkSize_);
+                    overwriteFrom(buffer, 0, chunkSize_);
                 }
             }
         }
@@ -346,8 +345,7 @@ void RingBuffer<Type>::store(
 }
 
 
-/// Retrieve audio samples from this ring buffer by copying to an
-/// AudioBuffer.
+/// Export audio samples to an AudioBuffer.
 ///
 /// @param updatePosition when true, the buffer's read position will
 ///        be updated
@@ -360,7 +358,7 @@ void RingBuffer<Type>::store(
 /// @param numberOfSamples number of samples to copy
 ///
 template <typename Type>
-void RingBuffer<Type>::retrieve(
+void RingBuffer<Type>::exportTo(
     const bool updatePosition,
     AudioBuffer<Type> &destination,
     const int destStartSample,

@@ -56,11 +56,10 @@ public:
     int getPreDelay() const;
 
 
-    /// Store audio samples in this ring buffer by copying from an
-    /// AudioBuffer.  **This function will call the callback function
-    /// every time the total number of samples added to this buffer
-    /// (now or before) exceeds the "chunk" size.  The write position
-    /// will be moved.**
+    /// Add audio samples from an AudioBuffer.  **This function will
+    /// call the callback function every time the total number of
+    /// samples added to this buffer (now or before) exceeds the
+    /// "chunk" size.  The write position will be moved.**
     ///
     /// @param source source buffer
     ///
@@ -69,21 +68,21 @@ public:
     ///
     /// @param numberOfSamples number of samples to copy
     ///
-    inline void queue(
+    inline void addFrom(
         const AudioBuffer<Type> &source,
         const int sourceStartSample,
         const int numberOfSamples)
     {
         bool updatePosition = true;
-        store(updatePosition,
-              source, sourceStartSample,
-              numberOfSamples);
+        importFrom(updatePosition,
+                   source, sourceStartSample,
+                   numberOfSamples);
     }
 
 
-    /// Overwrite audio samples in this ring buffer by copying from an
-    /// AudioBuffer.  **This function will not call the callback
-    /// function and leave the write position alone.**
+    /// Overwrite audio samples from an AudioBuffer.  **This function
+    /// will not call the callback function and leave the write
+    /// position alone.**
     ///
     /// @param source source buffer
     ///
@@ -92,20 +91,20 @@ public:
     ///
     /// @param numberOfSamples number of samples to copy
     ///
-    inline void overwrite(
+    inline void overwriteFrom(
         const AudioBuffer<Type> &source,
         const int sourceStartSample,
         const int numberOfSamples)
     {
         bool updatePosition = false;
-        store(updatePosition,
-              source, sourceStartSample,
-              numberOfSamples);
+        importFrom(updatePosition,
+                   source, sourceStartSample,
+                   numberOfSamples);
     }
 
 
-    /// Retrieve audio samples from this ring buffer by copying to an
-    /// AudioBuffer.  **The read position will be moved.**
+    /// Remove audio samples from this ring buffer to an AudioBuffer.
+    /// **The read position will be moved.**
     ///
     /// @param destination destination buffer
     ///
@@ -114,21 +113,20 @@ public:
     ///
     /// @param numberOfSamples number of samples to copy
     ///
-    inline void dequeue(
+    inline void removeTo(
         AudioBuffer<Type> &destination,
         const int destStartSample,
         const int numberOfSamples)
     {
         bool updatePosition = true;
-        retrieve(updatePosition,
+        exportTo(updatePosition,
                  destination, destStartSample,
                  numberOfSamples);
     }
 
 
-    /// Copy audio samples from this ring buffer by copying to an
-    /// AudioBuffer.  **This function will leave the read position
-    /// alone.**
+    /// Copy audio samples to an AudioBuffer.  **This function will
+    /// leave the read position alone.**
     ///
     /// @param destination destination buffer
     ///
@@ -137,25 +135,25 @@ public:
     ///
     /// @param numberOfSamples number of samples to copy
     ///
-    inline void copy(
+    inline void copyTo(
         AudioBuffer<Type> &destination,
         const int destStartSample,
         const int numberOfSamples)
     {
         bool updatePosition = false;
-        retrieve(updatePosition,
+        exportTo(updatePosition,
                  destination, destStartSample,
                  numberOfSamples);
     }
 
 
 protected:
-    void store(const bool updatePosition,
-               const AudioBuffer<Type> &source,
-               const int sourceStartSample,
-               const int numberOfSamples);
+    void importFrom(const bool updatePosition,
+                    const AudioBuffer<Type> &source,
+                    const int sourceStartSample,
+                    const int numberOfSamples);
 
-    void retrieve(const bool updatePosition,
+    void exportTo(const bool updatePosition,
                   AudioBuffer<Type> &destination,
                   const int destStartSample,
                   const int numberOfSamples);

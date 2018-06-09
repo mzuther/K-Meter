@@ -695,10 +695,10 @@ void KmeterAudioProcessor::process(
     //
     // calls "processBufferChunk" each time chunkSize samples have
     // been added!
-    ringBuffer_->queue(buffer, 0, numberOfSamples);
+    ringBuffer_->addFrom(buffer, 0, numberOfSamples);
 
     // copy ring buffer to output buffer
-    ringBuffer_->dequeue(buffer, 0, numberOfSamples);
+    ringBuffer_->removeTo(buffer, 0, numberOfSamples);
 
     // fade output attenuation from old to new value (JUCE takes care
     // of any optimizations)
