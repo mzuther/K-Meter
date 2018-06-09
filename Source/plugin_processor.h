@@ -35,7 +35,7 @@
 class KmeterAudioProcessor :
     public AudioProcessor,
     public ActionBroadcaster,
-    virtual public frut::audio::RingBufferProcessor<double>
+    virtual public frut::audio::RingBufferProcessor<float>
 {
 public:
     KmeterAudioProcessor();
@@ -53,7 +53,7 @@ public:
                       MidiBuffer &midiMessages) override;
     void processBlock(AudioBuffer<double> &buffer,
                       MidiBuffer &midiMessages) override;
-    void process(AudioBuffer<double> &buffer);
+    void process(AudioBuffer<float> &buffer);
 
     void silenceInput(bool isSilentNew);
 
@@ -98,7 +98,7 @@ public:
     double getTailLengthSeconds() const override;
 
     MeterBallistics *getLevels();
-    virtual bool processBufferChunk(AudioBuffer<double> &buffer) override;
+    virtual bool processBufferChunk(AudioBuffer<float> &buffer) override;
 
     int getAverageAlgorithm();
     void setAverageAlgorithm(const int averageAlgorithm);
@@ -121,13 +121,13 @@ private:
 
     static BusesProperties getBusesProperties();
 
-    int countOverflows(const AudioBuffer<double> &buffer,
+    int countOverflows(const AudioBuffer<float> &buffer,
                        const int channel,
                        const int numberOfSamples,
-                       const double limitOverflow) const;
+                       const float limitOverflow) const;
 
     ScopedPointer<AudioFilePlayer> audioFilePlayer_;
-    ScopedPointer<frut::audio::RingBuffer<double>> ringBuffer_;
+    ScopedPointer<frut::audio::RingBuffer<float>> ringBuffer_;
 
     ScopedPointer<AverageLevelFiltered> averageLevelFiltered_;
     ScopedPointer<frut::dsp::TruePeakMeter> truePeakMeter_;
@@ -143,7 +143,7 @@ private:
 
     int averageAlgorithmId_;
     float processedSeconds_;
-    double attenuationLevel_;
+    float attenuationLevel_;
 
     Array<float> peakLevels_;
     Array<float> rmsLevels_;

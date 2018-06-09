@@ -221,18 +221,6 @@ void AudioFilePlayer::fillBufferChunk(
 }
 
 
-void AudioFilePlayer::fillBufferChunk(
-    AudioBuffer<double> &buffer)
-{
-    int NumberOfChannels = buffer.getNumChannels();
-    int NumberOfSamples = buffer.getNumSamples();
-    AudioBuffer<float> processBuffer(NumberOfChannels, NumberOfSamples);
-
-    fillBufferChunk(processBuffer);
-    dither_.convertToDouble(processBuffer, buffer);
-}
-
-
 void AudioFilePlayer::outputReportPlain()
 {
     if (bReportAverageMeterLevel)

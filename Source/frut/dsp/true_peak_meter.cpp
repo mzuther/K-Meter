@@ -37,7 +37,6 @@ TruePeakMeter::TruePeakMeter(
                              originalFftBufferSize,
                              upsamplingFactor)
 {
-    dither_.initialise(numberOfChannels_, 24);
 }
 
 
@@ -69,36 +68,6 @@ void TruePeakMeter::setSamples(
                                        channel, 0,
                                        numberOfSamples);
     }
-
-    // process input data
-    processInput();
-}
-
-
-void TruePeakMeter::setSamples(
-    const AudioBuffer<double> &source,
-    const int numberOfSamples)
-{
-    jassert(source.getNumChannels() ==
-            numberOfChannels_);
-    jassert(source.getNumSamples() >=
-            numberOfSamples);
-    jassert(originalFftBufferSize_ ==
-            numberOfSamples);
-
-    AudioBuffer<double> processBuffer(numberOfChannels_, numberOfSamples);
-
-    // copy data from external buffer to temporary buffer
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
-    {
-        processBuffer.copyFrom(channel, 0,
-                               source,
-                               channel, 0,
-                               numberOfSamples);
-    }
-
-    // dither output to float and store in internal buffer
-    dither_.ditherToFloat(processBuffer, sampleBufferOriginal_);
 
     // process input data
     processInput();

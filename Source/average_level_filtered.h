@@ -48,13 +48,7 @@ public:
     void getSamples(AudioBuffer<float> &destination,
                     const int numberOfSamples);
 
-    void getSamples(AudioBuffer<double> &destination,
-                    const int numberOfSamples);
-
     void setSamples(const AudioBuffer<float> &source,
-                    const int numberOfSamples);
-
-    void setSamples(const AudioBuffer<double> &source,
                     const int numberOfSamples);
 
 private:

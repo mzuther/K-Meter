@@ -350,6 +350,7 @@ float AverageLevelFiltered::getLevel(
     jassert(channel >= 0);
     jassert(channel < numberOfChannels_);
 
+    // TODO: move calculation to setSamples
     if (averageAlgorithm_ == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
         float averageLevel = 0.0f;
@@ -453,35 +454,6 @@ void AverageLevelFiltered::getSamples(
 }
 
 
-// copy data from internal audio buffer to external audio buffer
-void AverageLevelFiltered::getSamples(
-    AudioBuffer<double> &destination,
-    const int numberOfSamples)
-{
-    jassert(fftSampleBuffer_.getNumChannels() ==
-            destination.getNumChannels());
-    jassert(fftSampleBuffer_.getNumSamples() >=
-            numberOfSamples);
-    jassert(destination.getNumSamples() >=
-            numberOfSamples);
-
-    int numberOfChannels = fftSampleBuffer_.getNumChannels();
-    AudioBuffer<double> processBuffer(numberOfChannels, numberOfSamples);
-
-    // convert data to double and store in temporary audio buffer
-    dither_.convertToDouble(fftSampleBuffer_, processBuffer);
-
-    // copy data to external buffer
-    for (int channel = 0; channel < numberOfChannels; ++channel)
-    {
-        destination.copyFrom(channel, 0,
-                             processBuffer,
-                             channel, 0,
-                             numberOfSamples);
-    }
-}
-
-
 // copy data from external audio buffer to internal audio buffer
 void AverageLevelFiltered::setSamples(
     const AudioBuffer<float> &source,
@@ -502,31 +474,4 @@ void AverageLevelFiltered::setSamples(
                                   channel, 0,
                                   numberOfSamples);
     }
-}
-
-
-// copy data from external audio buffer to internal audio buffer
-void AverageLevelFiltered::setSamples(
-    const AudioBuffer<double> &source,
-    const int numberOfSamples)
-{
-    jassert(fftSampleBuffer_.getNumChannels() ==
-            source.getNumChannels());
-    jassert(fftSampleBuffer_.getNumSamples() ==
-            numberOfSamples);
-
-    int numberOfChannels = fftSampleBuffer_.getNumChannels();
-    AudioBuffer<double> processBuffer(numberOfChannels, numberOfSamples);
-
-    // copy data to temporary buffer
-    for (int channel = 0; channel < numberOfChannels; ++channel)
-    {
-        processBuffer.copyFrom(channel, 0,
-                               source,
-                               channel, 0,
-                               numberOfSamples);
-    }
-
-    // dither output to float and store in internal audio buffer
-    dither_.ditherToFloat(processBuffer, fftSampleBuffer_);
 }
