@@ -58,10 +58,13 @@ private:
     void calculateFilterKernel_Rms();
     void calculateFilterKernel_ItuBs1770();
 
+    void calculateLoudness();
     void filterSamples_Rms(const int channel);
     void filterSamples_ItuBs1770();
 
     double sampleRate_;
+
+    Array<float> loudnessValues_;
 
     Array<double> preFilterInputCoefficients_;
     Array<double> preFilterOutputCoefficients_;

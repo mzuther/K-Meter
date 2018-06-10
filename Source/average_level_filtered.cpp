@@ -49,6 +49,13 @@ AverageLevelFiltered::AverageLevelFiltered(
     peakToAverageCorrection_ = 0.0f;
     averageAlgorithm_ = -1;
 
+    float meterMinimumDecibel = MeterBallistics::getMeterMinimumDecibel();
+
+    for (int channel = 0; channel < numberOfChannels_; ++channel)
+    {
+        loudnessValues_.add(meterMinimumDecibel);
+    }
+
     // also calculates filter kernel
     setAlgorithm(averageAlgorithm);
 }
@@ -347,85 +354,9 @@ void AverageLevelFiltered::filterSamples_ItuBs1770()
 float AverageLevelFiltered::getLevel(
     const int channel)
 {
-    jassert(channel >= 0);
-    jassert(channel < numberOfChannels_);
+    jassert(isPositiveAndNotGreaterThan(channel, numberOfChannels_));
 
-    // TODO: move calculation to method "copyFrom"
-    if (averageAlgorithm_ == KmeterPluginParameters::selAlgorithmItuBs1770)
-    {
-        float averageLevel = 0.0f;
-        float meterMinimumDecibel = MeterBallistics::getMeterMinimumDecibel();
-        float loudness = meterMinimumDecibel;
-
-        if (channel == 0)
-        {
-            // filter audio data (all channels; overwrites contents of
-            // sample buffer)
-            filterSamples_ItuBs1770();
-
-            for (int channel = 0; channel < numberOfChannels_; ++channel)
-            {
-                float averageLevelChannel = 0.0f;
-                const float *sampleData = fftSampleBuffer_.getReadPointer(channel);
-
-                // calculate mean square of the filtered input signal
-                for (int n = 0; n < fftBufferSize_; ++n)
-                {
-                    averageLevelChannel += (sampleData[n] * sampleData[n]);
-                }
-
-                averageLevelChannel /= float(fftBufferSize_);
-
-                // apply weighting factor and sum channels
-                //
-                // L, R, C  --> 1.00 (ignore factor)
-                // LFE      --> 0.00 (skip channel)
-                // LS, RS   --> 1.41
-                // other    --> 0.00 (skip channel)
-                if (channel < 3)
-                {
-                    averageLevel += averageLevelChannel;
-                }
-                else if (channel == 4)
-                {
-                    averageLevel += 1.41f * averageLevelChannel;
-                }
-                else if (channel == 5)
-                {
-                    averageLevel += 1.41f * averageLevelChannel;
-                }
-            }
-
-            // calculate loudness by applying the formula from ITU-R
-            // BS.1770-1; here's my guess to what the factors mean:
-            //
-            // -0.691 => 'K' filter frequency response at 1 kHz
-            // 10.000 => factor for conversion to decibels (20.0) and
-            //           square root for conversion from mean square
-            //           to RMS (log10(sqrt(x)) = 0.5 * log10(x))
-            loudness = -0.691f + 10.0f * log10f(averageLevel);
-
-            if (loudness < meterMinimumDecibel)
-            {
-                loudness = meterMinimumDecibel;
-            }
-        }
-
-        return loudness;
-    }
-    else
-    {
-        // filter audio data (overwrites contents of sample buffer)
-        filterSamples_Rms(channel);
-
-        float averageLevel = MeterBallistics::level2decibel(
-                                 fftSampleBuffer_.getRMSLevel(
-                                     channel, 0, fftBufferSize_));
-
-        // apply peak-to-average gain correction so that sine waves
-        // read the same on peak and average meters
-        return averageLevel + peakToAverageCorrection_;
-    }
+    return loudnessValues_[channel];
 }
 
 
@@ -473,5 +404,97 @@ void AverageLevelFiltered::copyFrom(
                                   source,
                                   channel, 0,
                                   numberOfSamples);
+    }
+
+    // calculate loudness for all channels
+    calculateLoudness();
+}
+
+
+void AverageLevelFiltered::calculateLoudness()
+{
+    float meterMinimumDecibel = MeterBallistics::getMeterMinimumDecibel();
+
+    if (averageAlgorithm_ == KmeterPluginParameters::selAlgorithmItuBs1770)
+    {
+        // filter audio data (overwrites contents of sample buffer)
+        filterSamples_ItuBs1770();
+
+        float averageLevel = 0.0f;
+
+        for (int channel = 0; channel < numberOfChannels_; ++channel)
+        {
+            float averageLevelChannel = 0.0f;
+            const float *sampleData = fftSampleBuffer_.getReadPointer(channel);
+
+            // calculate mean square of the filtered input signal
+            for (int n = 0; n < fftBufferSize_; ++n)
+            {
+                averageLevelChannel += (sampleData[n] * sampleData[n]);
+            }
+
+            averageLevelChannel /= float(fftBufferSize_);
+
+            // apply weighting factor and sum channels
+            //
+            // L, R, C  --> 1.00 (ignore factor)
+            // LFE      --> 0.00 (skip channel)
+            // LS, RS   --> 1.41
+            // other    --> 0.00 (skip channel)
+            if (channel < 3)
+            {
+                averageLevel += averageLevelChannel;
+            }
+            else if (channel == 4)
+            {
+                averageLevel += 1.41f * averageLevelChannel;
+            }
+            else if (channel == 5)
+            {
+                averageLevel += 1.41f * averageLevelChannel;
+            }
+        }
+
+        // calculate loudness by applying the formula from ITU-R
+        // BS.1770-1; here's my guess to what the factors mean:
+        //
+        // -0.691 => 'K' filter frequency response at 1 kHz
+        // 10.000 => factor for conversion to decibels (20.0) and
+        //           square root for conversion from mean square
+        //           to RMS (log10(sqrt(x)) = 0.5 * log10(x))
+        float loudness = -0.691f + 10.0f * log10f(averageLevel);
+
+        if (loudness < meterMinimumDecibel)
+        {
+            loudness = meterMinimumDecibel;
+        }
+
+        for (int channel = 0; channel < numberOfChannels_; ++channel)
+        {
+            loudnessValues_.set(channel, loudness);
+        }
+    }
+    else
+    {
+        for (int channel = 0; channel < numberOfChannels_; ++channel)
+        {
+            // filter audio data (overwrites contents of sample buffer)
+            filterSamples_Rms(channel);
+
+            float averageLevel = MeterBallistics::level2decibel(
+                                     fftSampleBuffer_.getRMSLevel(
+                                         channel, 0, fftBufferSize_));
+
+            // apply peak-to-average gain correction so that sine
+            // waves read the same on peak and average meters
+            averageLevel += peakToAverageCorrection_;
+
+            if (averageLevel < meterMinimumDecibel)
+            {
+                averageLevel = meterMinimumDecibel;
+            }
+
+            loudnessValues_.set(channel, averageLevel);
+        }
     }
 }
