@@ -41,8 +41,8 @@ public:
 
     float getLevel(const int channel);
 
-    void setSamples(const AudioBuffer<float> &source,
-                    const int numberOfSamples);
+    void copyFrom(const AudioBuffer<float> &source,
+                  const int numberOfSamples);
 
 protected:
     void processInput();

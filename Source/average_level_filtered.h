@@ -45,11 +45,11 @@ public:
 
     float getLevel(const int channel);
 
-    void getSamples(AudioBuffer<float> &destination,
-                    const int numberOfSamples);
+    void copyTo(AudioBuffer<float> &destination,
+                const int numberOfSamples);
 
-    void setSamples(const AudioBuffer<float> &source,
-                    const int numberOfSamples);
+    void copyFrom(const AudioBuffer<float> &source,
+                  const int numberOfSamples);
 
 private:
     JUCE_LEAK_DETECTOR(AverageLevelFiltered);

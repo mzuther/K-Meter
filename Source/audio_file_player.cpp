@@ -192,7 +192,7 @@ bool AudioFilePlayer::matchingSampleRates()
 }
 
 
-void AudioFilePlayer::fillBufferChunk(
+void AudioFilePlayer::copyTo(
     AudioBuffer<float> &buffer)
 {
     // report old meter readings

@@ -74,9 +74,10 @@ public:
         const int numberOfSamples)
     {
         bool updatePosition = true;
-        importFrom(updatePosition,
-                   source, sourceStartSample,
-                   numberOfSamples);
+
+        importFrom(source, sourceStartSample,
+                   numberOfSamples,
+                   updatePosition);
     }
 
 
@@ -97,9 +98,10 @@ public:
         const int numberOfSamples)
     {
         bool updatePosition = false;
-        importFrom(updatePosition,
-                   source, sourceStartSample,
-                   numberOfSamples);
+
+        importFrom(source, sourceStartSample,
+                   numberOfSamples,
+                   updatePosition);
     }
 
 
@@ -119,9 +121,10 @@ public:
         const int numberOfSamples)
     {
         bool updatePosition = true;
-        exportTo(updatePosition,
-                 destination, destStartSample,
-                 numberOfSamples);
+
+        exportTo(destination, destStartSample,
+                 numberOfSamples,
+                 updatePosition);
     }
 
 
@@ -141,22 +144,25 @@ public:
         const int numberOfSamples)
     {
         bool updatePosition = false;
-        exportTo(updatePosition,
-                 destination, destStartSample,
-                 numberOfSamples);
+
+        exportTo(destination, destStartSample,
+                 numberOfSamples,
+                 updatePosition);
     }
 
 
-protected:
-    void importFrom(const bool updatePosition,
-                    const AudioBuffer<Type> &source,
-                    const int sourceStartSample,
-                    const int numberOfSamples);
+    void removeToNull(const int numberOfSamples);
 
-    void exportTo(const bool updatePosition,
-                  AudioBuffer<Type> &destination,
+protected:
+    void importFrom(const AudioBuffer<Type> &source,
+                    const int sourceStartSample,
+                    const int numberOfSamples,
+                    const bool updatePosition);
+
+    void exportTo(AudioBuffer<Type> &destination,
                   const int destStartSample,
-                  const int numberOfSamples);
+                  const int numberOfSamples,
+                  const bool updatePosition);
 
     RingBufferProcessor<Type> *callbackClass_;
     BufferPosition bufferPosition_;

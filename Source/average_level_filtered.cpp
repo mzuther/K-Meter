@@ -350,7 +350,7 @@ float AverageLevelFiltered::getLevel(
     jassert(channel >= 0);
     jassert(channel < numberOfChannels_);
 
-    // TODO: move calculation to setSamples
+    // TODO: move calculation to method "copyFrom"
     if (averageAlgorithm_ == KmeterPluginParameters::selAlgorithmItuBs1770)
     {
         float averageLevel = 0.0f;
@@ -430,7 +430,7 @@ float AverageLevelFiltered::getLevel(
 
 
 // copy data from internal audio buffer to external audio buffer
-void AverageLevelFiltered::getSamples(
+void AverageLevelFiltered::copyTo(
     AudioBuffer<float> &destination,
     const int numberOfSamples)
 {
@@ -455,7 +455,7 @@ void AverageLevelFiltered::getSamples(
 
 
 // copy data from external audio buffer to internal audio buffer
-void AverageLevelFiltered::setSamples(
+void AverageLevelFiltered::copyFrom(
     const AudioBuffer<float> &source,
     const int numberOfSamples)
 {

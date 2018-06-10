@@ -49,7 +49,7 @@ float TruePeakMeter::getLevel(
 }
 
 
-void TruePeakMeter::setSamples(
+void TruePeakMeter::copyFrom(
     const AudioBuffer<float> &source,
     const int numberOfSamples)
 {

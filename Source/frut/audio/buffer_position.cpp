@@ -132,9 +132,6 @@ int BufferPosition::getCurrentWritePosition() const
 ///
 /// @param numberOfSamples number of samples to store in the buffer
 ///
-/// @param updatePosition when true, the buffer's write position will
-///        be updated
-///
 /// @param startIndex_1 on exit, this will contain the index position
 ///        where the first block of data should be written
 ///
@@ -148,13 +145,16 @@ int BufferPosition::getCurrentWritePosition() const
 /// @param blockSize_2 on exit, this indicates how many samples (if
 ///        any) should be written to the second block
 ///
+/// @param updatePosition when true, the buffer's write position will
+///        be updated
+///
 void BufferPosition::store(
     const int numberOfSamples,
-    const bool updatePosition,
     int &startIndex_1,
     int &blockSize_1,
     int &startIndex_2,
-    int &blockSize_2)
+    int &blockSize_2,
+    const bool updatePosition)
 {
     jassert(isPositiveAndNotGreaterThan(numberOfSamples,
                                         totalBufferLength_));
@@ -198,9 +198,6 @@ void BufferPosition::store(
 /// @param numberOfSamples number of samples to retrieve from the
 ///        buffer
 ///
-/// @param updatePosition when true, the buffer's read position will
-///        be updated
-///
 /// @param startIndex_1 on exit, this will contain the index position
 ///        from where the first block of data should be retrieved
 ///
@@ -214,13 +211,16 @@ void BufferPosition::store(
 /// @param blockSize_2 on exit, this indicates how many samples (if
 ///        any) should be retrieved from the second block
 ///
+/// @param updatePosition when true, the buffer's read position will
+///        be updated
+///
 void BufferPosition::retrieve(
     const int numberOfSamples,
-    const bool updatePosition,
     int &startIndex_1,
     int &blockSize_1,
     int &startIndex_2,
-    int &blockSize_2)
+    int &blockSize_2,
+    const bool updatePosition)
 {
     jassert(isPositiveAndNotGreaterThan(numberOfSamples,
                                         totalBufferLength_));
@@ -253,6 +253,35 @@ void BufferPosition::retrieve(
         {
             DBG("[BufferPosition] reading undefined data!");
         }
+    }
+}
+
+
+/// Simulate dequeue.  **The only thing this function does is move the
+/// read position.  Used correctly, this will prevent the "overwriting
+/// unread data" debug message from appearing.**
+///
+/// @param numberOfSamples number of samples to retrieve from the
+///        buffer
+///
+void BufferPosition::simulateDequeue(
+    const int numberOfSamples)
+{
+    // update read position and wrap around at end of buffer
+    readPosition_ = negativeAwareModulo(
+                        readPosition_ + numberOfSamples,
+                        totalBufferLength_);
+
+    // update remaining number of samples to end of buffer
+    readPositionToWrap_ = totalBufferLength_ - readPosition_;
+
+    // decrease number of samples in buffer
+    storedSamples_ -= numberOfSamples;
+
+    // check for data corruption
+    if (storedSamples_ < 0)
+    {
+        DBG("[BufferPosition] reading undefined data!");
     }
 }
 

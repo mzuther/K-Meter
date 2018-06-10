@@ -187,9 +187,6 @@ int RingBuffer<Type>::getPreDelay() const
 /// call the callback function every time the total number of samples
 /// added to this buffer (now or before) exceeds the "chunk" size.**
 ///
-/// @param updatePosition when true, the buffer's write position will
-///        be updated
-///
 /// @param source source buffer
 ///
 /// @param sourceStartSample the index in the source buffer to start
@@ -197,12 +194,15 @@ int RingBuffer<Type>::getPreDelay() const
 ///
 /// @param numberOfSamples number of samples to copy
 ///
+/// @param updatePosition when true, the buffer's write position will
+///        be updated
+///
 template <typename Type>
 void RingBuffer<Type>::importFrom(
-    const bool updatePosition,
     const AudioBuffer<Type> &source,
     const int sourceStartSample,
-    const int numberOfSamples)
+    const int numberOfSamples,
+    const bool updatePosition)
 {
     jassert(source.getNumChannels() ==
             numberOfChannels_);
@@ -347,9 +347,6 @@ void RingBuffer<Type>::importFrom(
 
 /// Export audio samples to an AudioBuffer.
 ///
-/// @param updatePosition when true, the buffer's read position will
-///        be updated
-///
 /// @param destination destination buffer
 ///
 /// @param destStartSample the index in the destination buffer to start
@@ -357,12 +354,15 @@ void RingBuffer<Type>::importFrom(
 ///
 /// @param numberOfSamples number of samples to copy
 ///
+/// @param updatePosition when true, the buffer's read position will
+///        be updated
+///
 template <typename Type>
 void RingBuffer<Type>::exportTo(
-    const bool updatePosition,
     AudioBuffer<Type> &destination,
     const int destStartSample,
-    const int numberOfSamples)
+    const int numberOfSamples,
+    const bool updatePosition)
 {
     jassert(destination.getNumChannels() ==
             numberOfChannels_);
@@ -423,6 +423,22 @@ void RingBuffer<Type>::exportTo(
                    sizeof(Type) * blockSize_2);
         }
     }
+}
+
+
+/// Remove audio samples from this ring buffer without actually
+/// copying it to an AudioBuffer.  **The only thing this function does
+/// is move the read position.  Used correctly, this will prevent the
+/// "overwriting unread data" debug message from appearing.**
+///
+/// @param numberOfSamples number of samples to copy
+///
+template <typename Type>
+void RingBuffer<Type>::removeToNull(
+    const int numberOfSamples)
+{
+    // simulate read (update read position)
+    bufferPosition_.simulateDequeue(numberOfSamples);
 }
 
 

@@ -654,7 +654,7 @@ void KmeterAudioProcessor::process(
 
     if (audioFilePlayer_)
     {
-        audioFilePlayer_->fillBufferChunk(buffer);
+        audioFilePlayer_->copyTo(buffer);
     }
     // silence input if validation window is open
     else if (isSilent_)
@@ -744,10 +744,10 @@ bool KmeterAudioProcessor::processBufferChunk(
                         static_cast<float>(getSampleRate());
 
     // copy buffer to determine average level
-    averageLevelFiltered_->setSamples(buffer, chunkSize);
+    averageLevelFiltered_->copyFrom(buffer, chunkSize);
 
     // copy buffer to determine true peak level
-    truePeakMeter_->setSamples(buffer, chunkSize);
+    truePeakMeter_->copyFrom(buffer, chunkSize);
 
     for (int nChannel = 0; nChannel < getMainBusNumInputChannels(); ++nChannel)
     {
@@ -878,7 +878,7 @@ bool KmeterAudioProcessor::processBufferChunk(
     if (DEBUG_FILTER)
     {
         // get average filter output
-        averageLevelFiltered_->getSamples(buffer, chunkSize);
+        averageLevelFiltered_->copyTo(buffer, chunkSize);
 
         // overwrite ring buffer contents
         return true;

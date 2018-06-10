@@ -79,9 +79,11 @@ public:
         int &blockSize_2)
     {
         bool updatePosition = true;
-        store(numberOfSamples, updatePosition,
+
+        store(numberOfSamples,
               startIndex_1, blockSize_1,
-              startIndex_2, blockSize_2);
+              startIndex_2, blockSize_2,
+              updatePosition);
     }
 
 
@@ -113,9 +115,11 @@ public:
         int &blockSize_2)
     {
         bool updatePosition = false;
-        store(numberOfSamples, updatePosition,
+
+        store(numberOfSamples,
               startIndex_1, blockSize_1,
-              startIndex_2, blockSize_2);
+              startIndex_2, blockSize_2,
+              updatePosition);
     }
 
 
@@ -147,9 +151,11 @@ public:
         int &blockSize_2)
     {
         bool updatePosition = true;
-        retrieve(numberOfSamples, updatePosition,
+
+        retrieve(numberOfSamples,
                  startIndex_1, blockSize_1,
-                 startIndex_2, blockSize_2);
+                 startIndex_2, blockSize_2,
+                 updatePosition);
     }
 
 
@@ -181,11 +187,15 @@ public:
         int &blockSize_2)
     {
         bool updatePosition = false;
-        retrieve(numberOfSamples, updatePosition,
+
+        retrieve(numberOfSamples,
                  startIndex_1, blockSize_1,
-                 startIndex_2, blockSize_2);
+                 startIndex_2, blockSize_2,
+                 updatePosition);
     }
 
+
+    void simulateDequeue(const int numberOfSamples);
 
     void lookBackFromWritePosition(const int numberOfSamples,
                                    int &startIndex_1,
@@ -193,21 +203,20 @@ public:
                                    int &startIndex_2,
                                    int &blockSize_2);
 
-
 protected:
     void store(const int numberOfSamples,
-               const bool updatePosition,
                int &startIndex_1,
                int &blockSize_1,
                int &startIndex_2,
-               int &blockSize_2);
+               int &blockSize_2,
+               const bool updatePosition);
 
     void retrieve(const int numberOfSamples,
-                  const bool updatePosition,
                   int &startIndex_1,
                   int &blockSize_1,
                   int &startIndex_2,
-                  int &blockSize_2);
+                  int &blockSize_2,
+                  const bool updatePosition);
 
     int totalBufferLength_;
     int preDelay_;
