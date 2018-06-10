@@ -512,7 +512,7 @@ void KmeterAudioProcessor::prepareToPlay(
 
     overflowCounts_.clear();
 
-    for (int nChannel = 0; nChannel < numInputChannels; ++nChannel)
+    for (int channel = 0; channel < numInputChannels; ++channel)
     {
         peakLevels_.add(0.0f);
         rmsLevels_.add(0.0f);
@@ -647,9 +647,9 @@ void KmeterAudioProcessor::process(
     // output channels that didn't contain input data, because these
     // aren't guaranteed to be empty -- they may contain garbage.
 
-    for (int nChannel = getMainBusNumInputChannels(); nChannel < getMainBusNumOutputChannels(); ++nChannel)
+    for (int channel = getMainBusNumInputChannels(); channel < getMainBusNumOutputChannels(); ++channel)
     {
-        buffer.clear(nChannel, 0, numberOfSamples);
+        buffer.clear(channel, 0, numberOfSamples);
     }
 
     if (audioFilePlayer_)
@@ -749,124 +749,124 @@ bool KmeterAudioProcessor::processBufferChunk(
     // copy buffer to determine true peak level
     truePeakMeter_->copyFrom(buffer, chunkSize);
 
-    for (int nChannel = 0; nChannel < getMainBusNumInputChannels(); ++nChannel)
+    for (int channel = 0; channel < buffer.getNumChannels(); ++channel)
     {
-        if (isMono && (nChannel == 1))
+        if (isMono && (channel == 1))
         {
-            peakLevels_.set(nChannel, peakLevels_[0]);
-            rmsLevels_.set(nChannel, rmsLevels_[0]);
-            averageLevelsFiltered_.set(nChannel, averageLevelsFiltered_[0]);
-            truePeakLevels_.set(nChannel, truePeakLevels_[0]);
+            peakLevels_.set(channel, peakLevels_[0]);
+            rmsLevels_.set(channel, rmsLevels_[0]);
+            averageLevelsFiltered_.set(channel, averageLevelsFiltered_[0]);
+            truePeakLevels_.set(channel, truePeakLevels_[0]);
 
-            overflowCounts_.set(nChannel, overflowCounts_[0]);
+            overflowCounts_.set(channel, overflowCounts_[0]);
         }
         else
         {
             // determine peak level for chunkSize samples
             peakLevels_.set(
-                nChannel,
-                buffer.getMagnitude(nChannel, 0, chunkSize));
+                channel,
+                buffer.getMagnitude(channel, 0, chunkSize));
 
             // determine peak level for chunkSize samples
             rmsLevels_.set(
-                nChannel,
-                buffer.getRMSLevel(nChannel, 0, chunkSize));
+                channel,
+                buffer.getRMSLevel(channel, 0, chunkSize));
 
             // determine filtered average level for chunkSize samples
             // (please note that this level has already been converted
             // to decibels!)
             averageLevelsFiltered_.set(
-                nChannel,
-                averageLevelFiltered_->getLevel(nChannel));
+                channel,
+                averageLevelFiltered_->getLevel(channel));
 
             // determine true peak level for chunkSize samples
             truePeakLevels_.set(
-                nChannel,
-                truePeakMeter_->getLevel(nChannel));
+                channel,
+                truePeakMeter_->getLevel(channel));
 
             // determine overflows for chunkSize samples; treat all
             // samples above -0.001 dBFS as overflow
             overflowCounts_.set(
-                nChannel,
-                countOverflows(buffer, nChannel, chunkSize, 0.99885f));
+                channel,
+                countOverflows(buffer, channel, chunkSize, 0.99885f));
         }
 
         // apply meter ballistics and store values so that the editor
         // can access them
-        meterBallistics_->updateChannel(nChannel,
+        meterBallistics_->updateChannel(channel,
                                         processedSeconds_,
-                                        peakLevels_[nChannel],
-                                        truePeakLevels_[nChannel],
-                                        rmsLevels_[nChannel],
-                                        averageLevelsFiltered_[nChannel],
-                                        overflowCounts_[nChannel]);
+                                        peakLevels_[channel],
+                                        truePeakLevels_[channel],
+                                        rmsLevels_[channel],
+                                        averageLevelsFiltered_[channel],
+                                        overflowCounts_[channel]);
     }
 
     // phase correlation is only defined for stereo signals
     if (isStereo_)
     {
-        float fPhaseCorrelation = 1.0f;
+        float phaseCorrelation = 1.0f;
 
         // check whether the stereo signal has been mixed down to mono
         if (isMono)
         {
-            fPhaseCorrelation = 1.0f;
+            phaseCorrelation = 1.0f;
         }
         // otherwise, process only levels at or above -80 dB
         else if ((rmsLevels_[0] >= 0.0001f) || (rmsLevels_[1] >= 0.0001f))
         {
-            float sum_of_product = 0.0f;
-            float sum_of_squares_left = 0.0f;
-            float sum_of_squares_right = 0.0f;
+            float sumOfProduct = 0.0f;
+            float sumOfSquaresLeft = 0.0f;
+            float sumOfSquaresRight = 0.0f;
 
             // determine correlation for chunkSize samples
             for (int sample = 0; sample < chunkSize; ++sample)
             {
-                float ringbuffer_left = buffer.getSample(0, sample);
-                float ringbuffer_right = buffer.getSample(1, sample);
+                float leftChannel = buffer.getSample(0, sample);
+                float rightChannel = buffer.getSample(1, sample);
 
-                sum_of_product += ringbuffer_left * ringbuffer_right;
-                sum_of_squares_left += ringbuffer_left * ringbuffer_left;
-                sum_of_squares_right += ringbuffer_right * ringbuffer_right;
+                sumOfProduct += leftChannel * rightChannel;
+                sumOfSquaresLeft += leftChannel * leftChannel;
+                sumOfSquaresRight += rightChannel * rightChannel;
             }
 
-            float fSumsOfSquares = sum_of_squares_left * sum_of_squares_right;
+            float sumsOfSquares = sumOfSquaresLeft * sumOfSquaresRight;
 
             // prevent division by zero and taking the square root of
             // a negative number
-            if (fSumsOfSquares > 0.0f)
+            if (sumsOfSquares > 0.0f)
             {
-                fPhaseCorrelation = sum_of_product / sqrtf(fSumsOfSquares);
+                phaseCorrelation = sumOfProduct / sqrtf(sumsOfSquares);
             }
             else
             {
                 // this is mathematically incorrect, but "musically"
                 // correct (i.e. signal is mono-compatible)
-                fPhaseCorrelation = 1.0f;
+                phaseCorrelation = 1.0f;
             }
         }
 
         meterBallistics_->setPhaseCorrelation(processedSeconds_,
-                                              fPhaseCorrelation);
+                                              phaseCorrelation);
 
-        float fStereoMeterValue = 0.0f;
+        float stereoMeterValue = 0.0f;
 
         // do not process levels below -80 dB
         if ((rmsLevels_[0] < 0.0001f) && (rmsLevels_[1] < 0.0001f))
         {
-            fStereoMeterValue = 0.0f;
+            stereoMeterValue = 0.0f;
         }
         else if (rmsLevels_[1] >= rmsLevels_[0])
         {
-            fStereoMeterValue = 1.0f - rmsLevels_[0] / rmsLevels_[1];
+            stereoMeterValue = 1.0f - rmsLevels_[0] / rmsLevels_[1];
         }
         else
         {
-            fStereoMeterValue = rmsLevels_[1] / rmsLevels_[0] - 1.0f;
+            stereoMeterValue = rmsLevels_[1] / rmsLevels_[0] - 1.0f;
         }
 
         meterBallistics_->setStereoMeterValue(processedSeconds_,
-                                              fStereoMeterValue);
+                                              stereoMeterValue);
     }
 
     // "UM" --> update meters
@@ -965,11 +965,11 @@ void KmeterAudioProcessor::startValidation(
 
     isSilent_ = false;
 
-    int nCrestFactor = getRealInteger(KmeterPluginParameters::selCrestFactor);
+    int crestFactor = getRealInteger(KmeterPluginParameters::selCrestFactor);
     audioFilePlayer_ = new AudioFilePlayer(fileAudio,
                                            (int) getSampleRate(),
                                            meterBallistics_,
-                                           nCrestFactor);
+                                           crestFactor);
 
     if (audioFilePlayer_->matchingSampleRates())
     {
