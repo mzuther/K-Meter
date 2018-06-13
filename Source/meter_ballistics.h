@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef KMETER_METER_BALLISTICS_H
+#define KMETER_METER_BALLISTICS_H
 
 #include "FrutHeader.h"
 #include "plugin_parameters.h"
@@ -133,3 +134,5 @@ private:
                             float fLevel,
                             float &fReadout);
 };
+
+#endif  // KMETER_METER_BALLISTICS_H

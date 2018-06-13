@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef KMETER_PLUGIN_PROCESSOR_H
+#define KMETER_PLUGIN_PROCESSOR_H
 
 #include "FrutHeader.h"
 #include "audio_file_player.h"
@@ -156,3 +157,5 @@ private:
 };
 
 AudioProcessor *JUCE_CALLTYPE createPluginFilter();
+
+#endif  // KMETER_PLUGIN_PROCESSOR_H

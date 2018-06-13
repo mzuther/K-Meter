@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef KMETER_AVERAGE_LEVEL_FILTERED_H
+#define KMETER_AVERAGE_LEVEL_FILTERED_H
 
 #include "FrutHeader.h"
 #include "meter_ballistics.h"
@@ -85,3 +86,5 @@ private:
     int averageAlgorithm_;
     float peakToAverageCorrection_;
 };
+
+#endif  // KMETER_AVERAGE_LEVEL_FILTERED_H

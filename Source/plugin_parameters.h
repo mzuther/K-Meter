@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef KMETER_PLUGIN_PARAMETERS_H
+#define KMETER_PLUGIN_PARAMETERS_H
 
 #include "FrutHeader.h"
 
@@ -86,3 +87,5 @@ public:
 private:
     JUCE_LEAK_DETECTOR(KmeterPluginParameters);
 };
+
+#endif  // KMETER_PLUGIN_PARAMETERS_H

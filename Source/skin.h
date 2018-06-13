@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef KMETER_SKIN_H
+#define KMETER_SKIN_H
 
 #include "FrutHeader.h"
 #include "plugin_parameters.h"
@@ -49,3 +50,5 @@ public:
 private:
     JUCE_LEAK_DETECTOR(Skin);
 };
+
+#endif  // KMETER_SKIN_H

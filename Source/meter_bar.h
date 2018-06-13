@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef KMETER_METER_BAR_H
+#define KMETER_METER_BAR_H
 
 #include "FrutHeader.h"
 
@@ -60,3 +61,5 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(MeterBar);
 };
+
+#endif  // KMETER_METER_BAR_H

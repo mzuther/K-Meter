@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef KMETER_PLUGIN_EDITOR_H
+#define KMETER_PLUGIN_EDITOR_H
 
 #include "FrutHeader.h"
 #include "plugin_processor.h"
@@ -111,3 +112,5 @@ private:
 
     ImageComponent BackgroundImage;
 };
+
+#endif  // KMETER_PLUGIN_EDITOR_H

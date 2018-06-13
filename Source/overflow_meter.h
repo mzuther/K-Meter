@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef KMETER_OVERFLOW_METER_H
+#define KMETER_OVERFLOW_METER_H
 
 #include "FrutHeader.h"
 
@@ -41,3 +42,5 @@ private:
 
     int nOverflows;
 };
+
+#endif  // KMETER_OVERFLOW_METER_H

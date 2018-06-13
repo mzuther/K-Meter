@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef KMETER_WINDOW_VALIDATION_CONTENT_H
+#define KMETER_WINDOW_VALIDATION_CONTENT_H
 
 #include "FrutHeader.h"
 #include "plugin_processor.h"
@@ -35,7 +36,7 @@ class WindowValidationContent :
     public frut::widgets::WindowValidationContent
 {
 public:
-    WindowValidationContent(KmeterAudioProcessor *processor);
+    explicit WindowValidationContent(KmeterAudioProcessor *processor);
 
     static DialogWindow *createDialogWindow(
         AudioProcessorEditor *pluginEditor,
@@ -67,3 +68,5 @@ private:
     ToggleButton buttonDumpStereoMeter_;
     ToggleButton buttonDumpPhaseCorrelation_;
 };
+
+#endif  // KMETER_WINDOW_VALIDATION_CONTENT_H

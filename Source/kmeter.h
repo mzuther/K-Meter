@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef KMETER_KMETER_H
+#define KMETER_KMETER_H
 
 #include "FrutHeader.h"
 #include "meter_ballistics.h"
@@ -65,3 +66,5 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(Kmeter);
 };
+
+#endif  // KMETER_KMETER_H

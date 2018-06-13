@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef KMETER_PEAK_LABEL_H
+#define KMETER_PEAK_LABEL_H
 
 #include "FrutHeader.h"
 
@@ -32,7 +33,7 @@ class PeakLabel :
     public frut::widgets::StateLabel
 {
 public:
-    PeakLabel(int nCrestFactor);
+    explicit PeakLabel(int nCrestFactor);
 
     void resetLevel();
     void updateLevel(float newLevel);
@@ -43,3 +44,5 @@ private:
     int nMeterCrestFactor;
     float fMaximumLevel;
 };
+
+#endif  // KMETER_PEAK_LABEL_H

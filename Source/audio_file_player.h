@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef KMETER_AUDIO_FILE_PLAYER_H
+#define KMETER_AUDIO_FILE_PLAYER_H
 
 #include "FrutHeader.h"
 #include "meter_ballistics.h"
@@ -101,3 +102,5 @@ private:
 
     void outputMessage(const String &strMessage);
 };
+
+#endif  // KMETER_AUDIO_FILE_PLAYER_H
