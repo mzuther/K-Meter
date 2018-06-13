@@ -61,6 +61,10 @@ KmeterAudioProcessor::KmeterAudioProcessor() :
     }
 
     sampleRateIsValid_ = false;
+    isStereo_ = true;
+    isSilent_ = false;
+
+    attenuationLevel_ = 1.0f;
 
     setLatencySamples(kmeterBufferSize_);
 
@@ -767,7 +771,7 @@ bool KmeterAudioProcessor::processBufferChunk(
                 channel,
                 buffer.getMagnitude(channel, 0, chunkSize));
 
-            // determine peak level for chunkSize samples
+            // determine RMS level for chunkSize samples
             rmsLevels_.set(
                 channel,
                 buffer.getRMSLevel(channel, 0, chunkSize));
@@ -797,7 +801,6 @@ bool KmeterAudioProcessor::processBufferChunk(
                                         processedSeconds_,
                                         peakLevels_[channel],
                                         truePeakLevels_[channel],
-                                        rmsLevels_[channel],
                                         averageLevelsFiltered_[channel],
                                         overflowCounts_[channel]);
     }
@@ -812,7 +815,7 @@ bool KmeterAudioProcessor::processBufferChunk(
         {
             phaseCorrelation = 1.0f;
         }
-        // otherwise, process only levels at or above -80 dB
+        // otherwise, process only RMS levels at or above -80 dB
         else if ((rmsLevels_[0] >= 0.0001f) || (rmsLevels_[1] >= 0.0001f))
         {
             float sumOfProduct = 0.0f;
@@ -851,7 +854,7 @@ bool KmeterAudioProcessor::processBufferChunk(
 
         float stereoMeterValue = 0.0f;
 
-        // do not process levels below -80 dB
+        // do not process RMS levels below -80 dB
         if ((rmsLevels_[0] < 0.0001f) && (rmsLevels_[1] < 0.0001f))
         {
             stereoMeterValue = 0.0f;

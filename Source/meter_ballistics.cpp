@@ -37,7 +37,11 @@ float MeterBallistics::fPeakToAverageCorrection = +3.0103f;
 float MeterBallistics::fMeterMinimumDecibel = -(90.01f + 20.0f + fPeakToAverageCorrection);
 
 
-MeterBallistics::MeterBallistics(int nChannels, int AverageAlgorithm, bool bPeakMeterInfiniteHold, bool bAverageMeterInfiniteHold)
+MeterBallistics::MeterBallistics(
+    int nChannels,
+    int AverageAlgorithm,
+    bool bPeakMeterInfiniteHold,
+    bool bAverageMeterInfiniteHold)
 /*  Constructor.
 
     nChannels (integer): number of audio input channels
@@ -108,7 +112,8 @@ void MeterBallistics::reset()
 }
 
 
-void MeterBallistics::setAverageAlgorithm(int AverageAlgorithm)
+void MeterBallistics::setAverageAlgorithm(
+    int AverageAlgorithm)
 /*  Set algorithm for calculating average meter levels.
 
     AverageAlgorithm (integer): algorithm for calculating average
@@ -122,7 +127,8 @@ void MeterBallistics::setAverageAlgorithm(int AverageAlgorithm)
 }
 
 
-void MeterBallistics::setPeakMeterInfiniteHold(bool bInfiniteHold)
+void MeterBallistics::setPeakMeterInfiniteHold(
+    bool bInfiniteHold)
 /*  Set peak meter to "infinite peak hold" or "falling peaks" mode.
 
     bInfiniteHold (Boolean): selects "infinite peak hold" (true) or
@@ -152,7 +158,8 @@ void MeterBallistics::setPeakMeterInfiniteHold(bool bInfiniteHold)
 }
 
 
-void MeterBallistics::setAverageMeterInfiniteHold(bool bInfiniteHold)
+void MeterBallistics::setAverageMeterInfiniteHold(
+    bool bInfiniteHold)
 /*  Set average meter to "infinite peak hold" or "falling peaks" mode.
 
     bInfiniteHold (Boolean): selects "infinite peak hold" (true) or
@@ -191,7 +198,8 @@ int MeterBallistics::getNumberOfChannels()
 }
 
 
-float MeterBallistics::getPeakMeterLevel(int nChannel)
+float MeterBallistics::getPeakMeterLevel(
+    int nChannel)
 /*  Get current level of an audio channel's peak level meter.
 
     nChannel (integer): selected audio channel
@@ -234,7 +242,8 @@ float MeterBallistics::getPeakMeterLevel(int nChannel)
 }
 
 
-float MeterBallistics::getPeakMeterPeakLevel(int nChannel)
+float MeterBallistics::getPeakMeterPeakLevel(
+    int nChannel)
 /*  Get peak level of an audio channel's peak level meter.
 
     nChannel (integer): selected audio channel
@@ -279,7 +288,8 @@ float MeterBallistics::getPeakMeterPeakLevel(int nChannel)
 }
 
 
-float MeterBallistics::getTruePeakMeterLevel(int nChannel)
+float MeterBallistics::getTruePeakMeterLevel(
+    int nChannel)
 /*  Get current level of an audio channel's true peak level meter.
 
     nChannel (integer): selected audio channel
@@ -322,7 +332,8 @@ float MeterBallistics::getTruePeakMeterLevel(int nChannel)
 }
 
 
-float MeterBallistics::getTruePeakMeterPeakLevel(int nChannel)
+float MeterBallistics::getTruePeakMeterPeakLevel(
+    int nChannel)
 /*  Get peak level of an audio channel's true peak level meter.
 
     nChannel (integer): selected audio channel
@@ -367,7 +378,8 @@ float MeterBallistics::getTruePeakMeterPeakLevel(int nChannel)
 }
 
 
-float MeterBallistics::getAverageMeterLevel(int nChannel)
+float MeterBallistics::getAverageMeterLevel(
+    int nChannel)
 /*  Get current level of an audio channel's average level meter.
 
     nChannel (integer): selected audio channel
@@ -400,7 +412,8 @@ float MeterBallistics::getAverageMeterLevel(int nChannel)
 }
 
 
-float MeterBallistics::getAverageMeterPeakLevel(int nChannel)
+float MeterBallistics::getAverageMeterPeakLevel(
+    int nChannel)
 /*  Get peak level of an audio channel's average level meter.
 
     nChannel (integer): selected audio channel
@@ -434,7 +447,8 @@ float MeterBallistics::getAverageMeterPeakLevel(int nChannel)
 }
 
 
-float MeterBallistics::getMaximumPeakLevel(int nChannel)
+float MeterBallistics::getMaximumPeakLevel(
+    int nChannel)
 /*  Get overall maximum peak level of an audio channel.
 
     nChannel (integer): selected audio channel
@@ -477,7 +491,8 @@ float MeterBallistics::getMaximumPeakLevel(int nChannel)
 }
 
 
-float MeterBallistics::getMaximumTruePeakLevel(int nChannel)
+float MeterBallistics::getMaximumTruePeakLevel(
+    int nChannel)
 /*  Get overall maximum true peak level of an audio channel.
 
     nChannel (integer): selected audio channel
@@ -520,7 +535,8 @@ float MeterBallistics::getMaximumTruePeakLevel(int nChannel)
 }
 
 
-int MeterBallistics::getNumberOfOverflows(int nChannel)
+int MeterBallistics::getNumberOfOverflows(
+    int nChannel)
 /*  Get number of overflows of an audio channel.
 
     nChannel (integer): selected audio channel
@@ -583,7 +599,9 @@ float MeterBallistics::getStereoMeterValue()
 }
 
 
-void MeterBallistics::setStereoMeterValue(float fTimePassed, float fStereoMeterValueNew)
+void MeterBallistics::setStereoMeterValue(
+    float fTimePassed,
+    float fStereoMeterValueNew)
 /*  Set stereo meter value and apply meter ballistics (two input
     channels only!).
 
@@ -625,7 +643,9 @@ float MeterBallistics::getPhaseCorrelation()
 }
 
 
-void MeterBallistics::setPhaseCorrelation(float fTimePassed, float fPhaseCorrelationNew)
+void MeterBallistics::setPhaseCorrelation(
+    float fTimePassed,
+    float fPhaseCorrelationNew)
 /*  Set phase correlation and apply meter ballistics (two input
     channels only!).
 
@@ -646,7 +666,13 @@ void MeterBallistics::setPhaseCorrelation(float fTimePassed, float fPhaseCorrela
 }
 
 
-void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak, float fTruePeak, float fRms, float fAverageFiltered, int nOverflows)
+void MeterBallistics::updateChannel(
+    int nChannel,
+    float fTimePassed,
+    float fPeak,
+    float fTruePeak,
+    float fAverageFiltered,
+    int nOverflows)
 /*  Update audio levels, overflows and apply meter ballistics.
 
     nChannel (integer): audio input channel to update
@@ -657,8 +683,6 @@ void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak
     fPeak (float): current peak meter level (linear scale)
 
     fTruePeak (float): current true peak meter level (linear scale)
-
-    fRms (float): current RMS level (linear scale)
 
     fAverageFiltered (float): current pre-filtered average meter level
     (in decibels!)
@@ -677,9 +701,6 @@ void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak
     // convert current true peak meter level from linear scale to
     // decibels
     fTruePeak = level2decibel(fTruePeak);
-
-    // convert current RMS level from linear scale to decibels
-    fRms = level2decibel(fRms);
 
     // if current peak meter level exceeds overall maximum peak level,
     // store it as new overall maximum peak level
@@ -715,7 +736,8 @@ void MeterBallistics::updateChannel(int nChannel, float fTimePassed, float fPeak
 }
 
 
-float MeterBallistics::level2decibel(float fLevel)
+float MeterBallistics::level2decibel(
+    float fLevel)
 /*  Convert level from linear scale to decibels (dB).
 
     fLevel (float): audio level
@@ -750,7 +772,8 @@ float MeterBallistics::level2decibel(float fLevel)
 }
 
 
-float MeterBallistics::decibel2level(float fDecibels)
+float MeterBallistics::decibel2level(
+    float fDecibels)
 /*  Convert level from decibels (dB) to linear scale.
 
     fLevel (float): audio level in decibels (dB)
@@ -772,7 +795,10 @@ float MeterBallistics::getMeterMinimumDecibel()
 }
 
 
-float MeterBallistics::PeakMeterBallistics(float fTimePassed, float fPeakLevelCurrent, float fPeakLevelOld)
+float MeterBallistics::PeakMeterBallistics(
+    float fTimePassed,
+    float fPeakLevelCurrent,
+    float fPeakLevelOld)
 /*  Calculate ballistics for peak meter levels.
 
     fTimePassed (float): time that has passed since last update (in
@@ -814,7 +840,11 @@ float MeterBallistics::PeakMeterBallistics(float fTimePassed, float fPeakLevelCu
 }
 
 
-float MeterBallistics::PeakMeterPeakBallistics(float fTimePassed, float &fLastChanged, float fPeakCurrent, float fPeakOld)
+float MeterBallistics::PeakMeterPeakBallistics(
+    float fTimePassed,
+    float &fLastChanged,
+    float fPeakCurrent,
+    float fPeakOld)
 /*  Calculate ballistics for peak meter peak marks.
 
     fTimePassed (float): time that has passed since last update (in
@@ -896,7 +926,10 @@ float MeterBallistics::PeakMeterPeakBallistics(float fTimePassed, float &fLastCh
 }
 
 
-void MeterBallistics::AverageMeterBallistics(int nChannel, float fTimePassed, float fAverageLevelCurrent)
+void MeterBallistics::AverageMeterBallistics(
+    int nChannel,
+    float fTimePassed,
+    float fAverageLevelCurrent)
 /*  Calculate ballistics for average meter levels and update readout.
 
     fTimePassed (float): time that has passed since last update (in
@@ -913,7 +946,11 @@ void MeterBallistics::AverageMeterBallistics(int nChannel, float fTimePassed, fl
 }
 
 
-float MeterBallistics::AverageMeterPeakBallistics(float fTimePassed, float &fLastChanged, float fPeakCurrent, float fPeakOld)
+float MeterBallistics::AverageMeterPeakBallistics(
+    float fTimePassed,
+    float &fLastChanged,
+    float fPeakCurrent,
+    float fPeakOld)
 /*  Calculate ballistics for average meter peak marks.
 
     fTimePassed (float): time that has passed since last update (in
@@ -935,7 +972,9 @@ float MeterBallistics::AverageMeterPeakBallistics(float fTimePassed, float &fLas
 }
 
 
-void MeterBallistics::StereoMeterBallistics(float fTimePassed, float fStereoMeterCurrent)
+void MeterBallistics::StereoMeterBallistics(
+    float fTimePassed,
+    float fStereoMeterCurrent)
 /*  Calculate ballistics for stereo meter values and update readout.
 
     fTimePassed (float): time that has passed since last update (in
@@ -951,7 +990,9 @@ void MeterBallistics::StereoMeterBallistics(float fTimePassed, float fStereoMete
 }
 
 
-void MeterBallistics::PhaseCorrelationMeterBallistics(float fTimePassed, float fPhaseCorrelationCurrent)
+void MeterBallistics::PhaseCorrelationMeterBallistics(
+    float fTimePassed,
+    float fPhaseCorrelationCurrent)
 /*  Calculate ballistics for phase correlation meter values and update
     readout.
 
@@ -969,7 +1010,11 @@ void MeterBallistics::PhaseCorrelationMeterBallistics(float fTimePassed, float f
 }
 
 
-void MeterBallistics::LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float &fReadout)
+void MeterBallistics::LogMeterBallistics(
+    float fMeterInertia,
+    float fTimePassed,
+    float fLevel,
+    float &fReadout)
 /*  Calculate logarithmic meter ballistics.
 
     fMeterInertia (float): time needed to reach 99% of the final

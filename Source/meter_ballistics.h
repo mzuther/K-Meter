@@ -32,7 +32,10 @@
 class MeterBallistics
 {
 public:
-    MeterBallistics(int nChannels, int AverageAlgorithm, bool bPeakMeterInfiniteHold, bool bAverageMeterInfiniteHold);
+    MeterBallistics(int nChannels,
+                    int AverageAlgorithm,
+                    bool bPeakMeterInfiniteHold,
+                    bool bAverageMeterInfiniteHold);
 
     void setAverageAlgorithm(int AverageAlgorithm);
     void setPeakMeterInfiniteHold(bool bInfiniteHold);
@@ -55,12 +58,19 @@ public:
     int getNumberOfOverflows(int nChannel);
 
     float getStereoMeterValue();
-    void setStereoMeterValue(float fTimePassed, float fStereoMeterValueNew);
+    void setStereoMeterValue(float fTimePassed,
+                             float fStereoMeterValueNew);
 
     float getPhaseCorrelation();
-    void setPhaseCorrelation(float fTimePassed, float fPhaseCorrelationNew);
+    void setPhaseCorrelation(float fTimePassed,
+                             float fPhaseCorrelationNew);
 
-    void updateChannel(int nChannel, float fTimePassed, float fPeak, float fTruePeak, float fRms, float fAverageFiltered, int nOverflows);
+    void updateChannel(int nChannel,
+                       float fTimePassed,
+                       float fPeak,
+                       float fTruePeak,
+                       float fAverageFiltered,
+                       int nOverflows);
 
     static float level2decibel(float fLevel);
     static float decibel2level(float fDecibels);
@@ -94,15 +104,32 @@ private:
     float fStereoMeterValue;
     float fPhaseCorrelation;
 
-    float PeakMeterBallistics(float fTimePassed, float fPeakLevelCurrent, float fPeakLevelOld);
-    float PeakMeterPeakBallistics(float fTimePassed, float &fLastChanged, float fPeakLevelCurrent, float fPeakLevelOld);
+    float PeakMeterBallistics(float fTimePassed,
+                              float fPeakLevelCurrent,
+                              float fPeakLevelOld);
 
-    void AverageMeterBallistics(int nChannel, float fTimePassed, float fAverageLevelCurrent);
-    float AverageMeterPeakBallistics(float fTimePassed, float &fLastChanged, float fAverageLevelCurrent, float fAverageLevelOld);
+    float PeakMeterPeakBallistics(float fTimePassed,
+                                  float &fLastChanged,
+                                  float fPeakLevelCurrent,
+                                  float fPeakLevelOld);
 
-    void StereoMeterBallistics(float fTimePassed, float fStereoMeterCurrent);
+    void AverageMeterBallistics(int nChannel,
+                                float fTimePassed,
+                                float fAverageLevelCurrent);
 
-    void PhaseCorrelationMeterBallistics(float fTimePassed, float fPhaseCorrelationCurrent);
+    float AverageMeterPeakBallistics(float fTimePassed,
+                                     float &fLastChanged,
+                                     float fAverageLevelCurrent,
+                                     float fAverageLevelOld);
 
-    void LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float &fReadout);
+    void StereoMeterBallistics(float fTimePassed,
+                               float fStereoMeterCurrent);
+
+    void PhaseCorrelationMeterBallistics(float fTimePassed,
+                                         float fPhaseCorrelationCurrent);
+
+    void LogMeterBallistics(float fMeterInertia,
+                            float fTimePassed,
+                            float fLevel,
+                            float &fReadout);
 };
