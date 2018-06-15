@@ -5,6 +5,15 @@ Git HEAD
 HEAD
 ====
 
+
+
+
+v2.6.4 (2018-06-15)
+===================
+
+* fixed crash on seemingly random Windows systems (disabled AAX,
+  enabled SSE2)
+
 * VST3 plug-in
 
 * support 64-bit signal chains
@@ -13,11 +22,15 @@ HEAD
 
 * updated documentation
 
-* re-factored code
+* re-factored and optimized code
 
-* updated JUCE framework to 5.1.2
+* updated JUCE framework to 5.3.2
 
-* updated VST library to 3.6.7
+* updated VST library to 3.6.8
+
+* show CPU information on start-up
+
+* use dynamic runtime linking on Windows
 
 * use Clang on Linux (C++14)
 

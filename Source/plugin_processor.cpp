@@ -718,7 +718,8 @@ void KmeterAudioProcessor::processBlock(
             {
                 outputGain_ = static_cast<double>(
                                   MeterBallistics::decibel2level(
-                                      currentAttenuationDecibel_));
+                                      static_cast<float>(
+                                          currentAttenuationDecibel_)));
             }
             else
             {
@@ -739,7 +740,8 @@ void KmeterAudioProcessor::processBlock(
             {
                 outputGain_ = static_cast<double>(
                                   MeterBallistics::decibel2level(
-                                      currentAttenuationDecibel_));
+                                      static_cast<float>(
+                                          currentAttenuationDecibel_)));
             }
             else
             {
@@ -910,7 +912,8 @@ void KmeterAudioProcessor::processBlock(
             {
                 outputGain_ = static_cast<double>(
                                   MeterBallistics::decibel2level(
-                                      currentAttenuationDecibel_));
+                                      static_cast<float>(
+                                          currentAttenuationDecibel_)));
             }
             else
             {
@@ -931,7 +934,8 @@ void KmeterAudioProcessor::processBlock(
             {
                 outputGain_ = static_cast<double>(
                                   MeterBallistics::decibel2level(
-                                      currentAttenuationDecibel_));
+                                      static_cast<float>(
+                                          currentAttenuationDecibel_)));
             }
             else
             {
