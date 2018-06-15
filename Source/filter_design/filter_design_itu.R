@@ -34,7 +34,7 @@ calculate_chebyshev_stage_coefficients <- function(relative_cutoff_frequency, is
 # copied, distributed, and used for any noncommercial purpose."
 #
 # relative_cutoff_frequency:  cutoff frequency (0.0 to 0.5)
-# is_high_pass:  false --> low pass filter, true --> high pass filter
+# is_high_pass:  false ==> low pass filter, true ==> high pass filter
 # percent_ripple:  percent ripple (0 to 29)
 # number_of_poles:  number of poles (2,4,...20)
 # pole_pair:  pole pair (number_of_poles/2)

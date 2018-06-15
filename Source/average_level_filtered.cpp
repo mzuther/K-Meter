@@ -437,10 +437,10 @@ void AverageLevelFiltered::calculateLoudness()
 
             // apply weighting factor and sum channels
             //
-            // L, R, C  --> 1.00 (ignore factor)
-            // LFE      --> 0.00 (skip channel)
-            // LS, RS   --> 1.41
-            // other    --> 0.00 (skip channel)
+            // L, R, C  ==> 1.00 (ignore factor)
+            // LFE      ==> 0.00 (skip channel)
+            // LS, RS   ==> 1.41
+            // other    ==> 0.00 (skip channel)
             if (channel < 3)
             {
                 averageLevel += averageLevelChannel;

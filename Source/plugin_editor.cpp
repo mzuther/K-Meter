@@ -339,7 +339,7 @@ void KmeterAudioProcessorEditor::windowValidationCallback(int modalResult)
 
 void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage)
 {
-    // "PC" --> parameter changed, followed by a hash and the
+    // "PC" ==> parameter changed, followed by a hash and the
     // parameter's ID
     if (strMessage.startsWith("PC#"))
     {
@@ -353,7 +353,7 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
             updateParameter(nIndex);
         }
     }
-    // "UM" --> update meters
+    // "UM" ==> update meters
     else if (!strMessage.compare("UM"))
     {
         MeterBallistics *pMeterBallistics = audioProcessor->getLevels();
@@ -377,17 +377,17 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
             isValidating = false;
         }
     }
-    // "AC" --> algorithm changed
+    // "AC" ==> algorithm changed
     else if (!strMessage.compare("AC"))
     {
         updateAverageAlgorithm(true);
     }
-    // "V+" --> validation started
+    // "V+" ==> validation started
     else if ((!strMessage.compare("V+")) && audioProcessor->isValidating())
     {
         isValidating = true;
     }
-    // "V-" --> validation stopped
+    // "V-" ==> validation stopped
     else if (!strMessage.compare("V-"))
     {
         if (!validationDialogOpen)

@@ -122,19 +122,19 @@ bool KmeterAudioProcessor::isBusesLayoutSupported(
 
 #ifdef KMETER_SURROUND
 
-    // main bus with stereo input --> okay
+    // main bus with stereo input ==> okay
     if (layouts.getMainInputChannelSet() == AudioChannelSet::stereo())
     {
         return true;
     }
 
-    // main bus with 5.0 input --> okay
+    // main bus with 5.0 input ==> okay
     if (layouts.getMainInputChannelSet() == AudioChannelSet::create5point0())
     {
         return true;
     }
 
-    // main bus with 5.1 input --> okay
+    // main bus with 5.1 input ==> okay
     if (layouts.getMainInputChannelSet() == AudioChannelSet::create5point1())
     {
         return true;
@@ -142,13 +142,13 @@ bool KmeterAudioProcessor::isBusesLayoutSupported(
 
 #else
 
-    // main bus with mono input --> okay
+    // main bus with mono input ==> okay
     if (layouts.getMainInputChannelSet() == AudioChannelSet::mono())
     {
         return true;
     }
 
-    // main bus with stereo input --> okay
+    // main bus with stereo input ==> okay
     if (layouts.getMainInputChannelSet() == AudioChannelSet::stereo())
     {
         return true;
@@ -264,7 +264,7 @@ void KmeterAudioProcessor::setParameter(
                 setAverageAlgorithm(getRealInteger(nIndex));
             }
 
-            // "PC" --> parameter changed, followed by a hash and the
+            // "PC" ==> parameter changed, followed by a hash and the
             // parameter's ID
             sendActionMessage("PC#" + String(nIndex));
         }
@@ -614,7 +614,7 @@ void KmeterAudioProcessor::processBlock(
 
     AudioBuffer<float> processBuffer(numberOfChannels, numberOfSamples);
 
-    //TODO: copy ring buffer before processing
+    // FIXME: copy ring buffer before processing
 
     // de-normalize samples
     dither_.denormalize(buffer);
@@ -677,7 +677,7 @@ void KmeterAudioProcessor::process(
         {
             for (int i = 0; i < numberOfSamples; ++i)
             {
-                // TODO: dither
+                // FIXME: dither
                 inputLeft[i] = 0.5f * (inputLeft[i] + inputRight[i]);
                 inputRight[i] = inputLeft[i];
             }
@@ -721,8 +721,8 @@ void KmeterAudioProcessor::process(
         attenuationLevel_ = 1.0f;
     }
 
-    // TODO: dither
-    // TODO: fade length depends on buffer size (1 --> audible click)
+    // FIXME: dither
+    // TODO: fade length depends on buffer size (1 ==> audible click)
     buffer.applyGainRamp(0, buffer.getNumSamples(),
                          oldAttenuationLevel, attenuationLevel_);
 }
@@ -872,7 +872,7 @@ bool KmeterAudioProcessor::processBufferChunk(
                                               stereoMeterValue);
     }
 
-    // "UM" --> update meters
+    // "UM" ==> update meters
     sendActionMessage("UM");
 
     // To hear the audio source after average filtering, simply set
@@ -986,7 +986,7 @@ void KmeterAudioProcessor::startValidation(
                                        bStereoMeterValue,
                                        bPhaseCorrelation);
 
-        // refresh editor; "V+" --> validation started
+        // refresh editor; "V+" ==> validation started
         sendActionMessage("V+");
     }
     else
@@ -1009,7 +1009,7 @@ void KmeterAudioProcessor::stopValidation()
     // reset all meters after the validation
     meterBallistics_->reset();
 
-    // refresh editor; "V-" --> validation stopped
+    // refresh editor; "V-" ==> validation stopped
     sendActionMessage("V-");
 }
 
@@ -1075,7 +1075,7 @@ void KmeterAudioProcessor::setAverageAlgorithmFinal(
     // "RMS" and "ITU-R" buttons to make sure that the correct button
     // is lit
     //
-    // "AC" --> algorithm changed
+    // "AC" ==> algorithm changed
     sendActionMessage("AC");
 }
 
