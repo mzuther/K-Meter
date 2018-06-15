@@ -64,8 +64,13 @@ KmeterAudioProcessor::KmeterAudioProcessor() :
     isStereo_ = true;
     isSilent_ = false;
 
-    attenuationLevel_ = 1.0f;
+    attenuationDecibel_ = 0.0;
+    currentAttenuationDecibel_ = attenuationDecibel_;
 
+    outputGain_ = 1.0;
+    outputFadeRate_ = 0.0;
+
+    // compensate for pre-delay
     setLatencySamples(kmeterBufferSize_);
 
     // depends on "KmeterPluginParameters"!
@@ -228,6 +233,23 @@ void KmeterAudioProcessor::changeParameter(
     beginParameterChangeGesture(nIndex);
     setParameterNotifyingHost(nIndex, fValue);
     endParameterChangeGesture(nIndex);
+
+    if ((nIndex == KmeterPluginParameters::selMute) ||
+            (nIndex == KmeterPluginParameters::selDim))
+    {
+        if (getBoolean(KmeterPluginParameters::selMute))
+        {
+            attenuationDecibel_ = -60.0;
+        }
+        else if (getBoolean(KmeterPluginParameters::selDim))
+        {
+            attenuationDecibel_ = -20.0;
+        }
+        else
+        {
+            attenuationDecibel_ = 0.0;
+        }
+    }
 }
 
 
@@ -480,18 +502,11 @@ void KmeterAudioProcessor::prepareToPlay(
 
     isSilent_ = false;
 
-    if (getBoolean(KmeterPluginParameters::selMute))
-    {
-        attenuationLevel_ = 0.0f;
-    }
-    else if (getBoolean(KmeterPluginParameters::selDim))
-    {
-        attenuationLevel_ = 0.1f;
-    }
-    else
-    {
-        attenuationLevel_ = 1.0f;
-    }
+    // force initialization of "outputGain_" in "processBlock()"
+    currentAttenuationDecibel_ = attenuationDecibel_ + 1e-12;
+
+    // output fade rate: 60 dB/s
+    outputFadeRate_ = 60.0 / sampleRate;
 
     int numInputChannels = getMainBusNumInputChannels();
 
@@ -560,6 +575,12 @@ void KmeterAudioProcessor::prepareToPlay(
         chunkSize);
 
     ringBuffer_->setCallbackClass(this);
+
+    ringBufferDouble_ = new frut::audio::RingBuffer<double>(
+        numInputChannels,
+        ringBufferSize,
+        preDelay,
+        chunkSize);
 }
 
 
@@ -576,6 +597,7 @@ void KmeterAudioProcessor::releaseResources()
     truePeakMeter_ = nullptr;
 
     ringBuffer_ = nullptr;
+    ringBufferDouble_ = nullptr;
 }
 
 
@@ -594,11 +616,153 @@ void KmeterAudioProcessor::processBlock(
     ignoreUnused(midiMessages);
     jassert(!isUsingDoublePrecision());
 
+    // mute output if sample rate is invalid
+    if (!sampleRateIsValid_)
+    {
+        buffer.clear();
+        return;
+    }
+
+    int numberOfSamples = buffer.getNumSamples();
+
+    // in case we have more outputs than inputs, we'll clear any
+    // output channels that didn't contain input data, because these
+    // aren't guaranteed to be empty -- they may contain garbage.
+    for (int channel = getMainBusNumInputChannels();
+            channel < getMainBusNumOutputChannels();
+            ++channel)
+    {
+        buffer.clear(channel, 0, numberOfSamples);
+    }
+
+    // return if there is no input
+    if (getMainBusNumInputChannels() < 1)
+    {
+        Logger::outputDebugString("[K-Meter] no input channels!");
+        return;
+    }
+
+    // overwrite buffer with output of audio file player
+    if (audioFilePlayer_)
+    {
+        audioFilePlayer_->copyTo(buffer);
+    }
+    // mute buffer if validation window is open
+    else if (isSilent_)
+    {
+        buffer.clear();
+    }
+
     // de-normalize samples
     dither_.denormalize(buffer);
 
-    // process input samples
-    process(buffer);
+    // process two channels only
+    if (isStereo_)
+    {
+        float *leftChannel = buffer.getWritePointer(0);
+        float *rightChannel = buffer.getWritePointer(1);
+
+        // "Mono" button has been pressed
+        if (getBoolean(KmeterPluginParameters::selMono))
+        {
+            for (int sample = 0; sample < numberOfSamples; ++sample)
+            {
+                // create mono mix
+                double monoSample = 0.5 *
+                                    (static_cast<double>(leftChannel[sample]) +
+                                     static_cast<double>(rightChannel[sample]));
+
+                // dither mono mix and store in buffer
+                leftChannel[sample] = dither_.ditherSample(0, monoSample);
+                rightChannel[sample] = leftChannel[sample];
+            }
+        }
+        // "Flip" button has been pressed
+        else if (getBoolean(KmeterPluginParameters::selFlip))
+        {
+            for (int sample = 0; sample < numberOfSamples; ++sample)
+            {
+                // flip stereo channels
+                float oldleftChannel = leftChannel[sample];
+                leftChannel[sample] = rightChannel[sample];
+                rightChannel[sample] = oldleftChannel;
+            }
+        }
+    }
+
+    // copy buffer to ring buffer (applies pre-delay)
+    //
+    // calls "processBufferChunk" each time chunkSize samples have
+    // been added!
+    ringBuffer_->addFrom(buffer, 0, numberOfSamples);
+
+    // copy ring buffer back to buffer
+    ringBuffer_->removeTo(buffer, 0, numberOfSamples);
+
+    float **bufferSample = buffer.getArrayOfWritePointers();
+
+    // fade to mute / dim
+    for (int sample = 0; sample < numberOfSamples; ++sample)
+    {
+        // fade in
+        if (currentAttenuationDecibel_ < attenuationDecibel_)
+        {
+            currentAttenuationDecibel_ += outputFadeRate_;
+
+            if (currentAttenuationDecibel_ > attenuationDecibel_)
+            {
+                currentAttenuationDecibel_ = attenuationDecibel_;
+            }
+
+            if (currentAttenuationDecibel_ < 0.0)
+            {
+                outputGain_ = static_cast<double>(
+                                  MeterBallistics::decibel2level(
+                                      currentAttenuationDecibel_));
+            }
+            else
+            {
+                outputGain_ = 1.0;
+            }
+        }
+        // fade out
+        else if (currentAttenuationDecibel_ > attenuationDecibel_)
+        {
+            currentAttenuationDecibel_ -= outputFadeRate_;
+
+            if (currentAttenuationDecibel_ < attenuationDecibel_)
+            {
+                currentAttenuationDecibel_ = attenuationDecibel_;
+            }
+
+            if (currentAttenuationDecibel_ > -60.0)
+            {
+                outputGain_ = static_cast<double>(
+                                  MeterBallistics::decibel2level(
+                                      currentAttenuationDecibel_));
+            }
+            else
+            {
+                outputGain_ = 0.0;
+            }
+        }
+
+        if (outputGain_ != 1.0)
+        {
+            for (int channel = 0;
+                    channel < getMainBusNumInputChannels();
+                    ++channel)
+            {
+                // apply fade to sample
+                double fadedSample = outputGain_ * static_cast<double>(
+                                         bufferSample[channel][sample]);
+
+                // dither faded sample and store in buffer
+                bufferSample[channel][sample] = dither_.ditherSample(
+                                                    channel, fadedSample);
+            }
+        }
+    }
 }
 
 
@@ -609,58 +773,46 @@ void KmeterAudioProcessor::processBlock(
     ignoreUnused(midiMessages);
     jassert(isUsingDoublePrecision());
 
-    int numberOfChannels = buffer.getNumChannels();
-    int numberOfSamples = buffer.getNumSamples();
+    DBG("[K-Meter] using double precision");
 
-    AudioBuffer<float> processBuffer(numberOfChannels, numberOfSamples);
-
-    // FIXME: copy ring buffer before processing
-
-    // de-normalize samples
-    dither_.denormalize(buffer);
-
-    // dither input to float
-    dither_.ditherToFloat(buffer, processBuffer);
-
-    // process input samples
-    process(processBuffer);
-
-    // convert ouput to double
-    dither_.convertToDouble(processBuffer, buffer);
-}
-
-
-void KmeterAudioProcessor::process(
-    AudioBuffer<float> &buffer)
-{
-    int numberOfSamples = buffer.getNumSamples();
-
+    // mute output if sample rate is invalid
     if (!sampleRateIsValid_)
     {
         buffer.clear();
         return;
     }
 
+    int numberOfChannels = buffer.getNumChannels();
+    int numberOfSamples = buffer.getNumSamples();
+
+    // in case we have more outputs than inputs, we'll clear any
+    // output channels that didn't contain input data, because these
+    // aren't guaranteed to be empty -- they may contain garbage.
+    for (int channel = getMainBusNumInputChannels();
+            channel < getMainBusNumOutputChannels();
+            ++channel)
+    {
+        buffer.clear(channel, 0, numberOfSamples);
+    }
+
+    // return if there is no input
     if (getMainBusNumInputChannels() < 1)
     {
         Logger::outputDebugString("[K-Meter] no input channels!");
         return;
     }
 
-    // In case we have more outputs than inputs, we'll clear any
-    // output channels that didn't contain input data, because these
-    // aren't guaranteed to be empty -- they may contain garbage.
-
-    for (int channel = getMainBusNumInputChannels(); channel < getMainBusNumOutputChannels(); ++channel)
-    {
-        buffer.clear(channel, 0, numberOfSamples);
-    }
-
+    // overwrite buffer with output of audio file player
     if (audioFilePlayer_)
     {
-        audioFilePlayer_->copyTo(buffer);
+        AudioBuffer<float> processBuffer(numberOfChannels, numberOfSamples);
+
+        // copy output of audio file player and convert to double
+        audioFilePlayer_->copyTo(processBuffer);
+        dither_.convertToDouble(processBuffer, buffer);
+
     }
-    // silence input if validation window is open
+    // mute buffer if validation window is open
     else if (isSilent_)
     {
         buffer.clear();
@@ -669,62 +821,139 @@ void KmeterAudioProcessor::process(
     // process two channels only
     if (isStereo_)
     {
-        float *inputLeft = buffer.getWritePointer(0);
-        float *inputRight = buffer.getWritePointer(1);
+        double *leftChannel = buffer.getWritePointer(0);
+        double *rightChannel = buffer.getWritePointer(1);
 
         // "Mono" button has been pressed
         if (getBoolean(KmeterPluginParameters::selMono))
         {
-            for (int i = 0; i < numberOfSamples; ++i)
+            for (int sample = 0; sample < numberOfSamples; ++sample)
             {
-                // FIXME: dither
-                inputLeft[i] = 0.5f * (inputLeft[i] + inputRight[i]);
-                inputRight[i] = inputLeft[i];
+                // create mono mix
+                double monoSample = 0.5 * (leftChannel[sample] +
+                                           rightChannel[sample]);
+
+                // dither mono mix and store in buffer
+                leftChannel[sample] = monoSample;
+                rightChannel[sample] = leftChannel[sample];
             }
         }
         // "Flip" button has been pressed
         else if (getBoolean(KmeterPluginParameters::selFlip))
         {
-            for (int i = 0; i < numberOfSamples; ++i)
+            for (int sample = 0; sample < numberOfSamples; ++sample)
             {
-                float oldInputLeft = inputLeft[i];
-
-                inputLeft[i] = inputRight[i];
-                inputRight[i] = oldInputLeft;
+                // flip stereo channels
+                double oldleftChannel = leftChannel[sample];
+                leftChannel[sample] = rightChannel[sample];
+                rightChannel[sample] = oldleftChannel;
             }
         }
     }
 
-    // copy input buffer to ring buffer (applies pre-delay to input)
+    // create temporary buffer
+    AudioBuffer<float> processBuffer(numberOfChannels, numberOfSamples);
+
+    // dither input samples and store in temporary buffer
+    dither_.ditherToFloat(buffer, processBuffer);
+
+    // de-normalize temporary buffer
+    dither_.denormalize(processBuffer);
+
+    // copy temporary buffer to ring buffer (applies pre-delay)
     //
     // calls "processBufferChunk" each time chunkSize samples have
     // been added!
-    ringBuffer_->addFrom(buffer, 0, numberOfSamples);
+    ringBuffer_->addFrom(processBuffer, 0, numberOfSamples);
 
-    // copy ring buffer to output buffer
-    ringBuffer_->removeTo(buffer, 0, numberOfSamples);
-
-    // fade output attenuation from old to new value (JUCE takes care
-    // of any optimizations)
-    float oldAttenuationLevel = attenuationLevel_;
-
-    if (getBoolean(KmeterPluginParameters::selMute))
+    // to allow debugging of the average level filter, we'll have to
+    // overwrite the input buffer from the ring buffer
+    if (DEBUG_FILTER)
     {
-        attenuationLevel_ = 0.0f;
+        // copy ring buffer back to temporary buffer
+        ringBuffer_->removeTo(processBuffer, 0, numberOfSamples);
+
+        // convert temporary buffer to double and store in output
+        // buffer
+        dither_.convertToDouble(processBuffer, buffer);
     }
-    else if (getBoolean(KmeterPluginParameters::selDim))
-    {
-        attenuationLevel_ = 0.1f;
-    }
+    // otherwise, do not reduce the bit depth and stay in the double
+    // domain
     else
     {
-        attenuationLevel_ = 1.0f;
+        // apply pre-delay by using a dedicated ring buffer
+        ringBufferDouble_->addFrom(buffer, 0, numberOfSamples);
+        ringBufferDouble_->removeTo(buffer, 0, numberOfSamples);
+
+        // the processed buffer data is not needed, so simulate
+        // reading the ring buffer (move read pointer to prevent the
+        // "overwriting unread data" debug message from appearing)
+        ringBuffer_->removeToNull(numberOfSamples);
     }
 
-    // FIXME: dither
-    // TODO: fade length depends on buffer size (1 ==> audible click)
-    buffer.applyGainRamp(0, buffer.getNumSamples(),
-                         oldAttenuationLevel, attenuationLevel_);
+    double **bufferSample = buffer.getArrayOfWritePointers();
+
+    // fade to mute / dim
+    for (int sample = 0; sample < numberOfSamples; ++sample)
+    {
+        // fade in
+        if (currentAttenuationDecibel_ < attenuationDecibel_)
+        {
+            currentAttenuationDecibel_ += outputFadeRate_;
+
+            if (currentAttenuationDecibel_ > attenuationDecibel_)
+            {
+                currentAttenuationDecibel_ = attenuationDecibel_;
+            }
+
+            if (currentAttenuationDecibel_ < 0.0)
+            {
+                outputGain_ = static_cast<double>(
+                                  MeterBallistics::decibel2level(
+                                      currentAttenuationDecibel_));
+            }
+            else
+            {
+                outputGain_ = 1.0;
+            }
+        }
+        // fade out
+        else if (currentAttenuationDecibel_ > attenuationDecibel_)
+        {
+            currentAttenuationDecibel_ -= outputFadeRate_;
+
+            if (currentAttenuationDecibel_ < attenuationDecibel_)
+            {
+                currentAttenuationDecibel_ = attenuationDecibel_;
+            }
+
+            if (currentAttenuationDecibel_ > -60.0)
+            {
+                outputGain_ = static_cast<double>(
+                                  MeterBallistics::decibel2level(
+                                      currentAttenuationDecibel_));
+            }
+            else
+            {
+                outputGain_ = 0.0;
+            }
+        }
+
+        if (outputGain_ != 1.0)
+        {
+            for (int channel = 0;
+                    channel < getMainBusNumInputChannels();
+                    ++channel)
+            {
+                // apply fade to sample
+                double fadedSample = outputGain_ *
+                                     bufferSample[channel][sample];
+
+                // store faded sample in buffer
+                bufferSample[channel][sample] = fadedSample;
+            }
+        }
+    }
 }
 
 

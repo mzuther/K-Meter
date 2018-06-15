@@ -54,7 +54,6 @@ public:
                       MidiBuffer &midiMessages) override;
     void processBlock(AudioBuffer<double> &buffer,
                       MidiBuffer &midiMessages) override;
-    void process(AudioBuffer<float> &buffer);
 
     void silenceInput(bool isSilentNew);
 
@@ -129,6 +128,7 @@ private:
 
     ScopedPointer<AudioFilePlayer> audioFilePlayer_;
     ScopedPointer<frut::audio::RingBuffer<float>> ringBuffer_;
+    ScopedPointer<frut::audio::RingBuffer<double>> ringBufferDouble_;
 
     ScopedPointer<AverageLevelFiltered> averageLevelFiltered_;
     ScopedPointer<frut::dsp::TruePeakMeter> truePeakMeter_;
@@ -144,7 +144,12 @@ private:
 
     int averageAlgorithmId_;
     float processedSeconds_;
-    float attenuationLevel_;
+
+    double attenuationDecibel_;
+    double currentAttenuationDecibel_;
+
+    double outputGain_;
+    double outputFadeRate_;
 
     Array<float> peakLevels_;
     Array<float> rmsLevels_;
