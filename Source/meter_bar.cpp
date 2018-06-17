@@ -260,6 +260,7 @@ void MeterBar::create(
             addDiscreteSegment(
                 trueLowerThreshold * 0.1f,
                 segmentRange * 0.1f,
+                0.0f,
                 hasHighestLevel,
                 segmentHeight,
                 spacingBefore,
