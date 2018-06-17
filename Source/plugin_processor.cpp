@@ -716,10 +716,8 @@ void KmeterAudioProcessor::processBlock(
 
             if (currentAttenuationDecibel_ < 0.0)
             {
-                outputGain_ = static_cast<double>(
-                                  MeterBallistics::decibel2level(
-                                      static_cast<float>(
-                                          currentAttenuationDecibel_)));
+                outputGain_ = MeterBallistics::decibel2level_double(
+                                  currentAttenuationDecibel_);
             }
             else
             {
@@ -738,10 +736,8 @@ void KmeterAudioProcessor::processBlock(
 
             if (currentAttenuationDecibel_ > -60.0)
             {
-                outputGain_ = static_cast<double>(
-                                  MeterBallistics::decibel2level(
-                                      static_cast<float>(
-                                          currentAttenuationDecibel_)));
+                outputGain_ = MeterBallistics::decibel2level_double(
+                                  currentAttenuationDecibel_);
             }
             else
             {
@@ -910,10 +906,8 @@ void KmeterAudioProcessor::processBlock(
 
             if (currentAttenuationDecibel_ < 0.0)
             {
-                outputGain_ = static_cast<double>(
-                                  MeterBallistics::decibel2level(
-                                      static_cast<float>(
-                                          currentAttenuationDecibel_)));
+                outputGain_ = MeterBallistics::decibel2level_double(
+                                  currentAttenuationDecibel_);
             }
             else
             {
@@ -932,10 +926,8 @@ void KmeterAudioProcessor::processBlock(
 
             if (currentAttenuationDecibel_ > -60.0)
             {
-                outputGain_ = static_cast<double>(
-                                  MeterBallistics::decibel2level(
-                                      static_cast<float>(
-                                          currentAttenuationDecibel_)));
+                outputGain_ = MeterBallistics::decibel2level_double(
+                                  currentAttenuationDecibel_);
             }
             else
             {

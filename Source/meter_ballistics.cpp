@@ -772,6 +772,42 @@ float MeterBallistics::level2decibel(
 }
 
 
+double MeterBallistics::level2decibel_double(
+    double dLevel)
+/*  Convert level from linear scale to decibels (dB).
+
+    dLevel (double): audio level
+
+    return value (double): returns given level in decibels (dB) when
+    above "fMeterMinimumDecibel", otherwise "fMeterMinimumDecibel"
+*/
+{
+    // log(0) is not defined, so return "fMeterMinimumDecibel"
+    if (dLevel == 0.0)
+    {
+        return static_cast<double>(fMeterMinimumDecibel);
+    }
+    else
+    {
+        // calculate decibels from audio level (a factor of 20.0 is
+        // needed to calculate *level* ratios, whereas 10.0 is needed
+        // for *power* ratios!)
+        double dDecibels = 20.0 * log10(dLevel);
+
+        // to make meter ballistics look nice for low levels, do not
+        // return levels below "fMeterMinimumDecibel"
+        if (dDecibels < fMeterMinimumDecibel)
+        {
+            return static_cast<double>(fMeterMinimumDecibel);
+        }
+        else
+        {
+            return dDecibels;
+        }
+    }
+}
+
+
 float MeterBallistics::decibel2level(
     float fDecibels)
 /*  Convert level from decibels (dB) to linear scale.
@@ -786,6 +822,23 @@ float MeterBallistics::decibel2level(
     // *power* ratios!)
     float fLevel = powf(10.0f, fDecibels / 20.0f);
     return fLevel;
+}
+
+
+double MeterBallistics::decibel2level_double(
+    double dDecibels)
+/*  Convert level from decibels (dB) to linear scale.
+
+    dLevel (double): audio level in decibels (dB)
+
+    return value (double): given level in linear scale
+*/
+{
+    // calculate audio level from decibels (a divisor of 20.0 is
+    // needed to calculate *level* ratios, whereas 10.0 is needed for
+    // *power* ratios!)
+    double dLevel = pow(10.0, dDecibels / 20.0);
+    return dLevel;
 }
 
 
