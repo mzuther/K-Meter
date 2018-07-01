@@ -61,6 +61,28 @@ AverageLevelFiltered::AverageLevelFiltered(
 }
 
 
+AverageLevelFiltered::~AverageLevelFiltered()
+{
+}
+
+
+void AverageLevelFiltered::reset()
+{
+    FIRFilterBox::reset();
+
+    float meterMinimumDecibel = MeterBallistics::getMeterMinimumDecibel();
+    loudnessValues_.fill(meterMinimumDecibel);
+
+    previousSamplesPreFilterInput_.clear();
+    previousSamplesPreFilterOutput_.clear();
+
+    previousSamplesWeightingFilterInput_.clear();
+    previousSamplesWeightingFilterOutput_.clear();
+
+    previousSamplesOutputTemp_.clear();
+}
+
+
 int AverageLevelFiltered::getAlgorithm() const
 {
     return averageAlgorithm_;

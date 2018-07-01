@@ -60,9 +60,17 @@ KmeterAudioProcessor::KmeterAudioProcessor() :
         Logger::outputDebugString("********************************************************************************");
     }
 
+    meterBallistics_ = nullptr;
+    averageLevelFiltered_ = nullptr;
+    truePeakMeter_ = nullptr;
+
+    ringBuffer_ = nullptr;
+    ringBufferDouble_ = nullptr;
+
     sampleRateIsValid_ = false;
     isStereo_ = true;
     isSilent_ = false;
+    hasStopped_ = true;
 
     attenuationDecibel_ = 0.0;
     currentAttenuationDecibel_ = attenuationDecibel_;
@@ -501,6 +509,7 @@ void KmeterAudioProcessor::prepareToPlay(
     }
 
     isSilent_ = false;
+    hasStopped_ = true;
 
     // force initialization of "outputGain_" in "processBlock()"
     currentAttenuationDecibel_ = attenuationDecibel_ + 1e-12;
@@ -592,6 +601,8 @@ void KmeterAudioProcessor::releaseResources()
     Logger::outputDebugString("[K-Meter] releasing resources");
     Logger::outputDebugString("");
 
+    hasStopped_ = true;
+
     meterBallistics_ = nullptr;
     averageLevelFiltered_ = nullptr;
     truePeakMeter_ = nullptr;
@@ -606,6 +617,14 @@ void KmeterAudioProcessor::reset()
     // Use this method as the place to clear any delay lines, buffers,
     // etc, as it means there's been a break in the audio's
     // continuity.
+
+    hasStopped_ = true;
+    processedSeconds_ = 0.0f;
+
+    ringBuffer_->clear();
+
+    averageLevelFiltered_->reset();
+    truePeakMeter_->reset();
 }
 
 
@@ -641,6 +660,9 @@ void KmeterAudioProcessor::processBlock(
         Logger::outputDebugString("[K-Meter] no input channels!");
         return;
     }
+
+    // reset meters if playback has started
+    resetOnPlay();
 
     // overwrite buffer with output of audio file player
     if (audioFilePlayer_)
@@ -799,6 +821,9 @@ void KmeterAudioProcessor::processBlock(
         Logger::outputDebugString("[K-Meter] no input channels!");
         return;
     }
+
+    // reset meters if playback has started
+    resetOnPlay();
 
     // overwrite buffer with output of audio file player
     if (audioFilePlayer_)
@@ -1166,6 +1191,39 @@ int KmeterAudioProcessor::countOverflows(
     }
 
     return overflows;
+}
+
+
+void KmeterAudioProcessor::resetOnPlay()
+{
+    // get play head
+    AudioPlayHead *playHead = AudioProcessor::getPlayHead();
+
+    // check success
+    if (playHead != nullptr)
+    {
+        AudioPlayHead::CurrentPositionInfo currentPosition;
+
+        // get current position of play head (and check success)
+        if (playHead->getCurrentPosition(currentPosition))
+        {
+            // check whether sequencer is currently playing
+            bool isPlayingAgain = currentPosition.isPlaying;
+
+            // check whether playback has just started
+            if (hasStopped_ && isPlayingAgain)
+            {
+                // clear meters
+                if (meterBallistics_ != nullptr)
+                {
+                    meterBallistics_->reset();
+                }
+            }
+
+            // update play state
+            hasStopped_ = !isPlayingAgain;
+        }
+    }
 }
 
 

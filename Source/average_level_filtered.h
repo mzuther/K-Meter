@@ -41,6 +41,9 @@ public:
                          const int fftBufferSize,
                          const int averageAlgorithm);
 
+    virtual ~AverageLevelFiltered();
+    virtual void reset();
+
     int getAlgorithm() const;
     void setAlgorithm(const int averageAlgorithm);
 

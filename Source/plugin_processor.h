@@ -120,6 +120,7 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(KmeterAudioProcessor);
 
     static BusesProperties getBusesProperties();
+    void resetOnPlay();
 
     int countOverflows(const AudioBuffer<float> &buffer,
                        const int channel,
@@ -141,6 +142,7 @@ private:
     bool isStereo_;
     bool sampleRateIsValid_;
     bool isSilent_;
+    bool hasStopped_;
 
     int averageAlgorithmId_;
     float processedSeconds_;
