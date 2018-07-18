@@ -708,9 +708,6 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
 #ifdef LINUX
             L"ALSA\n"
 #endif
-#if JUCE_ASIO
-            L"ASIO\n"
-#endif
             L"FFTW\n"
 #ifdef LINUX
             L"FreeType\n"
@@ -737,13 +734,6 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         arrChapters.set(
             "Trademarks",
             L"VST PlugIn Technology by Steinberg Media Technologies\n");
-#endif
-
-#if JUCE_ASIO
-        // display trademarks (but only when necessary)
-        arrChapters.set(
-            "Trademarks",
-            L"ASIO Driver Technology by Steinberg Media Technologies\n");
 #endif
 
         arrChapters.set(

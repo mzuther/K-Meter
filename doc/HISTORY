@@ -24,9 +24,9 @@ v2.6.4 (2018-06-15)
 
 * re-factored and optimized code
 
-* updated JUCE framework to 5.3.2
+* updated JUCE framework
 
-* updated VST library to 3.6.8
+* updated libraries
 
 * show CPU information on start-up
 
@@ -43,7 +43,7 @@ v2.6.2 (2017-02-12)
 
 * moved to JUCE's new multi-bus API
 
-* updated JUCE framework to 4.3.1
+* updated JUCE framework
 
 * support for Visual C++ 2013
 
@@ -83,9 +83,9 @@ v2.5.0 (2016-08-27)
 
 * tested Windows 64-bit builds
 
-* updated framework to JUCE v4.2.3
+* updated JUCE framework
 
-* updated libraries (FFTW 3.3.5, VST 3.6.6)
+* updated libraries
 
 * updated documentation
 
@@ -110,7 +110,7 @@ v2.4.0 (2016-05-01)
 
 * added (optional) button overlay images to skins
 
-* updated framework to JUCE v4.2.1
+* updated JUCE framework
 
 * updated documentation
 
@@ -121,9 +121,9 @@ v2.4.0 (2016-05-01)
 v2.2.3 (2016-04-10)
 ===================
 
-* updated framework to JUCE v4.1.0
+* updated JUCE framework
 
-* updated libraries (ASIO 2.3, VST 3.6.5)
+* updated libraries
 
 * re-factored and documented code
 
@@ -159,7 +159,7 @@ v2.2.0 (2015-12-20)
 
 * moved DLLs, skins and documentation to subdirectory "kmeter"
 
-* updated framework to JUCE v3.2.0
+* updated JUCE framework
 
 * simplified packaging
 
@@ -196,7 +196,7 @@ v1.40 (2015-02-06)
 
 * added horizontal meter
 
-* optimised plug-in editor inialisation (less redraws)
+* optimised plug-in editor initialisation (less redraws)
 
 * Windows: enable WASAPI
 
@@ -204,9 +204,9 @@ v1.40 (2015-02-06)
 
 * renamed "meter_label" to "meter_graduation"
 
-* updated framework to JUCE v3.1.1
+* updated JUCE framework
 
-* moved to FFTW 3.3.4
+* updated libraries
 
 * updated documentation
 
@@ -221,7 +221,7 @@ v1.31 (2013-05-29)
 
 * code cleanup and a few small bug fixes
 
-* updated framework to JUCE v2.40
+* updated JUCE framework
 
 * validation: full re-calibration and new audio file
 
@@ -236,7 +236,7 @@ v1.30 (2012-09-06)
 
 * code cleanup and lots of small bug fixes
 
-* updated framework to JUCE v1.53
+* updated JUCE framework
 
 * updated documentation
 
@@ -249,7 +249,7 @@ v1.22 (2011-04-10)
 
 * Windows: run-time dynamic linking to FFTW, releases include FFTW DLL
 
-* Windows: stand-alone application (ASIO, DirectX)
+* Windows: stand-alone application
 
 * manual with full documentation
 
@@ -284,9 +284,9 @@ v1.21 (2010-12-12)
 
 * complete re-validation of K-Meter and corresponding fixes
 
-* moved from premake v4.2 to v4.3
+* updated premake
 
-* generation of Visual C++ project files using premake4
+* generation of Visual C++ project files using premake
 
 
 
