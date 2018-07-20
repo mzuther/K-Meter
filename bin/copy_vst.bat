@@ -9,7 +9,7 @@ set vst3_32=/cygdrive/c/Program Files (x86)/Common Files/VST3/radix/
 set vst2_64=/cygdrive/c/Program Files/Steinberg/VSTPlugins/radix/
 set vst3_64=/cygdrive/c/Program Files/Common Files/VST3/radix/
 
-set categories=/cygdrive/d/Plugins/32-bit/Categories/VST2/Analyzer/Meter
+set categories=/cygdrive/d/Plugins/32-bit/Categories/VST2/Tools/Analyzer/Meter
 
 call :CopyVst ^
  "%vst2_32%" ^
