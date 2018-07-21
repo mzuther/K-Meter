@@ -694,6 +694,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
 
         arrChapters.set(
             "Beta testing and ideas",
+            L"Aldo D. Sudak\n"
             L"Rickard (Interfearing Sounds)\n"
             L"David Tkaczuk\n");
 
