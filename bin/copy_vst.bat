@@ -25,9 +25,9 @@ call :CopyVst ^
 
 call :CopyVst ^
  "%vst3_32%" ^
- "vst/K-Meter (Stereo).vst3" ^
- "vst/K-Meter (Surround).vst3" ^
- "vst/kmeter"
+ "vst3/K-Meter (Stereo).vst3" ^
+ "vst3/K-Meter (Surround).vst3" ^
+ "vst3/kmeter"
 
 call :CopyVst ^
  "%vst2_64%" ^
@@ -37,9 +37,9 @@ call :CopyVst ^
 
 call :CopyVst ^
  "%vst3_64%" ^
- "vst/K-Meter (Stereo x64).vst3" ^
- "vst/K-Meter (Surround x64).vst3" ^
- "vst/kmeter"
+ "vst3/K-Meter (Stereo x64).vst3" ^
+ "vst3/K-Meter (Surround x64).vst3" ^
+ "vst3/kmeter"
 
 pause
 exit /b %errorlevel%
