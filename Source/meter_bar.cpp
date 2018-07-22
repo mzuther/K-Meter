@@ -51,7 +51,7 @@ void MeterBar::create(
         numberOfBars = 48;
 
         limitTopBars = crestFactor - 20;
-        limitRedBars = -90;
+        limitRedBars = -100;
         limitAmberBars = -180;
         limitGreenBars = -400;
         limitLinearArea = limitGreenBars;
