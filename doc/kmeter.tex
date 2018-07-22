@@ -32,7 +32,14 @@
   is licensed under a
   \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative
     Commons Attribution-ShareAlike 4.0 International License} with the
-  exception of the GPL and VST logos.
+  exception of trademark logos.
+
+  \vspace{2.5em}
+
+  \includegraphics[scale=0.55,clip]{include/images/VST_Compatible_Logo_Steinberg_negative.png}
+
+  VST is a trademark of Steinberg Media Technologies GmbH,
+  registered in Europe and other countries.
 }
 
 \maketitle
@@ -45,24 +52,24 @@
 \label{chap:loudness_race}
 
 When comparing two similar pieces of music, the louder one is
-perceived as sounding better (although this is only true for very
-short periods of time).  Accordingly, the loudness of music
-productions has continuously grown during the last decades.
+perceived as sounding better.  This is only true for very short
+periods of time and there is no evidence that louder music sells
+better.  Still, the loudness of music productions has continuously
+grown during the last decades.
 
 As maximum levels of records, tapes and digital media have a natural
-limit, however, mastering engineers have started using sophisticated
-dynamic compression techniques to achieve higher loudness without
-distorting the music (as of 2010, distortion is increasingly being
-used in order to achieve even higher loudness).
+limit, however, mastering engineers use sophisticated dynamic
+compression techniques to achieve higher loudness without distorting
+the music.  Unfortunately, they have even started distorting the music and
+reducing its stereo width to achieve even higher perceived loudness.
 
-Unfortunately, this decrease in dynamic range does not leave the music
-unharmed.  Current compressed music blasts away your ears and makes
-you turn down the volume of your amplifier.  Having lowered the
-volume, you'll find that the ``better-sounding'' compressed music
-suddenly sounds pretty dull and boring compared to uncompressed music.
-In contrast, music with high dynamic range makes you turn up the
-volume -- heck, it even sounds better when being broadcast on the
-radio!
+This decrease in dynamic range does not leave the music unharmed.
+Current compressed music blasts away your ears and makes you turn down
+the volume of your amplifier.  Having lowered the volume, you'll find
+that the ``better-sounding'' compressed music suddenly sounds very
+dull and boring in comparison to music with less compression.  In
+contrast, music with high dynamic range makes you turn up the volume
+-- heck, it even sounds better when being broadcast on the radio!
 
 \chapter{The K-System}
 \label{chap:k_system}
@@ -106,9 +113,11 @@ Science (second edition)''.
 
 In order to use the pre-compiled binaries, simply extract the K-Meter
 files from the downloaded archive.  For the plug-ins, you'll then have
-to move the extracted files to your respective plug-in folder
-(\path{~/.lv2}, \path{~/.vst}, \path{C:\Program
-  Files\Steinberg\VstPlugins\} or the like).
+to move the extracted files to your respective plug-in folder.
+
+On Windows, you might also have to install the
+\href{https://www.visualstudio.com/downloads/}{Visual C++
+  Redistributable für Visual Studio 2017}.
 
 Loading K-Meter may take a few seconds: it checks your computer's
 capabilities on start-up so that FFT calculations will run at maximum
@@ -143,7 +152,7 @@ The \textbf{Normal} scale looks a little different.  It has been
 designed for gain staging during recording: average levels should stay
 in the lower green area (and thus below \textbf{\SI{-18}{\dBFS}}),
 while peak levels should not exceed the upper yellow bar
-(\textbf{\SI{-9}{\dBFS}}).  However, you may find my latency-free
+(\textbf{\SI{-10}{\dBFS}}).  However, you may find my latency-free
 plug-in \href{http://code.mzuther.de/}{\textbf{traKmeter}} better
 suited for gain staging.
 
@@ -226,10 +235,9 @@ analogue gear and the continuous meters typically found in DAWs.
 \end{wrapfigure}
 
 This button magnifies both average and peak level meters to
-\SI{0.1}{\dB} steps.  If switched on, the \SI{0}{\dB} mark (normal
-scale: \SI{-22}{\dB} mark) is placed near the meter's bottom.
-
-\newpage %% layout
+\SI{0.1}{\dB} steps.  If switched on, the \SI{0}{\dB} mark (or
+\SI{-22}{\dB} mark when using the \textbf{normal} scale) is placed
+near the meter's bottom.
 
 \section{Monitoring section}
 
@@ -281,9 +289,9 @@ you.
 \includegraphics[scale=\screenshotscale,clip]{include/images/button_mono_off.png}
 \end{wrapfigure}
 
-Click this button to easily check the mono compatibility of your
-stereo mix or master.  The audio channels will be down-mixed to mono
-and the meters will be linked.
+Click this button to check the mono compatibility of your stereo mix
+or master.  The audio channels will be down-mixed to mono and the
+meters will be linked.
 
 \emph{\underline{Note:} If you insert the stereo plug-in into a mono
   channel strip, the \textbf{mono} button will be selected and cannot
@@ -297,9 +305,8 @@ and the meters will be linked.
 \includegraphics[scale=\screenshotscale,clip]{include/images/button_reset_off.png}
 \end{wrapfigure}
 
-Click on this button to reset all meters.  You can also use it to get
-rid of graphical artefacts, because the current skin will be reloaded
-and all meters redrawn.
+Click on this button to reset all meters.  This action will also
+reload the current skin and re-draw everything.
 
 \section{Select a skin}
 
@@ -329,14 +336,14 @@ K-Meter and dump internal data.  During validation, the button will
 light up and clicking it will stop validation early.
 
 On Linux, dumped data will be written to \path{stderr}, so just start
-the K-Meter stand-alone or your VST host from the shell and watch the
-output coming.  On Windows, you can also use DebugView by Sysinternals
-(stand-alone) or have a look at Ableton Live's log files (VST
-plug-in).  If none of that works, you might have to start either the
-stand-alone or your VST host from a debugger.
+the K-Meter stand-alone or your plug-in host from the shell and watch
+the output coming.  On Windows, you can use DebugView by Sysinternals
+(stand-alone) or have a look at Ableton Live's log files (plug-in).
+If none of that works, you might have to start either the stand-alone
+or your plug-in host from a debugger.
 
-As a side note, \textbf{SMA(50)} designates the simple moving average
-of 50 values, a neat way to emphasise trends and eliminate short-term
+As a side note, \textbf{SMA(50)} designates the moving average of 50
+values, a neat way to emphasise trends and eliminate short-term
 fluctuations.
 
 \section{About button}
@@ -367,9 +374,11 @@ the license's website in your web browser \dots
 \chapter{Meters}
 \label{chap:meters}
 
-For \num{5.1} surround sound, K-Meter assumes a channel order of
-\emph{L}, \emph{R}, \emph{C}, \emph{LFE}, \emph{Ls} and \emph{Rs}.
-Please double-check whether this matches your host's channel order.
+In accordance with \href{http://www.itu.int/rec/R-REC-BR.779}{ITU-R
+  BR.779-2} and \href{https://www.itu.int/rec/R-REC-BS.1738}{BS.1738},
+K-Meter assumes a \num{5.1} surround channel order of \emph{L},
+\emph{R}, \emph{C}, \emph{LFE}, \emph{Ls} and \emph{Rs}. Please
+double-check whether this matches your host's channel order!
 
 \section{K-System meter}
 
@@ -436,9 +445,9 @@ the final reading.
 
 \section{Peak level meter}
 
-The peak level meter displays the unfiltered peak level and thus
-possesses a completely flat frequency response.  It has a rise time of
-one sample and a fall time of \SI{8.67}{\dB\per\second}.
+The peak level meter displays the unfiltered sample peak level and
+thus possesses a completely flat frequency response.  It has a rise
+time of one sample and a fall time of \SI{8.67}{\dB\per\second}.
 
 \section{Overload counter}
 
@@ -466,13 +475,13 @@ levels above \SI{-0.001}{\dBFS} to address the granularity of
 
 This meter displays the maximum inter-sample peak level encountered so
 far in \si{\dB}.  True peak level is measured according to Annex 2 of
-ITU-R BS.1770-4.
+\href{http://www.itu.int/rec/R-REC-BS.1770}{ITU-R BS.1770-4}.
 
-In case the level exceeds \SI{-0.20}{\dBFS}, the meter will turn blue.
-The meter has an expected under-read of \SI{0.17}{\dB} at half the
-original sampling rate.  So you should be able to avoid clipping
-during digital-to-analogue-conversion by keeping the meter out of the
-blue.
+In case the true peak level exceeds \SI{-0.20}{\dBFS}, the meter will
+turn blue.  The meter has an expected under-read of \SI{0.17}{\dB} at
+half the original sampling rate.  So you should be able to avoid
+clipping during digital-to-analogue-conversion by keeping the meter
+out of the blue.
 
 \section{Maximum peak display}
 
@@ -482,9 +491,9 @@ blue.
 \includegraphics[scale=\screenshotscale,clip]{include/images/maximum_peak_clipped.png}
 \end{wrapfigure}
 
-This meter displays the maximum peak level encountered so far in
-\si{\dB}.  In case the level exceeds \SI{-0.2}{\dBFS}, the meter will
-turn red.
+This meter displays the maximum sample peak level encountered so far
+in \si{\dB}.  In case the level exceeds \SI{-0.2}{\dBFS}, the meter
+will turn red.
 
 \section{Phase correlation meter}
 
@@ -651,9 +660,9 @@ mixers are set to the correct levels.
 
 Frequency and phase response have been determined using Christan
 Budde's great
-\href{http://www.pcjv.de/applications/measurement-programs/}{VST
-  Plugin Analyser} with a sample rate of \SI{192}{\kilo\hertz} and a
-log sine sweep as input signal (set using Ctrl-Shift-F).
+\href{http://www.pcjv.de/applications/measurement-programs/}{Plugin
+  Analyser} with a sample rate of \SI{192}{\kilo\hertz} and a log sine
+sweep as input signal (set using Ctrl-Shift-F).
 
 \newpage %% layout
 
@@ -752,13 +761,6 @@ Here is my email address (please remove ``\texttt{-nospam}''):
 \end{center}
 
 Thanks for using free software.  I hope you'll enjoy it!
-
-\begin{wrapfigure}{l}{0.17\linewidth}
-  \includegraphics[scale=0.40,clip]{include/images/trademark_vst.png}
-\end{wrapfigure}
-
-\emph{VST is a trademark and software of Steinberg Media Technologies
-  GmbH.}
 
 \appendix
 
@@ -890,8 +892,6 @@ platform, you should run \path{premake} using the scripts
 To change the premake file using the provided Jinja templates, you'll
 also have to install the necessary dependencies.
 
-\newpage %% layout
-
 \subsection{JUCE library}
 
 \begin{tabbing}
@@ -916,15 +916,14 @@ If you want to build the LV2 plug-in, please extract the archive
   \hspace*{6em}\=\=\kill
 
   Importance:  \> optional \\
-  Version:     \> 3.6.8 \\
-  License:     \> GPL v3 (yay!) \\
-  Homepage:    \> \href{http://ygrabit.steinberg.de/}{ygrabit.steinberg.de}
+  Version:     \> 2.4 / 3.6.8 \\
+  License:     \> proprietary / GPL v3 \\
+  Homepage:    \> \href{http://www.steinberg.net/en/company/developer.html}{www.steinberg.net}
 \end{tabbing}
 
 \subsubsection{Installation}
 
-Just extract the archive into the directory
-\path{libraries/vst}.
+Just extract the archive into the directory \path{libraries/vst}.
 
 \subsection{Fastest Fourier Transform in the West}
 
@@ -993,7 +992,7 @@ Please note that in order to run K-Meter on Windows, the directory
 \path{kmeter} containing the FFTW libraries (and skins) \textbf{must}
 be located in the same directory as the stand-alone or plug-in.  To
 make things a little easier for you, I have already placed this
-directory in \path{bin} and \path{bin/final}.
+directory in \path{bin}.
 
 \subsection{Python}
 
