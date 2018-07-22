@@ -1040,9 +1040,15 @@ bool KmeterAudioProcessor::processBufferChunk(
 
             // determine overflows for chunkSize samples; treat all
             // samples above -0.001 dBFS as overflow
+            //
+            // in the 16-bit domain, full scale corresponds to an
+            // absolute integer value of 32'767 or 32'768, so we'll
+            // treat absolute levels of 32'767 and above as overflows;
+            // this corresponds to a floating-point level of 32'767 /
+            // 32'768 = 0.9999694 (approx. -0.001 dBFS).
             overflowCounts_.set(
                 channel,
-                countOverflows(buffer, channel, chunkSize, 0.99885f));
+                countOverflows(buffer, channel, chunkSize, 0.9999f));
         }
 
         // apply meter ballistics and store values so that the editor
