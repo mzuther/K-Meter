@@ -5,6 +5,13 @@ Git HEAD
 HEAD
 ====
 
+* updated manual
+
+* removed ASIO support
+
+* reset meters on start of playback
+
+* fixed overload counter threshold
 
 
 
