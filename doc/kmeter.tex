@@ -764,112 +764,11 @@ Thanks for using free software.  I hope you'll enjoy it!
 
 \appendix
 
-\chapter{How to build K-Meter}
+\chapter{Build K-Meter}
 \label{chap:build_kmeter}
 
-\section{Preparing GNU/Linux}
-
-To build K-Meter yourself, I recommend setting up a \texttt{chroot}
-environment.  This is fast and easy to do on Debian-based systems and
-might save you a \textbf{lot} of trouble.  At the time of writing, I'm
-using Linux Mint 18, but the procedure should be similar on your
-distribution of choice.
-
-Start by installing the necessary packages:
-
-\begin{VerbatimBoth}
-  sudo apt-get install debootstrap schroot
-\end{VerbatimBoth}
-
-Then install the \texttt{chroot} base system by executing the
-following statements:
-
-\begin{Verbatim32}
-  sudo debootstrap --variant=buildd \
-    --arch i386 stable \
-    /srv/chroot/stable_i386 \
-    http://httpredir.debian.org/debian
-\end{Verbatim32}
-
-\begin{Verbatim64}
-  sudo debootstrap --variant=buildd \
-    --arch amd64 stable \
-    /srv/chroot/stable_amd64 \
-    http://httpredir.debian.org/debian
-\end{Verbatim64}
-
-Running \path{debootstrap} will take some time.  Meanwhile, add the
-following lines to \path{/etc/schroot/schroot.conf} (make sure you
-remove all preceding white space so that each line begins in the first
-column):
-
-\begin{VerbatimBoth}
-  [stable-i386]
-  description=Debian stable (i386)
-  directory=/srv/chroot/stable_i386
-  profile=default
-  personality=linux32
-  type=directory
-  users=username
-
-  [stable-amd64]
-  description=Debian stable (amd64)
-  directory=/srv/chroot/stable_amd64
-  profile=default
-  personality=linux
-  type=directory
-  users=username
-\end{VerbatimBoth}
-
-Please make the necessary changes to \texttt{username}.  If you
-experience problems, you can try to change \texttt{stable} to a
-release name such as \texttt{wheezy}.
-
-When \path{debootstrap} is done, log in as superuser:
-
-\begin{Verbatim32}
-  schroot -c stable-i386 -u root
-\end{Verbatim32}
-
-\begin{Verbatim64}
-  schroot -c stable-amd64 -u root
-\end{Verbatim64}
-
-You'll have to install a few packages -- \path{less} and \path{vim}
-are optional, but might come in handy:
-
-\begin{VerbatimBoth}
-  apt-get update
-  apt-get -y install bash-completion clang \
-    libasound2-dev libjack-jackd2-dev \
-    mesa-common-dev xorg-dev less vim
-  apt-get clean
-\end{VerbatimBoth}
-
-If you like \path{bash} completion, you might also want to open the
-file \path{/etc/bash.bashrc} and unquote these lines:
-
-\begin{VerbatimBoth}
-  # enable bash completion in interactive shells
-  if [...]
-    [a couple of lines...]
-  fi
-\end{VerbatimBoth}
-
-Finally, log out and log in as normal user:
-
-\begin{Verbatim32}
-  schroot -c stable-i386
-\end{Verbatim32}
-
-\begin{Verbatim64}
-  schroot -c stable-amd64
-\end{Verbatim64}
-
-In this \path{chroot} shell, install the dependencies (see below).
-Congratulations -- you are now ready to build K-Meter!
-
 \section{Dependencies}
+\label{sec:dependencies}
 
 \subsection{premake}
 \label{sec:dependencies_premake}
@@ -1047,10 +946,127 @@ Place the binary somewhere in your \path{PATH}.  Depending on your
 platform, you should run \path{astyle} using the scripts
 \path{Source/format_code.sh} or \path{Source/format_code.bat}.
 
-\section{Building on GNU/Linux}
+\newpage %% layout
+
+\section{GNU/Linux}
+
+\subsection{Environment}
+
+To build K-Meter yourself, I recommend setting up a \texttt{chroot}
+environment.  This is fast and easy to do on Debian-based systems and
+might save you a \textbf{lot} of trouble.  At the time of writing, I'm
+using Linux Mint 18, but the procedure should be similar on your
+distribution of choice.
+
+Start by installing the necessary packages:
+
+\begin{VerbatimBoth}
+  sudo apt-get install debootstrap schroot
+\end{VerbatimBoth}
+
+Then install the \texttt{chroot} base system by executing the
+following statements:
+
+\begin{Verbatim32}
+  sudo debootstrap --variant=buildd \
+    --arch i386 stable \
+    /srv/chroot/stable_i386 \
+    http://httpredir.debian.org/debian
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  sudo debootstrap --variant=buildd \
+    --arch amd64 stable \
+    /srv/chroot/stable_amd64 \
+    http://httpredir.debian.org/debian
+\end{Verbatim64}
+
+Running \path{debootstrap} will take some time.  Meanwhile, add the
+following lines to \path{/etc/schroot/schroot.conf} (make sure you
+remove all preceding white space so that each line begins in the first
+column):
+
+\begin{VerbatimBoth}
+  [stable-i386]
+  description=Debian stable (i386)
+  directory=/srv/chroot/stable_i386
+  profile=default
+  personality=linux32
+  type=directory
+  users=username
+
+  [stable-amd64]
+  description=Debian stable (amd64)
+  directory=/srv/chroot/stable_amd64
+  profile=default
+  personality=linux
+  type=directory
+  users=username
+\end{VerbatimBoth}
+
+Please make the necessary changes to \texttt{username}.  If you
+experience problems, you can try to change \texttt{stable} to a
+release name such as \texttt{wheezy}.
+
+When \path{debootstrap} is done, log in as superuser:
+
+\begin{Verbatim32}
+  schroot -c stable-i386 -u root
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  schroot -c stable-amd64 -u root
+\end{Verbatim64}
+
+You'll have to install a few packages -- \path{less} and \path{vim}
+are optional, but might come in handy:
+
+\begin{VerbatimBoth}
+  apt-get update
+  apt-get -y install bash-completion clang \
+    libasound2-dev libjack-jackd2-dev \
+    mesa-common-dev xorg-dev less vim
+  apt-get clean
+\end{VerbatimBoth}
+
+If you like \path{bash} completion, you might also want to open the
+file \path{/etc/bash.bashrc} and unquote these lines:
+
+\begin{VerbatimBoth}
+  # enable bash completion in interactive shells
+  if [...]
+    [a couple of lines...]
+  fi
+\end{VerbatimBoth}
+
+Finally, log out and log in as normal user:
+
+\begin{Verbatim32}
+  schroot -c stable-i386
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  schroot -c stable-amd64
+\end{Verbatim64}
+
+In this \path{chroot} shell, install the dependencies
+(\ref{sec:dependencies}).  Congratulations -- you are now ready to
+build K-Meter!
+
+\subsection{Build}
 
 After preparing the dependencies, start your \texttt{chroot}
-environment, change into the directory \path{build} and execute
+environment
+
+\begin{Verbatim32}
+  schroot -c stable-i386
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  schroot -c stable-amd64
+\end{Verbatim64}
+
+change into the directory \path{build} and execute
 
 \begin{VerbatimBoth}
   ./run_premake.sh
@@ -1068,7 +1084,11 @@ and using the premake options \texttt{--cc=clang} or
 
 The compiled binaries will end up in the directory \path{bin}.
 
-\section{Building on Microsoft Windows}
+\newpage %% layout
+
+\section{Microsoft Windows}
+
+\subsection{Build}
 
 After preparing the dependencies, change into the directory
 \path{build} and execute

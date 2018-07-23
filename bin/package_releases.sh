@@ -25,10 +25,10 @@
 #
 # ----------------------------------------------------------------------------
 
-version="2.6.1"
+version="2.8.0"
 
-executable_dir="final"
-include_dir="kmeter"
+executable_dir="./final"
+include_dir="$executable_dir/kmeter"
 release_dir="releases"
 
 
@@ -44,9 +44,9 @@ function archive_create
 
 function archive_add
 {
-	filename=$1
-	source_dir=$2
-	target_dir=$(dirname "/tmp/$archive_dir/$filename")
+	filename="$1"
+	source_dir="$2"
+	target_dir=$(dirname "/tmp/$archive_dir/$1")
 
 	if [ ! -d "$target_dir" ]; then
 		mkdir -p "$target_dir"
@@ -54,24 +54,28 @@ function archive_add
 
 	if [ -f "$source_dir/$filename" ]; then
 		echo "  [+] $filename"
-		cp --dereference "$source_dir/$filename" "/tmp/$archive_dir/$filename"
+		cp --dereference "$source_dir/$filename" "/tmp/$archive_dir/$1"
 	elif [ -d "$source_dir/$filename" ]; then
 		echo "  [+] $filename/*"
-		cp --dereference --recursive "$source_dir/$filename/" "/tmp/$archive_dir/$filename"
+		cp --dereference --recursive "$source_dir/$filename/" "/tmp/$archive_dir/$1"
+	else
+		echo "  [ ] $filename  --> not added"
 	fi
 }
 
 
 function archive_del
 {
-	filename=$1
+	filename="$1"
 
-	if [ -f "$filename" ]; then
+	if [ -f "/tmp/$archive_dir/$filename" ]; then
 		echo "  [-] $filename"
 		rm "/tmp/$archive_dir/$filename"
-	elif [ -d "$filename" ]; then
+	elif [ -d "/tmp/$archive_dir/$filename" ]; then
 		echo "  [-] $filename/*"
 		rm -rf "/tmp/$archive_dir/$filename/"
+	else
+		echo "  [ ] $filename  --> not deleted"
 	fi
 }
 
@@ -129,12 +133,14 @@ function archive_store
 
 	echo "  Done."
 	echo
+	echo
 }
 
 
 # ----- General -----
 
 ./finalise_executables
+
 
 # ----- GNU/Linux Standalone (32 bit) -----
 
@@ -145,12 +151,12 @@ archive_dir="kmeter-standalone_i386_$version"
 
 archive_create
 
-archive_add "kmeter_stereo" "./$executable_dir"
-archive_add "kmeter_surround" "./$executable_dir"
+archive_add "kmeter_stereo" "$executable_dir"
+archive_add "kmeter_surround" "$executable_dir"
 
-archive_add "$include_dir/doc" "."
-archive_add "$include_dir/skins/Default" "."
-archive_add "$include_dir/skins/Default.skin" "."
+archive_add "kmeter/doc" "$executable_dir"
+archive_add "kmeter/skins/Default" "$executable_dir"
+archive_add "kmeter/skins/Default.skin" "$executable_dir"
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux"
@@ -162,40 +168,40 @@ echo "  === GNU/Linux LV2 $version (32 bit) ==="
 echo
 
 archive_dir="kmeter-lv2_i386_$version"
-lv2_dir="kmeter_lv2"
+lv2_dir="./lv2/kmeter_lv2"
 
 archive_create
 
-archive_add "kmeter_stereo_lv2.so" "./$executable_dir"
-archive_add "kmeter_surround_lv2.so" "./$executable_dir"
+archive_add "kmeter_stereo_lv2.so" "$executable_dir"
+archive_add "kmeter_surround_lv2.so" "$executable_dir"
 
-archive_add "manifest.ttl" "./$lv2_dir"
-archive_add "kmeter_stereo.ttl" "./$lv2_dir"
-archive_add "kmeter_surround.ttl" "./$lv2_dir"
+archive_add "manifest.ttl" "$lv2_dir"
+archive_add "kmeter_stereo.ttl" "$lv2_dir"
+archive_add "kmeter_surround.ttl" "$lv2_dir"
 
-archive_add "$include_dir/doc" "."
-archive_add "$include_dir/skins/Default" "."
-archive_add "$include_dir/skins/Default.skin" "."
+archive_add "kmeter/doc" "$executable_dir"
+archive_add "kmeter/skins/Default" "$executable_dir"
+archive_add "kmeter/skins/Default.skin" "$executable_dir"
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux"
 
 
-# ----- GNU/Linux VST (32 bit) -----
+# ----- GNU/Linux VST2 (32 bit) -----
 
-echo "  === GNU/Linux VST $version (32 bit) ==="
+echo "  === GNU/Linux VST2 $version (32 bit) ==="
 echo
 
-archive_dir="kmeter-vst_i386_$version"
+archive_dir="kmeter-vst2_i386_$version"
 
 archive_create
 
-archive_add "kmeter_stereo_vst.so" "./$executable_dir"
-archive_add "kmeter_surround_vst.so" "./$executable_dir"
+archive_add "kmeter_stereo_vst.so" "$executable_dir"
+archive_add "kmeter_surround_vst.so" "$executable_dir"
 
-archive_add "$include_dir/doc" "."
-archive_add "$include_dir/skins/Default" "."
-archive_add "$include_dir/skins/Default.skin" "."
+archive_add "kmeter/doc" "$executable_dir"
+archive_add "kmeter/skins/Default" "$executable_dir"
+archive_add "kmeter/skins/Default.skin" "$executable_dir"
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux"
@@ -210,12 +216,12 @@ archive_dir="kmeter-standalone_amd64_$version"
 
 archive_create
 
-archive_add "kmeter_stereo_x64" "./$executable_dir"
-archive_add "kmeter_surround_x64" "./$executable_dir"
+archive_add "kmeter_stereo_x64" "$executable_dir"
+archive_add "kmeter_surround_x64" "$executable_dir"
 
-archive_add "$include_dir/doc" "."
-archive_add "$include_dir/skins/Default" "."
-archive_add "$include_dir/skins/Default.skin" "."
+archive_add "kmeter/doc" "$executable_dir"
+archive_add "kmeter/skins/Default" "$executable_dir"
+archive_add "kmeter/skins/Default.skin" "$executable_dir"
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux"
@@ -227,40 +233,40 @@ echo "  === GNU/Linux LV2 $version (64 bit) ==="
 echo
 
 archive_dir="kmeter-lv2_amd64_$version"
-lv2_dir="kmeter_lv2_x64"
+lv2_dir="./lv2/kmeter_lv2_x64"
 
 archive_create
 
-archive_add "kmeter_stereo_lv2_x64.so" "./$executable_dir"
-archive_add "kmeter_surround_lv2_x64.so" "./$executable_dir"
+archive_add "kmeter_stereo_lv2_x64.so" "$executable_dir"
+archive_add "kmeter_surround_lv2_x64.so" "$executable_dir"
 
-archive_add "manifest.ttl" "./$lv2_dir"
-archive_add "kmeter_stereo.ttl" "./$lv2_dir"
-archive_add "kmeter_surround.ttl" "./$lv2_dir"
+archive_add "manifest.ttl" "$lv2_dir"
+archive_add "kmeter_stereo.ttl" "$lv2_dir"
+archive_add "kmeter_surround.ttl" "$lv2_dir"
 
-archive_add "$include_dir/doc" "."
-archive_add "$include_dir/skins/Default" "."
-archive_add "$include_dir/skins/Default.skin" "."
+archive_add "kmeter/doc" "$executable_dir"
+archive_add "kmeter/skins/Default" "$executable_dir"
+archive_add "kmeter/skins/Default.skin" "$executable_dir"
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux"
 
 
-# ----- GNU/Linux VST (64 bit) -----
+# ----- GNU/Linux VST2 (64 bit) -----
 
-echo "  === GNU/Linux VST $version (64 bit) ==="
+echo "  === GNU/Linux VST2 $version (64 bit) ==="
 echo
 
-archive_dir="kmeter-vst_amd64_$version"
+archive_dir="kmeter-vst2_amd64_$version"
 
 archive_create
 
-archive_add "kmeter_stereo_vst_x64.so" "./$executable_dir"
-archive_add "kmeter_surround_vst_x64.so" "./$executable_dir"
+archive_add "kmeter_stereo_vst_x64.so" "$executable_dir"
+archive_add "kmeter_surround_vst_x64.so" "$executable_dir"
 
-archive_add "$include_dir/doc" "."
-archive_add "$include_dir/skins/Default" "."
-archive_add "$include_dir/skins/Default.skin" "."
+archive_add "kmeter/doc" "$executable_dir"
+archive_add "kmeter/skins/Default" "$executable_dir"
+archive_add "kmeter/skins/Default.skin" "$executable_dir"
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux"
@@ -275,36 +281,58 @@ archive_dir="kmeter-standalone_x86_$version"
 
 archive_create
 
-archive_add "K-Meter (Stereo).exe" "./$executable_dir"
-archive_add "K-Meter (Surround).exe" "./$executable_dir"
+archive_add "K-Meter (Stereo).exe" "$executable_dir"
+archive_add "K-Meter (Surround).exe" "$executable_dir"
 
-archive_add "$include_dir/doc" "."
-archive_add "$include_dir/fftw" "."
-archive_add "$include_dir/skins/Default" "."
-archive_add "$include_dir/skins/Default.skin" "."
-archive_del "$include_dir/fftw/libfftw3f-3_x64.dll"
+archive_add "kmeter/doc" "$executable_dir"
+archive_add "kmeter/fftw" "$executable_dir"
+archive_add "kmeter/skins/Default" "$executable_dir"
+archive_add "kmeter/skins/Default.skin" "$executable_dir"
+archive_del "kmeter/fftw/libfftw3f-3_x64.dll"
 
 archive_compress "zip"
 archive_store "zip" "$release_dir/windows"
 
 
-# ----- Windows VST (32 bit) -----
+# ----- Windows VST2 (32 bit) -----
 
-echo "  === Windows VST $version (32 bit) ==="
+echo "  === Windows VST2 $version (32 bit) ==="
 echo
 
-archive_dir="kmeter-vst_x86_$version"
+archive_dir="kmeter-vst2_x86_$version"
 
 archive_create
 
-archive_add "K-Meter (Stereo).dll" "./$executable_dir"
-archive_add "K-Meter (Surround).dll" "./$executable_dir"
+archive_add "K-Meter (Stereo).dll" "$executable_dir"
+archive_add "K-Meter (Surround).dll" "$executable_dir"
 
-archive_add "$include_dir/doc" "."
-archive_add "$include_dir/fftw" "."
-archive_add "$include_dir/skins/Default" "."
-archive_add "$include_dir/skins/Default.skin" "."
-archive_del "$include_dir/fftw/libfftw3f-3_x64.dll"
+archive_add "kmeter/doc" "$executable_dir"
+archive_add "kmeter/fftw" "$executable_dir"
+archive_add "kmeter/skins/Default" "$executable_dir"
+archive_add "kmeter/skins/Default.skin" "$executable_dir"
+archive_del "kmeter/fftw/libfftw3f-3_x64.dll"
+
+archive_compress "zip"
+archive_store "zip" "$release_dir/windows"
+
+
+# ----- Windows VST3 (32 bit) -----
+
+echo "  === Windows VST3 $version (32 bit) ==="
+echo
+
+archive_dir="kmeter-vst3_x86_$version"
+
+archive_create
+
+archive_add "K-Meter (Stereo).vst3" "$executable_dir"
+archive_add "K-Meter (Surround).vst3" "$executable_dir"
+
+archive_add "kmeter/doc" "$executable_dir"
+archive_add "kmeter/fftw" "$executable_dir"
+archive_add "kmeter/skins/Default" "$executable_dir"
+archive_add "kmeter/skins/Default.skin" "$executable_dir"
+archive_del "kmeter/fftw/libfftw3f-3_x64.dll"
 
 archive_compress "zip"
 archive_store "zip" "$release_dir/windows"
@@ -319,36 +347,58 @@ archive_dir="kmeter-standalone_x64_$version"
 
 archive_create
 
-archive_add "K-Meter (Stereo x64).exe" "./$executable_dir"
-archive_add "K-Meter (Surround x64).exe" "./$executable_dir"
+archive_add "K-Meter (Stereo x64).exe" "$executable_dir"
+archive_add "K-Meter (Surround x64).exe" "$executable_dir"
 
-archive_add "$include_dir/doc" "."
-archive_add "$include_dir/fftw" "."
-archive_add "$include_dir/skins/Default" "."
-archive_add "$include_dir/skins/Default.skin" "."
-archive_del "$include_dir/fftw/libfftw3f-3.dll"
+archive_add "kmeter/doc" "$executable_dir"
+archive_add "kmeter/fftw" "$executable_dir"
+archive_add "kmeter/skins/Default" "$executable_dir"
+archive_add "kmeter/skins/Default.skin" "$executable_dir"
+archive_del "kmeter/fftw/libfftw3f-3.dll"
 
 archive_compress "zip"
 archive_store "zip" "$release_dir/windows"
 
 
-# ----- Windows VST (64 bit) -----
+# ----- Windows VST2 (64 bit) -----
 
-echo "  === Windows VST $version (64 bit) ==="
+echo "  === Windows VST2 $version (64 bit) ==="
 echo
 
-archive_dir="kmeter-vst_x64_$version"
+archive_dir="kmeter-vst2_x64_$version"
 
 archive_create
 
-archive_add "K-Meter (Stereo x64).dll" "./$executable_dir"
-archive_add "K-Meter (Surround x64).dll" "./$executable_dir"
+archive_add "K-Meter (Stereo x64).dll" "$executable_dir"
+archive_add "K-Meter (Surround x64).dll" "$executable_dir"
 
-archive_add "$include_dir/doc" "."
-archive_add "$include_dir/fftw" "."
-archive_add "$include_dir/skins/Default" "."
-archive_add "$include_dir/skins/Default.skin" "."
-archive_del "$include_dir/fftw/libfftw3f-3.dll"
+archive_add "kmeter/doc" "$executable_dir"
+archive_add "kmeter/fftw" "$executable_dir"
+archive_add "kmeter/skins/Default" "$executable_dir"
+archive_add "kmeter/skins/Default.skin" "$executable_dir"
+archive_del "kmeter/fftw/libfftw3f-3.dll"
+
+archive_compress "zip"
+archive_store "zip" "$release_dir/windows"
+
+
+# ----- Windows VST3 (64 bit) -----
+
+echo "  === Windows VST3 $version (64 bit) ==="
+echo
+
+archive_dir="kmeter-vst3_x64_$version"
+
+archive_create
+
+archive_add "K-Meter (Stereo x64).vst3" "$executable_dir"
+archive_add "K-Meter (Surround x64).vst3" "$executable_dir"
+
+archive_add "kmeter/doc" "$executable_dir"
+archive_add "kmeter/fftw" "$executable_dir"
+archive_add "kmeter/skins/Default" "$executable_dir"
+archive_add "kmeter/skins/Default.skin" "$executable_dir"
+archive_del "kmeter/fftw/libfftw3f-3.dll"
 
 archive_compress "zip"
 archive_store "zip" "$release_dir/windows"
