@@ -39,5 +39,8 @@ python.exe create_premake.py %windows_sdk%
 @echo.
 @premake5 --cc=clang --os=linux gmake
 
+@rem echo.
+@rem premake5 --cc=gcc --os=linux gmake
+
 @echo.
 @pause

@@ -41,4 +41,7 @@ premake5 --os=windows vs2017
 echo
 premake5 --cc=clang --os=linux gmake
 
+# echo
+# premake5 --cc=gcc --os=linux gmake
+
 echo
