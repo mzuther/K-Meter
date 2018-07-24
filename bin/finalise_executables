@@ -54,7 +54,7 @@ function finalise_symbols
 		echo "               $executable_dir/debug_symbols/$filepath"
 
         mkdir -p `dirname "./$executable_dir/debug_symbols/$filepath"`
-		cp "./$filepath" "./$executable_dir/debug_symbols/$filepath"
+		mv "./$filepath" "./$executable_dir/debug_symbols/$filepath"
 
         echo
 	fi

@@ -402,3 +402,20 @@ archive_del "kmeter/fftw/libfftw3f-3.dll"
 
 archive_compress "zip"
 archive_store "zip" "$release_dir/windows"
+
+
+# ----- Windows debug symbols (64 bit) -----
+
+echo "  === Windows debug symbols ==="
+echo
+
+archive_dir="debug_symbols_$version"
+
+archive_create
+
+archive_add "standalone" "$executable_dir/debug_symbols"
+archive_add "vst" "$executable_dir/debug_symbols"
+archive_add "vst3" "$executable_dir/debug_symbols"
+
+archive_compress "zip"
+archive_store "zip" "$release_dir/windows"
