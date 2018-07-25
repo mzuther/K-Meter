@@ -147,7 +147,7 @@ function archive_store
 echo "  === GNU/Linux Standalone $version (32 bit) ==="
 echo
 
-archive_dir="kmeter-standalone_i386_$version"
+archive_dir="kmeter-linux32-standalone_$version"
 
 archive_create
 
@@ -167,7 +167,7 @@ archive_store "gzip" "$release_dir/linux"
 echo "  === GNU/Linux LV2 $version (32 bit) ==="
 echo
 
-archive_dir="kmeter-lv2_i386_$version"
+archive_dir="kmeter-linux32-lv2_$version"
 lv2_dir="./lv2/kmeter_lv2"
 
 archive_create
@@ -192,7 +192,7 @@ archive_store "gzip" "$release_dir/linux"
 echo "  === GNU/Linux VST2 $version (32 bit) ==="
 echo
 
-archive_dir="kmeter-vst2_i386_$version"
+archive_dir="kmeter-linux32-vst2_$version"
 
 archive_create
 
@@ -212,7 +212,7 @@ archive_store "gzip" "$release_dir/linux"
 echo "  === GNU/Linux Standalone $version (64 bit) ==="
 echo
 
-archive_dir="kmeter-standalone_amd64_$version"
+archive_dir="kmeter-linux64-standalone_$version"
 
 archive_create
 
@@ -232,7 +232,7 @@ archive_store "gzip" "$release_dir/linux"
 echo "  === GNU/Linux LV2 $version (64 bit) ==="
 echo
 
-archive_dir="kmeter-lv2_amd64_$version"
+archive_dir="kmeter-linux64-lv2_$version"
 lv2_dir="./lv2/kmeter_lv2_x64"
 
 archive_create
@@ -257,7 +257,7 @@ archive_store "gzip" "$release_dir/linux"
 echo "  === GNU/Linux VST2 $version (64 bit) ==="
 echo
 
-archive_dir="kmeter-vst2_amd64_$version"
+archive_dir="kmeter-linux64-vst2_$version"
 
 archive_create
 
@@ -277,7 +277,7 @@ archive_store "gzip" "$release_dir/linux"
 echo "  === Windows Standalone $version (32 bit) ==="
 echo
 
-archive_dir="kmeter-standalone_x86_$version"
+archive_dir="kmeter-w32-standalone_$version"
 
 archive_create
 
@@ -299,7 +299,7 @@ archive_store "zip" "$release_dir/windows"
 echo "  === Windows VST2 $version (32 bit) ==="
 echo
 
-archive_dir="kmeter-vst2_x86_$version"
+archive_dir="kmeter-w32-vst2_$version"
 
 archive_create
 
@@ -321,7 +321,7 @@ archive_store "zip" "$release_dir/windows"
 echo "  === Windows VST3 $version (32 bit) ==="
 echo
 
-archive_dir="kmeter-vst3_x86_$version"
+archive_dir="kmeter-w32-vst3_$version"
 
 archive_create
 
@@ -343,7 +343,7 @@ archive_store "zip" "$release_dir/windows"
 echo "  === Windows Standalone $version (64 bit) ==="
 echo
 
-archive_dir="kmeter-standalone_x64_$version"
+archive_dir="kmeter-w64-standalone_$version"
 
 archive_create
 
@@ -365,7 +365,7 @@ archive_store "zip" "$release_dir/windows"
 echo "  === Windows VST2 $version (64 bit) ==="
 echo
 
-archive_dir="kmeter-vst2_x64_$version"
+archive_dir="kmeter-w64-vst2_$version"
 
 archive_create
 
@@ -387,7 +387,7 @@ archive_store "zip" "$release_dir/windows"
 echo "  === Windows VST3 $version (64 bit) ==="
 echo
 
-archive_dir="kmeter-vst3_x64_$version"
+archive_dir="kmeter-w64-vst3_$version"
 
 archive_create
 
@@ -409,7 +409,7 @@ archive_store "zip" "$release_dir/windows"
 echo "  === Windows debug symbols ==="
 echo
 
-archive_dir="debug_symbols_$version"
+archive_dir="debug-symbols_$version"
 
 archive_create
 
