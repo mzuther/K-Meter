@@ -404,7 +404,7 @@ archive_compress "zip"
 archive_store "zip" "$release_dir/windows"
 
 
-# ----- Windows debug symbols (64 bit) -----
+# ----- Windows debug symbols -----
 
 echo "  === Windows debug symbols ==="
 echo
