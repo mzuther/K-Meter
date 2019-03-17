@@ -110,4 +110,4 @@ help:
 	@echo "   kmeter_lv2_stereo"
 	@echo "   kmeter_lv2_surround"
 	@echo ""
-	@echo "For more information, see http://industriousone.com/premake/quick-start"
+	@echo "For more information, see https://github.com/premake/premake-core/wiki"

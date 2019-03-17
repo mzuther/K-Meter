@@ -795,6 +795,9 @@ void KmeterAudioProcessor::processBlock(
 
     DBG("[K-Meter] using double precision");
 
+    // temporarily disable denormals
+    ScopedNoDenormals noDenormals;
+
     // mute output if sample rate is invalid
     if (!sampleRateIsValid_)
     {
