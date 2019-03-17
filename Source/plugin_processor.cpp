@@ -635,6 +635,9 @@ void KmeterAudioProcessor::processBlock(
     ignoreUnused(midiMessages);
     jassert(!isUsingDoublePrecision());
 
+    // temporarily disable denormals
+    ScopedNoDenormals noDenormals;
+
     // mute output if sample rate is invalid
     if (!sampleRateIsValid_)
     {
@@ -674,9 +677,6 @@ void KmeterAudioProcessor::processBlock(
     {
         buffer.clear();
     }
-
-    // de-normalize samples
-    dither_.denormalize(buffer);
 
     // process two channels only
     if (isStereo_)
@@ -879,9 +879,6 @@ void KmeterAudioProcessor::processBlock(
 
     // dither input samples and store in temporary buffer
     dither_.ditherToFloat(buffer, processBuffer);
-
-    // de-normalize temporary buffer
-    dither_.denormalize(processBuffer);
 
     // copy temporary buffer to ring buffer (applies pre-delay)
     //

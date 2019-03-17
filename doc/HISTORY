@@ -13,6 +13,8 @@ v2.8.0 (2018-07-23)
 
 * fixed overload counter threshold
 
+* validation: full re-calibration
+
 
 
 v2.6.4 (2018-06-15)
