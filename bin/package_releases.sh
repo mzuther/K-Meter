@@ -25,7 +25,7 @@
 #
 # ----------------------------------------------------------------------------
 
-version="2.8.0"
+version="2.8.1"
 
 executable_dir="./final"
 include_dir="$executable_dir/kmeter"
