@@ -40,7 +40,7 @@
 namespace ProjectInfo
 {
     const char* const  projectName    = "K-Meter";
-    const char* const  versionString  = "2.8.0";
-    const int          versionNumber  = 0x20800;
+    const char* const  versionString  = "2.8.1";
+    const int          versionNumber  = 0x20801;
 }
 #endif
