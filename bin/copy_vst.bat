@@ -9,7 +9,9 @@ set vst3_32=/cygdrive/c/Program Files (x86)/Common Files/VST3/radix/
 set vst2_64=/cygdrive/c/Program Files/Steinberg/VSTPlugins/radix/
 set vst3_64=/cygdrive/c/Program Files/Common Files/VST3/radix/
 
-set categories=/cygdrive/d/Plugins/32-bit/Categories/VST2/Tools/Analyzer/Meter
+set categories_32=/cygdrive/d/Plugins/32-bit/Categories/Tools/Analyzer/Meter
+set categories_64=/cygdrive/d/Plugins/64-bit/Categories/Tools/Analyzer/Meter
+
 
 call :CopyVst ^
  "%vst2_32%" ^
@@ -18,7 +20,7 @@ call :CopyVst ^
  "vst/kmeter"
 
 call :CopyVst ^
- "%categories%" ^
+ "%categories_32%" ^
  "vst/K-Meter (Stereo).dll" ^
  "vst/K-Meter (Surround).dll" ^
  "vst/kmeter"
@@ -29,8 +31,15 @@ call :CopyVst ^
  "vst3/K-Meter (Surround).vst3" ^
  "vst3/kmeter"
 
+
 call :CopyVst ^
  "%vst2_64%" ^
+ "vst/K-Meter (Stereo x64).dll" ^
+ "vst/K-Meter (Surround x64).dll" ^
+ "vst/kmeter"
+
+call :CopyVst ^
+ "%categories_64%" ^
  "vst/K-Meter (Stereo x64).dll" ^
  "vst/K-Meter (Surround x64).dll" ^
  "vst/kmeter"
@@ -52,9 +61,6 @@ set dll_2=%3
 set aux_dir=%4
 
 echo %destination%
-
-if not exist %dll_1% exit /b 1
-if not exist %dll_2% exit /b 2
 
 %rsync_cmd% --delete %aux_dir% %destination%
 %rsync_cmd%          %dll_1%   %destination%
