@@ -970,16 +970,16 @@ following statements:
 
 \begin{Verbatim32}
   sudo debootstrap --variant=buildd \
-    --arch i386 stable \
-    /srv/chroot/stable_i386 \
-    http://httpredir.debian.org/debian
+    --arch i386 bionic \
+    /srv/chroot/bionic_i386 \
+    http://archive.ubuntu.com/ubuntu
 \end{Verbatim32}
 
 \begin{Verbatim64}
   sudo debootstrap --variant=buildd \
-    --arch amd64 stable \
-    /srv/chroot/stable_amd64 \
-    http://httpredir.debian.org/debian
+    --arch amd64 bionic \
+    /srv/chroot/bionic_amd64 \
+    http://archive.ubuntu.com/ubuntu
 \end{Verbatim64}
 
 Running \path{debootstrap} will take some time.  Meanwhile, add the
@@ -988,17 +988,17 @@ remove all preceding white space so that each line begins in the first
 column):
 
 \begin{VerbatimBoth}
-  [stable-i386]
-  description=Debian stable (i386)
-  directory=/srv/chroot/stable_i386
+  [bionic-i386]
+  description=Ubuntu bionic (i386)
+  directory=/srv/chroot/bionic_i386
   profile=default
   personality=linux32
   type=directory
   users=username
 
-  [stable-amd64]
-  description=Debian stable (amd64)
-  directory=/srv/chroot/stable_amd64
+  [bionic-amd64]
+  description=Ubuntu bionic (amd64)
+  directory=/srv/chroot/bionic_amd64
   profile=default
   personality=linux
   type=directory
@@ -1006,21 +1006,29 @@ column):
 \end{VerbatimBoth}
 
 Please make the necessary changes to \texttt{username}.  If you
-experience problems, you can try to change \texttt{stable} to a
+experience problems, you can try to change \texttt{bionic} to a
 release name such as \texttt{wheezy}.
 
 When \path{debootstrap} is done, log in as superuser:
 
 \begin{Verbatim32}
-  schroot -c stable-i386 -u root
+  sudo schroot -c bionic-i386
 \end{Verbatim32}
 
 \begin{Verbatim64}
-  schroot -c stable-amd64 -u root
+  sudo schroot -c bionic-amd64
 \end{Verbatim64}
 
-You'll have to install a few packages -- \path{less} and \path{vim}
-are optional, but might come in handy:
+You'll have to change the file \path{/etc/apt/sources.list} first
+(ignore the line break, it should be a single line):
+
+\begin{VerbatimBoth}
+  deb http://archive.ubuntu.com/ubuntu bionic
+  main restricted universe
+\end{VerbatimBoth}
+
+Now install a few packages -- \path{less} and \path{vim} are optional,
+but might come in handy:
 
 \begin{VerbatimBoth}
   apt-get update
@@ -1043,11 +1051,11 @@ file \path{/etc/bash.bashrc} and unquote these lines:
 Finally, log out and log in as normal user:
 
 \begin{Verbatim32}
-  schroot -c stable-i386
+  schroot -c bionic-i386
 \end{Verbatim32}
 
 \begin{Verbatim64}
-  schroot -c stable-amd64
+  schroot -c bionic-amd64
 \end{Verbatim64}
 
 In this \path{chroot} shell, install the dependencies
@@ -1060,11 +1068,11 @@ After preparing the dependencies, start your \texttt{chroot}
 environment
 
 \begin{Verbatim32}
-  schroot -c stable-i386
+  schroot -c bionic-i386
 \end{Verbatim32}
 
 \begin{Verbatim64}
-  schroot -c stable-amd64
+  schroot -c bionic-amd64
 \end{Verbatim64}
 
 change into the directory \path{build} and execute
@@ -1079,13 +1087,11 @@ where \application{CFG} is one of \application{debug\_x32},
 \application{release\_x64}, and \application{TARGET} is the version
 you want to compile, such as \application{linux\_standalone\_stereo}.
 
-You can switch compilers by opening the file \texttt{run\_premake.sh}
-and using the premake options \texttt{--cc=clang} or
-\texttt{--cc=gcc}.
+In case you run into problems, you can try to switch compilers by
+opening the file \texttt{run\_premake.sh} and using the premake
+options \texttt{--cc=clang} or \texttt{--cc=gcc}.
 
 The compiled binaries will end up in the directory \path{bin}.
-
-\newpage %% layout
 
 \section{Microsoft Windows}
 
