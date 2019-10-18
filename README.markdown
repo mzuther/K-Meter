@@ -1,7 +1,15 @@
-K-Meter
-=======
+# K-Meter
 
 Implementation of a K-System meter according to Bob Katz' specifications
+
+![Screenshot](./doc/include/images/kmeter.png)
+
+## Documentation
+
+For documentation and further information, please see the directory
+[doc][2], especially the file [kmeter.pdf][3].
+
+## License
 
 Copyright (c) 2010-2019 [Martin Zuther][1]
 
@@ -19,13 +27,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Thank you for using free software!
-
-Documentation
--------------
-
-For documentation and further information, please see the directory
-[doc][2], especially the file [kmeter.pdf][3].
-
 
 [1]: http://www.mzuther.de/
 [2]: https://github.com/mzuther/kmeter/tree/master/doc/
