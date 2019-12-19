@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Thank you for using free software!
 
+
 [Martin Zuther]:  http://www.mzuther.de/
 [COC]:            https://github.com/mzuther/K-Meter/tree/master/CODE_OF_CONDUCT.markdown
 [doc]:            https://github.com/mzuther/K-Meter/tree/master/doc/
