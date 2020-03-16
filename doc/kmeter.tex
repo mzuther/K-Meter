@@ -89,11 +89,17 @@ loudness.  There are three K-System scales:
 
 Using the K-System is easy.  Just calibrate your monitor system so
 that pink noise (\SI{-20}{\dBFS}\,RMS, \SI{20}{\hertz} to
-\SI{20}{\kilo\hertz}; \ref{chap:validation} will tell you where to
-find a suitable audio file) on one channel yields \SI{83}{\dBSPL} on a
-loudness meter placed at your listening position and set to
-\emph{C-weighted, slow}.  Then mark the monitor's gain position as
-``K-20''.
+\SI{20}{\kilo\hertz}) yields \SI{83}{\dBSPL}\footnote{This level has
+  to be adapted to room size.  You can find recommended sound pressure
+  levels for different room \textbf{volumes} in table 10.2 of ATSC
+  Recommended Practice
+  \href{https://www.atsc.org/wp-content/uploads/2015/03/Techniques-for-establishing-and-maintaining-audio-loudness.pdf}{A/85:2013}.
+  To help you with conversion, 35 cubic feet are roughly equivalent to
+  \SI{1}{\cubic\meter}.} on each channel\footnote{Measure with all
+  other channels muted.  Be careful to take different panning laws
+  into consideration.}.  Then mark the monitor's gain position as
+``K-20''.  Jump to \ref{chap:validation} for information on how to
+find a suitable audio file.
 
 When your mixes or masters seem to have just the right loudness, they
 should now yield \SI{0}{\dB} on a K-20 meter.
@@ -101,7 +107,9 @@ should now yield \SI{0}{\dB} on a K-20 meter.
 In case you want to use the K-14 meter, attenuate the monitor gain by
 \SI{6}{\dB} or repeat the above process so that pink noise yields
 \SI{77}{\dBSPL}.  For K-12, attenuate the monitor gain by another
-\SI{2}{\dB} (pink noise should yield \SI{75}{\dBSPL}).
+\SI{2}{\dB} (pink noise should yield \SI{75}{\dBSPL}).  Please note,
+however, that this will lead to mixes and masters with a lot of
+compression.
 
 For more information about the K-System, please see
 \href{https://www.digido.com/portfolio-item/level-practices-part-2/}{Bob's
