@@ -4,7 +4,7 @@
    ========
    Common classes for use with the JUCE library
 
-   Copyright (c) 2010-2019 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2020 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ public:
     ///
     static const juce::String getVersion()
     {
-        return "1.9.7";
+        return "1.9.8";
     }
 
 

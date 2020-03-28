@@ -4,7 +4,7 @@
    ========
    Common classes for use with the JUCE library
 
-   Copyright (c) 2010-2019 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2020 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -60,7 +60,8 @@ namespace parameters
 ///        value of 0 evokes linear scaling.
 ///
 /// @param decimal_places number of decimal places for formatting the
-///        real value
+///        real value; negative values will adapt decimal places to
+///        the value's size
 ///
 ParCombined::ParCombined(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places) :
 
