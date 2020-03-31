@@ -28,7 +28,6 @@
 version="2.8.1"
 
 executable_dir="./final"
-include_dir="$executable_dir/kmeter"
 release_dir="releases"
 
 
@@ -88,7 +87,7 @@ function archive_compress
 	echo
 	echo "  Compressing archive..."
 
-	cd /tmp
+	cd /tmp || exit
 
 	if [ "$archive_type" = "bzip2" ]; then
 		archive_name="$archive_dir.tar.bz2"
@@ -104,7 +103,7 @@ function archive_compress
 		zip --recurse-paths "$archive_name" "$archive_dir" > /dev/null
 	fi
 
-	cd $old_dir
+	cd "$old_dir" || exit
 }
 
 
@@ -139,7 +138,14 @@ function archive_store
 
 # ----- General -----
 
-./finalise_executables
+./finalise_executables.sh
+
+mkdir -p "./releases/linux/i386"
+mkdir -p "./releases/linux/amd64"
+
+mkdir -p "./releases/windows/i386"
+mkdir -p "./releases/windows/amd64"
+mkdir -p "./releases/windows/debug_symbols"
 
 
 # ----- GNU/Linux Standalone (32 bit) -----
