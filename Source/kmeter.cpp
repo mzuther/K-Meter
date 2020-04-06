@@ -73,19 +73,19 @@ void Kmeter::applySkin(
 
     xmlSetting = skin->getSetting("kmeter_colour_red");
     Colour segmentRed = skin->getColour(xmlSetting,
-                                        0.00f);
+                                        Colour(0.00f, 1.0f, 1.0f, 1.0f));
 
     xmlSetting = skin->getSetting("kmeter_colour_amber");
     Colour segmentAmber = skin->getColour(xmlSetting,
-                                          0.18f);
+                                          Colour(0.18f, 1.0f, 1.0f, 1.0f));
 
     xmlSetting = skin->getSetting("kmeter_colour_green");
     Colour segmentGreen = skin->getColour(xmlSetting,
-                                          0.30f);
+                                          Colour(0.30f, 1.0f, 1.0f, 1.0f));
 
     xmlSetting = skin->getSetting("kmeter_colour_nonlinear");
     Colour segmentNonLinear = skin->getColour(xmlSetting,
-                              0.30f);
+                              Colour(0.30f, 1.0f, 1.0f, 1.0f));
 
     Array<Colour> segmentColours;
 
