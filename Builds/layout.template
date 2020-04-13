@@ -27,10 +27,15 @@
 
 {% set name = {'real': 'K-Meter', 'short': 'kmeter'} -%}
 
-{% set variants = ({'real': 'Stereo', 'short': 'stereo'},
-                   {'real': 'Surround', 'short': 'surround'}) -%}
+{% set variants = [{'real':    'Stereo',
+                    'short':   'stereo',
+                    'defines': ['KMETER_STEREO=1']},
 
+                   {'real':    'Surround',
+                    'short':   'surround',
+                    'defines': ['KMETER_SURROUND=1']}] -%}
 
+{% set variants_vst2 = variants -%}
 
 {% set additions_solution %}
 
@@ -61,11 +66,11 @@
 
 
 
-{% for variant in variants %}
+{% for variant in variants_vst2 %}
 
 --------------------------------------------------------------------------------
 
-{{ render.vst(name, variant) -}}
+{{ render.vst2(name, variant) -}}
 
 {% endfor -%}
 
