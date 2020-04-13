@@ -53,6 +53,8 @@
   #define JucePlugin_Name        "K-Meter (Stereo)"
 #endif
 
+#define JUCE_JACK_CLIENT_NAME JucePlugin_Name
+
 #define JUCE_USE_FLAC  1
 
 #ifdef KMETER_SURROUND
