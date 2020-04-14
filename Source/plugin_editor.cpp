@@ -57,8 +57,7 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
     : AudioProcessorEditor(ownerFilter)
 {
     // load look and feel
-    currentLookAndFeel_ = new frut::skin::LookAndFeel_Frut_V3;
-    setLookAndFeel(currentLookAndFeel_);
+    setLookAndFeel(&customLookAndFeel_);
 
     // the editor window does not have any transparent areas
     // (increases performance on redrawing)
@@ -356,7 +355,7 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
     // "UM" ==> update meters
     else if (!strMessage.compare("UM"))
     {
-        MeterBallistics *pMeterBallistics = audioProcessor->getLevels();
+        std::shared_ptr<MeterBallistics> pMeterBallistics = audioProcessor->getLevels();
 
         if (pMeterBallistics != nullptr)
         {
@@ -406,7 +405,6 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
 
 void KmeterAudioProcessorEditor::updateParameter(int nIndex)
 {
-    MeterBallistics *pMeterBallistics = nullptr;
     int nValue = audioProcessor->getRealInteger(nIndex);
 
     audioProcessor->clearChangeFlag(nIndex);
@@ -484,14 +482,7 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
         break;
 
     case KmeterPluginParameters::selInfinitePeakHold:
-        pMeterBallistics = audioProcessor->getLevels();
-
-        if (pMeterBallistics != nullptr)
-        {
-            pMeterBallistics->setPeakMeterInfiniteHold(nValue != 0);
-            pMeterBallistics->setAverageMeterInfiniteHold(nValue != 0);
-        }
-
+        audioProcessor->setMeterInfiniteHold(nValue != 0);
         ButtonInfinitePeakHold.setToggleState(nValue != 0, dontSendNotification);
         break;
 
@@ -622,12 +613,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
     }
     else if (button == &ButtonReset)
     {
-        MeterBallistics *pMeterBallistics = audioProcessor->getLevels();
-
-        if (pMeterBallistics)
-        {
-            pMeterBallistics->reset();
-        }
+        audioProcessor->resetMeters();
 
         // apply skin to plug-in editor
         loadSkin();
@@ -662,10 +648,6 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
 
 #if JucePlugin_Build_AU
         pluginNameAndVersion += " (Audio Unit)";
-#endif
-
-#if JucePlugin_Build_LV2
-        pluginNameAndVersion += " (LV2)";
 #endif
 
 #if JucePlugin_Build_VST
@@ -715,9 +697,6 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
             L"JACK\n"
 #endif
             L"JUCE\n"
-#if JucePlugin_Build_LV2
-            L"LV2\n"
-#endif
 #ifdef LINUX
             L"POSIX Threads\n"
 #endif
@@ -801,12 +780,7 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
     }
 
     needsMeterReload = reload_meters;
-    MeterBallistics *pMeterBallistics = audioProcessor->getLevels();
-
-    if (pMeterBallistics != nullptr)
-    {
-        pMeterBallistics->reset();
-    }
+    audioProcessor->resetMeters();
 
     if (!isInitialising)
     {

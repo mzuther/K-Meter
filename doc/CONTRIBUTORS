@@ -23,11 +23,6 @@ Contributors
   Paper "ITU-R BS.1770-1 filter specifications (unofficial)", 2011.
 
 
-* Filipe Coelho (http://www.falktx.com/)
-
-  LV2 support for JUCE.
-
-
 * Bram de Jong (http://bram.smartelectronix.com/)
 
   Envelope follower with different attack and release.

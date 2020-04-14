@@ -14,8 +14,6 @@
 
 bin/.intermediate_*
 
-bin/lv2/kmeter_*.so
-
 bin/standalone/K-Meter*.exe
 bin/standalone/kmeter_*
 

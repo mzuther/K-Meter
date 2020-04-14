@@ -168,31 +168,6 @@ archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux"
 
 
-# ----- GNU/Linux LV2 (32 bit) -----
-
-echo "  === GNU/Linux LV2 $version (32 bit) ==="
-echo
-
-archive_dir="kmeter-linux32-lv2_$version"
-lv2_dir="./lv2/kmeter_lv2"
-
-archive_create
-
-archive_add "kmeter_stereo_lv2.so" "$executable_dir"
-archive_add "kmeter_surround_lv2.so" "$executable_dir"
-
-archive_add "manifest.ttl" "$lv2_dir"
-archive_add "kmeter_stereo.ttl" "$lv2_dir"
-archive_add "kmeter_surround.ttl" "$lv2_dir"
-
-archive_add "kmeter/doc" "$executable_dir"
-archive_add "kmeter/skins/Default" "$executable_dir"
-archive_add "kmeter/skins/Default.skin" "$executable_dir"
-
-archive_compress "gzip"
-archive_store "gzip" "$release_dir/linux"
-
-
 # ----- GNU/Linux VST2 (32 bit) -----
 
 echo "  === GNU/Linux VST2 $version (32 bit) ==="
@@ -224,31 +199,6 @@ archive_create
 
 archive_add "kmeter_stereo_x64" "$executable_dir"
 archive_add "kmeter_surround_x64" "$executable_dir"
-
-archive_add "kmeter/doc" "$executable_dir"
-archive_add "kmeter/skins/Default" "$executable_dir"
-archive_add "kmeter/skins/Default.skin" "$executable_dir"
-
-archive_compress "gzip"
-archive_store "gzip" "$release_dir/linux"
-
-
-# ----- GNU/Linux LV2 (64 bit) -----
-
-echo "  === GNU/Linux LV2 $version (64 bit) ==="
-echo
-
-archive_dir="kmeter-linux64-lv2_$version"
-lv2_dir="./lv2/kmeter_lv2_x64"
-
-archive_create
-
-archive_add "kmeter_stereo_lv2_x64.so" "$executable_dir"
-archive_add "kmeter_surround_lv2_x64.so" "$executable_dir"
-
-archive_add "manifest.ttl" "$lv2_dir"
-archive_add "kmeter_stereo.ttl" "$lv2_dir"
-archive_add "kmeter_surround.ttl" "$lv2_dir"
 
 archive_add "kmeter/doc" "$executable_dir"
 archive_add "kmeter/skins/Default" "$executable_dir"

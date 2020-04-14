@@ -238,7 +238,7 @@ void Kmeter::resized()
 
 
 void Kmeter::setLevels(
-    MeterBallistics *meterBallistics)
+    std::shared_ptr<MeterBallistics> meterBallistics)
 
 {
     for (int channel = 0; channel < numberOfInputChannels_; ++channel)

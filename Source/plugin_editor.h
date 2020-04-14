@@ -81,7 +81,7 @@ private:
     frut::widgets::NeedleMeter stereoMeter;
     frut::widgets::NeedleMeter phaseCorrelationMeter;
 
-    ScopedPointer<juce::LookAndFeel> currentLookAndFeel_;
+    frut::skin::LookAndFeel_Frut_V3 customLookAndFeel_;
 
     ImageButton ButtonK20;
     ImageButton ButtonK14;

@@ -50,7 +50,7 @@ public:
                            bool isHorizontal,
                            bool displayPeakMeter);
 
-    virtual void setLevels(MeterBallistics *meterBallistics);
+    virtual void setLevels(std::shared_ptr<MeterBallistics> meterBallistics);
 
     virtual void resized();
 

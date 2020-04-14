@@ -97,7 +97,10 @@ public:
 
     double getTailLengthSeconds() const override;
 
-    MeterBallistics *getLevels();
+    std::shared_ptr<MeterBallistics> getLevels();
+    void setMeterInfiniteHold(bool infiniteHold);
+    void resetMeters();
+
     virtual bool processBufferChunk(AudioBuffer<float> &buffer) override;
 
     int getAverageAlgorithm();
@@ -127,13 +130,13 @@ private:
                        const int numberOfSamples,
                        const float limitOverflow) const;
 
-    ScopedPointer<AudioFilePlayer> audioFilePlayer_;
-    ScopedPointer<frut::audio::RingBuffer<float>> ringBuffer_;
-    ScopedPointer<frut::audio::RingBuffer<double>> ringBufferDouble_;
+    std::unique_ptr<AudioFilePlayer> audioFilePlayer_;
+    std::unique_ptr<frut::audio::RingBuffer<float>> ringBuffer_;
+    std::unique_ptr<frut::audio::RingBuffer<double>> ringBufferDouble_;
 
-    ScopedPointer<AverageLevelFiltered> averageLevelFiltered_;
-    ScopedPointer<frut::dsp::TruePeakMeter> truePeakMeter_;
-    ScopedPointer<MeterBallistics> meterBallistics_;
+    std::unique_ptr<AverageLevelFiltered> averageLevelFiltered_;
+    std::unique_ptr<frut::dsp::TruePeakMeter> truePeakMeter_;
+    std::shared_ptr<MeterBallistics> meterBallistics_;
 
     KmeterPluginParameters pluginParameters_;
 

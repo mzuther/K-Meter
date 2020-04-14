@@ -29,7 +29,7 @@
 AudioFilePlayer::AudioFilePlayer(
     const File audioFile,
     int sample_rate,
-    MeterBallistics *meter_ballistics,
+    std::shared_ptr<MeterBallistics> meter_ballistics,
     int crest_factor) :
     nullAverager(3, 0.0f)
 {
@@ -69,7 +69,7 @@ AudioFilePlayer::AudioFilePlayer(
 
     if (formatReader)
     {
-        audioFileSource = new AudioFormatReaderSource(formatReader, true);
+        audioFileSource = std::make_unique<AudioFormatReaderSource>(formatReader, true);
         bIsPlaying = true;
 
         nNumberOfSamples = audioFileSource->getTotalLength();

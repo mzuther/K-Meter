@@ -68,17 +68,11 @@ echo
 finalise_executable "standalone/kmeter_stereo"
 finalise_executable "standalone/kmeter_surround"
 
-finalise_executable "lv2/kmeter_stereo_lv2.so"
-finalise_executable "lv2/kmeter_surround_lv2.so"
-
 finalise_executable "vst/kmeter_stereo_vst.so"
 finalise_executable "vst/kmeter_surround_vst.so"
 
 finalise_executable "standalone/kmeter_stereo_x64"
 finalise_executable "standalone/kmeter_surround_x64"
-
-finalise_executable "lv2/kmeter_stereo_lv2_x64.so"
-finalise_executable "lv2/kmeter_surround_lv2_x64.so"
 
 finalise_executable "vst/kmeter_stereo_vst_x64.so"
 finalise_executable "vst/kmeter_surround_vst_x64.so"

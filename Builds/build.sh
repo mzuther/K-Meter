@@ -65,18 +65,10 @@ case $1 in
 		EXECUTABLE="kmeter_surround"
 		;;
 	3)
-		MAKEFILE="kmeter_lv2_stereo"
-		MAKEFILE_PRINT="LV2 plug-in (Stereo)"
-		;;
-	4)
-		MAKEFILE="kmeter_lv2_surround"
-		MAKEFILE_PRINT="LV2 plug-in (Surround)"
-		;;
-	5)
 		MAKEFILE="kmeter_vst_stereo"
 		MAKEFILE_PRINT="VST plug-in (Stereo)"
 		;;
-	6)
+	4)
 		MAKEFILE="kmeter_vst_surround"
 		MAKEFILE_PRINT="VST plug-in (Surround)"
 		;;
@@ -89,11 +81,8 @@ case $1 in
 		echo "  1: Standalone (Stereo)"
 		echo "  2: Standalone (Surround)"
 		echo
-		echo "  3: LV2 plug-in (Stereo)"
-		echo "  4: LV2 plug-in (Surround)"
-		echo
-		echo "  5: VST plug-in (Stereo)"
-		echo "  6: VST plug-in (Surround)"
+		echo "  3: VST plug-in (Stereo)"
+		echo "  4: VST plug-in (Surround)"
 		echo
 		exit
 esac

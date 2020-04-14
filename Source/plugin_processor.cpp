@@ -530,8 +530,11 @@ void KmeterAudioProcessor::prepareToPlay(
 
     isStereo_ = (numInputChannels == 2);
 
-    meterBallistics_ = new MeterBallistics(
-        numInputChannels, averageAlgorithmId_, false, false);
+    meterBallistics_ = std::make_shared<MeterBallistics>(
+                           numInputChannels,
+                           averageAlgorithmId_,
+                           false,
+                           false);
 
     peakLevels_.clear();
     rmsLevels_.clear();
@@ -550,9 +553,11 @@ void KmeterAudioProcessor::prepareToPlay(
         overflowCounts_.add(0);
     }
 
-    averageLevelFiltered_ = new AverageLevelFiltered(
-        numInputChannels, (int) sampleRate, kmeterBufferSize_,
-        averageAlgorithmId_);
+    averageLevelFiltered_ = std::make_unique<AverageLevelFiltered>(
+                                numInputChannels,
+                                (int) sampleRate,
+                                kmeterBufferSize_,
+                                averageAlgorithmId_);
 
     // maximum under-read of true peak measurement is 0.169 dB (see
     // Annex 2 of ITU-R BS.1770-4)
@@ -567,8 +572,10 @@ void KmeterAudioProcessor::prepareToPlay(
         oversamplingFactor /= 2;
     }
 
-    truePeakMeter_ = new frut::dsp::TruePeakMeter(
-        numInputChannels, kmeterBufferSize_, oversamplingFactor);
+    truePeakMeter_ = std::make_unique<frut::dsp::TruePeakMeter>(
+                         numInputChannels,
+                         kmeterBufferSize_,
+                         oversamplingFactor);
 
     // make sure that ring buffer can hold at least kmeterBufferSize_
     // samples and is large enough to receive a full block of audio
@@ -577,19 +584,19 @@ void KmeterAudioProcessor::prepareToPlay(
     int preDelay = kmeterBufferSize_;
     int chunkSize = kmeterBufferSize_;
 
-    ringBuffer_ = new frut::audio::RingBuffer<float>(
-        numInputChannels,
-        ringBufferSize,
-        preDelay,
-        chunkSize);
+    ringBuffer_ = std::make_unique<frut::audio::RingBuffer<float>>(
+                      numInputChannels,
+                      ringBufferSize,
+                      preDelay,
+                      chunkSize);
 
     ringBuffer_->setCallbackClass(this);
 
-    ringBufferDouble_ = new frut::audio::RingBuffer<double>(
-        numInputChannels,
-        ringBufferSize,
-        preDelay,
-        chunkSize);
+    ringBufferDouble_ = std::make_unique<frut::audio::RingBuffer<double>>(
+                            numInputChannels,
+                            ringBufferSize,
+                            preDelay,
+                            chunkSize);
 }
 
 
@@ -1258,10 +1265,11 @@ void KmeterAudioProcessor::startValidation(
     isSilent_ = false;
 
     int crestFactor = getRealInteger(KmeterPluginParameters::selCrestFactor);
-    audioFilePlayer_ = new AudioFilePlayer(fileAudio,
-                                           (int) getSampleRate(),
-                                           meterBallistics_,
-                                           crestFactor);
+    audioFilePlayer_ = std::make_unique<AudioFilePlayer>(
+                           fileAudio,
+                           (int) getSampleRate(),
+                           meterBallistics_,
+                           crestFactor);
 
     if (audioFilePlayer_->matchingSampleRates())
     {
@@ -1324,9 +1332,28 @@ bool KmeterAudioProcessor::isValidating()
 }
 
 
-MeterBallistics *KmeterAudioProcessor::getLevels()
+std::shared_ptr<MeterBallistics> KmeterAudioProcessor::getLevels()
 {
     return meterBallistics_;
+}
+
+
+void KmeterAudioProcessor::setMeterInfiniteHold(bool infiniteHold)
+{
+    if (meterBallistics_)
+    {
+        meterBallistics_->setPeakMeterInfiniteHold(infiniteHold);
+        meterBallistics_->setAverageMeterInfiniteHold(infiniteHold);
+    }
+}
+
+
+void KmeterAudioProcessor::resetMeters()
+{
+    if (meterBallistics_)
+    {
+        meterBallistics_->reset();
+    }
 }
 
 
@@ -1389,7 +1416,7 @@ void KmeterAudioProcessor::getStateInformation(
     DBG("[K-Meter]");
     DBG("[K-Meter] storing plug-in parameters:");
     DBG("[K-Meter]");
-    DBG(String("[K-Meter]   ") + xmlParameters.createDocument("").replace(
+    DBG(String("[K-Meter]   ") + xmlParameters.toString().replace(
             "\n", "\n[K-Meter]   "));
 
     copyXmlToBinary(xmlParameters, destData);
@@ -1400,15 +1427,14 @@ void KmeterAudioProcessor::setStateInformation(
     const void *data,
     int sizeInBytes)
 {
-    ScopedPointer<XmlElement> xmlParameters(
-        getXmlFromBinary(data, sizeInBytes));
+    std::unique_ptr<XmlElement> xmlParameters(getXmlFromBinary(data, sizeInBytes));
 
     DBG("[K-Meter] loading plug-in parameters:");
     DBG("[K-Meter]");
-    DBG(String("[K-Meter]   ") + xmlParameters->createDocument("").replace(
+    DBG(String("[K-Meter]   ") + xmlParameters->toString().replace(
             "\n", "\n[K-Meter]   "));
 
-    pluginParameters_.loadFromXml(xmlParameters);
+    pluginParameters_.loadFromXml(xmlParameters.get());
     updateParameters(true);
 }
 
