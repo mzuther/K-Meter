@@ -65,12 +65,12 @@ case $1 in
 		EXECUTABLE="kmeter_surround"
 		;;
 	3)
-		MAKEFILE="kmeter_vst_stereo"
-		MAKEFILE_PRINT="VST plug-in (Stereo)"
+		MAKEFILE="kmeter_vst2_stereo"
+		MAKEFILE_PRINT="VST2 plug-in (Stereo)"
 		;;
 	4)
-		MAKEFILE="kmeter_vst_surround"
-		MAKEFILE_PRINT="VST plug-in (Surround)"
+		MAKEFILE="kmeter_vst2_surround"
+		MAKEFILE_PRINT="VST2 plug-in (Surround)"
 		;;
 	*)
 		echo "  Target:    ..."
@@ -81,8 +81,8 @@ case $1 in
 		echo "  1: Standalone (Stereo)"
 		echo "  2: Standalone (Surround)"
 		echo
-		echo "  3: VST plug-in (Stereo)"
-		echo "  4: VST plug-in (Surround)"
+		echo "  3: VST2 plug-in (Stereo)"
+		echo "  4: VST2 plug-in (Surround)"
 		echo
 		exit
 esac

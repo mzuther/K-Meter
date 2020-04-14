@@ -2,11 +2,11 @@
 
 @rem ---------------------------------------------------------------------------
 @rem
-@rem  K-Meter
-@rem  =======
-@rem  Implementation of a K-System meter according to Bob Katz' specifications
+@rem  Squeezer
+@rem  ========
+@rem  Flexible general-purpose audio compressor with a touch of citrus
 @rem
-@rem  Copyright (c) 2010-2020 Martin Zuther (http://www.mzuther.de/)
+@rem  Copyright (c) 2013-2020 Martin Zuther (http://www.mzuther.de/)
 @rem
 @rem  This program is free software: you can redistribute it and/or modify
 @rem  it under the terms of the GNU General Public License as published by
@@ -25,13 +25,10 @@
 @rem
 @rem ---------------------------------------------------------------------------
 
-set windows_sdk=10.0.17763.0
-
-
-python.exe create_premake.py %windows_sdk%
-
 @echo.
-@premake5 --os=windows vs2015
+@echo "=== Rendering templates ==="
+python.exe "../Source/frut/jinja/render_templates.py"
+
 
 @echo.
 @premake5 --os=windows vs2017

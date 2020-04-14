@@ -1,27 +1,34 @@
---------------------------------------------------------------------------------
---
+--  ----------------------------------------------------------------------------
+--  
 --  K-Meter
 --  =======
 --  Implementation of a K-System meter according to Bob Katz' specifications
---
+--  
 --  Copyright (c) 2010-2020 Martin Zuther (http://www.mzuther.de/)
---
+--  
 --  This program is free software: you can redistribute it and/or modify
 --  it under the terms of the GNU General Public License as published by
 --  the Free Software Foundation, either version 3 of the License, or
 --  (at your option) any later version.
---
+--  
 --  This program is distributed in the hope that it will be useful,
 --  but WITHOUT ANY WARRANTY; without even the implied warranty of
 --  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 --  GNU General Public License for more details.
---
+--  
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <http://www.gnu.org/licenses/>.
---
+--  
 --  Thank you for using free software!
+--  
+--  ----------------------------------------------------------------------------
+
+
+-- #############################################################################
 --
---------------------------------------------------------------------------------
+-- WARNING: this file is auto-generated, please do not edit!
+--
+-- #############################################################################
 
 
 if not _ACTION then
@@ -85,17 +92,17 @@ workspace "kmeter"
 
     cppdialect "C++14"
 
-	filter { "system:linux", "platforms:x32" }
-		linkoptions {
-			-- force static linking to FFTW
-			"../../../libraries/fftw/bin/linux/i386/libfftw3f.a"
-		}
+    filter { "system:linux", "platforms:x32" }
+        linkoptions {
+            -- force static linking to FFTW
+            "../../../libraries/fftw/bin/linux/i386/libfftw3f.a"
+        }
 
-	filter { "system:linux", "platforms:x64" }
-		linkoptions {
-			-- force static linking to FFTW
-			"../../../libraries/fftw/bin/linux/amd64/libfftw3f.a"
-		}
+    filter { "system:linux", "platforms:x64" }
+        linkoptions {
+            -- force static linking to FFTW
+            "../../../libraries/fftw/bin/linux/amd64/libfftw3f.a"
+        }
 
     filter { "system:linux" }
         defines {
@@ -319,9 +326,9 @@ workspace "kmeter"
 
 --------------------------------------------------------------------------------
 
-    project ("kmeter_vst_stereo")
+    project ("kmeter_vst2_stereo")
         kind "SharedLib"
-        targetdir "../bin/vst/"
+        targetdir "../bin/vst2/"
 
         defines {
             "KMETER_STEREO=1",
@@ -346,23 +353,23 @@ workspace "kmeter"
         }
 
         filter { "system:linux" }
-            targetname "kmeter_stereo_vst"
+            targetname "kmeter_stereo_vst2"
 
         filter { "system:windows" }
             targetname "K-Meter (Stereo"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_stereo_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_stereo_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_release")
 
 --------------------------------------------------------------------------------
 
-    project ("kmeter_vst_surround")
+    project ("kmeter_vst2_surround")
         kind "SharedLib"
-        targetdir "../bin/vst/"
+        targetdir "../bin/vst2/"
 
         defines {
             "KMETER_SURROUND=1",
@@ -387,17 +394,17 @@ workspace "kmeter"
         }
 
         filter { "system:linux" }
-            targetname "kmeter_surround_vst"
+            targetname "kmeter_surround_vst2"
 
         filter { "system:windows" }
             targetname "K-Meter (Surround"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_surround_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_surround_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_surround_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_surround_release")
 
 --------------------------------------------------------------------------------
 

@@ -1,12 +1,12 @@
-#! /usr/bin/env python3
+#!/bin/bash
 
 # ----------------------------------------------------------------------------
 #
-#  K-Meter
-#  =======
-#  Implementation of a K-System meter according to Bob Katz' specifications
+#  Squeezer
+#  ========
+#  Flexible general-purpose audio compressor with a touch of citrus
 #
-#  Copyright (c) 2010-2020 Martin Zuther (http://www.mzuther.de/)
+#  Copyright (c) 2013-2020 Martin Zuther (http://www.mzuther.de/)
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -25,24 +25,18 @@
 #
 # ----------------------------------------------------------------------------
 
-import sys
-import jinja2
+cd "$(dirname "$0")" || exit
+
+echo
+echo "=== Rendering templates ==="
+python3 "../Source/frut/jinja/render_templates.py"
 
 
-windows_sdk = sys.argv[1]
+echo
+premake5 --os=windows vs2017
 
-templateLoader = jinja2.FileSystemLoader(searchpath='.')
-templateEnv = jinja2.Environment(loader=templateLoader, trim_blocks=True)
-template = templateEnv.get_template('layout.template')
+echo
+premake5 --cc=clang --os=linux gmake
+# premake5 --cc=gcc --os=linux gmake
 
-filename = 'premake5.lua'
-output = template.render(windows_sdk=windows_sdk)
-
-print()
-print('=== Generating premake script ===')
-print('Rendering file \'{}\'...'.format(filename))
-
-with open(filename, 'w') as f:
-    f.write(output)
-
-print('Done.')
+echo

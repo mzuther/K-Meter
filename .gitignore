@@ -17,8 +17,8 @@ bin/.intermediate_*
 bin/standalone/K-Meter*.exe
 bin/standalone/kmeter_*
 
-bin/vst/K-Meter*.dll
-bin/vst/kmeter_*.so
+bin/vst2/K-Meter*.dll
+bin/vst2/kmeter_*.so
 
 bin/vst3/K-Meter*.vst3
 bin/vst3/kmeter_*.so

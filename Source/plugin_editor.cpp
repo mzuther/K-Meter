@@ -651,7 +651,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
 #endif
 
 #if JucePlugin_Build_VST
-        pluginNameAndVersion += " (VST)";
+        pluginNameAndVersion += " (VST2)";
 #endif
 
 #if JucePlugin_Build_VST3
