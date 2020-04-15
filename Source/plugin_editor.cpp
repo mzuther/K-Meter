@@ -196,6 +196,9 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor *own
 KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 {
     audioProcessor->removeActionListener(this);
+
+    // release look and feel
+    setLookAndFeel(nullptr);
 }
 
 
