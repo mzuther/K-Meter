@@ -32,21 +32,23 @@
 #
 ###############################################################################
 
-executable_dir="final"
+binary_dir="final"
 
 
-function finalise_executable
+function finalise_binary
 {
     filepath=$1
     filename=$(basename "$1")
 
     if [ -f "./$filepath" ]; then
-        echo "  Finalising:  $filepath -->"
-        echo "               $executable_dir/$filename"
+        if [ ! -f "$binary_dir/$filename" ] || [ "./$filepath" -nt "$binary_dir/$filename" ]; then
+            echo "  Finalising:  $filepath -->"
+            echo "               $binary_dir/$filename"
 
-        mv "./$filepath" "./$executable_dir/$filename"
+            cp "./$filepath" "./$binary_dir/$filename"
 
-        echo
+            echo
+        fi
     fi
 }
 
@@ -57,61 +59,63 @@ function finalise_symbols
     filename=$(basename "$1")
 
     if [ -f "./$filepath" ]; then
-        echo "  Finalising:  $filepath -->"
-        echo "               $executable_dir/debug_symbols/$filepath"
+        if [ ! -f "$binary_dir/debug_symbols/$filepath" ] || [ "./$filepath" -nt "$binary_dir/debug_symbols/$filepath" ]; then
+            echo "  Finalising:  $filepath -->"
+            echo "               $binary_dir/debug_symbols/$filepath"
 
-        mkdir -p "$(dirname "./$executable_dir/debug_symbols/$filepath")"
-        mv "./$filepath" "./$executable_dir/debug_symbols/$filepath"
+            mkdir -p "$(dirname "./$binary_dir/debug_symbols/$filepath")"
+            cp "./$filepath" "./$binary_dir/debug_symbols/$filepath"
 
-        echo
+            echo
+        fi
     fi
 }
 
 
 echo
-echo "  === Finalising executables ==="
+echo "  === Finalising binaries ==="
 echo
 
-finalise_executable "standalone/kmeter_stereo"
-finalise_executable "standalone/kmeter_surround"
+finalise_binary "standalone/kmeter_stereo"
+finalise_binary "standalone/kmeter_surround"
 
-finalise_executable "vst2/kmeter_stereo_vst2.so"
-finalise_executable "vst2/kmeter_surround_vst2.so"
+finalise_binary "vst2/kmeter_stereo_vst2.so"
+finalise_binary "vst2/kmeter_surround_vst2.so"
 
-finalise_executable "standalone/kmeter_stereo_x64"
-finalise_executable "standalone/kmeter_surround_x64"
+finalise_binary "standalone/kmeter_stereo_x64"
+finalise_binary "standalone/kmeter_surround_x64"
 
-finalise_executable "vst2/kmeter_stereo_vst2_x64.so"
-finalise_executable "vst2/kmeter_surround_vst2_x64.so"
+finalise_binary "vst2/kmeter_stereo_vst2_x64.so"
+finalise_binary "vst2/kmeter_surround_vst2_x64.so"
 
-finalise_executable "standalone/K-Meter (Stereo).exe"
+finalise_binary "standalone/K-Meter (Stereo).exe"
 finalise_symbols    "standalone/K-Meter (Stereo).pdb"
-finalise_executable "standalone/K-Meter (Surround).exe"
+finalise_binary "standalone/K-Meter (Surround).exe"
 finalise_symbols    "standalone/K-Meter (Surround).pdb"
 
-finalise_executable "vst2/K-Meter (Stereo).dll"
+finalise_binary "vst2/K-Meter (Stereo).dll"
 finalise_symbols    "vst2/K-Meter (Stereo).pdb"
-finalise_executable "vst2/K-Meter (Surround).dll"
+finalise_binary "vst2/K-Meter (Surround).dll"
 finalise_symbols    "vst2/K-Meter (Surround).pdb"
 
-finalise_executable "vst3/K-Meter (Stereo).vst3"
+finalise_binary "vst3/K-Meter (Stereo).vst3"
 finalise_symbols    "vst3/K-Meter (Stereo).pdb"
-finalise_executable "vst3/K-Meter (Surround).vst3"
+finalise_binary "vst3/K-Meter (Surround).vst3"
 finalise_symbols    "vst3/K-Meter (Surround).pdb"
 
-finalise_executable "standalone/K-Meter (Stereo x64).exe"
+finalise_binary "standalone/K-Meter (Stereo x64).exe"
 finalise_symbols    "standalone/K-Meter (Stereo x64).pdb"
-finalise_executable "standalone/K-Meter (Surround x64).exe"
+finalise_binary "standalone/K-Meter (Surround x64).exe"
 finalise_symbols    "standalone/K-Meter (Surround x64).pdb"
 
-finalise_executable "vst2/K-Meter (Stereo x64).dll"
+finalise_binary "vst2/K-Meter (Stereo x64).dll"
 finalise_symbols    "vst2/K-Meter (Stereo x64).pdb"
-finalise_executable "vst2/K-Meter (Surround x64).dll"
+finalise_binary "vst2/K-Meter (Surround x64).dll"
 finalise_symbols    "vst2/K-Meter (Surround x64).pdb"
 
-finalise_executable "vst3/K-Meter (Stereo x64).vst3"
+finalise_binary "vst3/K-Meter (Stereo x64).vst3"
 finalise_symbols    "vst3/K-Meter (Stereo x64).pdb"
-finalise_executable "vst3/K-Meter (Surround x64).vst3"
+finalise_binary "vst3/K-Meter (Surround x64).vst3"
 finalise_symbols    "vst3/K-Meter (Surround x64).pdb"
 
 echo "  Done."

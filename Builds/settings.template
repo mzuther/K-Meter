@@ -67,38 +67,38 @@
 
 {% set additions_copyvst = {
   'default': [
-    'archive_add "kmeter/doc" "$executable_dir"',
-    'archive_add "kmeter/skins/Default" "$executable_dir"',
-    'archive_add "kmeter/skins/Default.skin" "$executable_dir"'
+    'archive_add "kmeter/doc" "$binary_dir"',
+    'archive_add "kmeter/skins/Default" "$binary_dir"',
+    'archive_add "kmeter/skins/Default.skin" "$binary_dir"'
   ],
 
   'standalone_windows_32': [
-    'archive_add "kmeter/fftw" "$executable_dir"',
+    'archive_add "kmeter/fftw" "$binary_dir"',
     'archive_del "kmeter/fftw/libfftw3f-3_x64.dll"'
   ],
 
   'standalone_windows_64': [
-    'archive_add "kmeter/fftw" "$executable_dir"',
+    'archive_add "kmeter/fftw" "$binary_dir"',
     'archive_del "kmeter/fftw/libfftw3f-3.dll"'
   ],
 
   'vst2_windows_32': [
-    'archive_add "kmeter/fftw" "$executable_dir"',
+    'archive_add "kmeter/fftw" "$binary_dir"',
     'archive_del "kmeter/fftw/libfftw3f-3_x64.dll"'
   ],
 
   'vst2_windows_64': [
-    'archive_add "kmeter/fftw" "$executable_dir"',
+    'archive_add "kmeter/fftw" "$binary_dir"',
     'archive_del "kmeter/fftw/libfftw3f-3.dll"'
   ],
 
   'vst3_windows_32': [
-    'archive_add "kmeter/fftw" "$executable_dir"',
+    'archive_add "kmeter/fftw" "$binary_dir"',
     'archive_del "kmeter/fftw/libfftw3f-3_x64.dll"'
   ],
 
   'vst3_windows_64': [
-    'archive_add "kmeter/fftw" "$executable_dir"',
+    'archive_add "kmeter/fftw" "$binary_dir"',
     'archive_del "kmeter/fftw/libfftw3f-3.dll"'
   ]
 } %}
