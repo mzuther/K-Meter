@@ -30,7 +30,7 @@
 
 
 {% set version = '2.8.1' %}
-{% set category = 'Tools/Analyzer/Meter' %}
+{% set vst2_category = 'Tools/Analyzer/Meter' %}
 {% set windows_sdk = '10.0.17763.0' %}
 
 
