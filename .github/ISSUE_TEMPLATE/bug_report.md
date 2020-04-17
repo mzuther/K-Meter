@@ -36,7 +36,7 @@ If applicable, add screenshots to help explain your problem.
 
 ### Environment (please complete the following information)
 
- - OS: [ Windows 10 (64-bit), Linux v2020.4.10 (32-bit) ]
+ - OS: [ Windows 10 (64-bit), Linux AV v2020.4.10 (32-bit) ]
  - DAW: [ Reaper v6.0.8 (32-bit), Ardour v5.12.0 (32-bit) ]
  - Plug-in: [ K-Meter v2.8.1 VST2 (64-bit), K-Meter v2.8.1 stand-alone (64-bit) ]
 
