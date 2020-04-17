@@ -32,7 +32,7 @@
 #
 ###############################################################################
 
-version="2.8.1"
+version="2.8.2"
 
 binary_dir="./final"
 release_dir="releases"
@@ -167,6 +167,7 @@ archive_create
 archive_add "kmeter_stereo" "$binary_dir"
 archive_add "kmeter_surround" "$binary_dir"
 
+archive_add "kmeter.pdf" "$binary_dir"
 archive_add "kmeter/doc" "$binary_dir"
 archive_add "kmeter/skins/Default" "$binary_dir"
 archive_add "kmeter/skins/Default.skin" "$binary_dir"
@@ -187,6 +188,7 @@ archive_create
 archive_add "kmeter_stereo_vst2.so" "$binary_dir"
 archive_add "kmeter_surround_vst2.so" "$binary_dir"
 
+archive_add "kmeter.pdf" "$binary_dir"
 archive_add "kmeter/doc" "$binary_dir"
 archive_add "kmeter/skins/Default" "$binary_dir"
 archive_add "kmeter/skins/Default.skin" "$binary_dir"
@@ -207,6 +209,7 @@ archive_create
 archive_add "kmeter_stereo_x64" "$binary_dir"
 archive_add "kmeter_surround_x64" "$binary_dir"
 
+archive_add "kmeter.pdf" "$binary_dir"
 archive_add "kmeter/doc" "$binary_dir"
 archive_add "kmeter/skins/Default" "$binary_dir"
 archive_add "kmeter/skins/Default.skin" "$binary_dir"
@@ -227,6 +230,7 @@ archive_create
 archive_add "kmeter_stereo_vst2_x64.so" "$binary_dir"
 archive_add "kmeter_surround_vst2_x64.so" "$binary_dir"
 
+archive_add "kmeter.pdf" "$binary_dir"
 archive_add "kmeter/doc" "$binary_dir"
 archive_add "kmeter/skins/Default" "$binary_dir"
 archive_add "kmeter/skins/Default.skin" "$binary_dir"
@@ -247,6 +251,7 @@ archive_create
 archive_add "K-Meter (Stereo).exe" "$binary_dir"
 archive_add "K-Meter (Surround).exe" "$binary_dir"
 
+archive_add "kmeter.pdf" "$binary_dir"
 archive_add "kmeter/doc" "$binary_dir"
 archive_add "kmeter/skins/Default" "$binary_dir"
 archive_add "kmeter/skins/Default.skin" "$binary_dir"
@@ -269,6 +274,7 @@ archive_create
 archive_add "K-Meter (Stereo).dll" "$binary_dir"
 archive_add "K-Meter (Surround).dll" "$binary_dir"
 
+archive_add "kmeter.pdf" "$binary_dir"
 archive_add "kmeter/doc" "$binary_dir"
 archive_add "kmeter/skins/Default" "$binary_dir"
 archive_add "kmeter/skins/Default.skin" "$binary_dir"
@@ -291,6 +297,7 @@ archive_create
 archive_add "K-Meter (Stereo).vst3" "$binary_dir"
 archive_add "K-Meter (Surround).vst3" "$binary_dir"
 
+archive_add "kmeter.pdf" "$binary_dir"
 archive_add "kmeter/doc" "$binary_dir"
 archive_add "kmeter/skins/Default" "$binary_dir"
 archive_add "kmeter/skins/Default.skin" "$binary_dir"
@@ -313,6 +320,7 @@ archive_create
 archive_add "K-Meter (Stereo x64).exe" "$binary_dir"
 archive_add "K-Meter (Surround x64).exe" "$binary_dir"
 
+archive_add "kmeter.pdf" "$binary_dir"
 archive_add "kmeter/doc" "$binary_dir"
 archive_add "kmeter/skins/Default" "$binary_dir"
 archive_add "kmeter/skins/Default.skin" "$binary_dir"
@@ -335,6 +343,7 @@ archive_create
 archive_add "K-Meter (Stereo x64).dll" "$binary_dir"
 archive_add "K-Meter (Surround x64).dll" "$binary_dir"
 
+archive_add "kmeter.pdf" "$binary_dir"
 archive_add "kmeter/doc" "$binary_dir"
 archive_add "kmeter/skins/Default" "$binary_dir"
 archive_add "kmeter/skins/Default.skin" "$binary_dir"
@@ -357,6 +366,7 @@ archive_create
 archive_add "K-Meter (Stereo x64).vst3" "$binary_dir"
 archive_add "K-Meter (Surround x64).vst3" "$binary_dir"
 
+archive_add "kmeter.pdf" "$binary_dir"
 archive_add "kmeter/doc" "$binary_dir"
 archive_add "kmeter/skins/Default" "$binary_dir"
 archive_add "kmeter/skins/Default.skin" "$binary_dir"

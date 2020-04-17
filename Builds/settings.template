@@ -29,7 +29,7 @@
 ] %}
 
 
-{% set version = '2.8.1' %}
+{% set version = '2.8.2' %}
 {% set vst2_category = 'Tools/Analyzer/Meter' %}
 {% set windows_sdk = '10.0.17763.0' %}
 
@@ -67,6 +67,7 @@
 
 {% set additions_copyvst = {
   'default': [
+    'archive_add "kmeter.pdf" "$binary_dir"',
     'archive_add "kmeter/doc" "$binary_dir"',
     'archive_add "kmeter/skins/Default" "$binary_dir"',
     'archive_add "kmeter/skins/Default.skin" "$binary_dir"'
