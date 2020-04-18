@@ -1,6 +1,18 @@
 Git HEAD
 ========
 
+* customize Jack daemon client name
+
+* drop support for LV2 (sorry, it's just too much hassle)
+        
+* minor fixes and improvements
+        
+* update JUCE framework and libraries
+        
+* update skin
+
+* add documentation
+
 
 
 v2.8.1 (2019-03-23)

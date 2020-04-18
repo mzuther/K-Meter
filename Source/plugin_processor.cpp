@@ -135,18 +135,6 @@ bool KmeterAudioProcessor::isBusesLayoutSupported(
 
 #ifdef KMETER_SURROUND
 
-    // main bus with stereo input ==> okay
-    if (layouts.getMainInputChannelSet() == AudioChannelSet::stereo())
-    {
-        return true;
-    }
-
-    // main bus with 5.0 input ==> okay
-    if (layouts.getMainInputChannelSet() == AudioChannelSet::create5point0())
-    {
-        return true;
-    }
-
     // main bus with 5.1 input ==> okay
     if (layouts.getMainInputChannelSet() == AudioChannelSet::create5point1())
     {
@@ -154,12 +142,6 @@ bool KmeterAudioProcessor::isBusesLayoutSupported(
     }
 
 #else
-
-    // main bus with mono input ==> okay
-    if (layouts.getMainInputChannelSet() == AudioChannelSet::mono())
-    {
-        return true;
-    }
 
     // main bus with stereo input ==> okay
     if (layouts.getMainInputChannelSet() == AudioChannelSet::stereo())
