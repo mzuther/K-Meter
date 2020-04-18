@@ -1,6 +1,13 @@
 Git HEAD
 ========
 
+
+
+v2.8.2 (2020-04-18)
+===================
+
+* improve VST3 channel allocation
+
 * customize Jack daemon client name
 
 * drop support for LV2 (sorry, it's just too much hassle)
