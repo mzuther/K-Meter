@@ -433,6 +433,16 @@ double KmeterAudioProcessor::getTailLengthSeconds() const
 }
 
 
+StringArray KmeterAudioProcessor::getAlternateDisplayNames() const
+{
+    StringArray displayNames(JucePlugin_Name);
+    displayNames.add("K-Meter");
+    displayNames.add("kmet");
+
+    return displayNames;
+}
+
+
 int KmeterAudioProcessor::getNumPrograms()
 {
     return 0;

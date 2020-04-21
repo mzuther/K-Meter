@@ -107,6 +107,8 @@ public:
     void setAverageAlgorithm(const int averageAlgorithm);
     void setAverageAlgorithmFinal(const int averageAlgorithm);
 
+    StringArray getAlternateDisplayNames() const override;
+
     int getNumPrograms() override;
 
     int getCurrentProgram() override;
