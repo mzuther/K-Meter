@@ -1403,7 +1403,7 @@ void KmeterAudioProcessor::setAverageAlgorithmFinal(
 
 AudioProcessorEditor *KmeterAudioProcessor::createEditor()
 {
-    return new KmeterAudioProcessorEditor(this, getMainBusNumInputChannels());
+    return new KmeterAudioProcessorEditor(*this, getMainBusNumInputChannels());
 }
 
 

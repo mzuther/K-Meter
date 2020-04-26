@@ -38,29 +38,26 @@
 /// | 1      | window has been closed to start validation     |
 ///
 WindowValidationContent::WindowValidationContent(
-    KmeterAudioProcessor *processor)
+    KmeterAudioProcessor &processor) :
+    audioProcessor(processor)
 
 {
     // dimensions of content component
     int componentWidth = 175;
     int componentHeight = 290;
 
-    // store handle to audio plug-in processor (used for getting and
-    // setting plug-in parameters)
-    audioProcessor = processor;
-
     // get current number of audio input channels
-    int numberOfInputChannels = audioProcessor->getMainBusNumInputChannels();
+    int numberOfInputChannels = audioProcessor.getMainBusNumInputChannels();
 
     // get current audio sample rate
-    int sampleRate = static_cast<int>(audioProcessor->getSampleRate());
+    int sampleRate = static_cast<int>(audioProcessor.getSampleRate());
 
     // get current audio channel used for validation
-    int selectedChannel = audioProcessor->getRealInteger(
+    int selectedChannel = audioProcessor.getRealInteger(
                               KmeterPluginParameters::selValidationSelectedChannel);
 
     // get current audio file used for validation
-    File validationFile = audioProcessor->getParameterValidationFile();
+    File validationFile = audioProcessor.getParameterValidationFile();
 
     // initialise parent content component
     initialise(componentWidth,
@@ -82,8 +79,8 @@ WindowValidationContent::WindowValidationContent(
 /// @return created dialog window
 ///
 DialogWindow *WindowValidationContent::createDialogWindow(
-    AudioProcessorEditor *pluginEditor,
-    KmeterAudioProcessor *audioProcessor)
+    AudioProcessorEditor &pluginEditor,
+    KmeterAudioProcessor &processor)
 
 {
     // prepare dialog window
@@ -91,13 +88,13 @@ DialogWindow *WindowValidationContent::createDialogWindow(
 
     // create content component
     WindowValidationContent *contentComponent =
-        new WindowValidationContent(audioProcessor);
+        new WindowValidationContent(processor);
 
     // initialise dialog window settings
     windowValidationLauncher.dialogTitle = String("Validation");
     windowValidationLauncher.dialogBackgroundColour = Colours::white;
     windowValidationLauncher.content.setOwned(contentComponent);
-    windowValidationLauncher.componentToCentreAround = pluginEditor;
+    windowValidationLauncher.componentToCentreAround = &pluginEditor;
 
     windowValidationLauncher.escapeKeyTriggersCloseButton = true;
     windowValidationLauncher.useNativeTitleBar = false;
@@ -151,7 +148,7 @@ void WindowValidationContent::initialise(
     buttonDumpCSV_.setButtonText("CSV format");
 
     buttonDumpCSV_.setToggleState(
-        audioProcessor->getBoolean(
+        audioProcessor.getBoolean(
             KmeterPluginParameters::selValidationCSVFormat),
         dontSendNotification);
 
@@ -160,7 +157,7 @@ void WindowValidationContent::initialise(
 
     // initialise channel selection slider
     sliderSelectChannel_.setValue(
-        audioProcessor->getRealInteger(
+        audioProcessor.getRealInteger(
             KmeterPluginParameters::selValidationSelectedChannel),
         dontSendNotification);
 
@@ -171,7 +168,7 @@ void WindowValidationContent::initialise(
     buttonDumpAverageLevel_.setButtonText("Average meter level");
 
     buttonDumpAverageLevel_.setToggleState(
-        audioProcessor->getBoolean(
+        audioProcessor.getBoolean(
             KmeterPluginParameters::selValidationAverageMeterLevel),
         dontSendNotification);
 
@@ -182,7 +179,7 @@ void WindowValidationContent::initialise(
     buttonDumpPeakLevel_.setButtonText("Peak meter level");
 
     buttonDumpPeakLevel_.setToggleState(
-        audioProcessor->getBoolean(
+        audioProcessor.getBoolean(
             KmeterPluginParameters::selValidationPeakMeterLevel),
         dontSendNotification);
 
@@ -193,7 +190,7 @@ void WindowValidationContent::initialise(
     buttonDumpTruePeakLevel_.setButtonText("True peak meter level");
 
     buttonDumpTruePeakLevel_.setToggleState(
-        audioProcessor->getBoolean(
+        audioProcessor.getBoolean(
             KmeterPluginParameters::selValidationTruePeakMeterLevel),
         dontSendNotification);
 
@@ -204,7 +201,7 @@ void WindowValidationContent::initialise(
     buttonDumpMaximumPeakLevel_.setButtonText("Maximum peak level");
 
     buttonDumpMaximumPeakLevel_.setToggleState(
-        audioProcessor->getBoolean(
+        audioProcessor.getBoolean(
             KmeterPluginParameters::selValidationMaximumPeakLevel),
         dontSendNotification);
 
@@ -215,7 +212,7 @@ void WindowValidationContent::initialise(
     buttonDumpMaximumTruePeakLevel_.setButtonText("Max. true peak level");
 
     buttonDumpMaximumTruePeakLevel_.setToggleState(
-        audioProcessor->getBoolean(
+        audioProcessor.getBoolean(
             KmeterPluginParameters::selValidationMaximumTruePeakLevel),
         dontSendNotification);
 
@@ -226,7 +223,7 @@ void WindowValidationContent::initialise(
     buttonDumpStereoMeter_.setButtonText("Stereo meter value");
 
     buttonDumpStereoMeter_.setToggleState(
-        audioProcessor->getBoolean(
+        audioProcessor.getBoolean(
             KmeterPluginParameters::selValidationStereoMeterValue),
         dontSendNotification);
 
@@ -237,7 +234,7 @@ void WindowValidationContent::initialise(
     buttonDumpPhaseCorrelation_.setButtonText("Phase correlation");
 
     buttonDumpPhaseCorrelation_.setToggleState(
-        audioProcessor->getBoolean(
+        audioProcessor.getBoolean(
             KmeterPluginParameters::selValidationPhaseCorrelation),
         dontSendNotification);
 
@@ -340,7 +337,7 @@ void WindowValidationContent::buttonClicked(
         // get selected audio channel (internal value) and update
         // parameter
         float selectedChannelInternal = sliderSelectChannel_.getFloat();
-        audioProcessor->setParameter(
+        audioProcessor.setParameter(
             KmeterPluginParameters::selValidationSelectedChannel,
             selectedChannelInternal);
 
@@ -351,54 +348,54 @@ void WindowValidationContent::buttonClicked(
 
         // get selected output format and update parameter
         bool reportCSV = buttonDumpCSV_.getToggleState();
-        audioProcessor->setParameter(
+        audioProcessor.setParameter(
             KmeterPluginParameters::selValidationCSVFormat,
             reportCSV ? 1.0f : 0.0f);
 
         // get average level log setting and update parameter
         bool logAverageLevel = buttonDumpAverageLevel_.getToggleState();
-        audioProcessor->setParameter(
+        audioProcessor.setParameter(
             KmeterPluginParameters::selValidationAverageMeterLevel,
             logAverageLevel ? 1.0f : 0.0f);
 
         // get peak level log setting and update parameter
         bool logPeakLevel = buttonDumpPeakLevel_.getToggleState();
-        audioProcessor->setParameter(
+        audioProcessor.setParameter(
             KmeterPluginParameters::selValidationPeakMeterLevel,
             logPeakLevel ? 1.0f : 0.0f);
 
         // get maximum peak level log setting and update parameter
         bool logMaximumPeakLevel = buttonDumpMaximumPeakLevel_.getToggleState();
-        audioProcessor->setParameter(
+        audioProcessor.setParameter(
             KmeterPluginParameters::selValidationMaximumPeakLevel,
             logMaximumPeakLevel ? 1.0f : 0.0f);
 
         // get true peak level log setting and update parameter
         bool logTruePeakLevel = buttonDumpTruePeakLevel_.getToggleState();
-        audioProcessor->setParameter(
+        audioProcessor.setParameter(
             KmeterPluginParameters::selValidationTruePeakMeterLevel,
             logTruePeakLevel ? 1.0f : 0.0f);
 
         // get maximum true peak level log setting and update parameter
         bool logMaximumTruePeakLevel = buttonDumpMaximumTruePeakLevel_.getToggleState();
-        audioProcessor->setParameter(
+        audioProcessor.setParameter(
             KmeterPluginParameters::selValidationMaximumTruePeakLevel,
             logMaximumTruePeakLevel ? 1.0f : 0.0f);
 
         // get stereo meter log setting and update parameter
         bool logStereoMeter = buttonDumpStereoMeter_.getToggleState();
-        audioProcessor->setParameter(
+        audioProcessor.setParameter(
             KmeterPluginParameters::selValidationStereoMeterValue,
             logStereoMeter ? 1.0f : 0.0f);
 
         // get phase correlation log setting and update parameter
         bool logPhaseCorrelation = buttonDumpPhaseCorrelation_.getToggleState();
-        audioProcessor->setParameter(
+        audioProcessor.setParameter(
             KmeterPluginParameters::selValidationPhaseCorrelation,
             logPhaseCorrelation ? 1.0f : 0.0f);
 
         // validation file has already been initialised
-        audioProcessor->startValidation(
+        audioProcessor.startValidation(
             validationFile_, selectedChannel, reportCSV,
             logAverageLevel, logPeakLevel, logMaximumPeakLevel,
             logTruePeakLevel, logMaximumTruePeakLevel,
@@ -433,7 +430,7 @@ void WindowValidationContent::selectValidationFile(
     validationFile_ = validationFile;
 
     // update plug-in parameter
-    audioProcessor->setParameterValidationFile(validationFile_);
+    audioProcessor.setParameterValidationFile(validationFile_);
 
     // update label that displays the name of the validation file
     labelFileSelection_.setText(

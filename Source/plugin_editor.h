@@ -39,7 +39,7 @@ class KmeterAudioProcessorEditor :
     public ActionListener
 {
 public:
-    KmeterAudioProcessorEditor(KmeterAudioProcessor *ownerFilter, int nNumChannels);
+    KmeterAudioProcessorEditor(KmeterAudioProcessor &processor, int nNumChannels);
     ~KmeterAudioProcessorEditor();
 
     void buttonClicked(Button *button) override;
@@ -76,7 +76,7 @@ private:
     Skin skin;
     String currentSkinName;
 
-    KmeterAudioProcessor *audioProcessor;
+    KmeterAudioProcessor &audioProcessor;
     Kmeter kmeter_;
     frut::widgets::NeedleMeter stereoMeter;
     frut::widgets::NeedleMeter phaseCorrelationMeter;
