@@ -42,8 +42,8 @@ public:
     KmeterAudioProcessorEditor(KmeterAudioProcessor *ownerFilter, int nNumChannels);
     ~KmeterAudioProcessorEditor();
 
-    void buttonClicked(Button *button);
-    void actionListenerCallback(const String &message);
+    void buttonClicked(Button *button) override;
+    void actionListenerCallback(const String &message) override;
     void updateParameter(int nIndex);
 
     void windowAboutCallback(int modalResult);
@@ -51,11 +51,11 @@ public:
     void windowValidationCallback(int modalResult);
 
     // This is just a standard Juce paint method...
-    void paint(Graphics &g);
-    void resized();
+    void paint(Graphics &g) override;
+    void resized() override;
 
 private:
-    JUCE_LEAK_DETECTOR(KmeterAudioProcessorEditor);
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(KmeterAudioProcessorEditor);
 
     void reloadMeters();
     void applySkin();

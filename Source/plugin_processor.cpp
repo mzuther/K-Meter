@@ -427,6 +427,16 @@ bool KmeterAudioProcessor::producesMidi() const
 }
 
 
+bool KmeterAudioProcessor::isMidiEffect() const
+{
+#if JucePlugin_IsMidiEffect
+    return true;
+#else
+    return false;
+#endif
+}
+
+
 double KmeterAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
@@ -445,7 +455,10 @@ StringArray KmeterAudioProcessor::getAlternateDisplayNames() const
 
 int KmeterAudioProcessor::getNumPrograms()
 {
-    return 0;
+    // some hosts don't cope very well if you tell them there are no
+    // programs, so this should be at least 1, even if you're not
+    // really implementing programs.
+    return 1;
 }
 
 
