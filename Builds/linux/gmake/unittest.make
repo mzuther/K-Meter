@@ -20,21 +20,23 @@ ifeq ($(config),debug_x32)
   ifeq ($(origin AR), default)
     AR = ar
   endif
-  TARGETDIR = ../../../bin/standalone
-  TARGET = $(TARGETDIR)/kmeter_surround_debug
-  OBJDIR = ../../../bin/.intermediate_linux/standalone_surround_debug/x32
-  DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DKMETER_SURROUND=1 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  TARGETDIR = ../../../bin/unittest
+  TARGET = $(TARGETDIR)/unittest_debug
+  OBJDIR = ../../../bin/.intermediate_linux/unittest_debug/x32
+  DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DKMETER_STEREO=1 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/frut -I../../../libraries -I/usr/include -I/usr/include/freetype2
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O0 -g -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fno-inline -ggdb
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O0 -g -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 ../../../libraries/fftw/bin/linux/i386/libfftw3f.a -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
+	@echo Running prebuild commands
+	cxxtestgen --runner=ErrorPrinter --have-eh -o ../../../Source/frut/unittest/unittest.cpp ../../../Source/frut/unittest/*.h
   endef
   define PRELINKCMDS
   endef
@@ -55,21 +57,23 @@ ifeq ($(config),debug_x64)
   ifeq ($(origin AR), default)
     AR = ar
   endif
-  TARGETDIR = ../../../bin/standalone
-  TARGET = $(TARGETDIR)/kmeter_surround_debug_x64
-  OBJDIR = ../../../bin/.intermediate_linux/standalone_surround_debug/x64
-  DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DKMETER_SURROUND=1 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  TARGETDIR = ../../../bin/unittest
+  TARGET = $(TARGETDIR)/unittest_debug_x64
+  OBJDIR = ../../../bin/.intermediate_linux/unittest_debug/x64
+  DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DKMETER_STEREO=1 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/frut -I../../../libraries -I/usr/include -I/usr/include/freetype2
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O0 -g -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fno-inline -ggdb
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O0 -g -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 ../../../libraries/fftw/bin/linux/amd64/libfftw3f.a -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
+	@echo Running prebuild commands
+	cxxtestgen --runner=ErrorPrinter --have-eh -o ../../../Source/frut/unittest/unittest.cpp ../../../Source/frut/unittest/*.h
   endef
   define PRELINKCMDS
   endef
@@ -90,21 +94,23 @@ ifeq ($(config),release_x32)
   ifeq ($(origin AR), default)
     AR = ar
   endif
-  TARGETDIR = ../../../bin/standalone
-  TARGET = $(TARGETDIR)/kmeter_surround
-  OBJDIR = ../../../bin/.intermediate_linux/standalone_surround_release/x32
-  DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DKMETER_SURROUND=1 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  TARGETDIR = ../../../bin/unittest
+  TARGET = $(TARGETDIR)/unittest
+  OBJDIR = ../../../bin/.intermediate_linux/unittest_release/x32
+  DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DKMETER_STEREO=1 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/frut -I../../../libraries -I/usr/include -I/usr/include/freetype2
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe -Wno-deprecated
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe -Wno-deprecated
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 ../../../libraries/fftw/bin/linux/i386/libfftw3f.a -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
+	@echo Running prebuild commands
+	cxxtestgen --runner=ErrorPrinter --have-eh -o ../../../Source/frut/unittest/unittest.cpp ../../../Source/frut/unittest/*.h
   endef
   define PRELINKCMDS
   endef
@@ -125,21 +131,23 @@ ifeq ($(config),release_x64)
   ifeq ($(origin AR), default)
     AR = ar
   endif
-  TARGETDIR = ../../../bin/standalone
-  TARGET = $(TARGETDIR)/kmeter_surround_x64
-  OBJDIR = ../../../bin/.intermediate_linux/standalone_surround_release/x64
-  DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DKMETER_SURROUND=1 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  TARGETDIR = ../../../bin/unittest
+  TARGET = $(TARGETDIR)/unittest_x64
+  OBJDIR = ../../../bin/.intermediate_linux/unittest_release/x64
+  DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DKMETER_STEREO=1 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/frut -I../../../libraries -I/usr/include -I/usr/include/freetype2
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe -Wno-deprecated
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe -Wno-deprecated
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 ../../../libraries/fftw/bin/linux/amd64/libfftw3f.a -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
+	@echo Running prebuild commands
+	cxxtestgen --runner=ErrorPrinter --have-eh -o ../../../Source/frut/unittest/unittest.cpp ../../../Source/frut/unittest/*.h
   endef
   define PRELINKCMDS
   endef
@@ -154,7 +162,6 @@ OBJECTS := \
 	$(OBJDIR)/include_juce_audio_basics.o \
 	$(OBJDIR)/include_juce_audio_devices.o \
 	$(OBJDIR)/include_juce_audio_formats.o \
-	$(OBJDIR)/include_juce_audio_plugin_client_Standalone.o \
 	$(OBJDIR)/include_juce_audio_plugin_client_utils.o \
 	$(OBJDIR)/include_juce_audio_processors.o \
 	$(OBJDIR)/include_juce_audio_utils.o \
@@ -174,6 +181,7 @@ OBJECTS := \
 	$(OBJDIR)/include_frut_parameters.o \
 	$(OBJDIR)/include_frut_skin.o \
 	$(OBJDIR)/include_frut_widgets.o \
+	$(OBJDIR)/unittest.o \
 	$(OBJDIR)/kmeter.o \
 	$(OBJDIR)/meter_ballistics.o \
 	$(OBJDIR)/meter_bar.o \
@@ -195,7 +203,7 @@ ifeq (.exe,$(findstring .exe,$(ComSpec)))
 endif
 
 $(TARGET): $(GCH) ${CUSTOMFILES} $(OBJECTS) $(LDDEPS) $(RESOURCES) | $(TARGETDIR)
-	@echo Linking kmeter_standalone_surround
+	@echo Linking unittest
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -218,7 +226,7 @@ else
 endif
 
 clean:
-	@echo Cleaning kmeter_standalone_surround
+	@echo Cleaning unittest
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -249,9 +257,6 @@ $(OBJDIR)/include_juce_audio_devices.o: ../../../JuceLibraryCode/include_juce_au
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/include_juce_audio_formats.o: ../../../JuceLibraryCode/include_juce_audio_formats.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/include_juce_audio_plugin_client_Standalone.o: ../../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/include_juce_audio_plugin_client_utils.o: ../../../JuceLibraryCode/include_juce_audio_plugin_client_utils.cpp
@@ -309,6 +314,9 @@ $(OBJDIR)/include_frut_skin.o: ../../../Source/frut/amalgamated/include_frut_ski
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/include_frut_widgets.o: ../../../Source/frut/amalgamated/include_frut_widgets.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/unittest.o: ../../../Source/frut/unittest/unittest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/kmeter.o: ../../../Source/kmeter.cpp

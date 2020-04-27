@@ -243,18 +243,6 @@ workspace "kmeter"
               "../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp"
         }
 
-    filter { "system:linux", "platforms:x32" }
-        linkoptions {
-            -- force static linking to FFTW
-            "../../../libraries/fftw/bin/linux/i386/libfftw3f.a"
-        }
-
-    filter { "system:linux", "platforms:x64" }
-        linkoptions {
-            -- force static linking to FFTW
-            "../../../libraries/fftw/bin/linux/amd64/libfftw3f.a"
-        }
-
         filter { "system:linux" }
             targetname "kmeter_stereo"
 
@@ -303,18 +291,6 @@ workspace "kmeter"
 
         files {
               "../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp"
-        }
-
-    filter { "system:linux", "platforms:x32" }
-        linkoptions {
-            -- force static linking to FFTW
-            "../../../libraries/fftw/bin/linux/i386/libfftw3f.a"
-        }
-
-    filter { "system:linux", "platforms:x64" }
-        linkoptions {
-            -- force static linking to FFTW
-            "../../../libraries/fftw/bin/linux/amd64/libfftw3f.a"
         }
 
         filter { "system:linux" }
@@ -376,18 +352,6 @@ workspace "kmeter"
             "../libraries/vst2/VST2_SDK"
         }
 
-    filter { "system:linux", "platforms:x32" }
-        linkoptions {
-            -- force static linking to FFTW
-            "../../../libraries/fftw/bin/linux/i386/libfftw3f.a"
-        }
-
-    filter { "system:linux", "platforms:x64" }
-        linkoptions {
-            -- force static linking to FFTW
-            "../../../libraries/fftw/bin/linux/amd64/libfftw3f.a"
-        }
-
         filter { "system:linux" }
             targetname "kmeter_stereo_vst2"
 
@@ -435,18 +399,6 @@ workspace "kmeter"
 
         includedirs {
             "../libraries/vst2/VST2_SDK"
-        }
-
-    filter { "system:linux", "platforms:x32" }
-        linkoptions {
-            -- force static linking to FFTW
-            "../../../libraries/fftw/bin/linux/i386/libfftw3f.a"
-        }
-
-    filter { "system:linux", "platforms:x64" }
-        linkoptions {
-            -- force static linking to FFTW
-            "../../../libraries/fftw/bin/linux/amd64/libfftw3f.a"
         }
 
         filter { "system:linux" }
@@ -502,18 +454,6 @@ if os.target() == "windows" then
             "../libraries/vst3/VST3_SDK"
         }
 
-    filter { "system:linux", "platforms:x32" }
-        linkoptions {
-            -- force static linking to FFTW
-            "../../../libraries/fftw/bin/linux/i386/libfftw3f.a"
-        }
-
-    filter { "system:linux", "platforms:x64" }
-        linkoptions {
-            -- force static linking to FFTW
-            "../../../libraries/fftw/bin/linux/amd64/libfftw3f.a"
-        }
-
         filter { "system:windows" }
             targetname "K-Meter (Stereo"
             targetextension (".vst3")
@@ -567,18 +507,6 @@ if os.target() == "windows" then
             "../libraries/vst3/VST3_SDK"
         }
 
-    filter { "system:linux", "platforms:x32" }
-        linkoptions {
-            -- force static linking to FFTW
-            "../../../libraries/fftw/bin/linux/i386/libfftw3f.a"
-        }
-
-    filter { "system:linux", "platforms:x64" }
-        linkoptions {
-            -- force static linking to FFTW
-            "../../../libraries/fftw/bin/linux/amd64/libfftw3f.a"
-        }
-
         filter { "system:windows" }
             targetname "K-Meter (Surround"
             targetextension (".vst3")
@@ -598,4 +526,47 @@ if os.target() == "windows" then
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_surround_release")
 
 -- create VST3 projects on Windows only
+end
+
+--------------------------------------------------------------------------------
+
+-- create unit tests on Linux only
+if os.target() == "linux" then
+
+    project ("unittest")
+        kind "ConsoleApp"
+        targetdir "../bin/unittest/"
+
+        defines {
+            "KMETER_STEREO=1",
+            "JucePlugin_Build_Standalone=1",
+            "JucePlugin_Build_VST=0",
+            "JucePlugin_Build_VST3=0"
+        }
+
+        files {
+              "../Source/frut/unittest/unittest.cpp"
+        }
+
+        filter { "system:linux" }
+            targetname "unittest"
+
+            defines {
+                "JUCE_ALSA=0",
+                "JUCE_JACK=0",
+                "JUCE_WASAPI=0",
+                "JUCE_DIRECTSOUND=0"
+            }
+
+            prebuildcommands {
+               "cxxtestgen --runner=ErrorPrinter --have-eh -o ../../../Source/frut/unittest/unittest.cpp ../../../Source/frut/unittest/*.h"
+            }
+
+        filter { "configurations:Debug" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/unittest_debug")
+
+        filter { "configurations:Release" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/unittest_release")
+
+-- create unit tests on Linux only
 end

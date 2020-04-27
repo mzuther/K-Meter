@@ -13,27 +13,31 @@ ifeq ($(config),debug_x32)
   kmeter_standalone_surround_config = debug_x32
   kmeter_vst2_stereo_config = debug_x32
   kmeter_vst2_surround_config = debug_x32
+  unittest_config = debug_x32
 endif
 ifeq ($(config),debug_x64)
   kmeter_standalone_stereo_config = debug_x64
   kmeter_standalone_surround_config = debug_x64
   kmeter_vst2_stereo_config = debug_x64
   kmeter_vst2_surround_config = debug_x64
+  unittest_config = debug_x64
 endif
 ifeq ($(config),release_x32)
   kmeter_standalone_stereo_config = release_x32
   kmeter_standalone_surround_config = release_x32
   kmeter_vst2_stereo_config = release_x32
   kmeter_vst2_surround_config = release_x32
+  unittest_config = release_x32
 endif
 ifeq ($(config),release_x64)
   kmeter_standalone_stereo_config = release_x64
   kmeter_standalone_surround_config = release_x64
   kmeter_vst2_stereo_config = release_x64
   kmeter_vst2_surround_config = release_x64
+  unittest_config = release_x64
 endif
 
-PROJECTS := kmeter_standalone_stereo kmeter_standalone_surround kmeter_vst2_stereo kmeter_vst2_surround
+PROJECTS := kmeter_standalone_stereo kmeter_standalone_surround kmeter_vst2_stereo kmeter_vst2_surround unittest
 
 .PHONY: all clean help $(PROJECTS) 
 
@@ -63,11 +67,18 @@ ifneq (,$(kmeter_vst2_surround_config))
 	@${MAKE} --no-print-directory -C . -f kmeter_vst2_surround.make config=$(kmeter_vst2_surround_config)
 endif
 
+unittest:
+ifneq (,$(unittest_config))
+	@echo "==== Building unittest ($(unittest_config)) ===="
+	@${MAKE} --no-print-directory -C . -f unittest.make config=$(unittest_config)
+endif
+
 clean:
 	@${MAKE} --no-print-directory -C . -f kmeter_standalone_stereo.make clean
 	@${MAKE} --no-print-directory -C . -f kmeter_standalone_surround.make clean
 	@${MAKE} --no-print-directory -C . -f kmeter_vst2_stereo.make clean
 	@${MAKE} --no-print-directory -C . -f kmeter_vst2_surround.make clean
+	@${MAKE} --no-print-directory -C . -f unittest.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -85,5 +96,6 @@ help:
 	@echo "   kmeter_standalone_surround"
 	@echo "   kmeter_vst2_stereo"
 	@echo "   kmeter_vst2_surround"
+	@echo "   unittest"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"
