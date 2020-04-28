@@ -34,7 +34,7 @@ class AverageLevelFiltered :
     public frut::dsp::FIRFilterBox
 {
 public:
-    static const int KMETER_MAXIMUM_FILTER_STAGES = 3;
+    static constexpr int KMETER_MAXIMUM_FILTER_STAGES = 3;
 
     AverageLevelFiltered(const int numberOfChannels,
                          const double sampleRate,
