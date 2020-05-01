@@ -85,9 +85,9 @@ workspace "kmeter"
 
     includedirs {
         "../JuceLibraryCode/",
+        "../libraries/",
         "../libraries/juce/modules/",
         "../Source/frut/",
-        "../libraries/"
     }
 
     cppdialect "C++14"
@@ -545,7 +545,7 @@ if os.target() == "linux" then
         }
 
         includedirs {
-           "../libraries/googletest/googletest/include/"
+            "../libraries/googletest/googletest/include/",
         }
 
         files {
