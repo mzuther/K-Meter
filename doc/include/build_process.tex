@@ -20,7 +20,8 @@
 
 Place the binary somewhere in your \path{PATH}.  Depending on your
 platform, you should run \path{premake} using the scripts
-\path{Builds/run_premake.sh} or \path{Builds/run_premake.bat}.
+\path{Builds/render_templates.sh} or
+\path{Builds/render_templates.bat}.
 
 To change the premake file using Jinja templates, you'll also have to
 install the necessary dependencies.
@@ -74,77 +75,6 @@ Extract the archives into the directories \path{libraries/vst2} and
 \path{libraries/vst3}.  The proprietary VST2 SDK is not available
 anymore.  \textbf{You may only distribute VST2 plug-ins if you have
   signed the old license agreement!}
-
-\subsection{Fastest Fourier Transform in the West}
-
-\begin{tabbing}
-  \hspace*{6em}\=\=\kill
-
-  Importance:  \> required \\
-  Version:     \> 3.3.5 \\
-  License:     \> GPL v2 \\
-  Homepage:    \> \href{http://www.fftw.org/}{www.fftw.org}
-\end{tabbing}
-
-\subsubsection{Installation on GNU/Linux}
-
-Extract the archive into the directory \path{libraries/fftw}, change
-into this directory and run:
-
-\begin{Verbatim32}
-  ./configure --enable-float --with-pic \
-    --enable-sse2 --enable-avx
-  make
-  mkdir -p bin/linux/i386/
-  mv .libs/* bin/linux/i386/
-  make clean
-\end{Verbatim32}
-
-\begin{Verbatim64}
-  ./configure --enable-float --with-pic \
-    --enable-sse2 --enable-avx
-  make
-  mkdir -p bin/linux/amd64/
-  mv .libs/* bin/linux/amd64/
-  make clean
-\end{Verbatim64}
-
-\subsubsection{Installation on Mac OS X}
-
-Extract the archive into the directory \path{libraries/fftw}, change
-into this directory and run:
-
-\begin{Verbatim32}
-  ./configure --enable-float --with-pic \
-    --enable-sse2 --enable-avx
-  make
-  mkdir -p bin/mac/x32/
-  mv .libs/* bin/mac/x32/
-  make clean
-\end{Verbatim32}
-
-\begin{Verbatim64}
-  ./configure --enable-float --with-pic \
-    --enable-sse2 --enable-avx
-  make
-  mkdir -p bin/mac/x64/
-  mv .libs/* bin/mac/x64/
-  make clean
-\end{Verbatim64}
-
-\subsubsection{Installation on Microsoft Windows}
-
-Extract the source code archive into the directory
-\path{libraries/fftw} and the archive containing the pre-compiled
-binaries into the directory \path{libraries/fftw/bin}.
-
-Please note that in order to run K-Meter on Windows, the directory
-\path{kmeter} containing the FFTW libraries (and skins) \textbf{must}
-be located in the same directory as the stand-alone or plug-in.  To
-make things a little easier for you, I have already placed this
-directory in \path{bin}.
-
-\newpage %% layout
 
 \subsection{Python}
 
@@ -370,10 +300,10 @@ environment
   schroot -c bionic-amd64
 \end{Verbatim64}
 
-change into the directory \path{build} and execute
+change into the directory \path{Builds} and execute
 
 \begin{VerbatimBoth}
-  ./run_premake.sh
+  ./render_templates.sh
   make config=CFG TARGET
 \end{VerbatimBoth}
 
@@ -392,15 +322,19 @@ The compiled binaries will end up in the directory \path{bin}.
 
 \subsection{Build}
 
-After preparing the dependencies, change into the directory
-\path{build} and execute
+After setting up the dependencies, please open the file
+\path{Builds/premake5.lua} in an editor and change
+\texttt{systemversion} to the version of the Microsoft Windows SDK
+installed on your system.
+
+Now open the directory \path{Builds} and execute
 
 \begin{VerbatimBoth}
-  ./run_premake.bat
+  ./render_templates.bat
 \end{VerbatimBoth}
 
 Then change into the directory \path{Builds/windows/vs20xx}, open the
-project file with the corresponding version of Visual C++ and build
+project file with the corresponding version of Visual Studio and build
 the project.
 
 The compiled binaries will end up in the directory \path{bin}.
