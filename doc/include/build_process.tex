@@ -11,7 +11,7 @@
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 5.0.0 (alpha14) \\
+  Version:     \> 5.0.0 (alpha15) \\
   License:     \> BSD \\
   Homepage:    \> \href{https://premake.github.io/}{premake.github.io}
 \end{tabbing}
@@ -33,7 +33,7 @@ install the necessary dependencies.
 
   Importance:  \> required \\
   Linux:       \> Clang 6.0 (or gcc 7.5.0) \\
-  Windows:     \> Visual Studio 2017 \\
+  Windows:     \> Visual Studio 2017 (and above) \\
   License:     \> proprietary (Visual Studio) / Open Source \\
 \end{tabbing}
 
@@ -75,6 +75,77 @@ Extract the archives into the directories \path{libraries/vst2} and
 \path{libraries/vst3}.  The proprietary VST2 SDK is not available
 anymore.  \textbf{You may only distribute VST2 plug-ins if you have
   signed the old license agreement!}
+
+\subsection{Fastest Fourier Transform in the West}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Importance:  \> required \\
+  Version:     \> 3.3.5 \\
+  License:     \> GPL v2 \\
+  Homepage:    \> \href{http://www.fftw.org/}{www.fftw.org}
+\end{tabbing}
+
+\subsubsection{Installation on GNU/Linux}
+
+Extract the archive into the directory \path{libraries/fftw}, change
+into this directory and run:
+
+\begin{Verbatim32}
+  ./configure --enable-float --with-pic \
+    --enable-sse2 --enable-avx
+  make
+  mkdir -p bin/linux/i386/
+  mv .libs/* bin/linux/i386/
+  make clean
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  ./configure --enable-float --with-pic \
+    --enable-sse2 --enable-avx
+  make
+  mkdir -p bin/linux/amd64/
+  mv .libs/* bin/linux/amd64/
+  make clean
+\end{Verbatim64}
+
+\subsubsection{Installation on Mac OS X}
+
+Extract the archive into the directory \path{libraries/fftw}, change
+into this directory and run:
+
+\begin{Verbatim32}
+  ./configure --enable-float --with-pic \
+    --enable-sse2 --enable-avx
+  make
+  mkdir -p bin/mac/x32/
+  mv .libs/* bin/mac/x32/
+  make clean
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  ./configure --enable-float --with-pic \
+    --enable-sse2 --enable-avx
+  make
+  mkdir -p bin/mac/x64/
+  mv .libs/* bin/mac/x64/
+  make clean
+\end{Verbatim64}
+
+\subsubsection{Installation on Microsoft Windows}
+
+Extract the source code archive into the directory
+\path{libraries/fftw} and the archive containing the pre-compiled
+binaries into the directory \path{libraries/fftw/bin}.
+
+Please note that in order to run K-Meter on Windows, the directory
+\path{kmeter} containing the FFTW libraries (and skins) \textbf{must}
+be located in the same directory as the stand-alone or plug-in.  To
+make things a little easier for you, I have already placed this
+directory in \path{bin}.
+
+\newpage %% layout
 
 \subsection{Python}
 
@@ -322,12 +393,8 @@ The compiled binaries will end up in the directory \path{bin}.
 
 \subsection{Build}
 
-After setting up the dependencies, please open the file
-\path{Builds/premake5.lua} in an editor and change
-\texttt{systemversion} to the version of the Microsoft Windows SDK
-installed on your system.
-
-Now open the directory \path{Builds} and execute
+After setting up the dependencies, open the directory \path{Builds}
+and execute
 
 \begin{VerbatimBoth}
   ./render_templates.bat
