@@ -71,7 +71,7 @@ echo.
 
 call :CopyVst       "vst3/K-Meter (Stereo).vst3" "%vst3_32%"
 call :CopyVst       "vst3/K-Meter (Surround).vst3" "%vst3_32%"
-call :CopyVst       "vst3/kmeter.pdf" "%%"
+call :CopyVst       "vst3/kmeter.pdf" "%vst3_32%"
 call :CopyVstDelete "vst3/kmeter" "%vst3_32%"
 
 
@@ -100,7 +100,7 @@ echo.
 
 call :CopyVst       "vst3/K-Meter (Stereo x64).vst3" "%vst3_64%"
 call :CopyVst       "vst3/K-Meter (Surround x64).vst3" "%vst3_64%"
-call :CopyVst       "vst3/kmeter.pdf" "%%"
+call :CopyVst       "vst3/kmeter.pdf" "%vst3_64%"
 call :CopyVstDelete "vst3/kmeter" "%vst3_64%"
 
 
