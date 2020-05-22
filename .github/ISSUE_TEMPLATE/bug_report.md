@@ -40,7 +40,7 @@ If applicable, add screenshots to help explain your problem.
  - DAW: [ Reaper v6.0.8 (32-bit), Ardour v5.12.0 (32-bit) ]
  - Plug-in: [ K-Meter v2.8.1 VST2 (64-bit), K-Meter v2.8.1 stand-alone (64-bit) ]
 
-Are K-Meter and the directory "kmeter" located in the folder? [no]
+Are K-Meter and the directory "kmeter" located in the same folder? [no]
 Did you compile K-Meter yourself? [no]
 
 
