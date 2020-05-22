@@ -14,6 +14,8 @@ and the directory [doc][].
 Please read the [code of conduct][COC] before asking for help, filing
 bug reports or contributing to this project.  Thanks!
 
+**Before reporting bugs, please read the [FAQ][wiki].  Thanks!**
+
 ## License
 
 Copyright (c) 2010-2020 [Martin Zuther][]
@@ -38,3 +40,4 @@ Thank you for using free software!
 [COC]:            https://github.com/mzuther/K-Meter/tree/master/CODE_OF_CONDUCT.markdown
 [doc]:            https://github.com/mzuther/K-Meter/tree/master/doc/
 [manual]:         https://github.com/mzuther/K-Meter/raw/master/doc/kmeter.pdf
+[wiki]:           https://github.com/mzuther/K-Meter/wiki
