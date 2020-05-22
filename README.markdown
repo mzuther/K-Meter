@@ -1,8 +1,19 @@
 # K-Meter
 
-Implementation of a K-System meter according to Bob Katz' specifications
+*Implementation of a [K-System meter] according to Bob Katz&rsquo;
+specifications.*
 
 ![Screenshot](./doc/include/images/kmeter.png)
+
+## About
+
+K-Meter supports mono, stereo and 5.1 surround sound signals.  All
+meters have been thoroughly validated.  The average meter reads either
+**RMS** levels or **ITU BS.1770-1** loudness weighted levels.
+
+*K-Meter was featured in an article by [NPR Labs].  Also, some users
+have reported that they use K-Meter for teaching, while others use it
+professionally such as in post-production.*
 
 ## FAQ
 
@@ -42,7 +53,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Thank you for using free software!
 
 
-[Martin Zuther]:  http://www.mzuther.de/
-[COC]:            https://github.com/mzuther/K-Meter/tree/master/CODE_OF_CONDUCT.markdown
-[doc]:            https://github.com/mzuther/K-Meter/tree/master/doc/
-[manual]:         https://github.com/mzuther/K-Meter/raw/master/doc/kmeter.pdf
+[Martin Zuther]:   http://www.mzuther.de/
+[COC]:             https://github.com/mzuther/K-Meter/tree/master/CODE_OF_CONDUCT.markdown
+[doc]:             https://github.com/mzuther/K-Meter/tree/master/doc/
+[manual]:          https://github.com/mzuther/K-Meter/raw/master/doc/kmeter.pdf
+
+[K-System meter]:  https://www.digido.com/portfolio-item/level-practices-part-2/
+[NPR Labs]:        http://www.nprlabs.org/
