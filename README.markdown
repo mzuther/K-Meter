@@ -4,6 +4,14 @@ Implementation of a K-System meter according to Bob Katz' specifications
 
 ![Screenshot](./doc/include/images/kmeter.png)
 
+## FAQ
+
+### K-Meter crashes when the plug-in is loaded/opened
+
+K-Meter comes with a folder called `kmeter`.  This folder must be
+located in the same folder as the plug-in, so please copy it along and
+try again!
+
 ## Documentation
 
 For documentation and further information, please see the [manual][]
@@ -13,8 +21,6 @@ and the directory [doc][].
 
 Please read the [code of conduct][COC] before asking for help, filing
 bug reports or contributing to this project.  Thanks!
-
-**Before reporting bugs, please read the [FAQ][wiki].  Thanks!**
 
 ## License
 
@@ -40,4 +46,3 @@ Thank you for using free software!
 [COC]:            https://github.com/mzuther/K-Meter/tree/master/CODE_OF_CONDUCT.markdown
 [doc]:            https://github.com/mzuther/K-Meter/tree/master/doc/
 [manual]:         https://github.com/mzuther/K-Meter/raw/master/doc/kmeter.pdf
-[wiki]:           https://github.com/mzuther/K-Meter/wiki
