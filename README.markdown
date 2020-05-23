@@ -19,9 +19,14 @@ professionally such as in post-production.*
 
 ### K-Meter crashes when the plug-in is loaded/opened
 
-K-Meter comes with a folder called `kmeter`.  This folder must be
-located in the same folder as the plug-in, so please copy it along and
-try again!
+1. K-Meter comes with a folder called `kmeter`.  This folder must be
+   located in the same folder as the plug-in, so please copy it along
+   and try again!
+
+2. K-Meter requires a processor which supports the SSE2 instruction
+   set (if you run at Windows 8 and above, it does).  On Windows, you
+   might also have to install the [Visual C++ Redistributable for
+   Visual Studio 2017][VC++ Redist].
 
 ## Documentation
 
@@ -60,3 +65,4 @@ Thank you for using free software!
 
 [K-System meter]:  https://www.digido.com/portfolio-item/level-practices-part-2/
 [NPR Labs]:        http://www.nprlabs.org/
+[VC++ Redist]:    https://www.visualstudio.com/downloads/
