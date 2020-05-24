@@ -32,20 +32,21 @@
 #
 ###############################################################################
 
-binary_dir="final"
+binary_dir="./final"
 
 
 function finalise_binary
 {
-    filepath=$1
-    filename=$(basename "$1")
+    input_file=$1
+    output_file="$binary_dir/$input_file"
 
-    if [ -f "./$filepath" ]; then
-        if [ ! -f "$binary_dir/$filename" ] || [ "./$filepath" -nt "$binary_dir/$filename" ]; then
-            printf "  Finalising binary:   %s -->\n" "$filepath"
-            printf "                       %s\n"     "$binary_dir/$filename"
+    if [ -f "./$input_file" ]; then
+        if [ ! -f "$output_file" ] || [ "./$input_file" -nt "$output_file" ]; then
+            printf "  Finalising binary:   %s -->\n" "$input_file"
+            printf "                       %s\n"     "$output_file"
 
-            cp "./$filepath" "./$binary_dir/$filename"
+            mkdir -p "$(dirname "./$output_file")"
+            cp "./$input_file" "./$output_file"
 
             printf "\n"
         fi
@@ -55,16 +56,16 @@ function finalise_binary
 
 function finalise_symbols
 {
-    filepath=$1
-    filename=$(basename "$1")
+    input_file=$1
+    output_file="$binary_dir/debug_symbols/$input_file"
 
-    if [ -f "./$filepath" ]; then
-        if [ ! -f "$binary_dir/debug_symbols/$filepath" ] || [ "./$filepath" -nt "$binary_dir/debug_symbols/$filepath" ]; then
-            printf "  Finalising symbols:  %s -->\n" "$filepath"
-            printf "                       %s\n"     "$binary_dir/debug_symbols/$filepath"
+    if [ -f "./$input_file" ]; then
+        if [ ! -f "$output_file" ] || [ "./$input_file" -nt "$output_file" ]; then
+            printf "  Finalising symbols:  %s -->\n" "$input_file"
+            printf "                       %s\n"     "$output_file"
 
-            mkdir -p "$(dirname "./$binary_dir/debug_symbols/$filepath")"
-            cp "./$filepath" "./$binary_dir/debug_symbols/$filepath"
+            mkdir -p "$(dirname "./$output_file")"
+            cp "./$input_file" "./$output_file"
 
             printf "\n"
         fi
@@ -98,10 +99,10 @@ finalise_symbols "vst2/K-Meter (Stereo).pdb"
 finalise_binary  "vst2/K-Meter (Surround).dll"
 finalise_symbols "vst2/K-Meter (Surround).pdb"
 
-finalise_binary  "vst3/K-Meter (Stereo).vst3"
-finalise_symbols "vst3/K-Meter (Stereo).pdb"
-finalise_binary  "vst3/K-Meter (Surround).vst3"
-finalise_symbols "vst3/K-Meter (Surround).pdb"
+finalise_binary  "vst3/kmeter.vst3/Contents/x86-win/K-Meter (Stereo).vst3"
+finalise_symbols "vst3/kmeter.vst3/Contents/x86-win/K-Meter (Stereo).pdb"
+finalise_binary  "vst3/kmeter.vst3/Contents/x86-win/K-Meter (Surround).vst3"
+finalise_symbols "vst3/kmeter.vst3/Contents/x86-win/K-Meter (Surround).pdb"
 
 finalise_binary  "standalone/K-Meter (Stereo x64).exe"
 finalise_symbols "standalone/K-Meter (Stereo x64).pdb"
@@ -113,9 +114,9 @@ finalise_symbols "vst2/K-Meter (Stereo x64).pdb"
 finalise_binary  "vst2/K-Meter (Surround x64).dll"
 finalise_symbols "vst2/K-Meter (Surround x64).pdb"
 
-finalise_binary  "vst3/K-Meter (Stereo x64).vst3"
-finalise_symbols "vst3/K-Meter (Stereo x64).pdb"
-finalise_binary  "vst3/K-Meter (Surround x64).vst3"
-finalise_symbols "vst3/K-Meter (Surround x64).pdb"
+finalise_binary  "vst3/kmeter.vst3/Contents/x86_64-win/K-Meter (Stereo x64).vst3"
+finalise_symbols "vst3/kmeter.vst3/Contents/x86_64-win/K-Meter (Stereo x64).pdb"
+finalise_binary  "vst3/kmeter.vst3/Contents/x86_64-win/K-Meter (Surround x64).vst3"
+finalise_symbols "vst3/kmeter.vst3/Contents/x86_64-win/K-Meter (Surround x64).pdb"
 
 printf "  Done.\n\n\n"

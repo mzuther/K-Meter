@@ -31,6 +31,7 @@ namespace dsp
 {
 
 FftwRunner::FftwRunner(
+    const File resourceDirectory,
     const int numberOfChannels,
     const int fftBufferSize) :
 
@@ -42,6 +43,8 @@ FftwRunner::FftwRunner(
     fftOverlapAddSamples_(numberOfChannels_, fftBufferSize_)
 
 {
+    ignoreUnused(resourceDirectory);
+
     jassert(numberOfChannels_ > 0);
 
 #if (defined (_WIN32) || defined (_WIN64))
@@ -49,11 +52,11 @@ FftwRunner::FftwRunner(
                                      File::currentExecutableFile);
 
 #ifdef _WIN64
-    File dynamicLibraryFftwFile = currentExecutableFile.getSiblingFile(
-                                      "kmeter/fftw/libfftw3f-3_x64.dll");
+    File dynamicLibraryFftwFile = resourceDirectory.getChildFile(
+                                      "FFTW/libfftw3f-3_x64.dll");
 #else
-    File dynamicLibraryFftwFile = currentExecutableFile.getSiblingFile(
-                                      "kmeter/fftw/libfftw3f-3.dll");
+    File dynamicLibraryFftwFile = resourceDirectory.getChildFile(
+                                      "FFTW/libfftw3f-3.dll");
 #endif
 
     String dynamicLibraryFftwPath = dynamicLibraryFftwFile.getFullPathName();

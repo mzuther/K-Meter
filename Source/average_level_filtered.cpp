@@ -32,7 +32,10 @@ AverageLevelFiltered::AverageLevelFiltered(
     const int fftBufferSize,
     const int averageAlgorithm) :
 
-    frut::dsp::FIRFilterBox(numberOfChannels, fftBufferSize),
+    frut::dsp::FIRFilterBox(
+        KmeterPluginParameters::getResourceDirectory(),
+        numberOfChannels,
+        fftBufferSize),
     sampleRate_(sampleRate),
     previousSamplesPreFilterInput_(
         numberOfChannels_, KMETER_MAXIMUM_FILTER_STAGES - 1),

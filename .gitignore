@@ -21,8 +21,8 @@ bin/standalone/kmeter_*
 bin/vst2/K-Meter*.dll
 bin/vst2/kmeter_*.so
 
-bin/vst3/K-Meter*.vst3
-bin/vst3/kmeter_*.so
+bin/vst3/**/K-Meter*.vst3
+bin/vst3/**/kmeter_*.so
 
 skins/default_skin.ini
 

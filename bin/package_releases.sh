@@ -35,7 +35,11 @@
 version="2.8.2"
 
 binary_dir="./final"
-release_dir="releases"
+release_dir="./releases"
+
+resource_dir_standalone="./standalone/kmeter"
+resource_dir_vst2="./vst2/kmeter"
+resource_dir_vst3="./vst3/kmeter.vst3/Contents/Resources"
 
 
 function archive_is_missing
@@ -71,22 +75,22 @@ function archive_create
 
 function archive_add
 {
-    filename="$1"
-    source_dir="$2"
-    target_dir=$(dirname "/tmp/$archive_dir/$1")
+    source_file="$1"
+    source_file_display=$(realpath --relative-base . --no-symlinks "$source_file")
+    target_dir="/tmp/$archive_dir/$2"
 
     if [ ! -d "$target_dir" ]; then
         mkdir -p "$target_dir"
     fi
 
-    if [ -f "$source_dir/$filename" ]; then
-        printf "  [+] %s\n" "$filename"
-        cp --dereference "$source_dir/$filename" "/tmp/$archive_dir/$1"
-    elif [ -d "$source_dir/$filename" ]; then
-        printf "  [+] %s/*\n" "$filename"
-        cp --dereference --recursive "$source_dir/$filename/" "/tmp/$archive_dir/$1"
+    if [ -f "$source_file" ]; then
+        printf "  [+] %s\n" "$source_file_display"
+        cp --dereference "$source_file" "$target_dir"
+    elif [ -d "$source_file" ]; then
+        printf "  [+] %s/*\n" "$source_file_display"
+        cp --dereference --recursive "$source_file/" "$target_dir"
     else
-        printf "  [ ] %s  --> not added\n" "$filename"
+        printf "  [ ] %s  --> not added\n" "$source_file_display"
     fi
 }
 
@@ -168,12 +172,12 @@ function archive_store
 
 printf "  === Creating release directories ===\n\n"
 
-mkdir -p "./$release_dir/linux/i386"
-mkdir -p "./$release_dir/linux/amd64"
+mkdir -p "$release_dir/linux/i386"
+mkdir -p "$release_dir/linux/amd64"
 
-mkdir -p "./$release_dir/windows/x32"
-mkdir -p "./$release_dir/windows/x64"
-mkdir -p "./$release_dir/windows/debug_symbols"
+mkdir -p "$release_dir/windows/x32"
+mkdir -p "$release_dir/windows/x64"
+mkdir -p "$release_dir/windows/debug_symbols"
 
 printf "  Done.\n\n\n"
 
@@ -187,13 +191,13 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "kmeter_stereo" "$binary_dir"
-    archive_add "kmeter_surround" "$binary_dir"
+    archive_add "$binary_dir/standalone/kmeter_stereo" ""
+    archive_add "$binary_dir/standalone/kmeter_surround" ""
 
-    archive_add "kmeter.pdf" "$binary_dir"
-    archive_add "kmeter/doc" "$binary_dir"
-    archive_add "kmeter/skins/Default" "$binary_dir"
-    archive_add "kmeter/skins/Default.skin" "$binary_dir"
+    archive_add "$resource_dir_standalone/Documentation/kmeter.pdf" ""
+    archive_add "$resource_dir_standalone/Documentation" "kmeter"
+    archive_add "$resource_dir_standalone/Skins/Default" "kmeter/Skins"
+    archive_add "$resource_dir_standalone/Skins/Default.skin" "kmeter/Skins"
 
     archive_compress "gzip"
     archive_store "gzip" "$release_dir/linux"
@@ -209,13 +213,13 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "kmeter_stereo_vst2.so" "$binary_dir"
-    archive_add "kmeter_surround_vst2.so" "$binary_dir"
+    archive_add "$binary_dir/vst2/kmeter_stereo_vst2.so" ""
+    archive_add "$binary_dir/vst2/kmeter_surround_vst2.so" ""
 
-    archive_add "kmeter.pdf" "$binary_dir"
-    archive_add "kmeter/doc" "$binary_dir"
-    archive_add "kmeter/skins/Default" "$binary_dir"
-    archive_add "kmeter/skins/Default.skin" "$binary_dir"
+    archive_add "$resource_dir_vst2/Documentation/kmeter.pdf" ""
+    archive_add "$resource_dir_vst2/Documentation" "kmeter"
+    archive_add "$resource_dir_vst2/Skins/Default" "kmeter/Skins"
+    archive_add "$resource_dir_vst2/Skins/Default.skin" "kmeter/Skins"
 
     archive_compress "gzip"
     archive_store "gzip" "$release_dir/linux"
@@ -231,13 +235,13 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "kmeter_stereo_x64" "$binary_dir"
-    archive_add "kmeter_surround_x64" "$binary_dir"
+    archive_add "$binary_dir/standalone/kmeter_stereo_x64" ""
+    archive_add "$binary_dir/standalone/kmeter_surround_x64" ""
 
-    archive_add "kmeter.pdf" "$binary_dir"
-    archive_add "kmeter/doc" "$binary_dir"
-    archive_add "kmeter/skins/Default" "$binary_dir"
-    archive_add "kmeter/skins/Default.skin" "$binary_dir"
+    archive_add "$resource_dir_standalone/Documentation/kmeter.pdf" ""
+    archive_add "$resource_dir_standalone/Documentation" "kmeter"
+    archive_add "$resource_dir_standalone/Skins/Default" "kmeter/Skins"
+    archive_add "$resource_dir_standalone/Skins/Default.skin" "kmeter/Skins"
 
     archive_compress "gzip"
     archive_store "gzip" "$release_dir/linux"
@@ -253,13 +257,13 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "kmeter_stereo_vst2_x64.so" "$binary_dir"
-    archive_add "kmeter_surround_vst2_x64.so" "$binary_dir"
+    archive_add "$binary_dir/vst2/kmeter_stereo_vst2_x64.so" ""
+    archive_add "$binary_dir/vst2/kmeter_surround_vst2_x64.so" ""
 
-    archive_add "kmeter.pdf" "$binary_dir"
-    archive_add "kmeter/doc" "$binary_dir"
-    archive_add "kmeter/skins/Default" "$binary_dir"
-    archive_add "kmeter/skins/Default.skin" "$binary_dir"
+    archive_add "$resource_dir_vst2/Documentation/kmeter.pdf" ""
+    archive_add "$resource_dir_vst2/Documentation" "kmeter"
+    archive_add "$resource_dir_vst2/Skins/Default" "kmeter/Skins"
+    archive_add "$resource_dir_vst2/Skins/Default.skin" "kmeter/Skins"
 
     archive_compress "gzip"
     archive_store "gzip" "$release_dir/linux"
@@ -275,15 +279,15 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "K-Meter (Stereo).exe" "$binary_dir"
-    archive_add "K-Meter (Surround).exe" "$binary_dir"
+    archive_add "$binary_dir/standalone/K-Meter (Stereo).exe" ""
+    archive_add "$binary_dir/standalone/K-Meter (Surround).exe" ""
 
-    archive_add "kmeter.pdf" "$binary_dir"
-    archive_add "kmeter/doc" "$binary_dir"
-    archive_add "kmeter/skins/Default" "$binary_dir"
-    archive_add "kmeter/skins/Default.skin" "$binary_dir"
-    archive_add "kmeter/fftw" "$binary_dir"
-    archive_del "kmeter/fftw/libfftw3f-3_x64.dll"
+    archive_add "$resource_dir_standalone/Documentation/kmeter.pdf" ""
+    archive_add "$resource_dir_standalone/Documentation" "kmeter"
+    archive_add "$resource_dir_standalone/Skins/Default" "kmeter/Skins"
+    archive_add "$resource_dir_standalone/Skins/Default.skin" "kmeter/Skins"
+    archive_add "$resource_dir_standalone/FFTW" "kmeter"
+    archive_del "kmeter/FFTW/libfftw3f-3_x64.dll"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"
@@ -299,15 +303,15 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "K-Meter (Stereo).dll" "$binary_dir"
-    archive_add "K-Meter (Surround).dll" "$binary_dir"
+    archive_add "$binary_dir/vst2/K-Meter (Stereo).dll" ""
+    archive_add "$binary_dir/vst2/K-Meter (Surround).dll" ""
 
-    archive_add "kmeter.pdf" "$binary_dir"
-    archive_add "kmeter/doc" "$binary_dir"
-    archive_add "kmeter/skins/Default" "$binary_dir"
-    archive_add "kmeter/skins/Default.skin" "$binary_dir"
-    archive_add "kmeter/fftw" "$binary_dir"
-    archive_del "kmeter/fftw/libfftw3f-3_x64.dll"
+    archive_add "$resource_dir_vst2/Documentation/kmeter.pdf" ""
+    archive_add "$resource_dir_vst2/Documentation" "kmeter"
+    archive_add "$resource_dir_vst2/Skins/Default" "kmeter/Skins"
+    archive_add "$resource_dir_vst2/Skins/Default.skin" "kmeter/Skins"
+    archive_add "$resource_dir_vst2/FFTW" "kmeter"
+    archive_del "kmeter/FFTW/libfftw3f-3_x64.dll"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"
@@ -324,15 +328,15 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "K-Meter (Stereo).vst3" "$binary_dir"
-    archive_add "K-Meter (Surround).vst3" "$binary_dir"
+    archive_add "$binary_dir/vst3/kmeter.vst3/Contents/x86-win/K-Meter (Stereo).vst3" "kmeter.vst3/Contents/x86-win"
+    archive_add "$binary_dir/vst3/kmeter.vst3/Contents/x86-win/K-Meter (Surround).vst3" "kmeter.vst3/Contents/x86-win"
 
-    archive_add "kmeter.pdf" "$binary_dir"
-    archive_add "kmeter/doc" "$binary_dir"
-    archive_add "kmeter/skins/Default" "$binary_dir"
-    archive_add "kmeter/skins/Default.skin" "$binary_dir"
-    archive_add "kmeter/fftw" "$binary_dir"
-    archive_del "kmeter/fftw/libfftw3f-3_x64.dll"
+    archive_add "$resource_dir_vst3/Documentation/kmeter.pdf" ""
+    archive_add "$resource_dir_vst3/Documentation" "kmeter.vst3/Contents/Resources"
+    archive_add "$resource_dir_vst3/Skins/Default" "kmeter.vst3/Contents/Resources/Skins"
+    archive_add "$resource_dir_vst3/Skins/Default.skin" "kmeter.vst3/Contents/Resources/Skins"
+    archive_add "$resource_dir_vst3/FFTW" "kmeter.vst3/Contents/Resources"
+    archive_del "kmeter.vst3/Contents/Resources/FFTW/libfftw3f-3_x64.dll"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"
@@ -348,15 +352,15 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "K-Meter (Stereo x64).exe" "$binary_dir"
-    archive_add "K-Meter (Surround x64).exe" "$binary_dir"
+    archive_add "$binary_dir/standalone/K-Meter (Stereo x64).exe" ""
+    archive_add "$binary_dir/standalone/K-Meter (Surround x64).exe" ""
 
-    archive_add "kmeter.pdf" "$binary_dir"
-    archive_add "kmeter/doc" "$binary_dir"
-    archive_add "kmeter/skins/Default" "$binary_dir"
-    archive_add "kmeter/skins/Default.skin" "$binary_dir"
-    archive_add "kmeter/fftw" "$binary_dir"
-    archive_del "kmeter/fftw/libfftw3f-3.dll"
+    archive_add "$resource_dir_standalone/Documentation/kmeter.pdf" ""
+    archive_add "$resource_dir_standalone/Documentation" "kmeter"
+    archive_add "$resource_dir_standalone/Skins/Default" "kmeter/Skins"
+    archive_add "$resource_dir_standalone/Skins/Default.skin" "kmeter/Skins"
+    archive_add "$resource_dir_standalone/FFTW" "kmeter"
+    archive_del "kmeter/FFTW/libfftw3f-3.dll"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"
@@ -372,15 +376,15 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "K-Meter (Stereo x64).dll" "$binary_dir"
-    archive_add "K-Meter (Surround x64).dll" "$binary_dir"
+    archive_add "$binary_dir/vst2/K-Meter (Stereo x64).dll" ""
+    archive_add "$binary_dir/vst2/K-Meter (Surround x64).dll" ""
 
-    archive_add "kmeter.pdf" "$binary_dir"
-    archive_add "kmeter/doc" "$binary_dir"
-    archive_add "kmeter/skins/Default" "$binary_dir"
-    archive_add "kmeter/skins/Default.skin" "$binary_dir"
-    archive_add "kmeter/fftw" "$binary_dir"
-    archive_del "kmeter/fftw/libfftw3f-3.dll"
+    archive_add "$resource_dir_vst2/Documentation/kmeter.pdf" ""
+    archive_add "$resource_dir_vst2/Documentation" "kmeter"
+    archive_add "$resource_dir_vst2/Skins/Default" "kmeter/Skins"
+    archive_add "$resource_dir_vst2/Skins/Default.skin" "kmeter/Skins"
+    archive_add "$resource_dir_vst2/FFTW" "kmeter"
+    archive_del "kmeter/FFTW/libfftw3f-3.dll"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"
@@ -397,15 +401,15 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "K-Meter (Stereo x64).vst3" "$binary_dir"
-    archive_add "K-Meter (Surround x64).vst3" "$binary_dir"
+    archive_add "$binary_dir/vst3/kmeter.vst3/Contents/x86_64-win/K-Meter (Stereo x64).vst3" "kmeter.vst3/Contents/x86_64-win"
+    archive_add "$binary_dir/vst3/kmeter.vst3/Contents/x86_64-win/K-Meter (Surround x64).vst3" "kmeter.vst3/Contents/x86_64-win"
 
-    archive_add "kmeter.pdf" "$binary_dir"
-    archive_add "kmeter/doc" "$binary_dir"
-    archive_add "kmeter/skins/Default" "$binary_dir"
-    archive_add "kmeter/skins/Default.skin" "$binary_dir"
-    archive_add "kmeter/fftw" "$binary_dir"
-    archive_del "kmeter/fftw/libfftw3f-3.dll"
+    archive_add "$resource_dir_vst3/Documentation/kmeter.pdf" ""
+    archive_add "$resource_dir_vst3/Documentation" "kmeter.vst3/Contents/Resources"
+    archive_add "$resource_dir_vst3/Skins/Default" "kmeter.vst3/Contents/Resources/Skins"
+    archive_add "$resource_dir_vst3/Skins/Default.skin" "kmeter.vst3/Contents/Resources/Skins"
+    archive_add "$resource_dir_vst3/FFTW" "kmeter.vst3/Contents/Resources"
+    archive_del "kmeter.vst3/Contents/Resources/FFTW/libfftw3f-3.dll"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"
@@ -421,9 +425,9 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "standalone" "$binary_dir/debug_symbols"
-    archive_add "vst2" "$binary_dir/debug_symbols"
-    archive_add "vst3" "$binary_dir/debug_symbols"
+    archive_add "$binary_dir/debug_symbols/standalone" ""
+    archive_add "$binary_dir/debug_symbols/vst2" ""
+    archive_add "$binary_dir/debug_symbols/vst3" ""
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"

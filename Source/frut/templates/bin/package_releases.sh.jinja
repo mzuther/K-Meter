@@ -28,7 +28,7 @@
 {%- import 'settings.jinja' as settings -%}
 {%- import 'package_releases.sh.macros' as render -%}
 
-{{ render.preamble(settings.copyright, settings.version) }}
+{{ render.preamble(settings.name, settings.copyright, settings.version) }}
 
 {% for platform, bits in [['', '32'], ['_x64', '64']] -%}
 

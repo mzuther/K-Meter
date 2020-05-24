@@ -578,6 +578,7 @@ void KmeterAudioProcessor::prepareToPlay(
     }
 
     truePeakMeter_ = std::make_unique<frut::dsp::TruePeakMeter>(
+                         KmeterPluginParameters::getResourceDirectory(),
                          numInputChannels,
                          kmeterBufferSize_,
                          oversamplingFactor);
