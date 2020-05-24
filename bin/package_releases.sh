@@ -323,8 +323,7 @@ fi
 archive_dir="kmeter-w32-vst3_$version"
 
 if archive_is_missing "zip" "$release_dir/windows" ; then
-    printf "  --- Windows VST3 %s (32 bit) ---\n" "$version"
-    printf "\n"
+    printf "  --- Windows VST3 %s (32 bit) ---\n\n" "$version"
 
     archive_create
 
@@ -396,8 +395,7 @@ fi
 archive_dir="kmeter-w64-vst3_$version"
 
 if archive_is_missing "zip" "$release_dir/windows" ; then
-    printf "  --- Windows VST3 %s (64 bit) ---\n" "$version"
-    printf "\n"
+    printf "  --- Windows VST3 %s (64 bit) ---\n\n" "$version"
 
     archive_create
 
