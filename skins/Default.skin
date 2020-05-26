@@ -257,7 +257,7 @@
 
         <meter_graduation
             x="13"
-            y="66"
+            y="74"
             image_no_peaks="backgrounds/itu/graduation_itu_k20.png"
             image_peaks="backgrounds/itu/graduation_itu_k20.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_k20_expanded.png"
@@ -284,7 +284,7 @@
 
         <meter_graduation
             x="13"
-            y="66"
+            y="74"
             image_no_peaks="backgrounds/itu/graduation_itu_k14.png"
             image_peaks="backgrounds/itu/graduation_itu_k14.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_k14_expanded.png"
@@ -311,7 +311,7 @@
 
         <meter_graduation
             x="13"
-            y="66"
+            y="74"
             image_no_peaks="backgrounds/itu/graduation_itu_k12.png"
             image_peaks="backgrounds/itu/graduation_itu_k12.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_k12_expanded.png"
@@ -338,7 +338,7 @@
 
         <meter_graduation
             x="13"
-            y="66"
+            y="74"
             image_no_peaks="backgrounds/itu/graduation_itu_normal.png"
             image_peaks="backgrounds/itu/graduation_itu_normal.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_normal_expanded.png"
@@ -457,7 +457,7 @@
 
         <meter_graduation
             x="41"
-            y="66"
+            y="74"
             image_no_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k20_expanded.png"
@@ -493,7 +493,7 @@
 
         <meter_graduation
             x="41"
-            y="66"
+            y="74"
             image_no_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k14_expanded.png"
@@ -529,7 +529,7 @@
 
         <meter_graduation
             x="41"
-            y="66"
+            y="74"
             image_no_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k12_expanded.png"
@@ -565,7 +565,7 @@
 
         <meter_graduation
             x="41"
-            y="66"
+            y="74"
             image_no_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_normal_expanded.png"
@@ -789,7 +789,7 @@
 
         <meter_graduation
             x="13"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/itu/graduation_itu_k20.png"
             image_peaks="backgrounds/itu/graduation_itu_k20.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_k20_expanded.png"
@@ -816,7 +816,7 @@
 
         <meter_graduation
             x="13"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/itu/graduation_itu_k14.png"
             image_peaks="backgrounds/itu/graduation_itu_k14.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_k14_expanded.png"
@@ -843,7 +843,7 @@
 
         <meter_graduation
             x="13"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/itu/graduation_itu_k12.png"
             image_peaks="backgrounds/itu/graduation_itu_k12.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_k12_expanded.png"
@@ -870,7 +870,7 @@
 
         <meter_graduation
             x="13"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/itu/graduation_itu_normal.png"
             image_peaks="backgrounds/itu/graduation_itu_normal.png"
             image_expanded_no_peaks="backgrounds/itu/graduation_itu_normal_expanded.png"
@@ -1265,7 +1265,7 @@
 
         <meter_graduation
             x="39"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k20_expanded.png"
@@ -1274,7 +1274,7 @@
 
         <meter_graduation
             x="152"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k20_expanded.png"
@@ -1283,7 +1283,7 @@
 
         <meter_graduation
             x="265"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_peaks="backgrounds/rms/graduation_rms_k20.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k20_expanded.png"
@@ -1355,7 +1355,7 @@
 
         <meter_graduation
             x="39"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k14_expanded.png"
@@ -1364,7 +1364,7 @@
 
         <meter_graduation
             x="152"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k14_expanded.png"
@@ -1373,7 +1373,7 @@
 
         <meter_graduation
             x="265"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_peaks="backgrounds/rms/graduation_rms_k14.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k14_expanded.png"
@@ -1445,7 +1445,7 @@
 
         <meter_graduation
             x="39"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k12_expanded.png"
@@ -1454,7 +1454,7 @@
 
         <meter_graduation
             x="152"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k12_expanded.png"
@@ -1463,7 +1463,7 @@
 
         <meter_graduation
             x="265"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_peaks="backgrounds/rms/graduation_rms_k12.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_k12_expanded.png"
@@ -1535,7 +1535,7 @@
 
         <meter_graduation
             x="39"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_normal_expanded.png"
@@ -1544,7 +1544,7 @@
 
         <meter_graduation
             x="152"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_normal_expanded.png"
@@ -1553,7 +1553,7 @@
 
         <meter_graduation
             x="265"
-            y="26"
+            y="96"
             image_no_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_peaks="backgrounds/rms/graduation_rms_normal.png"
             image_expanded_no_peaks="backgrounds/rms/graduation_rms_normal_expanded.png"

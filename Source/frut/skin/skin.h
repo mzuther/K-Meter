@@ -68,18 +68,31 @@ public:
                            const Colour defaultColour = Colours::red,
                            const String valuePrefix = "");
 
+    std::unique_ptr<Drawable> loadImage(const String &strFilename);
+
     void loadImage(const String &strFilename,
                    Image &image);
 
-    void setBackgroundImage(ImageComponent *background,
-                            AudioProcessorEditor *editor);
+    void setBackground(DrawableComposite *background,
+                       AudioProcessorEditor *editor);
 
-    Point<int> getPosition(const XmlElement *xmlComponent,
-                           const int componentHeight = 0);
+    Point<float> getPositionFloat(const XmlElement *xmlComponent,
+                                  const float componentHeight,
+                                  bool useRelativePosition);
 
-    Rectangle<int> getBounds(const XmlElement *xmlComponent,
-                             int width = -1,
-                             int height = -1);
+    Point<int> getPositionInteger(const XmlElement *xmlComponent,
+                                  const int componentHeight,
+                                  bool useRelativePosition);
+
+    Rectangle<float> getBoundsFloat(const XmlElement *xmlComponent,
+                                    float width,
+                                    float height,
+                                    bool useRelativePosition);
+
+    Rectangle<int> getBoundsInteger(const XmlElement *xmlComponent,
+                                    int width,
+                                    int height,
+                                    bool useRelativePosition);
 
     void placeComponent(const XmlElement *xmlComponent,
                         Component *component);
@@ -88,7 +101,7 @@ public:
                        widgets::MeterBar *meterBar);
 
     void placeAndSkinButton(const String &tagName,
-                            ImageButton *button);
+                            DrawableButton *button);
 
     void placeAndSkinSlider(const String &tagName,
                             widgets::FrutSlider *slider);
@@ -100,7 +113,7 @@ public:
                                  widgets::NeedleMeter *meter);
 
     void placeAndSkinLabel(const String &tagName,
-                           ImageComponent *label);
+                           DrawableComposite *label);
 
     void placeAndSkinSignalLed(const String &tagName,
                                widgets::SignalLed *label);
@@ -111,9 +124,9 @@ public:
 protected:
     std::unique_ptr<XmlElement> document_;
 
-    Image createBogusImage(const String &warningText,
-                           int width,
-                           int height);
+    std::unique_ptr<Drawable> createBogusImage(const String &warningText,
+            int width,
+            int height);
 
     XmlElement *settingsGroup_;
     XmlElement *skinGroup_;

@@ -83,34 +83,34 @@ private:
 
     frut::skin::LookAndFeel_Frut_V3 customLookAndFeel_;
 
-    ImageButton ButtonK20;
-    ImageButton ButtonK14;
-    ImageButton ButtonK12;
-    ImageButton ButtonNormal;
+    DrawableButton ButtonK20;
+    DrawableButton ButtonK14;
+    DrawableButton ButtonK12;
+    DrawableButton ButtonNormal;
 
-    ImageButton ButtonItuBs1770;
-    ImageButton ButtonRms;
+    DrawableButton ButtonItuBs1770;
+    DrawableButton ButtonRms;
 
-    ImageButton ButtonExpanded;
-    ImageButton ButtonSkin;
-    ImageButton ButtonDisplayPeakMeter;
-    ImageButton ButtonInfinitePeakHold;
-    ImageButton ButtonDiscreteMeter;
+    DrawableButton ButtonExpanded;
+    DrawableButton ButtonSkin;
+    DrawableButton ButtonDisplayPeakMeter;
+    DrawableButton ButtonInfinitePeakHold;
+    DrawableButton ButtonDiscreteMeter;
 
-    ImageButton ButtonMono;
-    ImageButton ButtonDim;
-    ImageButton ButtonMute;
-    ImageButton ButtonFlip;
-    ImageButton ButtonReset;
+    DrawableButton ButtonMono;
+    DrawableButton ButtonDim;
+    DrawableButton ButtonMute;
+    DrawableButton ButtonFlip;
+    DrawableButton ButtonReset;
 
-    ImageButton ButtonValidation;
-    ImageButton ButtonAbout;
+    DrawableButton ButtonValidation;
+    DrawableButton ButtonAbout;
 
 #ifdef DEBUG
-    ImageComponent LabelDebug;
+    DrawableComposite LabelDebug;
 #endif
 
-    ImageComponent BackgroundImage;
+    DrawableComposite DrawableBackground;
 };
 
 #endif  // KMETER_PLUGIN_EDITOR_H

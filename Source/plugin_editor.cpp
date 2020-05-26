@@ -55,7 +55,30 @@ static void window_validation_callback(int modalResult, KmeterAudioProcessorEdit
 
 KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor &processor, int nNumChannels)
     : AudioProcessorEditor(&processor),
-      audioProcessor(processor)
+      audioProcessor(processor),
+
+      ButtonK20("K-20", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonK14("K-14", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonK12("K-12", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonNormal("Normal", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonItuBs1770("ITU BS-1770", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonRms("RMS", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonExpanded("Expanded", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonSkin("Skin", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonDisplayPeakMeter("Display Peak Meter", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonInfinitePeakHold("Infinite Peak Hold", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonDiscreteMeter("Discrete Meter", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonMono("Mono", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonDim("Dim", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonMute("Mute", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonFlip("Flip", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonReset("Reset", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonValidation("Validation", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonAbout("About", DrawableButton::ButtonStyle::ImageRaw)
 {
     // load look and feel
     setLookAndFeel(&customLookAndFeel_);
@@ -156,11 +179,9 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor &pro
     addAndMakeVisible(LabelDebug, 0);
 #endif
 
-    // prevent unnecessary redrawing of plugin editor
-    BackgroundImage.setOpaque(true);
-    // moves background image to the back of the editor's z-plane to
+    // moves background image to the back of the editor's z-plane so
     // that it doesn't overlay (and thus block) any other components
-    addAndMakeVisible(BackgroundImage, 0);
+    addAndMakeVisible(DrawableBackground, 0);
 
     if (numberOfInputChannels_ <= 2)
     {
@@ -236,7 +257,7 @@ void KmeterAudioProcessorEditor::applySkin()
 
     // moves background image to the back of the editor's z-plane;
     // will also resize plug-in editor
-    skin.setBackgroundImage(&BackgroundImage, this);
+    skin.setBackground(&DrawableBackground, this);
 
     skin.placeAndSkinButton("button_k20",
                             &ButtonK20);
@@ -555,7 +576,7 @@ void KmeterAudioProcessorEditor::reloadMeters()
 
 void KmeterAudioProcessorEditor::paint(Graphics &g)
 {
-    g.fillAll(Colours::black);
+    g.fillAll(Colours::green);
 }
 
 
