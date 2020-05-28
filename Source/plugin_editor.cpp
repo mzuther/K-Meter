@@ -576,7 +576,11 @@ void KmeterAudioProcessorEditor::reloadMeters()
 
 void KmeterAudioProcessorEditor::paint(Graphics &g)
 {
+#ifdef DEBUG
     g.fillAll(Colours::green);
+#else // DEBUG
+    g.fillAll(Colours::black);
+#endif // DEBUG
 }
 
 
