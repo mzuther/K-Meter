@@ -135,7 +135,7 @@ KmeterPluginParameters::KmeterPluginParameters() :
     ParameterValidationSelectedChannel->addPreset(3.0f,   "4");
     ParameterValidationSelectedChannel->addPreset(4.0f,   "5");
     ParameterValidationSelectedChannel->addPreset(5.0f,   "6");
-#endif
+#endif // KMETER_SURROUND
 
     ParameterValidationSelectedChannel->setDefaultRealFloat(-1.0f, true);
     add(ParameterValidationSelectedChannel, selValidationSelectedChannel);
@@ -255,16 +255,16 @@ const File KmeterPluginParameters::getResourceDirectory()
 #ifdef __APPLE__
     applicationDirectory = File::getSpecialLocation(
                                File::currentExecutableFile).getParentDirectory();
-#else
+#else // __APPLE__
     applicationDirectory = File::getSpecialLocation(
                                File::currentApplicationFile).getParentDirectory();
-#endif
+#endif // __APPLE__
 
 #if JucePlugin_Build_VST3
     return applicationDirectory.getChildFile("../Resources/");
-#else
+#else // JucePlugin_Build_VST3
     return applicationDirectory.getChildFile("./kmeter/");
-#endif
+#endif // JucePlugin_Build_VST3
 }
 
 

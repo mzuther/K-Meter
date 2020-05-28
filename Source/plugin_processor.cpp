@@ -48,7 +48,7 @@ Flow of parameter processing:
 KmeterAudioProcessor::KmeterAudioProcessor() :
 #ifndef JucePlugin_PreferredChannelConfigurations
     AudioProcessor(getBusesProperties()),
-#endif
+#endif // JucePlugin_PreferredChannelConfigurations
     kmeterBufferSize_(1024)
 {
     frut::Frut::printVersionNumbers();
@@ -105,7 +105,7 @@ AudioProcessor::BusesProperties KmeterAudioProcessor::getBusesProperties()
            .withOutput("Main Out",
                        AudioChannelSet::create5point1());
 
-#else
+#else // KMETER_SURROUND
 
     return BusesProperties()
            .withInput("Main In",
@@ -113,7 +113,7 @@ AudioProcessor::BusesProperties KmeterAudioProcessor::getBusesProperties()
            .withOutput("Main Out",
                        AudioChannelSet::stereo());
 
-#endif
+#endif // KMETER_SURROUND
 }
 
 
@@ -141,7 +141,7 @@ bool KmeterAudioProcessor::isBusesLayoutSupported(
         return true;
     }
 
-#else
+#else // KMETER_SURROUND
 
     // main bus with stereo input ==> okay
     if (layouts.getMainInputChannelSet() == AudioChannelSet::stereo())
@@ -149,12 +149,12 @@ bool KmeterAudioProcessor::isBusesLayoutSupported(
         return true;
     }
 
-#endif
+#endif // KMETER_SURROUND
 
     // current channel layout is not allowed
     return false;
 }
-#endif
+#endif // JucePlugin_PreferredChannelConfigurations
 
 
 const String KmeterAudioProcessor::getName() const
@@ -411,9 +411,9 @@ bool KmeterAudioProcessor::acceptsMidi() const
 {
 #if JucePlugin_WantsMidiInput
     return true;
-#else
+#else // JucePlugin_WantsMidiInput
     return false;
-#endif
+#endif // JucePlugin_WantsMidiInput
 }
 
 
@@ -421,9 +421,9 @@ bool KmeterAudioProcessor::producesMidi() const
 {
 #if JucePlugin_ProducesMidiOutput
     return true;
-#else
+#else // JucePlugin_ProducesMidiOutput
     return false;
-#endif
+#endif // JucePlugin_ProducesMidiOutput
 }
 
 
@@ -431,9 +431,9 @@ bool KmeterAudioProcessor::isMidiEffect() const
 {
 #if JucePlugin_IsMidiEffect
     return true;
-#else
+#else // JucePlugin_IsMidiEffect
     return false;
-#endif
+#endif // JucePlugin_IsMidiEffect
 }
 
 
