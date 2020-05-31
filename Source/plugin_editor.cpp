@@ -227,7 +227,7 @@ void KmeterAudioProcessorEditor::loadSkin()
 {
     File fileSkin = skinDirectory.getChildFile(currentSkinName + ".skin");
 
-    if (!fileSkin.existsAsFile())
+    if (! fileSkin.existsAsFile())
     {
         Logger::outputDebugString("[Skin] file \"" + fileSkin.getFileName() + "\" not found");
 
@@ -377,7 +377,7 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
         }
     }
     // "UM" ==> update meters
-    else if (!strMessage.compare("UM"))
+    else if (! strMessage.compare("UM"))
     {
         std::shared_ptr<MeterBallistics> pMeterBallistics = audioProcessor.getLevels();
 
@@ -401,19 +401,19 @@ void KmeterAudioProcessorEditor::actionListenerCallback(const String &strMessage
         }
     }
     // "AC" ==> algorithm changed
-    else if (!strMessage.compare("AC"))
+    else if (! strMessage.compare("AC"))
     {
         updateAverageAlgorithm(true);
     }
     // "V+" ==> validation started
-    else if ((!strMessage.compare("V+")) && audioProcessor.isValidating())
+    else if ((! strMessage.compare("V+")) && audioProcessor.isValidating())
     {
         isValidating = true;
     }
     // "V-" ==> validation stopped
-    else if (!strMessage.compare("V-"))
+    else if (! strMessage.compare("V-"))
     {
-        if (!validationDialogOpen)
+        if (! validationDialogOpen)
         {
             ButtonValidation.setToggleState(false, dontSendNotification);
         }
@@ -541,7 +541,7 @@ void KmeterAudioProcessorEditor::updateParameter(int nIndex)
     }
 
     // prevent meter reload during initialisation
-    if (!isInitialising)
+    if (! isInitialising)
     {
         // will also apply skin to plug-in editor
         reloadMeters();
@@ -566,7 +566,7 @@ void KmeterAudioProcessorEditor::reloadMeters()
 
         bool isAttenuated = ButtonDim.getToggleState() |
                             ButtonMute.getToggleState();
-        kmeter_.setEnabled(!isAttenuated);
+        kmeter_.setEnabled(! isAttenuated);
 
         // moves background image to the back of the editor's z-plane
         applySkin();
@@ -810,7 +810,7 @@ void KmeterAudioProcessorEditor::updateAverageAlgorithm(bool reload_meters)
     needsMeterReload = reload_meters;
     audioProcessor.resetMeters();
 
-    if (!isInitialising)
+    if (! isInitialising)
     {
         // will also apply skin to plug-in editor
         reloadMeters();

@@ -248,7 +248,7 @@ void MeterBar::create(
         }
         else
         {
-            hasHighestLevel = (n == 0) ? true : false;
+            hasHighestLevel = (n == 0);
         }
 
         if (discreteMeter)
@@ -285,6 +285,6 @@ void MeterBar::create(
         }
     }
 
-    // set orientation here to save some processing power
+    // set orientation here to save some processing
     setOrientation(orientation);
 }

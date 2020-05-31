@@ -646,13 +646,13 @@ void KmeterAudioProcessor::processBlock(
     MidiBuffer &midiMessages)
 {
     ignoreUnused(midiMessages);
-    jassert(!isUsingDoublePrecision());
+    jassert(! isUsingDoublePrecision());
 
     // temporarily disable denormals
     ScopedNoDenormals noDenormals;
 
     // mute output if sample rate is invalid
-    if (!sampleRateIsValid_)
+    if (! sampleRateIsValid_)
     {
         buffer.clear();
         return;
@@ -812,7 +812,7 @@ void KmeterAudioProcessor::processBlock(
     ScopedNoDenormals noDenormals;
 
     // mute output if sample rate is invalid
-    if (!sampleRateIsValid_)
+    if (! sampleRateIsValid_)
     {
         buffer.clear();
         return;

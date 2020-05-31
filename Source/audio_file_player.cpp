@@ -444,7 +444,7 @@ void AudioFilePlayer::outputReportCSVLine()
 {
     String strOutput;
 
-    if (!bHeaderIsWritten)
+    if (! bHeaderIsWritten)
     {
         outputReportCSVHeader();
     }

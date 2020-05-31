@@ -326,7 +326,7 @@ void WindowValidationContent::buttonClicked(
     if (button == &buttonValidation_)
     {
         // file name has not been set
-        if (!validationFile_.existsAsFile())
+        if (! validationFile_.existsAsFile())
         {
             DBG("[K-Meter] file name for validation not set.");
 
