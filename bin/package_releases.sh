@@ -32,7 +32,7 @@
 #
 ###############################################################################
 
-version="2.8.2"
+version="$(git describe --first-parent)"
 
 binary_dir="./final"
 release_dir="./releases"
@@ -142,6 +142,11 @@ function archive_store
     archive_type=$1
     destination_dir=$2
 
+    if [ ! -e "$destination_dir" ]; then
+        printf "  Creating folder \"%s\" ...\n" "$destination_dir"
+        mkdir -p "$destination_dir"
+    fi
+
     if [ "$archive_type" = "bzip2" ]; then
         archive_name="$archive_dir.tar.bz2"
     elif [ "$archive_type" = "gzip" ]; then
@@ -200,7 +205,7 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
     archive_add "$resource_dir_standalone/Skins/Default.skin" "kmeter/Skins"
 
     archive_compress "gzip"
-    archive_store "gzip" "$release_dir/linux"
+    archive_store "gzip" "$release_dir/$version/linux"
 fi
 
 
@@ -222,7 +227,7 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
     archive_add "$resource_dir_vst2/Skins/Default.skin" "kmeter/Skins"
 
     archive_compress "gzip"
-    archive_store "gzip" "$release_dir/linux"
+    archive_store "gzip" "$release_dir/$version/linux"
 fi
 
 
@@ -244,7 +249,7 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
     archive_add "$resource_dir_standalone/Skins/Default.skin" "kmeter/Skins"
 
     archive_compress "gzip"
-    archive_store "gzip" "$release_dir/linux"
+    archive_store "gzip" "$release_dir/$version/linux"
 fi
 
 
@@ -266,7 +271,7 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
     archive_add "$resource_dir_vst2/Skins/Default.skin" "kmeter/Skins"
 
     archive_compress "gzip"
-    archive_store "gzip" "$release_dir/linux"
+    archive_store "gzip" "$release_dir/$version/linux"
 fi
 
 
@@ -290,7 +295,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_del "kmeter/FFTW/libfftw3f-3_x64.dll"
 
     archive_compress "zip"
-    archive_store "zip" "$release_dir/windows"
+    archive_store "zip" "$release_dir/$version/windows"
 fi
 
 
@@ -314,7 +319,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_del "kmeter/FFTW/libfftw3f-3_x64.dll"
 
     archive_compress "zip"
-    archive_store "zip" "$release_dir/windows"
+    archive_store "zip" "$release_dir/$version/windows"
 fi
 
 
@@ -338,7 +343,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_del "kmeter.vst3/Contents/Resources/FFTW/libfftw3f-3_x64.dll"
 
     archive_compress "zip"
-    archive_store "zip" "$release_dir/windows"
+    archive_store "zip" "$release_dir/$version/windows"
 fi
 
 
@@ -362,7 +367,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_del "kmeter/FFTW/libfftw3f-3.dll"
 
     archive_compress "zip"
-    archive_store "zip" "$release_dir/windows"
+    archive_store "zip" "$release_dir/$version/windows"
 fi
 
 
@@ -386,7 +391,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_del "kmeter/FFTW/libfftw3f-3.dll"
 
     archive_compress "zip"
-    archive_store "zip" "$release_dir/windows"
+    archive_store "zip" "$release_dir/$version/windows"
 fi
 
 
@@ -410,7 +415,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_del "kmeter.vst3/Contents/Resources/FFTW/libfftw3f-3.dll"
 
     archive_compress "zip"
-    archive_store "zip" "$release_dir/windows"
+    archive_store "zip" "$release_dir/$version/windows"
 fi
 
 
@@ -428,7 +433,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_add "$binary_dir/debug_symbols/vst3" ""
 
     archive_compress "zip"
-    archive_store "zip" "$release_dir/windows"
+    archive_store "zip" "$release_dir/$version/windows/debug_symbols"
 fi
 
 printf "  === Finishing up ===\n\n"
