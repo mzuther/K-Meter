@@ -39,10 +39,6 @@ public:
     void setValidationFile(const File &fileValidation);
 
     static const File getResourceDirectory();
-    static const File getSkinDirectory();
-
-    String getSkinName();
-    void setSkinName(const String &strSkinName);
 
     enum Parameters  // public namespace!
     {
@@ -69,7 +65,6 @@ public:
         selValidationStereoMeterValue,
         selValidationPhaseCorrelation,
         selValidationCSVFormat,
-        selSkinName,
 
         numberOfParametersComplete,
 

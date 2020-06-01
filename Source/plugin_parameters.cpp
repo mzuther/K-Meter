@@ -195,18 +195,6 @@ KmeterPluginParameters::KmeterPluginParameters() :
     ParameterValidationCSVFormat->setName("Validation output format");
     ParameterValidationCSVFormat->setDefaultBoolean(false, true);
     add(ParameterValidationCSVFormat, selValidationCSVFormat);
-
-
-    // locate directory containing the skins
-    File skinDirectory = getSkinDirectory();
-
-    // load name of default skin from file
-    String defaultSkinName = frut::skin::Skin::getDefaultSkin(skinDirectory);
-
-    frut::parameters::ParString *ParameterSkinName =
-        new frut::parameters::ParString(defaultSkinName);
-    ParameterSkinName->setName("Skin");
-    add(ParameterSkinName, selSkinName);
 }
 
 
@@ -265,23 +253,4 @@ const File KmeterPluginParameters::getResourceDirectory()
 #else // JucePlugin_Build_VST3
     return applicationDirectory.getChildFile("./kmeter/");
 #endif // JucePlugin_Build_VST3
-}
-
-
-const File KmeterPluginParameters::getSkinDirectory()
-{
-    File resourceDirectory = KmeterPluginParameters::getResourceDirectory();
-    return resourceDirectory.getChildFile("./Skins/");
-}
-
-
-String KmeterPluginParameters::getSkinName()
-{
-    return getText(selSkinName);
-}
-
-
-void KmeterPluginParameters::setSkinName(const String &strSkinName)
-{
-    setText(selSkinName, strSkinName);
 }

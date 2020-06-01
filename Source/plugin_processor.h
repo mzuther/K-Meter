@@ -84,9 +84,6 @@ public:
     File getParameterValidationFile();
     void setParameterValidationFile(const File &fileValidation);
 
-    String getParameterSkinName();
-    void setParameterSkinName(const String &strSkinName);
-
     bool getBoolean(int nIndex);
     int getRealInteger(int nIndex);
 

@@ -72,9 +72,7 @@ private:
     int crestFactor;
     int numberOfInputChannels_;
 
-    File skinDirectory;
     Skin skin;
-    String currentSkinName;
 
     KmeterAudioProcessor &audioProcessor;
     Kmeter kmeter_;

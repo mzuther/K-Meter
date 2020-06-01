@@ -34,8 +34,7 @@ class Skin :
     public frut::skin::Skin
 {
 public:
-    bool loadSkin(File &skinFile,
-                  int numberOfChannels,
+    bool loadSkin(int numberOfChannels,
                   int crestFactor,
                   int averageAlgorithm,
                   bool isExpanded,
@@ -46,6 +45,9 @@ public:
                     int averageAlgorithm,
                     bool isExpanded,
                     bool displayPeakMeter);
+
+    virtual File getSkinDirectory() override;
+    virtual File getSettingsFile() override;
 
 private:
     JUCE_LEAK_DETECTOR(Skin);

@@ -202,14 +202,10 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor(KmeterAudioProcessor &pro
     updateParameter(KmeterPluginParameters::selMute);
     updateParameter(KmeterPluginParameters::selFlip);
 
-    // locate directory containing the skins
-    skinDirectory = KmeterPluginParameters::getSkinDirectory();
-
     // force meter reload after initialisation
     isInitialising = false;
 
     // apply skin to plug-in editor
-    currentSkinName = audioProcessor.getParameterSkinName();
     loadSkin();
 }
 
@@ -225,18 +221,11 @@ KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 
 void KmeterAudioProcessorEditor::loadSkin()
 {
-    File fileSkin = skinDirectory.getChildFile(currentSkinName + ".skin");
-
-    if (! fileSkin.existsAsFile())
-    {
-        Logger::outputDebugString("[Skin] file \"" + fileSkin.getFileName() + "\" not found");
-
-        currentSkinName = "Default";
-        fileSkin = skinDirectory.getChildFile(currentSkinName + ".skin");
-    }
-
-    audioProcessor.setParameterSkinName(currentSkinName);
-    skin.loadSkin(fileSkin, numberOfInputChannels_, crestFactor, audioProcessor.getAverageAlgorithm(), isExpanded, usePeakMeter);
+    skin.loadSkin(numberOfInputChannels_,
+                  crestFactor,
+                  audioProcessor.getAverageAlgorithm(),
+                  isExpanded,
+                  usePeakMeter);
 
     // will also apply skin to plug-in editor
     needsMeterReload = true;
@@ -253,7 +242,11 @@ void KmeterAudioProcessorEditor::applySkin()
     }
 
     // update skin
-    skin.updateSkin(numberOfInputChannels_, crestFactor, audioProcessor.getAverageAlgorithm(), isExpanded, usePeakMeter);
+    skin.updateSkin(numberOfInputChannels_,
+                    crestFactor,
+                    audioProcessor.getAverageAlgorithm(),
+                    isExpanded,
+                    usePeakMeter);
 
     // moves background image to the back of the editor's z-plane;
     // will also resize plug-in editor
@@ -629,8 +622,7 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         button->setToggleState(true, dontSendNotification);
 
         // prepare and launch dialog window
-        DialogWindow *windowSkin = frut::widgets::WindowSkinContent::createDialogWindow(
-                                       this, &currentSkinName, skinDirectory);
+        DialogWindow *windowSkin = frut::widgets::WindowSkinContent::createDialogWindow(this, &skin);
 
         // attach callback to dialog window
         ModalComponentManager::getInstance()->attachCallback(windowSkin, ModalCallbackFunction::forComponent(window_skin_callback, this));

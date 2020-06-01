@@ -26,8 +26,7 @@
 #include "skin.h"
 
 
-bool Skin::loadSkin(File &skinFile,
-                    int numberOfChannels,
+bool Skin::loadSkin(int numberOfChannels,
                     int crestFactor,
                     int averageAlgorithm,
                     bool isExpanded,
@@ -41,7 +40,7 @@ bool Skin::loadSkin(File &skinFile,
                displayPeakMeter);
 
     // signal success or failure
-    return loadFromXml(skinFile, "kmeter-skin", "1.4");
+    return loadFromXml("kmeter-skin", "1.4");
 }
 
 
@@ -121,4 +120,20 @@ void Skin::updateSkin(int numberOfChannels,
         skinFallback_1_ = nullptr;
         skinFallback_2_ = nullptr;
     }
+}
+
+
+File Skin::getSkinDirectory()
+{
+    auto resourceDirectory = KmeterPluginParameters::getResourceDirectory();
+    return resourceDirectory.getChildFile("./Skins/");
+}
+
+
+File Skin::getSettingsFile()
+{
+    auto settingsDirectory = File::getSpecialLocation(File::userApplicationDataDirectory);
+    auto defaultSkinFile = settingsDirectory.getChildFile("K-Meter.skin");
+
+    return defaultSkinFile;
 }
