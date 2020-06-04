@@ -678,6 +678,8 @@ void KmeterAudioProcessorEditor::buttonClicked(Button *button)
         pluginNameAndVersion += " (VST3)";
 #endif // JucePlugin_Build_VST3
 
+        pluginNameAndVersion += String(KMETER_BUILD_ID);
+
         arrChapters.set(
             pluginNameAndVersion,
             String(JucePlugin_Desc) + ".\n");

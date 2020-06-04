@@ -26,6 +26,8 @@
 #ifndef KMETER_PLUGIN_EDITOR_H
 #define KMETER_PLUGIN_EDITOR_H
 
+#include "build_id.h"
+
 #include "FrutHeader.h"
 #include "plugin_processor.h"
 #include "kmeter.h"
