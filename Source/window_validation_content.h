@@ -33,40 +33,40 @@
 /// Customized dialog window for validation settings.
 ///
 class WindowValidationContent :
-    public frut::widgets::WindowValidationContent
+   public frut::widgets::WindowValidationContent
 {
 public:
-    explicit WindowValidationContent(KmeterAudioProcessor &processor);
+   explicit WindowValidationContent( KmeterAudioProcessor& processor );
 
-    static DialogWindow *createDialogWindow(
-        AudioProcessorEditor &pluginEditor,
-        KmeterAudioProcessor &processor);
+   static DialogWindow* createDialogWindow(
+      AudioProcessorEditor& pluginEditor,
+      KmeterAudioProcessor& processor );
 
-    virtual void buttonClicked(Button *button);
-    virtual void applySkin();
+   virtual void buttonClicked( Button* button );
+   virtual void applySkin();
 
-    virtual void initialise(int componentWidth,
+   virtual void initialise( int componentWidth,
                             int componentHeight,
                             int numberOfInputChannels,
                             int sampleRate,
                             int selectedChannel,
-                            const File &validationFile);
+                            const File& validationFile );
 
-    virtual void selectValidationFile(const File &validationFile);
+   virtual void selectValidationFile( const File& validationFile );
 
 private:
-    JUCE_LEAK_DETECTOR(WindowValidationContent);
+   JUCE_LEAK_DETECTOR( WindowValidationContent );
 
-    KmeterAudioProcessor &audioProcessor;
+   KmeterAudioProcessor& audioProcessor;
 
-    ToggleButton buttonDumpCSV_;
-    ToggleButton buttonDumpAverageLevel_;
-    ToggleButton buttonDumpPeakLevel_;
-    ToggleButton buttonDumpTruePeakLevel_;
-    ToggleButton buttonDumpMaximumPeakLevel_;
-    ToggleButton buttonDumpMaximumTruePeakLevel_;
-    ToggleButton buttonDumpStereoMeter_;
-    ToggleButton buttonDumpPhaseCorrelation_;
+   ToggleButton buttonDumpCSV_;
+   ToggleButton buttonDumpAverageLevel_;
+   ToggleButton buttonDumpPeakLevel_;
+   ToggleButton buttonDumpTruePeakLevel_;
+   ToggleButton buttonDumpMaximumPeakLevel_;
+   ToggleButton buttonDumpMaximumTruePeakLevel_;
+   ToggleButton buttonDumpStereoMeter_;
+   ToggleButton buttonDumpPhaseCorrelation_;
 };
 
 #endif  // KMETER_WINDOW_VALIDATION_CONTENT_H

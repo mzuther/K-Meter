@@ -31,26 +31,26 @@
 
 
 class Skin :
-    public frut::skin::Skin
+   public frut::skin::Skin
 {
 public:
-    bool loadSkin(int numberOfChannels,
+   bool loadSkin( int numberOfChannels,
                   int crestFactor,
                   int averageAlgorithm,
                   bool isExpanded,
-                  bool displayPeakMeter);
+                  bool displayPeakMeter );
 
-    void updateSkin(int numberOfChannels,
+   void updateSkin( int numberOfChannels,
                     int crestFactor,
                     int averageAlgorithm,
                     bool isExpanded,
-                    bool displayPeakMeter);
+                    bool displayPeakMeter );
 
-    virtual File getSkinDirectory() override;
-    virtual File getSettingsFile() override;
+   virtual File getSkinDirectory() override;
+   virtual File getSettingsFile() override;
 
 private:
-    JUCE_LEAK_DETECTOR(Skin);
+   JUCE_LEAK_DETECTOR( Skin );
 };
 
 #endif  // KMETER_SKIN_H

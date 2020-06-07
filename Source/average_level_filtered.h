@@ -31,63 +31,63 @@
 
 
 class AverageLevelFiltered :
-    public frut::dsp::FIRFilterBox
+   public frut::dsp::FIRFilterBox
 {
 public:
-    static constexpr int KMETER_MAXIMUM_FILTER_STAGES = 3;
+   static constexpr int KMETER_MAXIMUM_FILTER_STAGES = 3;
 
-    AverageLevelFiltered(const int numberOfChannels,
+   AverageLevelFiltered( const int numberOfChannels,
                          const double sampleRate,
                          const int fftBufferSize,
-                         const int averageAlgorithm);
+                         const int averageAlgorithm );
 
-    virtual ~AverageLevelFiltered();
-    virtual void reset();
+   virtual ~AverageLevelFiltered();
+   virtual void reset();
 
-    int getAlgorithm() const;
-    void setAlgorithm(const int averageAlgorithm);
+   int getAlgorithm() const;
+   void setAlgorithm( const int averageAlgorithm );
 
-    float getLevel(const int channel);
+   float getLevel( const int channel );
 
-    void copyTo(AudioBuffer<float> &destination,
-                const int numberOfSamples);
+   void copyTo( AudioBuffer<float>& destination,
+                const int numberOfSamples );
 
-    void copyFrom(const AudioBuffer<float> &source,
-                  const int numberOfSamples);
+   void copyFrom( const AudioBuffer<float>& source,
+                  const int numberOfSamples );
 
 private:
-    JUCE_LEAK_DETECTOR(AverageLevelFiltered);
+   JUCE_LEAK_DETECTOR( AverageLevelFiltered );
 
-    void calculateFilterKernel();
-    void calculateFilterKernel_Rms();
-    void calculateFilterKernel_ItuBs1770();
+   void calculateFilterKernel();
+   void calculateFilterKernel_Rms();
+   void calculateFilterKernel_ItuBs1770();
 
-    void calculateLoudness();
-    void filterSamples_Rms(const int channel);
-    void filterSamples_ItuBs1770();
+   void calculateLoudness();
+   void filterSamples_Rms( const int channel );
+   void filterSamples_ItuBs1770();
 
-    double sampleRate_;
+   double sampleRate_;
 
-    Array<float> loudnessValues_;
+   Array<float> loudnessValues_;
 
-    Array<double> preFilterInputCoefficients_;
-    Array<double> preFilterOutputCoefficients_;
+   Array<double> preFilterInputCoefficients_;
+   Array<double> preFilterOutputCoefficients_;
 
-    Array<double> weightingFilterInputCoefficients_;
-    Array<double> weightingFilterOutputCoefficients_;
+   Array<double> weightingFilterInputCoefficients_;
+   Array<double> weightingFilterOutputCoefficients_;
 
-    AudioBuffer<float> previousSamplesPreFilterInput_;
-    AudioBuffer<float> previousSamplesPreFilterOutput_;
+   AudioBuffer<float> previousSamplesPreFilterInput_;
+   AudioBuffer<float> previousSamplesPreFilterOutput_;
 
-    AudioBuffer<float> previousSamplesWeightingFilterInput_;
-    AudioBuffer<float> previousSamplesWeightingFilterOutput_;
+   AudioBuffer<float> previousSamplesWeightingFilterInput_;
+   AudioBuffer<float> previousSamplesWeightingFilterOutput_;
 
-    AudioBuffer<float> previousSamplesOutputTemp_;
+   AudioBuffer<float> previousSamplesOutputTemp_;
 
-    frut::dsp::Dither dither_;
+   frut::dsp::Dither dither_;
 
-    int averageAlgorithm_;
-    float peakToAverageCorrection_;
+   int averageAlgorithm_;
+   float peakToAverageCorrection_;
 };
 
 #endif  // KMETER_AVERAGE_LEVEL_FILTERED_H

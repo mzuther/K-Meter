@@ -36,81 +36,81 @@
 
 
 class KmeterAudioProcessorEditor :
-    public AudioProcessorEditor,
-    public Button::Listener,
-    public ActionListener
+   public AudioProcessorEditor,
+   public Button::Listener,
+   public ActionListener
 {
 public:
-    KmeterAudioProcessorEditor(KmeterAudioProcessor &processor, int nNumChannels);
-    ~KmeterAudioProcessorEditor();
+   KmeterAudioProcessorEditor( KmeterAudioProcessor& processor, int nNumChannels );
+   ~KmeterAudioProcessorEditor();
 
-    void buttonClicked(Button *button) override;
-    void actionListenerCallback(const String &message) override;
-    void updateParameter(int nIndex);
+   void buttonClicked( Button* button ) override;
+   void actionListenerCallback( const String& message ) override;
+   void updateParameter( int nIndex );
 
-    void windowAboutCallback(int modalResult);
-    void windowSkinCallback(int modalResult);
-    void windowValidationCallback(int modalResult);
+   void windowAboutCallback( int modalResult );
+   void windowSkinCallback( int modalResult );
+   void windowValidationCallback( int modalResult );
 
-    // This is just a standard Juce paint method...
-    void paint(Graphics &g) override;
-    void resized() override;
+   // This is just a standard Juce paint method...
+   void paint( Graphics& g ) override;
+   void resized() override;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(KmeterAudioProcessorEditor);
+   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR( KmeterAudioProcessorEditor );
 
-    void reloadMeters();
-    void applySkin();
-    void loadSkin();
-    void updateAverageAlgorithm(bool reload_meters);
+   void reloadMeters();
+   void applySkin();
+   void loadSkin();
+   void updateAverageAlgorithm( bool reload_meters );
 
-    bool needsMeterReload;
-    bool isValidating;
-    bool validationDialogOpen;
-    bool isInitialising;
-    bool isExpanded;
-    bool usePeakMeter;
+   bool needsMeterReload;
+   bool isValidating;
+   bool validationDialogOpen;
+   bool isInitialising;
+   bool isExpanded;
+   bool usePeakMeter;
 
-    int crestFactor;
-    int numberOfInputChannels_;
+   int crestFactor;
+   int numberOfInputChannels_;
 
-    Skin skin;
+   Skin skin;
 
-    KmeterAudioProcessor &audioProcessor;
-    Kmeter kmeter_;
-    frut::widgets::NeedleMeter stereoMeter;
-    frut::widgets::NeedleMeter phaseCorrelationMeter;
+   KmeterAudioProcessor& audioProcessor;
+   Kmeter kmeter_;
+   frut::widgets::NeedleMeter stereoMeter;
+   frut::widgets::NeedleMeter phaseCorrelationMeter;
 
-    frut::skin::LookAndFeel_Frut_V3 customLookAndFeel_;
+   frut::skin::LookAndFeel_Frut_V3 customLookAndFeel_;
 
-    DrawableButton ButtonK20;
-    DrawableButton ButtonK14;
-    DrawableButton ButtonK12;
-    DrawableButton ButtonNormal;
+   DrawableButton ButtonK20;
+   DrawableButton ButtonK14;
+   DrawableButton ButtonK12;
+   DrawableButton ButtonNormal;
 
-    DrawableButton ButtonItuBs1770;
-    DrawableButton ButtonRms;
+   DrawableButton ButtonItuBs1770;
+   DrawableButton ButtonRms;
 
-    DrawableButton ButtonExpanded;
-    DrawableButton ButtonSkin;
-    DrawableButton ButtonDisplayPeakMeter;
-    DrawableButton ButtonInfinitePeakHold;
-    DrawableButton ButtonDiscreteMeter;
+   DrawableButton ButtonExpanded;
+   DrawableButton ButtonSkin;
+   DrawableButton ButtonDisplayPeakMeter;
+   DrawableButton ButtonInfinitePeakHold;
+   DrawableButton ButtonDiscreteMeter;
 
-    DrawableButton ButtonMono;
-    DrawableButton ButtonDim;
-    DrawableButton ButtonMute;
-    DrawableButton ButtonFlip;
-    DrawableButton ButtonReset;
+   DrawableButton ButtonMono;
+   DrawableButton ButtonDim;
+   DrawableButton ButtonMute;
+   DrawableButton ButtonFlip;
+   DrawableButton ButtonReset;
 
-    DrawableButton ButtonValidation;
-    DrawableButton ButtonAbout;
+   DrawableButton ButtonValidation;
+   DrawableButton ButtonAbout;
 
 #ifdef DEBUG
-    DrawableComposite LabelDebug;
+   DrawableComposite LabelDebug;
 #endif // DEBUG
 
-    DrawableComposite DrawableBackground;
+   DrawableComposite DrawableBackground;
 };
 
 #endif  // KMETER_PLUGIN_EDITOR_H

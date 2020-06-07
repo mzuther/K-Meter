@@ -30,17 +30,17 @@
 
 
 class OverflowMeter :
-    public frut::widgets::StateLabel
+   public frut::widgets::StateLabel
 {
 public:
-    OverflowMeter();
+   OverflowMeter();
 
-    void setOverflows(int Overflows);
+   void setOverflows( int Overflows );
 
 private:
-    JUCE_LEAK_DETECTOR(OverflowMeter);
+   JUCE_LEAK_DETECTOR( OverflowMeter );
 
-    int nOverflows;
+   int nOverflows;
 };
 
 #endif  // KMETER_OVERFLOW_METER_H

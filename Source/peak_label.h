@@ -30,19 +30,19 @@
 
 
 class PeakLabel :
-    public frut::widgets::StateLabel
+   public frut::widgets::StateLabel
 {
 public:
-    explicit PeakLabel(int nCrestFactor);
+   explicit PeakLabel( int nCrestFactor );
 
-    void resetLevel();
-    void updateLevel(float newLevel);
+   void resetLevel();
+   void updateLevel( float newLevel );
 
 private:
-    JUCE_LEAK_DETECTOR(PeakLabel);
+   JUCE_LEAK_DETECTOR( PeakLabel );
 
-    int nMeterCrestFactor;
-    float fMaximumLevel;
+   int nMeterCrestFactor;
+   float fMaximumLevel;
 };
 
 #endif  // KMETER_PEAK_LABEL_H

@@ -26,53 +26,46 @@
 #include "peak_label.h"
 
 
-PeakLabel::PeakLabel(int nCrestFactor)
+PeakLabel::PeakLabel( int nCrestFactor )
 {
-    nMeterCrestFactor = nCrestFactor;
-    setLabelColour(Colours::white);
+   nMeterCrestFactor = nCrestFactor;
+   setLabelColour( Colours::white );
 
-    resetLevel();
+   resetLevel();
 }
 
 
 void PeakLabel::resetLevel()
 {
-    float fMaximumCrestFactor = 20.0f; // i.e. K-20
-    float fMeterMinimumDecibel = -(fMaximumCrestFactor + 90.0f);
+   float fMaximumCrestFactor = 20.0f; // i.e. K-20
+   float fMeterMinimumDecibel = -( fMaximumCrestFactor + 90.0f );
 
-    // reset level
-    fMaximumLevel = fMeterMinimumDecibel;
+   // reset level
+   fMaximumLevel = fMeterMinimumDecibel;
 
-    // ensure peak label update on next call of updateLevel()
-    fMaximumLevel -= 0.1f;
+   // ensure peak label update on next call of updateLevel()
+   fMaximumLevel -= 0.1f;
 }
 
 
-void PeakLabel::updateLevel(float newLevel)
+void PeakLabel::updateLevel( float newLevel )
 {
-    if (newLevel == fMaximumLevel)
-    {
-        return;
-    }
+   if ( newLevel == fMaximumLevel ) {
+      return;
+   }
 
-    fMaximumLevel = newLevel;
-    float fCorrectedLevel = fMaximumLevel + nMeterCrestFactor;
+   fMaximumLevel = newLevel;
+   float fCorrectedLevel = fMaximumLevel + nMeterCrestFactor;
 
-    if (fCorrectedLevel < 0.0f)
-    {
-        setLabelText(String(fCorrectedLevel, 1));
-    }
-    else
-    {
-        setLabelText("+" + String(fCorrectedLevel, 1));
-    }
+   if ( fCorrectedLevel < 0.0f ) {
+      setLabelText( String( fCorrectedLevel, 1 ) );
+   } else {
+      setLabelText( "+" + String( fCorrectedLevel, 1 ) );
+   }
 
-    if (fMaximumLevel < -0.20f)
-    {
-        setState(false);
-    }
-    else
-    {
-        setState(true);
-    }
+   if ( fMaximumLevel < -0.20f ) {
+      setState( false );
+   } else {
+      setState( true );
+   }
 }

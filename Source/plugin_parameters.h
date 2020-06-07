@@ -30,59 +30,58 @@
 
 
 class KmeterPluginParameters :
-    public frut::parameters::Juggler
+   public frut::parameters::Juggler
 {
 public:
-    KmeterPluginParameters();
+   KmeterPluginParameters();
 
-    File getValidationFile();
-    void setValidationFile(const File &fileValidation);
+   File getValidationFile();
+   void setValidationFile( const File& fileValidation );
 
-    static const File getResourceDirectory();
+   static const File getResourceDirectory();
 
-    enum Parameters  // public namespace!
-    {
-        selCrestFactor = 0,
-        selAverageAlgorithm,
-        selExpanded,
-        selShowPeaks,
-        selInfinitePeakHold,
-        selDiscreteMeter,
-        selMono,
-        selDim,
-        selMute,
-        selFlip,
+   enum Parameters { // public namespace!
+      selCrestFactor = 0,
+      selAverageAlgorithm,
+      selExpanded,
+      selShowPeaks,
+      selInfinitePeakHold,
+      selDiscreteMeter,
+      selMono,
+      selDim,
+      selMute,
+      selFlip,
 
-        numberOfParametersRevealed,
+      numberOfParametersRevealed,
 
-        selValidationFileName = numberOfParametersRevealed,
-        selValidationSelectedChannel,
-        selValidationAverageMeterLevel,
-        selValidationPeakMeterLevel,
-        selValidationMaximumPeakLevel,
-        selValidationTruePeakMeterLevel,
-        selValidationMaximumTruePeakLevel,
-        selValidationStereoMeterValue,
-        selValidationPhaseCorrelation,
-        selValidationCSVFormat,
+      selValidationFileName = numberOfParametersRevealed,
+      selValidationSelectedChannel,
+      selValidationAverageMeterLevel,
+      selValidationPeakMeterLevel,
+      selValidationMaximumPeakLevel,
+      selValidationTruePeakMeterLevel,
+      selValidationMaximumTruePeakLevel,
+      selValidationStereoMeterValue,
+      selValidationPhaseCorrelation,
+      selValidationCSVFormat,
 
-        numberOfParametersComplete,
+      numberOfParametersComplete,
 
-        selNormal = 0,
-        selK12,
-        selK14,
-        selK20,
+      selNormal = 0,
+      selK12,
+      selK14,
+      selK20,
 
-        nNumCrestFactors,
+      nNumCrestFactors,
 
-        selAlgorithmRms = 0,
-        selAlgorithmItuBs1770,
+      selAlgorithmRms = 0,
+      selAlgorithmItuBs1770,
 
-        nNumAlgorithms,
-    };
+      nNumAlgorithms,
+   };
 
 private:
-    JUCE_LEAK_DETECTOR(KmeterPluginParameters);
+   JUCE_LEAK_DETECTOR( KmeterPluginParameters );
 };
 
 #endif  // KMETER_PLUGIN_PARAMETERS_H

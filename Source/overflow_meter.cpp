@@ -28,29 +28,25 @@
 
 OverflowMeter::OverflowMeter()
 {
-    nOverflows = 0;
+   nOverflows = 0;
 
-    setLabelColour(Colours::white);
-    setLabelText(String(nOverflows));
+   setLabelColour( Colours::white );
+   setLabelText( String( nOverflows ) );
 }
 
 
-void OverflowMeter::setOverflows(int Overflows)
+void OverflowMeter::setOverflows( int Overflows )
 {
-    int nOverflowsOld = nOverflows;
-    nOverflows = Overflows;
+   int nOverflowsOld = nOverflows;
+   nOverflows = Overflows;
 
-    if (nOverflows != nOverflowsOld)
-    {
-        setLabelText(String(nOverflows));
+   if ( nOverflows != nOverflowsOld ) {
+      setLabelText( String( nOverflows ) );
 
-        if (nOverflows == 0)
-        {
-            setState(frut::widgets::StateLabel::State::off);
-        }
-        else
-        {
-            setState(frut::widgets::StateLabel::State::on);
-        }
-    }
+      if ( nOverflows == 0 ) {
+         setState( frut::widgets::StateLabel::State::off );
+      } else {
+         setState( frut::widgets::StateLabel::State::on );
+      }
+   }
 }

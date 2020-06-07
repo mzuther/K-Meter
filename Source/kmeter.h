@@ -35,33 +35,33 @@
 
 
 class Kmeter :
-    public Component
+   public Component
 {
 public:
-    virtual void create(int numberOfInputChannels);
+   virtual void create( int numberOfInputChannels );
 
-    virtual void applySkin(Skin *skin,
+   virtual void applySkin( Skin* skin,
                            int crestFactor,
                            bool discreteMeter,
                            bool isExpanded,
                            bool isHorizontal,
-                           bool displayPeakMeter);
+                           bool displayPeakMeter );
 
-    virtual void setLevels(std::shared_ptr<MeterBallistics> meterBallistics);
+   virtual void setLevels( std::shared_ptr<MeterBallistics> meterBallistics );
 
-    virtual void resized();
+   virtual void resized();
 
 protected:
-    OwnedArray<MeterBar> levelMeters_;
-    OwnedArray<OverflowMeter> overflowMeters_;
-    OwnedArray<PeakLabel> maximumPeakLabels_;
-    OwnedArray<PeakLabel> maximumTruePeakLabels_;
+   OwnedArray<MeterBar> levelMeters_;
+   OwnedArray<OverflowMeter> overflowMeters_;
+   OwnedArray<PeakLabel> maximumPeakLabels_;
+   OwnedArray<PeakLabel> maximumTruePeakLabels_;
 
-    int numberOfInputChannels_;
-    bool displayPeakMeter_;
+   int numberOfInputChannels_;
+   bool displayPeakMeter_;
 
 private:
-    JUCE_LEAK_DETECTOR(Kmeter);
+   JUCE_LEAK_DETECTOR( Kmeter );
 };
 
 #endif  // KMETER_KMETER_H

@@ -26,265 +26,202 @@
 #include "meter_bar.h"
 
 
-void MeterBar::create(
-    int crestFactor, bool discreteMeter, bool isExpanded,
-    frut::widgets::Orientation orientation, int mainSegmentHeight,
-    const Array<Colour> &segmentColours)
+void MeterBar::create( int crestFactor,
+                       bool discreteMeter,
+                       bool isExpanded,
+                       frut::widgets::Orientation orientation,
+                       int mainSegmentHeight,
+                       const Array<Colour>& segmentColours )
 
 {
-    frut::widgets::MeterBar::create();
+   frut::widgets::MeterBar::create();
 
-    crestFactor *= 10;
-    int numberOfBars;
+   crestFactor *= 10;
+   int numberOfBars;
 
-    int limitTopBars;
-    int limitRedBars;
-    int limitAmberBars;
-    int limitGreenBars;
-    int limitLinearArea;
+   int limitTopBars;
+   int limitRedBars;
+   int limitAmberBars;
+   int limitGreenBars;
+   int limitLinearArea;
 
-    // to prevent the inherent round-off errors of float subtraction,
-    // crest factor and limits are stored as integers representing
-    // 0.1 dB steps
-    if (crestFactor == 0)
-    {
-        numberOfBars = 48;
+   // to prevent the inherent round-off errors of float subtraction,
+   // crest factor and limits are stored as integers representing
+   // 0.1 dB steps
+   if ( crestFactor == 0 ) {
+      numberOfBars = 48;
 
-        limitTopBars = crestFactor - 20;
-        limitRedBars = -100;
-        limitAmberBars = -180;
-        limitGreenBars = -400;
-        limitLinearArea = limitGreenBars;
-    }
-    else if (crestFactor == +120)
-    {
-        numberOfBars = 50;
+      limitTopBars = crestFactor - 20;
+      limitRedBars = -100;
+      limitAmberBars = -180;
+      limitGreenBars = -400;
+      limitLinearArea = limitGreenBars;
+   } else if ( crestFactor == +120 ) {
+      numberOfBars = 50;
 
-        limitTopBars = crestFactor - 20;
-        limitRedBars = +40;
-        limitAmberBars = 0;
-        limitGreenBars = -300;
-        limitLinearArea = limitGreenBars;
-    }
-    else if (crestFactor == +140)
-    {
-        numberOfBars = 51;
+      limitTopBars = crestFactor - 20;
+      limitRedBars = +40;
+      limitAmberBars = 0;
+      limitGreenBars = -300;
+      limitLinearArea = limitGreenBars;
+   } else if ( crestFactor == +140 ) {
+      numberOfBars = 51;
 
-        limitTopBars = crestFactor - 20;
-        limitRedBars = +40;
-        limitAmberBars = 0;
-        limitGreenBars = -300;
-        limitLinearArea = limitGreenBars;
-    }
-    else // K-20
-    {
-        // force crest factor of +20 dB
-        crestFactor = +200;
-        numberOfBars = 51;
+      limitTopBars = crestFactor - 20;
+      limitRedBars = +40;
+      limitAmberBars = 0;
+      limitGreenBars = -300;
+      limitLinearArea = limitGreenBars;
+   } else { // K-20
+      // force crest factor of +20 dB
+      crestFactor = +200;
+      numberOfBars = 51;
 
-        limitTopBars = crestFactor - 20;
-        limitRedBars = +40;
-        limitAmberBars = 0;
-        limitGreenBars = -240;
-        limitLinearArea = -300;
-    }
+      limitTopBars = crestFactor - 20;
+      limitRedBars = +40;
+      limitAmberBars = 0;
+      limitGreenBars = -240;
+      limitLinearArea = -300;
+   }
 
-    if (isExpanded)
-    {
-        numberOfBars = 52;
-    }
+   if ( isExpanded ) {
+      numberOfBars = 52;
+   }
 
-    // bar threshold (in 0.1 dB)
-    int trueLowerThreshold = 0;
+   // bar threshold (in 0.1 dB)
+   int trueLowerThreshold = 0;
 
-    if (isExpanded)
-    {
-        if (crestFactor > 50)
-        {
-            // set base level of important region
-            trueLowerThreshold = -crestFactor;
-        }
-        else
-        {
-            // set base level of important region
-            trueLowerThreshold = -220;
-        }
+   if ( isExpanded ) {
+      if ( crestFactor > 50 ) {
+         // set base level of important region
+         trueLowerThreshold = -crestFactor;
+      } else {
+         // set base level of important region
+         trueLowerThreshold = -220;
+      }
 
-        // zoom into important region
-        trueLowerThreshold += 45;
-    }
+      // zoom into important region
+      trueLowerThreshold += 45;
+   }
 
-    // bar K-Meter level (in 0.1 dB)
-    int lowerThreshold = trueLowerThreshold + crestFactor;
+   // bar K-Meter level (in 0.1 dB)
+   int lowerThreshold = trueLowerThreshold + crestFactor;
 
-    // initialise bar level range (in 0.1 dB)
-    int segmentRange = 0;
+   // initialise bar level range (in 0.1 dB)
+   int segmentRange = 0;
 
-    // initialise segment height (in pixels)
-    int segmentHeight = 0;
+   // initialise segment height (in pixels)
+   int segmentHeight = 0;
 
-    for (int n = 0; n < numberOfBars; ++n)
-    {
-        // store previous bar level range and segment height
-        int oldSegmentRange = segmentRange;
-        int oldSegmentHeight = segmentHeight;
+   for ( int n = 0; n < numberOfBars; ++n ) {
+      // store previous bar level range and segment height
+      int oldSegmentRange = segmentRange;
+      int oldSegmentHeight = segmentHeight;
 
-        if (isExpanded)
-        {
-            segmentRange = 1;
-        }
-        else
-        {
-            if (lowerThreshold > limitTopBars)
-            {
-                segmentRange = 5;
-            }
-            else if (lowerThreshold > limitGreenBars)
-            {
-                segmentRange = 10;
-            }
-            else if (lowerThreshold > limitLinearArea)
-            {
-                segmentRange = 60;
-            }
-            else
-            {
-                segmentRange = 100;
-            }
-        }
+      if ( isExpanded ) {
+         segmentRange = 1;
+      } else {
+         if ( lowerThreshold > limitTopBars ) {
+            segmentRange = 5;
+         } else if ( lowerThreshold > limitGreenBars ) {
+            segmentRange = 10;
+         } else if ( lowerThreshold > limitLinearArea ) {
+            segmentRange = 60;
+         } else {
+            segmentRange = 100;
+         }
+      }
 
-        int colourId;
+      int colourId;
 
-        if (crestFactor == 0)
-        {
-            if (lowerThreshold <= limitLinearArea)
-            {
-                colourId = colourSelector::nonLinear;
-            }
-            else if (lowerThreshold <= -280)
-            {
-                colourId = colourSelector::green;
-            }
-            else if (lowerThreshold > limitRedBars)
-            {
-                colourId = colourSelector::red;
-            }
-            else if (lowerThreshold > limitAmberBars)
-            {
-                colourId = colourSelector::amber;
-            }
-            else
-            {
-                colourId = colourSelector::green;
-            }
-        }
-        else
-        {
-            if (lowerThreshold > limitRedBars)
-            {
-                colourId = colourSelector::red;
-            }
-            else if (lowerThreshold > limitAmberBars)
-            {
-                colourId = colourSelector::amber;
-            }
-            else if (lowerThreshold > limitGreenBars)
-            {
-                colourId = colourSelector::green;
-            }
-            else
-            {
-                colourId = colourSelector::nonLinear;
-            }
-        }
+      if ( crestFactor == 0 ) {
+         if ( lowerThreshold <= limitLinearArea ) {
+            colourId = colourSelector::nonLinear;
+         } else if ( lowerThreshold <= -280 ) {
+            colourId = colourSelector::green;
+         } else if ( lowerThreshold > limitRedBars ) {
+            colourId = colourSelector::red;
+         } else if ( lowerThreshold > limitAmberBars ) {
+            colourId = colourSelector::amber;
+         } else {
+            colourId = colourSelector::green;
+         }
+      } else {
+         if ( lowerThreshold > limitRedBars ) {
+            colourId = colourSelector::red;
+         } else if ( lowerThreshold > limitAmberBars ) {
+            colourId = colourSelector::amber;
+         } else if ( lowerThreshold > limitGreenBars ) {
+            colourId = colourSelector::green;
+         } else {
+            colourId = colourSelector::nonLinear;
+         }
+      }
 
-        if (isExpanded)
-        {
-            segmentHeight = 2 * mainSegmentHeight;
-        }
-        else if (lowerThreshold > limitTopBars)
-        {
-            segmentHeight = mainSegmentHeight;
-        }
-        else if (lowerThreshold > limitGreenBars)
-        {
-            segmentHeight = 2 * mainSegmentHeight;
-        }
-        else if (lowerThreshold > limitLinearArea)
-        {
+      if ( isExpanded ) {
+         segmentHeight = 2 * mainSegmentHeight;
+      } else if ( lowerThreshold > limitTopBars ) {
+         segmentHeight = mainSegmentHeight;
+      } else if ( lowerThreshold > limitGreenBars ) {
+         segmentHeight = 2 * mainSegmentHeight;
+      } else if ( lowerThreshold > limitLinearArea ) {
+         segmentHeight = 3 * mainSegmentHeight;
+      } else if ( n == numberOfBars - 1 ) {
+         if ( crestFactor == +120 ) {
+            segmentHeight = 5 * mainSegmentHeight;
+         } else {
+            segmentHeight = 4 * mainSegmentHeight;
+         }
+      } else {
+         if ( crestFactor == 0 ) {
+            segmentHeight = 4 * mainSegmentHeight;
+         } else {
             segmentHeight = 3 * mainSegmentHeight;
-        }
-        else if (n == numberOfBars - 1)
-        {
-            if (crestFactor == +120)
-            {
-                segmentHeight = 5 * mainSegmentHeight;
-            }
-            else
-            {
-                segmentHeight = 4 * mainSegmentHeight;
-            }
-        }
-        else
-        {
-            if (crestFactor == 0)
-            {
-                segmentHeight = 4 * mainSegmentHeight;
-            }
-            else
-            {
-                segmentHeight = 3 * mainSegmentHeight;
-            }
-        }
+         }
+      }
 
-        trueLowerThreshold -= segmentRange;
-        lowerThreshold = trueLowerThreshold + crestFactor;
+      trueLowerThreshold -= segmentRange;
+      lowerThreshold = trueLowerThreshold + crestFactor;
 
-        bool hasHighestLevel;
+      bool hasHighestLevel;
 
-        if (isExpanded)
-        {
-            hasHighestLevel = false;
-        }
-        else
-        {
-            hasHighestLevel = (n == 0);
-        }
+      if ( isExpanded ) {
+         hasHighestLevel = false;
+      } else {
+         hasHighestLevel = ( n == 0 );
+      }
 
-        if (discreteMeter)
-        {
-            // meter segment outlines overlap
-            int spacingBefore = -1;
-            segmentHeight += 1;
+      if ( discreteMeter ) {
+         // meter segment outlines overlap
+         int spacingBefore = -1;
+         segmentHeight += 1;
 
-            addDiscreteSegment(
-                trueLowerThreshold * 0.1f,
-                segmentRange * 0.1f,
-                0.0f,
-                1.0f,
-                hasHighestLevel,
-                segmentHeight,
-                spacingBefore,
-                segmentColours[colourId],
-                Colours::white);
-        }
-        else
-        {
-            // meter segment outlines must not overlap
-            int spacingBefore = 0;
+         addDiscreteSegment(
+            trueLowerThreshold * 0.1f,
+            segmentRange * 0.1f,
+            0.0f,
+            1.0f,
+            hasHighestLevel,
+            segmentHeight,
+            spacingBefore,
+            segmentColours[colourId],
+            Colours::white );
+      } else {
+         // meter segment outlines must not overlap
+         int spacingBefore = 0;
 
-            addContinuousSegment(
-                trueLowerThreshold * 0.1f,
-                segmentRange * 0.1f,
-                (oldSegmentRange * 0.1f) / oldSegmentHeight,
-                hasHighestLevel,
-                segmentHeight,
-                spacingBefore,
-                segmentColours[colourId],
-                Colours::white);
-        }
-    }
+         addContinuousSegment(
+            trueLowerThreshold * 0.1f,
+            segmentRange * 0.1f,
+            ( oldSegmentRange * 0.1f ) / oldSegmentHeight,
+            hasHighestLevel,
+            segmentHeight,
+            spacingBefore,
+            segmentColours[colourId],
+            Colours::white );
+      }
+   }
 
-    // set orientation here to save some processing
-    setOrientation(orientation);
+   // set orientation here to save some processing
+   setOrientation( orientation );
 }

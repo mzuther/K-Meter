@@ -26,114 +26,98 @@
 #include "skin.h"
 
 
-bool Skin::loadSkin(int numberOfChannels,
-                    int crestFactor,
-                    int averageAlgorithm,
-                    bool isExpanded,
-                    bool displayPeakMeter)
+bool Skin::loadSkin( int numberOfChannels,
+                     int crestFactor,
+                     int averageAlgorithm,
+                     bool isExpanded,
+                     bool displayPeakMeter )
 
 {
-    updateSkin(numberOfChannels,
+   updateSkin( numberOfChannels,
                crestFactor,
                averageAlgorithm,
                isExpanded,
-               displayPeakMeter);
+               displayPeakMeter );
 
-    // signal success or failure
-    return loadFromXml("kmeter-skin", "1.4");
+   // signal success or failure
+   return loadFromXml( "kmeter-skin", "1.4" );
 }
 
 
-void Skin::updateSkin(int numberOfChannels,
-                      int crestFactor,
-                      int averageAlgorithm,
-                      bool isExpanded,
-                      bool displayPeakMeter)
+void Skin::updateSkin( int numberOfChannels,
+                       int crestFactor,
+                       int averageAlgorithm,
+                       bool isExpanded,
+                       bool displayPeakMeter )
 
 {
-    jassert(numberOfChannels > 0);
+   jassert( numberOfChannels > 0 );
 
-    if (isExpanded)
-    {
-        currentBackgroundName_ = "image_expanded";
-    }
-    else
-    {
-        currentBackgroundName_ = "image";
-    }
+   if ( isExpanded ) {
+      currentBackgroundName_ = "image_expanded";
+   } else {
+      currentBackgroundName_ = "image";
+   }
 
-    if (displayPeakMeter)
-    {
-        currentBackgroundName_ += "_peaks";
-    }
-    else
-    {
-        currentBackgroundName_ += "_no_peaks";
-    }
+   if ( displayPeakMeter ) {
+      currentBackgroundName_ += "_peaks";
+   } else {
+      currentBackgroundName_ += "_no_peaks";
+   }
 
-    if (numberOfChannels <= 2)
-    {
-        currentFallbackName_ = "stereo";
-    }
-    else
-    {
-        currentFallbackName_ = "surround";
-    }
+   if ( numberOfChannels <= 2 ) {
+      currentFallbackName_ = "stereo";
+   } else {
+      currentFallbackName_ = "surround";
+   }
 
-    if (averageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770)
-    {
-        currentFallbackName_ += "_itu";
-    }
-    else
-    {
-        currentFallbackName_ += "_rms";
-    }
+   if ( averageAlgorithm == KmeterPluginParameters::selAlgorithmItuBs1770 ) {
+      currentFallbackName_ += "_itu";
+   } else {
+      currentFallbackName_ += "_rms";
+   }
 
-    switch (crestFactor)
-    {
-    case 20:
-        currentGroupName_ = currentFallbackName_ + "_k20";
-        break;
+   switch ( crestFactor ) {
+      case 20:
+         currentGroupName_ = currentFallbackName_ + "_k20";
+         break;
 
-    case 14:
-        currentGroupName_ = currentFallbackName_ + "_k14";
-        break;
+      case 14:
+         currentGroupName_ = currentFallbackName_ + "_k14";
+         break;
 
-    case 12:
-        currentGroupName_ = currentFallbackName_ + "_k12";
-        break;
+      case 12:
+         currentGroupName_ = currentFallbackName_ + "_k12";
+         break;
 
-    default:
-        currentGroupName_ = currentFallbackName_ + "_normal";
-        break;
-    }
+      default:
+         currentGroupName_ = currentFallbackName_ + "_normal";
+         break;
+   }
 
-    if (document_ != nullptr)
-    {
-        skinGroup_ = document_->getChildByName(currentGroupName_);
-        skinFallback_1_ = document_->getChildByName(currentFallbackName_);
-        skinFallback_2_ = document_->getChildByName("default");
-    }
-    else
-    {
-        skinGroup_ = nullptr;
-        skinFallback_1_ = nullptr;
-        skinFallback_2_ = nullptr;
-    }
+   if ( document_ != nullptr ) {
+      skinGroup_ = document_->getChildByName( currentGroupName_ );
+      skinFallback_1_ = document_->getChildByName( currentFallbackName_ );
+      skinFallback_2_ = document_->getChildByName( "default" );
+   } else {
+      skinGroup_ = nullptr;
+      skinFallback_1_ = nullptr;
+      skinFallback_2_ = nullptr;
+   }
 }
 
 
 File Skin::getSkinDirectory()
 {
-    auto resourceDirectory = KmeterPluginParameters::getResourceDirectory();
-    return resourceDirectory.getChildFile("./Skins/");
+   auto resourceDirectory = KmeterPluginParameters::getResourceDirectory();
+   return resourceDirectory.getChildFile( "./Skins/" );
 }
 
 
 File Skin::getSettingsFile()
 {
-    auto settingsDirectory = File::getSpecialLocation(File::userApplicationDataDirectory);
-    auto defaultSkinFile = settingsDirectory.getChildFile("K-Meter.skin");
+   auto settingsDirectory = File::getSpecialLocation( File::userApplicationDataDirectory );
+   auto defaultSkinFile = settingsDirectory.getChildFile( "K-Meter.skin" );
 
-    return defaultSkinFile;
+   return defaultSkinFile;
 }
