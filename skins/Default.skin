@@ -269,8 +269,6 @@
             y="58"
             segment_width="24"
             vertical="true"
-            image="meters/meter_kmeter_itu_k20.png"
-            image_expanded="meters/meter_kmeter_itu_k20_expanded.png"
         />
     </stereo_itu_k20>
 
@@ -296,8 +294,6 @@
             y="58"
             segment_width="24"
             vertical="true"
-            image="meters/meter_kmeter_itu_k14.png"
-            image_expanded="meters/meter_kmeter_itu_k14_expanded.png"
         />
     </stereo_itu_k14>
 
@@ -323,8 +319,6 @@
             y="58"
             segment_width="24"
             vertical="true"
-            image="meters/meter_kmeter_itu_k12.png"
-            image_expanded="meters/meter_kmeter_itu_k12_expanded.png"
         />
     </stereo_itu_k12>
 
@@ -350,8 +344,6 @@
             y="58"
             segment_width="24"
             vertical="true"
-            image="meters/meter_kmeter_itu_normal.png"
-            image_expanded="meters/meter_kmeter_itu_normal_expanded.png"
         />
     </stereo_itu_normal>
 
@@ -469,8 +461,6 @@
             y="58"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k20.png"
-            image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
         />
 
         <meter_kmeter_right
@@ -478,8 +468,6 @@
             y="58"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k20.png"
-            image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
         />
     </stereo_rms_k20>
 
@@ -505,8 +493,6 @@
             y="58"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k14.png"
-            image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
         />
 
         <meter_kmeter_right
@@ -514,8 +500,6 @@
             y="58"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k14.png"
-            image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
         />
     </stereo_rms_k14>
 
@@ -541,8 +525,6 @@
             y="58"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k12.png"
-            image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
         />
 
         <meter_kmeter_right
@@ -550,8 +532,6 @@
             y="58"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k12.png"
-            image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
         />
     </stereo_rms_k12>
 
@@ -577,8 +557,6 @@
             y="58"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_normal.png"
-            image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
         />
 
         <meter_kmeter_right
@@ -586,8 +564,6 @@
             y="58"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_normal.png"
-            image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
         />
     </stereo_rms_normal>
 
@@ -801,8 +777,6 @@
             y="18"
             segment_width="24"
             vertical="true"
-            image="meters/meter_kmeter_itu_k20.png"
-            image_expanded="meters/meter_kmeter_itu_k20_expanded.png"
         />
     </surround_itu_k20>
 
@@ -828,8 +802,6 @@
             y="18"
             segment_width="24"
             vertical="true"
-            image="meters/meter_kmeter_itu_k14.png"
-            image_expanded="meters/meter_kmeter_itu_k14_expanded.png"
         />
     </surround_itu_k14>
 
@@ -855,8 +827,6 @@
             y="18"
             segment_width="24"
             vertical="true"
-            image="meters/meter_kmeter_itu_k12.png"
-            image_expanded="meters/meter_kmeter_itu_k12_expanded.png"
         />
     </surround_itu_k12>
 
@@ -882,8 +852,6 @@
             y="18"
             segment_width="24"
             vertical="true"
-            image="meters/meter_kmeter_itu_normal.png"
-            image_expanded="meters/meter_kmeter_itu_normal_expanded.png"
         />
     </surround_itu_normal>
 
@@ -1295,8 +1263,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k20.png"
-            image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
         />
 
         <meter_kmeter_right
@@ -1304,8 +1270,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k20.png"
-            image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
         />
 
         <meter_kmeter_center
@@ -1313,8 +1277,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k20.png"
-            image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
         />
 
         <meter_kmeter_lfe
@@ -1322,8 +1284,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k20.png"
-            image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
         />
 
         <meter_kmeter_ls
@@ -1331,8 +1291,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k20.png"
-            image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
         />
 
         <meter_kmeter_rs
@@ -1340,8 +1298,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k20.png"
-            image_expanded="meters/meter_kmeter_rms_k20_expanded.png"
         />
     </surround_rms_k20>
 
@@ -1385,8 +1341,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k14.png"
-            image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
         />
 
         <meter_kmeter_right
@@ -1394,8 +1348,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k14.png"
-            image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
         />
 
         <meter_kmeter_center
@@ -1403,8 +1355,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k14.png"
-            image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
         />
 
         <meter_kmeter_lfe
@@ -1412,8 +1362,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k14.png"
-            image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
         />
 
         <meter_kmeter_ls
@@ -1421,8 +1369,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k14.png"
-            image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
         />
 
         <meter_kmeter_rs
@@ -1430,8 +1376,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k14.png"
-            image_expanded="meters/meter_kmeter_rms_k14_expanded.png"
         />
     </surround_rms_k14>
 
@@ -1475,8 +1419,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k12.png"
-            image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
         />
 
         <meter_kmeter_right
@@ -1484,8 +1426,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k12.png"
-            image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
         />
 
         <meter_kmeter_center
@@ -1493,8 +1433,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k12.png"
-            image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
         />
 
         <meter_kmeter_lfe
@@ -1502,8 +1440,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k12.png"
-            image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
         />
 
         <meter_kmeter_ls
@@ -1511,8 +1447,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k12.png"
-            image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
         />
 
         <meter_kmeter_rs
@@ -1520,8 +1454,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_k12.png"
-            image_expanded="meters/meter_kmeter_rms_k12_expanded.png"
         />
     </surround_rms_k12>
 
@@ -1565,8 +1497,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_normal.png"
-            image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
         />
 
         <meter_kmeter_right
@@ -1574,8 +1504,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_normal.png"
-            image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
         />
 
         <meter_kmeter_center
@@ -1583,8 +1511,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_normal.png"
-            image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
         />
 
         <meter_kmeter_lfe
@@ -1592,8 +1518,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_normal.png"
-            image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
         />
 
         <meter_kmeter_ls
@@ -1601,8 +1525,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_normal.png"
-            image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
         />
 
         <meter_kmeter_rs
@@ -1610,8 +1532,6 @@
             y="18"
             segment_width="20"
             vertical="true"
-            image="meters/meter_kmeter_rms_normal.png"
-            image_expanded="meters/meter_kmeter_rms_normal_expanded.png"
         />
     </surround_rms_normal>
 </kmeter-skin>
