@@ -192,6 +192,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\audio_file_player.h" />
     <ClInclude Include="..\..\..\Source\average_level_filtered.h" />
+    <ClInclude Include="..\..\..\Source\build_id.h" />
     <ClInclude Include="..\..\..\Source\frut\FrutHeader.h" />
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_audio.h" />
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_dsp.h" />
