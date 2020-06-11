@@ -56,9 +56,11 @@ void Kmeter::applySkin( Skin* skin,
    frut::widgets::Orientation orientation;
 
    if ( isHorizontal ) {
-      orientation = frut::widgets::Orientation ( frut::widgets::Orientation::horizontal );
+      orientation = frut::widgets::Orientation (
+                       frut::widgets::Orientation::leftToRight );
    } else {
-      orientation = frut::widgets::Orientation();
+      orientation = frut::widgets::Orientation(
+                       frut::widgets::Orientation::bottomToTop );
    }
 
    XmlElement* xmlSetting = skin->getSetting( "kmeter_segment" );
