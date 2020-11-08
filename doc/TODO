@@ -1,4 +1,6 @@
 
+o [mzuther] link FFTW to Windows binaries
+
 o [mzuther] rename internal "variables_" (get rid of "newVariable")
 
 o [mzuther] get rid of Hungarian notation
