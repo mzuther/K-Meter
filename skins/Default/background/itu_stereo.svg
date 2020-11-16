@@ -205,7 +205,8 @@
        y1="498.36218"
        x2="404.5"
        y2="498.36218"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-290,526)" />
     <linearGradient
        xlink:href="#linearGradient4424-9"
        id="linearGradient12212"
@@ -213,7 +214,8 @@
        y1="516.36218"
        x2="404.5"
        y2="516.36218"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-290,527)" />
   </defs>
   <metadata
      id="metadata7">
@@ -236,15 +238,14 @@
      id="layer5"
      style="display:inline">
     <g
-       id="export-background-itu-stereo"
-       style="display:inline"
-       transform="translate(0,7)">
+       id="export-background-itu-stereo">
       <path
          id="rect10695"
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#282828;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;enable-background:accumulate"
-         d="M 0,-6.9999981 H 200 V 650 H 0 Z" />
+         d="M 0,1.9073486e-6 H 200 V 657 H 0 Z" />
       <g
-         id="g10697">
+         id="g10697"
+         transform="translate(0,7)">
         <path
            id="rect10699"
            style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#282828;fill-opacity:1;fill-rule:nonzero;stroke:#484848;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -256,19 +257,19 @@
           <path
              d="m 18.777891,62.394012 h 1.344004 v -3.125343 h 1.03467 c 1.600005,0 2.933343,-0.576002 2.933343,-2.240007 0,-1.578671 -1.120004,-2.186673 -2.848009,-2.186673 h -2.464008 z m 1.344004,-4.256013 v -2.16534 h 0.981337 c 0.832002,0 1.632005,0.16 1.632005,1.056003 0,0.896003 -0.800003,1.109337 -1.674672,1.109337 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000"
-             id="path3826" />
+             id="path4489" />
           <path
              d="m 25.508559,59.322003 c 0.05333,-0.714669 0.661336,-1.237337 1.418671,-1.237337 0.832003,0 1.205337,0.576001 1.205337,1.237337 z m 3.904013,0.576002 c 0,-1.84534 -1.045337,-2.773343 -2.474675,-2.773343 -1.546672,0 -2.709342,1.088004 -2.709342,2.741342 0,1.664006 1.173337,2.677342 2.752009,2.677342 0.97067,0 1.696005,-0.341334 2.19734,-1.024003 l -0.853336,-0.682669 c -0.288001,0.405335 -0.714669,0.661336 -1.354671,0.661336 -0.746669,0 -1.408004,-0.533335 -1.461338,-1.258671 h 3.893346 c 0.01067,-0.117334 0.01067,-0.224001 0.01067,-0.341334 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000"
-             id="path3828" />
+             id="path4491" />
           <path
              d="m 33.764573,62.394012 h 1.19467 v -3.114676 c 0,-1.024003 -0.448001,-2.154674 -2.282674,-2.154674 -0.778669,0 -1.589338,0.277335 -2.16534,0.81067 l 0.661336,0.778669 c 0.330667,-0.330668 0.853336,-0.586669 1.397337,-0.586669 0.640002,0 1.173337,0.309335 1.173337,0.93867 v 0.128 c -1.600005,0 -3.520011,0.213334 -3.520011,1.738673 0,1.19467 1.09867,1.589338 1.920006,1.589338 0.725336,0 1.333338,-0.330668 1.589339,-0.778669 h 0.032 z m -0.02133,-2.154673 c 0,0.810669 -0.469334,1.312004 -1.344004,1.312004 -0.437335,0 -0.896003,-0.149334 -0.896003,-0.640002 0,-0.757336 1.141337,-0.853336 1.952007,-0.853336 h 0.288 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000"
-             id="path3830" />
+             id="path4493" />
           <path
              d="m 36.473908,62.394012 h 1.280004 v -2.624008 h 0.032 l 2.026673,2.624008 h 1.696005 l -2.35734,-2.805342 2.218673,-2.314674 h -1.642672 l -1.941339,2.154674 h -0.032 v -5.098683 h -1.280004 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000"
-             id="path3832" />
+             id="path4495" />
         </g>
         <g
            aria-label="True"
@@ -277,40 +278,28 @@
           <path
              d="m 23.081731,42.580994 h 1.344005 V 36.202307 H 26.74041 V 35.02897 h -5.973352 v 1.173337 h 2.314673 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#2a7fff;fill-opacity:1"
-             id="path3835" />
+             id="path4498" />
           <path
              d="m 26.591062,42.580994 h 1.280004 v -2.741342 c 0,-0.373335 0.224001,-1.376005 1.376005,-1.376005 0.117333,0 0.224,0.01067 0.394667,0.05333 v -1.173337 c -0.08533,-0.02133 -0.213334,-0.032 -0.309334,-0.032 -0.672002,0 -1.216004,0.416001 -1.493338,1.00267 h -0.02133 v -0.853337 h -1.226671 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#2a7fff;fill-opacity:1"
-             id="path3837" />
+             id="path4500" />
           <path
              d="m 35.145739,37.460977 h -1.280004 v 2.816009 c 0,0.682669 -0.384002,1.386671 -1.194671,1.386671 -0.821336,0 -0.960003,-0.757335 -0.960003,-1.365337 v -2.837343 h -1.280004 v 3.200011 c 0,1.045336 0.554669,2.069339 1.888006,2.069339 0.757336,0 1.365338,-0.458668 1.589339,-0.970669 h 0.02133 v 0.821336 h 1.216004 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#2a7fff;fill-opacity:1"
-             id="path3839" />
+             id="path4502" />
           <path
              d="m 37.663067,39.508984 c 0.05333,-0.714669 0.661336,-1.237337 1.418671,-1.237337 0.832003,0 1.205338,0.576002 1.205338,1.237337 z m 3.904013,0.576002 c 0,-1.845339 -1.045337,-2.773342 -2.474675,-2.773342 -1.546671,0 -2.709342,1.088003 -2.709342,2.741342 0,1.664005 1.173337,2.677341 2.752009,2.677341 0.97067,0 1.696005,-0.341334 2.19734,-1.024003 l -0.853336,-0.682669 c -0.288001,0.405335 -0.714669,0.661336 -1.354671,0.661336 -0.746669,0 -1.408004,-0.533335 -1.461338,-1.258671 h 3.893346 c 0.01067,-0.117334 0.01067,-0.224001 0.01067,-0.341334 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#2a7fff;fill-opacity:1"
-             id="path3841" />
+             id="path4504" />
         </g>
         <g
            transform="matrix(1.0095238,0,0,1.25,-0.09999999,-72.327662)"
            id="g10713"
-           style="display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.890198">
-          <path
-             id="rect10715"
-             style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.890198;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
-             transform="translate(0,-485)"
-             d="m 10.5,1028.8621 h 105 v 12 h -105 z" />
-        </g>
+           style="display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.890198" />
         <g
            transform="matrix(1.0095238,0,0,1.25,-0.09999999,-53.327622)"
            id="g10717"
-           style="display:inline;fill:url(#linearGradient5362);fill-opacity:1;stroke:#000000;stroke-width:0.890198">
-          <path
-             id="rect10719"
-             style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.890198;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
-             transform="translate(0,-485)"
-             d="m 10.5,1028.8621 h 105 v 12 h -105 z" />
-        </g>
+           style="display:inline;fill:url(#linearGradient5362);fill-opacity:1;stroke:#000000;stroke-width:0.890198" />
         <path
            id="rect10721"
            style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
@@ -322,19 +311,19 @@
           <path
              d="m 88.464079,62.394012 h 1.344004 v -3.125343 h 1.03467 c 1.600005,0 2.933342,-0.576002 2.933342,-2.240007 0,-1.578671 -1.120003,-2.186673 -2.848009,-2.186673 h -2.464007 z m 1.344004,-4.256013 v -2.16534 h 0.981336 c 0.832003,0 1.632005,0.16 1.632005,1.056003 0,0.896003 -0.800002,1.109337 -1.674672,1.109337 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000"
-             id="path3847" />
+             id="path4508" />
           <path
              d="m 95.194747,59.322003 c 0.05333,-0.714669 0.661335,-1.237337 1.418671,-1.237337 0.832003,0 1.205337,0.576001 1.205337,1.237337 z m 3.904012,0.576002 c 0,-1.84534 -1.045336,-2.773343 -2.474674,-2.773343 -1.546672,0 -2.709342,1.088004 -2.709342,2.741342 0,1.664006 1.173337,2.677342 2.752009,2.677342 0.970669,0 1.696005,-0.341334 2.19734,-1.024003 l -0.853336,-0.682669 c -0.288001,0.405335 -0.714669,0.661336 -1.354671,0.661336 -0.746669,0 -1.408005,-0.533335 -1.461338,-1.258671 h 3.893346 c 0.01067,-0.117334 0.01067,-0.224001 0.01067,-0.341334 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000"
-             id="path3849" />
+             id="path4510" />
           <path
              d="m 103.45076,62.394012 h 1.19467 v -3.114676 c 0,-1.024003 -0.448,-2.154674 -2.28267,-2.154674 -0.77867,0 -1.58934,0.277335 -2.16534,0.81067 l 0.66133,0.778669 c 0.33067,-0.330668 0.85334,-0.586669 1.39734,-0.586669 0.64,0 1.17334,0.309335 1.17334,0.93867 v 0.128 c -1.60001,0 -3.520014,0.213334 -3.520014,1.738673 0,1.19467 1.098674,1.589338 1.920004,1.589338 0.72534,0 1.33334,-0.330668 1.58934,-0.778669 h 0.032 z m -0.0213,-2.154673 c 0,0.810669 -0.46934,1.312004 -1.34401,1.312004 -0.43733,0 -0.896,-0.149334 -0.896,-0.640002 0,-0.757336 1.14134,-0.853336 1.95201,-0.853336 h 0.288 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000"
-             id="path3851" />
+             id="path4512" />
           <path
              d="m 106.1601,62.394012 h 1.28 v -2.624008 h 0.032 l 2.02667,2.624008 h 1.69601 l -2.35734,-2.805342 2.21867,-2.314674 h -1.64267 l -1.94134,2.154674 h -0.032 v -5.098683 h -1.28 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000"
-             id="path3853" />
+             id="path4514" />
         </g>
         <g
            aria-label="True"
@@ -343,19 +332,19 @@
           <path
              d="m 90.763343,42.580994 h 1.344005 v -6.378687 h 2.314674 V 35.02897 H 88.44867 v 1.173337 h 2.314673 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#2a7fff;fill-opacity:1"
-             id="path3856" />
+             id="path4517" />
           <path
              d="m 94.272674,42.580994 h 1.280004 v -2.741342 c 0,-0.373335 0.224001,-1.376005 1.376005,-1.376005 0.117333,0 0.224,0.01067 0.394667,0.05333 v -1.173337 c -0.08533,-0.02133 -0.213334,-0.032 -0.309334,-0.032 -0.672002,0 -1.216004,0.416001 -1.493338,1.00267 h -0.02133 v -0.853337 h -1.226671 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#2a7fff;fill-opacity:1"
-             id="path3858" />
+             id="path4519" />
           <path
              d="m 102.82735,37.460977 h -1.28 v 2.816009 c 0,0.682669 -0.384,1.386671 -1.19467,1.386671 -0.82134,0 -0.960007,-0.757335 -0.960007,-1.365337 v -2.837343 h -1.280004 v 3.200011 c 0,1.045336 0.554669,2.069339 1.888011,2.069339 0.75733,0 1.36533,-0.458668 1.58933,-0.970669 h 0.0213 v 0.821336 h 1.216 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#2a7fff;fill-opacity:1"
-             id="path3860" />
+             id="path4521" />
           <path
              d="m 105.34468,39.508984 c 0.0533,-0.714669 0.66133,-1.237337 1.41867,-1.237337 0.832,0 1.20534,0.576002 1.20534,1.237337 z m 3.90401,0.576002 c 0,-1.845339 -1.04533,-2.773342 -2.47467,-2.773342 -1.54667,0 -2.70934,1.088003 -2.70934,2.741342 0,1.664005 1.17333,2.677341 2.752,2.677341 0.97067,0 1.69601,-0.341334 2.19734,-1.024003 l -0.85333,-0.682669 c -0.288,0.405335 -0.71467,0.661336 -1.35467,0.661336 -0.74667,0 -1.40801,-0.533335 -1.46134,-1.258671 h 3.89334 c 0.0107,-0.117334 0.0107,-0.224001 0.0107,-0.341334 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#2a7fff;fill-opacity:1"
-             id="path3862" />
+             id="path4523" />
         </g>
         <g
            aria-label="LK | dB"
@@ -364,23 +353,23 @@
           <path
              d="m 80.825822,593.03998 h 4.554682 v -1.19467 h -3.210677 v -6.35736 h -1.344005 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3"
-             id="path3865" />
+             id="path4526" />
           <path
              d="m 86.276503,593.03998 h 1.344004 v -3.78668 h 0.032 l 3.317344,3.78668 h 1.888006 l -3.765345,-4.06401 3.530677,-3.48802 H 90.80985 l -3.157343,3.26401 h -0.032 v -3.26401 h -1.344004 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3"
-             id="path3867" />
+             id="path4528" />
           <path
              d="m 95.972494,585.03995 v 10.6667 h 1.088003 v -10.6667 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3"
-             id="path3869" />
+             id="path4530" />
           <path
              d="m 106.34049,584.97595 h -1.28001 v 3.59468 h -0.032 c -0.26667,-0.33067 -0.77867,-0.8 -1.71734,-0.8 -1.46133,0 -2.48534,1.17334 -2.48534,2.68801 0,1.49333 0.96,2.73067 2.51734,2.73067 0.71467,0 1.40801,-0.33067 1.76001,-0.91733 h 0.0213 v 0.768 h 1.21601 z m -4.21335,5.48269 c 0,-0.80001 0.48,-1.64268 1.472,-1.64268 0.93867,0 1.50401,0.86401 1.50401,1.66401 0,0.8 -0.56534,1.64267 -1.50401,1.64267 -0.992,0 -1.472,-0.864 -1.472,-1.664 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3"
-             id="path3871" />
+             id="path4532" />
           <path
              d="m 107.96181,593.03998 h 2.72001 c 1.42934,0 2.85868,-0.55467 2.85868,-2.19734 0,-1.01334 -0.68267,-1.65334 -1.63201,-1.78134 v -0.0213 c 0.77867,-0.23467 1.31201,-0.80001 1.31201,-1.65334 0,-1.37601 -1.17334,-1.89868 -2.31468,-1.89868 h -2.94401 z m 1.34401,-6.44269 h 1.07733 c 1.01334,0 1.49334,0.26667 1.49334,0.93867 0,0.65067 -0.48,1.024 -1.376,1.024 h -1.19467 z m 0,3.11468 h 1.25867 c 1.088,0 1.632,0.27733 1.632,1.06667 0,0.992 -0.992,1.13067 -1.68534,1.13067 h -1.20533 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3"
-             id="path3873" />
+             id="path4534" />
         </g>
         <g
            aria-label="LK | dB"
@@ -389,23 +378,23 @@
           <path
              d="m 13.825815,593.03998 h 4.554681 v -1.19467 h -3.210677 v -6.35736 h -1.344004 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3"
-             id="path3876" />
+             id="path4537" />
           <path
              d="m 19.276495,593.03998 h 1.344004 v -3.78668 h 0.032 l 3.317344,3.78668 h 1.888006 l -3.765345,-4.06401 3.530678,-3.48802 h -1.813339 l -3.157344,3.26401 h -0.032 v -3.26401 h -1.344004 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3"
-             id="path3878" />
+             id="path4539" />
           <path
              d="m 28.972486,585.03995 v 10.6667 h 1.088003 v -10.6667 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3"
-             id="path3880" />
+             id="path4541" />
           <path
              d="m 39.340478,584.97595 h -1.280004 v 3.59468 h -0.032 c -0.266667,-0.33067 -0.778669,-0.8 -1.717339,-0.8 -1.461338,0 -2.485341,1.17334 -2.485341,2.68801 0,1.49333 0.960003,2.73067 2.517342,2.73067 0.714668,0 1.408004,-0.33067 1.760005,-0.91733 h 0.02133 v 0.768 h 1.216004 z m -4.213346,5.48269 c 0,-0.80001 0.480001,-1.64268 1.472004,-1.64268 0.93867,0 1.504005,0.86401 1.504005,1.66401 0,0.8 -0.565335,1.64267 -1.504005,1.64267 -0.992003,0 -1.472004,-0.864 -1.472004,-1.664 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3"
-             id="path3882" />
+             id="path4543" />
           <path
              d="m 40.961805,593.03998 h 2.720009 c 1.429337,0 2.858675,-0.55467 2.858675,-2.19734 0,-1.01334 -0.682669,-1.65334 -1.632005,-1.78134 v -0.0213 c 0.778669,-0.23467 1.312004,-0.80001 1.312004,-1.65334 0,-1.37601 -1.173337,-1.89868 -2.314674,-1.89868 h -2.944009 z m 1.344004,-6.44269 h 1.077337 c 1.013336,0 1.493338,0.26667 1.493338,0.93867 0,0.65067 -0.480002,1.024 -1.376004,1.024 h -1.194671 z m 0,3.11468 h 1.258671 c 1.088003,0 1.632005,0.27733 1.632005,1.06667 0,0.992 -0.992003,1.13067 -1.685339,1.13067 h -1.205337 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3"
-             id="path3884" />
+             id="path4545" />
         </g>
         <g
            aria-label="Over"
@@ -414,19 +403,19 @@
           <path
              d="m 17.489702,18.596667 c 0,2.357341 1.717339,3.989346 4.04268,3.989346 2.35734,0 4.074679,-1.632005 4.074679,-3.989346 0,-2.421341 -1.717339,-3.946679 -4.074679,-3.946679 -2.325341,0 -4.04268,1.525338 -4.04268,3.946679 z m 1.461338,0 c 0,-1.557338 1.03467,-2.762675 2.592008,-2.762675 1.568005,0 2.602675,1.205337 2.602675,2.762675 0,1.610672 -1.056003,2.784009 -2.602675,2.784009 -1.536005,0 -2.592008,-1.173337 -2.592008,-2.784009 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff"
-             id="path3887" />
+             id="path4548" />
           <path
              d="m 28.145725,22.394012 h 1.365338 l 2.037339,-5.120016 h -1.35467 l -1.354671,3.733345 h -0.02133 l -1.344004,-3.733345 h -1.397338 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff"
-             id="path3889" />
+             id="path4550" />
           <path
              d="m 33.297726,19.322003 c 0.05333,-0.714669 0.661336,-1.237337 1.418671,-1.237337 0.832003,0 1.205337,0.576001 1.205337,1.237337 z m 3.904012,0.576002 c 0,-1.84534 -1.045336,-2.773343 -2.474674,-2.773343 -1.546672,0 -2.709342,1.088004 -2.709342,2.741342 0,1.664006 1.173337,2.677342 2.752009,2.677342 0.970669,0 1.696005,-0.341334 2.19734,-1.024003 l -0.853336,-0.682669 c -0.288001,0.405335 -0.714669,0.661336 -1.354671,0.661336 -0.746669,0 -1.408004,-0.533335 -1.461338,-1.258671 h 3.893346 c 0.01067,-0.117334 0.01067,-0.224001 0.01067,-0.341334 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff"
-             id="path3891" />
+             id="path4552" />
           <path
              d="m 38.439069,22.394012 h 1.280004 V 19.65267 c 0,-0.373334 0.224001,-1.376004 1.376005,-1.376004 0.117333,0 0.224,0.01067 0.394668,0.05333 v -1.173337 c -0.08533,-0.02133 -0.213334,-0.032 -0.309335,-0.032 -0.672002,0 -1.216003,0.416002 -1.493338,1.00267 h -0.02133 v -0.853336 h -1.226671 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff"
-             id="path3893" />
+             id="path4554" />
         </g>
         <g
            aria-label="Over"
@@ -435,19 +424,19 @@
           <path
              d="m 88.489702,18.596667 c 0,2.357341 1.717339,3.989346 4.04268,3.989346 2.35734,0 4.074679,-1.632005 4.074679,-3.989346 0,-2.421341 -1.717339,-3.946679 -4.074679,-3.946679 -2.325341,0 -4.04268,1.525338 -4.04268,3.946679 z m 1.461338,0 c 0,-1.557338 1.03467,-2.762675 2.592008,-2.762675 1.568005,0 2.602675,1.205337 2.602675,2.762675 0,1.610672 -1.056003,2.784009 -2.602675,2.784009 -1.536005,0 -2.592008,-1.173337 -2.592008,-2.784009 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff"
-             id="path3896" />
+             id="path4557" />
           <path
              d="m 99.145725,22.394012 h 1.365335 l 2.03734,-5.120016 h -1.35467 l -1.354669,3.733345 h -0.02133 l -1.344004,-3.733345 h -1.397338 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff"
-             id="path3898" />
+             id="path4560" />
           <path
              d="m 104.29773,19.322003 c 0.0533,-0.714669 0.66133,-1.237337 1.41867,-1.237337 0.832,0 1.20533,0.576001 1.20533,1.237337 z m 3.90401,0.576002 c 0,-1.84534 -1.04534,-2.773343 -2.47468,-2.773343 -1.54667,0 -2.70934,1.088004 -2.70934,2.741342 0,1.664006 1.17334,2.677342 2.75201,2.677342 0.97067,0 1.69601,-0.341334 2.19734,-1.024003 l -0.85334,-0.682669 c -0.288,0.405335 -0.71466,0.661336 -1.35467,0.661336 -0.74666,0 -1.408,-0.533335 -1.46133,-1.258671 h 3.89334 c 0.0107,-0.117334 0.0107,-0.224001 0.0107,-0.341334 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff"
-             id="path3900" />
+             id="path4562" />
           <path
              d="m 109.43907,22.394012 h 1.28 V 19.65267 c 0,-0.373334 0.224,-1.376004 1.37601,-1.376004 0.11733,0 0.224,0.01067 0.39467,0.05333 v -1.173337 c -0.0853,-0.02133 -0.21334,-0.032 -0.30934,-0.032 -0.672,0 -1.216,0.416002 -1.49334,1.00267 h -0.0213 v -0.853336 h -1.22667 z"
              style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff"
-             id="path3902" />
+             id="path4564" />
         </g>
         <path
            id="rect4164"
@@ -462,6 +451,14 @@
            style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#4d4d4d;stroke-width:0.999999;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
            d="m 51.5,10.5 h 27 c 1.108,0 2,0.892 2,2 v 13 c 0,1.108 -0.892,2 -2,2 h -27 c -1.108,0 -2,-0.892 -2,-2 v -13 c 0,-1.108 0.892,-2 2,-2 z" />
       </g>
+      <path
+         id="rect5056"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#000000;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.999999;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+         d="m 12,613.5 h 105 c 0.831,0 1.5,0.669 1.5,1.5 v 14 c 0,0.831 -0.669,1.5 -1.5,1.5 H 12 c -0.831,0 -1.5,-0.669 -1.5,-1.5 v -14 c 0,-0.831 0.669,-1.5 1.5,-1.5 z" />
+      <path
+         id="rect4898"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#000000;fill-opacity:1;stroke:#4d4d4d;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+         d="m 12,633.49988 h 105 c 0.831,0 1.5,0.669 1.5,1.5 v 14 c 0,0.831 -0.669,1.5 -1.5,1.5 H 12 c -0.831,0 -1.5,-0.669 -1.5,-1.5 v -14 c 0,-0.831 0.669,-1.5 1.5,-1.5 z" />
     </g>
   </g>
 </svg>

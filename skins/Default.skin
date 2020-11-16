@@ -129,14 +129,14 @@
 
     <stereo_itu>
         <meter_phase_correlation
-            spacing_left="6"
-            spacing_top="2"
+            spacing_left="3"
+            spacing_top="0"
             image="meter/phase_correlation.svg"
             image_needle="meter/phase_correlation_needle.svg" />
 
         <meter_stereo
-            spacing_left="6"
-            spacing_top="2"
+            spacing_left="3"
+            spacing_top="0"
             image="meter/stereo.svg"
             image_needle="meter/stereo_needle.svg" />
 
@@ -261,14 +261,14 @@
 
     <stereo_rms>
         <meter_phase_correlation
-            spacing_left="6"
-            spacing_top="2"
+            spacing_left="3"
+            spacing_top="0"
             image="meter/phase_correlation.svg"
             image_needle="meter/phase_correlation_needle.svg" />
 
         <meter_stereo
-            spacing_left="6"
-            spacing_top="2"
+            spacing_left="3"
+            spacing_top="0"
             image="meter/stereo.svg"
             image_needle="meter/stereo_needle.svg" />
 

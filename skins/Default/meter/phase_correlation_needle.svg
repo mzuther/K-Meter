@@ -205,7 +205,8 @@
        y1="498.36218"
        x2="404.5"
        y2="498.36218"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-290,526)" />
     <linearGradient
        xlink:href="#linearGradient4424-9"
        id="linearGradient12212"
@@ -213,7 +214,8 @@
        y1="516.36218"
        x2="404.5"
        y2="516.36218"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-290,527)" />
   </defs>
   <metadata
      id="metadata7">
@@ -237,16 +239,16 @@
      id="layer1"
      style="display:inline">
     <g
-       transform="translate(-317,616.99998)"
+       transform="translate(-307,616.99998)"
        id="export-meter-phase-correlation-needle">
       <path
          id="path5110"
-         d="M 358.5,402.36214 V 412.3622"
+         d="m 358.49997,401.86634 v 10.99994"
          style="display:inline;fill:none;stroke:#ff0000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <path
          id="rect4139"
          style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.6;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-         d="m 357,401.86221 h 3 v 11 h -3 z" />
+         d="m 357,401.36221 h 3 v 12 h -3 z" />
     </g>
   </g>
 </svg>

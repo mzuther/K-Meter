@@ -205,7 +205,8 @@
        y1="498.36218"
        x2="404.5"
        y2="498.36218"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-290,526)" />
     <linearGradient
        xlink:href="#linearGradient4424-9"
        id="linearGradient12212"
@@ -213,7 +214,8 @@
        y1="516.36218"
        x2="404.5"
        y2="516.36218"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-290,527)" />
   </defs>
   <metadata
      id="metadata7">
@@ -243,23 +245,23 @@
       <path
          d="m 142.00001,860.1062 h 2.67735 c 1.97334,0 4.17068,-1.13067 4.17068,-3.77601 0,-2.83734 -2.19734,-3.77601 -4.17068,-3.77601 h -2.67735 z m 1.34401,-1.17334 v -5.22668 h 1.12 c 1.38667,0 2.94401,0.45867 2.94401,2.62401 0,2.03734 -1.55734,2.60267 -2.94401,2.60267 z"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000"
-         id="path379655" />
+         id="path379210" />
       <path
          d="m 150.14937,860.1062 h 5.19469 v -1.19467 h -3.85068 v -2.13334 h 3.46667 v -1.13067 h -3.46667 v -1.92001 h 3.65868 v -1.17333 h -5.00269 z"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000"
-         id="path379657" />
+         id="path379212" />
       <path
          d="m 156.65605,860.1062 h 2.72001 c 1.42933,0 2.85867,-0.55467 2.85867,-2.19734 0,-1.01334 -0.68267,-1.65334 -1.632,-1.78134 v -0.0213 c 0.77866,-0.23467 1.312,-0.8 1.312,-1.65334 0,-1.376 -1.17334,-1.89867 -2.31467,-1.89867 h -2.94401 z m 1.344,-6.44269 h 1.07734 c 1.01333,0 1.49334,0.26667 1.49334,0.93867 0,0.65067 -0.48001,1.02401 -1.37601,1.02401 h -1.19467 z m 0,3.11468 h 1.25867 c 1.088,0 1.63201,0.27733 1.63201,1.06667 0,0.992 -0.99201,1.13067 -1.68534,1.13067 h -1.20534 z"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000"
-         id="path379659" />
+         id="path379214" />
       <path
          d="m 169.57341,852.55418 h -1.344 v 4.72535 c 0,0.87467 -0.40534,1.81333 -1.69601,1.81333 -1.29067,0 -1.696,-0.93866 -1.696,-1.81333 v -4.72535 h -1.34401 v 4.77868 c 0,1.824 1.31201,2.96534 3.04001,2.96534 1.72801,0 3.04001,-1.14134 3.04001,-2.96534 z"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000"
-         id="path379661" />
+         id="path379216" />
       <path
          d="m 177.78676,855.79685 h -2.89068 v 1.10934 h 1.58934 v 1.92001 c -0.43733,0.18133 -0.93867,0.26666 -1.504,0.26666 -1.66401,0 -2.68801,-1.17333 -2.68801,-2.784 0,-1.55734 1.03467,-2.76268 2.62401,-2.76268 0.81067,0 1.54667,0.34133 1.93067,0.768 l 0.928,-1.00267 c -0.608,-0.56533 -1.67467,-0.94933 -2.86934,-0.94933 -2.32534,0 -4.09601,1.52533 -4.09601,3.94668 0,2.35734 1.696,3.98934 4.12801,3.98934 1.184,0 2.09067,-0.224 2.84801,-0.58667 z"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000"
-         id="path379663" />
+         id="path379218" />
     </g>
   </g>
 </svg>

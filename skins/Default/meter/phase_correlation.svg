@@ -205,7 +205,8 @@
        y1="498.36218"
        x2="404.5"
        y2="498.36218"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-290,526)" />
     <linearGradient
        xlink:href="#linearGradient4424-9"
        id="linearGradient12212"
@@ -213,7 +214,8 @@
        y1="516.36218"
        x2="404.5"
        y2="516.36218"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-290,527)" />
   </defs>
   <metadata
      id="metadata7">
@@ -237,55 +239,46 @@
      id="layer1"
      style="display:inline">
     <g
-       transform="translate(-290,526)"
        id="export-meter-phase-correlation">
-      <path
-         id="rect5014"
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#282828;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;enable-background:accumulate"
-         d="m 300,490.36218 h 107 v 16 H 300 Z" />
-      <path
-         id="rect5056"
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#000000;fill-opacity:1;stroke:#4d4d4d;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
-         d="m 302,490.86224 h 103 c 0.831,0 1.5,0.669 1.5,1.5 v 12 c 0,0.831 -0.669,1.5 -1.5,1.5 H 302 c -0.831,0 -1.5,-0.669 -1.5,-1.5 v -12 c 0,-0.831 0.669,-1.5 1.5,-1.5 z" />
       <path
          id="rect3393"
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:url(#linearGradient12204);fill-opacity:1;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-         d="m 303,492.86218 h 101 c 0.277,0 0.5,0.223 0.5,0.5 v 10 c 0,0.277 -0.223,0.5 -0.5,0.5 H 303 c -0.277,0 -0.5,-0.223 -0.5,-0.5 v -10 c 0,-0.277 0.223,-0.5 0.5,-0.5 z" />
+         d="m 13.5,1018.3622 h 102 v 12 h -102 z" />
       <g
          aria-label="-1"
          transform="scale(-1,1)"
          id="text5066"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:0%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none">
         <path
-           d="m -310.51804,498.97017 h -2.56001 v 1.08801 h 2.56001 z"
+           d="m -21.682678,1024.9702 h -2.560008 v 1.088 h 2.560008 z"
            style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff"
-           id="path434168" />
+           id="path433659" />
         <path
-           d="m -307.11537,502.13818 h 1.28001 v -7.55202 h -1.16267 l -2.35734,1.89867 0.74667,0.88534 1.49333,-1.22667 z"
+           d="M -18.280004,1028.1382 H -17 v -7.552 h -1.16267 l -2.357341,1.8986 0.746669,0.8854 1.493338,-1.2267 z"
            style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff"
-           id="path434170" />
+           id="path433661" />
       </g>
       <g
          aria-label="+1"
          id="text5070"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:0%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none">
         <path
-           d="m 390.61295,498.36217 v 1.08801 h 2.34668 v 2.34667 h 1.088 v -2.34667 h 2.34668 v -1.08801 h -2.34668 v -2.34667 h -1.088 v 2.34667 z"
+           d="m 101.49999,1024.3622 v 1.088 h 2.34668 v 2.3466 h 1.088 v -2.3466 h 2.34667 v -1.088 h -2.34667 v -2.3467 h -1.088 v 2.3467 z"
            style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff"
-           id="path434173" />
+           id="path433664" />
         <path
-           d="m 400.03163,502.13818 h 1.28001 v -7.55202 h -1.16267 l -2.35734,1.89867 0.74667,0.88534 1.49333,-1.22667 z"
+           d="m 110.91867,1028.1382 h 1.28001 v -7.552 h -1.16267 l -2.35734,1.8986 0.74666,0.8854 1.49334,-1.2267 z"
            style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff"
-           id="path434175" />
+           id="path433666" />
       </g>
       <g
          aria-label="0"
          id="text5074"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:0%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none">
         <path
-           d="m 356.16357,498.36217 c 0,-2.44267 -0.94934,-3.96801 -2.65601,-3.96801 -1.71734,0 -2.67734,1.52534 -2.67734,3.96801 0,2.44268 0.96,3.96801 2.67734,3.96801 1.70667,0 2.65601,-1.52533 2.65601,-3.96801 z m -1.312,0 c 0,1.05601 -0.20267,2.88001 -1.34401,2.88001 -1.152,0 -1.36534,-1.824 -1.36534,-2.88001 0,-1.056 0.21334,-2.90134 1.36534,-2.90134 1.14134,0 1.34401,1.84534 1.34401,2.90134 z"
+           d="m 67.166674,1024.3622 c 0,-2.4427 -0.949336,-3.968 -2.656008,-3.968 -1.717339,0 -2.677342,1.5253 -2.677342,3.968 0,2.4426 0.960003,3.968 2.677342,3.968 1.706672,0 2.656008,-1.5254 2.656008,-3.968 z m -1.312004,0 c 0,1.056 -0.202667,2.88 -1.344004,2.88 -1.152004,0 -1.365338,-1.824 -1.365338,-2.88 0,-1.056 0.213334,-2.9014 1.365338,-2.9014 1.141337,0 1.344004,1.8454 1.344004,2.9014 z"
            style="font-weight:600;font-size:10.6667px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff"
-           id="path434178" />
+           id="path433669" />
       </g>
     </g>
   </g>
