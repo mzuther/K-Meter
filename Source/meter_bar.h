@@ -34,12 +34,12 @@ class MeterBar :
 {
 public:
    using frut::widgets::MeterBar::create;
-   virtual void create( int crestFactor,
-                        bool discreteMeter,
-                        bool isExpanded,
-                        frut::widgets::Orientation orientation,
-                        int mainSegmentHeight,
-                        const Array<Colour>& segmentColours );
+   void create( int crestFactor,
+                bool discreteMeter,
+                bool isExpanded,
+                frut::widgets::Orientation orientation,
+                int mainSegmentHeight,
+                const Array<Colour>& segmentColours );
 
 protected:
    /// Colour ID selector for meter segments.

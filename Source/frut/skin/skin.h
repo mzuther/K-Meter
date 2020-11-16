@@ -37,11 +37,11 @@ public:
    bool loadFromXml( const String& rootName,
                      const String& assumedVersionNumber );
 
-   String getDefaultSkin();
-   void setDefaultSkin( const String& defaultSkinName );
+   int getUiScale();
+   void setUiScale( int scale );
 
+   String getQualifiedTag( XmlElement* xml );
    XmlElement* getSetting( const String& tagName );
-
    XmlElement* getComponent( const String& tagName );
 
    bool getBoolean( const XmlElement* xmlComponent,
@@ -64,10 +64,22 @@ public:
                            const Colour defaultColour = Colours::red,
                            const String valuePrefix = "" );
 
-   std::unique_ptr<Drawable> loadImage( const String& strFilename );
+   bool getAttributesFromSvgFile( const String& tagName,
+                                  const String& attributeName,
+                                  Colour& strokeColour,
+                                  Colour& fillColour,
+                                  Rectangle<int>& bounds );
 
-   void loadImage( const String& strFilename,
-                   Image& image );
+   std::unique_ptr<Drawable> loadImageAsDrawable( const String& strFilename );
+   std::unique_ptr<Drawable> loadImageAsDrawable( const String& tagName,
+                                                  const String& attributeName,
+                                                  Drawable* alternativeDrawable = nullptr );
+
+   Image loadImage( const String& strFilename );
+   Image loadImage( const String& tagName,
+                    const String& attributeName );
+
+   Image imageFromDrawable( std::unique_ptr<Drawable>& drawable );
 
    void setBackground( DrawableComposite* background,
                        AudioProcessorEditor* editor );

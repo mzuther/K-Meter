@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="200"
+   height="657"
+   id="svg2"
+   version="1.1">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient4424">
+      <stop
+         style="stop-color:#960000;stop-opacity:1;"
+         offset="0"
+         id="stop4426" />
+      <stop
+         id="stop5050"
+         offset="0.15000001"
+         style="stop-color:#960000;stop-opacity:1;" />
+      <stop
+         id="stop4432"
+         offset="0.60000002"
+         style="stop-color:#8e9600;stop-opacity:1;" />
+      <stop
+         style="stop-color:#005000;stop-opacity:1;"
+         offset="1"
+         id="stop4428" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4424-9">
+      <stop
+         style="stop-color:#000078;stop-opacity:1;"
+         offset="0"
+         id="stop4426-7" />
+      <stop
+         id="stop6777"
+         offset="0.05"
+         style="stop-color:#000078;stop-opacity:1;" />
+      <stop
+         id="stop5947"
+         offset="0.5"
+         style="stop-color:#0081dc;stop-opacity:1;" />
+      <stop
+         style="stop-color:#000078;stop-opacity:1;"
+         offset="0.94919789"
+         id="stop6779" />
+      <stop
+         style="stop-color:#000078;stop-opacity:1;"
+         offset="1"
+         id="stop4428-1" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient4424"
+       id="linearGradient5358"
+       gradientUnits="userSpaceOnUse"
+       x1="10"
+       y1="549.86206"
+       x2="116"
+       y2="549.86206"
+       gradientTransform="translate(49.528295,-453.6)" />
+    <linearGradient
+       xlink:href="#linearGradient4424"
+       id="linearGradient5362"
+       gradientUnits="userSpaceOnUse"
+       x1="10"
+       y1="549.86206"
+       x2="116"
+       y2="549.86206"
+       gradientTransform="translate(970.75471,-453.6)" />
+    <linearGradient
+       xlink:href="#linearGradient4424"
+       id="linearGradient6245"
+       gradientUnits="userSpaceOnUse"
+       x1="10"
+       y1="549.86206"
+       x2="116"
+       y2="549.86206"
+       gradientTransform="translate(39.62263,-453.6)" />
+    <linearGradient
+       xlink:href="#linearGradient4424"
+       id="linearGradient6293"
+       gradientUnits="userSpaceOnUse"
+       x1="10"
+       y1="549.86206"
+       x2="116"
+       y2="549.86206"
+       gradientTransform="translate(257.54716,-453.6)" />
+    <pattern
+       xlink:href="#Strips1_1"
+       id="pattern9313"
+       patternTransform="matrix(0.78764254,1.364237,-9.5105956,5.4909445,210,-566.99999)" />
+    <pattern
+       id="Strips1_1"
+       patternTransform="translate(0,0) scale(10,10)"
+       height="1"
+       width="2"
+       patternUnits="userSpaceOnUse">
+      <rect
+         id="rect8592"
+         height="2"
+         width="1"
+         y="-0.5"
+         x="0"
+         style="fill:black;stroke:none" />
+    </pattern>
+    <pattern
+       xlink:href="#Strips1_1-0"
+       id="pattern9313-0"
+       patternTransform="matrix(0.78764254,1.364237,-9.5105956,5.4909445,490.00001,-1147)" />
+    <pattern
+       id="Strips1_1-0"
+       patternTransform="translate(0,0) scale(10,10)"
+       height="1"
+       width="2"
+       patternUnits="userSpaceOnUse">
+      <rect
+         id="rect8592-6"
+         height="2"
+         width="1"
+         y="-0.5"
+         x="0"
+         style="fill:black;stroke:none" />
+    </pattern>
+    <pattern
+       xlink:href="#Strips1_1-77-5"
+       id="pattern9313-6-5"
+       patternTransform="matrix(0.78764254,1.3257476,-9.5105956,5.3360276,276.26955,-611.0257)" />
+    <pattern
+       id="Strips1_1-77-5"
+       patternTransform="translate(0,0) scale(10,10)"
+       height="1"
+       width="2"
+       patternUnits="userSpaceOnUse">
+      <rect
+         id="rect8592-2-2"
+         height="2"
+         width="1"
+         y="-0.5"
+         x="0"
+         style="fill:black;stroke:none" />
+    </pattern>
+    <pattern
+       xlink:href="#Strips1_1-77-5-8"
+       id="pattern9313-6-5-1"
+       patternTransform="matrix(0.78764254,1.3257476,-9.5105956,5.3360276,-157.73042,-611.02571)" />
+    <pattern
+       id="Strips1_1-77-5-8"
+       patternTransform="translate(0,0) scale(10,10)"
+       height="1"
+       width="2"
+       patternUnits="userSpaceOnUse">
+      <rect
+         id="rect8592-2-2-7"
+         height="2"
+         width="1"
+         y="-0.5"
+         x="0"
+         style="fill:black;stroke:none" />
+    </pattern>
+    <pattern
+       xlink:href="#Strips1_1-9"
+       id="pattern9313-21"
+       patternTransform="matrix(0.78764254,1.364237,-9.5105956,5.4909445,1350,-1127)" />
+    <pattern
+       id="Strips1_1-9"
+       patternTransform="translate(0,0) scale(10,10)"
+       height="1"
+       width="2"
+       patternUnits="userSpaceOnUse">
+      <rect
+         id="rect8592-47"
+         height="2"
+         width="1"
+         y="-0.5"
+         x="0"
+         style="fill:black;stroke:none" />
+    </pattern>
+    <pattern
+       xlink:href="#Strips1_1-9-9"
+       id="pattern9313-21-9"
+       patternTransform="matrix(0.78764254,1.364237,-9.5105956,5.4909445,1140,-1127)" />
+    <pattern
+       id="Strips1_1-9-9"
+       patternTransform="translate(0,0) scale(10,10)"
+       height="1"
+       width="2"
+       patternUnits="userSpaceOnUse">
+      <rect
+         id="rect8592-47-1"
+         height="2"
+         width="1"
+         y="-0.5"
+         x="0"
+         style="fill:black;stroke:none" />
+    </pattern>
+    <linearGradient
+       xlink:href="#linearGradient4424"
+       id="linearGradient12204"
+       x1="302.5"
+       y1="498.36218"
+       x2="404.5"
+       y2="498.36218"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       xlink:href="#linearGradient4424-9"
+       id="linearGradient12212"
+       x1="302.5"
+       y1="516.36218"
+       x2="404.5"
+       y2="516.36218"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Martin Zuther</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-402.36218)"
+     id="layer1"
+     style="display:inline">
+    <g
+       transform="translate(-480,1144.3622)"
+       id="export-button-about-off"
+       style="display:inline;enable-background:new">
+      <path
+         id="rect2313"
+         style="color:#000000;font-variation-settings:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#666666;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+         d="m 810.5,-111.5 h 39 c 5.54,0 10,4.237 10,9.5 0,5.263001 -4.46,9.500002 -10,9.500002 h -39 c -5.54,0 -10,-4.237001 -10,-9.500002 0,-5.263 4.46,-9.5 10,-9.5 z" />
+      <g
+         aria-label="About"
+         transform="translate(0.50965083)"
+         id="text2317"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;display:inline;opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new;stop-color:#000000;stop-opacity:1">
+        <path
+           d="m 814.20417,-98.261322 h 1.504 l 0.68267,-1.728005 h 3.27468 l 0.704,1.728005 h 1.53601 l -3.25335,-7.552028 h -1.16267 z m 2.64534,-2.880008 1.184,-3.07201 1.16267,3.07201 z"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           id="path11621" />
+        <path
+           d="m 822.60952,-106.32535 v 8.064028 h 1.21601 v -0.768002 h 0.0213 c 0.352,0.586668 1.04534,0.917336 1.76,0.917336 1.55734,0 2.51735,-1.237337 2.51735,-2.730672 0,-1.51467 -1.02401,-2.68801 -2.48534,-2.68801 -0.93867,0 -1.45068,0.46933 -1.71734,0.8 h -0.032 v -3.59468 z m 4.21335,5.48269 c 0,0.8 -0.48,1.664002 -1.47201,1.664002 -0.93867,0 -1.504,-0.842672 -1.504,-1.642672 0,-0.8 0.56533,-1.66401 1.504,-1.66401 0.99201,0 1.47201,0.84267 1.47201,1.64268 z"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           id="path11623" />
+        <path
+           d="m 829.06286,-100.84266 c 0,1.610668 1.23734,2.730672 2.78401,2.730672 1.54667,0 2.78401,-1.120004 2.78401,-2.730672 0,-1.61068 -1.23734,-2.68801 -2.78401,-2.68801 -1.54667,0 -2.78401,1.07733 -2.78401,2.68801 z m 1.30134,0 c 0,-0.80001 0.46933,-1.64268 1.48267,-1.64268 1.01333,0 1.48267,0.84267 1.48267,1.64268 0,0.8 -0.46934,1.664002 -1.48267,1.664002 -1.01334,0 -1.48267,-0.864002 -1.48267,-1.664002 z"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           id="path11625" />
+        <path
+           d="m 840.54021,-103.38134 h -1.28 v 2.81601 c 0,0.68267 -0.384,1.386672 -1.19467,1.386672 -0.82134,0 -0.96,-0.757336 -0.96,-1.365342 v -2.83734 h -1.28001 v 3.20001 c 0,1.045339 0.55467,2.069342 1.88801,2.069342 0.75733,0 1.36534,-0.458668 1.58934,-0.97067 h 0.0213 v 0.821336 h 1.216 z"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           id="path11627" />
+        <path
+           d="m 842.23621,-102.35733 v 2.389336 c 0,0.981336 0.30933,1.813339 1.664,1.813339 0.288,0 0.62934,-0.05333 0.85334,-0.138667 l -0.0427,-1.00267 c -0.14933,0.07467 -0.37333,0.106667 -0.544,0.106667 -0.56534,0 -0.672,-0.330668 -0.672,-0.789336 v -2.378669 h 1.28 v -1.02401 h -1.28 v -1.48267 h -1.25867 v 1.48267 h -0.89601 v 1.02401 z"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           id="path11629" />
+      </g>
+    </g>
+  </g>
+</svg>

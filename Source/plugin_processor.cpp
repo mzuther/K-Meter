@@ -53,6 +53,7 @@ KmeterAudioProcessor::KmeterAudioProcessor() :
 {
    frut::Frut::printVersionNumbers();
 
+   // cppcheck-suppress knownConditionTrueFalse
    if ( DEBUG_FILTER ) {
       Logger::outputDebugString( "********************************************************************************" );
       Logger::outputDebugString( "** Debugging average filtering.  Please reset DEBUG_FILTER before committing! **" );
@@ -794,6 +795,8 @@ void KmeterAudioProcessor::processBlock( AudioBuffer<double>& buffer,
 
    // to allow debugging of the average level filter, we'll have to
    // overwrite the input buffer from the ring buffer
+   //
+   // cppcheck-suppress knownConditionTrueFalse
    if ( DEBUG_FILTER ) {
       // copy ring buffer back to temporary buffer
       ringBuffer_->removeTo( processBuffer, 0, numberOfSamples );
@@ -1003,6 +1006,8 @@ bool KmeterAudioProcessor::processBufferChunk( AudioBuffer<float>& buffer )
    // To hear the audio source after average filtering, simply set
    // DEBUG_FILTER to "true".  Please remember to revert this
    // variable to "false" before committing your changes.
+   //
+   // cppcheck-suppress knownConditionTrueFalse
    if ( DEBUG_FILTER ) {
       // get average filter output
       averageLevelFiltered_->copyTo( buffer, chunkSize );

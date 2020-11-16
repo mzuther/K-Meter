@@ -53,7 +53,8 @@ void Kmeter::applySkin( Skin* skin,
 {
    displayPeakMeter_ = displayPeakMeter;
 
-   frut::widgets::Orientation orientation;
+   frut::widgets::Orientation orientation (
+      frut::widgets::Orientation::bottomToTop );
 
    if ( isHorizontal ) {
       orientation = frut::widgets::Orientation (

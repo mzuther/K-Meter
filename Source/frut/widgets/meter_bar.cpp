@@ -30,10 +30,16 @@ namespace widgets
 
 /// Default constructor.
 ///
-MeterBar::MeterBar()
+MeterBar::MeterBar() :
+   normalLevel_( 0.0f ),
+   normalLevelPeak_( 0.0f ),
+   discreteLevel_( 0.0f ),
+   discreteLevelPeak_( 0.0f ),
+   barWidth_ ( 0 ),
+   barHeight_ ( 0 ),
+   segmentWidth_ ( 0 ),
+   orientation_( Orientation::orientations::bottomToTop )
 {
-   // initialize variables
-   create();
 };
 
 
@@ -71,10 +77,6 @@ void MeterBar::create()
 
    // clear array with segment spacings
    segmentSpacing_.clear();
-
-   // set initial orientation
-   isVertical_ = true;
-   isInverted_ = false;
 }
 
 
@@ -136,6 +138,79 @@ void MeterBar::addSegment( widgets::MeterSegment* segment,
 }
 
 
+/// Add a discrete meter segment composed of images to the meter.
+/// This function runs fastest if you change the meter's orientation
+/// after all meter segments have been added.
+///
+/// @param lowerThreshold lower threshold level (in decibels)
+///
+/// @param thresholdRange difference between lower and upper level
+///        threshold (in decibels)
+///
+/// @param retainSignalFactor if set to value other than 0.0, the segment
+///        automatically fades out and all segments with lower
+///        thresholds remain dark.  This factor determines how much of
+///        the original brightness remains between updates (range: 0.0
+///        to 1.0).
+///
+/// @param newSignalFactor if retainSignalFactor is set to a value other
+///        than 0.0, this factor determines how much of the new signal
+///        is added to the brightness (range: 0.0 to 1.0).
+///
+/// @param isTopmost if set to **true**, the segment has no upper
+///        level threshold
+///
+/// @param spacingBefore spacing before the segment (in pixels)
+///
+/// @param imageOn image of fully lit segment
+///
+/// @param topLeftOn relative position of fully lit segment
+///
+/// @param imageOff image of dark segment
+///
+/// @param topLeftOff relative position of dark segment
+///
+/// @param imagePeak image of peak segment
+///
+/// @param topLeftPeak relative position of peak segment
+///
+void MeterBar::addDiscreteImageSegment( float lowerThreshold,
+                                        float thresholdRange,
+                                        float retainSignalFactor,
+                                        float newSignalFactor,
+                                        bool isTopmost,
+                                        int spacingBefore,
+                                        Image imageOn,
+                                        Point<int> topLeftImageOn,
+                                        Image imageOff,
+                                        Point<int> topLeftImageOff,
+                                        Image imagePeak,
+                                        Point<int> topLeftImagePeak )
+{
+   // create new discrete meter segment (will be deleted
+   // automatically)
+   auto segment = new widgets::MeterSegmentDiscreteImage();
+
+   segment->init( retainSignalFactor, newSignalFactor,
+                  imageOn, topLeftImageOn,
+                  imageOff, topLeftImageOff,
+                  imagePeak, topLeftImagePeak );
+
+   // set segment's lower threshold and display range (both in
+   // decibels) and whether it is the topmost segment
+   segment->setThresholdAndRange( lowerThreshold,
+                                  thresholdRange,
+                                  isTopmost );
+
+   // add segment to meter; assume that peak image is the largest of
+   // all images
+   addSegment(
+      segment,
+      imagePeak.getHeight(),
+      spacingBefore );
+}
+
+
 /// Add a discrete meter segment to the meter.  This function runs
 /// fastest if you change the meter's orientation after all meter
 /// segments have been added.
@@ -178,9 +253,8 @@ void MeterBar::addDiscreteSegment( float lowerThreshold,
 {
    // create new discrete meter segment (will be deleted
    // automatically)
-   widgets::MeterSegmentDiscrete* segment =
-      new widgets::MeterSegmentDiscrete( retainSignalFactor,
-                                         newSignalFactor );
+   auto segment = new widgets::MeterSegmentDiscrete();
+   segment->init( retainSignalFactor, newSignalFactor );
 
    // set segment's lower threshold and display range (both in
    // decibels) and whether it is the topmost segment
@@ -233,8 +307,8 @@ void MeterBar::addContinuousSegment( float lowerThreshold,
 {
    // create new continuous meter segment (will be deleted
    // automatically)
-   widgets::MeterSegmentContinuous* segment =
-      new widgets::MeterSegmentContinuous();
+   auto segment = new widgets::MeterSegmentContinuous();
+   segment->init();
 
    // set segment's lower threshold and display range (both in
    // decibels) and whether it is the topmost segment
@@ -287,27 +361,31 @@ void MeterBar::setOrientation( const widgets::Orientation& orientation )
    }
 
    // remember old orientation
-   bool isVerticalOld = isVertical_;
-   bool isInvertedOld = isInverted_;
+   bool isVerticalOld = orientation_.isVertical();
+   bool isInvertedOld = orientation_.isInverted();
 
    // update orientation
    orientation_ = orientation;
 
-   isVertical_ = orientation_.isVertical();
-   isInverted_ = orientation_.isInverted();
+   bool isVertical = orientation_.isVertical();
+   bool isInverted = orientation_.isInverted();
 
    // we have to invert this Boolean for horizontal meters, otherwise
-   // it will be drawn the wrong way round
-   if ( ! isVertical_ ) {
-      isInverted_ = ! isInverted_;
+   // they will be drawn the wrong way round
+   if ( ! isVerticalOld ) {
+      isInvertedOld = ! isInvertedOld;
+   }
+
+   if ( ! isVertical ) {
+      isInverted = ! isInverted;
    }
 
    // changed from vertical to horizontal orientation or vice versa
-   if ( isVertical_ != isVerticalOld ) {
+   if ( isVertical != isVerticalOld ) {
       // re-arrange meter segments
       for ( int index = 0; index < meterSegments_.size(); ++index ) {
          // get current segment
-         widgets::MeterSegment* segment = meterSegments_[index];
+         auto segment = meterSegments_[index];
 
          // swap x <=> y and width <=> height
          segment->setBounds( segment->getY(),
@@ -321,24 +399,24 @@ void MeterBar::setOrientation( const widgets::Orientation& orientation )
    }
 
    // changed from inverted to non-inverted orientation or vice versa
-   if ( isInverted_ != isInvertedOld ) {
+   if ( isInverted != isInvertedOld ) {
       // initialise position and segment height
       int tempX = 0;
       int tempY = 0;
       int segmentHeight;
 
       // inverted orientation: start from "bottom" of meter
-      if ( isInverted_ ) {
+      if ( isInverted ) {
          tempY = barHeight_;
       }
 
       // position meter segments
       for ( int index = 0; index < meterSegments_.size(); ++index ) {
          // get current segment
-         widgets::MeterSegment* segment = meterSegments_[index];
+         auto segment = meterSegments_[index];
 
          // get current segment height
-         if ( isVertical_ ) {
+         if ( isVertical ) {
             segmentHeight = segment->getHeight();
             // horizontal meter
          } else {
@@ -346,7 +424,7 @@ void MeterBar::setOrientation( const widgets::Orientation& orientation )
          }
 
          // inverted orientation: subtract from current position
-         if ( isInverted_ ) {
+         if ( isInverted ) {
             // subtract spacing from position (no spacing before
             // first meter segment!)
             if ( index > 0 ) {
@@ -365,7 +443,7 @@ void MeterBar::setOrientation( const widgets::Orientation& orientation )
          }
 
          // move meter segments
-         if ( isVertical_ ) {
+         if ( isVertical ) {
             segment->setTopLeftPosition( tempX, tempY );
             // horizontal meter: swap width <=> height
          } else {
@@ -374,7 +452,7 @@ void MeterBar::setOrientation( const widgets::Orientation& orientation )
 
          // non-inverted orientation: add height of segment to
          // position
-         if ( ! isInverted_ ) {
+         if ( ! isInverted ) {
             tempY += segmentHeight;
          }
       }
@@ -383,7 +461,7 @@ void MeterBar::setOrientation( const widgets::Orientation& orientation )
    // update segment orientation
    for ( int index = 0; index < meterSegments_.size(); ++index ) {
       // get current segment
-      widgets::MeterSegment* segment = meterSegments_[index];
+      auto segment = meterSegments_[index];
 
       segment->setOrientation( orientation_ );
    }
@@ -417,10 +495,10 @@ void MeterBar::setSegmentWidth( int segmentWidth )
    // update meter segments
    for ( int index = 0; index < meterSegments_.size(); ++index ) {
       // get current segment
-      widgets::MeterSegment* segment = meterSegments_[index];
+      auto segment = meterSegments_[index];
 
       // set dimensions of meter segment
-      if ( isVertical_ ) {
+      if ( orientation_.isVertical() ) {
          segment->setSize( segmentWidth_, segment->getHeight() );
          // horizontal meter
       } else {
@@ -450,7 +528,7 @@ void MeterBar::paint( Graphics& g )
 void MeterBar::resized()
 {
    // override dimensions of meter bar
-   if ( isVertical_ ) {
+   if ( orientation_.isVertical() ) {
       setSize( barWidth_, barHeight_ );
    } else {
       // horizontal meter: swap width <=> height
@@ -479,7 +557,7 @@ void MeterBar::setNormalLevels( float normalLevel,
       // update meter segments
       for ( int index = 0; index < meterSegments_.size(); ++index ) {
          // get current segment
-         widgets::MeterSegment* segment = meterSegments_[index];
+         auto segment = meterSegments_[index];
 
          segment->setNormalLevels(
             normalLevel_, normalLevelPeak_ );
@@ -508,7 +586,7 @@ void MeterBar::setDiscreteLevels( float discreteLevel,
       // update meter segments
       for ( int index = 0; index < meterSegments_.size(); ++index ) {
          // get current segment
-         widgets::MeterSegment* segment = meterSegments_[index];
+         auto segment = meterSegments_[index];
 
          segment->setDiscreteLevels(
             discreteLevel_, discreteLevelPeak_ );
@@ -548,7 +626,7 @@ void MeterBar::setLevels( float normalLevel,
       // update meter bars
       for ( int index = 0; index < meterSegments_.size(); ++index ) {
          // get current segment
-         widgets::MeterSegment* segment = meterSegments_[index];
+         auto segment = meterSegments_[index];
 
          segment->setLevels(
             normalLevel_, normalLevelPeak_,

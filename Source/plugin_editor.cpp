@@ -242,6 +242,21 @@ void KmeterAudioProcessorEditor::applySkin()
                     isExpanded,
                     usePeakMeter );
 
+   // update UI scale
+   Logger::outputDebugString(
+      String( "[Skin] scaling UI to " ) +
+      String( skin.getUiScale() ) + "%" );
+
+   float scale = skin.getUiScale() / 100.0f;
+
+   // FIXME: should be fixed in JUCE by now (see
+   // https://forum.juce.com/t/ui-scaling/15930/15)
+   if ( PluginHostType::getPluginLoadedAs() == AudioProcessor::wrapperType_Standalone ) {
+      Desktop::getInstance().setGlobalScaleFactor( scale );
+   } else {
+      setScaleFactor( scale );
+   }
+
    // moves background image to the back of the editor's z-plane;
    // will also resize plug-in editor
    skin.setBackground( &DrawableBackground, this );
@@ -325,8 +340,11 @@ void KmeterAudioProcessorEditor::windowSkinCallback( int modalResult )
    // manually deactivate skin button
    ButtonSkin.setToggleState( false, dontSendNotification );
 
-   // user has selected a skin
+   // user has selected a UI scale
    if ( modalResult > 0 ) {
+      // store new UI scale
+      skin.setUiScale( modalResult );
+
       // apply skin to plug-in editor
       loadSkin();
    }
@@ -570,7 +588,8 @@ void KmeterAudioProcessorEditor::buttonClicked( Button* button )
       button->setToggleState( true, dontSendNotification );
 
       // prepare and launch dialog window
-      DialogWindow* windowSkin = frut::widgets::WindowSkinContent::createDialogWindow( this, &skin );
+      DialogWindow* windowSkin = frut::widgets::WindowSkinContent::createDialogWindow(
+                                    this, skin.getUiScale() );
 
       // attach callback to dialog window
       ModalComponentManager::getInstance()->attachCallback( windowSkin, ModalCallbackFunction::forComponent( window_skin_callback, this ) );
@@ -695,7 +714,7 @@ void KmeterAudioProcessorEditor::buttonClicked( Button* button )
 
       // prepare and launch dialog window
       int width = 270;
-      int height = 540;
+      int height = 410;
 
       DialogWindow* windowAbout = frut::widgets::WindowAboutContent::createDialogWindow(
                                      this, width, height, arrChapters );

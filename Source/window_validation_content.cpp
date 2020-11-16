@@ -40,6 +40,11 @@
 WindowValidationContent::WindowValidationContent( KmeterAudioProcessor& processor ) :
    audioProcessor( processor )
 {
+}
+
+
+void WindowValidationContent::initialise()
+{
    // dimensions of content component
    int componentWidth = 175;
    int componentHeight = 290;
@@ -87,8 +92,10 @@ DialogWindow* WindowValidationContent::createDialogWindow( AudioProcessorEditor&
       new WindowValidationContent( processor );
 
    // initialise dialog window settings
+   contentComponent->initialise();
+
    windowValidationLauncher.dialogTitle = String( "Validation" );
-   windowValidationLauncher.dialogBackgroundColour = Colours::white;
+   windowValidationLauncher.dialogBackgroundColour = Colours::black.brighter( 0.2f );
    windowValidationLauncher.content.setOwned( contentComponent );
    windowValidationLauncher.componentToCentreAround = &pluginEditor;
 

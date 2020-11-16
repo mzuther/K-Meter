@@ -40,7 +40,7 @@ bool Skin::loadSkin( int numberOfChannels,
                displayPeakMeter );
 
    // signal success or failure
-   return loadFromXml( "kmeter-skin", "1.4" );
+   return loadFromXml( "kmeter-skin", "1.5" );
 }
 
 
@@ -117,7 +117,7 @@ File Skin::getSkinDirectory()
 File Skin::getSettingsFile()
 {
    auto settingsDirectory = File::getSpecialLocation( File::userApplicationDataDirectory );
-   auto defaultSkinFile = settingsDirectory.getChildFile( "K-Meter.skin" );
+   auto defaultSettingsFile = settingsDirectory.getChildFile( "K-Meter.settings" );
 
-   return defaultSkinFile;
+   return defaultSettingsFile;
 }

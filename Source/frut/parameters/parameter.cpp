@@ -33,22 +33,13 @@ namespace parameters
 
 /// Constructor.
 ///
-Parameter::Parameter()
+Parameter::Parameter() :
+   value_( 0.0f ),
+   realValue_( 0.0f ),
+   defaultValue_( 0.0f ),
+   defaultRealValue_( 0.0f ),
+   valueHasChanged_( false )
 {
-   // initialise current value
-   value_ = 0.0f;
-   realValue_ = 0.0f;
-   valueHasChanged_ = false;
-
-   // initialise default value
-   defaultValue_ = 0.0f;
-   defaultRealValue_ = 0.0f;
-
-   // initialise parameter name
-   parameterName_ = String();
-
-   // initialise XML tag name
-   tagName_ = String();
 }
 
 
@@ -264,7 +255,7 @@ void Parameter::loadFromXml( XmlElement* xmlDocument )
    float realValue;
 
    // get parameter's element from XML document
-   XmlElement* xmlParameter = xmlDocument->getChildByName( getTagName() );
+   auto xmlParameter = xmlDocument->getChildByName( getTagName() );
 
    // parameter's element found
    if ( xmlParameter ) {
@@ -290,7 +281,7 @@ void Parameter::storeAsXml( XmlElement* xmlDocument )
 {
    // create new XML element with parameter's tag name (will be
    // deleted by XML document)
-   XmlElement* xmlParameter = new XmlElement( getTagName() );
+   auto xmlParameter = std::make_unique<XmlElement>( getTagName() );
 
    // XML element was successfully created
    if ( xmlParameter ) {
@@ -301,7 +292,7 @@ void Parameter::storeAsXml( XmlElement* xmlDocument )
       xmlParameter->setAttribute( "value", realValue );
 
       // add new element to XML document
-      xmlDocument->addChildElement( xmlParameter );
+      xmlDocument->addChildElement( xmlParameter.release() );
    }
 }
 

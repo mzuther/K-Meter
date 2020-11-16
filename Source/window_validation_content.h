@@ -37,22 +37,23 @@ class WindowValidationContent :
 {
 public:
    explicit WindowValidationContent( KmeterAudioProcessor& processor );
+   void initialise();
 
    static DialogWindow* createDialogWindow(
       AudioProcessorEditor& pluginEditor,
       KmeterAudioProcessor& processor );
 
-   virtual void buttonClicked( Button* button );
-   virtual void applySkin();
+   virtual void buttonClicked( Button* button ) override;
+   virtual void applySkin() override;
 
    virtual void initialise( int componentWidth,
                             int componentHeight,
                             int numberOfInputChannels,
                             int sampleRate,
                             int selectedChannel,
-                            const File& validationFile );
+                            const File& validationFile ) override;
 
-   virtual void selectValidationFile( const File& validationFile );
+   virtual void selectValidationFile( const File& validationFile ) override;
 
 private:
    JUCE_LEAK_DETECTOR( WindowValidationContent );

@@ -43,11 +43,24 @@ class MeterBar :
 public:
    MeterBar();
 
-   virtual void create();
+   void create();
 
    virtual void addSegment( widgets::MeterSegment* segment,
                             int segmentHeight,
                             int spacingBefore );
+
+   virtual void addDiscreteImageSegment( float lowerThreshold,
+                                         float thresholdRange,
+                                         float retainSignalFactor,
+                                         float newSignalFactor,
+                                         bool isTopmost,
+                                         int spacingBefore,
+                                         Image imageOn,
+                                         Point<int> topLeftImageOn,
+                                         Image imageOff,
+                                         Point<int> topLeftImageOff,
+                                         Image imagePeak,
+                                         Point<int> topLeftImagePeak );
 
    virtual void addDiscreteSegment( float lowerThreshold,
                                     float thresholdRange,
@@ -85,8 +98,8 @@ public:
                            float discreteLevel,
                            float discreteLevelPeak );
 
-   virtual void paint( Graphics& g );
-   virtual void resized();
+   virtual void paint( Graphics& g ) override;
+   virtual void resized() override;
 
 private:
    JUCE_LEAK_DETECTOR( MeterBar );
@@ -100,9 +113,6 @@ private:
    int barWidth_;
    int barHeight_;
    int segmentWidth_;
-
-   bool isVertical_;
-   bool isInverted_;
 
    widgets::Orientation orientation_;
    Array<int> segmentSpacing_;
