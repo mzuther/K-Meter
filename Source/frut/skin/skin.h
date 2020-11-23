@@ -26,9 +26,7 @@
 #ifndef FRUT_SKIN_SKIN_H
 #define FRUT_SKIN_SKIN_H
 
-namespace frut
-{
-namespace skin
+namespace frut::skin
 {
 
 class Skin
@@ -166,7 +164,6 @@ private:
    JUCE_LEAK_DETECTOR( Skin );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_SKIN_SKIN_H

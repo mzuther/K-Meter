@@ -95,7 +95,7 @@ workspace "kmeter"
         "../Source/frut/",
     }
 
-    cppdialect "C++14"
+    cppdialect "C++17"
 
     filter { "system:linux", "platforms:x32" }
         linkoptions {

@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace skin
+namespace frut::skin
 {
 
 // The following class members are initialized in the derived class:
@@ -910,5 +908,4 @@ void Skin::placeAndSkinStateLabel( const String& tagName,
                    drawableOff->getHeight() );
 }
 
-}
-}
+} // namespace
