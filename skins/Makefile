@@ -1,16 +1,32 @@
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 mkfile_dir := $(dir $(mkfile_path))
 
+.PHONY: default clean
 
-default : Default/background/itu_stereo.svg
+default : Resources/Skin.xml \
+          Resources/background/itu_stereo.svg \
+          Source/skin.h
 
 
-Default/background/itu_stereo.svg : Default/Default.svg
-	@cd ${mkfile_dir} ; ./inkscape2skin.py "Default/Default.svg" "Default/"
+Resources/Skin.xml : Original/Skin.xml
+	@echo
+	@echo "Copying \"Skin.xml\"..."
+	@mkdir -p "${mkfile_dir}/Resources"
+	@cp "${mkfile_dir}/Original/Skin.xml" "${mkfile_dir}/Resources/Skin.xml"
+	@echo "Done."
+	@echo
+
+
+Resources/background/itu_stereo.svg : Original/Skin.svg
+	@cd ${mkfile_dir} ; ./inkscape2skin.py "Original/Skin.svg" "Resources"
+
+
+Source/skin.h : Resources/background/itu_stereo.svg \
+                Resources/Skin.xml
+	@mkdir -p "${mkfile_dir}/Source"
+	@cd ${mkfile_dir} ; ./convert_resources.sh
 
 
 clean :
-	@rm -f Default/background/*.svg
-	@rm -f Default/button/*.svg
-	@rm -f Default/label/*.svg
-	@rm -f Default/meter/*.svg
+	@rm -rf "${mkfile_dir}/Resources"
+	@rm -rf "${mkfile_dir}/Source"

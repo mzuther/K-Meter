@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <kmeter-skin
-    name="Default"
-    path="Default"
+    version="1.5"
     orientation="vertical"
-    origin_of_y="bottom"
-    version="1.5">
+    origin_of_y="bottom">
 
     <settings>
         <kmeter_segment
