@@ -26,7 +26,7 @@
 
 -- #############################################################################
 --
--- WARNING: this file is auto-generated, please do not edit!
+-- WARNING: this file was auto-generated, please do not edit!
 --
 -- #############################################################################
 
@@ -61,6 +61,8 @@ workspace "kmeter"
 
     files {
         "../Source/frut/FrutHeader.h",
+        "../skins/Source/kmeter_skin.h",
+        "../skins/Source/kmeter_skin.cpp",
         "../Source/frut/amalgamated/*.h",
         "../Source/frut/amalgamated/*.cpp",
 

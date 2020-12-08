@@ -216,11 +216,13 @@ KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 
 void KmeterAudioProcessorEditor::loadSkin()
 {
+   bool loadExternalResources = true;
    skin.loadSkin( numberOfInputChannels_,
                   crestFactor,
                   audioProcessor.getAverageAlgorithm(),
                   isExpanded,
-                  usePeakMeter );
+                  usePeakMeter,
+                  loadExternalResources );
 
    // will also apply skin to plug-in editor
    needsMeterReload = true;

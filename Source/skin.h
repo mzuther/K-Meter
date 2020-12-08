@@ -28,6 +28,7 @@
 
 #include "FrutHeader.h"
 #include "plugin_parameters.h"
+#include "../skins/Source/kmeter_skin.h"
 
 
 class Skin :
@@ -38,7 +39,8 @@ public:
                   int crestFactor,
                   int averageAlgorithm,
                   bool isExpanded,
-                  bool displayPeakMeter );
+                  bool displayPeakMeter,
+                  bool loadExternalResources );
 
    void updateSkin( int numberOfChannels,
                     int crestFactor,
@@ -48,6 +50,14 @@ public:
 
    virtual File getSkinDirectory() override;
    virtual File getSettingsFile() override;
+
+protected:
+   bool loadExternalResources_;
+
+   virtual bool resourceExists( const String& strFilename ) override;
+
+   virtual std::unique_ptr<Drawable> loadDrawable( const String& strFilename ) override;
+   virtual std::unique_ptr<XmlElement> loadXML( const String& strFilename ) override;
 
 private:
    JUCE_LEAK_DETECTOR( Skin );

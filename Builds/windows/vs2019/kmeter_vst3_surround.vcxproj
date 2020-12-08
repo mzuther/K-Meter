@@ -209,6 +209,7 @@
     <ClInclude Include="..\..\..\Source\plugin_processor.h" />
     <ClInclude Include="..\..\..\Source\skin.h" />
     <ClInclude Include="..\..\..\Source\window_validation_content.h" />
+    <ClInclude Include="..\..\..\skins\Source\kmeter_skin.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_basics.cpp" />
@@ -245,6 +246,7 @@
     <ClCompile Include="..\..\..\Source\plugin_processor.cpp" />
     <ClCompile Include="..\..\..\Source\skin.cpp" />
     <ClCompile Include="..\..\..\Source\window_validation_content.cpp" />
+    <ClCompile Include="..\..\..\skins\Source\kmeter_skin.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -55,9 +55,13 @@ KmeterAudioProcessor::KmeterAudioProcessor() :
 
    // cppcheck-suppress knownConditionTrueFalse
    if ( DEBUG_FILTER ) {
+      Logger::outputDebugString( "" );
       Logger::outputDebugString( "********************************************************************************" );
-      Logger::outputDebugString( "** Debugging average filtering.  Please reset DEBUG_FILTER before committing! **" );
+      Logger::outputDebugString( "*                                                                              *" );
+      Logger::outputDebugString( "*  Debugging average filtering.  Please reset DEBUG_FILTER before committing!  *" );
+      Logger::outputDebugString( "*                                                                              *" );
       Logger::outputDebugString( "********************************************************************************" );
+      Logger::outputDebugString( "" );
    }
 
    meterBallistics_ = nullptr;

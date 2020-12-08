@@ -30,9 +30,21 @@ bool Skin::loadSkin( int numberOfChannels,
                      int crestFactor,
                      int averageAlgorithm,
                      bool isExpanded,
-                     bool displayPeakMeter )
-
+                     bool displayPeakMeter,
+                     bool loadExternalResources )
 {
+   loadExternalResources_ = loadExternalResources;
+
+   if ( loadExternalResources_ ) {
+      Logger::outputDebugString( "" );
+      Logger::outputDebugString( "********************************************************************************" );
+      Logger::outputDebugString( "*                                                                              *" );
+      Logger::outputDebugString( "*  Loading resources from external file.  Please turn off before committing!   *" );
+      Logger::outputDebugString( "*                                                                              *" );
+      Logger::outputDebugString( "********************************************************************************" );
+      Logger::outputDebugString( "" );
+   }
+
    updateSkin( numberOfChannels,
                crestFactor,
                averageAlgorithm,
@@ -52,6 +64,15 @@ void Skin::updateSkin( int numberOfChannels,
 
 {
    jassert( numberOfChannels > 0 );
+
+   if ( loadExternalResources_ && ! getSkinDirectory().isDirectory() ) {
+      Logger::outputDebugString(
+         String( "[Skin] directory \"" ) +
+         getSkinDirectory().getFullPathName() +
+         "\" not found" );
+
+      document_ = nullptr;
+   }
 
    if ( isExpanded ) {
       currentBackgroundName_ = "image_expanded";
@@ -109,8 +130,10 @@ void Skin::updateSkin( int numberOfChannels,
 
 File Skin::getSkinDirectory()
 {
+   jassert( loadExternalResources_ );
+
    auto resourceDirectory = KmeterPluginParameters::getResourceDirectory();
-   return resourceDirectory.getChildFile( "./Skins/" );
+   return resourceDirectory.getChildFile( "./Skins/Resources/" );
 }
 
 
@@ -120,4 +143,38 @@ File Skin::getSettingsFile()
    auto defaultSettingsFile = settingsDirectory.getChildFile( "K-Meter.settings" );
 
    return defaultSettingsFile;
+}
+
+
+bool Skin::resourceExists( const String& strFilename )
+{
+   if ( loadExternalResources_ ) {
+      auto fileImage = getSkinDirectory().getChildFile( strFilename );
+      return fileImage.existsAsFile();
+   } else {
+      return kmeter::skin::resourceExists( strFilename );
+   }
+}
+
+
+std::unique_ptr<Drawable> Skin::loadDrawable( const String& strFilename )
+{
+   if ( loadExternalResources_ ) {
+      auto fileImage = getSkinDirectory().getChildFile( strFilename );
+      return Drawable::createFromImageFile( fileImage );
+   } else {
+      return kmeter::skin::getDrawable( strFilename );
+   }
+}
+
+
+std::unique_ptr<XmlElement> Skin::loadXML( const String& strFilename )
+{
+   if ( loadExternalResources_ ) {
+      auto skinFile = getSkinDirectory().getChildFile( strFilename );
+      return juce::parseXML( skinFile );
+   } else {
+      auto xmlData = kmeter::skin::getStringUTF8( strFilename );
+      return juce::parseXML( xmlData );
+   }
 }

@@ -26,7 +26,7 @@
 
 ;;  ############################################################################
 ;;
-;;  WARNING: this file is auto-generated, please do not edit!
+;;  WARNING: this file was auto-generated, please do not edit!
 ;;
 ;;  ############################################################################
 
@@ -43,6 +43,8 @@
                                        ))
                         (includes (list
                                    (concat root "Source/frut/FrutHeader.h")
+                                   (concat root "skins/Source/kmeter_skin.h")
+                                   (concat root "skins/Source/kmeter_skin.cpp")
                                    )))
 
                    (setq-local flycheck-clang-language-standard language-standard)
