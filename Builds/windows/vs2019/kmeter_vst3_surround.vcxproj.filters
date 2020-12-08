@@ -13,12 +13,6 @@
     <Filter Include="Source\frut\amalgamated">
       <UniqueIdentifier>{E38B799E-4FC3-C135-58CD-2559C483E82E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="skins">
-      <UniqueIdentifier>{ED7B5C10-5990-84C1-2212-28218EE580F2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="skins\Source">
-      <UniqueIdentifier>{4D3DBED6-39A0-4D7B-E225-8631CE6719FE}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\audio_file_player.h">
@@ -54,6 +48,9 @@
     <ClInclude Include="..\..\..\Source\kmeter.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\kmeter_skin.h">
+      <Filter>Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Source\meter_ballistics.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -80,9 +77,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\window_validation_content.h">
       <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\skins\Source\kmeter_skin.h">
-      <Filter>skins\Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +155,9 @@
     <ClCompile Include="..\..\..\Source\kmeter.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\kmeter_skin.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\meter_ballistics.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -187,9 +184,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Source\window_validation_content.cpp">
       <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\skins\Source\kmeter_skin.cpp">
-      <Filter>skins\Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

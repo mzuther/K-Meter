@@ -27,8 +27,8 @@
 #define KMETER_SKIN_H
 
 #include "FrutHeader.h"
+#include "kmeter_skin.h"
 #include "plugin_parameters.h"
-#include "../skins/Source/kmeter_skin.h"
 
 
 class Skin :

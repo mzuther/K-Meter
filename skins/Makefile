@@ -5,7 +5,7 @@ mkfile_dir := $(dir $(mkfile_path))
 
 default : Resources/Skin.xml \
           Resources/background/itu_stereo.svg \
-          Source/skin.h
+          ../Source/kmeter_skin.h
 
 
 Resources/Skin.xml : Original/Skin.xml
@@ -21,10 +21,10 @@ Resources/background/itu_stereo.svg : Original/Skin.svg
 	@cd ${mkfile_dir} ; ./inkscape2skin.py "Original/Skin.svg" "Resources"
 
 
-Source/skin.h : Resources/background/itu_stereo.svg \
+../Source/kmeter_skin.h : Resources/background/itu_stereo.svg \
                 Resources/Skin.xml
 	@mkdir -p "${mkfile_dir}/Source"
-	@cd ${mkfile_dir} ; ../Source/frut/convert_resources.py "Resources" "Source" "kmeter::skin"
+	@cd ${mkfile_dir} ; ../Source/frut/convert_resources.py "Resources" "../Source" "kmeter::skin"
 
 
 clean :

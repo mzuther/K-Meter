@@ -43,8 +43,6 @@
                                        ))
                         (includes (list
                                    (concat root "Source/frut/FrutHeader.h")
-                                   (concat root "skins/Source/kmeter_skin.h")
-                                   (concat root "skins/Source/kmeter_skin.cpp")
                                    )))
 
                    (setq-local flycheck-clang-language-standard language-standard)

@@ -176,6 +176,7 @@ OBJECTS := \
 	$(OBJDIR)/include_frut_skin.o \
 	$(OBJDIR)/include_frut_widgets.o \
 	$(OBJDIR)/kmeter.o \
+	$(OBJDIR)/kmeter_skin.o \
 	$(OBJDIR)/meter_ballistics.o \
 	$(OBJDIR)/meter_bar.o \
 	$(OBJDIR)/overflow_meter.o \
@@ -185,7 +186,6 @@ OBJECTS := \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/skin.o \
 	$(OBJDIR)/window_validation_content.o \
-	$(OBJDIR)/kmeter_skin.o \
 
 RESOURCES := \
 
@@ -319,6 +319,9 @@ $(OBJDIR)/include_frut_widgets.o: ../../../Source/frut/amalgamated/include_frut_
 $(OBJDIR)/kmeter.o: ../../../Source/kmeter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/kmeter_skin.o: ../../../Source/kmeter_skin.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/meter_ballistics.o: ../../../Source/meter_ballistics.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -344,9 +347,6 @@ $(OBJDIR)/skin.o: ../../../Source/skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/window_validation_content.o: ../../../Source/window_validation_content.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/kmeter_skin.o: ../../../skins/Source/kmeter_skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

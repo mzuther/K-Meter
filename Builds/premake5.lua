@@ -61,8 +61,6 @@ workspace "kmeter"
 
     files {
         "../Source/frut/FrutHeader.h",
-        "../skins/Source/kmeter_skin.h",
-        "../skins/Source/kmeter_skin.cpp",
         "../Source/frut/amalgamated/*.h",
         "../Source/frut/amalgamated/*.cpp",
 
