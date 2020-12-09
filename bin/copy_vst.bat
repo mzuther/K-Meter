@@ -37,10 +37,10 @@ setlocal
 set rsync_path="E:\Documents\System\Tools\rsync\bin"
 set rsync_cmd="%rsync_path%\rsync.exe" --archive
 
-set vst2_32="/cygdrive/c/Program Files (x86)/Steinberg/VSTPlugins/radix/"
-set vst3_32="/cygdrive/c/Program Files (x86)/Common Files/VST3/radix/"
-set vst2_64="/cygdrive/c/Program Files/Steinberg/VSTPlugins/radix/"
-set vst3_64="/cygdrive/c/Program Files/Common Files/VST3/radix/"
+set vst2_32=/cygdrive/c/Program Files (x86)/Steinberg/VSTPlugins/radix/
+set vst3_32=/cygdrive/c/Program Files (x86)/Common Files/VST3/radix/
+set vst2_64=/cygdrive/c/Program Files/Steinberg/VSTPlugins/radix/
+set vst3_64=/cygdrive/c/Program Files/Common Files/VST3/radix/
 
 set vst2_32_categories="/cygdrive/d/Plugins/32-bit/Categories/Tools/Analyzer/Meter"
 set vst2_64_categories="/cygdrive/d/Plugins/64-bit/Categories/Tools/Analyzer/Meter"
@@ -52,8 +52,7 @@ echo.
 
 call :CopyVst       "vst2/K-Meter (Stereo).dll" "%vst2_32%"
 call :CopyVst       "vst2/K-Meter (Surround).dll" "%vst2_32%"
-call :CopyVst       "vst2/kmeter/Documentation/kmeter.pdf" "%vst2_32%"
-call :CopyVstDelete "vst2/kmeter" "%vst2_32%"
+call :CopyVst       "vst2/Documentation/K-Meter.pdf" "%vst2_32%"
 
 echo.
 echo VST2 (32 bit, Categories)
@@ -61,8 +60,7 @@ echo.
 
 call :CopyVst       "vst2/K-Meter (Stereo).dll" "%vst2_32_categories%"
 call :CopyVst       "vst2/K-Meter (Surround).dll" "%vst2_32_categories%"
-call :CopyVst       "vst2/kmeter/Documentation/kmeter.pdf" "%vst2_32_categories%"
-call :CopyVstDelete "vst2/kmeter" "%vst2_32_categories%"
+call :CopyVst       "vst2/Documentation/K-Meter.pdf" "%vst2_32_categories%"
 
 
 echo.
@@ -78,8 +76,7 @@ echo.
 
 call :CopyVst       "vst2/K-Meter (Stereo x64).dll" "%vst2_64%"
 call :CopyVst       "vst2/K-Meter (Surround x64).dll" "%vst2_64%"
-call :CopyVst       "vst2/kmeter/Documentation/kmeter.pdf" "%vst2_64%"
-call :CopyVstDelete "vst2/kmeter" "%vst2_64%"
+call :CopyVst       "vst2/Documentation/K-Meter.pdf" "%vst2_64%"
 
 echo.
 echo VST2 (64 bit, Categories)
@@ -87,8 +84,7 @@ echo.
 
 call :CopyVst       "vst2/K-Meter (Stereo x64).dll" "%vst2_64_categories%"
 call :CopyVst       "vst2/K-Meter (Surround x64).dll" "%vst2_64_categories%"
-call :CopyVst       "vst2/kmeter/Documentation/kmeter.pdf" "%vst2_64_categories%"
-call :CopyVstDelete "vst2/kmeter" "%vst2_64_categories%"
+call :CopyVst       "vst2/Documentation/K-Meter.pdf" "%vst2_64_categories%"
 
 
 echo.

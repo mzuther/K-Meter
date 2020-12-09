@@ -248,6 +248,6 @@ const File KmeterPluginParameters::getResourceDirectory()
 #if JucePlugin_Build_VST3
    return applicationDirectory.getChildFile( "../Resources/" );
 #else // JucePlugin_Build_VST3
-   return applicationDirectory.getChildFile( "./kmeter/" );
+   return applicationDirectory;
 #endif // JucePlugin_Build_VST3
 }

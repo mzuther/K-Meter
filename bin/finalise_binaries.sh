@@ -77,12 +77,6 @@ printf "\n  === Finalising binaries ===\n\n"
 
 mkdir -p "$binary_dir/debug_symbols"
 
-finalise_binary  "standalone/kmeter_stereo"
-finalise_binary  "standalone/kmeter_surround"
-
-finalise_binary  "vst2/kmeter_stereo_vst2.so"
-finalise_binary  "vst2/kmeter_surround_vst2.so"
-
 finalise_binary  "standalone/kmeter_stereo_x64"
 finalise_binary  "standalone/kmeter_surround_x64"
 
