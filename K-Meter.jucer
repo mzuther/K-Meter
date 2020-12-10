@@ -7,15 +7,14 @@
               pluginCode="kmet" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="0"
               pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1" pluginTailLength="0"
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="KMeterAU"
-              pluginAUViewClass="KMeterAU_V1" pluginRTASCategory="0" jucerVersion="5.4.7"
-              companyName="Martin Zuther" aaxIdentifier="de.mzuther.KMeter"
-              pluginAAXCategory="0" includeBinaryInAppConfig="1" buildVST3="0"
-              buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
+              pluginAUViewClass="KMeterAU_V1" pluginRTASCategory="0" companyName="Martin Zuther"
+              aaxIdentifier="de.mzuther.KMeter" pluginAAXCategory="0" includeBinaryInAppConfig="1"
+              buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
               companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategAnalysis"
               pluginIsMidiEffectPlugin="0" buildAUv3="0" displaySplashScreen="0"
               reportAppUsage="0" splashScreenColour="Dark" buildStandalone="1"
               enableIAA="0" companyCopyright="Martin Zuther" pluginFormats="buildStandalone"
-              pluginVST3Category="Analyzer,Fx">
+              pluginVST3Category="Analyzer,Fx" jucerFormatVersion="1">
   <EXPORTFORMATS>
     <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/Documents/code/cpp/kmeter/libraries/vst2"
                 extraCompilerFlags="" externalLibraries="dl&#10;freetype&#10;pthread&#10;rt&#10;X11&#10;Xext&#10;asound"
