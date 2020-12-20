@@ -434,14 +434,11 @@ workspace "kmeter"
 
 --------------------------------------------------------------------------------
 
--- create VST3 projects on Windows only
-if os.target() == "windows" then
-
-    project ("kmeter_vst3_stereo")
+    project ("kmeter_vst3")
         kind "SharedLib"
 
         defines {
-            "KMETER_STEREO=1",
+            "KMETER_MULTIBUS=1",
             "JucePlugin_Build_Standalone=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=1"
@@ -464,107 +461,43 @@ if os.target() == "windows" then
         }
 
         filter { "system:linux" }
-            targetname "kmeter_stereo_vst3"
+            targetname "K-Meter"
 
         filter { "system:linux", "platforms:x32" }
-            targetdir "../bin/vst3/kmeter.vst3/Contents/i386-linux/"
+            targetdir "../bin/vst3/K-Meter.vst3/Contents/i386-linux/"
 
         filter { "system:linux", "platforms:x64" }
-            targetdir "../bin/vst3/kmeter.vst3/Contents/x86_64-linux/"
+            targetdir "../bin/vst3/K-Meter.vst3/Contents/x86_64-linux/"
 
         filter { "system:windows" }
-            targetname "K-Meter (Stereo"
+            targetname "K-Meter"
             targetextension (".vst3")
 
         filter { "system:windows", "platforms:x32" }
-            targetdir "../bin/vst3/kmeter.vst3/Contents/x86-win/"
+            targetdir "../bin/vst3/K-Meter.vst3/Contents/x86-win/"
 
         filter { "system:windows", "platforms:x64" }
-            targetdir "../bin/vst3/kmeter.vst3/Contents/x86_64-win/"
+            targetdir "../bin/vst3/K-Meter.vst3/Contents/x86_64-win/"
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_stereo_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
-            targetdir "C:/Program Files (x86)/Common Files/VST3/radix/kmeter.vst3/Contents/x86-win/"
+            targetdir "C:/Program Files (x86)/Common Files/VST3/radix/K-Meter.vst3/Contents/x86-win/"
             debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
 
         filter { "system:windows", "configurations:Debug", "platforms:x64" }
-            targetdir "C:/Program Files/Common Files/VST3/radix/kmeter.vst3/Contents/x86_64-win/"
+            targetdir "C:/Program Files/Common Files/VST3/radix/K-Meter.vst3/Contents/x86_64-win/"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
-        filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_stereo_release")
+        filter { "system:linux", "configurations:Debug" }
+            targetsuffix " (Debug)"
 
--- create VST3 projects on Windows only
-end
-
---------------------------------------------------------------------------------
-
--- create VST3 projects on Windows only
-if os.target() == "windows" then
-
-    project ("kmeter_vst3_surround")
-        kind "SharedLib"
-
-        defines {
-            "KMETER_SURROUND=1",
-            "JucePlugin_Build_Standalone=0",
-            "JucePlugin_Build_VST=0",
-            "JucePlugin_Build_VST3=1"
-        }
-
-        files {
-              "../JuceLibraryCode/include_juce_audio_plugin_client_VST3.cpp"
-        }
-
-        defines {
-            "JUCE_ALSA=0",
-            "JUCE_JACK=0",
-            "JUCE_WASAPI=0",
-            "JUCE_DIRECTSOUND=0"
-        }
-
-        includedirs {
-            "../libraries/vst2/VST2_SDK",
-            "../libraries/vst3/VST3_SDK"
-        }
-
-        filter { "system:linux" }
-            targetname "kmeter_surround_vst3"
-
-        filter { "system:linux", "platforms:x32" }
-            targetdir "../bin/vst3/kmeter.vst3/Contents/i386-linux/"
-
-        filter { "system:linux", "platforms:x64" }
-            targetdir "../bin/vst3/kmeter.vst3/Contents/x86_64-linux/"
-
-        filter { "system:windows" }
-            targetname "K-Meter (Surround"
-            targetextension (".vst3")
-
-        filter { "system:windows", "platforms:x32" }
-            targetdir "../bin/vst3/kmeter.vst3/Contents/x86-win/"
-
-        filter { "system:windows", "platforms:x64" }
-            targetdir "../bin/vst3/kmeter.vst3/Contents/x86_64-win/"
-
-        filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_surround_debug")
-
-        filter { "system:windows", "configurations:Debug", "platforms:x32" }
-            targetdir "C:/Program Files (x86)/Common Files/VST3/radix/kmeter.vst3/Contents/x86-win/"
-            debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
-
-        filter { "system:windows", "configurations:Debug", "platforms:x64" }
-            targetdir "C:/Program Files/Common Files/VST3/radix/kmeter.vst3/Contents/x86_64-win/"
-            debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
+        filter { "system:linux", "configurations:Release" }
+            targetsuffix ""
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_surround_release")
-
--- create VST3 projects on Windows only
-end
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_release")
 
 --------------------------------------------------------------------------------
 

@@ -39,7 +39,7 @@ release_dir="./releases"
 
 resource_dir_standalone="./standalone/kmeter"
 resource_dir_vst2="./vst2/kmeter"
-resource_dir_vst3="./vst3/kmeter.vst3/Contents/Resources"
+resource_dir_vst3="./vst3/K-Meter.vst3/Contents/Resources"
 
 
 function archive_is_missing
@@ -225,6 +225,25 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 fi
 
 
+# ----- GNU/Linux VST3 (64 bit) -----
+
+archive_dir="kmeter-linux64-vst3_$version"
+
+if archive_is_missing "gzip" "$release_dir/linux" ; then
+    printf "  --- GNU/Linux VST3 %s (64 bit) ---\n\n" "$version"
+
+    archive_create
+
+    archive_add "$binary_dir/vst3/K-Meter.vst3/Contents/x86_64-linux/K-Meter.so" "squeezer.vst3/Contents/x86_64-linux"
+
+    archive_add "$binary_dir/Documentation" ""
+    archive_add "$resource_dir_vst3/Documentation" "kmeter.vst3/Contents/Resources"
+
+    archive_compress "gzip"
+    archive_store "gzip" "$release_dir/$version/linux"
+fi
+
+
 # ----- Windows Standalone (32 bit) -----
 
 archive_dir="kmeter-w32-standalone_$version"
@@ -272,8 +291,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "$binary_dir/vst3/kmeter.vst3/Contents/x86-win/K-Meter (Stereo).vst3" "kmeter.vst3/Contents/x86-win"
-    archive_add "$binary_dir/vst3/kmeter.vst3/Contents/x86-win/K-Meter (Surround).vst3" "kmeter.vst3/Contents/x86-win"
+    archive_add "$binary_dir/vst3/K-Meter.vst3/Contents/x86-win/K-Meter.vst3" "K-Meter.vst3/Contents/x86-win"
 
     archive_add "$binary_dir/Documentation" ""
     archive_add "$resource_dir_vst3/Documentation" "kmeter.vst3/Contents/Resources"
@@ -330,8 +348,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "$binary_dir/vst3/kmeter.vst3/Contents/x86_64-win/K-Meter (Stereo x64).vst3" "kmeter.vst3/Contents/x86_64-win"
-    archive_add "$binary_dir/vst3/kmeter.vst3/Contents/x86_64-win/K-Meter (Surround x64).vst3" "kmeter.vst3/Contents/x86_64-win"
+    archive_add "$binary_dir/vst3/K-Meter.vst3/Contents/x86_64-win/K-Meter.vst3" "K-Meter.vst3/Contents/x86_64-win"
 
     archive_add "$binary_dir/Documentation" ""
     archive_add "$resource_dir_vst3/Documentation" "kmeter.vst3/Contents/Resources"

@@ -83,6 +83,8 @@ finalise_binary  "standalone/kmeter_surround_x64"
 finalise_binary  "vst2/kmeter_stereo_vst2_x64.so"
 finalise_binary  "vst2/kmeter_surround_vst2_x64.so"
 
+finalise_binary  "vst3/K-Meter.vst3/Contents/x86_64-linux/K-Meter.so"
+
 finalise_binary  "standalone/K-Meter (Stereo).exe"
 finalise_symbols "standalone/K-Meter (Stereo).pdb"
 finalise_binary  "standalone/K-Meter (Surround).exe"
@@ -93,10 +95,8 @@ finalise_symbols "vst2/K-Meter (Stereo).pdb"
 finalise_binary  "vst2/K-Meter (Surround).dll"
 finalise_symbols "vst2/K-Meter (Surround).pdb"
 
-finalise_binary  "vst3/kmeter.vst3/Contents/x86-win/K-Meter (Stereo).vst3"
-finalise_symbols "vst3/kmeter.vst3/Contents/x86-win/K-Meter (Stereo).pdb"
-finalise_binary  "vst3/kmeter.vst3/Contents/x86-win/K-Meter (Surround).vst3"
-finalise_symbols "vst3/kmeter.vst3/Contents/x86-win/K-Meter (Surround).pdb"
+finalise_binary  "vst3/K-Meter.vst3/Contents/x86-win/K-Meter.vst3"
+finalise_symbols "vst3/K-Meter.vst3/Contents/x86-win/K-Meter.pdb"
 
 finalise_binary  "standalone/K-Meter (Stereo x64).exe"
 finalise_symbols "standalone/K-Meter (Stereo x64).pdb"
@@ -108,9 +108,7 @@ finalise_symbols "vst2/K-Meter (Stereo x64).pdb"
 finalise_binary  "vst2/K-Meter (Surround x64).dll"
 finalise_symbols "vst2/K-Meter (Surround x64).pdb"
 
-finalise_binary  "vst3/kmeter.vst3/Contents/x86_64-win/K-Meter (Stereo x64).vst3"
-finalise_symbols "vst3/kmeter.vst3/Contents/x86_64-win/K-Meter (Stereo x64).pdb"
-finalise_binary  "vst3/kmeter.vst3/Contents/x86_64-win/K-Meter (Surround x64).vst3"
-finalise_symbols "vst3/kmeter.vst3/Contents/x86_64-win/K-Meter (Surround x64).pdb"
+finalise_binary  "vst3/K-Meter.vst3/Contents/x86_64-win/K-Meter.vst3"
+finalise_symbols "vst3/K-Meter.vst3/Contents/x86_64-win/K-Meter.pdb"
 
 printf "  Done.\n\n\n"

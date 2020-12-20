@@ -116,6 +116,10 @@ case $1 in
         MAKEFILE="kmeter_vst2_surround"
         MAKEFILE_PRINT="VST2 plug-in (Surround)"
         ;;
+    5)
+        MAKEFILE="kmeter_vst3"
+        MAKEFILE_PRINT="VST3 plug-in"
+        ;;
     *)
         print_line "  Target:    ..."
         print_line ""
@@ -128,6 +132,8 @@ case $1 in
         print_line ""
         print_line "  3: VST2 plug-in (Stereo)"
         print_line "  4: VST2 plug-in (Surround)"
+        print_line ""
+        print_line "  5: VST3 plug-in"
         print_line ""
 
         exit

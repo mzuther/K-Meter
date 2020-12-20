@@ -33,13 +33,48 @@
 {% set name = {'real': 'K-Meter', 'short': 'kmeter'} %}
 
 
-{% set variants = [{'real':    'Stereo',
-                    'short':   'stereo',
-                    'defines': ['KMETER_STEREO=1']},
+{% set targets = {
+   'standalone': [
+      {'real':    'Stereo',
+       'short':   'stereo',
+       'defines': [
+          'KMETER_STEREO=1',
+      ]},
 
-                   {'real':    'Surround',
-                    'short':   'surround',
-                    'defines': ['KMETER_SURROUND=1']}] %}
+      {'real':    'Surround',
+       'short':   'surround',
+       'defines': [
+          'KMETER_SURROUND=1',
+      ]},
+   ],
+   'unittest': [
+      {'real':    '(undefined)',
+       'short':   '(undefined)',
+       'defines': [
+          'KMETER_STEREO=1',
+      ]},
+   ],
+   'vst2': [
+      {'real':    'Stereo',
+       'short':   'stereo',
+       'defines': [
+          'KMETER_STEREO=1',
+      ]},
+
+      {'real':    'Surround',
+       'short':   'surround',
+       'defines': [
+          'KMETER_SURROUND=1',
+      ]},
+   ],
+   'vst3': [
+      {'real':    '(undefined)',
+       'short':   '(undefined)',
+       'defines': [
+          'KMETER_MULTIBUS=1',
+      ]},
+   ],
+} %}
 
 
 {% set includes = {
