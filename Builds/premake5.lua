@@ -195,7 +195,7 @@ workspace "kmeter"
         targetsuffix "_debug"
 
     filter { "system:linux", "configurations:Debug", "platforms:x64" }
-        targetsuffix "_debug_x64"
+        targetsuffix "_x64_debug"
 
     filter { "system:windows", "configurations:Debug" }
        symbols "Full"
@@ -203,10 +203,10 @@ workspace "kmeter"
        buildoptions { "/bigobj" }
 
     filter { "system:windows", "configurations:Debug", "platforms:x32" }
-        targetsuffix ", Debug)"
+        targetsuffix " Debug"
 
     filter { "system:windows", "configurations:Debug", "platforms:x64" }
-        targetsuffix " x64, Debug)"
+        targetsuffix " x64 Debug"
 
     filter { "configurations:Release" }
         defines { "NDEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=0" }
@@ -229,10 +229,10 @@ workspace "kmeter"
        buildoptions { "/wd4996" }
 
     filter { "system:windows", "configurations:Release", "platforms:x32" }
-        targetsuffix ")"
+        targetsuffix ""
 
     filter { "system:windows", "configurations:Release", "platforms:x64" }
-        targetsuffix " x64)"
+        targetsuffix " x64"
 
 --------------------------------------------------------------------------------
 
@@ -254,7 +254,7 @@ workspace "kmeter"
         }
 
         filter { "system:linux" }
-            targetname "kmeter_stereo"
+            targetname "kmeter"
 
             defines {
                 "JUCE_ALSA=1",
@@ -268,7 +268,7 @@ workspace "kmeter"
             }
 
         filter { "system:windows" }
-            targetname "K-Meter (Stereo"
+            targetname "K-Meter"
             targetextension (".exe")
 
             defines {
@@ -279,10 +279,10 @@ workspace "kmeter"
             }
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_stereo_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/kmeter_standalone_stereo_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_stereo_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/kmeter_standalone_stereo_release")
 
 --------------------------------------------------------------------------------
 
@@ -318,7 +318,7 @@ workspace "kmeter"
             }
 
         filter { "system:windows" }
-            targetname "K-Meter (Surround"
+            targetname "K-Meter (surround)"
             targetextension (".exe")
 
             defines {
@@ -329,10 +329,10 @@ workspace "kmeter"
             }
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_surround_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/kmeter_standalone_surround_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_surround_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/kmeter_standalone_surround_release")
 
 --------------------------------------------------------------------------------
 
@@ -363,14 +363,14 @@ workspace "kmeter"
         }
 
         filter { "system:linux" }
-            targetname "kmeter_stereo_vst2"
+            targetname "kmeter_vst2"
 
         filter { "system:windows" }
-            targetname "K-Meter (Stereo"
+            targetname "K-Meter"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/kmeter_vst2_stereo_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
             targetdir "D:/Plugins/32-bit/Categories/Tools/Analyzer/Meter"
@@ -381,7 +381,7 @@ workspace "kmeter"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/kmeter_vst2_stereo_release")
 
 --------------------------------------------------------------------------------
 
@@ -412,14 +412,14 @@ workspace "kmeter"
         }
 
         filter { "system:linux" }
-            targetname "kmeter_surround_vst2"
+            targetname "kmeter_vst2_surround"
 
         filter { "system:windows" }
-            targetname "K-Meter (Surround"
+            targetname "K-Meter (surround)"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_surround_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/kmeter_vst2_surround_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
             targetdir "D:/Plugins/32-bit/Categories/Tools/Analyzer/Meter"
@@ -430,7 +430,7 @@ workspace "kmeter"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_surround_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/kmeter_vst2_surround_release")
 
 --------------------------------------------------------------------------------
 
@@ -480,7 +480,8 @@ workspace "kmeter"
             targetdir "../bin/vst3/K-Meter.vst3/Contents/x86_64-win/"
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_debug")
+            targetsuffix " Debug"
+            objdir ("../bin/.intermediate_" .. os.target() .. "/kmeter_vst3_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
             targetdir "C:/Program Files (x86)/Common Files/VST3/radix/K-Meter.vst3/Contents/x86-win/"
@@ -490,21 +491,16 @@ workspace "kmeter"
             targetdir "C:/Program Files/Common Files/VST3/radix/K-Meter.vst3/Contents/x86_64-win/"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
-        filter { "system:linux", "configurations:Debug" }
-            targetsuffix " (Debug)"
-
-        filter { "system:linux", "configurations:Release" }
-            targetsuffix ""
-
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_release")
+            targetsuffix ""
+            objdir ("../bin/.intermediate_" .. os.target() .. "/kmeter_vst3_release")
 
 --------------------------------------------------------------------------------
 
 -- create unit tests on Linux only
 if os.target() == "linux" then
 
-    project ("unittest")
+    project ("kmeter_unittest")
         kind "ConsoleApp"
         targetdir "../bin/unittest/"
 
@@ -526,7 +522,7 @@ if os.target() == "linux" then
         }
 
         filter { "system:linux" }
-            targetname "unittest"
+            targetname "kmeter_unittest"
 
             defines {
                 "JUCE_ALSA=0",
@@ -550,10 +546,10 @@ if os.target() == "linux" then
         }
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/unittest_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/kmeter_unittest_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/unittest_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/kmeter_unittest_release")
 
 -- create unit tests on Linux only
 end

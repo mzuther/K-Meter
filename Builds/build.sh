@@ -100,21 +100,21 @@ case $1 in
         ;;
     1)
         MAKEFILE="kmeter_standalone_stereo"
-        MAKEFILE_PRINT="Standalone (Stereo)"
-        EXECUTABLE="standalone/kmeter_stereo"
+        MAKEFILE_PRINT="Standalone (stereo)"
+        EXECUTABLE="standalone/kmeter"
         ;;
     2)
         MAKEFILE="kmeter_standalone_surround"
-        MAKEFILE_PRINT="Standalone (Surround)"
+        MAKEFILE_PRINT="Standalone (surround)"
         EXECUTABLE="standalone/kmeter_surround"
         ;;
     3)
         MAKEFILE="kmeter_vst2_stereo"
-        MAKEFILE_PRINT="VST2 plug-in (Stereo)"
+        MAKEFILE_PRINT="VST2 plug-in (stereo)"
         ;;
     4)
         MAKEFILE="kmeter_vst2_surround"
-        MAKEFILE_PRINT="VST2 plug-in (Surround)"
+        MAKEFILE_PRINT="VST2 plug-in (surround)"
         ;;
     5)
         MAKEFILE="kmeter_vst3"
@@ -127,11 +127,11 @@ case $1 in
         print_line "  c: Clean targets"
         print_line "  u: Unit tests"
         print_line ""
-        print_line "  1: Standalone (Stereo)"
-        print_line "  2: Standalone (Surround)"
+        print_line "  1: Standalone (stereo)"
+        print_line "  2: Standalone (surround)"
         print_line ""
-        print_line "  3: VST2 plug-in (Stereo)"
-        print_line "  4: VST2 plug-in (Surround)"
+        print_line "  3: VST2 plug-in (stereo)"
+        print_line "  4: VST2 plug-in (surround)"
         print_line ""
         print_line "  5: VST3 plug-in"
         print_line ""

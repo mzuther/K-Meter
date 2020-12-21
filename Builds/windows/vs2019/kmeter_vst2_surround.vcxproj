@@ -69,29 +69,29 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>D:\Plugins\32-bit\Categories\Tools\Analyzer\Meter\</OutDir>
-    <IntDir>..\..\..\bin\.intermediate_windows\vst2_surround_debug\x32\</IntDir>
-    <TargetName>K-Meter (Surround, Debug)</TargetName>
+    <IntDir>..\..\..\bin\.intermediate_windows\kmeter_vst2_surround_debug\x32\</IntDir>
+    <TargetName>K-Meter (surround) Debug</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>D:\Plugins\64-bit\Categories\Tools\Analyzer\Meter\</OutDir>
-    <IntDir>..\..\..\bin\.intermediate_windows\vst2_surround_debug\x64\</IntDir>
-    <TargetName>K-Meter (Surround x64, Debug)</TargetName>
+    <IntDir>..\..\..\bin\.intermediate_windows\kmeter_vst2_surround_debug\x64\</IntDir>
+    <TargetName>K-Meter (surround) x64 Debug</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\..\bin\vst2\</OutDir>
-    <IntDir>..\..\..\bin\.intermediate_windows\vst2_surround_release\x32\</IntDir>
-    <TargetName>K-Meter (Surround)</TargetName>
+    <IntDir>..\..\..\bin\.intermediate_windows\kmeter_vst2_surround_release\x32\</IntDir>
+    <TargetName>K-Meter (surround)</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\..\bin\vst2\</OutDir>
-    <IntDir>..\..\..\bin\.intermediate_windows\vst2_surround_release\x64\</IntDir>
-    <TargetName>K-Meter (Surround x64)</TargetName>
+    <IntDir>..\..\..\bin\.intermediate_windows\kmeter_vst2_surround_release\x64\</IntDir>
+    <TargetName>K-Meter (surround) x64</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -112,7 +112,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>D:\Plugins\32-bit\Categories\Tools\Analyzer\Meter\K-Meter (Surround, Debug).lib</ImportLibrary>
+      <ImportLibrary>D:\Plugins\32-bit\Categories\Tools\Analyzer\Meter\K-Meter (surround) Debug.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -132,7 +132,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>D:\Plugins\64-bit\Categories\Tools\Analyzer\Meter\K-Meter (Surround x64, Debug).lib</ImportLibrary>
+      <ImportLibrary>D:\Plugins\64-bit\Categories\Tools\Analyzer\Meter\K-Meter (surround) x64 Debug.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -159,7 +159,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\..\..\bin\vst2\K-Meter (Surround).lib</ImportLibrary>
+      <ImportLibrary>..\..\..\bin\vst2\K-Meter (surround).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -185,7 +185,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\..\..\bin\vst2\K-Meter (Surround x64).lib</ImportLibrary>
+      <ImportLibrary>..\..\..\bin\vst2\K-Meter (surround) x64.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

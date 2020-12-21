@@ -14,7 +14,7 @@ ifeq ($(config),debug_x32)
   kmeter_vst2_stereo_config = debug_x32
   kmeter_vst2_surround_config = debug_x32
   kmeter_vst3_config = debug_x32
-  unittest_config = debug_x32
+  kmeter_unittest_config = debug_x32
 endif
 ifeq ($(config),debug_x64)
   kmeter_standalone_stereo_config = debug_x64
@@ -22,7 +22,7 @@ ifeq ($(config),debug_x64)
   kmeter_vst2_stereo_config = debug_x64
   kmeter_vst2_surround_config = debug_x64
   kmeter_vst3_config = debug_x64
-  unittest_config = debug_x64
+  kmeter_unittest_config = debug_x64
 endif
 ifeq ($(config),release_x32)
   kmeter_standalone_stereo_config = release_x32
@@ -30,7 +30,7 @@ ifeq ($(config),release_x32)
   kmeter_vst2_stereo_config = release_x32
   kmeter_vst2_surround_config = release_x32
   kmeter_vst3_config = release_x32
-  unittest_config = release_x32
+  kmeter_unittest_config = release_x32
 endif
 ifeq ($(config),release_x64)
   kmeter_standalone_stereo_config = release_x64
@@ -38,10 +38,10 @@ ifeq ($(config),release_x64)
   kmeter_vst2_stereo_config = release_x64
   kmeter_vst2_surround_config = release_x64
   kmeter_vst3_config = release_x64
-  unittest_config = release_x64
+  kmeter_unittest_config = release_x64
 endif
 
-PROJECTS := kmeter_standalone_stereo kmeter_standalone_surround kmeter_vst2_stereo kmeter_vst2_surround kmeter_vst3 unittest
+PROJECTS := kmeter_standalone_stereo kmeter_standalone_surround kmeter_vst2_stereo kmeter_vst2_surround kmeter_vst3 kmeter_unittest
 
 .PHONY: all clean help $(PROJECTS) 
 
@@ -77,10 +77,10 @@ ifneq (,$(kmeter_vst3_config))
 	@${MAKE} --no-print-directory -C . -f kmeter_vst3.make config=$(kmeter_vst3_config)
 endif
 
-unittest:
-ifneq (,$(unittest_config))
-	@echo "==== Building unittest ($(unittest_config)) ===="
-	@${MAKE} --no-print-directory -C . -f unittest.make config=$(unittest_config)
+kmeter_unittest:
+ifneq (,$(kmeter_unittest_config))
+	@echo "==== Building kmeter_unittest ($(kmeter_unittest_config)) ===="
+	@${MAKE} --no-print-directory -C . -f kmeter_unittest.make config=$(kmeter_unittest_config)
 endif
 
 clean:
@@ -89,7 +89,7 @@ clean:
 	@${MAKE} --no-print-directory -C . -f kmeter_vst2_stereo.make clean
 	@${MAKE} --no-print-directory -C . -f kmeter_vst2_surround.make clean
 	@${MAKE} --no-print-directory -C . -f kmeter_vst3.make clean
-	@${MAKE} --no-print-directory -C . -f unittest.make clean
+	@${MAKE} --no-print-directory -C . -f kmeter_unittest.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -108,6 +108,6 @@ help:
 	@echo "   kmeter_vst2_stereo"
 	@echo "   kmeter_vst2_surround"
 	@echo "   kmeter_vst3"
-	@echo "   unittest"
+	@echo "   kmeter_unittest"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

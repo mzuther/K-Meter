@@ -196,7 +196,7 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "$binary_dir/standalone/kmeter_stereo_x64" ""
+    archive_add "$binary_dir/standalone/kmeter_x64" ""
     archive_add "$binary_dir/standalone/kmeter_surround_x64" ""
 
     archive_add "$binary_dir/Documentation" ""
@@ -215,8 +215,8 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "$binary_dir/vst2/kmeter_stereo_vst2_x64.so" ""
-    archive_add "$binary_dir/vst2/kmeter_surround_vst2_x64.so" ""
+    archive_add "$binary_dir/vst2/kmeter_vst2_x64.so" ""
+    archive_add "$binary_dir/vst2/kmeter_vst2_surround_x64.so" ""
 
     archive_add "$binary_dir/Documentation" ""
 
@@ -253,8 +253,8 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "$binary_dir/standalone/K-Meter (Stereo).exe" ""
-    archive_add "$binary_dir/standalone/K-Meter (Surround).exe" ""
+    archive_add "$binary_dir/standalone/K-Meter.exe" ""
+    archive_add "$binary_dir/standalone/K-Meter (surround).exe" ""
 
     archive_add "$binary_dir/Documentation" ""
 
@@ -272,8 +272,8 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "$binary_dir/vst2/K-Meter (Stereo).dll" ""
-    archive_add "$binary_dir/vst2/K-Meter (Surround).dll" ""
+    archive_add "$binary_dir/vst2/K-Meter.dll" ""
+    archive_add "$binary_dir/vst2/K-Meter (surround).dll" ""
 
     archive_add "$binary_dir/Documentation" ""
 
@@ -310,8 +310,8 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "$binary_dir/standalone/K-Meter (Stereo x64).exe" ""
-    archive_add "$binary_dir/standalone/K-Meter (Surround x64).exe" ""
+    archive_add "$binary_dir/standalone/K-Meter x64.exe" ""
+    archive_add "$binary_dir/standalone/K-Meter (surround) x64.exe" ""
 
     archive_add "$binary_dir/Documentation" ""
 
@@ -329,8 +329,8 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "$binary_dir/vst2/K-Meter (Stereo x64).dll" ""
-    archive_add "$binary_dir/vst2/K-Meter (Surround x64).dll" ""
+    archive_add "$binary_dir/vst2/K-Meter x64.dll" ""
+    archive_add "$binary_dir/vst2/K-Meter (surround) x64.dll" ""
 
     archive_add "$binary_dir/Documentation" ""
 

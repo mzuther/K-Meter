@@ -30,46 +30,67 @@
 {% set code_indentation = '3' %}
 
 
-{% set name = {'real': 'K-Meter', 'short': 'kmeter'} %}
+{% set project = {
+   'name':       'K-Meter',
+   'name_lower': 'kmeter'}
+%}
 
 
 {% set targets = {
    'standalone': [
-      {'real':    'Stereo',
-       'short':   'stereo',
+      {
+       'name':            'kmeter_standalone_stereo',
+       'binary_linux':    'kmeter',
+       'binary_windows':  'K-Meter',
+       'description':     'Standalone (stereo)',
        'defines': [
           'KMETER_STEREO=1',
       ]},
 
-      {'real':    'Surround',
-       'short':   'surround',
+      {
+       'name':            'kmeter_standalone_surround',
+       'binary_linux':    'kmeter_surround',
+       'binary_windows':  'K-Meter (surround)',
+       'description':     'Standalone (surround)',
        'defines': [
           'KMETER_SURROUND=1',
       ]},
    ],
    'unittest': [
-      {'real':    '(undefined)',
-       'short':   '(undefined)',
+      {
+       'name':            'kmeter_unittest',
+       'binary_linux':    'kmeter_unittest',
+       'binary_windows':  'K-Meter (unit test)',
+       'description':     'Unittest',
        'defines': [
           'KMETER_STEREO=1',
       ]},
    ],
    'vst2': [
-      {'real':    'Stereo',
-       'short':   'stereo',
+      {
+       'name':            'kmeter_vst2_stereo',
+       'binary_linux':    'kmeter_vst2',
+       'binary_windows':  'K-Meter',
+       'description':     'VST2 plug-in (stereo)',
        'defines': [
           'KMETER_STEREO=1',
       ]},
 
-      {'real':    'Surround',
-       'short':   'surround',
+      {
+       'name':            'kmeter_vst2_surround',
+       'binary_linux':    'kmeter_vst2_surround',
+       'binary_windows':  'K-Meter (surround)',
+       'description':     'VST2 plug-in (surround)',
        'defines': [
           'KMETER_SURROUND=1',
       ]},
    ],
    'vst3': [
-      {'real':    '(undefined)',
-       'short':   '(undefined)',
+      {
+       'name':            'kmeter_vst3',
+       'binary_linux':    'K-Meter',
+       'binary_windows':  'K-Meter',
+       'description':     'VST3 plug-in',
        'defines': [
           'KMETER_MULTIBUS=1',
       ]},

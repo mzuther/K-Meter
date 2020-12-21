@@ -21,8 +21,8 @@ ifeq ($(config),debug_x32)
     AR = ar
   endif
   TARGETDIR = ../../../bin/vst2
-  TARGET = $(TARGETDIR)/kmeter_surround_vst2_debug.so
-  OBJDIR = ../../../bin/.intermediate_linux/vst2_surround_debug/x32
+  TARGET = $(TARGETDIR)/kmeter_vst2_surround_debug.so
+  OBJDIR = ../../../bin/.intermediate_linux/kmeter_vst2_surround_debug/x32
   DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DKMETER_SURROUND=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK
   FORCE_INCLUDE +=
@@ -32,7 +32,7 @@ ifeq ($(config),debug_x32)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -shared -Wl,-soname=kmeter_surround_vst2_debug.so ../../../libraries/fftw/bin/linux/i386/libfftw3f.a -Wl,--no-undefined
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -shared -Wl,-soname=kmeter_vst2_surround_debug.so ../../../libraries/fftw/bin/linux/i386/libfftw3f.a -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -56,8 +56,8 @@ ifeq ($(config),debug_x64)
     AR = ar
   endif
   TARGETDIR = ../../../bin/vst2
-  TARGET = $(TARGETDIR)/kmeter_surround_vst2_debug_x64.so
-  OBJDIR = ../../../bin/.intermediate_linux/vst2_surround_debug/x64
+  TARGET = $(TARGETDIR)/kmeter_vst2_surround_x64_debug.so
+  OBJDIR = ../../../bin/.intermediate_linux/kmeter_vst2_surround_debug/x64
   DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DKMETER_SURROUND=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK
   FORCE_INCLUDE +=
@@ -67,7 +67,7 @@ ifeq ($(config),debug_x64)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -shared -Wl,-soname=kmeter_surround_vst2_debug_x64.so ../../../libraries/fftw/bin/linux/amd64/libfftw3f.a -Wl,--no-undefined
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -shared -Wl,-soname=kmeter_vst2_surround_x64_debug.so ../../../libraries/fftw/bin/linux/amd64/libfftw3f.a -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -91,8 +91,8 @@ ifeq ($(config),release_x32)
     AR = ar
   endif
   TARGETDIR = ../../../bin/vst2
-  TARGET = $(TARGETDIR)/kmeter_surround_vst2.so
-  OBJDIR = ../../../bin/.intermediate_linux/vst2_surround_release/x32
+  TARGET = $(TARGETDIR)/kmeter_vst2_surround.so
+  OBJDIR = ../../../bin/.intermediate_linux/kmeter_vst2_surround_release/x32
   DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DKMETER_SURROUND=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK
   FORCE_INCLUDE +=
@@ -102,7 +102,7 @@ ifeq ($(config),release_x32)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -shared -Wl,-soname=kmeter_surround_vst2.so ../../../libraries/fftw/bin/linux/i386/libfftw3f.a -Wl,--no-undefined
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -shared -Wl,-soname=kmeter_vst2_surround.so ../../../libraries/fftw/bin/linux/i386/libfftw3f.a -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -126,8 +126,8 @@ ifeq ($(config),release_x64)
     AR = ar
   endif
   TARGETDIR = ../../../bin/vst2
-  TARGET = $(TARGETDIR)/kmeter_surround_vst2_x64.so
-  OBJDIR = ../../../bin/.intermediate_linux/vst2_surround_release/x64
+  TARGET = $(TARGETDIR)/kmeter_vst2_surround_x64.so
+  OBJDIR = ../../../bin/.intermediate_linux/kmeter_vst2_surround_release/x64
   DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DKMETER_SURROUND=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK
   FORCE_INCLUDE +=
@@ -137,7 +137,7 @@ ifeq ($(config),release_x64)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -shared -Wl,-soname=kmeter_surround_vst2_x64.so ../../../libraries/fftw/bin/linux/amd64/libfftw3f.a -Wl,--no-undefined
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -shared -Wl,-soname=kmeter_vst2_surround_x64.so ../../../libraries/fftw/bin/linux/amd64/libfftw3f.a -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
