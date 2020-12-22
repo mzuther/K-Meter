@@ -140,7 +140,7 @@ File Skin::getSkinDirectory()
 File Skin::getSettingsFile()
 {
    auto settingsDirectory = File::getSpecialLocation( File::userApplicationDataDirectory );
-   auto defaultSettingsFile = settingsDirectory.getChildFile( "K-Meter.settings" );
+   auto defaultSettingsFile = settingsDirectory.getChildFile( "K-Meter.json" );
 
    return defaultSettingsFile;
 }
