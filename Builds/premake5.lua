@@ -438,7 +438,7 @@ workspace "kmeter"
         kind "SharedLib"
 
         defines {
-            "KMETER_MULTIBUS=1",
+            "KMETER_VARIBUS=1",
             "JucePlugin_Build_Standalone=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=1"
