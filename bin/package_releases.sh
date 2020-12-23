@@ -234,10 +234,10 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "$binary_dir/vst3/K-Meter.vst3/Contents/x86_64-linux/K-Meter.so" "squeezer.vst3/Contents/x86_64-linux"
+    archive_add "$binary_dir/vst3/K-Meter.vst3/Contents/x86_64-linux/K-Meter.so" "K-Meter.vst3/Contents/x86_64-linux"
 
     archive_add "$binary_dir/Documentation" ""
-    archive_add "$resource_dir_vst3/Documentation" "kmeter.vst3/Contents/Resources"
+    archive_add "$resource_dir_vst3/Documentation" "K-Meter.vst3/Contents/Resources"
 
     archive_compress "gzip"
     archive_store "gzip" "$release_dir/$version/linux"
@@ -294,7 +294,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_add "$binary_dir/vst3/K-Meter.vst3/Contents/x86-win/K-Meter.vst3" "K-Meter.vst3/Contents/x86-win"
 
     archive_add "$binary_dir/Documentation" ""
-    archive_add "$resource_dir_vst3/Documentation" "kmeter.vst3/Contents/Resources"
+    archive_add "$resource_dir_vst3/Documentation" "K-Meter.vst3/Contents/Resources"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/$version/windows"
@@ -351,7 +351,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_add "$binary_dir/vst3/K-Meter.vst3/Contents/x86_64-win/K-Meter.vst3" "K-Meter.vst3/Contents/x86_64-win"
 
     archive_add "$binary_dir/Documentation" ""
-    archive_add "$resource_dir_vst3/Documentation" "kmeter.vst3/Contents/Resources"
+    archive_add "$resource_dir_vst3/Documentation" "K-Meter.vst3/Contents/Resources"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/$version/windows"
