@@ -131,12 +131,12 @@ KmeterPluginParameters::KmeterPluginParameters() :
    ParameterValidationSelectedChannel->addPreset( -1.0f, "All" );
    ParameterValidationSelectedChannel->addPreset( 0.0f,   "1" );
    ParameterValidationSelectedChannel->addPreset( 1.0f,   "2" );
-#ifdef KMETER_SURROUND
+#ifndef KMETER_STEREO
    ParameterValidationSelectedChannel->addPreset( 2.0f,   "3" );
    ParameterValidationSelectedChannel->addPreset( 3.0f,   "4" );
    ParameterValidationSelectedChannel->addPreset( 4.0f,   "5" );
    ParameterValidationSelectedChannel->addPreset( 5.0f,   "6" );
-#endif // KMETER_SURROUND
+#endif // KMETER_STEREO
 
    ParameterValidationSelectedChannel->setDefaultRealFloat( -1.0f, true );
    add( ParameterValidationSelectedChannel, selValidationSelectedChannel );

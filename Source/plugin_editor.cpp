@@ -86,11 +86,11 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor( KmeterAudioProcessor& pr
 
    // prevent meter reload during initialisation
    isInitialising = true;
+   setNumberOfChannels( nNumChannels );
 
    isValidating = false;
    validationDialogOpen = false;
 
-   numberOfInputChannels_ = nNumChannels;
    crestFactor = 0;
 
    isExpanded = false;
@@ -140,10 +140,6 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor( KmeterAudioProcessor& pr
    ButtonDiscreteMeter.addListener( this );
    addAndMakeVisible( ButtonDiscreteMeter );
 
-   if ( nNumChannels != 2 ) {
-      ButtonMono.setEnabled( false );
-   }
-
    ButtonMono.addListener( this );
    addAndMakeVisible( ButtonMono );
 
@@ -179,10 +175,9 @@ KmeterAudioProcessorEditor::KmeterAudioProcessorEditor( KmeterAudioProcessor& pr
    // that it doesn't overlay (and thus block) any other components
    addAndMakeVisible( DrawableBackground, 0 );
 
-   if ( numberOfInputChannels_ <= 2 ) {
-      addAndMakeVisible( stereoMeter );
-      addAndMakeVisible( phaseCorrelationMeter );
-   }
+   // visibility is controlled in loadSkin()
+   addChildComponent ( stereoMeter );
+   addChildComponent ( phaseCorrelationMeter );
 
    updateParameter( KmeterPluginParameters::selCrestFactor );
    updateParameter( KmeterPluginParameters::selAverageAlgorithm );
@@ -214,6 +209,18 @@ KmeterAudioProcessorEditor::~KmeterAudioProcessorEditor()
 }
 
 
+void KmeterAudioProcessorEditor::setNumberOfChannels( int NumberOfChannels )
+{
+   numberOfInputChannels_ = NumberOfChannels;
+   isStereo = ( numberOfInputChannels_ == 2 );
+
+   if ( ! isInitialising ) {
+      // apply skin to plug-in editor
+      loadSkin();
+   }
+}
+
+
 void KmeterAudioProcessorEditor::loadSkin()
 {
    bool loadExternalResources = true;
@@ -223,6 +230,12 @@ void KmeterAudioProcessorEditor::loadSkin()
                   isExpanded,
                   usePeakMeter,
                   loadExternalResources );
+
+   // stereo and phase correlation meters and the "Mono" button only
+   // make sense for stereo processing
+   stereoMeter.setVisible ( isStereo );
+   phaseCorrelationMeter.setVisible ( isStereo );
+   ButtonMono.setEnabled( isStereo );
 
    // will also apply skin to plug-in editor
    needsMeterReload = true;
@@ -529,13 +542,11 @@ void KmeterAudioProcessorEditor::reloadMeters()
    if ( needsMeterReload ) {
       needsMeterReload = false;
 
-      int numberOfInputChannels = numberOfInputChannels_;
-
       if ( audioProcessor.getAverageAlgorithm() == KmeterPluginParameters::selAlgorithmItuBs1770 ) {
-         numberOfInputChannels = 1;
+         kmeter_.create( 1 );
+      } else {
+         kmeter_.create( numberOfInputChannels_ );
       }
-
-      kmeter_.create( numberOfInputChannels );
 
       bool isAttenuated = ButtonDim.getToggleState() |
                           ButtonMute.getToggleState();

@@ -44,6 +44,8 @@ public:
    KmeterAudioProcessorEditor( KmeterAudioProcessor& processor, int nNumChannels );
    ~KmeterAudioProcessorEditor();
 
+   void setNumberOfChannels( int NumberOfChannels );
+
    void buttonClicked( Button* button ) override;
    void actionListenerCallback( const String& message ) override;
    void updateParameter( int nIndex );
@@ -70,6 +72,7 @@ private:
    bool isInitialising;
    bool isExpanded;
    bool usePeakMeter;
+   bool isStereo;
 
    int crestFactor;
    int numberOfInputChannels_;

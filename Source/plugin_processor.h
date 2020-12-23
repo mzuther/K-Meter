@@ -44,6 +44,7 @@ public:
 
 #ifndef JucePlugin_PreferredChannelConfigurations
    bool isBusesLayoutSupported( const BusesLayout& layouts ) const override;
+   void processorLayoutsChanged() override;
 #endif // JucePlugin_PreferredChannelConfigurations
 
    void prepareToPlay( double sampleRate, int samplesPerBlock ) override;
@@ -140,12 +141,14 @@ private:
 
    KmeterPluginParameters pluginParameters_;
 
+   int numberOfChannels_;
    const int kmeterBufferSize_;
 
    bool isStereo_;
    bool sampleRateIsValid_;
    bool isSilent_;
    bool hasStopped_;
+   bool reloadEditor_;
 
    int averageAlgorithmId_;
    float processedSeconds_;

@@ -47,11 +47,15 @@
 
 #ifdef KMETER_SURROUND
   #define JucePlugin_PluginCode  'kmeS'
-  #define JucePlugin_Name        "K-Meter (surround)"
-#else
+#else // KMETER_SURROUND
   #define JucePlugin_PluginCode  'kmet'
+#endif // KMETER_SURROUND
+
+#ifdef KMETER_SURROUND
+  #define JucePlugin_Name        "K-Meter (5.1 surround)"
+#else // KMETER_SURROUND
   #define JucePlugin_Name        "K-Meter"
-#endif
+#endif // KMETER_SURROUND
 
 #define JUCE_JACK_CLIENT_NAME JucePlugin_Name
 #define JUCE_VST3_CAN_REPLACE_VST2 1
