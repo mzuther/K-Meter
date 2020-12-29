@@ -123,7 +123,10 @@ public:
 private:
    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR( KmeterAudioProcessor );
 
+#ifndef JucePlugin_PreferredChannelConfigurations
    static BusesProperties getBusesProperties();
+#endif // JucePlugin_PreferredChannelConfigurations
+
    void resetOnPlay();
 
    int countOverflows( const AudioBuffer<float>& buffer,

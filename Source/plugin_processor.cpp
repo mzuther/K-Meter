@@ -106,6 +106,8 @@ KmeterAudioProcessor::~KmeterAudioProcessor()
 }
 
 
+#ifndef JucePlugin_PreferredChannelConfigurations
+
 AudioProcessor::BusesProperties KmeterAudioProcessor::getBusesProperties()
 {
 #ifdef KMETER_STEREO
@@ -126,6 +128,8 @@ AudioProcessor::BusesProperties KmeterAudioProcessor::getBusesProperties()
 
 #endif // KMETER_STEREO
 }
+
+#endif // JucePlugin_PreferredChannelConfigurations
 
 
 #ifndef JucePlugin_PreferredChannelConfigurations
