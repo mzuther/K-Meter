@@ -74,6 +74,7 @@ echo.
 echo VST2 (64 bit)
 echo.
 
+call :CopyVst       "vst2/fftw.dll" "%vst2_64%"
 call :CopyVst       "vst2/K-Meter x64.dll" "%vst2_64%"
 call :CopyVst       "vst2/K-Meter (surround) x64.dll" "%vst2_64%"
 call :CopyVst       "vst2/Documentation/K-Meter.pdf" "%vst2_64%"

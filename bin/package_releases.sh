@@ -38,6 +38,7 @@ binary_dir="./final"
 release_dir="./releases"
 
 resource_dir_standalone="./standalone/kmeter"
+resource_dir_lv2="./lv2/kmeter"
 resource_dir_vst2="./vst2/kmeter"
 resource_dir_vst3="./vst3/K-Meter.vst3/Contents/Resources"
 
@@ -200,6 +201,29 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
     archive_add "$binary_dir/standalone/kmeter_surround_x64" ""
 
     archive_add "$binary_dir/Documentation" ""
+
+    archive_compress "gzip"
+    archive_store "gzip" "$release_dir/$version/linux"
+fi
+
+
+# ----- GNU/Linux LV2 (64 bit) -----
+
+archive_dir="kmeter-linux64-lv2_$version"
+
+if archive_is_missing "gzip" "$release_dir/linux" ; then
+    printf "  --- GNU/Linux LV2 %s (64 bit) ---\n\n" "$version"
+
+    lv2_dir="./lv2/squeezer_lv2_x64"
+
+    archive_create
+
+
+    archive_add "$binary_dir/Documentation" ""
+
+    archive_add "manifest.ttl" "$lv2_dir"
+    archive_add "squeezer_stereo.ttl" "$lv2_dir"
+    archive_add "squeezer_mono.ttl" "$lv2_dir"
 
     archive_compress "gzip"
     archive_store "gzip" "$release_dir/$version/linux"

@@ -88,6 +88,10 @@ workspace "kmeter"
         "../Source/*-COPY.*",
     }
 
+    defines {
+       "JUCE_MODAL_LOOPS_PERMITTED=1"
+    }
+
     includedirs {
         "../JuceLibraryCode/",
         "../libraries/",
@@ -243,6 +247,7 @@ workspace "kmeter"
         defines {
             "KMETER_STEREO=1",
             "JucePlugin_Build_Standalone=1",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=0"
         }
@@ -293,6 +298,7 @@ workspace "kmeter"
         defines {
             "KMETER_SURROUND=1",
             "JucePlugin_Build_Standalone=1",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=0"
         }
@@ -343,6 +349,7 @@ workspace "kmeter"
         defines {
             "KMETER_STEREO=1",
             "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=1",
             "JucePlugin_Build_VST3=0"
         }
@@ -392,6 +399,7 @@ workspace "kmeter"
         defines {
             "KMETER_SURROUND=1",
             "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=1",
             "JucePlugin_Build_VST3=0"
         }
@@ -440,6 +448,7 @@ workspace "kmeter"
         defines {
             "KMETER_VARIBUS=1",
             "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=1"
         }
@@ -512,6 +521,7 @@ if os.target() == "linux" then
         defines {
             "KMETER_STEREO=1",
             "JucePlugin_Build_Standalone=1",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=0"
         }

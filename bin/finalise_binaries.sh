@@ -80,6 +80,7 @@ mkdir -p "$binary_dir/debug_symbols"
 finalise_binary  "standalone/kmeter_x64"
 finalise_binary  "standalone/kmeter_surround_x64"
 
+
 finalise_binary  "vst2/kmeter_vst2_x64.so"
 finalise_binary  "vst2/kmeter_vst2_surround_x64.so"
 
