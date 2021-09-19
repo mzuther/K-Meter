@@ -466,7 +466,7 @@ workspace "kmeter"
 
         includedirs {
             "../libraries/vst2/VST2_SDK",
-            "../libraries/vst3/VST3_SDK"
+            "../libraries/juce/modules/juce_audio_processors/format_types/VST3_SDK"
         }
 
         filter { "system:linux" }
