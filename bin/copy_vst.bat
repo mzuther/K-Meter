@@ -50,6 +50,7 @@ echo.
 echo VST2 (32 bit)
 echo.
 
+call :CopyVst       "FFTW/" "%vst2_32%/FFTW"
 call :CopyVst       "vst2/K-Meter.dll" "%vst2_32%"
 call :CopyVst       "vst2/K-Meter (surround).dll" "%vst2_32%"
 call :CopyVst       "vst2/Documentation/K-Meter.pdf" "%vst2_32%"
@@ -58,6 +59,7 @@ echo.
 echo VST2 (32 bit, Categories)
 echo.
 
+call :CopyVst       "FFTW/" "%vst2_32_categories%/FFTW"
 call :CopyVst       "vst2/K-Meter.dll" "%vst2_32_categories%"
 call :CopyVst       "vst2/K-Meter (surround).dll" "%vst2_32_categories%"
 call :CopyVst       "vst2/Documentation/K-Meter.pdf" "%vst2_32_categories%"
@@ -67,6 +69,7 @@ echo.
 echo VST3 (32 bit)
 echo.
 
+call :CopyVst       "FFTW/" "%vst3_32%/Resources/FFTW"
 call :CopyVstDelete "vst3/K-Meter.vst3" "%vst3_32%"
 
 
@@ -74,7 +77,7 @@ echo.
 echo VST2 (64 bit)
 echo.
 
-call :CopyVst       "vst2/fftw.dll" "%vst2_64%"
+call :CopyVst       "FFTW/" "%vst2_64%/FFTW"
 call :CopyVst       "vst2/K-Meter x64.dll" "%vst2_64%"
 call :CopyVst       "vst2/K-Meter (surround) x64.dll" "%vst2_64%"
 call :CopyVst       "vst2/Documentation/K-Meter.pdf" "%vst2_64%"
@@ -83,6 +86,7 @@ echo.
 echo VST2 (64 bit, Categories)
 echo.
 
+call :CopyVst       "FFTW/" "%vst2_64_categories%/FFTW"
 call :CopyVst       "vst2/K-Meter x64.dll" "%vst2_64_categories%"
 call :CopyVst       "vst2/K-Meter (surround) x64.dll" "%vst2_64_categories%"
 call :CopyVst       "vst2/Documentation/K-Meter.pdf" "%vst2_64_categories%"
@@ -92,6 +96,7 @@ echo.
 echo VST3 (64 bit)
 echo.
 
+call :CopyVst       "FFTW/" "%vst3_64%/Resources/FFTW"
 call :CopyVstDelete "vst3/K-Meter.vst3" "%vst3_64%"
 
 
