@@ -37,6 +37,9 @@ const bool DEBUG_FILTER = false;
 Flow of parameter processing:
 
   Editor:      buttonClicked(button) / sliderValueChanged(slider)
+  or
+  Processor:   updateParameters(bIncludeHiddenParameters)
+
   Processor:   changeParameter(nIndex, fValue)
   Processor:   setParameter(nIndex, fValue)
   Parameters:  setFloat(nIndex, fValue)
