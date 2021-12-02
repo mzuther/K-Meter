@@ -40,7 +40,7 @@ bug reports or contributing to this project.  Thanks!
 
 ## License
 
-Copyright (c) 2010-2020 [Martin Zuther][]
+Copyright (c) 2010-2021 [Martin Zuther][]
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
