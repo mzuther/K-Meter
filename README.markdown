@@ -17,16 +17,27 @@ professionally such as in post-production.*
 
 ## FAQ
 
-### K-Meter crashes when the plug-in is loaded/opened
+### K-Meter crashes when the plug-in is loaded / opened
 
-1. K-Meter comes with a folder called `kmeter`.  This folder must be
-   located in the same folder as the plug-in, so please copy it along
-   and try again!
-
-2. K-Meter requires a processor which supports the SSE2 instruction
+1. K-Meter requires a processor which supports the SSE2 instruction
    set (if you run at Windows 8 and above, it does).  On Windows, you
    might also have to install the [Visual C++ Redistributable for
    Visual Studio 2017][VC++ Redist].
+
+2. K-Meter comes with a folder called `kmeter`.  This folder must be
+   located in the same folder as the plug-in, so please copy it along
+   and try again!
+
+### Where are the LV2 plug-ins?
+
+- The last release with LV2 plug-ins was version **v2.8.1**.  You can
+  still download them from the "Releases" page.
+
+### The stand-alone version does not work
+
+- Unfortunately, I cannot do anything about it as I did not code this
+  part of the application.  The stand-alone works well for me - try
+  using another sound card or deleting the settings file.
 
 ## Documentation
 
@@ -40,7 +51,7 @@ bug reports or contributing to this project.  Thanks!
 
 ## License
 
-Copyright (c) 2010-2021 [Martin Zuther][]
+Copyright (c) 2010-2022 Martin Zuther
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -57,12 +68,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Thank you for using free software!
 
+## VST2 plug-ins
 
-[Martin Zuther]:   http://www.mzuther.de/
+Technically, my VST2 plug-ins are not free software.  However, I
+chose to provide them for your convenience.  All other binaries really
+are free software in the sense of the Free Software Foundation.
+
+*VST is a trademark of Steinberg Media Technologies GmbH, registered
+in Europe and other countries.*
+
+
 [COC]:             https://github.com/mzuther/K-Meter/tree/master/CODE_OF_CONDUCT.markdown
 [doc]:             https://github.com/mzuther/K-Meter/tree/master/doc/
 [manual]:          https://github.com/mzuther/K-Meter/raw/master/doc/kmeter.pdf
 
 [K-System meter]:  https://www.digido.com/portfolio-item/level-practices-part-2/
 [NPR Labs]:        http://www.nprlabs.org/
-[VC++ Redist]:    https://www.visualstudio.com/downloads/
+[VC++ Redist]:     https://www.visualstudio.com/downloads/
