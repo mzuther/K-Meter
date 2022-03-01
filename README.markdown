@@ -41,8 +41,8 @@ professionally such as in post-production.*
 
 ## Documentation
 
-For documentation and further information, please see the [manual][]
-and the directory [doc][].
+For documentation, licenses and further information, please see the
+[manual][] and the directory [doc][].
 
 ## Code of conduct
 
