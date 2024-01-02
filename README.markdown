@@ -15,6 +15,19 @@ meters have been thoroughly validated.  The average meter reads either
 have reported that they use K-Meter for teaching, while others use it
 professionally such as in post-production.*
 
+## Download
+
+K-Meter can be downloaded in the [releases][] section (you may need to
+click on "Assets").
+
+I have dropped LV2 plug-in support for good.  However, you can still
+use LV2 - just download version **v2.8.1**.
+
+## Documentation
+
+For documentation, licenses and further information, please see the
+[manual][] and the directory [doc][].
+
 ## FAQ
 
 ### K-Meter crashes when the plug-in is loaded / opened
@@ -38,11 +51,6 @@ professionally such as in post-production.*
 - Unfortunately, I cannot do anything about it as I did not code this
   part of the application.  The stand-alone works well for me - try
   using another sound card or deleting the settings file.
-
-## Documentation
-
-For documentation, licenses and further information, please see the
-[manual][] and the directory [doc][].
 
 ## Code of conduct
 
@@ -81,6 +89,7 @@ in Europe and other countries.*
 [COC]:             https://github.com/mzuther/K-Meter/tree/master/CODE_OF_CONDUCT.markdown
 [doc]:             https://github.com/mzuther/K-Meter/tree/master/doc/
 [manual]:          https://github.com/mzuther/K-Meter/raw/master/doc/kmeter.pdf
+[releases]:        https://github.com/mzuther/K-Meter/releases
 
 [K-System meter]:  https://www.digido.com/portfolio-item/level-practices-part-2/
 [NPR Labs]:        http://www.nprlabs.org/
