@@ -201,9 +201,9 @@ workspace "kmeter"
     filter { "system:linux", "configurations:Debug", "platforms:x64" }
         targetsuffix "_x64_debug"
 
-    filter { "system:windows", "configurations:Debug" }
+    filter { "system:windows" }
        symbols "Full"
-       -- increase the number of sections that an object file can contain
+       -- bigobj: increase the number of sections that an object file can contain
        buildoptions { "/bigobj" }
 
     filter { "system:windows", "configurations:Debug", "platforms:x32" }
@@ -228,8 +228,7 @@ workspace "kmeter"
         targetsuffix "_x64"
 
     filter { "system:windows", "configurations:Release" }
-       symbols "Full"
-       -- globally disable deprecation warnings
+       -- wd4996: globally disable deprecation warnings
        buildoptions { "/wd4996" }
 
     filter { "system:windows", "configurations:Release", "platforms:x32" }
