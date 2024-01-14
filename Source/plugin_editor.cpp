@@ -548,7 +548,7 @@ void KmeterAudioProcessorEditor::reloadMeters()
          kmeter_.create( numberOfInputChannels_ );
       }
 
-      bool isAttenuated = ButtonDim.getToggleState() |
+      bool isAttenuated = ButtonDim.getToggleState() ||
                           ButtonMute.getToggleState();
       kmeter_.setEnabled( ! isAttenuated );
 
