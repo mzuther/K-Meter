@@ -7,6 +7,9 @@ specifications.*
 
 ## About
 
+**I currently do not have time to develop or support this project. It still
+works, so please use it the way it is. Thank you!**
+
 K-Meter supports mono, stereo and 5.1 surround sound signals.  All
 meters have been thoroughly validated.  The average meter reads either
 **RMS** levels or **ITU BS.1770-1** loudness weighted levels.
